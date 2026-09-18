@@ -4,3 +4,7 @@ template/
 .claude/
 .playwright-mcp/
 .DS_Store
+
+# Python
+__pycache__/
+*.pyc

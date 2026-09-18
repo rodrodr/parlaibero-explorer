@@ -3268,6 +3268,12 @@ function trendRangesDesdeFacetas(f) {
   TREND_RANGES = out;
   return out;
 }
+const TREND_KINDS = { electoral: 'Elecciones', politico: 'Política', parlamentario: 'Parlamento',
+                      conflicto: 'Conflicto', economico: 'Economía', social: 'Sociedad' };
+const TREND_MS_LEVELS = [['auto', 'los que quepan', 'Dibuja los hitos por orden de importancia mientras quepan sin solaparse: primero los principales, luego los relevantes y por último los de contexto'],
+                         ['1', 'principales', 'Solo los hitos principales (elecciones, tomas de posesión, constituciones, golpes, crisis mayores)'],
+                         ['2', 'relevantes', 'Hitos principales y relevantes'],
+                         ['3', 'todos', 'Todos los hitos del periodo que quepan en el gráfico']];
 const TREND_METRICS = {
   density: { label: '/10.000 palabras', unit: 'por 10.000 palabras',
              title: 'Menciones por cada 10.000 palabras pronunciadas en el periodo' },
@@ -3314,7 +3320,7 @@ const TREND_ICON = {
 
 function trendState() {
   return { open: false, tab: 'trend', terms: [], seedQuery: null, variants: false, applyFilters: false,
-           milestones: true, metric: 'density', gran: 'month', smooth: 0, range: 'all',
+           milestones: true, msLevel: 'auto', msLegend: null, metric: 'density', gran: 'month', smooth: 0, range: 'all',
            data: null, key: '', cache: new Map(), ctrl: null, seq: 0, loading: false, error: null,
            editing: null, hover: null, hoverTerm: null, geom: null, ro: null, width: 0 };
 }
@@ -3558,6 +3564,26 @@ function layoutMilestones(xs, { gap = 15, rows = 2, xMin = -Infinity, xMax = Inf
 
 
 
+const msRank = m => (m.h.rank === 1 || m.h.rank === 3 ? m.h.rank : 2);
+
+/** Qué hitos del periodo se dibujan: los de importancia `maxRank` o mayor, y como mucho `capacity`. Si sobran, se
+ *  reparten por importancia y, dentro de cada rango, repartidos por fecha para no dejar tramos sin ninguno. */
+function selectMilestones(items, { maxRank = 3, capacity = 60 } = {}) {
+  const rankOf = msRank;
+  let pool = items.filter(m => rankOf(m) <= maxRank);
+  if (pool.length > capacity) {
+    const keep = new Set();
+    for (let r = 1; r <= 3 && keep.size < capacity; r++) {
+      const grupo = pool.filter(m => rankOf(m) === r), sitio = capacity - keep.size;
+      if (grupo.length <= sitio) grupo.forEach(m => keep.add(m));
+      else { const paso = grupo.length / sitio; for (let i = 0; i < sitio; i++) keep.add(grupo[Math.floor(i * paso)]); }
+    }
+    pool = pool.filter(m => keep.has(m));
+  }
+  const drawn = new Set(pool);
+  return { drawn: items.filter(m => drawn.has(m)), hidden: items.filter(m => !drawn.has(m)) };
+}
+
 function yearMarks(axis, keys, gran) {
   const marks = [];
   if (gran === 'year') {
@@ -3675,22 +3701,63 @@ function trendDraw(W, pal, { forExport = false } = {}) {
     return { where: 'dentro', u: it.u0 + (i - it.i0 + frac) / it.n * (it.u1 - it.u0) };
   };
 
-  const msIn = [], msOut = [];
+  const plotL = 44, plotR = W - 10, plotW = Math.max(40, plotR - plotL);
+  const xOfU = u => plotL + (axis.units ? u / axis.units : 0) * plotW;
+
+  // Hitos: los del periodo mostrado se dibujan numerados en una banda sobre el gráfico (una fila si caben sin
+  // desplazarse, dos si no); cuántos, según el nivel elegido y el espacio (selectMilestones). El gráfico conserva
+  // siempre su altura: lo que no cabe se cuenta en la leyenda, no se apila.
+  const msIn = [], msOut = [], msHidden = [];
+  let msRows = 0, msTotal = 0;
   if (T.milestones) {
     const hs = (d.milestones || []).filter(h => h && /^\d{4}-\d{2}/.test(h.date || ''))
-      .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+      .sort((a, b) => String(a.date).localeCompare(String(b.date)) || (a.rank || 2) - (b.rank || 2));
+    const dentro = [];
     for (const h of hs) {
       const p = uOfDate(h.date);
-      (p.where === 'dentro' ? msIn : msOut).push({ h, u: p.u, where: p.where });
+      (p.where === 'dentro' ? dentro : msOut).push({ h, u: p.u, where: p.where });
+    }
+    msTotal = dentro.length;
+    // Una marca solo es legible si su número queda cerca de su fecha: se coloca en una fila si casi no hay que
+    // desplazarla, si no en dos, y en modo automático se baja de nivel de importancia mientras el desplazamiento
+    // delate la posición (MS_DESV). El gráfico no pierde altura por ello: lo que no cabe se cuenta en la leyenda.
+    const MS_GAP = 15, MS_DESV = 22, MS_AIRE = 26;
+    const capacidad = Math.max(2, (Math.floor(Math.max(0, plotW - 14) / MS_GAP) + 1) * 2);
+    // Cuántas marcas caben con aire suficiente para leerlas: una por cada MS_AIRE píxeles de ancho, en dos filas.
+    const holgadas = Math.max(2, Math.floor(plotW / MS_AIRE) * 2);
+    const colocar = (items) => {
+      const xs = items.map(m => xOfU(m.u));
+      const desvDe = (lay) => lay.reduce((a, l, k) => Math.max(a, Math.abs(l.cx - xs[k])), 0);
+      const opciones = { gap: MS_GAP, xMin: plotL + 7, xMax: plotR - 7 };
+      let lay = layoutMilestones(xs, { ...opciones, rows: 1 }), filas = 1, desv = desvDe(lay);
+      if (desv > 6) { lay = layoutMilestones(xs, { ...opciones, rows: 2 }); filas = 2; desv = desvDe(lay); }
+      return { xs, lay, filas, desv };
+    };
+    const auto = T.msLevel === 'auto';
+    const tope = auto ? Math.min(capacidad, holgadas) : capacidad;
+    let nivel = auto ? 3 : Math.max(1, Math.min(3, +T.msLevel || 3));
+    let sel = selectMilestones(dentro, { maxRank: nivel, capacity: tope });
+    let col = colocar(sel.drawn);
+    if (auto) {
+      // Baja de nivel de importancia mientras las marcas no quepan con aire o sus números queden lejos de su fecha.
+      while (nivel > 1 && (dentro.filter(m => msRank(m) <= nivel).length > holgadas || col.desv > MS_DESV)) {
+        nivel -= 1;
+        sel = selectMilestones(dentro, { maxRank: nivel, capacity: tope });
+        col = colocar(sel.drawn);
+      }
+    }
+    msIn.push(...sel.drawn);
+    msHidden.push(...sel.hidden);
+    if (msIn.length) {
+      msRows = col.filas;
+      msIn.forEach((m, k) => { m.n = k + 1; m.x = col.xs[k]; m.cx = col.lay[k].cx; m.row = col.lay[k].row; m.cy = 10 + col.lay[k].row * 16; });
     }
   }
 
-  const plotL = 44, plotR = W - 10, plotW = Math.max(40, plotR - plotL);
-  const plotT = msIn.length ? 44 : 14;
+  const plotT = msIn.length ? (msRows > 1 ? 44 : 30) : 14;
   const plotH = forExport ? 210 : 120;
   const plotB = plotT + plotH;
   const H = plotB + 36;
-  const xOfU = u => plotL + (axis.units ? u / axis.units : 0) * plotW;
 
 
   const slotItems = axis.items.filter(it => it.kind === 'slot');
@@ -3771,9 +3838,6 @@ function trendDraw(W, pal, { forExport = false } = {}) {
   o.push('</g>');
 
 
-  const xsMs = msIn.map(m => xOfU(m.u));
-  const lay = layoutMilestones(xsMs, { gap: 15, rows: 2, xMin: plotL + 7, xMax: plotR - 7 });
-  msIn.forEach((m, k) => { m.n = k + 1; m.x = xsMs[k]; m.cx = lay[k].cx; m.row = lay[k].row; m.cy = 10 + lay[k].row * 16; });
   for (const m of msIn) {
     o.push(`<line x1="${r1(m.x)}" x2="${r1(m.x)}" y1="${plotT}" y2="${plotB}" stroke="${pal.ms}" stroke-width="0.8" stroke-dasharray="2 3"/>`
       + `<line x1="${r1(m.cx)}" y1="${m.cy + 7}" x2="${r1(m.x)}" y2="${plotT}" stroke="${pal.ms}" stroke-width="0.8"/>`);
@@ -3815,7 +3879,8 @@ function trendDraw(W, pal, { forExport = false } = {}) {
 
   o.push(`<g font-family="${sans}" font-size="8.5" fill="${pal.soft}" text-anchor="middle">`);
   for (const m of msIn) {
-    o.push(`<g class="tms" data-ms="${m.n}"><circle cx="${r1(m.cx)}" cy="${m.cy}" r="7" fill="${pal.bg}" stroke="${pal.ms}" stroke-width="1"/>`
+    const grosor = m.h.rank === 1 ? 1.5 : m.h.rank === 3 ? 0.7 : 1;
+    o.push(`<g class="tms" data-ms="${m.n}"><circle cx="${r1(m.cx)}" cy="${m.cy}" r="7" fill="${pal.bg}" stroke="${pal.ms}" stroke-width="${grosor}"/>`
       + `<text x="${r1(m.cx)}" y="${m.cy + 3}">${m.n}</text></g>`);
   }
   o.push('</g>');
@@ -3823,8 +3888,8 @@ function trendDraw(W, pal, { forExport = false } = {}) {
 
   const hov = axis.items.map(it => ({ it, kind: it.kind, i: it.kind === 'slot' ? it.i : it.i0,
     x0: xOfU(it.u0), x1: xOfU(it.u1), x: xOfU((it.u0 + it.u1) / 2) }));
-  const geom = { W, H, plotL, plotR, plotT, plotB, top, yOf, base, axis, series: geomSeries, hov, msIn, msOut,
-                 marks, firstKey, lastKey };
+  const geom = { W, H, plotL, plotR, plotT, plotB, top, yOf, base, axis, series: geomSeries, hov, msIn, msOut, msHidden,
+                 msTotal, msRows, marks, firstKey, lastKey };
   return { svg: o.join(''), geom };
 }
 
@@ -3985,7 +4050,9 @@ function trendRender() {
     <div class="trow" id="trendChips">${trendChipsHTML()}<span class="grow"></span>
       <label class="chk tchk" title="Trata «agrario» como «agrario*»: cuenta también agraria, agrarios…"><input type="checkbox" data-topt="variants"${T.variants ? ' checked' : ''}><span>variantes</span></label>
       <label class="chk tchk" title="Calcula la serie solo con las intervenciones que cumplen los filtros de la izquierda, incluida la biblioteca: menciones y palabras salen del mismo subconjunto"><input type="checkbox" data-topt="applyFilters"${T.applyFilters ? ' checked' : ''}><span>aplicar filtros</span></label>
-      <label class="chk tchk" title="Hitos históricos numerados sobre el gráfico"><input type="checkbox" data-topt="milestones"${T.milestones ? ' checked' : ''}><span>hitos</span></label>
+      <label class="chk tchk" title="Hitos históricos del país, numerados sobre el gráfico (cada uno con su fuente)"><input type="checkbox" data-topt="milestones"${T.milestones ? ' checked' : ''}><span>hitos</span></label>
+      ${T.milestones ? `<label class="tsel" title="Cuántos hitos se dibujan"><select data-tmslevel aria-label="Cuántos hitos se dibujan">${TREND_MS_LEVELS.map(([v, l, tit]) =>
+        `<option value="${v}" title="${esc(tit)}"${String(T.msLevel) === v ? ' selected' : ''}>${l}</option>`).join('')}</select></label>` : ''}
     </div>
     <div class="trow">
       <div class="tseg" role="group" aria-label="Periodo">${seg('trange', T.range, TREND_RANGES.map(r => [r.id, r.label, r.title]))}</div>
@@ -4039,11 +4106,30 @@ function trendRenderChart() {
   box.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${geom.H}" viewBox="0 0 ${W} ${geom.H}" aria-hidden="true">`
     + `${svg}<g class="tcross"></g></svg><div class="trend-tip" hidden></div>${T.loading ? '<span class="tload spin"></span>' : ''}`;
   if (ms && T.milestones) {
-    const titulo = h => `${h.desc || h.label}${h.verificar ? ' (pendiente de verificar)' : ''}`;
-    ms.innerHTML = (geom.msIn.length ? `<ol class="tms-list">${geom.msIn.map(m =>
-      `<li title="${esc(titulo(m.h))}"><span class="tms-n">${m.n}</span>${esc(m.h.label)} <span class="tms-d">${esc(fechaCorta(m.h.date))}</span></li>`).join('')}</ol>` : '')
-      + (geom.msOut.length ? `<details class="tms-out"><summary>${nf(geom.msOut.length)} ${geom.msOut.length === 1 ? 'hito' : 'hitos'} fuera del periodo mostrado</summary>${
-        geom.msOut.map(m => `<span title="${esc(titulo(m.h))}">${esc(m.h.label)} (${esc(fechaCorta(m.h.date))})</span>`).join(' · ')}</details>` : '');
+    const titulo = h => `${h.desc || h.label}${h.verificar ? ' (fecha pendiente de verificar)' : ''}`;
+    const nIn = geom.msIn.length, nHid = geom.msHidden.length, nOut = geom.msOut.length;
+    if (!(T.data.milestones || []).length) {
+      ms.innerHTML = '<div class="tms-out">No hay hitos históricos registrados para este país.</div>';
+    } else {
+      // Leyenda plegable con altura acotada: el gráfico no cede espacio por muchos que sean los hitos.
+      const abierta = T.msLegend == null ? nIn <= 12 : !!T.msLegend;
+      const lista = geom.msIn.map(m => {
+        const et = `${esc(m.h.label)} <span class="tms-d">${esc(fechaCorta(m.h.date))}</span>`;
+        const enlace = /^https?:\/\//.test(m.h.fuente || '')
+          ? `<a href="${esc(m.h.fuente)}" target="_blank" rel="noopener noreferrer">${et}</a>` : et;
+        return `<li title="${esc(titulo(m.h))}" data-msn="${m.n}"><span class="tms-n${m.h.rank === 1 ? ' tms-p' : ''}">${m.n}</span>${enlace}</li>`;
+      }).join('');
+      const resumen = `${nf(nIn)} ${nIn === 1 ? 'hito numerado' : 'hitos numerados'} en el gráfico${geom.msTotal > nIn ? ` de ${nf(geom.msTotal)} del periodo` : ''}`
+        + ' · pase el ratón por un número para ver el detalle, o abra su fuente desde esta lista';
+      const ocultos = nHid ? `<div class="tms-out">${nf(nHid)} ${nHid === 1 ? 'hito más del periodo no se dibuja' : 'hitos más del periodo no se dibujan'}${
+        T.msLevel === 'auto' ? ', porque sus números quedarían lejos de su fecha: elija «todos» si prefiere verlos apretados, o acote el periodo a una legislatura'
+        : String(T.msLevel) === '3' ? ' porque no caben en el ancho disponible: acote el periodo a una legislatura o amplíe la ventana'
+        : ' por el nivel elegido: elija «todos» o acote el periodo'}.</div>` : '';
+      ms.innerHTML = (nIn ? `<details class="tms-wrap" data-tmslegend${abierta ? ' open' : ''}><summary>${resumen}</summary><ol class="tms-list">${lista}</ol></details>` : '')
+        + ocultos
+        + (nOut ? `<details class="tms-out"><summary>${nf(nOut)} ${nOut === 1 ? 'hito' : 'hitos'} fuera del periodo mostrado</summary>${
+          geom.msOut.map(m => `<span title="${esc(titulo(m.h))}">${esc(m.h.label)} (${esc(fechaCorta(m.h.date))})</span>`).join(' · ')}</details>` : '');
+    }
   }
   if (T.hover != null) trendHover(T.hover, T.hoverTerm);
 }
@@ -4122,8 +4208,12 @@ function trendPointer(e) {
     if (m) {
       trendHover(null);
       const tip = box.querySelector('.trend-tip');
-      tip.innerHTML = `<div class="tt-h">${m.n}. ${esc(m.h.label)}</div><div class="tt-dim">${esc(fechaLarga(m.h.date))}</div>`
-        + (m.h.desc ? `<div>${esc(m.h.desc)}</div>` : '');
+      const fuente = (() => { try { return m.h.fuente ? new URL(m.h.fuente).hostname.replace(/^www\./, '') : ''; } catch (e) { return ''; } })();
+      tip.innerHTML = `<div class="tt-h">${m.n}. ${esc(m.h.label)}</div><div class="tt-dim">${esc(fechaLarga(m.h.date))}${
+          m.h.date_end ? ` – ${esc(fechaLarga(m.h.date_end))}` : ''}${m.h.kind ? ` · ${esc(TREND_KINDS[m.h.kind] || m.h.kind)}` : ''}</div>`
+        + (m.h.desc ? `<div>${esc(m.h.desc)}</div>` : '')
+        + (fuente ? `<div class="tt-dim">Fuente: ${esc(fuente)}</div>` : '')
+        + (m.h.verificar ? '<div class="tt-dim">Fecha pendiente de verificar</div>' : '');
       tip.hidden = false;
       const esc2 = r.width / g.W;
       tip.style.left = `${Math.max(0, Math.min(m.cx * esc2 + 12, box.clientWidth - tip.offsetWidth))}px`;
@@ -4574,7 +4664,12 @@ function wireTrend() {
       trendRender(); trendLoad(); return;
     }
     if (t.matches('[data-tsmooth]')) { T.smooth = +t.value || 0; trendRender(); }
+    if (t.matches('[data-tmslevel]')) { T.msLevel = t.value; trendRender(); }
   });
+  P.addEventListener('toggle', e => {
+    const t = e.target;
+    if (t && t.matches && t.matches('[data-tmslegend]')) S.trend.msLegend = t.open;
+  }, true);
   P.addEventListener('keydown', e => {
     const t = e.target;
     if (t.id === 'trendAdd') {

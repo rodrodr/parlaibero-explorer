@@ -7,7 +7,8 @@
  *   (incluida la biblioteca, filters.collection_id) como máscara de ids: numeradores y denominadores del mismo subconjunto.
  * Mismos errores que el escritorio: 400 si terms no es lista de textos ni texto, 400 si no queda ningún término; 422 de
  * validación de filtros y query_from_search (R2.filters, R2.router.validar).
- * El índice de tendencias se construye la primera vez (ctx.cache.ngram) con el sidecar R2.datos.sesiones.
+ * El índice de tendencias se construye la primera vez (ctx.cache.ngram) con el sidecar R2.datos.sesiones. Los hitos de la
+ * respuesta son los del país cargado (ctx.nucleo.pais → R2.gen.hitos.de).
  */
 (function (R2) {
   'use strict';
@@ -37,7 +38,8 @@
         allowed = N.mascara(ix, ids);
       }
     }
-    const res = await N.compute(bd, ix, terms, { variants: !!variants, allowed, ceder: ctx.ceder || null });
+    const pais = ctx.nucleo && ctx.nucleo.pais ? ctx.nucleo.pais : '';
+    const res = await N.compute(bd, ix, terms, { variants: !!variants, allowed, ceder: ctx.ceder || null, pais });
     res.apply_filters = !!applyFilters;
     return res;
   }

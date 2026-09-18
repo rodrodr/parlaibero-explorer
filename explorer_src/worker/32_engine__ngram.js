@@ -20,8 +20,9 @@
  *   parseTerms(texto | lista) · analyzeTerm(raw, variants) · fold(texto) · tokenize(texto) · fiabilidad(tokens)
  *   construir(bd, sidecar, ruta = 'sessions.json') → índice      (sidecar = objeto JSON o undefined)
  *   indice(bd, cache, sidecar) → índice perezoso guardado en cache.ngram
- *   monthFilter(ix, mes) · monthSpeechIds(ix, mes) · milestones(ix)
- *   async compute(bd, ix, terms, { variants, allowed, useCache, includeMilestones, ceder }) → respuesta
+ *   monthFilter(ix, mes) · monthSpeechIds(ix, mes) · milestones(ix, pais)
+ *   async compute(bd, ix, terms, { variants, allowed, useCache, includeMilestones, ceder, pais }) → respuesta
+ *   (pais: los hitos son los del país cargado, R2.gen.hitos.de(pais); sin país no hay hitos)
  *   mascara(ix, ids) → Uint8Array
  */
 (function (R2) {
@@ -850,10 +851,11 @@
     return mask;
   }
 
-  function milestones(ix = null) {
+  /** Hitos del país cargado (R2.gen.hitos.de) situados en el calendario del índice. */
+  function milestones(ix = null, pais = '') {
     const pos = new Map();
     if (ix) ix.months.forEach((m, i) => pos.set(m, i));
-    return R2.gen.hitos.map((h) => {
+    return R2.gen.hitos.de(pais).map((h) => {
       const d = Object.assign({}, h);
       d.month = h.date.slice(0, 7);
       const i = pos.has(d.month) ? pos.get(d.month) : null;
@@ -941,7 +943,7 @@
 
   /** ngram.compute sin presupuesto. `ceder` (opcional, async) se llama entre términos. */
   async function compute(bd, ix, terms, opciones = {}) {
-    const { variants = false, allowed = null, useCache = true, includeMilestones = true, ceder = null } = opciones;
+    const { variants = false, allowed = null, useCache = true, includeMilestones = true, ceder = null, pais = '' } = opciones;
     const t0 = ahora();
     const lista = parseTerms(terms);
     const mask = mascara(ix, allowed);
@@ -1026,7 +1028,10 @@
       out.error = 'sin_terminos';
       out.message = 'Escriba al menos un término (separe varios con comas).';
     }
-    if (includeMilestones) out.milestones = milestones(ix);
+    if (includeMilestones) {
+      out.milestones = milestones(ix, pais);
+      out.milestones_pais = String(pais || '').toUpperCase() || null;
+    }
     out.ms = C.pyRound(ahora() - t0, 1);
     return out;
   }

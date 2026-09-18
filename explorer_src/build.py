@@ -42,6 +42,16 @@ def blob(nombre, datos, atributos=''):
 
 
 BUILD_ID = None  # se fija en main() a partir del contenido del worker
+VERSION_WEB = None  # se fija en main(): huella de todas las fuentes (código, estilos, datos); versiona la caché de la edición web
+
+
+def hitos_registro():
+    """Hitos históricos por país (datos/hitos_parlaibero.json, tools/hitos_parlaibero.py); {} si no existe."""
+    ruta = os.path.join(ROOT, 'datos', 'hitos_parlaibero.json')
+    if not os.path.exists(ruta):
+        return {}
+    with open(ruta, encoding='utf-8') as f:
+        return json.load(f).get('paises') or {}
 
 
 def datos_json(rel, web=None):
@@ -54,9 +64,13 @@ def datos_json(rel, web=None):
         d['parlaibero'] = p['coleccion']
         d['fuentes'] = p['fuentes']
         d['fuentes_consultado'] = p.get('consultado')
+    if rel == 'datos/worker_datos.json':
+        # Hitos históricos por país para la tendencia (R2.gen.hitos.de(país) en el worker).
+        d['hitos'] = hitos_registro()
     if web is not None:
         # Edición web: recursos descargables (con huella), capitulares servidas por letra y marca de edición web.
         d['edicion']['web'] = True
+        d['edicion']['version_web'] = VERSION_WEB
         d['recursos'] = web
         if isinstance(d.get('capitales'), dict):
             d['capitales'] = dict(d['capitales'], modo='servidas', dir='capitales')
@@ -101,7 +115,7 @@ def construir_web(destino):
         else:
             modulos.append(leer(rel))
     escribir(os.path.join(destino, 'app.js'), b'\n'.join(modulos))
-    v = BUILD_ID
+    v = VERSION_WEB  # cambia con cualquier fuente (también los datos), no solo con el worker
     out = [leer('html/head_top.html')]
     out.append(b'<script>' + leer(pagina[0]) + b'</script>\n')
     out.append(f'<link rel="stylesheet" href="app.css?v={v}">\n'.encode())
@@ -127,6 +141,10 @@ def main():
     global BUILD_ID
     partes_worker = [leer('vendor/sqlite3.js')] + [leer(rel) for rel in archivos('worker', '.js')]
     BUILD_ID = hashlib.sha256(b''.join(partes_worker)).hexdigest()[:16]
+    global VERSION_WEB
+    fuentes = [leer(rel) for sub, ext in (('html', '.html'), ('css', '.css'), ('page', '.js'), ('web', '.js'), ('datos', '.json'))
+               for rel in archivos(sub, ext)] + [leer('assets/capitales.json')] + partes_worker
+    VERSION_WEB = hashlib.sha256(b''.join(fuentes)).hexdigest()[:16]
     pagina = archivos('page', '.js')
     out = [leer('html/head_top.html')]
     out.append(b'<script>' + leer(pagina[0]) + b'</script>\n')

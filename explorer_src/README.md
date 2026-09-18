@@ -112,13 +112,46 @@ barra con la fase, el recuento, el porcentaje, el tiempo transcurrido, una estim
 cancelar. La ruta del léxico tiene prioridad de fondo: cede el hilo por trozos y las búsquedas siguen respondiendo
 mientras calcula.
 
+## Hitos históricos de la tendencia
+
+La tendencia pinta, numerados sobre el gráfico, los hitos históricos del país cargado (elecciones, tomas de posesión,
+constituciones, golpes, crisis, leyes emblemáticas…). Viven en `datos/hitos_parlaibero.json`, un registro por país
+(`paises.<CC>.hitos`) que `build.py` incorpora a los datos del worker; el motor los sirve en la respuesta de `/ngram`
+con `R2.gen.hitos.de(país)` (`worker/16_engine__generated__hitos.js`). Cada hito lleva `id`, `date` (y `date_end` si
+dura varios días), `label` (corto), `desc` (una frase), `kind` (`electoral`, `politico`, `parlamentario`, `conflicto`,
+`economico`, `social`), `rank` (1 principal, 2 relevante, 3 contexto), `fuente` (URL) y `verificar`.
+
+El registro lo ensambla y contrasta `tools/hitos_parlaibero.py`: lee un `hitos_<CC>.json` por país (`--desde DIR`),
+valida el formato, descarga cada fuente (con la URL codificada en porcentaje y reintentos si el servidor limita el
+ritmo) y comprueba que la fecha del hito aparece en su texto, en ISO, español, portugués o inglés. Entran en el
+registro los hitos con la fecha completa confirmada y los que solo confirman mes y año, que se guardan con
+`verificar=true` y la interfaz señala como fecha pendiente de verificar. Lo que no se confirma de ninguna manera se
+descarta y queda en el informe (`.informe.md`) y en `.pendientes.json` para revisarlo con otra fuente. Para corregir
+o añadir hitos: editar el JSON del país, volver a ejecutar el script y reensamblar.
+
+Estado del registro (17 de septiembre de 2026): 769 hitos en los 16 países, 745 con la fecha exacta confirmada en su
+fuente y 24 con solo el mes confirmado. Las fuentes son artículos concretos de Wikipedia en español, portugués o
+inglés. Ocho candidatos se descartaron por no poder contrastarse y quedan anotados en el informe.
+
+```bash
+python3 explorer_src/tools/hitos_parlaibero.py --desde /carpeta/con/hitos_XX.json
+python3 explorer_src/build.py
+```
+
+Legibilidad: la interfaz elige cuántos hitos dibuja según el espacio (`selectMilestones` en `page/21_app.js`): con
+«los que quepan» (por defecto) baja de nivel de importancia hasta que las marcas caben sin solaparse en una o dos
+filas; el selector permite forzar «principales», «relevantes» o «todos». El gráfico no cede altura: la leyenda es
+plegable y de altura acotada (se pliega sola con más de 12 hitos), y los hitos que no caben se cuentan aparte.
+
 ## Edición web (GitHub Pages)
 
 `build.py` produce a la vez el HTML autónomo (`../Diarios_Explorer.html`) y la edición web en `../docs/`: `index.html`,
 `app.css`, `app.js` (los mismos módulos de `page/`, con `web/cargas_web.js` en lugar de `page/03_cargas__cargas.js`
 para descargar `sqlite3.wasm` y `worker.js` en vez de leerlos embebidos), `worker.js`, `sqlite3.wasm`, `capitales/*.svg`
 y el service worker `web/sw.js` (caché de la aplicación para abrirla sin conexión y aviso de versión nueva). Las dos
-salidas nacen de las mismas fuentes y comparten `build_id`; la edición web además activa `edicion.web`, que en el
+salidas nacen de las mismas fuentes y comparten `build_id` (huella del worker: invalida las bases recordadas cuando cambia
+el esquema); la caché de la edición web se versiona con `version_web`, huella de todas las fuentes (también los datos, como
+los hitos), para que cualquier cambio llegue a los navegadores que ya la tenían. La edición web además activa `edicion.web`, que en el
 navegador (https) permite recordar la base en el almacenamiento privado (OPFS) y volver a abrirla sin elegir el CSV.
 Los CSV siguen sin subirse a ningún sitio: el usuario los elige en su equipo, como en la versión autónoma.
 

@@ -21,7 +21,8 @@
   }
 
   const recursos = () => (R2.datos && R2.datos.recursos) || {};
-  const version = () => (R2.datos && R2.datos.edicion && R2.datos.edicion.build_id) || '';
+  // version_web: huella de todas las fuentes (también los datos); build_id solo cambia con el worker.
+  const version = () => (R2.datos && R2.datos.edicion && (R2.datos.edicion.version_web || R2.datos.edicion.build_id)) || '';
   const url = (nombre) => `${(recursos()[nombre] && recursos()[nombre].archivo) || nombre}?v=${encodeURIComponent(version())}`;
 
   async function descargar(nombre) {
