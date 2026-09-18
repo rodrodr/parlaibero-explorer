@@ -158,8 +158,9 @@ apariciones, intervenciones, G², C-value) y el resumen en `meta.expresiones`.
 
 1. **Candidatas**: de 2 a 7 tokens, con palabra de contenido en los extremos (≥ 3 letras, no vacía en Snowball, no cifra)
    y dentro solo palabras de contenido o conectores de una lista cerrada («de», «la», «y», «para»…). No cruzan la
-   puntuación ni los saltos de línea (`keyness.crudos_tramos`: «Gracias, señor presidente. Buenas tardes» no es una
-   expresión, ni se encadenan las filas de las listas de asistencia) ni las cifras, con dígitos o con letras: en las
+   puntuación, los saltos de línea ni los huecos de 6 o más espacios (`keyness.crudos_tramos`: «Gracias, señor
+   presidente. Buenas tardes» no es una expresión, y en las listas de asistencia y de votación, que son tablas, no se une
+   el nombre con «presente» ni se encadenan las filas) ni las cifras, con dígitos o con letras: en las
    transcripciones las fechas, los artículos y los recuentos de votos se leen en voz alta («dos mil veintidós», «romano
    seis»), y en El Salvador eran el 7,5 % de las expresiones sin ser ninguna un concepto.
 2. **Recuento**: en corpus de más de 30 millones de tokens, una muestra fija de 1 de cada M intervenciones (M ≈ tokens /
@@ -178,21 +179,28 @@ apariciones, intervenciones, G², C-value) y el resumen en `meta.expresiones`.
    Así una expresión rara en el corpus se puede distinguir aunque la biblioteca sea pequeña: la decisión de que es una
    unidad ya está tomada con todo el corpus.
 5. **Coocurrencias**: con la casilla «expresiones» (activa por defecto), cada frase se parte en el menor número de
-   unidades, a igualdad las más largas, y cada expresión es un nodo: «seguridad pública» se relaciona con «policía
-   nacional civil» o «pandillas» en lugar de consigo misma.
+   unidades, a igualdad las más largas, y cada expresión es un nodo: «seguridad pública» entra en la red como un término
+   que se relaciona con otros, en lugar de como «seguridad» y «pública», que siempre van juntas y solo se unirían entre sí.
 
 | corpus | tokens | expresiones | detección | construcción sin → con | medido en |
 |---|---|---|---|---|---|
-| El Salvador | 14,1 M | 19.995 | 4,6 s | 4,4 → 8,9 s | Chrome |
-| España | 152,6 M | 84.846 | 64 s | 45 → 110 s | Node |
-| Brasil | 207,5 M | 119.812 | 99 s | 83 → 182 s | Node |
+| El Salvador | 14,1 M | 19.410 | 4,6 s | 4,4 → 8,9 s | Chrome |
+| España | 152,6 M | 84.844 | 61 s | 45 → 106 s | Node |
+| Brasil | 207,5 M | 119.809 | 91 s | 83 → 174 s | Node |
 
 La fase se paga al construir la base, no en cada sesión: la base se recuerda en el navegador (OPFS o IndexedDB, también
 en el HTML autónomo) y se reabre con sus expresiones; solo vuelve a pagarse si cambia la versión de la aplicación o si el
 navegador no deja guardarla. Límites conocidos: se pierden las pocas expresiones que llevan un número («Fome Zero»,
-«três poderes», «dos tercios»); quedan nombres con su estado dentro de una misma fila de asistencia («martínez
-presente») y fórmulas del género («publicado en el diario oficial número»), que el léxico no marca como características
-salvo que una biblioteca abuse de ellas; y las entidades de más de 7 tokens solo entran por sus partes.
+«três poderes», «dos tercios»); quedan fórmulas del género («publicado en el diario oficial número»), que el léxico no
+marca como características salvo que una biblioteca abuse de ellas; y las entidades de más de 7 tokens solo entran por sus
+partes. Lo que no deba unirse se desmarca en la revisión (abajo).
+
+**Revisión**: el enlace «revisarlas» de las notas del léxico y de las coocurrencias abre la lista completa, con búsqueda
+(sin tildes ni mayúsculas), orden por frecuencia, asociación, longitud o alfabético, y exportación en CSV con la cita y los
+parámetros de la detección. Las expresiones desmarcadas dejan de unirse: sus palabras vuelven a contar sueltas en el léxico
+y en las coocurrencias, que se recalculan. La lista de desmarcadas se guarda en el navegador por corpus y se envía al motor
+al abrirlo (rutas `GET /expressions` y `POST /expressions/rejected`, `worker/36c_engine__rutas_expresiones.js`); la base no
+cambia, porque la base recordada se comprueba con la huella de sus páginas.
 
 ## Coocurrencias y temas
 

@@ -1664,3 +1664,17 @@ html:not(.r2-app) body { overflow: hidden; }
 .lex-expr{display:inline-block;margin-left:5px;padding:0 4px;border-radius:3px;font:500 9.5px/1.5 var(--mono);color:var(--text-faint);border:1px solid var(--border-soft);vertical-align:1px}
 .lex-row.es-expr .lex-term{font-style:italic}
 .coo-sueltos{margin-top:12px}
+#dlgExpr{max-width:760px}
+#dlgExpr .dbody{max-height:56vh;padding-top:6px}
+.expr-barra{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;padding:10px 18px 0}
+.expr-barra input[type=search]{flex:1 1 200px;min-width:0;padding:6px 9px;border:1px solid var(--border);border-radius:7px;background:var(--bg);color:var(--text);font:inherit;font-size:13px}
+.expr-barra select{padding:5px 8px;border:1px solid var(--border);border-radius:7px;background:var(--bg);color:var(--text);font:inherit;font-size:12.5px}
+.expr-tabla{width:100%;border-collapse:collapse;font-size:13px}
+.expr-tabla th{position:sticky;top:-6px;background:var(--bg-panel);text-align:left;font:500 10.5px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--text-faint);padding:6px 6px;border-bottom:1px solid var(--border-soft)}
+.expr-tabla td{padding:4px 6px;border-bottom:1px solid var(--border-soft);vertical-align:middle}
+.expr-tabla .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.expr-tabla td:first-child,.expr-tabla th:first-child{width:38px;text-align:center}
+.expr-tabla tr.expr-no .expr-f{text-decoration:line-through;color:var(--text-faint)}
+.expr-mas{display:flex;gap:10px;align-items:center;margin:10px 0 2px}
+.expr-cambios{flex:1;align-self:center;text-align:right;margin-right:4px}
+@media (max-width:560px){.expr-tabla th:nth-child(4),.expr-tabla td:nth-child(4){display:none}}

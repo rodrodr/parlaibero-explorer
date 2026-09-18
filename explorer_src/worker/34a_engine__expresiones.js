@@ -9,8 +9,9 @@
  * Candidatas: secuencias de 2 a 7 tokens que empiezan y terminan en palabra de contenido (≥ 3 letras, no vacía según
  * Snowball de la lengua del corpus, no cifra) y llevan dentro solo palabras de contenido o conectores de una lista
  * cerrada («de», «y», «del», «para»…). No hace falta etiquetador gramatical. No cruzan:
- *   - la puntuación ni los saltos de línea (keyness.crudos_tramos): «Gracias, señor presidente. Buenas tardes» no es
- *     una expresión, y las filas de las listas de asistencia no se encadenan («… escobar presente josé …»);
+ *   - la puntuación, los saltos de línea ni los huecos de 6 o más espacios (keyness.crudos_tramos): «Gracias, señor
+ *     presidente. Buenas tardes» no es una expresión, y en las listas de asistencia y de votación, tablas con el
+ *     nombre y el estado separados por espacios, ni se encadenan las filas ni se une el nombre con «presente»;
  *   - las cifras, con dígitos o con letras: en las transcripciones las fechas, los artículos, los tomos y los recuentos
  *     de votos se leen en voz alta («dos mil veintidós», «romano seis», «cero abstenciones»); en El Salvador eran el
  *     7,5 % de las expresiones y ninguna un concepto.
@@ -54,8 +55,9 @@
  *   contar(ix, textos) → Map índice → apariciones, todas, también dentro de otras (para el léxico)
  *   huellaTokens(tokens) → [a, b] · recorrer(tokens, tipo, f(a, b, i, j)) · tipoDe(pais) → w ↦ 0 corta, 1 conector,
  *   2 contenido · lenguaDe(pais) · vaciasDe(pais) · conectoresDe(pais) · contenidoDe(pais) · numeralesDe(pais)
- *   fuenteVacias(pais)
- *   CONECTORES · MAX_TOKENS
+ *   fuenteVacias(pais) · CONECTORES · MAX_TOKENS
+ *   Revisión: listar(bd, {q, orden, limite, desde, solo}) · rechazadas(bd) → Set · fijarRechazadas(bd, formas) ·
+ *   revision(bd) → n.º de cambios (clave de las cachés que dependen de las expresiones)
  */
 (function (R2) {
   'use strict';
@@ -511,6 +513,8 @@
       filas = R2.sql.filas(bd, 'SELECT id, forma, mostrar, frecuencia, intervenciones FROM expresiones ORDER BY id');
     } catch (e) { filas = []; }
     let ix = null;
+    const fuera = filas.length ? rechazadas(bd) : new Set();
+    if (fuera.size) filas = filas.filter((r) => !fuera.has(r.forma));
     if (filas.length) {
       let bits = 10;
       while ((1 << bits) * 0.6 < filas.length) bits++;
@@ -525,7 +529,8 @@
       try { meta = JSON.parse(R2.sql.valor(bd, "SELECT value FROM meta WHERE key = 'expresiones'") || 'null'); } catch (e) { meta = null; }
       let pais = '';
       try { pais = String(R2.sql.valor(bd, "SELECT value FROM meta WHERE key = 'pais'") || ''); } catch (e) { pais = ''; }
-      ix = { tabla: t, formas, mostrar, frec, df, ids, meta, n: filas.length, tipo: tipoDe(pais), esContenido: contenidoDe(pais) };
+      ix = { tabla: t, formas, mostrar, frec, df, ids, meta, n: filas.length, rechazadas: fuera.size, tipo: tipoDe(pais),
+        esContenido: contenidoDe(pais) };
     }
     cacheIndices.set(bd.db, ix);
     return ix;
@@ -593,8 +598,66 @@
     return n;
   }
 
+  // ------------------------------------------------------------------------------------------------ revisión
+  // El investigador puede pedir que una expresión no se una (un nombre con su estado en una fila de asistencia, una
+  // fórmula del género). Las rechazadas no entran en el índice de cargar(), ni por tanto en el léxico ni en las
+  // coocurrencias, y sus palabras vuelven a contar sueltas. La lista vive en la memoria del motor, no en la base: la base
+  // no cambia después de construirla (la recordada se comprueba con la huella de todas sus páginas al abrirla); la
+  // página la guarda en el navegador por corpus y la vuelve a enviar al abrirlo.
+  const rechazos = new WeakMap();                                 // conexión → Set de formas
+  const revisiones = new WeakMap();
+  /** Número de cambios de la lista de rechazadas en esta conexión (para las cachés que dependen de las expresiones). */
+  const revision = (bd) => revisiones.get(bd.db) || 0;
+  function hayTabla(bd) {
+    try { return !!R2.sql.valor(bd, "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'expresiones'"); } catch (e) { return false; }
+  }
+  /** Formas plegadas de las expresiones que no se unen (Set, copia). */
+  const rechazadas = (bd) => new Set(rechazos.get(bd.db) || []);
+  /** Fija la lista entera de rechazadas (formas; se ignoran las que no están en la tabla) → { rechazadas: n, formas }. */
+  function fijarRechazadas(bd, formas) {
+    if (!hayTabla(bd)) return { rechazadas: 0, formas: [] };
+    const existen = new Set(R2.sql.columna(bd, 'SELECT forma FROM expresiones'));
+    const lista = [...new Set((formas || []).map((f) => K().fold(String(f)).trim().replace(/\s+/g, ' ')))].filter((f) => existen.has(f)).sort();
+    const antes = rechazos.get(bd.db) || new Set();
+    if (lista.length === antes.size && lista.every((f) => antes.has(f))) return { rechazadas: lista.length, formas: lista };
+    rechazos.set(bd.db, new Set(lista));
+    cacheIndices.delete(bd.db);
+    revisiones.set(bd.db, revision(bd) + 1);
+    return { rechazadas: lista.length, formas: lista };
+  }
+  const ORDENES = Object.freeze({ frecuencia: 'frecuencia DESC, forma', alfabetico: 'forma', g2: 'g2 DESC, forma',
+    longitud: 'n_tokens DESC, frecuencia DESC, forma' });
+  /**
+   * Inventario para revisarlo: { disponible, total, filas, rechazadas, meta }. o = { q (texto que contienen, sin tildes
+   * ni mayúsculas), orden (frecuencia | alfabetico | g2 | longitud), limite (0 = todas), desde, solo (todas | rechazadas) }.
+   */
+  function listar(bd, o = {}) {
+    if (!hayTabla(bd)) return { disponible: false, total: 0, filas: [], rechazadas: 0, meta: null };
+    const S = R2.sql, fuera = rechazadas(bd);
+    const q = K().fold(String(o.q || '')).trim().replace(/\s+/g, ' ');
+    const donde = q ? "WHERE forma LIKE ? ESCAPE '\\'" : '';
+    const args = q ? ['%' + q.replace(/[\\%_]/g, (c) => '\\' + c) + '%'] : [];
+    const orden = ORDENES[o.orden] || ORDENES.frecuencia;
+    const limite = Math.max(0, Math.floor(Number(o.limite) || 0)), desde = Math.max(0, Math.floor(Number(o.desde) || 0));
+    const cols = 'forma, mostrar, n_tokens, n_palabras, frecuencia, independiente, intervenciones, g2, cvalue';
+    let filas, total;
+    if (o.solo === 'rechazadas') {
+      const todas = S.filas(bd, `SELECT ${cols} FROM expresiones ${donde} ORDER BY ${orden}`, args).filter((r) => fuera.has(r.forma));
+      total = todas.length;
+      filas = limite ? todas.slice(desde, desde + limite) : todas.slice(desde);
+    } else {
+      total = Number(S.valor(bd, `SELECT count(*) FROM expresiones ${donde}`, args)) || 0;
+      filas = S.filas(bd, `SELECT ${cols} FROM expresiones ${donde} ORDER BY ${orden}${limite ? ` LIMIT ${limite} OFFSET ${desde}` : ''}`, args);
+    }
+    for (const r of filas) r.rechazada = fuera.has(r.forma);
+    let meta = null;
+    try { meta = JSON.parse(S.valor(bd, "SELECT value FROM meta WHERE key = 'expresiones'") || 'null'); } catch (e) { meta = null; }
+    return { disponible: true, total, filas, rechazadas: fuera.size, meta };
+  }
+
   R2.expresiones = Object.freeze({
     VERSION, MAX_TOKENS, CONECTORES, detectar, cargar, unidades, unidadesTexto, contar, huellaTokens, recorrer,
-    lenguaDe, vaciasDe, conectoresDe, contenidoDe, numeralesDe, tipoDe, fuenteVacias,
+    lenguaDe, vaciasDe, conectoresDe, contenidoDe, numeralesDe, tipoDe, fuenteVacias, listar, rechazadas, fijarRechazadas,
+    revision,
   });
 })(globalThis.R2 = globalThis.R2 || {});

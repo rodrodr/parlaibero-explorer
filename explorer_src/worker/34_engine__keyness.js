@@ -130,14 +130,22 @@
   }
 
   // Signos que separan tramos: una expresión de varias palabras (engine/expresiones.js) no cruza la puntuación de frase
-  // o de inciso, las comillas, los paréntesis ni los saltos de línea o tabuladores (las filas de las listas de
-  // asistencia y de votación). Ninguno es parte de un token, así que los tokens son los mismos que los de crudos.
+  // o de inciso, las comillas, los paréntesis, los saltos de línea o tabuladores, ni los huecos de 6 o más espacios,
+  // que en las transcripciones separan las columnas de las tablas (listas de asistencia y de votación: «NOMBRE
+  // APELLIDO          PRESENTE»); la prosa justificada no pasa de 5. Ninguno es parte de un token, así que los tokens
+  // son los mismos que los de crudos.
   const SIGNOS_CORTE = '.,;:!?¿¡()[]{}«»"“”„–—…•|\n\r\t';
+  const HUECO_CORTE = 6;
   const CORTE = new Uint8Array(0x2030);
   for (const ch of SIGNOS_CORTE) CORTE[ch.charCodeAt(0)] = 1;
-  const RX_CORTE = new RegExp(`[${SIGNOS_CORTE.replace(/[\]\\^-]/g, '\\$&')}]+`);
+  const RX_CORTE = new RegExp(`[${SIGNOS_CORTE.replace(/[\]\\^-]/g, '\\$&')}]+| {${HUECO_CORTE},}`);
   function hayCorte(t, desde, hasta) {
-    for (let i = desde; i < hasta; i++) { const c = t.charCodeAt(i); if (c < 0x2030 && CORTE[c] === 1) return true; }
+    let espacios = 0;
+    for (let i = desde; i < hasta; i++) {
+      const c = t.charCodeAt(i);
+      if (c < 0x2030 && CORTE[c] === 1) return true;
+      if (c === 32) { if (++espacios >= HUECO_CORTE) return true; } else espacios = 0;
+    }
     return false;
   }
   /** Tokens en minúsculas y aún sin plegar, en tramos sin signos de corte dentro: [[token, …], …]. */

@@ -7448,6 +7448,7 @@ async function boot() {
     S.facets = await api('/facets');
     trendRangesDesdeFacetas(S.facets);
     S.collections = (await api('/collections')).collections;
+    exprRestaurar();
     renderHeader(); renderFilters(); wire();
     setSideCollapsed(sideCollapsedSaved(), { guardar: false });
     setListCollapsed(listCollapsedSaved(), { guardar: false });
@@ -10033,7 +10034,8 @@ function lexRender({ keepScroll = false } = {}) {
       El log-ratio mide el tamaño del efecto (cada punto duplica la frecuencia relativa). El TTR baja al
       crecer la biblioteca: compare solo bibliotecas de tamaño parecido. Las palabras son las del índice
       de búsqueda («S. S.» cuenta dos).${r.expresiones ? ` Incluye <b>expresiones de varias palabras</b>, marcadas
-      <span class="lex-expr">expr.</span>: ${nf(r.expresiones.inventario)} detectadas en todo el corpus al cargarlo, de las que
+      <span class="lex-expr">expr.</span>: ${nf(r.expresiones.inventario)} detectadas en todo el corpus al cargarlo
+      (<button type="button" class="linkbtn" data-exprrev>revisarlas</button>), de las que
       ${nf(r.expresiones.de_sobreuso)} son características de esta biblioteca. Se cuentan todas sus apariciones, igual que las
       palabras, que siguen contando también dentro de ellas: «seguridad» incluye los usos de «seguridad pública».` : ''}</p>
     ${tabla}
@@ -10052,6 +10054,7 @@ function lexClick(e) {
   if (e.target.closest('[data-lexmore]')) { S.lex.showAll = true; lexRender({ keepScroll: true }); return true; }
   if (e.target.closest('[data-lexretry]')) { lexLoad(); return true; }
   if (e.target.closest('[data-lexcancel]')) { S.lex.ctrl?.abort(); return true; }
+  if (e.target.closest('[data-exprrev]')) { exprAbrir(); return true; }
   return false;
 }
 
@@ -10065,6 +10068,190 @@ function lexKey(e) {
 
 
 
+
+// ================================================================================================ expresiones
+// Revisión de las expresiones de varias palabras del corpus (worker/34a_engine__expresiones.js, rutas /expressions): lista
+// con búsqueda y orden, exportación en CSV y elección de las que no deben unirse (sus palabras vuelven a contar sueltas en
+// el léxico y en las coocurrencias).
+const EXPR_LOTE = 200;
+const EXPR_ORDENES = [['frecuencia', 'Más frecuentes'], ['g2', 'Más asociadas (G²)'], ['longitud', 'Más largas'], ['alfabetico', 'Alfabético']];
+const EX_ST = { q: '', orden: 'frecuencia', solo: false, filas: [], total: 0, inventario: 0, meta: null, rech: new Set(),
+  rechServidor: new Set(), seq: 0, tq: null, ocupado: false };
+
+// Las que no se unen se guardan en este navegador por corpus y se vuelven a enviar al motor al abrirlo: la base no
+// cambia después de construirla.
+const exprClave = () => `diarios-explorer:expresiones-rechazadas:${S.info?.corpus_bibliotecas || S.info?.name || ''}`;
+function exprGuardarLocal(lista) {
+  try { if (lista.length) localStorage.setItem(exprClave(), JSON.stringify(lista)); else localStorage.removeItem(exprClave()); } catch {   }
+}
+async function exprRestaurar() {
+  let lista = null;
+  try { lista = JSON.parse(localStorage.getItem(exprClave()) || 'null'); } catch { lista = null; }
+  if (!Array.isArray(lista) || !lista.length) return;
+  try {
+    await api('/expressions/rejected', { method: 'POST', body: { rechazadas: lista } });
+    S.lex.cache.clear(); S.coo.cache.clear();
+  } catch {   }
+}
+
+async function exprAbrir() {
+  let dlg = $('#dlgExpr');
+  if (!dlg) {
+    document.body.insertAdjacentHTML('beforeend', `<dialog id="dlgExpr" aria-labelledby="exprTitulo">
+  <div class="dhead"><h3 id="exprTitulo">Expresiones de varias palabras del corpus</h3><p class="dsub" id="exprSub"></p></div>
+  <div class="expr-barra">
+    <input type="search" id="exprQ" placeholder="Buscar: seguridad, reforma…" aria-label="Buscar expresiones" autocomplete="off">
+    <select id="exprOrden" aria-label="Orden">${EXPR_ORDENES.map(([v, t]) => `<option value="${v}">${esc(t)}</option>`).join('')}</select>
+    <label class="chk"><input type="checkbox" id="exprSolo"><span class="lbl">Solo las que no se unen</span></label>
+  </div>
+  <div class="dbody" id="exprLista"></div>
+  <div class="dfoot"><button type="button" class="btn ghost" id="exprCSV">Exportar CSV</button><span class="expr-cambios dsub" id="exprCambios"></span>
+    <button type="button" class="btn" data-close>Cerrar</button><button type="button" class="btn primary" id="exprAplicar" disabled>Aplicar</button></div>
+</dialog>`);
+    dlg = $('#dlgExpr');
+    dlg.addEventListener('click', ev => {
+      if (ev.target.closest('[data-close]')) { if (!EX_ST.ocupado) dlg.close(); return; }
+      if (ev.target.closest('#exprAplicar')) { exprAplicar(); return; }
+      if (ev.target.closest('#exprCSV')) { exprExportar(); return; }
+      if (ev.target.closest('[data-exprmas]')) { exprCargar(true); }
+    });
+    dlg.addEventListener('change', ev => {
+      const t = ev.target;
+      if (t.matches('[data-exprforma]')) {
+        const f = t.dataset.exprforma;
+        if (t.checked) EX_ST.rech.delete(f); else EX_ST.rech.add(f);
+        t.closest('tr')?.classList.toggle('expr-no', !t.checked);
+        exprCambios();
+      } else if (t.id === 'exprOrden') { EX_ST.orden = t.value; exprCargar(); }
+      else if (t.id === 'exprSolo') { EX_ST.solo = t.checked; exprCargar(); }
+    });
+    $('#exprQ').addEventListener('input', ev => {
+      clearTimeout(EX_ST.tq);
+      EX_ST.tq = setTimeout(() => { EX_ST.q = ev.target.value; exprCargar(); }, 250);
+    });
+    dlg.addEventListener('cancel', ev => { if (EX_ST.ocupado) ev.preventDefault(); });
+  }
+  $('#exprQ').value = EX_ST.q; $('#exprOrden').value = EX_ST.orden; $('#exprSolo').checked = EX_ST.solo;
+  $('#exprLista').innerHTML = '<p class="dsub">Cargando…</p>';
+  dlg.showModal();
+  try {
+    const r = await api('/expressions?' + new URLSearchParams({ solo: 'rechazadas', limite: '0' }));
+    EX_ST.rechServidor = new Set((r.filas || []).map(x => x.forma));
+    EX_ST.rech = new Set(EX_ST.rechServidor);
+  } catch (e) {
+    $('#exprLista').innerHTML = `<p class="dsub">No se pudo leer la lista: ${esc(e.message)}</p>`;
+    return;
+  }
+  exprCargar();
+}
+
+async function exprCargar(mas = false) {
+  const mine = ++EX_ST.seq;
+  const desde = mas ? EX_ST.filas.length : 0;
+  const q = new URLSearchParams({ q: EX_ST.q, orden: EX_ST.orden, limite: String(EXPR_LOTE), desde: String(desde),
+    solo: EX_ST.solo ? 'rechazadas' : 'todas' });
+  let r;
+  try { r = await api('/expressions?' + q); } catch (e) {
+    if (mine === EX_ST.seq) $('#exprLista').innerHTML = `<p class="dsub">No se pudo leer la lista: ${esc(e.message)}</p>`;
+    return;
+  }
+  if (mine !== EX_ST.seq) return;
+  if (!r.disponible) {
+    EX_ST.filas = []; EX_ST.total = 0;
+    $('#exprSub').textContent = '';
+    $('#exprLista').innerHTML = `<p class="dsub">Esta base no tiene expresiones detectadas: se construyó sin esa fase. Vuelva a
+      elegir el CSV para construirla de nuevo.</p>`;
+    return;
+  }
+  EX_ST.filas = mas ? EX_ST.filas.concat(r.filas) : r.filas;
+  EX_ST.total = r.total; EX_ST.meta = r.meta;
+  if (!EX_ST.q && !EX_ST.solo) EX_ST.inventario = r.total;
+  exprPintar();
+}
+
+function exprPintar() {
+  const m = EX_ST.meta || {};
+  $('#exprSub').innerHTML = `${nf(m.seleccionadas ?? EX_ST.inventario)} detectadas al construir la base, en ${nf(m.intervenciones)}
+    intervenciones y ${nf(m.tokens_corpus)} palabras: de 2 a ${nf(m.max_tokens || 7)} palabras, al menos ${nf(m.frecuencia_minima)} apariciones
+    en ${nf(m.intervenciones_minimas)} intervenciones y asociación significativa. Desmarque las que no deban unirse: sus palabras
+    volverán a contar sueltas en el léxico y en las coocurrencias.`;
+  const filas = EX_ST.filas;
+  if (!filas.length) {
+    $('#exprLista').innerHTML = `<p class="dsub">${EX_ST.solo ? 'Todas las expresiones se unen.' : 'Ninguna expresión contiene ese texto.'}</p>`;
+    exprCambios();
+    return;
+  }
+  const cuerpo = filas.map(x => {
+    const no = EX_ST.rech.has(x.forma);
+    return `<tr${no ? ' class="expr-no"' : ''}><td><input type="checkbox" data-exprforma="${esc(x.forma)}"${no ? '' : ' checked'}
+      aria-label="Unir «${esc(x.mostrar)}»"></td><td class="expr-f">${esc(x.mostrar)}</td><td class="num">${nf(x.frecuencia)}</td>
+      <td class="num">${nf(x.intervenciones)}</td><td class="num">${x.g2 == null ? '—' : nf(Math.round(x.g2))}</td></tr>`;
+  }).join('');
+  const mas = filas.length < EX_ST.total
+    ? `<p class="expr-mas"><button type="button" class="btn sm" data-exprmas>Mostrar ${nf(Math.min(EXPR_LOTE, EX_ST.total - filas.length))} más</button>
+       <span class="dsub">${nf(filas.length)} de ${nf(EX_ST.total)}</span></p>` : '';
+  $('#exprLista').innerHTML = `<table class="expr-tabla"><thead><tr><th title="Se une en una sola unidad">unir</th><th>expresión</th>
+    <th class="num">apariciones</th><th class="num">intervenciones</th><th class="num">G²</th></tr></thead><tbody>${cuerpo}</tbody></table>${mas}`;
+  exprCambios();
+}
+
+function exprCambios() {
+  const a = EX_ST.rech, b = EX_ST.rechServidor;
+  let n = 0;
+  for (const f of a) if (!b.has(f)) n++;
+  for (const f of b) if (!a.has(f)) n++;
+  const btn = $('#exprAplicar');
+  if (btn && !EX_ST.ocupado) btn.disabled = !n;
+  const t = $('#exprCambios');
+  if (t) t.textContent = n ? `${nf(n)} ${n === 1 ? 'cambio' : 'cambios'} sin aplicar` : (a.size ? `${nf(a.size)} no se ${a.size === 1 ? 'une' : 'unen'}` : '');
+}
+
+async function exprAplicar() {
+  const btn = $('#exprAplicar');
+  if (!btn || EX_ST.ocupado) return;
+  EX_ST.ocupado = true; btn.disabled = true; btn.textContent = 'Aplicando…';
+  try {
+    const r = await api('/expressions/rejected', { method: 'POST', body: { rechazadas: [...EX_ST.rech] } });
+    EX_ST.rech = new Set(r.formas || []);
+    EX_ST.rechServidor = new Set(EX_ST.rech);
+    exprGuardarLocal(r.formas || []);
+    S.lex.cache.clear(); S.coo.cache.clear();
+    toast(r.rechazadas ? `${nf(r.rechazadas)} ${r.rechazadas === 1 ? 'expresión no se une' : 'expresiones no se unen'}: el léxico y las coocurrencias se recalculan.`
+      : 'Todas las expresiones se unen de nuevo.');
+    $('#dlgExpr').close();
+    if (S.view === 'library' && S.libTab === 'lexico') lexLoad();
+    else if (S.view === 'library' && S.libTab === 'coocurrencias') cooLoad();
+  } catch (e) {
+    toast(`No se pudo guardar: ${e.message}`, true);
+  } finally {
+    EX_ST.ocupado = false; btn.textContent = 'Aplicar'; exprCambios();
+  }
+}
+
+async function exprExportar() {
+  const btn = $('#exprCSV');
+  if (btn._busy) return;
+  btn._busy = true; btn.disabled = true;
+  try {
+    const q = new URLSearchParams({ q: EX_ST.q, orden: EX_ST.orden, limite: '0', solo: EX_ST.solo ? 'rechazadas' : 'todas' });
+    const r = await api('/expressions?' + q);
+    const m = r.meta || {};
+    const meta = [
+      'Explorador de Diarios de Sesiones · expresiones de varias palabras del corpus',
+      `corpus: ${S.info?.title || S.info?.name || ''}`,
+      `generado: ${new Date().toISOString().slice(0, 19)}`,
+      `detección: ${nf(m.intervenciones)} intervenciones, ${nf(m.tokens_corpus)} palabras · de 2 a ${m.max_tokens} palabras · frecuencia mínima ${m.frecuencia_minima} en ${m.intervenciones_minimas} intervenciones · G² ≥ ${m.umbral_g2} con la última palabra · ${m.muestra_1_de > 1 ? `descubrimiento en una muestra de 1 de cada ${m.muestra_1_de} intervenciones y recuento exacto en todas` : 'recuento en todas las intervenciones'}`,
+      `filtro: ${EX_ST.q ? `contienen «${EX_ST.q}»` : 'todas'}${EX_ST.solo ? ' · solo las que no se unen' : ''} · ${nf(r.total)} expresiones`,
+    ];
+    const cols = ['expresion', 'forma_indice', 'tokens', 'palabras_contenido', 'apariciones', 'apariciones_independientes', 'intervenciones', 'g2', 'c_value', 'se_une'];
+    const filas = r.filas.map(x => [x.mostrar, x.forma, x.n_tokens, x.n_palabras, x.frecuencia, x.independiente, x.intervenciones, x.g2 ?? '', x.cvalue ?? '',
+      EX_ST.rechServidor.has(x.forma) ? 'no' : 'sí']);
+    const slug = foldMap(S.info?.name || 'corpus').folded.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'corpus';
+    downloadText(csvConFuente(meta, cols, filas), `expresiones_${slug}.csv`, 'text/csv;charset=utf-8');
+  } catch (e) {
+    toast(`No se pudo exportar: ${e.message}`, true);
+  } finally { btn._busy = false; btn.disabled = false; }
+}
 
 function lexSearch(term) {
   const cid = S.libSel;
@@ -10261,7 +10448,7 @@ function cooRender() {
       aparecen juntos en ${p.unidad === 'fragmento' ? `el mismo fragmento de ${nf(p.fragmento)} palabras` : 'la misma intervención'} más de lo esperable por azar,
       y agrupados con el algoritmo de Leiden, que garantiza que cada tema esté conectado. Son <b>candidatos</b>: revíselos en la lista y
       pulse los términos que no pertenezcan para excluirlos.${p.expresiones?.unidas ? ` Las <b>expresiones</b> de varias palabras detectadas en el corpus
-      (${nf(p.expresiones.inventario)}) cuentan como una sola unidad: «seguridad pública» es un nodo propio y sus palabras sueltas solo cuentan fuera de ella.` : ''}
+      (${nf(p.expresiones.inventario)}, <button type="button" class="linkbtn" data-exprrev>revisarlas</button>) cuentan como una sola unidad: «seguridad pública» es un nodo propio y sus palabras sueltas solo cuentan fuera de ella.` : ''}
       Al excluir términos la red cambia y dos temas pueden fundirse o uno partirse:
       si ve fundidos dos temas distintos, pida <b>más</b> temas; si ve uno partido, <b>menos</b>.${descart ? ` Se descartaron ${descart}.` : ''}${voc.desde_cache ? ' El léxico se reutilizó del cálculo anterior.' : ''}</p>`;
   const metodo = `<details class="lex-neg coo-metodo"><summary>Método y parámetros</summary><div class="lex-note" style="margin:8px 2px 0">
@@ -10367,6 +10554,7 @@ function cooClick(e) {
   const X = S.coo, E = cooExcl();
   const b = (sel) => e.target.closest(sel);
   let el;
+  if (b('[data-exprrev]')) { exprAbrir(); return true; }
   if ((el = b('[data-cooterm]'))) {
     const w = el.dataset.cooterm;
     if (E.marcados.has(w)) E.marcados.delete(w); else E.marcados.add(w);
@@ -13363,6 +13551,7 @@ async function corpusRefrescar() {
     S.info = info.corpus;
     S.facets = await api('/facets');
     S.collections = (await api('/collections')).collections;
+    exprRestaurar();
   } catch (e) {
     toast(e.message, true);
     return;

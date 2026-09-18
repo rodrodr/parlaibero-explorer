@@ -367,8 +367,11 @@
   /** Corpus.keyness, con caché de los últimos resultados por biblioteca y opciones. */
   async function keynessColeccion(ctx, ids, opciones = {}) {
     const pedidos = Array.from(new Set(Array.from(ids, (i) => Number(i)))).sort((a, b) => a - b);
+    // Con expresiones, la clave lleva además la revisión de las rechazadas: rechazar una cambia el léxico.
+    const conExpr = opciones.expresiones !== false;
+    const revExpr = conExpr && R2.expresiones && ctx && ctx.db ? R2.expresiones.revision({ db: ctx.db }) : 0;
     const clave = [huellaIds(pedidos), opciones.solo_discurso === undefined ? true : !!opciones.solo_discurso,
-      opciones.min_freq, opciones.limit, opciones.limit_negative, opciones.expresiones !== false].join('|');
+      opciones.min_freq, opciones.limit, opciones.limit_negative, conExpr, revExpr].join('|');
     let mapa = ctx && ctx.db ? CACHE_LEXICO.get(ctx.db) : null;
     if (ctx && ctx.db && !mapa) { mapa = new Map(); CACHE_LEXICO.set(ctx.db, mapa); }
     if (mapa && mapa.has(clave)) {
