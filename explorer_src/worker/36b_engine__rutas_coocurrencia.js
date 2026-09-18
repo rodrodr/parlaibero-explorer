@@ -5,6 +5,7 @@
  *   solo_discurso bool (true) · unidad intervencion|fragmento (intervencion) · fragmento 5..200 (20)
  *   vocabulario 20..1000 (250) · vecinos 2..50 (10) · resolucion 0,1..5 (1) · semilla 1..1000000 (1)
  *   excluir: términos separados por comas que se quitan del vocabulario
+ *   expresiones bool (true): une las expresiones de varias palabras detectadas en el corpus en una sola unidad
  *   404 «No existe esa biblioteca.» · 422 «Parametros no validos. …»
  * Prioridad de fondo: el cálculo cede el hilo por trozos y las búsquedas y el lector siguen respondiendo mientras dura.
  */
@@ -21,6 +22,7 @@
 
   const REGLAS = Object.freeze({
     solo_discurso: { tipo: 'bool', defecto: CO.DEFECTOS.solo_discurso },
+    expresiones: { tipo: 'bool', defecto: CO.DEFECTOS.expresiones },
     unidad: { tipo: 'opcion', defecto: CO.DEFECTOS.unidad, opciones: ['intervencion', 'fragmento'] },
     fragmento: { tipo: 'entero', defecto: CO.DEFECTOS.fragmento, ge: 5, le: 200 },
     vocabulario: { tipo: 'entero', defecto: CO.DEFECTOS.vocabulario, ge: 20, le: 1000 },

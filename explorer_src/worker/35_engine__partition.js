@@ -329,11 +329,46 @@
     return `${pedidos.length}:${(h >>> 0).toString(16)}`;
   }
 
+  /** Añade al resultado del léxico las expresiones con G² significativo, con las mismas columnas que las palabras. */
+  function anadirExpresiones(res, ix, textos, opciones) {
+    const cuentas = R2.expresiones.contar(ix, textos);
+    const c = Number((res.metrics || {}).tokens || 0), d = Number(res.reference_tokens || 0);
+    const minFreq = opciones.min_freq === undefined ? K.MIN_FREQ : opciones.min_freq;
+    const umbral = res.threshold === undefined ? K.UMBRAL_G2 : res.threshold;
+    const redondeo = (x, n) => Math.round(x * 10 ** n) / 10 ** n;
+    const pos = [], neg = [];
+    if (c > 0 && d > 0) {
+      for (const [i, fa] of cuentas) {
+        if (fa < minFreq) continue;
+        const fb = Math.max(0, ix.frec[i] - fa);
+        const g2 = K.g2_signed(fa, fb, c, d);
+        if (!(Math.abs(g2) >= umbral)) continue;
+        const lr = K.log_ratio(fa, fb, c, d);
+        const fila = { term: ix.formas[i], display: ix.mostrar[i], freq: fa, freq_ref: fb, pm: redondeo(fa / c * 1000, 4),
+          pm_ref: redondeo(fb / d * 1000, 4), g2: redondeo(g2, 2), log_ratio: redondeo(lr, 2), expresion: true };
+        if (g2 > 0) { fila.badge = K.badge(lr, fb); pos.push(fila); } else { fila.badge = null; neg.push(fila); }
+      }
+    }
+    const orden = (x, y) => (y.g2 - x.g2) || C.cmpStr(x.term, y.term);
+    const limit = opciones.limit === undefined ? null : opciones.limit;
+    const limitNeg = opciones.limit_negative === undefined ? K.LIMITE_NEGATIVOS : opciones.limit_negative;
+    res.terms = (res.terms || []).concat(pos).sort(orden);
+    if (limit) res.terms = res.terms.slice(0, limit);
+    res.negative = (res.negative || []).concat(neg).sort((x, y) => (x.g2 - y.g2) || C.cmpStr(x.term, y.term));
+    if (limitNeg) res.negative = res.negative.slice(0, limitNeg);
+    res.n_positive = Number(res.n_positive || 0) + pos.length;
+    res.n_negative = Number(res.n_negative || 0) + neg.length;
+    res.significant = Number(res.significant || 0) + pos.length + neg.length;
+    if (res.metrics && res.terms.length) res.metrics.g2_max = Math.max(Number(res.metrics.g2_max || 0), res.terms[0].g2);
+    res.expresiones = { inventario: ix.n, en_biblioteca: cuentas.size, significativas: pos.length + neg.length,
+      de_sobreuso: pos.length, deteccion: ix.meta };
+  }
+
   /** Corpus.keyness, con caché de los últimos resultados por biblioteca y opciones. */
   async function keynessColeccion(ctx, ids, opciones = {}) {
     const pedidos = Array.from(new Set(Array.from(ids, (i) => Number(i)))).sort((a, b) => a - b);
     const clave = [huellaIds(pedidos), opciones.solo_discurso === undefined ? true : !!opciones.solo_discurso,
-      opciones.min_freq, opciones.limit, opciones.limit_negative].join('|');
+      opciones.min_freq, opciones.limit, opciones.limit_negative, opciones.expresiones !== false].join('|');
     let mapa = ctx && ctx.db ? CACHE_LEXICO.get(ctx.db) : null;
     if (ctx && ctx.db && !mapa) { mapa = new Map(); CACHE_LEXICO.set(ctx.db, mapa); }
     if (mapa && mapa.has(clave)) {
@@ -386,6 +421,12 @@
       cuentas,
       progreso: (fase, h, t) => prog.emitir(fase, h, t, h === 0 || h === t),
     });
+    // Expresiones de varias palabras (R2.expresiones, detectadas al construir la base): se cuentan en el mismo texto y
+    // se miden igual que las palabras. La referencia es su frecuencia en el corpus menos la de la biblioteca.
+    if (!res.error && opciones.expresiones !== false && R2.expresiones) {
+      const ix = R2.expresiones.cargar(bd);
+      if (ix) anadirExpresiones(res, ix, textos, opciones);
+    }
     prog.emitir('formas', 0, 1, true);
     res.n_requested = pedidos.length;
     res.n_found = filas.length;
@@ -408,7 +449,8 @@
     res.ms = C.pyRound(Number(res.ms || 0) + msTexto + msLectura + msCuentas, 1);
 
     // Forma que se muestra: la escrita con tilde o eñe si es la mayoritaria (muestra uniforme en bibliotecas grandes).
-    const filasTabla = [...(res.terms || []), ...(res.negative || [])];
+    // Las expresiones traen ya la suya, guardada al detectarlas.
+    const filasTabla = [...(res.terms || []), ...(res.negative || [])].filter((t) => !t.expresion);
     const totalChars = textos.reduce((x, t) => x + t.length, 0);
     const paso = Math.max(1, Math.ceil(totalChars / K.FORMAS_MAX_CHARS));
     const muestra = textos.filter((_, i) => i % paso === 0);

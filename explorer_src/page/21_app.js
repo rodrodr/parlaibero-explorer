@@ -30,7 +30,7 @@ const S = {
 
   lex: { cache: new Map(), data: null, cid: null, seq: 0, ctrl: null, showAll: false, solo: lexSoloGuardado() },
   coo: { cache: new Map(), data: null, cid: null, seq: 0, ctrl: null, unidad: 'intervencion', vocabulario: 250, vecinos: 10,
-         resolucion: 1, excl: { cid: null, aplicados: new Set(), marcados: new Set() }, lectModo: 'variada', lectN: 10 },
+         resolucion: 1, expresiones: true, excl: { cid: null, aplicados: new Set(), marcados: new Set() }, lectModo: 'variada', lectN: 10 },
   careo: null,
 };
 
@@ -2940,9 +2940,10 @@ function lexRowHTML(t, gmax, r, neg = false) {
 
 
   const forma = t.display || t.term;
-  return `<tr class="lex-row" data-lexterm="${esc(forma)}" tabindex="0"
+  const expr = t.expresion ? ` <span class="lex-expr" title="Expresión de varias palabras detectada en el corpus: se cuentan todas sus apariciones">expr.</span>` : '';
+  return `<tr class="lex-row${t.expresion ? ' es-expr' : ''}" data-lexterm="${esc(forma)}" tabindex="0"
       title="Buscar «${esc(forma)}» en modo Palabras dentro de esta biblioteca${forma !== t.term ? ` (índice: ${esc(t.term)})` : ''}">
-    <td class="lex-term">${esc(forma)}</td>
+    <td class="lex-term">${esc(forma)}${expr}</td>
     <td class="num">${nf(t.freq)}</td>
     <td class="num">${lexPm(t.pm)}</td>
     <td class="num c-ref">${lexPm(t.pm_ref)}</td>
@@ -3028,7 +3029,10 @@ function lexRender({ keepScroll = false } = {}) {
       ${nf(r.significant)} significativos de ${nf(r.candidates)} candidatos.${recorte}
       El log-ratio mide el tamaño del efecto (cada punto duplica la frecuencia relativa). El TTR baja al
       crecer la biblioteca: compare solo bibliotecas de tamaño parecido. Las palabras son las del índice
-      de búsqueda («S. S.» cuenta dos).</p>
+      de búsqueda («S. S.» cuenta dos).${r.expresiones ? ` Incluye <b>expresiones de varias palabras</b>, marcadas
+      <span class="lex-expr">expr.</span>: ${nf(r.expresiones.inventario)} detectadas en todo el corpus al cargarlo, de las que
+      ${nf(r.expresiones.de_sobreuso)} son características de esta biblioteca. Se cuentan todas sus apariciones, igual que las
+      palabras, que siguen contando también dentro de ellas: «seguridad» incluye los usos de «seguridad pública».` : ''}</p>
     ${tabla}
     ${negativos}
     <p class="lex-foot">Clic en un término (o Intro): búsqueda en modo Palabras dentro de esta biblioteca, en Explorar.${
@@ -3096,7 +3100,7 @@ function cooExcl() {
 function cooClave() {
   const X = S.coo, L = S.libInfo, E = cooExcl();
   return [S.info?.name || '', L.id, L.total, L.hash || L.updated, S.lex.solo ? 'discurso' : 'completo', X.unidad,
-    X.vocabulario, X.vecinos, X.resolucion, [...E.aplicados].sort().join(',')].join('|');
+    X.vocabulario, X.vecinos, X.resolucion, X.expresiones ? 'expr' : 'pal', [...E.aplicados].sort().join(',')].join('|');
 }
 
 async function cooLoad() {
@@ -3139,7 +3143,7 @@ async function cooLoad() {
   const reloj = setInterval(() => pinta(null), 500);
   const ctrl = X.ctrl = new AbortController();
   const qs = new URLSearchParams({ solo_discurso: String(S.lex.solo), unidad: X.unidad, vocabulario: String(X.vocabulario),
-    vecinos: String(X.vecinos), resolucion: String(X.resolucion) });
+    vecinos: String(X.vecinos), resolucion: String(X.resolucion), expresiones: String(X.expresiones) });
   if (E.aplicados.size) qs.set('excluir', [...E.aplicados].join(','));
   try {
     const r = await api(`/collections/${L.id}/cooccurrence?${qs}`, { signal: ctrl.signal, alProgreso: pinta });
@@ -3230,6 +3234,7 @@ function cooRender() {
       <label class="tsel" title="Cuántos términos del léxico, de más a menos característicos, entran en la red">Términos ${sel('vocabulario', X.vocabulario, COO_VOCAB)}</label>
       <label class="tsel" title="Conexiones que conserva cada término: las de mayor G² entre las significativas">Vecinos ${sel('vecinos', X.vecinos, COO_VECINOS)}</label>
       <span class="tsel">Temas</span><div class="tseg" role="group" aria-label="Número de temas">${seg('cooresol', X.resolucion, COO_RESOLUCION)}</div>
+      <label class="chk tchk" title="Une las expresiones de varias palabras detectadas en el corpus («seguridad pública», «régimen de excepción») en un solo nodo: sus palabras dejan de contar sueltas"><input type="checkbox" data-cooexpr${X.expresiones ? ' checked' : ''}><span>expresiones</span></label>
     </div>`;
   if (r.aviso || !(r.comunidades || []).length) {
     box.innerHTML = `<div class="lex coo">${controles}<div class="empty" style="padding:26px 16px"><h3>Sin red de coocurrencias</h3>
@@ -3252,11 +3257,14 @@ function cooRender() {
   const nota = `<p class="lex-note">Cada tema es una comunidad de la red: los términos más característicos del léxico, unidos cuando
       aparecen juntos en ${p.unidad === 'fragmento' ? `el mismo fragmento de ${nf(p.fragmento)} palabras` : 'la misma intervención'} más de lo esperable por azar,
       y agrupados con el algoritmo de Leiden, que garantiza que cada tema esté conectado. Son <b>candidatos</b>: revíselos en la lista y
-      pulse los términos que no pertenezcan para excluirlos. Al excluir términos la red cambia y dos temas pueden fundirse o uno partirse:
+      pulse los términos que no pertenezcan para excluirlos.${p.expresiones?.unidas ? ` Las <b>expresiones</b> de varias palabras detectadas en el corpus
+      (${nf(p.expresiones.inventario)}) cuentan como una sola unidad: «seguridad pública» es un nodo propio y sus palabras sueltas solo cuentan fuera de ella.` : ''}
+      Al excluir términos la red cambia y dos temas pueden fundirse o uno partirse:
       si ve fundidos dos temas distintos, pida <b>más</b> temas; si ve uno partido, <b>menos</b>.${descart ? ` Se descartaron ${descart}.` : ''}${voc.desde_cache ? ' El léxico se reutilizó del cálculo anterior.' : ''}</p>`;
   const metodo = `<details class="lex-neg coo-metodo"><summary>Método y parámetros</summary><div class="lex-note" style="margin:8px 2px 0">
       <b>Vocabulario:</b> los ${nf(voc.usados)} términos de sobreuso del léxico de mayor G², sin las palabras vacías publicadas de la lengua del corpus
-      (${esc(vac.fuente || '—')}, ${nf(vac.n || 0)} palabras, licencia ${esc(vac.licencia || '—')}${(vac.excepciones || []).length ? `; se conservan ${vac.excepciones.map(w => `«${esc(w)}»`).join(' y ')}` : ''}) ni cifras. Texto: ${p.modo_texto === 'completo' ? 'completo' : 'solo discurso'}.<br>
+      (${esc(vac.fuente || '—')}, ${nf(vac.n || 0)} palabras, licencia ${esc(vac.licencia || '—')}${(vac.excepciones || []).length ? `; se conservan ${vac.excepciones.map(w => `«${esc(w)}»`).join(' y ')}` : ''}) ni cifras, con dígitos o con letras («treinta», «mil»). Texto: ${p.modo_texto === 'completo' ? 'completo' : 'solo discurso'}.<br>
+      <b>Expresiones:</b> ${p.expresiones?.unidas ? `${nf(p.expresiones.inventario)} detectadas en todo el corpus al cargarlo (de 2 a 7 palabras, frecuentes, con asociación significativa, sin cruzar la puntuación ni las cifras y sin los trozos de secuencias más largas, como las fórmulas leídas una y otra vez); cada frase se parte en el menor número de unidades y cada expresión cuenta como una` : 'no se unen: cada palabra cuenta por separado'}.<br>
       <b>Unidad de contexto:</b> ${p.unidad === 'fragmento' ? `fragmentos consecutivos de ${nf(p.fragmento)} palabras` : 'la intervención'} (${unidades}).
       Densidad de la red antes de podar: ${String(Math.round(1000 * st.densidad) / 10).replace('.', ',')} % de los pares posibles.<br>
       <b>Asociación:</b> G² de Dunning con signo sobre la tabla 2×2 de unidades; se conservan los pares con asociación positiva y G² ≥ ${String(p.g2_min).replace('.', ',')}
@@ -3298,11 +3306,15 @@ function cooRender() {
         </div>${leer}
     </section>`;
   }).join('');
+  const sueltos = (r.sueltos || []).length
+    ? `<details class="lex-neg coo-sueltos"><summary>Términos poco conectados (${nf(r.sueltos.length)}): forman comunidades de uno o dos términos, que no se tratan como temas</summary>
+        <div class="coo-terms" style="--c:var(--text-faint);margin-top:8px">${r.sueltos.map(t => `<button type="button" class="coo-t w3${E.marcados.has(t.term) ? ' marcado' : ''}" data-cooterm="${esc(t.term)}" title="Clic: marcar para excluir">${esc(t.display)}</button>`).join('')}</div></details>` : '';
   box.innerHTML = `<div class="lex coo">
     ${controles}${metricas}${nota}${barraExcl}
     ${cooLecturaHTML(r)}
     <h4 class="coo-h">Temas</h4>
     <div class="coo-temas">${temas}</div>
+    ${sueltos}
     ${metodo}
     <p class="coo-exp"><button class="btn sm" data-cooexp="csv" title="Una fila por término, con su tema y sus medidas">Exportar temas (CSV)</button>
       <button class="btn sm" data-cooexp="gexf" title="La red podada, con los temas como atributo, para abrirla en Gephi">Exportar red (GEXF)</button>
@@ -3322,7 +3334,9 @@ function cooKey(e) {
 
 function cooChange(e) {
   const t = e.target;
-  if (S.view !== 'library' || S.libTab !== 'coocurrencias' || !t.matches?.('[data-coo]')) return;
+  if (S.view !== 'library' || S.libTab !== 'coocurrencias') return;
+  if (t.matches?.('[data-cooexpr]')) { S.coo.expresiones = t.checked; cooLoad(); return; }
+  if (!t.matches?.('[data-coo]')) return;
   S.coo[t.dataset.coo] = Number(t.value);
   cooLoad();
 }
@@ -3444,7 +3458,7 @@ function cooExportGEXF() {
   const F = fuenteDe();
   const desc = cooMeta(r).concat([`Fuente: ${F.cita || F.cita_corta || ''}${F.url ? ` · ${F.url}` : ''}`]).join('\n');
   const nodos = r.nodos.map(n => `      <node id="${n.i}" label="${x(n.display)}"><attvalues>`
-    + `<attvalue for="0" value="${n.comunidad + 1}"/><attvalue for="1" value="${x(etiqueta.get(n.comunidad))}"/>`
+    + `<attvalue for="0" value="${n.comunidad + 1}"/><attvalue for="1" value="${x(n.comunidad >= 0 ? etiqueta.get(n.comunidad) : 'sin tema')}"/>`
     + `<attvalue for="2" value="${n.g2_lexico}"/><attvalue for="3" value="${n.freq}"/><attvalue for="4" value="${n.df_intervencion}"/>`
     + `<attvalue for="5" value="${n.fuerza}"/></attvalues></node>`).join('\n');
   const aristas = (r.aristas || []).map((a, k) => `      <edge id="${k}" source="${a.a}" target="${a.b}" weight="${a.fuerza}"><attvalues>`

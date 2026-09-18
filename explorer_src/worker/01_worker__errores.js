@@ -86,6 +86,8 @@
       'Este navegador no puede comprimir el texto al construir la base (falta CompressionStream): el corpus ocupa más memoria de la habitual.',
     SIN_OPTIMIZAR: (d) =>
       `El índice de palabras no se ha compactado para ahorrar memoria (el texto ocupa ${miles(Math.round(d.bytes / 1048576))} MiB): las búsquedas funcionan igual, algo más lentas.`,
+    SIN_EXPRESIONES: (d) =>
+      `No se pudieron detectar las expresiones de varias palabras (${d.error || 'error desconocido'}): el léxico y las coocurrencias funcionan solo con palabras sueltas.`,
   };
 
   const CAMPOS_UBICACION = ['fila', 'linea', 'byte', 'columna', 'valor', 'detalle', 'causa'];

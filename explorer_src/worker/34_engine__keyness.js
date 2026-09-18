@@ -13,6 +13,7 @@
  * API (R2.keyness)
  *   keyness(bd, textos, {min_freq, threshold, stopwords, limit, limit_negative, fts_table}) → dict como keyness.keyness
  *   fold(s) · tokenize(texto) · crudos(texto) · count_terms(textos) → [Map término → n, tokens] · plegar_token(w)
+ *   crudos_tramos(texto) · tokenize_tramos(texto) → los mismos tokens en tramos que no cruzan puntuación (SIGNOS_CORTE)
  *   corpus_tokens(bd, fts) · reference_counts(bd, términos, fts) → Map · g2_signed(a, b, c, d) · log_ratio(a, b, c, d)
  *   badge(lr, freq_ref) · accented_forms(textos, términos) → Map término → Map forma → n
  *   bd = { db, sqlite3 } (R2.sql)
@@ -126,6 +127,41 @@
 
   function tokenize(text) {
     return crudos(text).map((w) => (ASCII.test(w) ? w : plegarToken(w)));
+  }
+
+  // Signos que separan tramos: una expresión de varias palabras (engine/expresiones.js) no cruza la puntuación de frase
+  // o de inciso, las comillas, los paréntesis ni los saltos de línea o tabuladores (las filas de las listas de
+  // asistencia y de votación). Ninguno es parte de un token, así que los tokens son los mismos que los de crudos.
+  const SIGNOS_CORTE = '.,;:!?¿¡()[]{}«»"“”„–—…•|\n\r\t';
+  const CORTE = new Uint8Array(0x2030);
+  for (const ch of SIGNOS_CORTE) CORTE[ch.charCodeAt(0)] = 1;
+  const RX_CORTE = new RegExp(`[${SIGNOS_CORTE.replace(/[\]\\^-]/g, '\\$&')}]+`);
+  function hayCorte(t, desde, hasta) {
+    for (let i = desde; i < hasta; i++) { const c = t.charCodeAt(i); if (c < 0x2030 && CORTE[c] === 1) return true; }
+    return false;
+  }
+  /** Tokens en minúsculas y aún sin plegar, en tramos sin signos de corte dentro: [[token, …], …]. */
+  function crudosTramos(text) {
+    const t = C.lower(text || '');
+    const tramos = [];
+    if (RAROS.search(t)) {
+      for (const s of t.split(RX_CORTE)) { const x = TOKEN_COMPLETO.findall(s); if (x.length) tramos.push(x); }
+      return tramos;
+    }
+    const rx = TOKEN_SIMPLE._re('g');
+    rx.lastIndex = 0;
+    let actual = [], fin = 0, m;
+    while ((m = rx.exec(t)) !== null) {
+      if (actual.length && hayCorte(t, fin, m.index)) { tramos.push(actual); actual = []; }
+      actual.push(m[0]);
+      fin = m.index + m[0].length;
+    }
+    if (actual.length) tramos.push(actual);
+    return tramos;
+  }
+  /** tokenize por tramos: [[token plegado, …], …]. */
+  function tokenizeTramos(text) {
+    return crudosTramos(text).map((tr) => tr.map((w) => (ASCII.test(w) ? w : plegarToken(w))));
   }
 
   /** [Map término plegado → apariciones, total de tokens]. */
@@ -408,7 +444,7 @@
   R2.keyness = Object.freeze({
     KEYNESS_VERSION, MIN_FREQ, UMBRAL_G2, P_UMBRAL, LIMITE_NEGATIVOS, LOTE_SQL, CORTE_EXCLUSIVO, CORTE_MUY_DISTINTIVO,
     CORRECCION_CERO, INSIGNIAS, STOPWORDS, FORMAS_MAX_CHARS, DIACRITICOS_CP,
-    keyness, fold, tokenize, crudos, count_terms: countTerms, plegar_token: plegarToken, plegar_caracter: plegarCaracter,
+    keyness, fold, tokenize, crudos, crudos_tramos: crudosTramos, tokenize_tramos: tokenizeTramos, SIGNOS_CORTE, count_terms: countTerms, plegar_token: plegarToken, plegar_caracter: plegarCaracter,
     corpus_tokens: corpusTokens, reference_counts: referenceCounts, g2_signed: g2Signed, log_ratio: logRatio, badge,
     accented_forms: accentedForms, varints,
   });

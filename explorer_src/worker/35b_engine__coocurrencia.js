@@ -4,7 +4,8 @@
  * Red de coocurrencias de una biblioteca y temas por detección de comunidades.
  *
  *  1. Vocabulario: los términos de sobreuso del léxico de la biblioteca (R2.partition.keynessColeccion, que guarda los
- *     últimos resultados), en su orden de G², sin cifras ni las palabras vacías publicadas de la lengua del país
+ *     últimos resultados), en su orden de G², sin cifras (con dígitos o con letras: «treinta», «mil») ni las palabras
+ *     vacías publicadas de la lengua del país
  *     (Snowball, la lista conservadora que usa quanteda por defecto: portugués para Brasil y Portugal, español para el
  *     resto; se conservan «estado» y «estados», que Snowball incluye como formas de «estar»).
  *  2. Texto: el mismo que analiza el léxico (solo discurso o texto completo, con la misma segmentación), tokenizado con
@@ -42,7 +43,7 @@
 
   const DEFECTOS = Object.freeze({
     solo_discurso: true, unidad: 'intervencion', fragmento: 20, vocabulario: 250, vecinos: 10,
-    resolucion: 1.0, semilla: 1, g2_min: 10.83, excluir: [],
+    resolucion: 1.0, semilla: 1, g2_min: 10.83, excluir: [], expresiones: true,
   });
   const LEXICO = Object.freeze({ limit: 2000, limit_negative: 200, min_freq: 5 });   // las mismas que pide la página
   const TROZO = 2000;             // intervenciones por lectura
@@ -51,6 +52,7 @@
   const LECTURA_VARIADA = 100;    // selección variada: la mejor de cada tema por turnos
   const BM25_K1 = 1.2, BM25_B = 0.75;   // los de FTS5 y el motor de tendencias
   const PORTUGUES = new Set(['BR', 'PT']);
+  const MIN_TEMA = 3;             // una comunidad de menos términos no es un tema: se lista aparte, como términos sueltos
 
   // La lectura y el recuento van por trozos alternos, así que forman una sola fase: si fueran dos, la barra de
   // progreso saltaría adelante y atrás.
@@ -64,9 +66,11 @@
   const redondea = (x, d = 4) => (Number.isFinite(x) ? Math.round(x * 10 ** d) / 10 ** d : x);
 
   // ------------------------------------------------------------------------------------------------ palabras vacías
-  const lenguaDe = (pais) => (PORTUGUES.has(String(pais || '').toUpperCase()) ? 'pt' : 'es');
+  const EX = R2.expresiones;
+  const lenguaDe = (pais) => (EX ? EX.lenguaDe(pais) : (PORTUGUES.has(String(pais || '').toUpperCase()) ? 'pt' : 'es'));
   const cacheVacias = new Map();
   function vaciasDe(pais) {
+    if (EX) return EX.vaciasDe(pais);
     const lengua = lenguaDe(pais);
     if (!cacheVacias.has(lengua)) {
       const reg = R2.datos && R2.datos.vacias_lengua;
@@ -121,6 +125,10 @@
     const prog = crearProgreso(ctx, pedidos.length);
     const pais = ctx.nucleo && ctx.nucleo.pais ? ctx.nucleo.pais : '';
     const vacias = vaciasDe(pais);
+    // Cifras escritas con letras («treinta», «mil»): en las transcripciones son fechas, artículos y votaciones leídos.
+    const numerales = EX ? EX.numeralesDe(pais) : new Set();
+    // Expresiones de varias palabras detectadas al construir la base: cada una es una unidad del texto y un nodo.
+    const ixExpr = o.expresiones && EX ? EX.cargar(bd) : null;
 
     // 1. Vocabulario del léxico (con su caché) y el modo de texto que usó.
     prog.emitir('lexico', 0, 0, 0, true);
@@ -138,15 +146,16 @@
       if (vocab.length >= o.vocabulario) break;
       const w = x.term;
       if (!w || w.length < 2) continue;
-      if (/^[0-9]+$/.test(w)) { descartadas.cifras++; continue; }
+      if (/^[0-9]+$/.test(w) || numerales.has(w)) { descartadas.cifras++; continue; }
       if (vacias.has(w)) { descartadas.vacias++; continue; }
       if (excluir.has(w)) { descartadas.excluidos++; continue; }
-      vocab.push({ term: w, display: x.display || w, freq: Number(x.freq || 0), g2: Number(x.g2 || 0) });
+      if (x.expresion && !ixExpr) continue;                        // sin unir expresiones no pueden aparecer en el texto
+      vocab.push({ term: w, display: x.display || w, freq: Number(x.freq || 0), g2: Number(x.g2 || 0), expresion: !!x.expresion });
     }
     const V = vocab.length;
     const base = {
       parametros: Object.assign({}, o, { lexico: Object.assign({}, LEXICO), modo_texto: lex.modo_texto || null,
-        vacias: fuenteVacias(pais) }),
+        vacias: fuenteVacias(pais), expresiones: { unidas: !!ixExpr, inventario: ixExpr ? ixExpr.n : 0 } }),
       vocabulario: { disponibles: (lex.terms || []).length, usados: V, descartados: descartadas, desde_cache: !!lex.desde_cache },
     };
     if (V < 3) {
@@ -190,7 +199,7 @@
       else textos = (rapida ? await P.prose_texts_rapida(ctx, filas) : await P.prose_texts(ctx, filas))[0];
       tLectura += ahora() - tl;
       for (let d = 0; d < textos.length; d++) {
-        const toks = K.tokenize(textos[d]);
+        const toks = ixExpr ? EX.unidadesTexto(ixExpr, textos[d]) : K.tokenize(textos[d]);
         nTokens += toks.length;
         nDocs++;
         // Términos del vocabulario presentes en la intervención y su frecuencia (cobertura y puntuación de lectura).
@@ -348,15 +357,19 @@
       n_terminos: m.length,
       g2_lexico: redondea(m.reduce((x, i) => x + vocab[i].g2, 0), 1),
       g2_medio: redondea(m.reduce((x, i) => x + vocab[i].g2, 0) / Math.max(1, m.length), 1),
-      terminos: m.map((i) => ({ i, term: vocab[i].term, display: vocab[i].display, fuerza_interna: redondea(interna[i], 3) })),
+      terminos: m.map((i) => ({ i, term: vocab[i].term, display: vocab[i].display, expresion: vocab[i].expresion, fuerza_interna: redondea(interna[i], 3) })),
       intervenciones: cobertura[c],
       porcentaje: nDocs ? redondea(100 * cobertura[c] / nDocs, 1) : 0,
       peso_interno: redondea(pesoInterno[c], 3),
       lectura: topTema[c].map((x) => fila(x, c)),
     }))
       .sort((a, b) => b.g2_medio - a.g2_medio || b.intervenciones - a.intervenciones || a.id - b.id);
+    // Las comunidades de uno o dos términos no son temas (nodos casi aislados): pasan a la lista de términos sueltos.
+    const sueltos = [];
+    for (const tm of temas.filter((x) => x.n_terminos < MIN_TEMA)) for (const t of tm.terminos) sueltos.push(t);
+    temas.splice(0, temas.length, ...temas.filter((x) => x.n_terminos >= MIN_TEMA));
     // Renumerar los temas por su G² medio en el léxico, para que el primero sea el más característico de la biblioteca.
-    const renum = new Int32Array(nc);
+    const renum = new Int32Array(nc).fill(-1);
     temas.forEach((tm, k) => { renum[tm.id] = k; tm.id = k; });
 
     const global = topGlobal.map((x) => fila(x));
@@ -383,7 +396,7 @@
     }
 
     const nodos = vocab.map((v, i) => ({
-      i, term: v.term, display: v.display, freq: v.freq, g2_lexico: redondea(v.g2, 2), df_unidad: dfUnidad[i],
+      i, term: v.term, display: v.display, expresion: v.expresion, freq: v.freq, g2_lexico: redondea(v.g2, 2), df_unidad: dfUnidad[i],
       df_intervencion: dfDoc[i], comunidad: renum[com[i]], fuerza: redondea(fuerza[i], 3), grado: grado[i],
     }));
     const salidaAristas = aristas.map(([i, j, a, e, g2, w]) => ({ a: i, b: j, co: a, esperado: redondea(e, 3), g2: redondea(g2, 2), fuerza: redondea(w, 4) }));
@@ -391,13 +404,14 @@
     tiempos.total = ahora() - t0;
 
     return Object.assign(base, {
-      nodos, aristas: salidaAristas, comunidades: temas,
+      nodos, aristas: salidaAristas, comunidades: temas, sueltos,
       lectura: { global, variada, metadatos, longitud_media: redondea(longMedia, 1),
         metodo: { formula: 'BM25', k1: BM25_K1, b: BM25_B, peso_termino: 'ln(1 + G² del término en el léxico)' } },
       estadisticas: {
         n_intervenciones: nDocs, n_unidades: N, tokens: nTokens, pares_posibles: nPares, pares_observados: observados,
         densidad: nPares ? redondea(observados / nPares, 4) : 0, aristas_significativas: positivos,
-        aristas_conservadas: aristas.length, n_comunidades: nc, modularidad: redondea(lei.modularidad, 4),
+        aristas_conservadas: aristas.length, n_comunidades: temas.length, n_comunidades_leiden: nc, n_sueltos: sueltos.length,
+        modularidad: redondea(lei.modularidad, 4),
         calidad: redondea(lei.calidad, 4), peso_total: redondea(pesoTotal, 3),
         memoria_recuento_bytes: co.byteLength,
       },

@@ -52,3 +52,7 @@
   .coo-lf .coo-dot{display:none}
   .coo-lf-n{grid-area:n}.coo-lf-q{grid-area:q}.coo-lf-m{grid-area:m}.coo-lf-b{grid-area:b}.coo-lf-t{grid-area:t}
 }
+/* Expresiones de varias palabras en el léxico */
+.lex-expr{display:inline-block;margin-left:5px;padding:0 4px;border-radius:3px;font:500 9.5px/1.5 var(--mono);color:var(--text-faint);border:1px solid var(--border-soft);vertical-align:1px}
+.lex-row.es-expr .lex-term{font-style:italic}
+.coo-sueltos{margin-top:12px}

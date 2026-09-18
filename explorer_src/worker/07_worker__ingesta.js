@@ -43,6 +43,7 @@
     { id: 'indices', etiqueta: 'Creando índices' },
     { id: 'optimizar', etiqueta: 'Compactando el índice de palabras' },
     { id: 'estadisticas', etiqueta: 'Estadísticas y filtros' },
+    { id: 'expresiones', etiqueta: 'Detectando expresiones de varias palabras' },
   ]);
   const FASE = Object.fromEntries(FASES.map((f, i) => [f.id, { etiqueta: f.etiqueta, indice: i + 1 }]));
 
@@ -355,6 +356,22 @@
       });
       vigia.parar();
       vigia = null;
+
+      // ---------------------------------------------------------------- 6. expresiones de varias palabras
+      // Se detectan una vez, con la estadística de todo el corpus (R2.expresiones), y se guardan en la base. Un fallo
+      // aquí no impide abrir el corpus: queda un aviso y el léxico y las coocurrencias trabajan con palabras sueltas.
+      let expresiones = null;
+      if (opciones.expresiones !== false && R2.expresiones) {
+        const tE = ahora();
+        emitir('expresiones', 0, 1);
+        try {
+          expresiones = await R2.expresiones.detectar({ db, sqlite3, pais: pais || '', alProgreso: (h, t) => emitir('expresiones', h, t) });
+        } catch (e) {
+          avisos.push(E.aviso('SIN_EXPRESIONES', { error: e && e.message ? e.message : String(e) }));
+        }
+        tiempos.expresiones = ahora() - tE;
+        emitir('expresiones', 1, 1);
+      } else emitir('expresiones', 1, 1);
       tiempos.hasta_listo = ahora() - tInicio;
 
       const memoria = C.memoria(sqlite3);
@@ -382,6 +399,7 @@
           bloques: nBloques,
           formato_texto: C.FORMATO_TEXTO,
           optimizado: optimizar,
+          expresiones,
           valores_distintos: distintos,
           latidos,
         },

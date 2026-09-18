@@ -28,17 +28,19 @@
   'use strict';
 
   const FASES = Object.freeze([
-    Object.freeze({ id: 'leer', etiqueta: 'Leyendo y comprobando el archivo', peso: 0.76 }),
-    Object.freeze({ id: 'guardar', etiqueta: 'Guardando e indexando intervenciones', peso: 0.04 }),
-    Object.freeze({ id: 'indices', etiqueta: 'Creando índices', peso: 0.02 }),
-    Object.freeze({ id: 'optimizar', etiqueta: 'Compactando el índice de palabras', peso: 0.10 }),
-    Object.freeze({ id: 'estadisticas', etiqueta: 'Estadísticas y filtros', peso: 0.08 }),
+    Object.freeze({ id: 'leer', etiqueta: 'Leyendo y comprobando el archivo', peso: 0.44 }),
+    Object.freeze({ id: 'guardar', etiqueta: 'Guardando e indexando intervenciones', peso: 0.02 }),
+    Object.freeze({ id: 'indices', etiqueta: 'Creando índices', peso: 0.01 }),
+    Object.freeze({ id: 'optimizar', etiqueta: 'Compactando el índice de palabras', peso: 0.06 }),
+    Object.freeze({ id: 'estadisticas', etiqueta: 'Estadísticas y filtros', peso: 0.05 }),
+    Object.freeze({ id: 'expresiones', etiqueta: 'Detectando expresiones de varias palabras', peso: 0.42 }),
   ]);
 
   const CONCURRENTES = new Set(['guardar']);
 
   /** Duración de las fases finales respecto a la lectura completa (medido con un corpus de 100 MB). */
-  const RESPECTO_A_LEER = Object.freeze({ indices: 0.02, optimizar: 0.12, estadisticas: 0.08 });
+  // expresiones: medido en Brasil (lectura 84 s, expresiones 120 s) y El Salvador (4 s y 10 s).
+  const RESPECTO_A_LEER = Object.freeze({ indices: 0.02, optimizar: 0.12, estadisticas: 0.08, expresiones: 1.4 });
 
   const UMBRAL_FASE_LARGA_MS = 5000;
 
@@ -156,7 +158,8 @@
       return restanteDe(leer, D, t)
         + restanteDe(porId.get('indices'), D * RESPECTO_A_LEER.indices, t)
         + restanteDe(porId.get('optimizar'), D * RESPECTO_A_LEER.optimizar, t)
-        + restanteDe(porId.get('estadisticas'), D * RESPECTO_A_LEER.estadisticas, t);
+        + restanteDe(porId.get('estadisticas'), D * RESPECTO_A_LEER.estadisticas, t)
+        + restanteDe(porId.get('expresiones'), D * RESPECTO_A_LEER.expresiones, t);
     }
 
     function actualizarEta(t) {

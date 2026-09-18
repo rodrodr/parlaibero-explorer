@@ -147,21 +147,69 @@ Legibilidad: la interfaz elige cuántos hitos dibuja según el espacio (`selectM
 filas; el selector permite forzar «principales», «relevantes» o «todos». El gráfico no cede altura: la leyenda es
 plegable y de altura acotada (se pliega sola con más de 12 hitos), y los hitos que no caben se cuentan aparte.
 
+## Expresiones de varias palabras
+
+Al construir la base, una fase más («Detectando expresiones de varias palabras») busca en todo el corpus las secuencias
+que funcionan como una unidad: «seguridad pública», «régimen de excepción», «Fuerzas y Cuerpos de Seguridad del Estado»,
+«reforma tributaria». Se detectan con la estadística del corpus entero porque decidir que una secuencia es una unidad
+exige muchas apariciones, que una biblioteca pequeña no tiene; luego cada biblioteca las reconoce en su texto. Motor en
+`worker/34a_engine__expresiones.js`; quedan en la tabla `expresiones` de la base (forma plegada, forma con tildes,
+apariciones, intervenciones, G², C-value) y el resumen en `meta.expresiones`.
+
+1. **Candidatas**: de 2 a 7 tokens, con palabra de contenido en los extremos (≥ 3 letras, no vacía en Snowball, no cifra)
+   y dentro solo palabras de contenido o conectores de una lista cerrada («de», «la», «y», «para»…). No cruzan la
+   puntuación ni los saltos de línea (`keyness.crudos_tramos`: «Gracias, señor presidente. Buenas tardes» no es una
+   expresión, ni se encadenan las filas de las listas de asistencia) ni las cifras, con dígitos o con letras: en las
+   transcripciones las fechas, los artículos y los recuentos de votos se leen en voz alta («dos mil veintidós», «romano
+   seis»), y en El Salvador eran el 7,5 % de las expresiones sin ser ninguna un concepto.
+2. **Recuento**: en corpus de más de 30 millones de tokens, una muestra fija de 1 de cada M intervenciones (M ≈ tokens /
+   20 millones) descubre las candidatas que se repiten, con un filtro de Bloom para las vistas una sola vez, y una
+   segunda pasada las cuenta exactamente en todo el corpus; en los menores basta una pasada. Memoria acotada: tablas hash
+   con los campos de cada hueco juntos y etiquetas de un byte, Bloom por bloques de una línea de caché.
+3. **Selección**: frecuencia ≥ máx(20, 0,25 por millón de tokens) y al menos 3 intervenciones; no ser un trozo de una
+   secuencia más larga (si casi siempre la precede o la sigue la misma palabra, la unidad es la secuencia larga: así caen
+   las ventanas de las fórmulas leídas una y otra vez y «corte suprema» sin «de justicia»; la palabra mayoritaria de cada
+   lado se estima en la misma pasada con el voto de Boyer y Moore); asociación positiva y significativa (G² ≥ 10,83) entre
+   la parte izquierda y la última palabra; y frecuencia independiente ≥ F (la frecuencia menos la de su contenedor más
+   frecuente: «unidos de américa» no se guarda aparte de «estados unidos de américa»).
+4. **Léxico**: cada expresión presente en la biblioteca entra en el léxico con el mismo G², log-ratio e insignias que las
+   palabras, marcada «expr.», frente a su frecuencia en el resto del corpus. Se cuentan todas sus apariciones, también
+   dentro de otras más largas, y las palabras siguen contando dentro de ellas («seguridad» incluye «seguridad pública»).
+   Así una expresión rara en el corpus se puede distinguir aunque la biblioteca sea pequeña: la decisión de que es una
+   unidad ya está tomada con todo el corpus.
+5. **Coocurrencias**: con la casilla «expresiones» (activa por defecto), cada frase se parte en el menor número de
+   unidades, a igualdad las más largas, y cada expresión es un nodo: «seguridad pública» se relaciona con «policía
+   nacional civil» o «pandillas» en lugar de consigo misma.
+
+| corpus | tokens | expresiones | detección | construcción sin → con | medido en |
+|---|---|---|---|---|---|
+| El Salvador | 14,1 M | 19.995 | 4,6 s | 4,4 → 8,9 s | Chrome |
+| España | 152,6 M | 84.846 | 64 s | 45 → 110 s | Node |
+| Brasil | 207,5 M | 119.812 | 99 s | 83 → 182 s | Node |
+
+La fase se paga al construir la base, no en cada sesión: la base se recuerda en el navegador (OPFS o IndexedDB, también
+en el HTML autónomo) y se reabre con sus expresiones; solo vuelve a pagarse si cambia la versión de la aplicación o si el
+navegador no deja guardarla. Límites conocidos: se pierden las pocas expresiones que llevan un número («Fome Zero»,
+«três poderes», «dos tercios»); quedan nombres con su estado dentro de una misma fila de asistencia («martínez
+presente») y fórmulas del género («publicado en el diario oficial número»), que el léxico no marca como características
+salvo que una biblioteca abuse de ellas; y las entidades de más de 7 tokens solo entran por sus partes.
+
 ## Coocurrencias y temas
 
 La pestaña «Coocurrencias» de una biblioteca construye la red de coocurrencias de sus términos característicos y
 detecta en ella temas con el algoritmo de Leiden. Motor en `worker/35b_engine__coocurrencia.js`, ruta
 `GET /collections/{cid}/cooccurrence` en `worker/36b_engine__rutas_coocurrencia.js`, Leiden en `worker/35a_engine__leiden.js`.
 
-1. **Vocabulario**: los términos de sobreuso del léxico de la biblioteca (100, 250 o 500, de mayor a menor G²), sin cifras
-   ni las palabras vacías publicadas de la lengua del corpus: Snowball (BSD), la lista conservadora que quanteda usa por
+1. **Vocabulario**: los términos de sobreuso del léxico de la biblioteca (100, 250 o 500, de mayor a menor G²), también las
+   expresiones de varias palabras, sin cifras (con dígitos o con letras) ni las palabras vacías publicadas de la lengua del corpus: Snowball (BSD), la lista conservadora que quanteda usa por
    defecto, en portugués para Brasil y Portugal y en español para el resto (`datos/palabras_vacias.json`, generado por
    `tools/palabras_vacias.py`). Se conservan «estado» y «estados», que Snowball incluye como formas de «estar». Se probó
    antes stopwords-iso y se descartó: trata como vacías palabras centrales del vocabulario político («estado», «poder»,
    «trabajo», «sistema», «general», «medio», «país») y en la biblioteca de El Salvador eliminaba quince de la red. El léxico se guarda en
    memoria por biblioteca y opciones, así que abrir las coocurrencias después del léxico no lo recalcula.
 2. **Texto**: el mismo que analiza el léxico, con la misma segmentación del discurso y el mismo plegado.
-3. **Unidad de contexto**: la intervención, o fragmentos consecutivos de 20 palabras.
+3. **Unidad de contexto**: la intervención, o fragmentos consecutivos de 20 palabras; con las expresiones unidas, cada
+   expresión cuenta como una palabra.
 4. **Recuento** en matriz triangular densa: con el vocabulario del léxico la red es casi completa (99,8 % de los pares en
    la biblioteca de reforma tributaria de Brasil), así que la matriz densa ocupa la mitad que una lista de adyacencia.
 5. **Asociación**: G² de Dunning con signo sobre la tabla 2×2 de unidades; se conservan los pares con asociación positiva
