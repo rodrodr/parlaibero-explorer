@@ -1,0 +1,6 @@
+# Datos y plantilla original: no se publican (los CSV están en Dataverse y la plantilla no se toca)
+data/
+template/
+.claude/
+.playwright-mcp/
+.DS_Store

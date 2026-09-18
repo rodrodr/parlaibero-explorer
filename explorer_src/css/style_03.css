@@ -1,0 +1,92 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) {
+  --accent:       #6a1a24;
+  --accent-hover: #7d2330;
+  --accent-soft:  #f5e9ea;
+  --accent-text:  #6a1a24;
+  --bg-active:    #f1e3e4;
+
+
+  --danger:       #c21d1d;
+
+
+
+  --acot-cf-ink: #963c16; --acot-cf-rule: #bb7349; --acot-cf-bg: rgba(150,60,22,.07);
+
+
+  --ideo-EI: #a3261d;
+
+
+
+
+
+  --r2-capital:  #6a1a24;
+  --r2-ancla:    #8c8274;
+  --r2-reticula: rgba(40,30,15,.028);
+
+
+  --r2-meta:     #6b655b;
+}
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"])[data-theme="dark"] {
+  --accent:       #e89aa5;
+  --accent-hover: #eeaab4;
+  --accent-soft:  #3a2328;
+  --accent-text:  #f0b3bc;
+  --bg-active:    #3b262a;
+
+  --danger:       #ff6b5b;
+
+  --acot-cf-ink: #eda47a; --acot-cf-rule: #a8633c; --acot-cf-bg: rgba(237,164,122,.10);
+
+
+
+  --ideo-EI: #b04a40;
+
+  --r2-capital:  #e89aa5;
+  --r2-ancla:    var(--folio-anchor);
+  --r2-reticula: rgba(255,255,255,.016);
+  --r2-meta:     var(--folio-ash);
+}
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .btn.primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); filter: none; }
+
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) #hits .hit.sel .hit-date { color: var(--text-soft); }
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .pill button { opacity: .8; }
+
+
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .spec-bar:has(.spec-seg:focus-visible) { overflow: visible; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .spec-seg:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; box-shadow: none; position: relative; z-index: 1; }
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) ::selection { background: var(--accent); color: #fff; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"])[data-theme="dark"] ::selection { color: #17171a; }

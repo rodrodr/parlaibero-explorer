@@ -1,0 +1,11 @@
+{
+ "normalizacion": {
+  "party": {
+   "": "Sin identificar"
+  }
+ },
+ "edicion": {
+  "nombre": "Diarios Explorer",
+  "build_id": "dev"
+ }
+}

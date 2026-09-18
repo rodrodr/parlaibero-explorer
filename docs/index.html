@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="es" data-theme="light" data-estilo="editorial">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>ParlaIbero · Explorador de Diarios de Sesiones</title>
+<script>
+
+
+
+
+
+
+
+
+
+
+
+
+(function () {
+  'use strict';
+  var faltan = [];
+  function prueba(nombre, fn) {
+    var ok = false;
+    try { ok = !!fn(); } catch (e) { ok = false; }
+    if (!ok) faltan.push(nombre);
+  }
+  prueba('WebAssembly', function () { return typeof WebAssembly === 'object' && typeof WebAssembly.instantiate === 'function'; });
+  prueba('Web Workers', function () { return typeof Worker === 'function'; });
+  prueba('Blob y URL.createObjectURL', function () { return typeof Blob === 'function' && typeof URL === 'function' && typeof URL.createObjectURL === 'function'; });
+  prueba('TextDecoder', function () { return typeof TextDecoder === 'function'; });
+  prueba('BigInt64Array', function () { return typeof BigInt64Array === 'function'; });
+  prueba('expresiones regulares con la marca v', function () { return new RegExp('[\\p{L}--[a-z]]', 'v').test('é'); });
+  prueba('miradas atrás en expresiones regulares', function () { return new RegExp('(?<=a)b').test('ab'); });
+  prueba('<dialog>', function () { return typeof HTMLDialogElement === 'function'; });
+  prueba('sintaxis de JavaScript moderna', function () {
+
+    return new Function('class A { #x = 1; static s = 2; get x() { return this.#x; } }\n'
+      + 'const o = { a: { b: 1 } }; let z = null; z ??= 3;\n'
+      + 'return new A().x + (o?.a?.b ?? 0) + A.s + z === 7 && [1, 2].at(-1) === 2 && Object.hasOwn(o, "a");')();
+  });
+  if (/(^|[#&])r2-navegador-no-apto(&|$)/.test(location.hash)) faltan.push('prueba forzada (#r2-navegador-no-apto)');
+
+  window.R2_NAVEGADOR = { apto: faltan.length === 0, faltan: faltan };
+  if (!faltan.length) return;
+
+  try { window.stop(); } catch (e) {   }
+  var escapar = function (s) {
+    return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; });
+  };
+  var lista = '';
+  for (var i = 0; i < faltan.length; i++) lista += '<li>' + escapar(faltan[i]) + '</li>';
+  document.documentElement.innerHTML = '<head><meta charset="utf-8"><title>Diarios Explorer · navegador no compatible</title></head>'
+    + '<body style="margin:0;background:#f7f6f3;color:#1d1b18;font:15px/1.55 -apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif">'
+    + '<main role="alert" id="r2-navegador-no-apto" style="max-width:40em;margin:12vh auto;padding:0 20px">'
+    + '<h1 style="font-size:22px;font-weight:650;margin:0 0 10px">Este navegador no puede abrir Diarios Explorer</h1>'
+    + '<p>La página necesita un navegador reciente: <b>Chrome o Edge 112</b> o posterior, <b>Firefox 116</b> o posterior, '
+    + 'o <b>Safari 17</b> o posterior. Actualice el navegador o abra este mismo archivo con otro.</p>'
+    + '<p style="color:#5f5a52;font-size:13px">A este navegador le falta:</p><ul style="color:#5f5a52;font-size:13px">' + lista + '</ul>'
+    + '<p style="color:#5f5a52;font-size:13px">Los datos se eligen al abrir la página: un CSV de intervenciones por país.</p>'
+    + '</main></body>';
+})();
+//# sourceURL=2rep-standalone/src/cargas/navegador.js
+</script>
+<link rel="stylesheet" href="app.css?v=bef49936e79c7c79">
+</head>
+<body>
+<div id="app" class="no-reader">
+
+  
+
+
+
+
+  <header>
+    <div class="hrow hrow-top">
+      
+<button class="brand" id="corpusBtn" title="Sobre este corpus: el conjunto de datos y cómo citarlo">
+        <h1>ParlaIbero</h1>
+        <span class="sub" id="corpusStat">cargando…</span>
+        <span class="sub" style="opacity:.6">▾</span>
+      </button>
+
+      <span class="grow"></span>
+
+      <div class="tabs" role="group" aria-label="Vista">
+        <button data-view="search" aria-pressed="true" title="Explorar todo el corpus">Explorar</button>
+        <button data-view="library" aria-pressed="false" title="Sus grupos curados de intervenciones">Mis bibliotecas</button>
+      </div>
+
+      <span class="sep" aria-hidden="true"></span>
+
+      <button class="btn ghost icon" id="resetBtn" title="Volver al estado inicial: borra el texto, los filtros, el modo y cierra el lector">↺</button>
+      <button class="btn ghost icon" id="themeBtn" title="Claro / oscuro">◐</button>
+      <button class="btn ghost icon" id="settingsBtn" title="Ajustes: estilo y tema">⚙</button>
+      <button class="btn ghost icon" id="helpBtn" title="Ayuda y atajos">?</button>
+    </div>
+
+    <div class="hrow hrow-search">
+      
+
+
+
+
+
+      <div class="qwrap">
+        <span class="icon">⌕</span>
+        
+<input id="q" type="search" autocomplete="off" spellcheck="false"
+               placeholder="Buscar en las intervenciones… p. ej. presupuesto + educación | &quot;derechos humanos&quot;">
+        <kbd class="kbd">↵</kbd>
+      </div>
+
+      
+
+<input type="checkbox" id="variants" hidden>
+      <button class="btn primary" id="go">Buscar</button>
+    </div>
+  </header>
+
+  
+  <aside id="side" class="panel">
+    <div class="panel-head">
+      <h2 id="sideTitle">Filtros</h2>
+      <span class="spacer"></span>
+      <button class="btn ghost sm" id="clearFilters">Limpiar</button>
+      
+
+      <button class="btn ghost icon side-fold" id="sideFold" aria-controls="side" aria-expanded="true"
+              aria-label="Plegar el panel" title="Plegar el panel para ganar espacio (tecla f)">«</button>
+    </div>
+    <div id="activePills" class="filter-pills" hidden></div>
+    <div class="scroll" id="filters"></div>
+    <button class="side-rail" id="sideRail" aria-controls="side" aria-expanded="false"
+            aria-label="Desplegar el panel" title="Desplegar el panel (tecla f)">
+      <span class="rail-ico" aria-hidden="true">»</span>
+      <span class="rail-lbl" id="sideRailLbl">Filtros</span>
+      <span class="rail-n" id="sideRailN" hidden></span>
+    </button>
+  </aside>
+
+  
+  <section id="list" class="panel">
+    <div class="panel-head">
+      <div class="result-meta" id="resultMeta"><strong>—</strong></div>
+      <span class="spacer"></span>
+      <select id="order" class="btn sm" style="padding:4px 6px" title="Ordenar">
+        <option value="relevance">Relevancia</option>
+        <option value="date_asc">Fecha ↑</option>
+        <option value="date_desc">Fecha ↓</option>
+        <option value="length_desc">Más largas</option>
+        <option value="length_asc">Más cortas</option>
+      </select>
+      <button class="btn sm" id="statsBtn" aria-expanded="false" aria-controls="trendPanel" aria-label="Tendencia"
+              title="Tendencia mensual de los términos y distribución de los resultados (tecla t)">📈<span class="bt"> Tendencia</span></button>
+      <button class="btn sm" id="saveAllBtn" title="Guardar todos los resultados en una biblioteca">Guardar todo</button>
+      
+      <button class="btn sm" id="lexExportBtn" hidden title="Descargar la tabla de léxico en CSV">Exportar tabla</button>
+      <button class="btn sm" id="exportBtn" title="Exportar los resultados">Exportar</button>
+      
+
+      <button class="btn danger sm" id="delLibBtn" hidden aria-label="Borrar biblioteca"
+              title="Borrar esta biblioteca (pide confirmación y ofrece exportarla antes)">🗑<span class="bt"> Borrar biblioteca</span></button>
+      
+
+      <button class="btn ghost icon side-fold" id="listFold" aria-controls="list" aria-expanded="true"
+              aria-label="Plegar la lista" title="Plegar la lista para leer a más ancho (tecla l)">«</button>
+    </div>
+    
+
+
+
+<div id="qexp" class="qexp" role="status" aria-live="polite" hidden></div>
+    
+
+
+
+    <div class="scroll" id="listScroll">
+      
+      <div id="trendPanel" class="trend-panel" hidden></div>
+      
+      <div id="spectrum" class="spectrum" hidden></div>
+      <div id="hits"></div>
+    </div>
+    <button class="side-rail" id="listRail" aria-controls="list" aria-expanded="false"
+            aria-label="Desplegar la lista" title="Desplegar la lista (tecla l)">
+      <span class="rail-ico" aria-hidden="true">»</span>
+      <span class="rail-lbl">Intervenciones</span>
+      <span class="rail-n v" id="listRailN" hidden></span>
+    </button>
+  </section>
+
+  
+  <section id="read" class="panel">
+    <div class="panel-head">
+      <h2 id="readTitle">Intervención</h2>
+      <div class="rmodes" id="readModes" role="group" aria-label="Vista del lector">
+        <button data-rmode="speech" aria-pressed="true" aria-label="Discurso" title="La intervención sola, como pliego del Diario (tecla s)">📄<span class="bt"> Discurso</span></button>
+        <button data-rmode="session" aria-pressed="false" aria-label="Sesión corrida" title="Toda la sesión seguida, con esta intervención marcada (tecla s)">📖<span class="bt"> Sesión corrida</span></button>
+      </div>
+      
+      <div class="rmodes" id="careoModes" role="group" aria-label="Tipo de careo" hidden>
+        <button data-cmode="synchronic" aria-pressed="true" title="Réplicas en la misma sesión: alusiones, interrupciones y turnos cercanos">Misma sesión</button>
+        <button data-cmode="diachronic" aria-pressed="false" title="Otras intervenciones del mismo diputado, parecidas y alejadas en el tiempo">Mismo diputado</button>
+      </div>
+      <span class="spacer"></span>
+      <div id="sessTools" class="sess-tools" hidden>
+        <button class="btn sm" id="sessRef" title="Volver a la intervención de referencia">🎯 Ir a la referencia</button>
+        <select id="sessJump" class="btn sm" title="Saltar a una intervención de la sesión"></select>
+      </div>
+      
+      <div id="careoTools" class="careo-tools" hidden>
+        <select id="careoPick" class="btn sm" title="Réplica propuesta (heurística)" aria-label="Réplica propuesta"></select>
+        <button class="btn ghost icon" id="careoSwap" title="Intercambiar los pliegos">⇄</button>
+        <button class="btn sm" id="careoBack" title="Volver al lector de la intervención de referencia (tecla c)">Volver al lector</button>
+      </div>
+      <span id="careoSlot" class="careo-slot">
+        <button class="btn sm" id="careoBtn" aria-pressed="false" aria-label="Carear" title="Comparar esta intervención con una réplica, en dos pliegos (tecla c)">⚔<span class="bt"> Carear</span></button>
+      </span>
+      
+      <button class="btn sm" id="addBtn" aria-label="Añadir a una biblioteca" title="Guardar esta intervención en una biblioteca (tecla a)">+<span class="bt"> Biblioteca</span></button>
+      <button class="btn ghost icon" id="wideBtn" title="Ensanchar lectura">⇔</button>
+      <button class="btn ghost icon" id="closeRead" title="Cerrar (Esc)">✕</button>
+    </div>
+    <div class="scroll" id="reader"></div>
+  </section>
+</div>
+
+<div id="toasts" popover="manual"></div>
+
+
+<input type="file" id="importLibFile" accept=".2replib,.json,application/json" tabindex="-1" aria-label="Archivo .2replib que importar" style="position:fixed;left:0;top:0;width:1px;height:1px;margin:0;padding:0;border:0;opacity:0;overflow:hidden;pointer-events:none">
+
+
+<dialog id="dlgAdd">
+  <div class="dhead"><h3>Guardar en una biblioteca</h3>
+    <p class="dsub" id="addSub"></p></div>
+  <div class="dbody">
+    <div id="addList"></div>
+    <hr style="border:0;border-top:1px solid var(--border-soft);margin:13px 0">
+    <div class="field"><label>Crear una biblioteca nueva</label>
+      <input id="newColName" placeholder="p. ej. Debate presupuestario — capítulo 3"></div>
+    <div class="field"><label>Nota para estas intervenciones (opcional)</label>
+      <textarea id="addNote" class="note-edit" placeholder="Por qué le interesa este material…"></textarea></div>
+    <div class="field"><label>Etiquetas (separadas por comas)</label>
+      <input id="addTags" placeholder="presupuesto, educación, debate"></div>
+  </div>
+  <div class="dconfirm" id="addBig" role="alert" hidden>
+    <p id="addBigTxt"></p>
+    <label class="chk"><input type="checkbox" id="addBigOk"><span class="lbl" id="addBigLbl"></span></label>
+  </div>
+  <div class="dfoot">
+    <button class="btn ghost" data-close>Cancelar</button>
+    <button class="btn primary" id="addConfirm">Guardar</button>
+  </div>
+</dialog>
+
+<dialog id="dlgExport">
+  <div class="dhead"><h3>Exportar</h3><p class="dsub" id="expSub"></p></div>
+  <div class="dbody">
+    <div class="field"><label>Formato</label>
+      <select id="expFormat">
+        <option value="csv">CSV — para Excel, Numbers, Stata o R</option>
+        <option value="markdown">Markdown — documento legible con el texto completo</option>
+        <option value="json">JSON — para procesar con código</option>
+        <option value="citations">Referencias — una línea citable por intervención</option>
+        <option value="bundle">.2replib — para compartir la biblioteca con un colega</option>
+      </select></div>
+    <label class="chk"><input type="checkbox" id="expText" checked>
+      <span class="lbl">Incluir el texto completo de cada intervención</span></label>
+    <p class="dsub" id="expNote" style="margin-top:11px"></p>
+    <p class="dsub dfuente" id="expFuente"></p>
+    <p class="dsub dsize" id="expSize" aria-live="polite"></p>
+  </div>
+  <div class="dconfirm" id="expBig" role="alert" hidden>
+    <p id="expBigTxt"></p>
+    <label class="chk"><input type="checkbox" id="expBigOk"><span class="lbl" id="expBigLbl"></span></label>
+  </div>
+  <div class="dfoot">
+    <button class="btn ghost" data-close>Cancelar</button>
+    <button class="btn primary" id="expConfirm">Descargar</button>
+  </div>
+</dialog>
+
+
+
+
+
+<dialog id="dlgDelLib" aria-labelledby="delLibTitle" aria-describedby="delLibTxt delLibIrrev delLibExtra">
+  <div class="dhead"><h3 id="delLibTitle">¿Borrar la biblioteca?</h3></div>
+  <div class="dbody">
+    <p class="ddel-txt" id="delLibTxt"></p>
+    <p class="ddel-txt" id="delLibIrrev"><b>No se puede deshacer.</b> Las intervenciones siguen en el corpus: solo se pierde esta selección.</p>
+    <p class="dsub ddel-extra" id="delLibExtra"></p>
+    <div class="ddel-exp" id="delLibExp">
+      <p class="dsub">¿Quiere conservar una copia con sus notas y etiquetas? Expórtela antes.</p>
+      <button type="button" class="btn sm" id="delLibExport">Exportar a .2replib…</button>
+    </div>
+  </div>
+  <div class="dfoot">
+    <button class="btn ghost" data-close autofocus>Cancelar</button>
+    <button class="btn danger fill" id="delLibConfirm">Borrar biblioteca</button>
+  </div>
+</dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dialog id="dlgHelp">
+  <div class="dhead"><h3>Cómo usar el explorador</h3></div>
+  <div class="dbody" id="helpBody"></div>
+  <div class="dfoot"><button class="btn primary" data-close>Entendido</button></div>
+</dialog>
+
+<dialog id="dlgCreditos" aria-labelledby="creditosTitulo">
+  <div class="dhead"><h3 id="creditosTitulo">Créditos y licencias</h3>
+    <p class="dsub">Esta aplicación lleva dentro estos componentes de terceros y no descarga nada de internet.</p></div>
+  <div class="dbody">
+<details class="credito"><summary><b>SQLite 3.53.4 para WebAssembly</b> · dominio público</summary><p class="dsub">Motor de base de datos que construye y consulta el corpus en este navegador.</p><pre class="licencia">LICENCIAS de los archivos de terceros de este directorio
+========================================================
+
+sqlite-wasm-3530400/sqlite3.js, sqlite3.mjs y sqlite3.wasm (SQLite 3.53.4).
+Texto de licencia tal como aparece en la cabecera de sqlite3.js:
+
+/* @preserve
+**
+** LICENSE for the sqlite3 WebAssembly/JavaScript APIs.
+**
+** This bundle (typically released as sqlite3.js or sqlite3.mjs)
+** is an amalgamation of JavaScript source code from two projects:
+**
+** 1) https://emscripten.org: the Emscripten &quot;glue code&quot; is covered by
+**    the terms of the MIT license and University of Illinois/NCSA
+**    Open Source License, as described at:
+**
+**    https://emscripten.org/docs/introducing_emscripten/emscripten_license.html
+**
+** 2) https://sqlite.org: all code and documentation labeled as being
+**    from this source are released under the same terms as the sqlite3
+**    C library:
+**
+** 2022-10-16
+**
+** The author disclaims copyright to this source code.  In place of a
+** legal notice, here is a blessing:
+**
+** *   May you do good and not evil.
+** *   May you find forgiveness for yourself and forgive others.
+** *   May you share freely, never taking more than you give.
+*/
+/* @preserve
+
+Emscripten (código «glue» incluido en sqlite3.js/sqlite3.mjs): MIT License y
+University of Illinois/NCSA Open Source License; texto completo en
+https://emscripten.org/docs/introducing_emscripten/emscripten_license.html
+y https://github.com/emscripten-core/emscripten/blob/main/LICENSE</pre></details>
+<details class="credito"><summary><b>Emscripten</b> · MIT (o University of Illinois/NCSA)</summary><p class="dsub">Código de enlace entre JavaScript y WebAssembly incluido en sqlite3.js.</p><pre class="licencia">Emscripten se distribuye con dos licencias a elegir: la licencia MIT y la University of
+Illinois/NCSA Open Source License. El código «glue» de Emscripten incluido en sqlite3.js se usa
+aquí bajo la licencia MIT, cuyo texto se reproduce a continuación. Texto original de ambas:
+https://github.com/emscripten-core/emscripten/blob/main/LICENSE
+
+------------------------------------------------------------------------------------------
+
+Copyright (c) 2010-2014 Emscripten authors, see AUTHORS file.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</pre></details>
+<details class="credito"><summary><b>EB Garamond</b> · SIL Open Font License 1.1</summary><p class="dsub">Texto del pliego del Diario (subconjunto Latin-1).</p><pre class="licencia">Copyright 2017 The EB Garamond Project Authors (https://github.com/octaviopardo/EBGaramond12)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+https://openfontlicense.org
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+&quot;Font Software&quot; refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+&quot;Reserved Font Name&quot; refers to any names specified as such after the
+copyright statement(s).
+
+&quot;Original Version&quot; refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+&quot;Modified Version&quot; refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+&quot;Author&quot; refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION &amp; CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
+<details class="credito"><summary><b>GFS Didot</b> · SIL Open Font License 1.1, nombre reservado «GFS Didot»</summary><p class="dsub">Títulos del pliego, sin modificar.</p><pre class="licencia">Copyright (c) &lt;17/12/07&gt;, &lt;GREEK FONT SOCIETY&gt; (&lt;http://www.greekfontsociety.org|gfs@greekfontsociety.org&gt;),
+with Reserved Font Name &lt;GFS Didot&gt;.
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+&quot;Font Software&quot; refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+&quot;Reserved Font Name&quot; refers to any names specified as such after the
+copyright statement(s).
+
+&quot;Original Version&quot; refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+&quot;Modified Version&quot; refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+&quot;Author&quot; refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION &amp; CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.</pre></details>
+<details class="credito"><summary><b>DejaVu Sans Mono</b> · Bitstream Vera y DejaVu</summary><p class="dsub">Numeración de párrafos y cifras.</p><pre class="licencia">Fonts are (c) Bitstream (see below). DejaVu changes are in public domain.
+Glyphs imported from Arev fonts are (c) Tavmjong Bah (see below)
+
+Bitstream Vera Fonts Copyright
+------------------------------
+
+Copyright (c) 2003 by Bitstream, Inc. All Rights Reserved. Bitstream Vera is
+a trademark of Bitstream, Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of the fonts accompanying this license (&quot;Fonts&quot;) and associated
+documentation files (the &quot;Font Software&quot;), to reproduce and distribute the
+Font Software, including without limitation the rights to use, copy, merge,
+publish, distribute, and/or sell copies of the Font Software, and to permit
+persons to whom the Font Software is furnished to do so, subject to the
+following conditions:
+
+The above copyright and trademark notices and this permission notice shall
+be included in all copies of one or more of the Font Software typefaces.
+
+The Font Software may be modified, altered, or added to, and in particular
+the designs of glyphs or characters in the Fonts may be modified and
+additional glyphs or characters may be added to the Fonts, only if the fonts
+are renamed to names not containing either the words &quot;Bitstream&quot; or the word
+&quot;Vera&quot;.
+
+This License becomes null and void to the extent applicable to Fonts or Font
+Software that has been modified and is distributed under the &quot;Bitstream
+Vera&quot; names.
+
+The Font Software may be sold as part of a larger software package but no
+copy of one or more of the Font Software typefaces may be sold by itself.
+
+THE FONT SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF COPYRIGHT, PATENT,
+TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL BITSTREAM OR THE GNOME
+FOUNDATION BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING
+ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM OTHER DEALINGS IN THE
+FONT SOFTWARE.
+
+Except as contained in this notice, the names of Gnome, the Gnome
+Foundation, and Bitstream Inc., shall not be used in advertising or
+otherwise to promote the sale, use or other dealings in this Font Software
+without prior written authorization from the Gnome Foundation or Bitstream
+Inc., respectively. For further information, contact: fonts at gnome dot
+org. 
+
+Arev Fonts Copyright
+------------------------------
+
+Copyright (c) 2006 by Tavmjong Bah. All Rights Reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the fonts accompanying this license (&quot;Fonts&quot;) and
+associated documentation files (the &quot;Font Software&quot;), to reproduce
+and distribute the modifications to the Bitstream Vera Font Software,
+including without limitation the rights to use, copy, merge, publish,
+distribute, and/or sell copies of the Font Software, and to permit
+persons to whom the Font Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright and trademark notices and this permission notice
+shall be included in all copies of one or more of the Font Software
+typefaces.
+
+The Font Software may be modified, altered, or added to, and in
+particular the designs of glyphs or characters in the Fonts may be
+modified and additional glyphs or characters may be added to the
+Fonts, only if the fonts are renamed to names not containing either
+the words &quot;Tavmjong Bah&quot; or the word &quot;Arev&quot;.
+
+This License becomes null and void to the extent applicable to Fonts
+or Font Software that has been modified and is distributed under the 
+&quot;Tavmjong Bah Arev&quot; names.
+
+The Font Software may be sold as part of a larger software package but
+no copy of one or more of the Font Software typefaces may be sold by
+itself.
+
+THE FONT SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL
+TAVMJONG BAH BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+
+Except as contained in this notice, the name of Tavmjong Bah shall not
+be used in advertising or otherwise to promote the sale, use or other
+dealings in this Font Software without prior written authorization
+from Tavmjong Bah. For further information, contact: tavmjong @ free
+. fr.
+
+$Id: LICENSE 2133 2007-11-28 02:46:28Z lechimp $</pre></details>
+    <p class="dsub creditos-datos">Los datos no van dentro de este archivo: el usuario elige el CSV de intervenciones de un país de ParlaIbero (Harvard Dataverse, https://dataverse.harvard.edu/dataverse/parlaibero) y la base se construye en su navegador, sin subirlo a ningún servidor. Los conjuntos de datos de ParlaIbero se publican con licencia CC BY 4.0; cite el del país que utilice.</p>
+  </div>
+  <div class="dfoot"><button class="btn primary" data-close>Cerrar</button></div>
+</dialog>
+<script type="application/json" id="r2-datos">{"edicion":{"nombre":"Diarios Explorer","build_id":"bef49936e79c7c79","web":true},"capitales":{"letras":["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","Ñ"],"modo":"servidas","dir":"capitales"},"parlaibero":{"nombre":"ParlaIbero: Parliamentary Speeches from Latin America, Portugal and Spain","alias":"parlaibero","afiliacion":"Instituto de Iberoamérica - University of Salamanca","descripcion":"ParlaIbero is a collection of datasets containing parliamentary speeches from the lower chambers of Latin American countries, Portugal, and Spain. Individual country datasets are contributed by collaborating researchers and standardized into a common schema, a process coordinated by Rodrigo Rodrigues-Silveira (PI).\n\nThis project is the product of the Research Project \"Legislative Behavior and Democratic Erosion in Latin America\", hosted by the Instituto de Iberoamérica at the University of Salamanca and financed by the Ministerio de Ciencia, Innovación y Universidades (MiCIU), Agencia Española de Investigación, ref. nº PID2022-141706NB-C22.","url":"https://dataverse.harvard.edu/dataverse/parlaibero","cita":"ParlaIbero: Parliamentary Speeches from Latin America, Portugal and Spain. Harvard Dataverse, https://dataverse.harvard.edu/dataverse/parlaibero","licencia":"CC BY 4.0","licencia_url":"http://creativecommons.org/licenses/by/4.0"},"fuentes":{"AR":{"tipo":"dataset","referencia_fundamental":true,"coleccion":"ParlaIbero","titulo":"ParlaIbero-AR: Parliamentary Speeches from Argentina (1983-2025)","autores":[{"nombre":"Rodrigues-Silveira, Rodrigo","afiliacion":"Universidad de Salamanca"}],"anio":2026,"editor":"Harvard Dataverse","doi":"10.7910/DVN/IVNYID","url":"https://doi.org/10.7910/DVN/IVNYID","version_cita":"V2","fecha_publicacion":"2026-09-04","fecha_version":"2026-09-07T13:12:35Z","licencia":"CC BY 4.0","licencia_url":"http://creativecommons.org/licenses/by/4.0","cita":"Rodrigues-Silveira, Rodrigo, 2026, \"ParlaIbero-AR: Parliamentary Speeches from Argentina (1983-2025)\", https://doi.org/10.7910/DVN/IVNYID, Harvard Dataverse, V2","archivo":{"nombre":"AR_interventions.csv","bytes":882264667},"metadatos_de":"API de Harvard Dataverse (datasets/:persistentId)"},"BR":{"tipo":"dataset","referencia_fundamental":true,"coleccion":"ParlaIbero","titulo":"ParlaIbero-BR: Parliamentary Speeches from Brazil (2003-2025)","autores":[{"nombre":"Rodrigues-Silveira, Rodrigo","afiliacion":"Universidad de Salamanca"}],"anio":2026,"editor":"Harvard Dataverse","doi":"10.7910/DVN/VTXNW3","url":"https://doi.org/10.7910/DVN/VTXNW3","version_cita":"V2","fecha_publicacion":"2026-09-04","fecha_version":"2026-09-07T13:13:35Z","licencia":"CC BY 4.0","licencia_url":"http://creativecommons.org/licenses/by/4.0","cita":"Rodrigues-Silveira, Rodrigo, 2026, \"ParlaIbero-BR: Parliamentary Speeches from Brazil (2003-2025)\", https://doi.org/10.7910/DVN/VTXNW3, Harvard Dataverse, V2","archivo":{"nombre":"BR_interventions.csv","bytes":1527460901},"metadatos_de":"API de Harvard Dataverse (datasets/:persistentId)"},"CL":{"tipo":"dataset","referencia_fundamental":true,"coleccion":"ParlaIbero","titulo":"ParlaIbero-CL: Parliamentary Speeches from Chile (1990-2025)","autores":[{"nombre":"Rodrigues-Silveira, Rodrigo","afiliacion":"Universidad de Salamanca"},{"nombre":"Miranda Olivares, Nicolás","afiliacion":"Universidad de Salamanca"}],"anio":2026,"editor":"Harvard Dataverse","doi":"10.7910/DVN/IKBNRL","url":"https://doi.org/10.7910/DVN/IKBNRL","version_cita":"V2","fecha_publicacion":"2026-09-04","fecha_version":"2026-09-07T13:33:26Z","licencia":"CC BY 4.0","licencia_url":"http://creativecommons.org/licenses/by/4.0","cita":"Rodrigues-Silveira, Rodrigo; Miranda Olivares, Nicolás, 2026, \"ParlaIbero-CL: Parliamentary Speeches from Chile (1990-2025)\", https://doi.org/10.7910/DVN/IKBNRL, Harvard Dataverse, V2","archivo":{"nombre":"CL_interventions.csv","bytes":1003034557},"metadatos_de":"API de Harvard Dataverse (datasets/:persistentId)"},"CO":{"tipo":"dataset","referencia_fundamental":true,"coleccion":"ParlaIbero","titulo":"ParlaIbero-CO: Parliamentary Speeches from Colombia (2000-2025)","autores":[{"nombre":"Rodrigues-Silveira, Rodrigo","afiliacion":"Universidad de Salamanca"}],"anio":2026,"editor":"Harvard Dataverse","doi":"10.7910/DVN/TYYERX","url":"https://doi.org/10.7910/DVN/TYYERX","version_cita":"V2","fecha_publicacion":"2026-09-04","fecha_version":"2026-09-07T13:30:32Z","licencia":"CC BY 4.0","licencia_url":"http://creativecommons.org/licenses/by/4.0","cita":"Rodrigues-Silveira, Rodrigo, 2026, \"ParlaIbero-CO: Parliamentary Speeches from Colombia (2000-2025)\", https://doi.org/10.7910/DVN/TYYERX, Harvard Dataverse, V2","archivo":{"nombre":"CO_interventions.csv","bytes":506515781},"metadatos_de":"API de Harvard Dataverse (datasets/:persistentId)"},"CR":{"tipo":"dataset","referencia_fundamental":true,"coleccion":"ParlaIbero","titulo":"ParlaIbero-CR: Parliamentary Speeches from Costa Rica (1994-2025)","autores":[{"nombre":"Rodrigues-Silveira, Rodrigo","afiliacion":"Universidad de Salamanca"},{"nombre":"Gómez-Campos, Steffan","afiliacion":"Estado de la Nación"}],"anio":2026,"editor":"Harvard Dataverse","doi":"10.7910/DVN/W6UAHQ","url":"https://doi.org/10.7910/DVN/W6UAHQ","version_cita":"V2","fecha_publicacion":"2026-09-04","fecha_version":"2026-09-07T13:29:26Z","licencia":"CC BY 4.0","licencia_url":"http://creativecommons.org/licenses/by/4.0","cita":"Rodrigues-Silveira, Rodrigo; Gómez-Campos, Steffan, 2026, \"ParlaIbero-CR: Parliamentary Speeches from Costa Rica (1994-2025)\", https://doi.org/10.7910/DVN/W6UAHQ, Harvard Dataverse, V2","archivo":{"nombre":"CR_interventions.csv","bytes":686487236},"metadatos_de":"API de Harvard Dataverse (datasets/:persistentId)"},"DO":{"tipo":"dataset","referencia_fundamental":true,"coleccion":"ParlaIbero","titulo":"ParlaIbero-DO: Parliamentary Speeches from the Dominican Republic (2001-2025)","autores":[{"nombre":"Rodrigues-Silveira, Rodrigo","afiliacion":"Universidad de Salamanca"},{"nombre":"Martínez Osorio, Sofía Anabel","afiliacion":"Universidad de Salamanca"}],"anio":2026,"editor":"Harvard Dataverse","doi":"10.7910/DVN/DZKXUG","url":"https://doi.org/10.7910/DVN/DZKXUG","version_cita":"V2","fecha_publicacion":"2026-09-04","fecha_version":"2026-09-07T13:28:13Z","licencia":"CC BY 4.0","licencia_url":"http://creativecommons.org/licenses/by/4.0","cita":"Rodrigues-Silveira, Rodrigo; Martínez Osorio, Sofía Anabel, 2026, \"ParlaIbero-DO: Parliamentary Speeches from the Dominican Republic (2001-2025)\", https://doi.org/10.7910/DVN/DZKXUG, Harvard Dataverse, V2","archivo":{"nombre":"DO_interventions.csv","bytes":548828569},"metadatos_de":"API de Harvard Dataverse (datasets/:persistentId)"},"EC":{"tipo":"dataset","referencia_fundamental":true,"coleccion":"ParlaIbero","titulo":"ParlaIbero-EC: Parliamentary Speeches from Ecuador (1979-2025)","autores":[{"nombre":"Rodrigues-Silveira, Rodrigo","afiliacion":"Universidad de Salamanca"},{"nombre":"Martínez Ramos, Julián","afiliacion":"Universidad de Salamanca"}],"anio":2026,"editor":"Harvard Dataverse","doi":"10.7910/DVN/M2QJN6","url":"https://doi.org/10.7910/DVN/M2QJN6","version_cita":"V2","fecha_publicacion":"2026-09-04","fecha_version":"2026-09-07T13:27:15Z","licencia":"CC BY 4.0","licencia_url":"http://creativecommons.org/licenses/by/4.0","cita":"Rodrigues-Silveira, Rodrigo; Martínez Ramos, Julián, 2026, \"ParlaIbero-EC: Parliamentary Speeches from Ecuador (1979-2025)\", https://doi.org/10.7910/DVN/M2QJN6, Harvard Dataverse, V2","archivo":{"nombre":"EC_interventions.csv","bytes":1153237752},"metadatos_de":"API de Harvard Dataverse (datasets/:persistentId)"},"ES":{"tipo":"dataset","referencia_fundamental":true,"coleccion":"ParlaIbero","titulo":"ParlaIbero-ES: Parliamentary Speeches from Spain (1977-2025)","autores":[{"nombre":"Rodrigues-Silveira, Rodrigo","afiliacion":"Universidad de Salamanca"}],"anio":2026,"editor":"Harvard Dataverse","doi":"10.7910/DVN/OKHGAB","url":"https://doi.org/10.7910/DVN/OKHGAB","version_cita":"V2","fecha_publicacion":"2026-09-04","fecha_version":"2026-09-07T13:26:18Z","licencia":"CC BY 4.0","licencia_url":"http://creativecommons.org/licenses/by/4.0","cita":"Rodrigues-Silveira, Rodrigo, 2026, \"ParlaIbero-ES: Parliamentary Speeches from Spain (1977-2025)\", https://doi.org/10.7910/DVN/OKHGAB, Harvard Dataverse, V2","archivo":{"nombre":"ES_interventions.csv","bytes":1058266687},"metadatos_de":"API de Harvard Dataverse (datasets/:persistentId)"},"GT":{"tipo":"dataset","referencia_fundamental":true,"coleccion":"ParlaIbero","titulo":"ParlaIbero-GT: Parliamentary Speeches from Guatemala (2000-2026)","autores":[{"nombre":"Rodrigues-Silveira, Rodrigo","afiliacion":"Universidad de Salamanca"},{"nombre":"Barreto-Martín, Eduardo","afiliacion":"Universidad de Salamanca"}],"anio":2026,"editor":"Harvard Dataverse","doi":"10.7910/DVN/NH5TTC","url":"https://doi.org/10.7910/DVN/NH5TTC","version_cita":"V2","fecha_publicacion":"2026-09-04","fecha_version":"2026-09-07T13:24:19Z","licencia":"CC BY 4.0","licencia_url":"http://creativecommons.org/licenses/by/4.0","cita":"Rodrigues-Silveira, Rodrigo; Barreto-Martín, Eduardo, 2026, \"ParlaIbero-GT: Parliamentary Speeches from Guatemala (2000-2026)\", https://doi.org/10.7910/DVN/NH5TTC, Harvard Dataverse, V2","archivo":{"nombre":"GT_interventions.csv","bytes":282211635},"metadatos_de":"API de Harvard Dataverse (datasets/:persistentId)"},"MX":{"tipo":"dataset","referencia_fundamental":true,"coleccion":"ParlaIbero","titulo":"ParlaIbero-MX: Parliamentary Speeches from Mexico (1988-2025)","autores":[{"nombre":"Rodrigues-Silveira, Rodrigo","afiliacion":"Universidad de Salamanca"}],"anio":2026,"editor":"Harvard Dataverse","doi":"10.7910/DVN/0IS1YE","url":"https://doi.org/10.7910/DVN/0IS1YE","version_cita":"V2","fecha_publicacion":"2026-09-04","fecha_version":"2026-09-07T13:20:55Z","licencia":"CC BY 4.0","licencia_url":"http://creativecommons.org/licenses/by/4.0","cita":"Rodrigues-Silveira, Rodrigo, 2026, \"ParlaIbero-MX: Parliamentary Speeches from Mexico (1988-2025)\", https://doi.org/10.7910/DVN/0IS1YE, Harvard Dataverse, V2","archivo":{"nombre":"MX_interventions.csv","bytes":1649696869},"metadatos_de":"API de Harvard Dataverse (datasets/:persistentId)"},"PA":{"tipo":"dataset","referencia_fundamental":true,"coleccion":"ParlaIbero","titulo":"ParlaIbero-PA: Parliamentary Speeches from Panama (1996-2025)","autores":[{"nombre":"Rodrigues-Silveira, Rodrigo","afiliacion":"Universidad de Salamanca"},{"nombre":"Martínez Osorio, Sofía Anabel","afiliacion":"Universidad de Salamanca"}],"anio":2026,"editor":"Harvard Dataverse","doi":"10.7910/DVN/Y8FUSX","url":"https://doi.org/10.7910/DVN/Y8FUSX","version_cita":"V2","fecha_publicacion":"2026-09-04","fecha_version":"2026-09-07T13:19:31Z","licencia":"CC BY 4.0","licencia_url":"http://creativecommons.org/licenses/by/4.0","cita":"Rodrigues-Silveira, Rodrigo; Martínez Osorio, Sofía Anabel, 2026, \"ParlaIbero-PA: Parliamentary Speeches from Panama (1996-2025)\", https://doi.org/10.7910/DVN/Y8FUSX, Harvard Dataverse, V2","archivo":{"nombre":"PA_interventions.csv","bytes":487650099},"metadatos_de":"API de Harvard Dataverse (datasets/:persistentId)"},"PE":{"tipo":"dataset","referencia_fundamental":true,"coleccion":"ParlaIbero","titulo":"ParlaIbero-PE: Parliamentary Speeches from Peru (1995-2025)","autores":[{"nombre":"Rodrigues-Silveira, Rodrigo","afiliacion":"Universidad de Salamanca"}],"anio":2026,"editor":"Harvard Dataverse","doi":"10.7910/DVN/7MK94V","url":"https://doi.org/10.7910/DVN/7MK94V","version_cita":"V1","fecha_publicacion":"2026-09-07","fecha_version":"2026-09-07T13:25:22Z","licencia":"CC BY 4.0","licencia_url":"http://creativecommons.org/licenses/by/4.0","cita":"Rodrigues-Silveira, Rodrigo, 2026, \"ParlaIbero-PE: Parliamentary Speeches from Peru (1995-2025)\", https://doi.org/10.7910/DVN/7MK94V, Harvard Dataverse, V1","archivo":{"nombre":"PE_interventions.csv","bytes":836342599},"metadatos_de":"API de Harvard Dataverse (datasets/:persistentId)"},"PT":{"tipo":"dataset","referencia_fundamental":true,"coleccion":"ParlaIbero","titulo":"ParlaIbero-PT: Parliamentary Speeches from Portugal (1976-2025)","autores":[{"nombre":"Rodrigues-Silveira, Rodrigo","afiliacion":"Universidad de Salamanca"}],"anio":2026,"editor":"Harvard Dataverse","doi":"10.7910/DVN/VRPUFU","url":"https://doi.org/10.7910/DVN/VRPUFU","version_cita":"V2","fecha_publicacion":"2026-09-04","fecha_version":"2026-09-07T13:18:37Z","licencia":"CC BY 4.0","licencia_url":"http://creativecommons.org/licenses/by/4.0","cita":"Rodrigues-Silveira, Rodrigo, 2026, \"ParlaIbero-PT: Parliamentary Speeches from Portugal (1976-2025)\", https://doi.org/10.7910/DVN/VRPUFU, Harvard Dataverse, V2","archivo":{"nombre":"PT_interventions.csv","bytes":1199719582},"metadatos_de":"API de Harvard Dataverse (datasets/:persistentId)"},"PY":{"tipo":"dataset","referencia_fundamental":true,"coleccion":"ParlaIbero","titulo":"ParlaIbero-PY: Parliamentary Speeches from Paraguay (1988-2025)","autores":[{"nombre":"Rodrigues-Silveira, Rodrigo","afiliacion":"Universidad de Salamanca"},{"nombre":"Martínez Osorio, Sofía Anabel","afiliacion":"Universidad de Salamanca"}],"anio":2026,"editor":"Harvard Dataverse","doi":"10.7910/DVN/PDX8GA","url":"https://doi.org/10.7910/DVN/PDX8GA","version_cita":"V2","fecha_publicacion":"2026-09-04","fecha_version":"2026-09-07T13:17:34Z","licencia":"CC BY 4.0","licencia_url":"http://creativecommons.org/licenses/by/4.0","cita":"Rodrigues-Silveira, Rodrigo; Martínez Osorio, Sofía Anabel, 2026, \"ParlaIbero-PY: Parliamentary Speeches from Paraguay (1988-2025)\", https://doi.org/10.7910/DVN/PDX8GA, Harvard Dataverse, V2","archivo":{"nombre":"PY_interventions.csv","bytes":264430982},"metadatos_de":"API de Harvard Dataverse (datasets/:persistentId)"},"SV":{"tipo":"dataset","referencia_fundamental":true,"coleccion":"ParlaIbero","titulo":"ParlaIbero-SV: Parliamentary Speeches from El Salvador (2018-2025)","autores":[{"nombre":"Rodrigues-Silveira, Rodrigo","afiliacion":"Universidad de Salamanca"},{"nombre":"Martínez Osorio, Sofía Anabel","afiliacion":"Universidad de Salamanca"}],"anio":2026,"editor":"Harvard Dataverse","doi":"10.7910/DVN/MUJU6A","url":"https://doi.org/10.7910/DVN/MUJU6A","version_cita":"V2","fecha_publicacion":"2026-09-04","fecha_version":"2026-09-07T13:16:07Z","licencia":"CC BY 4.0","licencia_url":"http://creativecommons.org/licenses/by/4.0","cita":"Rodrigues-Silveira, Rodrigo; Martínez Osorio, Sofía Anabel, 2026, \"ParlaIbero-SV: Parliamentary Speeches from El Salvador (2018-2025)\", https://doi.org/10.7910/DVN/MUJU6A, Harvard Dataverse, V2","archivo":{"nombre":"SV_interventions.csv","bytes":103092395},"metadatos_de":"API de Harvard Dataverse (datasets/:persistentId)"},"UY":{"tipo":"dataset","referencia_fundamental":true,"coleccion":"ParlaIbero","titulo":"ParlaIbero-UY: Parliamentary Speeches from Uruguay (1985-2025)","autores":[{"nombre":"Rodrigues-Silveira, Rodrigo","afiliacion":"Universidad de Salamanca"},{"nombre":"Gutiérrez Oria, Óscar","afiliacion":"Universidad de Salamanca"}],"anio":2026,"editor":"Harvard Dataverse","doi":"10.7910/DVN/KI1AOC","url":"https://doi.org/10.7910/DVN/KI1AOC","version_cita":"V2","fecha_publicacion":"2026-09-04","fecha_version":"2026-09-07T13:15:17Z","licencia":"CC BY 4.0","licencia_url":"http://creativecommons.org/licenses/by/4.0","cita":"Rodrigues-Silveira, Rodrigo; Gutiérrez Oria, Óscar, 2026, \"ParlaIbero-UY: Parliamentary Speeches from Uruguay (1985-2025)\", https://doi.org/10.7910/DVN/KI1AOC, Harvard Dataverse, V2","archivo":{"nombre":"UY_interventions.csv","bytes":973968680},"metadatos_de":"API de Harvard Dataverse (datasets/:persistentId)"}},"fuentes_consultado":"2026-09-17","recursos":{"wasm":{"archivo":"sqlite3.wasm","bytes":869277,"sha256":"3929b5b2a1cd7d7c32171e1f654fce0355191b7c9bc84afc61d9b2b99b96531f"},"worker":{"archivo":"worker.js","bytes":1331335,"sha256":"a119545d8c3f6138b6c1995efc30cbaff35b3b2c5ca6c790904ebf7498b154a4"}}}</script>
+<script src="app.js?v=bef49936e79c7c79"></script>
+</body>
+</html>

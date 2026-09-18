@@ -1,0 +1,232 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio {
+  --r2-margen: 86px;
+  --r2-cuerpo: clamp(19px, calc(15.5px + .55cqi), 21px);
+  max-width: min(820px, calc(100% - 28px));
+  padding: 34px clamp(24px, 4.5cqi, 48px) 56px var(--r2-margen);
+  background-color: var(--folio-paper);
+
+  background-image:
+    linear-gradient(to right, var(--r2-reticula) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--r2-reticula) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio.sess { max-width: min(880px, calc(100% - 28px)); }
+
+
+
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio:not(.sess) { display: flex; flex-direction: column; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio:not(.sess) > * { order: 5; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio:not(.sess) > .folio-title { order: 0; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio:not(.sess) > .folio-rep { order: 1; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio:not(.sess) > :is(.folio-kicker, :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio-gov) { order: 2; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio:not(.sess) > .folio-tags { order: 3; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio:not(.sess) > .folio-rule { order: 4; }
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio-title {
+  margin: 0 0 10px; text-align: left;
+  font-family: var(--folio-text); font-weight: 600; font-size: clamp(28px, calc(8px + 3.6cqi), 46px);
+  line-height: 1.1; letter-spacing: -.012em; color: var(--folio-ink);
+  text-wrap: balance; -webkit-hyphens: manual; hyphens: manual;
+}
+
+
+
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio-kicker, :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio-rep, :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio-gov {
+  margin: 0; text-align: left;
+  font-family: var(--sans); font-size: 12px; font-weight: 500; line-height: 1.6;
+  letter-spacing: .01em; text-transform: none; color: var(--r2-meta);
+}
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio-kicker, :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio-rep { font-size: 14px; line-height: 1.45; letter-spacing: .075em; font-variant-caps: all-small-caps; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio-rep em { font-style: italic; font-variant-caps: normal; font-size: 12px; letter-spacing: .01em; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .r2-nowrap { white-space: nowrap; }
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio-tags { justify-content: flex-start; gap: 6px; margin: 18px 0 0; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio .tag {
+  display: inline-flex; align-items: center;
+  padding: 3px 9px; border-radius: 4px; font-size: 11.5px; font-weight: 600; line-height: 1.35; letter-spacing: .02em;
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+}
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio .tag.words { font-size: 10.5px; font-weight: 500; letter-spacing: 0; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio .tag.ideo { border-color: color-mix(in srgb, var(--ic) 72%, #000); }
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio-rule { border-bottom: 1px solid var(--folio-rule); margin: 20px 0 18px; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio-body { margin-top: 8px; }
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .fp, :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .acta-turn { font-size: var(--r2-cuerpo); line-height: 1.78; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .acot { font-size: calc(var(--r2-cuerpo) * .86); }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .acta-chronicle, :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .acta-table { font-size: calc(var(--r2-cuerpo) * .885); }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .acta-note, :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .acta-note-inline { font-size: calc(var(--r2-cuerpo) * .8); }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .acta-list { font-size: calc(var(--r2-cuerpo) * .83); }
+
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio .fp-anchor {
+  left: auto; right: calc(100% + .7em); top: 0;
+  font-family: var(--folio-text); font-size: 1em; font-weight: 700; font-style: normal; line-height: inherit;
+  letter-spacing: -.01em; font-variant-numeric: lining-nums tabular-nums; text-align: right;
+  color: var(--r2-ancla);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .r2-capital { display: none; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .r2-capital::before { content: attr(data-signo); font-size: .6em; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .r2-capital::after { content: attr(data-letra); }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) :is(.folio:not(.sess):not(.careo-folio), :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-block.sess-ref) .fp.r2-cap { display: flow-root; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) :is(.folio:not(.sess):not(.careo-folio), :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-block.sess-ref) .fp.r2-cap > .r2-capital {
+  display: block; float: left;
+  margin: -.113em .07em -.1em -.02em;
+  font-family: var(--folio-text); font-size: 6.48em; font-weight: 700; font-style: normal; line-height: 1;
+  letter-spacing: 0; text-indent: 0; color: var(--r2-capital);
+  -webkit-user-select: none; user-select: none;
+}
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) :is(.folio:not(.sess):not(.careo-folio), :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-block.sess-ref) .fp.r2-cap .r2-cap-texto { font-size: 0; }
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) :is(.folio:not(.sess):not(.careo-folio), :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-block.sess-ref) .fp.r2-cap > .r2-capital.en-mark {
+  color: var(--mark-text);
+  background: linear-gradient(to bottom, transparent 16%, var(--mark) 16%, var(--mark) 90%, transparent 90%);
+}
+
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-banner { margin: 0 0 32px calc(22px - var(--r2-margen)); }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-block {
+  margin: 0 0 34px calc(-1 * var(--r2-margen)); padding: 0 0 18px var(--r2-margen);
+}
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-block.sess-ref {
+  padding: 18px 26px 6px calc(var(--r2-margen) - 1.5px);
+  margin: 0 -27.5px 34px calc(-1 * var(--r2-margen));
+}
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-head {
+  align-items: center; gap: 6px 8px;
+  padding-bottom: 14px; margin-bottom: 20px;
+}
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-name {
+  order: 0; flex: 1 0 100%;
+  font-family: var(--folio-text); font-weight: 600; font-size: clamp(22px, calc(8px + 2.4cqi), 32px);
+  line-height: 1.15; letter-spacing: -.01em; color: var(--folio-ink);
+}
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-name em { font-weight: 400; font-size: .74em; letter-spacing: 0; color: var(--r2-meta); white-space: nowrap; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-sig {
+  order: 1; flex: 1 0 100%; margin: -3px 0 6px;
+  font: 500 14px/1.4 var(--sans); letter-spacing: .075em; font-variant-caps: all-small-caps; color: var(--r2-meta);
+}
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-star { order: 2; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-head > .btn[data-solo] { order: 3; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-tags { order: 4; flex: 0 1 auto; margin: 0; gap: 6px; }
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio .btn[data-solo] {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 11px 4px 9px; border-radius: 5px; font-size: 12px; font-weight: 500;
+  background: var(--bg-panel); color: var(--folio-ink);
+  border: 1px solid color-mix(in srgb, var(--folio-ink) 38%, transparent);
+  box-shadow: 0 1px 1px rgba(40,30,10,.05);
+}
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio .btn[data-solo]::before {
+  content: ""; width: 14px; height: 14px; flex-shrink: 0; background: var(--accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 12a3 3 0 11-6 0 3 3 0 016 0z'/%3E%3Cpath d='M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 12a3 3 0 11-6 0 3 3 0 016 0z'/%3E%3Cpath d='M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio .btn[data-solo]:hover { background: var(--folio-paper); border-color: color-mix(in srgb, var(--folio-ink) 65%, transparent); }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio .btn[data-solo]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio.careo-folio { --r2-cuerpo: 16px; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .careo-folio :is(.fp, :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .acta-turn) { line-height: 1.72; }
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .careo-folio .fp-anchor { right: calc(100% + .45em); letter-spacing: -.02em; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .careo-folio .folio-title { font-size: 23px; margin-bottom: 6px; }
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .careo-folio .folio-rule { margin: 14px 0 12px; }
+
+
+
+
+@container lector (max-width: 560px) {
+  :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio { --r2-margen: 60px; --r2-cuerpo: 18px; padding: 22px 16px 36px var(--r2-margen); max-width: calc(100% - 16px); }
+  :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio .fp-anchor { right: calc(100% + .5em); }
+  :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio-title { font-size: 27px; }
+  :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio-kicker, :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio-rep, :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-sig { letter-spacing: .04em; }
+  :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-banner { margin-left: calc(14px - var(--r2-margen)); }
+  :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-block.sess-ref { margin-right: -10px; padding-right: 10px; }
+  :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .sess-name { font-size: 22px; }
+}
+@container lector (max-width: 760px) {
+  :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio.careo-folio { --r2-cuerpo: 16px; }
+}
+
+
+
+:root:is([data-estilo="editorial"],[data-estilo="iluminado"]):not([data-theme="dark"]) .folio.careo-folio { --r2-ancla: #746b5f; }
+@container lector (max-width: 560px) {
+  :root:is([data-estilo="editorial"],[data-estilo="iluminado"]):not([data-theme="dark"]) .folio { --r2-ancla: #746b5f; }
+}
+
+
+@container lector (max-width: 400px) {
+  :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio { --r2-margen: 50px; padding-right: 12px; }
+  :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .folio .fp-anchor { right: calc(100% + .4em); letter-spacing: -.02em; }
+  :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .acta-table .acta-row { overflow-wrap: anywhere; }
+  :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .acta-table .lead-f { flex-basis: .6em; }
+  :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .thread-row { flex-wrap: wrap; row-gap: 0; }
+  :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .thread-ord { width: auto; }
+  :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .thread-name { max-width: 100%; flex-shrink: 1; }
+  :root:is([data-estilo="editorial"],[data-estilo="iluminado"]) .thread-aside { flex-basis: 100%; margin-left: 0; white-space: normal; }
+}
+
+
+
+
+
+
+
+:root[data-estilo="iluminado"] :is(.folio:not(.sess):not(.careo-folio), .sess-block.sess-ref) .fp.r2-cap > .r2-capital.iluminada {
+  font-size: 1em; width: 5.15em; height: 5.15em; margin: .13em .42em .08em 0;
+  line-height: 0; color: inherit; background: var(--accent-soft); border-radius: 2px; overflow: hidden;
+}
+:root[data-estilo="iluminado"] :is(.folio:not(.sess):not(.careo-folio), .sess-block.sess-ref) .fp.r2-cap > .r2-capital.iluminada::before,
+:root[data-estilo="iluminado"] :is(.folio:not(.sess):not(.careo-folio), .sess-block.sess-ref) .fp.r2-cap > .r2-capital.iluminada::after { content: none; }
+:root[data-estilo="iluminado"] :is(.folio:not(.sess):not(.careo-folio), .sess-block.sess-ref) .fp.r2-cap > .r2-capital.iluminada > svg {
+  display: block; width: 100%; height: 100%; }
+:root[data-estilo="iluminado"] :is(.folio:not(.sess):not(.careo-folio), .sess-block.sess-ref) .fp.r2-cap > .r2-capital.iluminada.en-mark {
+  background: var(--accent-soft); box-shadow: 0 0 0 3px var(--mark); }
