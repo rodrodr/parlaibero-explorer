@@ -9,6 +9,8 @@
  *   speech_partition(doc, texto) → [[categoría, a, b]]      partición contigua de [0, len) sin cortar tokens
  *   prose_summary(doc, texto) → [[[a, b], …], {categoría: tokens}]
  *   keynessColeccion(ctx, ids, {min_freq, limit, limit_negative, solo_discurso}) → dict como Corpus.keyness (promesa)
+ *     (guarda los últimos resultados por biblioteca y opciones; `desde_cache` marca los que salen de ahí)
+ *   prose_texts(ctx, filas) · prose_texts_rapida(ctx, filas) → [textos, excluidos]: el discurso que analiza el léxico
  *   CATEGORIAS_EXCLUIDAS, limpiarCache()
  */
 (function (R2) {
@@ -316,8 +318,38 @@
     return [textos, excl];
   }
 
-  /** Corpus.keyness. */
+  // Caché del léxico por corpus (WeakMap por conexión): las coocurrencias parten del vocabulario del léxico y, si el
+  // usuario ya abrió el léxico de la misma biblioteca con las mismas opciones, no hace falta volver a calcularlo.
+  // La clave incluye una huella de los ids, así que añadir o quitar intervenciones de la biblioteca la invalida.
+  const CACHE_LEXICO = new WeakMap();
+  const CACHE_LEXICO_MAX = 4;
+  function huellaIds(pedidos) {
+    let h = 0x811c9dc5;
+    for (const i of pedidos) { h ^= i & 0xffff; h = Math.imul(h, 0x01000193); h ^= i >>> 16; h = Math.imul(h, 0x01000193); }
+    return `${pedidos.length}:${(h >>> 0).toString(16)}`;
+  }
+
+  /** Corpus.keyness, con caché de los últimos resultados por biblioteca y opciones. */
   async function keynessColeccion(ctx, ids, opciones = {}) {
+    const pedidos = Array.from(new Set(Array.from(ids, (i) => Number(i)))).sort((a, b) => a - b);
+    const clave = [huellaIds(pedidos), opciones.solo_discurso === undefined ? true : !!opciones.solo_discurso,
+      opciones.min_freq, opciones.limit, opciones.limit_negative].join('|');
+    let mapa = ctx && ctx.db ? CACHE_LEXICO.get(ctx.db) : null;
+    if (ctx && ctx.db && !mapa) { mapa = new Map(); CACHE_LEXICO.set(ctx.db, mapa); }
+    if (mapa && mapa.has(clave)) {
+      const hit = mapa.get(clave);
+      mapa.delete(clave); mapa.set(clave, hit);               // el más reciente, al final
+      return Object.assign({}, hit, { desde_cache: true });
+    }
+    const res = await keynessColeccionCalcular(ctx, pedidos, opciones);
+    if (mapa) {
+      mapa.set(clave, res);
+      while (mapa.size > CACHE_LEXICO_MAX) mapa.delete(mapa.keys().next().value);
+    }
+    return Object.assign({}, res);
+  }
+
+  async function keynessColeccionCalcular(ctx, ids, opciones = {}) {
     const bd = { db: ctx.db, sqlite3: ctx.sqlite3 };
     const soloDiscurso = opciones.solo_discurso === undefined ? true : !!opciones.solo_discurso;
     // Los ids se leen en orden ascendente: el texto vive en bloques comprimidos (worker/texto.js) y leerlos en orden
@@ -402,6 +434,7 @@
     speech_partition: speechPartition, prose_summary: proseSummary, speeches_bulk: speechesBulk,
     particion_rapida: particionRapida, RAPIDA_DESDE_CHARS, FASES_LEXICO, leerFilas, contarPorTrozos,
     keynessColeccion, en_palabra: enPalabra, ajusta_corte: ajustaCorte,
+    prose_texts: proseTexts, prose_texts_rapida: proseTextsRapida, crear_progreso: crearProgreso,
     limpiarCache() { PROSE_CACHE.clear(); proseTramos = 0; },
   });
 })(globalThis.R2 = globalThis.R2 || {});

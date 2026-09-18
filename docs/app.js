@@ -7029,6 +7029,8 @@ const S = {
   libTab: 'items', libSeq: 0, libInfo: null,
 
   lex: { cache: new Map(), data: null, cid: null, seq: 0, ctrl: null, showAll: false, solo: lexSoloGuardado() },
+  coo: { cache: new Map(), data: null, cid: null, seq: 0, ctrl: null, unidad: 'intervencion', vocabulario: 250, vecinos: 10,
+         resolucion: 1, excl: { cid: null, aplicados: new Set(), marcados: new Set() }, lectModo: 'variada', lectN: 10 },
   careo: null,
 };
 
@@ -9435,6 +9437,7 @@ function setView(v, { refresh = true } = {}) {
   if (v === 'search') {
     $('#sideTitle').textContent = 'Filtros'; renderFilters();
     S.lex.ctrl?.abort(); ++S.lex.seq;
+    S.coo.ctrl?.abort(); ++S.coo.seq;
     if (conBiblioteca) {
 
       S.lastMeta = null; S.results = []; S.total = 0; S.exhausted = true;
@@ -9583,6 +9586,7 @@ async function loadLibraryItems(cid) {
                   updated: r.collection?.updated_at || '', hash: r.ids_hash || '' };
     renderLibHead();
     if (S.libTab === 'lexico') lexLoad();
+    else if (S.libTab === 'coocurrencias') cooLoad();
     else renderLibItems();
   } catch (e) {
     if (mine !== S.libSeq) return;
@@ -9601,8 +9605,10 @@ function renderLibHead() {
     + `<button type="button" role="tab" data-libtab="items" aria-selected="${S.libTab === 'items'}"`
     + ` title="Las intervenciones guardadas, con sus notas y etiquetas">Intervenciones (${nf(L.total)})</button>`
     + `<button type="button" role="tab" data-libtab="lexico" aria-selected="${S.libTab === 'lexico'}"`
-    + ` title="Términos característicos de la biblioteca frente al resto del corpus (keyness)">Léxico</button></div>`
-    + (S.libTab === 'lexico'
+    + ` title="Términos característicos de la biblioteca frente al resto del corpus (keyness)">Léxico</button>`
+    + `<button type="button" role="tab" data-libtab="coocurrencias" aria-selected="${S.libTab === 'coocurrencias'}"`
+    + ` title="Red de coocurrencias de los términos del léxico y temas detectados en ella con el algoritmo de Leiden">Coocurrencias</button></div>`
+    + (S.libTab === 'lexico' || S.libTab === 'coocurrencias'
       ? `<label class="chk lex-solo" title="Excluye listas de votación, crónica del acta, acotaciones, tablas y notas">`
         + `<input type="checkbox" id="lexSolo"${S.lex.solo ? ' checked' : ''}><span class="lbl">Solo discurso</span></label>`
       : '');
@@ -9621,6 +9627,8 @@ function lexSoloChange(e) {
   S.lex.solo = e.target.checked;
   try { localStorage.setItem('lexSoloDiscurso', S.lex.solo ? '1' : '0'); } catch {   }
   if (S.view === 'library' && S.libSel != null && S.libTab === 'lexico') lexLoad();
+  if (S.view === 'library' && S.libSel != null && S.libTab === 'coocurrencias') cooLoad();
+  if (S.view === 'library' && S.libSel != null && S.libTab === 'coocurrencias') cooLoad();
 }
 
 function libTabClick(e) {
@@ -9630,8 +9638,11 @@ function libTabClick(e) {
   if (tab === S.libTab) return;
   S.libTab = tab;
   renderLibHead();
+  if (tab !== 'lexico') { S.lex.ctrl?.abort(); ++S.lex.seq; }
+  if (tab !== 'coocurrencias') { S.coo.ctrl?.abort(); ++S.coo.seq; }
   if (tab === 'lexico') lexLoad();
-  else { S.lex.ctrl?.abort(); ++S.lex.seq; renderLibItems(); }
+  else if (tab === 'coocurrencias') cooLoad();
+  else renderLibItems();
 }
 
 
@@ -10060,6 +10071,414 @@ function lexSearch(term) {
   setMode('keyword');
   setView('search', { refresh: false });
   search(true);
+}
+
+
+
+
+// ================================================================================================ coocurrencias
+// Red de coocurrencias de los términos del léxico de la biblioteca y temas detectados con Leiden
+// (worker/35b_engine__coocurrencia.js). Cada tema es un candidato: se revisa en la lista y se afinan sus términos.
+const COO_UNIDADES = [
+  ['intervencion', 'Intervención', 'Dos términos coocurren si aparecen en la misma intervención'],
+  ['fragmento', 'Fragmentos de 20 palabras', 'Cada intervención se corta en fragmentos consecutivos de 20 palabras: dos términos coocurren si aparecen en el mismo fragmento, una relación más estrecha'],
+];
+const COO_RESOLUCION = [[0.6, 'menos', 'Menos temas y más amplios (resolución 0,6)'], [1, 'normal', 'Resolución 1: la modularidad clásica'],
+  [1.6, 'más', 'Más temas y más finos (resolución 1,6)']];
+const COO_VOCAB = [100, 250, 500], COO_VECINOS = [5, 10, 20];
+
+function cooExcl() {
+  const X = S.coo, L = S.libInfo;
+  if (L && X.excl.cid !== L.id) X.excl = { cid: L.id, aplicados: new Set(), marcados: new Set() };
+  return X.excl;
+}
+
+function cooClave() {
+  const X = S.coo, L = S.libInfo, E = cooExcl();
+  return [S.info?.name || '', L.id, L.total, L.hash || L.updated, S.lex.solo ? 'discurso' : 'completo', X.unidad,
+    X.vocabulario, X.vecinos, X.resolucion, [...E.aplicados].sort().join(',')].join('|');
+}
+
+async function cooLoad() {
+  const L = S.libInfo, X = S.coo, box = $('#hits');
+  if (!L || S.view !== 'library' || S.libTab !== 'coocurrencias') return;
+  const E = cooExcl();
+  const key = cooClave();
+  X.ctrl?.abort();
+  const mine = ++X.seq;
+  if (!L.total) {
+    X.data = null; X.cid = L.id; listHead();
+    box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>Biblioteca vacía</h3>
+      <p>Las coocurrencias parten del léxico de la biblioteca. Añada intervenciones desde <b>Explorar</b>.</p></div>`;
+    return;
+  }
+  if (X.cache.has(key)) { X.data = X.cache.get(key); X.cid = L.id; cooRender(); return; }
+  X.data = null; X.cid = null; listHead();
+  const t0 = performance.now();
+  box.innerHTML = `<div class="empty lex-prog" role="status" aria-live="polite">
+    <p>Construyendo la red de coocurrencias de ${nf(L.total)} ${L.total === 1 ? 'intervención' : 'intervenciones'}…</p>
+    <div class="bar" role="progressbar" aria-label="Progreso de las coocurrencias" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
+    <p class="lex-prog-fase">Preparando…</p>
+    <p class="lex-prog-t dsub">0 % · 0 s</p>
+    <p style="margin-top:10px"><button class="btn sm" data-coocancel>Cancelar</button></p>
+    <p class="dsub" style="margin-top:8px;font-size:11.5px">Si ya calculó el léxico de esta biblioteca con el mismo ajuste de «Solo discurso», se reutiliza.</p></div>`;
+  let ultimoEv = null;
+  const pinta = (ev) => {
+    if (mine !== X.seq) return;
+    const bar = box.querySelector('.lex-prog');
+    if (!bar) return;
+    if (ev) ultimoEv = ev;
+    const e = ultimoEv, sg = (performance.now() - t0) / 1000;
+    const pct = e ? Math.round(Math.max(0, Math.min(1, e.fraccion || 0)) * 100) : 0;
+    bar.querySelector('.bar i').style.width = `${pct}%`;
+    bar.querySelector('.bar').setAttribute('aria-valuenow', String(pct));
+    if (e) bar.querySelector('.lex-prog-fase').textContent = `${e.indice}/${e.n_fases} · ${e.etiqueta}${e.total > 1 ? ` · ${nf(e.hecho)} de ${nf(e.total)}` : ''}`;
+    const eta = e && e.fraccion > 0.08 && e.fraccion < 1 ? sg / e.fraccion - sg : null;
+    bar.querySelector('.lex-prog-t').textContent = `${pct} % · ${Math.round(sg)} s${eta != null ? ` · quedan unos ${Math.max(1, Math.round(eta))} s` : ''}`;
+  };
+  const reloj = setInterval(() => pinta(null), 500);
+  const ctrl = X.ctrl = new AbortController();
+  const qs = new URLSearchParams({ solo_discurso: String(S.lex.solo), unidad: X.unidad, vocabulario: String(X.vocabulario),
+    vecinos: String(X.vecinos), resolucion: String(X.resolucion) });
+  if (E.aplicados.size) qs.set('excluir', [...E.aplicados].join(','));
+  try {
+    const r = await api(`/collections/${L.id}/cooccurrence?${qs}`, { signal: ctrl.signal, alProgreso: pinta });
+    clearInterval(reloj);
+    if (mine !== X.seq || S.view !== 'library' || S.libSel !== L.id || S.libTab !== 'coocurrencias') return;
+    if (!r.error) {
+      X.cache.set(key, r);
+      if (X.cache.size > 8) X.cache.delete(X.cache.keys().next().value);
+    }
+    X.data = r; X.cid = L.id;
+    cooRender();
+  } catch (e) {
+    clearInterval(reloj);
+    if (mine !== X.seq) return;
+    if (e.name === 'AbortError') {
+      if (S.view === 'library' && S.libTab === 'coocurrencias' && box.querySelector('.lex-prog')) {
+        box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>Cálculo cancelado</h3>
+          <p>Puede volver a lanzarlo cuando quiera.</p><p style="margin-top:10px"><button class="btn sm" data-cooretry>Calcular las coocurrencias</button></p></div>`;
+      }
+      return;
+    }
+    box.innerHTML = `<div class="empty"><div class="big">⚠</div><h3>No se pudo construir la red</h3>
+      <p>${esc(e.message)}</p><p style="margin-top:10px"><button class="btn sm" data-cooretry>Reintentar</button></p></div>`;
+  }
+}
+
+/** Vecinos más fuertes de cada término (para el título de su etiqueta). */
+function cooVecinos(r) {
+  if (r._vecinos) return r._vecinos;
+  const v = r.nodos.map(() => []);
+  for (const a of r.aristas || []) { v[a.a].push([a.fuerza, a.b]); v[a.b].push([a.fuerza, a.a]); }
+  r._vecinos = v.map(l => l.sort((x, y) => y[0] - x[0]).slice(0, 6).map(([, i]) => r.nodos[i].display));
+  return r._vecinos;
+}
+
+/** Una intervención jerarquizada: orador, fecha, partido, longitud, barra de puntuación y términos que la sostienen. */
+function cooLectFila(r, x, k, maxP, col = null) {
+  const m = (r.lectura && r.lectura.metadatos && r.lectura.metadatos[x.id]) || {};
+  const quien = ident(m.rep_name) ? m.rep_name : (m.speaker || 'Sin orador');
+  const pct = maxP > 0 ? Math.max(3, Math.round(100 * x.puntuacion / maxP)) : 0;
+  const terms = (x.terminos || []).slice(0, 5).map(t => `${esc(t.display)}<sup>${nf(t.tf)}</sup>`).join(' ');
+  return `<li class="coo-lf" data-cooopen="${x.id}" role="button" tabindex="0" title="Abrir en el lector">
+    <span class="coo-lf-n">${k + 1}</span>${col ? `<i class="coo-dot" style="--c:${col}"></i>` : ''}
+    <span class="coo-lf-q">${esc(quien)}</span>
+    <span class="coo-lf-m">${esc(m.date ? fechaCorta(m.date) : '')}${ident(m.party) ? ` · ${esc(m.party)}` : ''} · ${nf(x.palabras)} palabras</span>
+    <span class="coo-lf-b" title="Puntuación ${String(x.puntuacion).replace('.', ',')}"><i style="width:${pct}%"></i></span>
+    <span class="coo-lf-t">${terms}</span></li>`;
+}
+
+function cooLecturaHTML(r) {
+  const X = S.coo, lec = r.lectura || {};
+  const pal = trendPal().series;
+  const variada = X.lectModo === 'variada';
+  const lista = (variada ? lec.variada : lec.global) || [];
+  if (!lista.length) return '';
+  const vistos = lista.slice(0, X.lectN);
+  const maxP = Math.max(...lista.map(x => x.puntuacion));
+  const modos = [['variada', 'Variada por tema', 'La mejor de cada tema, por turnos: cubre todos los temas de la biblioteca'],
+                 ['global', 'Más informativas', 'Las que más vocabulario característico de la biblioteca concentran, sin mirar el tema']]
+    .map(([v, l, t]) => `<button type="button" data-coolect="${v}" aria-pressed="${X.lectModo === v}" title="${esc(t)}">${l}</button>`).join('');
+  return `<section class="coo-leer">
+    <div class="coo-cab"><h4>Leer primero</h4><div class="tseg" role="group" aria-label="Criterio de lectura">${modos}</div></div>
+    <p class="lex-note">Intervenciones de la biblioteca ordenadas por lo que concentran de su vocabulario característico
+      (BM25 con cada término pesado por su G² en el léxico, con saturación por repetición y corrección por longitud).
+      ${variada ? 'El punto de color indica el tema del que sale cada una.' : ''}</p>
+    <ol class="coo-lista">${vistos.map((x, k) => cooLectFila(r, x, k, maxP, variada ? pal[x.tema % pal.length] : null)).join('')}</ol>
+    ${lista.length > vistos.length ? `<p class="lex-more"><button class="btn sm" data-coomas>Mostrar ${nf(Math.min(lista.length - vistos.length, 20))} más de ${nf(lista.length)}</button></p>` : ''}
+  </section>`;
+}
+
+function cooRender() {
+  const r = S.coo.data, L = S.libInfo, box = $('#hits'), sc = listScroller();
+  if (!r || !L || S.view !== 'library' || S.libTab !== 'coocurrencias') return;
+  listHead();
+  const top = sc.scrollTop;
+  if (r.error) {
+    box.innerHTML = `<div class="empty"><div class="big">⚠</div><h3>No se pudo construir la red</h3><p>${esc(r.message || r.error)}</p>
+      <p style="margin-top:10px"><button class="btn sm" data-cooretry>Reintentar</button></p></div>`;
+    return;
+  }
+  const X = S.coo, E = cooExcl(), p = r.parametros || {}, st = r.estadisticas || {}, voc = r.vocabulario || {};
+  const seg = (attr, cur, opts) => opts.map(([v, lab, tit]) =>
+    `<button type="button" data-${attr}="${esc(String(v))}" aria-pressed="${String(v) === String(cur)}"${tit ? ` title="${esc(tit)}"` : ''}>${esc(lab)}</button>`).join('');
+  const sel = (attr, cur, opts, fmt = x => nf(x)) => `<select data-coo="${attr}">${opts.map(v =>
+    `<option value="${v}"${Number(v) === Number(cur) ? ' selected' : ''}>${fmt(v)}</option>`).join('')}</select>`;
+  const controles = `<div class="coo-ctl">
+      <div class="tseg" role="group" aria-label="Unidad de contexto">${seg('coounidad', X.unidad, COO_UNIDADES)}</div>
+      <label class="tsel" title="Cuántos términos del léxico, de más a menos característicos, entran en la red">Términos ${sel('vocabulario', X.vocabulario, COO_VOCAB)}</label>
+      <label class="tsel" title="Conexiones que conserva cada término: las de mayor G² entre las significativas">Vecinos ${sel('vecinos', X.vecinos, COO_VECINOS)}</label>
+      <span class="tsel">Temas</span><div class="tseg" role="group" aria-label="Número de temas">${seg('cooresol', X.resolucion, COO_RESOLUCION)}</div>
+    </div>`;
+  if (r.aviso || !(r.comunidades || []).length) {
+    box.innerHTML = `<div class="lex coo">${controles}<div class="empty" style="padding:26px 16px"><h3>Sin red de coocurrencias</h3>
+      <p>${esc(r.aviso || 'Ninguna pareja de términos alcanza la significación exigida en esta biblioteca.')}</p></div></div>`;
+    return;
+  }
+  const metric = (k, v, extra = '', tit = '') => `<div class="lex-metric"${tit ? ` title="${esc(tit)}"` : ''}>`
+    + `<div class="k">${k}</div><div class="v">${v}</div>${extra ? `<div class="s">${extra}</div>` : ''}</div>`;
+  const unidades = p.unidad === 'fragmento' ? `${nf(st.n_unidades)} fragmentos` : `${nf(st.n_unidades)} intervenciones`;
+  const metricas = `<div class="lex-metrics">
+      ${metric('Temas', nf(st.n_comunidades), 'comunidades de Leiden')}
+      ${metric('Términos', nf(voc.usados), `de ${nf(voc.disponibles)} del léxico`, 'Términos de sobreuso del léxico, de más a menos característicos, sin palabras vacías ni cifras')}
+      ${metric('Conexiones', nf(st.aristas_conservadas), `de ${nf(st.aristas_significativas)} significativas`, `Pares con asociación positiva y G² ≥ ${String(p.g2_min).replace('.', ',')} (p < 0,001); se conservan los ${nf(p.vecinos)} vecinos de mayor G² de cada término`)}
+      ${metric('Modularidad', String(st.modularidad).replace('.', ','), unidades, 'Modularidad de la partición final (resolución 1). Por encima de 0,3 suele indicar una estructura de comunidades clara')}
+    </div>`;
+  const vac = p.vacias || {};
+  const descart = [voc.descartados?.vacias ? `${nf(voc.descartados.vacias)} palabras vacías (${esc(vac.fuente || '')}, ${vac.lengua === 'pt' ? 'portugués' : 'español'})` : '',
+    voc.descartados?.cifras ? `${nf(voc.descartados.cifras)} cifras` : '',
+    voc.descartados?.excluidos ? `${nf(voc.descartados.excluidos)} términos excluidos por usted` : ''].filter(Boolean).join(', ');
+  const nota = `<p class="lex-note">Cada tema es una comunidad de la red: los términos más característicos del léxico, unidos cuando
+      aparecen juntos en ${p.unidad === 'fragmento' ? `el mismo fragmento de ${nf(p.fragmento)} palabras` : 'la misma intervención'} más de lo esperable por azar,
+      y agrupados con el algoritmo de Leiden, que garantiza que cada tema esté conectado. Son <b>candidatos</b>: revíselos en la lista y
+      pulse los términos que no pertenezcan para excluirlos. Al excluir términos la red cambia y dos temas pueden fundirse o uno partirse:
+      si ve fundidos dos temas distintos, pida <b>más</b> temas; si ve uno partido, <b>menos</b>.${descart ? ` Se descartaron ${descart}.` : ''}${voc.desde_cache ? ' El léxico se reutilizó del cálculo anterior.' : ''}</p>`;
+  const metodo = `<details class="lex-neg coo-metodo"><summary>Método y parámetros</summary><div class="lex-note" style="margin:8px 2px 0">
+      <b>Vocabulario:</b> los ${nf(voc.usados)} términos de sobreuso del léxico de mayor G², sin las palabras vacías publicadas de la lengua del corpus
+      (${esc(vac.fuente || '—')}, ${nf(vac.n || 0)} palabras, licencia ${esc(vac.licencia || '—')}) ni cifras. Texto: ${p.modo_texto === 'completo' ? 'completo' : 'solo discurso'}.<br>
+      <b>Unidad de contexto:</b> ${p.unidad === 'fragmento' ? `fragmentos consecutivos de ${nf(p.fragmento)} palabras` : 'la intervención'} (${unidades}).
+      Densidad de la red antes de podar: ${String(Math.round(1000 * st.densidad) / 10).replace('.', ',')} % de los pares posibles.<br>
+      <b>Asociación:</b> G² de Dunning con signo sobre la tabla 2×2 de unidades; se conservan los pares con asociación positiva y G² ≥ ${String(p.g2_min).replace('.', ',')}
+      que están entre los ${nf(p.vecinos)} vecinos de mayor G² de alguno de sus términos. Peso de cada conexión: fuerza de asociación, observado/esperado (van Eck y Waltman, 2009).<br>
+      <b>Comunidades:</b> Leiden (Traag, Waltman y van Eck, 2019), modularidad con resolución ${String(p.resolucion).replace('.', ',')}, semilla ${nf(p.semilla)},
+      refinado voraz. Mismos parámetros, mismo resultado.<br>
+      <b>Orden de los temas:</b> por el G² medio de sus términos en el léxico, es decir, de más a menos característico de la biblioteca.
+      ${p.modo_texto === 'completo' ? '' : '<br><b>Revisión en la lista:</b> busca en el texto completo de las intervenciones, así que puede encontrar algunas más que la cobertura del tema, que se calcula solo sobre el discurso de los oradores.'}</div></details>`;
+  const pal = trendPal().series;
+  const vecinos = cooVecinos(r);
+  const marcadosN = E.marcados.size;
+  const barraExcl = marcadosN || E.aplicados.size
+    ? `<div class="coo-excl" role="status">${marcadosN ? `<b>${nf(marcadosN)} ${marcadosN === 1 ? 'término marcado' : 'términos marcados'}</b> para excluir.
+        <button class="btn sm primary" data-cooaplicar>Recalcular sin ${marcadosN === 1 ? 'él' : 'ellos'}</button>
+        <button class="btn sm ghost" data-coodesmarcar>Desmarcar</button>` : ''}
+        ${E.aplicados.size ? `<span class="dsub">${nf(E.aplicados.size)} ${E.aplicados.size === 1 ? 'término excluido' : 'términos excluidos'} en este cálculo.</span>
+        <button class="btn sm ghost" data-cooreponer>Reponerlos</button>` : ''}</div>` : '';
+  const temas = r.comunidades.map((c, k) => {
+    const col = pal[k % pal.length];
+    const chips = c.terminos.map((t, q) => {
+      const peso = q < Math.ceil(c.terminos.length / 3) ? ' w1' : q < Math.ceil(2 * c.terminos.length / 3) ? ' w2' : ' w3';
+      const marc = E.marcados.has(t.term) ? ' marcado' : '';
+      const tit = `Clic: marcar para excluir. Vecinos más fuertes: ${(vecinos[t.i] || []).join(', ')}`;
+      return `<button type="button" class="coo-t${peso}${marc}" data-cooterm="${esc(t.term)}" title="${esc(tit)}" aria-pressed="${!!marc}">${esc(t.display)}</button>`;
+    }).join('');
+    const lec = c.lectura || [];
+    const maxP = lec.length ? lec[0].puntuacion : 0;
+    const leer = lec.length ? `<details class="coo-tl"><summary>Leer primero: ${lec.slice(0, 2).map(x => {
+        const m = (r.lectura?.metadatos || {})[x.id] || {};
+        return esc(ident(m.rep_name) ? m.rep_name : (m.speaker || 'Sin orador'));
+      }).join(' · ')}${lec.length > 2 ? ` y ${nf(lec.length - 2)} más` : ''}</summary>
+      <ol class="coo-lista">${lec.map((x, q) => cooLectFila(r, x, q, maxP)).join('')}</ol></details>` : '';
+    return `<section class="coo-tema" style="--c:${col}">
+      <div class="coo-cab"><span class="coo-n">${k + 1}</span><h4>${esc(c.etiqueta)}</h4>
+        <span class="coo-st">${nf(c.n_terminos)} términos · ${nf(c.intervenciones)} intervenciones (${String(c.porcentaje).replace('.', ',')} %) · G² medio ${nf(Math.round(c.g2_medio))}</span></div>
+      <div class="coo-terms">${chips}</div>
+      <div class="coo-acc"><button type="button" class="btn sm" data-coobuscar="${k}" title="Busca en la biblioteca las intervenciones con cualquiera de sus términos, resaltados, para revisar el tema">Revisar en la lista</button>
+        <button type="button" class="btn sm ghost" data-coomarcartema="${k}" title="Marca todos los términos del tema para excluirlos">Marcar el tema</button>
+        </div>${leer}
+    </section>`;
+  }).join('');
+  box.innerHTML = `<div class="lex coo">
+    ${controles}${metricas}${nota}${barraExcl}
+    ${cooLecturaHTML(r)}
+    <h4 class="coo-h">Temas</h4>
+    <div class="coo-temas">${temas}</div>
+    ${metodo}
+    <p class="coo-exp"><button class="btn sm" data-cooexp="csv" title="Una fila por término, con su tema y sus medidas">Exportar temas (CSV)</button>
+      <button class="btn sm" data-cooexp="gexf" title="La red podada, con los temas como atributo, para abrirla en Gephi">Exportar red (GEXF)</button>
+      <button class="btn sm" data-cooexp="lectura" title="Las intervenciones jerarquizadas, global, variada y por tema, con su puntuación y los términos que la sostienen">Exportar jerarquía de lectura (CSV)</button></p>
+    ${fuentePieHTML('panel-fuente')}
+  </div>`;
+  sc.scrollTop = top;
+}
+
+function cooKey(e) {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const row = e.target.closest?.('[data-cooopen]');
+  if (!row || S.view !== 'library' || S.libTab !== 'coocurrencias') return;
+  e.preventDefault(); e.stopPropagation();
+  openSpeech(+row.dataset.cooopen, { mode: 'speech' });
+}
+
+function cooChange(e) {
+  const t = e.target;
+  if (S.view !== 'library' || S.libTab !== 'coocurrencias' || !t.matches?.('[data-coo]')) return;
+  S.coo[t.dataset.coo] = Number(t.value);
+  cooLoad();
+}
+
+function cooBuscar(k) {
+  const r = S.coo.data, cid = S.libSel;
+  const c = r && r.comunidades && r.comunidades[k];
+  if (!c || cid == null) return;
+  const E = cooExcl();
+  const q = c.terminos.filter(t => !E.marcados.has(t.term))
+    .map(t => (/^[\p{L}\p{N}]+$/u.test(t.display) ? t.display : `"${t.display.replace(/"/g, '')}"`)).join(' | ');
+  if (!q) return toast('Todos los términos del tema están marcados para excluir.', true);
+  S.coo.ctrl?.abort();
+  resetFiltersState();
+  S.filters.collection_id = cid;
+  S.query = q; $('#q').value = q;
+  S.variants = false; $('#variants').checked = false;
+  setMode('keyword');
+  setView('search', { refresh: false });
+  search(true);
+}
+
+function cooClick(e) {
+  if (S.view !== 'library' || S.libTab !== 'coocurrencias') return false;
+  const X = S.coo, E = cooExcl();
+  const b = (sel) => e.target.closest(sel);
+  let el;
+  if ((el = b('[data-cooterm]'))) {
+    const w = el.dataset.cooterm;
+    if (E.marcados.has(w)) E.marcados.delete(w); else E.marcados.add(w);
+    cooRender(); return true;
+  }
+  if ((el = b('[data-coomarcartema]'))) {
+    const c = X.data?.comunidades?.[+el.dataset.coomarcartema];
+    if (c) { const todos = c.terminos.every(t => E.marcados.has(t.term)); for (const t of c.terminos) todos ? E.marcados.delete(t.term) : E.marcados.add(t.term); }
+    cooRender(); return true;
+  }
+  if (b('[data-cooaplicar]')) { for (const w of E.marcados) E.aplicados.add(w); E.marcados.clear(); cooLoad(); return true; }
+  if (b('[data-coodesmarcar]')) { E.marcados.clear(); cooRender(); return true; }
+  if (b('[data-cooreponer]')) { E.aplicados.clear(); E.marcados.clear(); cooLoad(); return true; }
+  if ((el = b('[data-coounidad]'))) { if (X.unidad !== el.dataset.coounidad) { X.unidad = el.dataset.coounidad; cooLoad(); } return true; }
+  if ((el = b('[data-cooresol]'))) { const v = Number(el.dataset.cooresol); if (X.resolucion !== v) { X.resolucion = v; cooLoad(); } return true; }
+  if ((el = b('[data-coobuscar]'))) { cooBuscar(+el.dataset.coobuscar); return true; }
+  if ((el = b('[data-cooopen]'))) { openSpeech(+el.dataset.cooopen, { mode: 'speech' }); return true; }
+  if ((el = b('[data-cooexp]'))) {
+    const tipo = el.dataset.cooexp;
+    if (tipo === 'gexf') cooExportGEXF(); else if (tipo === 'lectura') cooExportLectura(); else cooExportCSV();
+    return true;
+  }
+  if ((el = b('[data-coolect]'))) { X.lectModo = el.dataset.coolect; X.lectN = 10; cooRender(); return true; }
+  if (b('[data-coomas]')) { X.lectN += 20; cooRender(); return true; }
+  if (b('[data-cooretry]')) { cooLoad(); return true; }
+  if (b('[data-coocancel]')) { X.ctrl?.abort(); return true; }
+  return false;
+}
+
+function cooMeta(r) {
+  const p = r.parametros || {}, st = r.estadisticas || {}, L = S.libInfo, vac = p.vacias || {};
+  return [
+    'Explorador de Diarios de Sesiones · red de coocurrencias y temas de una biblioteca',
+    `biblioteca: ${L?.name || ''} (${nf(st.n_intervenciones)} intervenciones)`,
+    `corpus: ${S.info?.title || S.info?.name || ''}`,
+    `generado: ${new Date().toISOString().slice(0, 19)}`,
+    `texto: ${p.modo_texto === 'completo' ? 'completo' : 'solo discurso'} · unidad: ${p.unidad === 'fragmento' ? `fragmentos de ${p.fragmento} palabras` : 'intervención'} (${st.n_unidades} unidades)`,
+    `vocabulario: ${r.vocabulario?.usados} términos de sobreuso del léxico · palabras vacías: ${vac.fuente || '—'} (${vac.lengua || '—'}, ${vac.n || 0}, licencia ${vac.licencia || '—'})`
+      + (r.vocabulario?.descartados?.excluidos ? ` · excluidos a mano: ${[...cooExcl().aplicados].sort().join(', ')}` : ''),
+    `asociación: G² de Dunning con signo, umbral ${p.g2_min}, ${p.vecinos} vecinos por término · peso: fuerza de asociación (observado/esperado)`,
+    `comunidades: Leiden, modularidad con resolución ${p.resolucion}, semilla ${p.semilla}, refinado voraz · modularidad ${st.modularidad} · ${st.n_comunidades} temas`,
+  ];
+}
+
+function cooSlug() {
+  return foldMap(S.libInfo?.name || '').folded.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 48) || 'biblioteca';
+}
+
+function cooExportCSV() {
+  const r = S.coo.data;
+  if (!r || r.error || !(r.comunidades || []).length) return toast('Aún no hay temas que exportar.', true);
+  const nodos = r.nodos || [];
+  const cols = ['tema', 'etiqueta_tema', 'tema_intervenciones', 'tema_porcentaje', 'termino', 'termino_indice', 'fuerza_interna',
+                'fuerza_total', 'grado', 'g2_lexico', 'frecuencia', 'intervenciones_con_termino'];
+  const filas = [];
+  r.comunidades.forEach((c, k) => {
+    for (const t of c.terminos) {
+      const n = nodos[t.i] || {};
+      filas.push([k + 1, c.etiqueta, c.intervenciones, c.porcentaje, t.display, t.term, t.fuerza_interna, n.fuerza, n.grado,
+                  n.g2_lexico, n.freq, n.df_intervencion]);
+    }
+  });
+  downloadText(csvConFuente(cooMeta(r), cols, filas), `temas_${cooSlug()}.csv`, 'text/csv;charset=utf-8');
+}
+
+function cooExportLectura() {
+  const r = S.coo.data;
+  if (!r || r.error || !r.lectura) return toast('Aún no hay jerarquía de lectura que exportar.', true);
+  const M = r.lectura.metadatos || {};
+  const cols = ['lista', 'posicion', 'tema', 'etiqueta_tema', 'id', 'fecha', 'orador', 'partido', 'palabras', 'puntuacion', 'terminos'];
+  const filas = [];
+  const fila = (lista, k, x, tema) => {
+    const m = M[x.id] || {};
+    filas.push([lista, k + 1, tema == null ? '' : tema + 1, tema == null ? '' : r.comunidades[tema].etiqueta, x.id, m.date || '',
+      ident(m.rep_name) ? m.rep_name : (m.speaker || ''), ident(m.party) ? m.party : '', x.palabras, x.puntuacion,
+      (x.terminos || []).map(t => `${t.display}×${t.tf}`).join(' ')]);
+  };
+  r.lectura.variada.forEach((x, k) => fila('variada', k, x, x.tema));
+  r.lectura.global.forEach((x, k) => fila('global', k, x, null));
+  r.comunidades.forEach((c, t) => (c.lectura || []).forEach((x, k) => fila('tema', k, x, t)));
+  const met = r.lectura.metodo || {};
+  const meta = cooMeta(r).concat([`jerarquía: ${met.formula} (k1 ${met.k1}, b ${met.b}), peso de cada término ${met.peso_termino}; `
+    + 'variada = la mejor de cada tema por turnos; global = sin mirar el tema; tema = solo los términos del tema']);
+  downloadText(csvConFuente(meta, cols, filas), `lectura_${cooSlug()}.csv`, 'text/csv;charset=utf-8');
+}
+
+function cooExportGEXF() {
+  const r = S.coo.data;
+  if (!r || r.error || !(r.nodos || []).length) return toast('Aún no hay red que exportar.', true);
+  const x = (v) => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const etiqueta = new Map(r.comunidades.map((c, k) => [k, c.etiqueta]));
+  const F = fuenteDe();
+  const desc = cooMeta(r).concat([`Fuente: ${F.cita || F.cita_corta || ''}${F.url ? ` · ${F.url}` : ''}`]).join('\n');
+  const nodos = r.nodos.map(n => `      <node id="${n.i}" label="${x(n.display)}"><attvalues>`
+    + `<attvalue for="0" value="${n.comunidad + 1}"/><attvalue for="1" value="${x(etiqueta.get(n.comunidad))}"/>`
+    + `<attvalue for="2" value="${n.g2_lexico}"/><attvalue for="3" value="${n.freq}"/><attvalue for="4" value="${n.df_intervencion}"/>`
+    + `<attvalue for="5" value="${n.fuerza}"/></attvalues></node>`).join('\n');
+  const aristas = (r.aristas || []).map((a, k) => `      <edge id="${k}" source="${a.a}" target="${a.b}" weight="${a.fuerza}"><attvalues>`
+    + `<attvalue for="0" value="${a.co}"/><attvalue for="1" value="${a.esperado}"/><attvalue for="2" value="${a.g2}"/></attvalues></edge>`).join('\n');
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://gexf.net/1.3" version="1.3">
+  <meta lastmodifieddate="${new Date().toISOString().slice(0, 10)}">
+    <creator>ParlaIbero · Explorador de Diarios de Sesiones</creator>
+    <description>${x(desc)}</description>
+  </meta>
+  <graph defaultedgetype="undirected" mode="static">
+    <attributes class="node">
+      <attribute id="0" title="tema" type="integer"/>
+      <attribute id="1" title="etiqueta_tema" type="string"/>
+      <attribute id="2" title="g2_lexico" type="double"/>
+      <attribute id="3" title="frecuencia" type="integer"/>
+      <attribute id="4" title="intervenciones" type="integer"/>
+      <attribute id="5" title="fuerza" type="double"/>
+    </attributes>
+    <attributes class="edge">
+      <attribute id="0" title="coocurrencias" type="integer"/>
+      <attribute id="1" title="esperado" type="double"/>
+      <attribute id="2" title="g2" type="double"/>
+    </attributes>
+    <nodes>
+${nodos}
+    </nodes>
+    <edges>
+${aristas}
+    </edges>
+  </graph>
+</gexf>
+`;
+  downloadText(xml, `red_${cooSlug()}.gexf`, 'application/xml;charset=utf-8');
 }
 
 function lexExportCSV() {
@@ -12564,6 +12983,8 @@ function wire() {
   $('#resultMeta').addEventListener('change', lexSoloChange);
   $('#lexExportBtn').onclick = lexExportCSV;
   $('#hits').addEventListener('keydown', lexKey);
+  $('#hits').addEventListener('change', cooChange);
+  $('#hits').addEventListener('keydown', cooKey);
   $('#addBtn').onclick = () => {
     if (!S.selected) return toast('Abra primero una intervención.');
     const hit = S.results.find(r => r.id === S.selected);
@@ -12604,6 +13025,7 @@ function wire() {
 
   $('#hits').addEventListener('click', async e => {
     if (lexClick(e)) return;
+    if (cooClick(e)) return;
     if (e.target.closest('[data-libmore]')) { loadMoreLibItems(); return; }
 
 

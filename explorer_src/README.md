@@ -147,6 +147,44 @@ Legibilidad: la interfaz elige cuántos hitos dibuja según el espacio (`selectM
 filas; el selector permite forzar «principales», «relevantes» o «todos». El gráfico no cede altura: la leyenda es
 plegable y de altura acotada (se pliega sola con más de 12 hitos), y los hitos que no caben se cuentan aparte.
 
+## Coocurrencias y temas
+
+La pestaña «Coocurrencias» de una biblioteca construye la red de coocurrencias de sus términos característicos y
+detecta en ella temas con el algoritmo de Leiden. Motor en `worker/35b_engine__coocurrencia.js`, ruta
+`GET /collections/{cid}/cooccurrence` en `worker/36b_engine__rutas_coocurrencia.js`, Leiden en `worker/35a_engine__leiden.js`.
+
+1. **Vocabulario**: los términos de sobreuso del léxico de la biblioteca (100, 250 o 500, de mayor a menor G²), sin cifras
+   ni las palabras vacías publicadas de la lengua del corpus: stopwords-iso (MIT), en portugués para Brasil y Portugal y en
+   español para el resto (`datos/palabras_vacias.json`, generado por `tools/palabras_vacias.py`). El léxico se guarda en
+   memoria por biblioteca y opciones, así que abrir las coocurrencias después del léxico no lo recalcula.
+2. **Texto**: el mismo que analiza el léxico, con la misma segmentación del discurso y el mismo plegado.
+3. **Unidad de contexto**: la intervención, o fragmentos consecutivos de 20 palabras.
+4. **Recuento** en matriz triangular densa: con el vocabulario del léxico la red es casi completa (99,8 % de los pares en
+   la biblioteca de reforma tributaria de Brasil), así que la matriz densa ocupa la mitad que una lista de adyacencia.
+5. **Asociación**: G² de Dunning con signo sobre la tabla 2×2 de unidades; se conservan los pares con asociación positiva
+   y G² ≥ 10,83 (p < 0,001) que están entre los k vecinos de mayor G² de alguno de sus términos. Peso de cada arista: la
+   fuerza de asociación, observado/esperado (van Eck y Waltman, 2009).
+6. **Comunidades**: Leiden (Traag, Waltman y van Eck, 2019) con modularidad y resolución γ (0,6, 1 o 1,6), semilla fija
+   y refinado voraz. Garantiza comunidades conexas, que con Louvain no está asegurado. Probado contra grafos de estructura
+   conocida: encuentra el óptimo del club de kárate de Zachary (0,4198 con cuatro comunidades) y reproduce el límite de
+   resolución en un anillo de cliques.
+7. **Temas**: ordenados por el G² medio de sus términos en el léxico, con su cobertura en intervenciones. Son candidatos:
+   se revisan en la lista (búsqueda de sus términos dentro de la biblioteca, por relevancia, con las coincidencias
+   resaltadas) y se pueden marcar términos para excluirlos y recalcular.
+8. **Jerarquía de lectura**: cada intervención se puntúa con BM25 (k1 = 1,2, b = 0,75, los de FTS5), con el peso de cada
+   término dado por ln(1 + G² en el léxico) en lugar del IDF. Hay una puntuación por tema y otra global, y una selección
+   variada que toma por turnos la mejor de cada tema. Sirve para priorizar la lectura y, más adelante, para elegir las
+   intervenciones más informativas que enviar a un modelo de lenguaje.
+
+Exportaciones: los temas en CSV, la red en GEXF para Gephi y la jerarquía de lectura en CSV, todas con los parámetros y
+la cita del conjunto de datos. Mismos parámetros, mismo resultado: el cálculo en el navegador coincide exactamente con el
+de Node.
+
+| biblioteca | intervenciones | primera vez | con el léxico ya calculado |
+|---|---|---|---|
+| El Salvador, siete términos de agenda | 14.498 | 5,8 s | 2,6 s |
+| Brasil, reforma tributaria | 85.318 | 54 s | 23 s |
+
 ## Edición web (GitHub Pages)
 
 `build.py` produce a la vez el HTML autónomo (`../Diarios_Explorer.html`) y la edición web en `../docs/`: `index.html`,

@@ -67,6 +67,11 @@ def datos_json(rel, web=None):
     if rel == 'datos/worker_datos.json':
         # Hitos históricos por país para la tendencia (R2.gen.hitos.de(país) en el worker).
         d['hitos'] = hitos_registro()
+        # Palabras vacías publicadas por lengua (stopwords-iso, tools/palabras_vacias.py): las usan las coocurrencias.
+        ruta_vacias = os.path.join(ROOT, 'datos', 'palabras_vacias.json')
+        if os.path.exists(ruta_vacias):
+            with open(ruta_vacias, encoding='utf-8') as f:
+                d['vacias_lengua'] = json.load(f)
     if web is not None:
         # Edición web: recursos descargables (con huella), capitulares servidas por letra y marca de edición web.
         d['edicion']['web'] = True
