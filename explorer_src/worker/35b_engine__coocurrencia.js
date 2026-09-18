@@ -5,7 +5,8 @@
  *
  *  1. Vocabulario: los términos de sobreuso del léxico de la biblioteca (R2.partition.keynessColeccion, que guarda los
  *     últimos resultados), en su orden de G², sin cifras ni las palabras vacías publicadas de la lengua del país
- *     (stopwords-iso: portugués para Brasil y Portugal, español para el resto).
+ *     (Snowball, la lista conservadora que usa quanteda por defecto: portugués para Brasil y Portugal, español para el
+ *     resto; se conservan «estado» y «estados», que Snowball incluye como formas de «estar»).
  *  2. Texto: el mismo que analiza el léxico (solo discurso o texto completo, con la misma segmentación), tokenizado con
  *     el mismo plegado (R2.keyness.tokenize), de modo que cada término del vocabulario se encuentra en el texto.
  *  3. Unidad de contexto: la intervención entera, o fragmentos consecutivos de N palabras dentro de cada intervención.
@@ -69,8 +70,11 @@
     const lengua = lenguaDe(pais);
     if (!cacheVacias.has(lengua)) {
       const reg = R2.datos && R2.datos.vacias_lengua;
-      const lista = reg && reg.lenguas && reg.lenguas[lengua] ? reg.lenguas[lengua].palabras : [];
-      cacheVacias.set(lengua, new Set(lista.map((w) => K.fold(w))));
+      const ent = reg && reg.lenguas && reg.lenguas[lengua] ? reg.lenguas[lengua] : null;
+      const lista = ent ? ent.palabras : [];
+      // Excepciones: palabras de la lista que en este dominio son sustantivos centrales («estado», «estados»).
+      const excepciones = new Set((ent && ent.excepciones ? ent.excepciones : []).map((w) => K.fold(w)));
+      cacheVacias.set(lengua, new Set(lista.map((w) => K.fold(w)).filter((w) => !excepciones.has(w))));
     }
     return cacheVacias.get(lengua);
   }
@@ -79,7 +83,7 @@
     const lengua = lenguaDe(pais);
     if (!reg || !reg.lenguas || !reg.lenguas[lengua]) return { lengua, fuente: null, n: 0 };
     return { lengua, fuente: reg.fuente, web: reg.web, licencia: reg.licencia, url: reg.lenguas[lengua].url,
-      n: reg.lenguas[lengua].n, consultado: reg.consultado };
+      n: reg.lenguas[lengua].n, excepciones: reg.lenguas[lengua].excepciones || [], consultado: reg.consultado };
   }
 
   // ------------------------------------------------------------------------------------------------ progreso

@@ -154,8 +154,11 @@ detecta en ella temas con el algoritmo de Leiden. Motor en `worker/35b_engine__c
 `GET /collections/{cid}/cooccurrence` en `worker/36b_engine__rutas_coocurrencia.js`, Leiden en `worker/35a_engine__leiden.js`.
 
 1. **Vocabulario**: los términos de sobreuso del léxico de la biblioteca (100, 250 o 500, de mayor a menor G²), sin cifras
-   ni las palabras vacías publicadas de la lengua del corpus: stopwords-iso (MIT), en portugués para Brasil y Portugal y en
-   español para el resto (`datos/palabras_vacias.json`, generado por `tools/palabras_vacias.py`). El léxico se guarda en
+   ni las palabras vacías publicadas de la lengua del corpus: Snowball (BSD), la lista conservadora que quanteda usa por
+   defecto, en portugués para Brasil y Portugal y en español para el resto (`datos/palabras_vacias.json`, generado por
+   `tools/palabras_vacias.py`). Se conservan «estado» y «estados», que Snowball incluye como formas de «estar». Se probó
+   antes stopwords-iso y se descartó: trata como vacías palabras centrales del vocabulario político («estado», «poder»,
+   «trabajo», «sistema», «general», «medio», «país») y en la biblioteca de El Salvador eliminaba quince de la red. El léxico se guarda en
    memoria por biblioteca y opciones, así que abrir las coocurrencias después del léxico no lo recalcula.
 2. **Texto**: el mismo que analiza el léxico, con la misma segmentación del discurso y el mismo plegado.
 3. **Unidad de contexto**: la intervención, o fragmentos consecutivos de 20 palabras.
