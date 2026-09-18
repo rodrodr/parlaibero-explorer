@@ -13,7 +13,7 @@
   "AR": {
    "desde": "1983",
    "hasta": "2025",
-   "n": 91,
+   "n": 73,
    "hitos": [
     {
      "id": "ar_elecciones_1983",
@@ -137,28 +137,6 @@
      "verificar": false
     },
     {
-     "id": "ar_elecciones_1989",
-     "date": "1989-05-14",
-     "date_end": null,
-     "label": "Elecciones de 1989",
-     "desc": "Carlos Menem gana la presidencia en plena hiperinflación.",
-     "kind": "electoral",
-     "rank": 1,
-     "fuente": "https://es.wikipedia.org/wiki/Elecciones_presidenciales_de_Argentina_de_1989",
-     "verificar": false
-    },
-    {
-     "id": "ar_traspaso_menem",
-     "date": "1989-07-08",
-     "date_end": null,
-     "label": "Traspaso anticipado a Menem",
-     "desc": "Alfonsín entrega el poder a Carlos Menem el 8 de julio de 1989, cinco meses antes de lo previsto.",
-     "kind": "politico",
-     "rank": 1,
-     "fuente": "https://es.wikipedia.org/wiki/Presidencia_de_Carlos_Menem",
-     "verificar": false
-    },
-    {
      "id": "ar_asuncion_menem",
      "date": "1989-07-08",
      "date_end": null,
@@ -200,17 +178,6 @@
      "kind": "conflicto",
      "rank": 2,
      "fuente": "https://es.wikipedia.org/wiki/Atentado_a_la_embajada_de_Israel_en_Argentina",
-     "verificar": false
-    },
-    {
-     "id": "ar_atentado_embajada",
-     "date": "1992-03-17",
-     "date_end": null,
-     "label": "Atentado a la embajada",
-     "desc": "Un coche bomba destruye la embajada de Israel en Buenos Aires y deja 22 muertos.",
-     "kind": "conflicto",
-     "rank": 2,
-     "fuente": "https://es.wikipedia.org/wiki/Atentado_a_la_embajada_de_Israel_en_Buenos_Aires",
      "verificar": false
     },
     {
@@ -269,33 +236,11 @@
      "verificar": false
     },
     {
-     "id": "ar_constitucion_1994",
-     "date": "1994-08-22",
-     "date_end": null,
-     "label": "Constitución de 1994",
-     "desc": "La Convención Constituyente sanciona la reforma que habilita la reelección presidencial.",
-     "kind": "politico",
-     "rank": 1,
-     "fuente": "https://es.wikipedia.org/wiki/Reforma_de_la_Constituci%C3%B3n_Argentina_de_1994",
-     "verificar": false
-    },
-    {
      "id": "ar_eleccion_1995",
      "date": "1995-05-14",
      "date_end": null,
      "label": "Elección presidencial de 1995",
      "desc": "Menem es reelegido presidente el 14 de mayo de 1995, la primera elección bajo la nueva Constitución.",
-     "kind": "electoral",
-     "rank": 1,
-     "fuente": "https://es.wikipedia.org/wiki/Elecciones_presidenciales_de_Argentina_de_1995",
-     "verificar": false
-    },
-    {
-     "id": "ar_elecciones_1995",
-     "date": "1995-05-14",
-     "date_end": null,
-     "label": "Elecciones de 1995",
-     "desc": "Menem es reelegido en primera vuelta con la Constitución reformada.",
      "kind": "electoral",
      "rank": 1,
      "fuente": "https://es.wikipedia.org/wiki/Elecciones_presidenciales_de_Argentina_de_1995",
@@ -318,17 +263,6 @@
      "date_end": null,
      "label": "Elección presidencial de 1999",
      "desc": "Fernando de la Rúa gana la presidencia el 24 de octubre de 1999 al frente de la Alianza.",
-     "kind": "electoral",
-     "rank": 1,
-     "fuente": "https://es.wikipedia.org/wiki/Elecciones_presidenciales_de_Argentina_de_1999",
-     "verificar": false
-    },
-    {
-     "id": "ar_elecciones_1999",
-     "date": "1999-10-24",
-     "date_end": null,
-     "label": "Elecciones de 1999",
-     "desc": "Fernando de la Rúa gana la presidencia al frente de la Alianza.",
      "kind": "electoral",
      "rank": 1,
      "fuente": "https://es.wikipedia.org/wiki/Elecciones_presidenciales_de_Argentina_de_1999",
@@ -379,28 +313,6 @@
      "verificar": false
     },
     {
-     "id": "ar_corralito_b",
-     "date": "2001-12-01",
-     "date_end": null,
-     "label": "Corralito",
-     "desc": "El gobierno restringe la extracción de depósitos bancarios y desata la protesta social.",
-     "kind": "economico",
-     "rank": 2,
-     "fuente": "https://es.wikipedia.org/wiki/Corralito",
-     "verificar": false
-    },
-    {
-     "id": "ar_disturbios_dic2001",
-     "date": "2001-12-19",
-     "date_end": "2001-12-20",
-     "label": "Disturbios de diciembre de 2001",
-     "desc": "Saqueos, estado de sitio y represión dejan 39 muertos entre el 19 y el 20 de diciembre de 2001.",
-     "kind": "conflicto",
-     "rank": 1,
-     "fuente": "https://es.wikipedia.org/wiki/Crisis_de_diciembre_de_2001_en_Argentina",
-     "verificar": false
-    },
-    {
      "id": "ar_crisis_2001",
      "date": "2001-12-19",
      "date_end": "2001-12-20",
@@ -442,17 +354,6 @@
      "kind": "politico",
      "rank": 2,
      "fuente": "https://es.wikipedia.org/wiki/Adolfo_Rodríguez_Saá",
-     "verificar": false
-    },
-    {
-     "id": "ar_default_2001_b",
-     "date": "2001-12-23",
-     "date_end": null,
-     "label": "Default de la deuda",
-     "desc": "Adolfo Rodríguez Saá anuncia ante la Asamblea Legislativa la suspensión del pago de la deuda.",
-     "kind": "economico",
-     "rank": 2,
-     "fuente": "https://es.wikipedia.org/wiki/Adolfo_Rodr%C3%ADguez_Sa%C3%A1",
      "verificar": false
     },
     {
@@ -522,17 +423,6 @@
      "verificar": false
     },
     {
-     "id": "ar_elecciones_2003",
-     "date": "2003-04-27",
-     "date_end": null,
-     "label": "Elecciones de 2003",
-     "desc": "Menem gana la primera vuelta pero renuncia al balotaje ante Néstor Kirchner.",
-     "kind": "electoral",
-     "rank": 1,
-     "fuente": "https://es.wikipedia.org/wiki/Elecciones_presidenciales_de_Argentina_de_2003",
-     "verificar": false
-    },
-    {
      "id": "ar_asuncion_kirchner",
      "date": "2003-05-25",
      "date_end": null,
@@ -574,28 +464,6 @@
      "kind": "electoral",
      "rank": 1,
      "fuente": "https://es.wikipedia.org/wiki/Elecciones_presidenciales_de_Argentina_de_2007",
-     "verificar": false
-    },
-    {
-     "id": "ar_elecciones_2007",
-     "date": "2007-10-28",
-     "date_end": null,
-     "label": "Elecciones de 2007",
-     "desc": "Cristina Fernández de Kirchner gana la presidencia en primera vuelta.",
-     "kind": "electoral",
-     "rank": 1,
-     "fuente": "https://es.wikipedia.org/wiki/Elecciones_presidenciales_de_Argentina_de_2007",
-     "verificar": false
-    },
-    {
-     "id": "ar_asuncion_cfk",
-     "date": "2007-12-10",
-     "date_end": null,
-     "label": "Asunción de Fernández",
-     "desc": "Cristina Fernández de Kirchner asume como primera presidenta electa del país.",
-     "kind": "politico",
-     "rank": 1,
-     "fuente": "https://es.wikipedia.org/wiki/Cristina_Fern%C3%A1ndez_de_Kirchner",
      "verificar": false
     },
     {
@@ -676,17 +544,6 @@
      "verificar": false
     },
     {
-     "id": "ar_matrimonio_igualitario_b",
-     "date": "2010-07-15",
-     "date_end": null,
-     "label": "Matrimonio igualitario",
-     "desc": "El Senado aprueba la ley que convierte a Argentina en el primer país de la región en reconocerlo.",
-     "kind": "parlamentario",
-     "rank": 2,
-     "fuente": "https://es.wikipedia.org/wiki/Matrimonio_entre_personas_del_mismo_sexo_en_Argentina",
-     "verificar": false
-    },
-    {
      "id": "ar_muerte_nestor_kirchner",
      "date": "2010-10-27",
      "date_end": null,
@@ -703,17 +560,6 @@
      "date_end": null,
      "label": "Elección presidencial de 2011",
      "desc": "Cristina Fernández de Kirchner es reelegida presidenta el 23 de octubre de 2011.",
-     "kind": "electoral",
-     "rank": 1,
-     "fuente": "https://es.wikipedia.org/wiki/Elecciones_presidenciales_de_Argentina_de_2011",
-     "verificar": false
-    },
-    {
-     "id": "ar_elecciones_2011",
-     "date": "2011-10-23",
-     "date_end": null,
-     "label": "Elecciones de 2011",
-     "desc": "Cristina Fernández es reelegida con el 54 % de los votos.",
      "kind": "electoral",
      "rank": 1,
      "fuente": "https://es.wikipedia.org/wiki/Elecciones_presidenciales_de_Argentina_de_2011",
@@ -761,17 +607,6 @@
      "kind": "conflicto",
      "rank": 1,
      "fuente": "https://es.wikipedia.org/wiki/Alberto_Nisman",
-     "verificar": false
-    },
-    {
-     "id": "ar_muerte_nisman_b",
-     "date": "2015-01-18",
-     "date_end": null,
-     "label": "Muerte de Nisman",
-     "desc": "Aparece muerto el fiscal de la causa AMIA, días después de denunciar a la presidenta.",
-     "kind": "conflicto",
-     "rank": 2,
-     "fuente": "https://es.wikipedia.org/wiki/Muerte_de_Alberto_Nisman",
      "verificar": false
     },
     {
@@ -830,17 +665,6 @@
      "verificar": false
     },
     {
-     "id": "ar_acuerdo_fmi_2018_b",
-     "date": "2018-06-20",
-     "date_end": null,
-     "label": "Acuerdo con el FMI",
-     "desc": "El Gobierno firma con el Fondo Monetario Internacional el mayor crédito de su historia.",
-     "kind": "economico",
-     "rank": 2,
-     "fuente": "https://es.wikipedia.org/wiki/Crisis_econ%C3%B3mica_en_Argentina_(2018-presente)",
-     "verificar": true
-    },
-    {
      "id": "ar_cuadernos_coimas",
      "date": "2018-08-01",
      "date_end": null,
@@ -874,17 +698,6 @@
      "verificar": false
     },
     {
-     "id": "ar_elecciones_2019",
-     "date": "2019-10-27",
-     "date_end": null,
-     "label": "Elecciones de 2019",
-     "desc": "Alberto Fernández derrota a Mauricio Macri en primera vuelta.",
-     "kind": "electoral",
-     "rank": 1,
-     "fuente": "https://es.wikipedia.org/wiki/Elecciones_presidenciales_de_Argentina_de_2019",
-     "verificar": false
-    },
-    {
      "id": "ar_asuncion_alberto_fernandez",
      "date": "2019-12-10",
      "date_end": null,
@@ -893,17 +706,6 @@
      "kind": "politico",
      "rank": 1,
      "fuente": "https://es.wikipedia.org/wiki/Presidencia_de_Alberto_Fernández",
-     "verificar": false
-    },
-    {
-     "id": "ar_asuncion_fernandez",
-     "date": "2019-12-10",
-     "date_end": null,
-     "label": "Asunción de Fernández",
-     "desc": "Alberto Fernández asume la presidencia con Cristina Fernández como vicepresidenta.",
-     "kind": "politico",
-     "rank": 1,
-     "fuente": "https://es.wikipedia.org/wiki/Presidencia_de_Alberto_Fern%C3%A1ndez",
      "verificar": false
     },
     {

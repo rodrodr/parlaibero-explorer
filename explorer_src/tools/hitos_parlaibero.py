@@ -293,6 +293,16 @@ def main():
         finales.sort(key=lambda h: (h['date'], h['rank']))
         salida['paises'][pais] = {'desde': desde, 'hasta': hasta, 'n': len(finales),
                                   'hitos': [{k: h[k] for k in ('id', 'date', 'date_end', 'label', 'desc', 'kind', 'rank', 'fuente', 'verificar')} for h in finales]}
+        # Dos hitos del mismo país en la misma fecha suelen ser el mismo acontecimiento entrado dos veces (pasa al
+        # fundir listas de distinto origen): se avisa para revisarlos, porque el gráfico los pintaría por separado.
+        por_fecha = {}
+        for h in finales:
+            por_fecha.setdefault(h['date'], []).append(h)
+        for fecha, grupo in sorted(por_fecha.items()):
+            if len(grupo) > 1:
+                avisos.append(f'{pais}: {len(grupo)} hitos el {fecha} ('
+                              + ' · '.join(f'{h["id"]} «{h["label"]}»' for h in grupo)
+                              + ') — compruebe que no son el mismo acontecimiento repetido')
         por_rango = {r: sum(1 for h in finales if h['rank'] == r) for r in (1, 2, 3)}
         resumen.append(f'| {pais} | {desde}–{hasta} | {len(lista)} | {len(conf)} | {len(aprox)} | {len(no_conf)} | {por_rango[1]}/{por_rango[2]}/{por_rango[3]} |')
         for h in aprox:

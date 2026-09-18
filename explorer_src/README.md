@@ -129,8 +129,12 @@ registro los hitos con la fecha completa confirmada y los que solo confirman mes
 descarta y queda en el informe (`.informe.md`) y en `.pendientes.json` para revisarlo con otra fuente. Para corregir
 o añadir hitos: editar el JSON del país, volver a ejecutar el script y reensamblar.
 
-Estado del registro (17 de septiembre de 2026): 769 hitos en los 16 países, 745 con la fecha exacta confirmada en su
-fuente y 24 con solo el mes confirmado. Las fuentes son artículos concretos de Wikipedia en español, portugués o
+El informe avisa además cuando dos hitos del mismo país caen en la misma fecha, que casi siempre delata el mismo
+acontecimiento entrado dos veces al fundir listas de distinto origen; el contraste de fechas no puede detectarlo,
+porque ambas entradas son ciertas por separado.
+
+Estado del registro (17 de septiembre de 2026): 751 hitos en los 16 países, 728 con la fecha exacta confirmada en su
+fuente y 23 con solo el mes confirmado. Las fuentes son artículos concretos de Wikipedia en español, portugués o
 inglés. Ocho candidatos se descartaron por no poder contrastarse y quedan anotados en el informe.
 
 ```bash
