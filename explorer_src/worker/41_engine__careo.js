@@ -416,7 +416,7 @@
     const filas = S.tuplas(bd, `
         SELECT ${SQL_COLS}, CASE WHEN nwords >= ? THEN speech END
         FROM speeches
-        WHERE date = ? AND COALESCE(num_session, -1) = COALESCE(?, -1)
+        WHERE date IS ? AND COALESCE(num_session, -1) = COALESCE(?, -1)
         ORDER BY ord
     `, [MIN_WORDS_SYNC, ref.date, ref.num_session]);
 
@@ -654,7 +654,7 @@
     const filas = S.tuplas(bd, `
         SELECT ${SQL_COLS} FROM speeches
         WHERE rep_id = ? AND id <> ? AND nwords >= ?
-          AND NOT (date = ? AND COALESCE(num_session, -1) = COALESCE(?, -1))
+          AND NOT (date IS ? AND COALESCE(num_session, -1) = COALESCE(?, -1))
     `, [ref.rep_id, ref.id, MIN_WORDS_DIAC, ref.date, ref.num_session]);
     const refEsPresidencia = PRESIDENCIA_CAMARA.has(refInfo.role);
     const cands = new Map();

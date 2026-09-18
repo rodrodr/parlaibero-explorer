@@ -2,6 +2,12 @@
 /* 2REP_Standalone · engine/lectura.js
  *
  * Lector y sesión corrida (M5). Port de app/backend/search.py (Corpus._locked_speech_data, _otras_sesiones, speech,
+ *
+ * Una sesión se identifica por (date, num_session). La fecha puede faltar en el CSV de un país, y en SQL «date = NULL»
+ * no casa con nada: la sesión salía vacía. Las consultas que reconstruyen la sesión usan «date IS ?», que compara nulos
+ * y además conserva el índice idx_session(date, num_session, ord) —con COALESCE(date,'') el planificador recorría la
+ * tabla entera—. Las que buscan otras sesiones del mismo día (otrasSesiones) mantienen «date = ?»: sin fecha no hay
+ * «mismo día» que comparar.
  * _locked_session_outline_data, session_outline, _locked_session_texts_data y session_texts, con el mismo SQL y los
  * mismos textos) y de server.py (api_speech, api_session_outline, api_session_texts).
  *
@@ -104,7 +110,7 @@
             SELECT id, ord, speaker, rep_name, party, sex, dm_speech, nwords,
                    substr(speech, 1, 180) AS frag
             FROM speeches
-            WHERE date = ? AND COALESCE(num_session, -1) = COALESCE(?, -1)
+            WHERE date IS ? AND COALESCE(num_session, -1) = COALESCE(?, -1)
               AND ord BETWEEN ? AND ?
             ORDER BY ord
         `, [r.date, r.num_session, o - context, o + context]);
@@ -115,14 +121,14 @@
 
     const ses = S.filas(bd, `
             SELECT COUNT(*) AS n, SUM(nwords) AS w, MIN(ord) AS a, MAX(ord) AS b
-            FROM speeches WHERE date = ? AND COALESCE(num_session,-1) = COALESCE(?,-1)
+            FROM speeches WHERE date IS ? AND COALESCE(num_session,-1) = COALESCE(?,-1)
         `, [r.date, r.num_session])[0];
     d.session = { n_speeches: ses.n, n_words: ses.w, ord_min: ses.a, ord_max: ses.b };
 
     const otras = otrasSesiones(bd, r.date, r.num_session);
     const index = S.valor(bd, `
             SELECT COUNT(*) FROM speeches
-            WHERE date = ? AND COALESCE(num_session,-1) = COALESCE(?,-1) AND id <= ?
+            WHERE date IS ? AND COALESCE(num_session,-1) = COALESCE(?,-1) AND id <= ?
         `, [r.date, r.num_session, sid]);
     const meta = indice(ctx).for_speech(sid, bd);
     return { d, otras, index, meta };
@@ -163,9 +169,10 @@
     const filas = S.filas(bd, `
             SELECT id, ord, speaker, rep_name, party, sex, district, session_type, dm_speech, nwords,
                    nbytes AS nchars
-            FROM speeches WHERE date = ? AND COALESCE(num_session,-1) = COALESCE(?,-1)
+            FROM speeches WHERE date IS ? AND COALESCE(num_session,-1) = COALESCE(?,-1)
             ORDER BY id
         `, [r.date, r.num_session]);
+    if (!filas.length) return null;
     const otras = otrasSesiones(bd, r.date, r.num_session);
     const sesiones = indice(ctx);
     const meta = sesiones.for_speech(sid, bd);
@@ -224,7 +231,7 @@
         + `${s(ext.to_id[0])} (núm. ${s(ext.to_id[1])}). Pida cada sesión por separado.`);
     }
     const [date, num] = ext.from_id;
-    const where = 'id BETWEEN ? AND ? AND date = ? AND COALESCE(num_session,-1) = COALESCE(?,-1)';
+    const where = 'id BETWEEN ? AND ? AND date IS ? AND COALESCE(num_session,-1) = COALESCE(?,-1)';
     const args = [fromId, toId, date, num];
     const [n, chars] = S.tuplas(bd, `SELECT COUNT(*), COALESCE(SUM(nbytes), 0) FROM speeches WHERE ${where}`, args)[0];
     if (n > MAX_SPEECHES) {
