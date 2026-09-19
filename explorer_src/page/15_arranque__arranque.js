@@ -324,7 +324,11 @@
     if (!cliente || cliente.__r2ConBase || !(cliente.estado === 'iniciando' || cliente.estado === 'preparado')) cliente = nuevoCliente();
 
     const lectura = S.sondeo && S.sondeo.motor === 'webkit' && S.sondeo.archivoLocal ? 'principal' : 'auto';
-    cliente.construir(S.archivo, { lectura }).then((r) => alListo(cliente, r), (err) => manejarError(cliente, err));
+    // Edición web: la carpeta de la página, donde se sirven las expresiones ya calculadas de los CSV publicados.
+    let base;
+    const web = R2.datos && R2.datos.edicion && R2.datos.edicion.web;
+    if (web) { try { base = new URL('./', globalThis.location.href).href; } catch (e) { base = undefined; } }
+    cliente.construir(S.archivo, { lectura, base }).then((r) => alListo(cliente, r), (err) => manejarError(cliente, err));
   }
 
   function alListo(cliente, r) {

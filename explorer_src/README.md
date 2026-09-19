@@ -163,7 +163,12 @@ apariciones, intervenciones, G², C-value) y el resumen en `meta.expresiones`.
    el nombre con «presente» ni se encadenan las filas) ni las cifras, con dígitos o con letras: en las
    transcripciones las fechas, los artículos y los recuentos de votos se leen en voz alta («dos mil veintidós», «romano
    seis»), y en El Salvador eran el 7,5 % de las expresiones sin ser ninguna un concepto.
-2. **Recuento**: en corpus de más de 30 millones de tokens, una muestra fija de 1 de cada M intervenciones (M ≈ tokens /
+2. **Recuento**: sobre las intervenciones marcadas como discurso. Las filas sin orador (crónica, votaciones, actas en
+   tercera persona) llenan el inventario de fórmulas y de filas de tablas: probado, en Argentina aparecían «aca aca aca» o
+   «buenos aires afirmativo» entre las más frecuentes. La muestra y el umbral se calculan con el tamaño de ese texto, no
+   con el del corpus entero; con el del corpus, la República Dominicana, que tiene el 81 % del texto en filas sin orador,
+   muestreaba 1 de cada 4 intervenciones de un discurso de menos de 15 millones de palabras y perdía muchas expresiones.
+   En textos de más de 30 millones de tokens, una muestra fija de 1 de cada M intervenciones (M ≈ tokens /
    20 millones) descubre las candidatas que se repiten, con un filtro de Bloom para las vistas una sola vez, y una
    segunda pasada las cuenta exactamente en todo el corpus; en los menores basta una pasada. Memoria acotada: tablas hash
    con los campos de cada hueco juntos y etiquetas de un byte, Bloom por bloques de una línea de caché.
@@ -185,7 +190,7 @@ apariciones, intervenciones, G², C-value) y el resumen en `meta.expresiones`.
 | corpus | tokens | expresiones | detección | construcción sin → con | medido en |
 |---|---|---|---|---|---|
 | El Salvador | 14,1 M | 19.410 | 4,6 s | 4,4 → 8,9 s | Chrome |
-| España | 152,6 M | 84.844 | 61 s | 45 → 106 s | Node |
+| España | 152,6 M | 92.430 | ≈ 60 s | 45 → ≈ 106 s | Node |
 | Brasil | 207,5 M | 119.809 | 91 s | 83 → 174 s | Node |
 
 La fase se paga al construir la base, no en cada sesión: la base se recuerda en el navegador (OPFS o IndexedDB, también
@@ -194,6 +199,29 @@ navegador no deja guardarla. Límites conocidos: se pierden las pocas expresione
 «três poderes», «dos tercios»); quedan fórmulas del género («publicado en el diario oficial número»), que el léxico no
 marca como características salvo que una biblioteca abuse de ellas; y las entidades de más de 7 tokens solo entran por sus
 partes. Lo que no deba unirse se desmarca en la revisión (abajo).
+
+**Expresiones ya calculadas (edición web)**: la fase más lenta de la construcción no hace falta repetirla con los CSV
+publicados. `tools/expresiones_precalculadas.py` construye en Node, con el motor de la aplicación, la base de cada CSV de
+`data/` que sea idéntico al publicado en Dataverse (comprueba el MD5 con la API, solo metadatos) y guarda su tabla como
+paquete comprimido en `datos/expresiones/<PAÍS>.json.gz`, con un índice (`indice.json`) que lleva la SHA-256 y el MD5 de
+cada CSV, su DOI y versión, y la huella de cada tabla; `build.py` los copia a `docs/expresiones/`. Al construir la base
+en la edición web, el worker (`web/expresiones_servidas.js`) consulta el índice: si hay una tabla de la misma versión de
+la detección para un CSV de ese país y tamaño, adelanta la SHA-256 del archivo (que de todos modos se calcula después
+de «listo») y, si coincide, carga la tabla en lugar de detectar; la barra de progreso lo anuncia desde el principio
+(«Cargando las expresiones ya calculadas»). Con cualquier diferencia (otro CSV, otra versión, fallo de red) detecta como
+siempre y el informe de construcción guarda el motivo. Probado en El Salvador y Paraguay (una pasada y muestra con
+recuento exacto): la tabla cargada es idéntica a la detectada y la fase pasa de 5,2 a 0,6 s y de 18,4 a 1,5 s; en Brasil
+o México, de unos 90 s a unos 8 (estimado: casi todo es releer el archivo para la SHA-256). El HTML autónomo no las lleva
+y detecta siempre. Estado (19 de septiembre de 2026): 15 países, 23,7 MB; falta Ecuador, porque el CSV de `data/` no es
+el publicado (MD5 distinto).
+
+```bash
+python3 explorer_src/tools/expresiones_precalculadas.py          # 4 construcciones a la vez; --paises BR,MX para algunos
+python3 explorer_src/build.py
+```
+
+Hay que volver a generarlas cuando Dataverse publique una versión nueva de un conjunto o cuando cambie la detección
+(`R2.expresiones.VERSION`): las tablas de otra versión no se usan.
 
 **Revisión**: el enlace «revisarlas» de las notas del léxico y de las coocurrencias abre la lista completa, con búsqueda
 (sin tildes ni mayúsculas), orden por frecuencia, asociación, longitud o alfabético, y exportación en CSV con la cita y los

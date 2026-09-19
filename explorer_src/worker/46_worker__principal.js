@@ -6,7 +6,8 @@
  * `R2.datos = { normalizacion, csv_publicado, fuente, edicion, sesiones }` (grupo `principal` de orden.json; ARQUITECTURA.md §8).
  *
  * Protocolo (versión 1)
- *   hilo → worker: iniciar{v, wasm} · construir{archivo, lectura: 'auto' | 'principal'} · trozo{id, buf | error}
+ *   hilo → worker: iniciar{v, wasm} · construir{archivo, lectura: 'auto' | 'principal', base?} · trozo{id, buf | error}
+ *     (base: la carpeta de la página en la edición web, para las expresiones ya calculadas de web/expresiones_servidas.js)
  *                  pedir{id, op, args, canal, prioridad, presupuestoMs} · cancelar{id} · recordar{id} · olvidar{id}
  *   worker → hilo: hola{v, sqlite, ua, referencia, capacidades} · progreso{ev} · progreso_op{id, ev} · modo_lectura{modo, espera_ms, error}
  *                  leer{id, off, len} · listo{informe, ms, modo_lectura} · huella{informe, ms, max_paso_ms}
@@ -206,9 +207,12 @@
       const t0 = ahora();
       let r;
       try {
+        // Edición web: la página manda la dirección de su carpeta, donde pueden estar las expresiones ya calculadas.
+        const servidas = m.base && R2.expresionesServidas ? R2.expresionesServidas.crear({ base: m.base }) : null;
         r = await R2.ingesta.construir(fuenteDe(archivo), n.sqlite3, {
           progreso: (ev) => enviar({ tipo: 'progreso', ev }),
           verificarCambios: true,
+          expresionesPrecalculadas: servidas || undefined,
         });
       } catch (e) {
         n.estado = 'fallido';

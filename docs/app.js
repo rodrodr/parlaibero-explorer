@@ -749,7 +749,8 @@
       espListo = espera();
       const p = espListo.promesa;
       const lectura = opcionesConstruir && opcionesConstruir.lectura === 'principal' ? 'principal' : 'auto';
-      enviar({ tipo: 'construir', archivo, lectura });
+      const base = opcionesConstruir && typeof opcionesConstruir.base === 'string' ? opcionesConstruir.base : undefined;
+      enviar({ tipo: 'construir', archivo, lectura, base });
       return p;
     };
 
@@ -1004,6 +1005,10 @@
   /** Duración de las fases finales respecto a la lectura completa (medido con un corpus de 100 MB). */
   // expresiones: medido en Brasil (lectura 84 s, expresiones 120 s) y El Salvador (4 s y 10 s).
   const RESPECTO_A_LEER = Object.freeze({ indices: 0.02, optimizar: 0.12, estadisticas: 0.08, expresiones: 1.4 });
+  // Con las expresiones ya calculadas (edición web, CSV idéntico al publicado) la fase solo relee el archivo para
+  // comprobar su SHA-256 y carga la tabla: unas 0,1 veces la lectura. El worker lo avisa con ev.plan al empezar.
+  const PRECALCULADAS = Object.freeze({ etiqueta: 'Cargando las expresiones ya calculadas', respecto_a_leer: 0.1,
+    pesos: Object.freeze({ leer: 0.72, guardar: 0.03, indices: 0.02, optimizar: 0.09, estadisticas: 0.07, expresiones: 0.07 }) });
 
   const UMBRAL_FASE_LARGA_MS = 5000;
 
@@ -1079,7 +1084,20 @@
     const fases = FASES.map((f, i) => ({ id: f.id, etiqueta: f.etiqueta, indice: i + 1, peso: f.peso, estado: 'espera',
       hecho: 0, total: null, inicio: null, fin: null }));
     const porId = new Map(fases.map((f) => [f.id, f]));
+    const factores = Object.assign({}, RESPECTO_A_LEER);
     let t0 = null, eta = null, tEta = null, activaId = null;
+
+    /** plan.expresiones: 'precalculadas' (etiqueta, peso y estimación de la fase ligera) o 'detectar' (los de siempre). */
+    function aplicarPlan(plan) {
+      if (!plan || !plan.expresiones) return;
+      const pre = plan.expresiones === 'precalculadas';
+      for (const f of fases) {
+        const def = FASES[f.indice - 1];
+        f.peso = pre ? PRECALCULADAS.pesos[f.id] : def.peso;
+        if (f.id === 'expresiones') f.etiqueta = pre ? PRECALCULADAS.etiqueta : def.etiqueta;
+      }
+      factores.expresiones = pre ? PRECALCULADAS.respecto_a_leer : RESPECTO_A_LEER.expresiones;
+    }
 
     const fraccionDe = (f) => {
       if (f.estado === 'hecha') return 1;
@@ -1119,10 +1137,10 @@
       const D = leer.estado === 'hecha' ? msDe(leer, t) : porRitmo(leer, t);
       if (D === null || !(D > 0)) return null;
       return restanteDe(leer, D, t)
-        + restanteDe(porId.get('indices'), D * RESPECTO_A_LEER.indices, t)
-        + restanteDe(porId.get('optimizar'), D * RESPECTO_A_LEER.optimizar, t)
-        + restanteDe(porId.get('estadisticas'), D * RESPECTO_A_LEER.estadisticas, t)
-        + restanteDe(porId.get('expresiones'), D * RESPECTO_A_LEER.expresiones, t);
+        + restanteDe(porId.get('indices'), D * factores.indices, t)
+        + restanteDe(porId.get('optimizar'), D * factores.optimizar, t)
+        + restanteDe(porId.get('estadisticas'), D * factores.estadisticas, t)
+        + restanteDe(porId.get('expresiones'), D * factores.expresiones, t);
     }
 
     function actualizarEta(t) {
@@ -1140,6 +1158,8 @@
     }
 
     function evento(ev) {
+      if (ev && ev.plan) aplicarPlan(ev.plan);
+      if (ev && ev.fase === 'expresiones' && ev.precalculadas) aplicarPlan({ expresiones: 'precalculadas' });
       const f = ev && porId.get(ev.fase);
       if (!f) return false;
       const t = ahora();
@@ -1181,7 +1201,7 @@
     return { evento, estado };
   }
 
-  R2.progreso = { FASES, RESPECTO_A_LEER, UMBRAL_FASE_LARGA_MS, crearSeguimiento, miles, decimal, tamano, duracion, porcentaje, textoEta, memoriaEstimada };
+  R2.progreso = { FASES, RESPECTO_A_LEER, PRECALCULADAS, UMBRAL_FASE_LARGA_MS, crearSeguimiento, miles, decimal, tamano, duracion, porcentaje, textoEta, memoriaEstimada };
 })(globalThis.R2 = globalThis.R2 || {});
 //# sourceURL=2rep-standalone/src/arranque/progreso.js
 
@@ -1823,6 +1843,12 @@
       for (const f of est.fases) {
         const li = raiz.querySelector(`.r2c-fase[data-fase="${f.id}"]`);
         if (!li) continue;
+        // La etiqueta puede cambiar durante la construcción («Cargando las expresiones ya calculadas»).
+        const et = li.querySelector('.r2c-et-t');
+        if (f.etiqueta && et.textContent !== f.etiqueta) {
+          et.textContent = f.etiqueta;
+          li.querySelector('.r2c-barra').setAttribute('aria-label', `${f.etiqueta}, fase ${f.indice} de ${est.fases.length}`);
+        }
         if (li.dataset.estado !== f.estado) {
           li.dataset.estado = f.estado;
           li.querySelector('.r2c-icono').textContent = ICONOS[f.estado];
@@ -4848,7 +4874,11 @@
     if (!cliente || cliente.__r2ConBase || !(cliente.estado === 'iniciando' || cliente.estado === 'preparado')) cliente = nuevoCliente();
 
     const lectura = S.sondeo && S.sondeo.motor === 'webkit' && S.sondeo.archivoLocal ? 'principal' : 'auto';
-    cliente.construir(S.archivo, { lectura }).then((r) => alListo(cliente, r), (err) => manejarError(cliente, err));
+    // Edición web: la carpeta de la página, donde se sirven las expresiones ya calculadas de los CSV publicados.
+    let base;
+    const web = R2.datos && R2.datos.edicion && R2.datos.edicion.web;
+    if (web) { try { base = new URL('./', globalThis.location.href).href; } catch (e) { base = undefined; } }
+    cliente.construir(S.archivo, { lectura, base }).then((r) => alListo(cliente, r), (err) => manejarError(cliente, err));
   }
 
   function alListo(cliente, r) {
@@ -10173,8 +10203,10 @@ function exprPintar() {
   const m = EX_ST.meta || {};
   $('#exprSub').innerHTML = `${nf(m.seleccionadas ?? EX_ST.inventario)} detectadas al construir la base, en ${nf(m.intervenciones)}
     intervenciones y ${nf(m.tokens_corpus)} palabras: de 2 a ${nf(m.max_tokens || 7)} palabras, al menos ${nf(m.frecuencia_minima)} apariciones
-    en ${nf(m.intervenciones_minimas)} intervenciones y asociación significativa. Desmarque las que no deban unirse: sus palabras
-    volverán a contar sueltas en el léxico y en las coocurrencias.`;
+    en ${nf(m.intervenciones_minimas)} intervenciones y asociación significativa.${m.precalculada ? ` Se cargaron ya calculadas
+    porque el CSV es idéntico al publicado en Dataverse${m.precalculada.origen?.dataverse?.version ? ` (versión ${esc(String(m.precalculada.origen.dataverse.version))})` : ''}:
+    son las mismas que se detectarían.` : ''} Desmarque las que no deban unirse: sus palabras volverán a contar sueltas en el
+    léxico y en las coocurrencias.`;
   const filas = EX_ST.filas;
   if (!filas.length) {
     $('#exprLista').innerHTML = `<p class="dsub">${EX_ST.solo ? 'Todas las expresiones se unen.' : 'Ninguna expresión contiene ese texto.'}</p>`;

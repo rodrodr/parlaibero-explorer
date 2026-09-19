@@ -14,6 +14,12 @@
  *       sha256             'auto' (por defecto) | 'durante' | 'diferido'
  *       optimizar          'auto' (por defecto: solo si el texto no pasa de OPTIMIZAR_HASTA_BYTES) | true | false
  *       tamanoTrozo        bytes por lectura (16 MiB)
+ *       expresiones        false: sin la fase de expresiones de varias palabras
+ *       expresionesPrecalculadas  { candidato(bytes) → Promise<bool>, obtener({ pais, bytes, sha256() }) →
+ *                          Promise<{ paquete, origen } | { paquete: null, motivo }> } (R2.expresionesServidas): si hay
+ *                          una tabla ya calculada para este CSV, se comprueba su SHA-256 y se carga en lugar de detectar;
+ *                          con candidato, al empezar se avisa a la página con progreso({ plan: { expresiones:
+ *                          'precalculadas' } }) para que ajuste la etiqueta y la estimación de tiempo
  *       pageSize           PRAGMA page_size (PAGE_SIZE)
  *   Si falla, rechaza con R2.errores.ErrorIngesta (codigo, mensaje, fila, linea, byte, columna, valor, detalle).
  *   completarHuella({ ceder }) → Promise<informe>: con la SHA-256 diferida, relee el archivo, comprueba las huellas por
@@ -220,6 +226,14 @@
 
     if (!(tamano > 0)) throw E.fallo('ARCHIVO_VACIO');
 
+    // Expresiones ya calculadas para este CSV (edición web): se pregunta al empezar, en paralelo con la lectura.
+    const pre = opciones.expresiones !== false && opciones.expresionesPrecalculadas ? opciones.expresionesPrecalculadas : null;
+    if (pre && typeof pre.candidato === 'function') {
+      Promise.resolve().then(() => pre.candidato(tamano)).then((si) => {
+        if (si) progreso({ plan: { expresiones: 'precalculadas' } });
+      }, () => {});
+    }
+
     let db = null, ins = null, vigia = null, huellas = null;
     try {
       C.memoria(sqlite3, true); // el pico de SQLite cuenta desde aquí
@@ -310,6 +324,23 @@
       emitir('guardar', n, n);
 
       const sha256 = sha ? sha.hex() : null;
+      /** SHA-256 releyendo el archivo; comprueba las huellas por trozo (si cambió: ARCHIVO_ILEGIBLE). */
+      const calcularSha256 = async ({ ceder, alProgreso } = {}) => {
+        const h = new H.Sha256();
+        for (let k = 0, off = 0; off < tamano; k++, off += trozo) {
+          const largo = Math.min(trozo, tamano - off);
+          const u8 = await leer(off, largo);
+          if (huellas && H.huellaTrozo(u8) !== huellas[k]) {
+            throw E.fallo('ARCHIVO_ILEGIBLE', { byte: off, detalle: { motivo: 'cambiado' } });
+          }
+          for (let p = 0; p < largo; p += BYTES_POR_CESION) {
+            h.update(u8.subarray(p, Math.min(largo, p + BYTES_POR_CESION)));
+            if (ceder) await ceder();
+          }
+          if (alProgreso) alProgreso(off + largo, tamano);
+        }
+        return h.hex();
+      };
       const avisos = [];
       if (lineasVacias) avisos.push(E.aviso('LINEAS_VACIAS', { n: lineasVacias, primera_fila: primeraVacia }));
       if (sinCompresion) avisos.push(E.aviso('SIN_COMPRESION', {}));
@@ -360,14 +391,40 @@
       // ---------------------------------------------------------------- 6. expresiones de varias palabras
       // Se detectan una vez, con la estadística de todo el corpus (R2.expresiones), y se guardan en la base. Un fallo
       // aquí no impide abrir el corpus: queda un aviso y el léxico y las coocurrencias trabajan con palabras sueltas.
-      let expresiones = null;
+      // Si hay una tabla ya calculada para este mismo CSV (edición web), se carga: la SHA-256 del archivo, que habría que
+      // calcular igual después de «listo», se adelanta para comprobar que es idéntico al de la tabla.
+      let expresiones = null, shaAnticipada = null, motivoPre = null;
       if (opciones.expresiones !== false && R2.expresiones) {
         const tE = ahora();
         emitir('expresiones', 0, 1);
-        try {
-          expresiones = await R2.expresiones.detectar({ db, sqlite3, pais: pais || '', alProgreso: (h, t) => emitir('expresiones', h, t) });
-        } catch (e) {
-          avisos.push(E.aviso('SIN_EXPRESIONES', { error: e && e.message ? e.message : String(e) }));
+        if (pre && typeof pre.obtener === 'function') {
+          const tS = ahora();
+          try {
+            const r = await pre.obtener({ pais: pais || '', bytes: tamano, sha256: async () => {
+              if (sha256) return sha256;
+              if (!shaAnticipada) {
+                shaAnticipada = await calcularSha256({ alProgreso: (h, t) => progreso({ fase: 'expresiones',
+                  etiqueta: 'Comprobando el archivo para usar las expresiones ya calculadas', indice: FASE.expresiones.indice,
+                  hecho: h, total: t, precalculadas: true }) });
+                tiempos.sha256_anticipada = ahora() - tS;
+              }
+              return shaAnticipada;
+            } });
+            if (r && r.paquete) {
+              expresiones = R2.expresiones.cargarPaquete({ db, sqlite3, paquete: r.paquete, origen: r.origen || null, csvSha256: sha256 || shaAnticipada });
+            } else if (r && r.motivo) motivoPre = r.motivo;
+          } catch (e) {
+            motivoPre = e && e.message ? e.message : String(e);
+          }
+        }
+        if (!expresiones) {
+          if (pre) progreso({ plan: { expresiones: 'detectar' } });      // la página vuelve a la etiqueta y la estimación normales
+          try {
+            expresiones = await R2.expresiones.detectar({ db, sqlite3, pais: pais || '', alProgreso: (h, t) => emitir('expresiones', h, t) });
+            if (motivoPre) expresiones.precalculada_descartada = motivoPre;
+          } catch (e) {
+            avisos.push(E.aviso('SIN_EXPRESIONES', { error: e && e.message ? e.message : String(e) }));
+          }
         }
         tiempos.expresiones = ahora() - tE;
         emitir('expresiones', 1, 1);
@@ -381,7 +438,7 @@
         n_doc: filasDoc,
         pais: pais || null,
         duplicadas: 0,
-        huella: { bytes: tamano, sha256, nombre: fuente.nombre != null ? fuente.nombre : null },
+        huella: { bytes: tamano, sha256: sha256 || shaAnticipada, nombre: fuente.nombre != null ? fuente.nombre : null },
         publicado: null,
         version_csv: null,
         correcciones_fechas: null,
@@ -392,7 +449,7 @@
           sqlite: sqlite3.version.libVersion,
           page_size: pageSize,
           tamano_trozo: trozo,
-          sha256: diferirSha ? 'diferido' : 'durante',
+          sha256: !diferirSha ? 'durante' : shaAnticipada ? 'anticipado' : 'diferido',
           verificar_cambios: verificar,
           bytes_texto: bytesTexto,
           bytes_texto_comprimido: bytesComprimidos,
@@ -411,19 +468,7 @@
         if (!completando) {
           completando = (async () => {
             const t0 = ahora();
-            const h = new H.Sha256();
-            for (let k = 0, off = 0; off < tamano; k++, off += trozo) {
-              const largo = Math.min(trozo, tamano - off);
-              const u8 = await leer(off, largo);
-              if (H.huellaTrozo(u8) !== huellas[k]) {
-                throw E.fallo('ARCHIVO_ILEGIBLE', { byte: off, detalle: { motivo: 'cambiado' } });
-              }
-              for (let p = 0; p < largo; p += BYTES_POR_CESION) {
-                h.update(u8.subarray(p, Math.min(largo, p + BYTES_POR_CESION)));
-                if (ceder) await ceder();
-              }
-            }
-            informe.huella.sha256 = h.hex();
+            informe.huella.sha256 = await calcularSha256({ ceder });
             informe.tiempos.sha256_diferida = Math.round((ahora() - t0) * 10) / 10;
             return informe;
           })();

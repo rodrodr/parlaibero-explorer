@@ -41,6 +41,10 @@
   /** Duración de las fases finales respecto a la lectura completa (medido con un corpus de 100 MB). */
   // expresiones: medido en Brasil (lectura 84 s, expresiones 120 s) y El Salvador (4 s y 10 s).
   const RESPECTO_A_LEER = Object.freeze({ indices: 0.02, optimizar: 0.12, estadisticas: 0.08, expresiones: 1.4 });
+  // Con las expresiones ya calculadas (edición web, CSV idéntico al publicado) la fase solo relee el archivo para
+  // comprobar su SHA-256 y carga la tabla: unas 0,1 veces la lectura. El worker lo avisa con ev.plan al empezar.
+  const PRECALCULADAS = Object.freeze({ etiqueta: 'Cargando las expresiones ya calculadas', respecto_a_leer: 0.1,
+    pesos: Object.freeze({ leer: 0.72, guardar: 0.03, indices: 0.02, optimizar: 0.09, estadisticas: 0.07, expresiones: 0.07 }) });
 
   const UMBRAL_FASE_LARGA_MS = 5000;
 
@@ -116,7 +120,20 @@
     const fases = FASES.map((f, i) => ({ id: f.id, etiqueta: f.etiqueta, indice: i + 1, peso: f.peso, estado: 'espera',
       hecho: 0, total: null, inicio: null, fin: null }));
     const porId = new Map(fases.map((f) => [f.id, f]));
+    const factores = Object.assign({}, RESPECTO_A_LEER);
     let t0 = null, eta = null, tEta = null, activaId = null;
+
+    /** plan.expresiones: 'precalculadas' (etiqueta, peso y estimación de la fase ligera) o 'detectar' (los de siempre). */
+    function aplicarPlan(plan) {
+      if (!plan || !plan.expresiones) return;
+      const pre = plan.expresiones === 'precalculadas';
+      for (const f of fases) {
+        const def = FASES[f.indice - 1];
+        f.peso = pre ? PRECALCULADAS.pesos[f.id] : def.peso;
+        if (f.id === 'expresiones') f.etiqueta = pre ? PRECALCULADAS.etiqueta : def.etiqueta;
+      }
+      factores.expresiones = pre ? PRECALCULADAS.respecto_a_leer : RESPECTO_A_LEER.expresiones;
+    }
 
     const fraccionDe = (f) => {
       if (f.estado === 'hecha') return 1;
@@ -156,10 +173,10 @@
       const D = leer.estado === 'hecha' ? msDe(leer, t) : porRitmo(leer, t);
       if (D === null || !(D > 0)) return null;
       return restanteDe(leer, D, t)
-        + restanteDe(porId.get('indices'), D * RESPECTO_A_LEER.indices, t)
-        + restanteDe(porId.get('optimizar'), D * RESPECTO_A_LEER.optimizar, t)
-        + restanteDe(porId.get('estadisticas'), D * RESPECTO_A_LEER.estadisticas, t)
-        + restanteDe(porId.get('expresiones'), D * RESPECTO_A_LEER.expresiones, t);
+        + restanteDe(porId.get('indices'), D * factores.indices, t)
+        + restanteDe(porId.get('optimizar'), D * factores.optimizar, t)
+        + restanteDe(porId.get('estadisticas'), D * factores.estadisticas, t)
+        + restanteDe(porId.get('expresiones'), D * factores.expresiones, t);
     }
 
     function actualizarEta(t) {
@@ -177,6 +194,8 @@
     }
 
     function evento(ev) {
+      if (ev && ev.plan) aplicarPlan(ev.plan);
+      if (ev && ev.fase === 'expresiones' && ev.precalculadas) aplicarPlan({ expresiones: 'precalculadas' });
       const f = ev && porId.get(ev.fase);
       if (!f) return false;
       const t = ahora();
@@ -218,6 +237,6 @@
     return { evento, estado };
   }
 
-  R2.progreso = { FASES, RESPECTO_A_LEER, UMBRAL_FASE_LARGA_MS, crearSeguimiento, miles, decimal, tamano, duracion, porcentaje, textoEta, memoriaEstimada };
+  R2.progreso = { FASES, RESPECTO_A_LEER, PRECALCULADAS, UMBRAL_FASE_LARGA_MS, crearSeguimiento, miles, decimal, tamano, duracion, porcentaje, textoEta, memoriaEstimada };
 })(globalThis.R2 = globalThis.R2 || {});
 //# sourceURL=2rep-standalone/src/arranque/progreso.js

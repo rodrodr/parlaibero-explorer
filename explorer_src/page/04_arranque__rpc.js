@@ -293,7 +293,8 @@
       espListo = espera();
       const p = espListo.promesa;
       const lectura = opcionesConstruir && opcionesConstruir.lectura === 'principal' ? 'principal' : 'auto';
-      enviar({ tipo: 'construir', archivo, lectura });
+      const base = opcionesConstruir && typeof opcionesConstruir.base === 'string' ? opcionesConstruir.base : undefined;
+      enviar({ tipo: 'construir', archivo, lectura, base });
       return p;
     };
 

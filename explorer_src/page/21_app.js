@@ -3170,8 +3170,10 @@ function exprPintar() {
   const m = EX_ST.meta || {};
   $('#exprSub').innerHTML = `${nf(m.seleccionadas ?? EX_ST.inventario)} detectadas al construir la base, en ${nf(m.intervenciones)}
     intervenciones y ${nf(m.tokens_corpus)} palabras: de 2 a ${nf(m.max_tokens || 7)} palabras, al menos ${nf(m.frecuencia_minima)} apariciones
-    en ${nf(m.intervenciones_minimas)} intervenciones y asociación significativa. Desmarque las que no deban unirse: sus palabras
-    volverán a contar sueltas en el léxico y en las coocurrencias.`;
+    en ${nf(m.intervenciones_minimas)} intervenciones y asociación significativa.${m.precalculada ? ` Se cargaron ya calculadas
+    porque el CSV es idéntico al publicado en Dataverse${m.precalculada.origen?.dataverse?.version ? ` (versión ${esc(String(m.precalculada.origen.dataverse.version))})` : ''}:
+    son las mismas que se detectarían.` : ''} Desmarque las que no deban unirse: sus palabras volverán a contar sueltas en el
+    léxico y en las coocurrencias.`;
   const filas = EX_ST.filas;
   if (!filas.length) {
     $('#exprLista').innerHTML = `<p class="dsub">${EX_ST.solo ? 'Todas las expresiones se unen.' : 'Ninguna expresión contiene ese texto.'}</p>`;

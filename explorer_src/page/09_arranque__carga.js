@@ -479,6 +479,12 @@
       for (const f of est.fases) {
         const li = raiz.querySelector(`.r2c-fase[data-fase="${f.id}"]`);
         if (!li) continue;
+        // La etiqueta puede cambiar durante la construcción («Cargando las expresiones ya calculadas»).
+        const et = li.querySelector('.r2c-et-t');
+        if (f.etiqueta && et.textContent !== f.etiqueta) {
+          et.textContent = f.etiqueta;
+          li.querySelector('.r2c-barra').setAttribute('aria-label', `${f.etiqueta}, fase ${f.indice} de ${est.fases.length}`);
+        }
         if (li.dataset.estado !== f.estado) {
           li.dataset.estado = f.estado;
           li.querySelector('.r2c-icono').textContent = ICONOS[f.estado];

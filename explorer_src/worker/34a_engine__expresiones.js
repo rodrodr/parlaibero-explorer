@@ -16,6 +16,14 @@
  *     de votos se leen en voz alta («dos mil veintidós», «romano seis», «cero abstenciones»); en El Salvador eran el
  *     7,5 % de las expresiones y ninguna un concepto.
  *
+ * Se recorren las intervenciones marcadas como discurso (dm_speech = 1). Las filas sin orador (crónica, votaciones, actas
+ * en tercera persona, cuentas de la sesión) llenarían el inventario de fórmulas y de filas de tablas: probado, en Argentina
+ * aparecían «aca aca aca» o «buenos aires afirmativo» entre las más frecuentes. La muestra y el umbral se calculan con el
+ * tamaño de ese texto (suma de nwords), no con el del corpus entero: la versión 1 usaba el del corpus y en la República
+ * Dominicana, con el 81 % del texto en filas sin orador, muestreaba 1 de cada 4 intervenciones de un discurso que no llega
+ * a 15 millones de palabras y perdía muchas expresiones. La referencia del G² sigue siendo el índice entero (frecuencias
+ * de fts5vocab y su total), que conserva las proporciones.
+ *
  * Recuento en dos pasadas, con memoria acotada (medido en Brasil: 48 MB frente a 2,3 GB del recuento exacto directo):
  *   1. Una muestra fija de 1 de cada M intervenciones. Un filtro de Bloom recuerda las candidatas vistas una vez; la
  *      tabla solo guarda las que se repiten.
@@ -58,12 +66,14 @@
  *   fuenteVacias(pais) · CONECTORES · MAX_TOKENS
  *   Revisión: listar(bd, {q, orden, limite, desde, solo}) · rechazadas(bd) → Set · fijarRechazadas(bd, formas) ·
  *   revision(bd) → n.º de cambios (clave de las cachés que dependen de las expresiones)
+ *   Precalculadas: paquete(bd) → { version, meta, columnas, filas } · cargarPaquete({ db, sqlite3, paquete, origen,
+ *   csvSha256 }) → resumen (lanza si el paquete no es de esta VERSION)
  */
 (function (R2) {
   'use strict';
 
   const K = () => R2.keyness;                         // se carga antes; se busca al llamar
-  const VERSION = 1;
+  const VERSION = 2;                                  // cambia cuando cambia lo que se detecta (y deja sin valor lo precalculado)
   const MAX_TOKENS = 7;
   const UMBRAL_G2 = 10.83;
   const MIN_INTERVENCIONES = 3;
@@ -332,9 +342,11 @@
     S.ejecutar(bd, 'DELETE FROM expresiones');
 
     const ids = S.columna(bd, 'SELECT id FROM speeches WHERE dm_speech = 1 ORDER BY id');
-    const tokensCorpus = Number(KK.corpus_tokens(bd)) || 0;
-    const M = tokensCorpus > TOKENS_SIN_MUESTRA ? Math.max(2, Math.round(tokensCorpus / TOKENS_POR_MUESTRA)) : 1;
-    const F = Math.max(20, Math.ceil(0.25 * tokensCorpus / 1e6));
+    const tokensCorpus = Number(KK.corpus_tokens(bd)) || 0;          // el índice entero: referencia del G² con fts5vocab
+    // Tamaño del texto que se recorre (el discurso): decide la muestra y el umbral.
+    const tokensDiscurso = Number(S.valor(bd, 'SELECT coalesce(sum(nwords), 0) FROM speeches WHERE dm_speech = 1')) || tokensCorpus;
+    const M = tokensDiscurso > TOKENS_SIN_MUESTRA ? Math.max(2, Math.round(tokensDiscurso / TOKENS_POR_MUESTRA)) : 1;
+    const F = Math.max(20, Math.ceil(0.25 * tokensDiscurso / 1e6));
     const enMuestra = (id) => M === 1 || (Math.imul(id ^ 0x9e3779b9, 0x85ebca6b) >>> 0) % M === 0;
     const muestra = M === 1 ? ids : ids.filter(enMuestra);
     const totalTrabajo = M === 1 ? ids.length : muestra.length + ids.length;   // con M = 1 hay una sola pasada
@@ -492,7 +504,7 @@
 
     const resumen = {
       version: VERSION, muestra_1_de: M, frecuencia_minima: F, intervenciones_minimas: MIN_INTERVENCIONES, max_tokens: MAX_TOKENS,
-      umbral_g2: UMBRAL_G2, tokens_corpus: tokensCorpus, intervenciones: ids.length, candidatas_muestra: inst1,
+      umbral_g2: UMBRAL_G2, tokens_corpus: tokensCorpus, tokens_discurso: tokensDiscurso, intervenciones: ids.length, candidatas_muestra: inst1,
       repetidas_muestra: nMuestra, tramos_de_secuencias_largas: tramosLargos, con_frecuencia_minima: cand.size, tras_asociacion: asociadas.length,
       fragmentos_descartados: fragmentos, seleccionadas: elegidas.length, vacias: fuenteVacias(pais), conectores: CONECTORES[lenguaDe(pais)],
       ms: Math.round(ahora() - t0),
@@ -655,9 +667,55 @@
     return { disponible: true, total, filas, rechazadas: fuera.size, meta };
   }
 
+  // ------------------------------------------------------------------------------------------------ precalculadas
+  // Paquete compacto con la tabla de una base, para servirla ya calculada (tools/expresiones_precalculadas.py la genera
+  // para los CSV publicados en Dataverse y la edición web la carga si el CSV elegido es idéntico: misma SHA-256).
+  const COLUMNAS_PAQUETE = Object.freeze(['forma', 'mostrar', 'n_tokens', 'n_palabras', 'frecuencia', 'independiente',
+    'intervenciones', 'g2', 'cvalue']);
+  /** { version, meta, columnas, filas } de la tabla de la base; mostrar = 0 cuando coincide con la forma. */
+  function paquete(bd) {
+    const filas = R2.sql.filas(bd, `SELECT ${COLUMNAS_PAQUETE.join(', ')} FROM expresiones ORDER BY id`);
+    const meta = JSON.parse(R2.sql.valor(bd, "SELECT value FROM meta WHERE key = 'expresiones'") || 'null');
+    if (meta) delete meta.ms;                                       // sin tiempos: el mismo CSV da el mismo paquete
+    return { version: VERSION, meta, columnas: COLUMNAS_PAQUETE.slice(),
+      filas: filas.map((x) => COLUMNAS_PAQUETE.map((c) => (c === 'mostrar' && x.mostrar === x.forma ? 0 : x[c]))) };
+  }
+  /**
+   * Crea y llena la tabla con un paquete ya calculado (sin recorrer el corpus) → resumen, el guardado en
+   * meta.expresiones con `precalculada: { origen, csv_sha256 }`. Lanza si el paquete no es de esta versión o no tiene la
+   * forma esperada: quien llama detecta entonces las expresiones como siempre.
+   */
+  function cargarPaquete({ db, sqlite3, paquete: pq, origen = null, csvSha256 = null }) {
+    const t0 = ahora();
+    if (!pq || pq.version !== VERSION) throw new Error(`paquete de la versión ${pq && pq.version}, se esperaba la ${VERSION}`);
+    if (!Array.isArray(pq.columnas) || pq.columnas.join() !== COLUMNAS_PAQUETE.join() || !Array.isArray(pq.filas)) {
+      throw new Error('paquete sin las columnas esperadas');
+    }
+    const bd = { db, sqlite3 };
+    const S = R2.sql;
+    S.ejecutar(bd, SQL_TABLA);
+    S.ejecutar(bd, 'DELETE FROM expresiones');
+    S.ejecutar(bd, 'BEGIN');
+    try {
+      const st = db.prepare('INSERT INTO expresiones (forma, mostrar, n_tokens, n_palabras, frecuencia, independiente, intervenciones, g2, cvalue) VALUES (?,?,?,?,?,?,?,?,?)');
+      try {
+        for (const f of pq.filas) {
+          if (!Array.isArray(f) || f.length !== COLUMNAS_PAQUETE.length || typeof f[0] !== 'string' || !f[0]) throw new Error('fila de paquete no válida');
+          st.bind([f[0], f[1] === 0 ? f[0] : f[1], f[2], f[3], f[4], f[5], f[6], f[7], f[8]]).stepReset();
+        }
+      } finally { st.finalize(); }
+      S.ejecutar(bd, 'COMMIT');
+    } catch (e) { S.ejecutar(bd, 'ROLLBACK'); S.ejecutar(bd, 'DELETE FROM expresiones'); throw e; }
+    const resumen = Object.assign({}, pq.meta || {}, { seleccionadas: pq.filas.length,
+      precalculada: { origen, csv_sha256: csvSha256, ms_carga: Math.round(ahora() - t0) } });
+    S.ejecutar(bd, "INSERT OR REPLACE INTO meta (key, value) VALUES ('expresiones', ?)", [JSON.stringify(resumen)]);
+    cacheIndices.delete(db);
+    return resumen;
+  }
+
   R2.expresiones = Object.freeze({
     VERSION, MAX_TOKENS, CONECTORES, detectar, cargar, unidades, unidadesTexto, contar, huellaTokens, recorrer,
     lenguaDe, vaciasDe, conectoresDe, contenidoDe, numeralesDe, tipoDe, fuenteVacias, listar, rechazadas, fijarRechazadas,
-    revision,
+    revision, paquete, cargarPaquete, COLUMNAS_PAQUETE,
   });
 })(globalThis.R2 = globalThis.R2 || {});

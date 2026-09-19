@@ -14,7 +14,7 @@ Estructura del HTML resultante (misma que la plantilla original 2REP Standalone)
                      capitales (assets/capitales.json)
   <script>page/01_* … page/NN_*</script>
 """
-import base64, gzip, hashlib, json, os, sys
+import base64, gzip, hashlib, json, os, shutil, sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SALIDA = sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].startswith('--') else os.path.join(os.path.dirname(ROOT), 'Diarios_Explorer.html')
@@ -134,12 +134,26 @@ def construir_web(destino):
     letras = json.loads(leer('assets/capitales.json').decode('utf-8'))
     for letra, svg in letras.items():
         escribir(os.path.join(destino, 'capitales', f'{letra}.svg'), svg.encode('utf-8'))
+    # Expresiones ya calculadas para los CSV publicados (tools/expresiones_precalculadas.py): se sirven tal cual en
+    # expresiones/ y el worker las usa si el CSV elegido es idéntico (web/expresiones_servidas.js).
+    origen_expr = os.path.join(ROOT, 'datos', 'expresiones')
+    destino_expr = os.path.join(destino, 'expresiones')
+    if os.path.isdir(destino_expr):
+        shutil.rmtree(destino_expr)
+    n_expr = 0
+    if os.path.isfile(os.path.join(origen_expr, 'indice.json')):
+        indice_expr = json.loads(leer('datos/expresiones/indice.json').decode('utf-8'))
+        for e in indice_expr.get('paises', {}).values():
+            escribir(os.path.join(destino_expr, e['archivo']), leer(os.path.join('datos', 'expresiones', e['archivo'])))
+            n_expr += 1
+        escribir(os.path.join(destino_expr, 'indice.json'), leer('datos/expresiones/indice.json'))
     precarga = ['./', './index.html', f'./app.css?v={v}', f'./app.js?v={v}', f'./worker.js?v={v}', f'./sqlite3.wasm?v={v}']
     sw = leer('web/sw.js').decode('utf-8').replace('__BUILD_ID__', v).replace('__PRECARGA__', json.dumps(precarga))
     escribir(os.path.join(destino, 'sw.js'), sw.encode('utf-8'))
     escribir(os.path.join(destino, '.nojekyll'), b'')
     total = sum(os.path.getsize(os.path.join(dp, f)) for dp, _, fs in os.walk(destino) for f in fs)
-    print(f'{destino}/: index.html, app.css, app.js, worker.js, sqlite3.wasm, sw.js, capitales/ ({len(letras)} letras) · {total:,} bytes')
+    print(f'{destino}/: index.html, app.css, app.js, worker.js, sqlite3.wasm, sw.js, capitales/ ({len(letras)} letras), '
+          f'expresiones/ ({n_expr} países) · {total:,} bytes')
 
 
 def main():
@@ -149,6 +163,8 @@ def main():
     global VERSION_WEB
     fuentes = [leer(rel) for sub, ext in (('html', '.html'), ('css', '.css'), ('page', '.js'), ('web', '.js'), ('datos', '.json'))
                for rel in archivos(sub, ext)] + [leer('assets/capitales.json')] + partes_worker
+    if os.path.isfile(os.path.join(ROOT, 'datos', 'expresiones', 'indice.json')):
+        fuentes.append(leer('datos/expresiones/indice.json'))  # lleva la huella de cada tabla de expresiones
     VERSION_WEB = hashlib.sha256(b''.join(fuentes)).hexdigest()[:16]
     pagina = archivos('page', '.js')
     out = [leer('html/head_top.html')]
