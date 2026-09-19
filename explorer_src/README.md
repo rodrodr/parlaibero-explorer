@@ -147,6 +147,46 @@ Legibilidad: la interfaz elige cuántos hitos dibuja según el espacio (`selectM
 filas; el selector permite forzar «principales», «relevantes» o «todos». El gráfico no cede altura: la leyenda es
 plegable y de altura acotada (se pliega sola con más de 12 hitos), y los hitos que no caben se cuentan aparte.
 
+## Partidos homogéneos
+
+La columna `party` de los CSV trae etiquetas distintas para un mismo partido: variantes de escritura («CIU» y «CiU»),
+siglas y nombre completo («PSC» y «Partido Social Cristiano»), federaciones y listas («PSC-PSOE», «PSOE-A»), sectores
+de un lema (en Uruguay) o nombres anteriores del mismo partido (AP → PP, PFL → DEM, Convergencia → MC). Al construir la
+base, la ingesta guarda en `speeches_datos.party` el partido canónico de cada etiqueta (`worker/04c_worker__partidos.js`,
+`R2.partidos`), de modo que filtros, distribución, léxico, coocurrencias, menciones y exportaciones usan un único nombre
+por partido. Las facetas de partido llevan además el nombre completo y las etiquetas del CSV que reúnen, con sus filas:
+la interfaz los muestra al pasar sobre el partido en el filtro, y el buscador del filtro los encuentra («PSC» → PSOE).
+Si un CSV trae etiquetas que no están en la tabla (una versión posterior), se muestran como vienen y el informe de la
+carga lo avisa (`PARTIDOS_FUERA_DE_REGISTRO`).
+
+Argentina es un caso aparte: su columna no es el bloque de cada intervención sino la lista de todos los bloques del
+diputado en su carrera, igual en todas sus filas. Su tabla es de trayectorias: cada etiqueta lleva la lista de bloques
+con la fecha de ingreso del diputado en cada uno (de los registros de la Cámara, informe especial 103 y datos abiertos
+«Diputados»), y cada intervención va al último bloque en que había entrado en su fecha (acierta en el 99 % de las
+intervenciones con bloque oficial conocido).
+
+Las tablas por país están en `datos/partidos/<CC>.json`: cada partido con su sigla, nombre completo, etiquetas y, si
+cambió de nombre, el cambio con su fecha y su fuente; `revisar` recoge las decisiones discutibles con la alternativa
+(fundir o no una coalición, un sucesor sin continuidad legal…). Criterio: se funden las variantes, las federaciones y
+listas del propio partido y los cambios de nombre con continuidad legal; no se funden las fusiones que crean un partido
+nuevo, las absorciones, las escisiones ni las coaliciones de varios partidos cuyos diputados no se pueden separar.
+`tools/partidos_parlaibero.py` valida las tablas, comprueba con `--csv` que cubren todas las etiquetas de los CSV,
+descarga la fuente de cada cambio de nombre para confirmar su fecha (como con los hitos) y escribe el registro compacto
+`datos/partidos_parlaibero.json`, que `build.py` incorpora a los datos del worker, y su informe
+(`datos/partidos_parlaibero.informe.md`). Para corregir una decisión: editar la tabla del país, volver a ejecutar el
+script y reensamblar; la base recordada se reconstruye sola porque cambia el `build_id`.
+
+Estado del registro (19 de septiembre de 2026): 1.407 etiquetas de los 16 CSV, agrupadas en 773 partidos (Uruguay, de
+73 a 12; España, de 133 a 67; Argentina, de 419 a 210 bloques). De las 302 fechas de cambios de nombre e inicios de
+bloque, 258 aparecen completas en su fuente (el script lee también los PDF de la Cámara argentina) y 28 solo con el año;
+15 inicios de bloques argentinos de 2017-2023 salen del conjunto de datos abiertos «Diputados» de la HCDN, cuya página no
+muestra las fechas, y un cambio de Colombia no tiene fecha.
+
+```bash
+python3 explorer_src/tools/partidos_parlaibero.py --csv data
+python3 explorer_src/build.py
+```
+
 ## Expresiones de varias palabras
 
 Al construir la base, una fase más («Detectando expresiones de varias palabras») busca en todo el corpus las secuencias

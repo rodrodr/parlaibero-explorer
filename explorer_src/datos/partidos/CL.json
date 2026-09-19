@@ -1,0 +1,385 @@
+{
+ "pais": "CL",
+ "tipo": "por intervencion",
+ "partidos": [
+  {
+   "sigla": "DC",
+   "nombre": "Partido Demócrata Cristiano",
+   "etiquetas": [
+    "DC"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PS",
+   "nombre": "Partido Socialista de Chile",
+   "etiquetas": [
+    "PS"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PPD",
+   "nombre": "Partido por la Democracia",
+   "etiquetas": [
+    "PPD"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "RN",
+   "nombre": "Renovación Nacional",
+   "etiquetas": [
+    "RN"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "UDI",
+   "nombre": "Unión Demócrata Independiente",
+   "etiquetas": [
+    "UDI"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Independientes",
+   "nombre": "Independientes (sin militancia)",
+   "etiquetas": [
+    "IND"
+   ],
+   "cambios": [],
+   "nota": "Regla 6. Incluye independientes elegidos en cupos de partidos; la etiqueta no lo distingue."
+  },
+  {
+   "sigla": "PR",
+   "nombre": "Partido Radical de Chile",
+   "etiquetas": [
+    "PR"
+   ],
+   "cambios": [
+    {
+     "de": "Partido Radical Socialdemócrata (PRSD)",
+     "a": "Partido Radical de Chile (PR)",
+     "fecha": "2018-08-24",
+     "fuente": "https://www.bcn.cl/historiapolitica/partidos_politicos/wiki/Partido_Radical_Socialdem%C3%B3crata"
+    }
+   ],
+   "nota": "El PRSD se fundó el 1994-08-18 por fusión del Partido Radical y el Partido Social Democracia, y se declaró heredero del Partido Radical; el Servel publicó el 2018-08-24 la reforma de estatutos que le devolvió el nombre histórico (https://es.wikipedia.org/wiki/Partido_Radical_de_Chile). Las 1.742 filas anteriores al 1994-08-18 son del Partido Radical previo a la fusión: véase «revisar»."
+  },
+  {
+   "sigla": "PC",
+   "nombre": "Partido Comunista de Chile",
+   "etiquetas": [
+    "PC"
+   ],
+   "cambios": [],
+   "nota": "Una fila de 2016 es de un director del Servicio de Impuestos Internos emparejado con un diputado homónimo: véase «revisar»."
+  },
+  {
+   "sigla": "Evópoli",
+   "nombre": "Evolución Política",
+   "etiquetas": [
+    "EVOP"
+   ],
+   "cambios": [],
+   "nota": "Movimiento desde 2012 y partido desde 2016 (https://es.wikipedia.org/wiki/Evolución_Política). Las 66 filas de 1993 («El señor MOLINA (Presidente)») y la de 2013 no son de diputados de Evópoli: véase «revisar»."
+  },
+  {
+   "sigla": "PRI",
+   "nombre": "Partido Regionalista Independiente",
+   "etiquetas": [
+    "PRI"
+   ],
+   "cambios": [],
+   "nota": "Fundado el 2006-07-04 por fusión de ANI y PAR (https://es.wikipedia.org/wiki/Partido_Regionalista_Independiente). En 2018 se fusionó con Democracia Regional Patagónica y pasó a llamarse Partido Regionalista Independiente Demócrata, con la misma sigla (escritura del 2018-02-20; https://www.bcn.cl/historiapolitica/partidos_politicos/wiki/Partido_Regionalista_Independiente_Dem%C3%B3crata). Las 196 filas de 2022-2024 son de Enrique Lee, independiente en cupo del PRI (https://www.bcn.cl/historiapolitica/resenas_parlamentarias/wiki/Enrique_Lee_Flores). La FRVS es otro partido."
+  },
+  {
+   "sigla": "PL",
+   "nombre": "Partido Liberal de Chile",
+   "etiquetas": [
+    "LIBERAL",
+    "PL"
+   ],
+   "cambios": [],
+   "nota": "Dos grafías del mismo partido (regla 1): PL en 2014-2018 y LIBERAL desde 2018, las dos con Vlado Mirosevic; el cambio coincide con el inicio del periodo 2018-2022, no con un hecho legal. El partido fue disuelto y reinscrito varias veces (2014, 2016, 2018), pero la fuente lo trata como el mismo partido (https://es.wikipedia.org/wiki/Partido_Liberal_de_Chile_(2013)): véase «revisar»."
+  },
+  {
+   "sigla": "RD",
+   "nombre": "Revolución Democrática",
+   "etiquetas": [
+    "RD"
+   ],
+   "cambios": [],
+   "nota": "Movimiento desde 2012, partido desde 2016; se disolvió al fusionarse con Convergencia Social en el Frente Amplio (Servel 2024-07-01, https://es.wikipedia.org/wiki/Revolución_Democrática): queda aparte (regla 4). La fila de 1994 es un error de emparejamiento."
+  },
+  {
+   "sigla": "FRVS",
+   "nombre": "Federación Regionalista Verde Social",
+   "etiquetas": [
+    "FRVS"
+   ],
+   "cambios": [],
+   "nota": "Constituida en 2017 por fusión de cuatro partidos regionales (FREP, FRNV, MIRAS y Somos Aysén); no es un cambio de nombre del PRI, aunque Jaime Mulet y Alejandra Sepúlveda vinieron de él (https://es.wikipedia.org/wiki/Federación_Regionalista_Verde_Social)."
+  },
+  {
+   "sigla": "Republicanos",
+   "nombre": "Partido Republicano de Chile",
+   "etiquetas": [
+    "PREP"
+   ],
+   "cambios": [],
+   "nota": "Fundado el 2019-06-10; se le llama Republicanos (https://es.wikipedia.org/wiki/Partido_Republicano_de_Chile_(2019)). Cuatro filas (2004, 2018, 2019 y 2020) son de funcionarios homónimos mal emparejados con diputados republicanos: véase «revisar»."
+  },
+  {
+   "sigla": "Comunes",
+   "nombre": "Comunes",
+   "etiquetas": [
+    "COMUNES"
+   ],
+   "cambios": [],
+   "nota": "Fusión de Poder Ciudadano e Izquierda Autónoma (2019-01-20); disuelto el 2024-06-14 y sus militantes pasaron al Frente Amplio sin fusión legal (https://es.wikipedia.org/wiki/Comunes_(Chile)). Queda aparte. Las 41 filas anteriores a su fundación (Claudia Mix, 2018) reflejan el registro de militancia por periodo."
+  },
+  {
+   "sigla": "PDG",
+   "nombre": "Partido de la Gente",
+   "etiquetas": [
+    "PDG"
+   ],
+   "cambios": [],
+   "nota": "Fundado en 2019 (https://es.wikipedia.org/wiki/Partido_de_la_Gente_(Chile)). Dos filas de 1996 y 2015 son de un Valdés que no es el diputado: véase «revisar»."
+  },
+  {
+   "sigla": "FA",
+   "nombre": "Frente Amplio",
+   "etiquetas": [
+    "FA"
+   ],
+   "cambios": [],
+   "nota": "Partido nuevo por fusión de Convergencia Social y Revolución Democrática (escritura 2024-04-19; confirmación del Servel 2024-07-01); Comunes, en disolución, quedó fuera de la fusión legal (https://es.wikipedia.org/wiki/Frente_Amplio_(partido_político_de_Chile)). Por la regla 4, RD, CS y Comunes quedan aparte."
+  },
+  {
+   "sigla": "CS",
+   "nombre": "Convergencia Social",
+   "etiquetas": [
+    "PCS"
+   ],
+   "cambios": [],
+   "nota": "Fundado el 2018-11-11 e inscrito en 2020; disuelto el 2024-07-01 al fusionarse en el Frente Amplio (https://es.wikipedia.org/wiki/Convergencia_Social). La etiqueta del CSV es PCS; en Chile se le conoce como CS."
+  },
+  {
+   "sigla": "PEV",
+   "nombre": "Partido Ecologista Verde",
+   "etiquetas": [
+    "PEV"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Demócratas",
+   "nombre": "Demócratas",
+   "etiquetas": [
+    "DEM"
+   ],
+   "cambios": [],
+   "nota": "Fundado el 2022-11-02 por exmilitantes de DC, PPD y PR; inscrito en 2023 (https://es.wikipedia.org/wiki/Demócratas_(Chile))."
+  },
+  {
+   "sigla": "PH",
+   "nombre": "Partido Humanista",
+   "etiquetas": [
+    "PH"
+   ],
+   "cambios": [],
+   "nota": "Laura Rodríguez (1990-1991) y diputados de 2018-2025. El partido se fusionó con Los Verdes en 1991, perdió la inscripción en 2022 y se reinscribió en 2023 (https://es.wikipedia.org/wiki/Partido_Humanista_(Chile)): la continuidad es política, no siempre legal. Acción Humanista es una escisión y queda aparte."
+  },
+  {
+   "sigla": "PSC",
+   "nombre": "Partido Social Cristiano",
+   "etiquetas": [
+    "PSC"
+   ],
+   "cambios": [],
+   "nota": "Fundado el 2022-09-23 por exmilitantes del Partido Conservador Cristiano, ya disuelto, e independientes (https://es.wikipedia.org/wiki/Partido_Social_Cristiano_(Chile,_2022)). Separado del PCC: véase «revisar»."
+  },
+  {
+   "sigla": "IC",
+   "nombre": "Izquierda Ciudadana de Chile",
+   "etiquetas": [
+    "IC"
+   ],
+   "cambios": [
+    {
+     "de": "Izquierda Cristiana de Chile",
+     "a": "Izquierda Ciudadana de Chile",
+     "fecha": "2012-07-26",
+     "fuente": "https://es.wikipedia.org/wiki/Izquierda_Ciudadana"
+    }
+   ],
+   "nota": "Según la fuente, en 2013 el registro electoral confirmó que era un cambio de nombre legal de la Izquierda Cristiana. Único diputado: Sergio Aguiló (2010-2018). En 2018 se fusionó con MAS Región (partido nuevo, fuera del corpus)."
+  },
+  {
+   "sigla": "AH",
+   "nombre": "Acción Humanista",
+   "etiquetas": [
+    "PAH"
+   ],
+   "cambios": [],
+   "nota": "Escisión del Partido Humanista fundada por Tomás Hirsch en 2020 e inscrita en 2022 (https://es.wikipedia.org/wiki/Acción_Humanista): partido distinto del PH (regla 5)."
+  },
+  {
+   "sigla": "Amarillos",
+   "nombre": "Movimiento Amarillos por Chile",
+   "etiquetas": [
+    "AMA"
+   ],
+   "cambios": [],
+   "nota": "Fundado en 2022, inscrito en 2023 (https://es.wikipedia.org/wiki/Amarillos_por_Chile)."
+  },
+  {
+   "sigla": "UCCP",
+   "nombre": "Unión de Centro Centro Progresista",
+   "etiquetas": [
+    "UCP"
+   ],
+   "cambios": [],
+   "nota": "Unión de Centro Centro (inscrita en 1991), llamada Unión de Centro Centro Progresista entre 1994 y 1998 tras fusionarse con el Partido Nacional, y de nuevo UCC desde 1998; inscripción cancelada en 2002 (https://es.wikipedia.org/wiki/Unión_de_Centro_Centro). La etiqueta UCP corresponde a la UCCP."
+  },
+  {
+   "sigla": "PNL",
+   "nombre": "Partido Nacional Libertario",
+   "etiquetas": [
+    "PNL"
+   ],
+   "cambios": [],
+   "nota": "Escisión del Partido Republicano fundada en 2024 por Johannes Kaiser (https://es.wikipedia.org/wiki/Partido_Nacional_Libertario)."
+  },
+  {
+   "sigla": "Amplitud",
+   "nombre": "Amplitud",
+   "etiquetas": [
+    "AMPL"
+   ],
+   "cambios": [],
+   "nota": "Escisión de RN (2014-2018) (https://es.wikipedia.org/wiki/Amplitud_(partido_político))."
+  },
+  {
+   "sigla": "PCC",
+   "nombre": "Partido Conservador Cristiano",
+   "etiquetas": [
+    "PCC"
+   ],
+   "cambios": [],
+   "nota": "Fundado en 2020 y disuelto el 2022-02-03 (https://es.wikipedia.org/wiki/Partido_Conservador_Cristiano). Único diputado: Sara Concha."
+  },
+  {
+   "sigla": "PRO",
+   "nombre": "Partido Progresista",
+   "etiquetas": [
+    "PRO"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Igualdad",
+   "nombre": "Partido Igualdad",
+   "etiquetas": [
+    "IGUAL"
+   ],
+   "cambios": [],
+   "nota": "Única diputada: Camila Rojas, militante de Izquierda Autónoma elegida como independiente en cupo de Igualdad (https://es.wikipedia.org/wiki/Partido_Igualdad)."
+  }
+ ],
+ "asignacion": {
+  "DC": "DC",
+  "PS": "PS",
+  "PPD": "PPD",
+  "RN": "RN",
+  "UDI": "UDI",
+  "IND": "Independientes",
+  "PR": "PR",
+  "PC": "PC",
+  "EVOP": "Evópoli",
+  "PRI": "PRI",
+  "LIBERAL": "PL",
+  "RD": "RD",
+  "FRVS": "FRVS",
+  "PREP": "Republicanos",
+  "COMUNES": "Comunes",
+  "PDG": "PDG",
+  "FA": "FA",
+  "PCS": "CS",
+  "PEV": "PEV",
+  "DEM": "Demócratas",
+  "PH": "PH",
+  "PSC": "PSC",
+  "IC": "IC",
+  "PL": "PL",
+  "PAH": "AH",
+  "AMA": "Amarillos",
+  "UCP": "UCCP",
+  "PNL": "PNL",
+  "AMPL": "Amplitud",
+  "PCC": "PCC",
+  "PRO": "PRO",
+  "IGUAL": "Igualdad"
+ },
+ "revisar": [
+  {
+   "etiquetas": [
+    "PR"
+   ],
+   "decision": "Un solo partido: PR (Partido Radical de Chile, antes PRSD).",
+   "alternativa": "Regla por fecha: filas anteriores al 1994-08-18 (1.742, diputados radicales del periodo 1990-1994) → partido propio «Partido Radical (hasta 1994)».",
+   "motivo": "El PRSD nació de una fusión (regla 4: los predecesores no se funden), pero se declaró heredero del Partido Radical y en 2018 recuperó el nombre. La etiqueta PR no distingue los dos momentos."
+  },
+  {
+   "etiquetas": [
+    "PCC",
+    "PSC"
+   ],
+   "decision": "Partidos separados.",
+   "alternativa": "Fundirlos en PSC: la página del PCC dice que el grupo intentó recuperar la legalidad en noviembre de 2022 con el nombre Partido Social Cristiano.",
+   "motivo": "El PCC fue disuelto el 2022-02-03 y el PSC es una inscripción nueva, fundada por exmilitantes e independientes: sucesor sin continuidad legal (regla 5). Afecta a Sara Concha (57 filas PCC, 176 PSC)."
+  },
+  {
+   "etiquetas": [
+    "LIBERAL",
+    "PL"
+   ],
+   "decision": "Un solo partido: PL (Partido Liberal de Chile).",
+   "alternativa": "Separar PL (2014-2018) y LIBERAL (2018-2025).",
+   "motivo": "El cambio de etiqueta coincide con el cambio de periodo legislativo, no con un hecho legal; las disoluciones y reinscripciones del partido (2014, 2016, 2018) caen dentro del tramo PL o en torno a 2018, y la fuente lo trata como un mismo partido."
+  },
+  {
+   "etiquetas": [
+    "PRI",
+    "PH",
+    "IC"
+   ],
+   "decision": "Una sola entidad por etiqueta.",
+   "alternativa": "Reglas por fecha: PRI desde el 2018-02-20 (196 filas, Enrique Lee) → «PRI Demócrata»; PH de 1990-1991 (50 filas, Laura Rodríguez) separado del PH reinscrito.",
+   "motivo": "Etiquetas que abarcan entidades legales sucesivas: fusión del PRI con Democracia Regional Patagónica en 2018 (misma sigla); fusión del PH con Los Verdes en 1991 y reinscripción en 2023; disolución de la IC en 2014 y reinscripción en 2016. En los tres casos la continuidad política es clara y la etiqueta no permite separar."
+  },
+  {
+   "etiquetas": [
+    "EVOP",
+    "PREP",
+    "PDG",
+    "RD",
+    "PC"
+   ],
+   "decision": "Mantener la asignación; no es un problema de la tabla.",
+   "alternativa": "Corregir el emparejamiento aguas arriba (unas 75 filas): «El señor MOLINA (Presidente)» 1993-10-05, 66 filas → Evópoli; «El señor MORENO (director ejecutivo del Instituto de Fomento Pesquero)» 2004 y «El señor MORENO» 2020 → Republicanos; «El señor VERGARA (director nacional del Senama)» 2018-2019, 2 → Republicanos; «El señor VALDÉS (Presidente del Senado)» 1996 y «El señor VALDÉS» 2015 → PDG; «La señora VELOSO (Subdirectora del Servicio Nacional de la Mujer)» 1994 → RD; «El señor BARRAZA (director del Servicio de Impuestos Internos)» 2016 → PC; «El señor CRUZ-COKE (presidente del Consejo Nacional de la Cultura…)» 2013, ministro antes de ser diputado.",
+   "motivo": "Son las fechas raras de la consigna (RD desde 1994, Evópoli desde 1993, PDG desde 1996, Republicanos desde 2004): oradores que no son el diputado —funcionarios, el presidente del Senado o de la Cámara— enlazados con un diputado homónimo posterior, cuya militancia heredan."
+  }
+ ],
+ "tipo_propuesto": "por intervencion"
+}

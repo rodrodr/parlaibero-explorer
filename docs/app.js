@@ -7543,10 +7543,17 @@ function itemsHTML(id, aguja = '') {
   const sel = new Set((S.filters[g.key] || []).map(String));
   const necesita = aguja ? foldMap(aguja).folded : '';
 
+  // Los partidos se buscan también por su nombre completo y por las etiquetas del CSV que reúnen
   const casa = v => {
     if (!necesita) return true;
-    const etq = g.etiquetas[v.value] || v.value || '';
+    const etq = [g.etiquetas[v.value] || v.value || '', v.nombre || '', ...(v.etiquetas || []).map(e => e[0])].join(' ');
     return foldMap(String(etq)).folded.includes(necesita);
+  };
+  const titulo = (v, lbl) => {
+    if (!v.nombre && !v.etiquetas) return lbl;
+    const e = v.etiquetas || [];
+    return [v.nombre || lbl, e.length ? `Reúne en el CSV: ${e.slice(0, 8).map(x => x[0]).join(' · ')}${e.length > 8 ? ` y ${nf(e.length - 8)} más` : ''}` : '']
+      .filter(Boolean).join('\n');
   };
 
   const valor = v => (g.key === 'rep_ids' ? v.rep_id : v.value);
@@ -7563,7 +7570,7 @@ function itemsHTML(id, aguja = '') {
     const extra = v.party && v.party !== 'Sin identificar'
       ? `<span class="n" style="opacity:.7">${esc(v.party)}</span>` : '';
     return `<label class="chk"><input type="checkbox" data-fkey="${g.key}" value="${esc(val)}"${on}>
-      <span class="lbl" title="${esc(lbl)}">${esc(lbl)}</span>
+      <span class="lbl" title="${esc(titulo(v, lbl))}">${esc(lbl)}</span>
       ${extra}<span class="n">${nf(v.n)}</span></label>`;
   };
 

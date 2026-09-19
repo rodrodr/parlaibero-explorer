@@ -1,0 +1,145 @@
+{
+ "pais": "SV",
+ "tipo": "por legislatura",
+ "partidos": [
+  {
+   "sigla": "Nuevas Ideas",
+   "nombre": "Nuevas Ideas",
+   "etiquetas": [
+    "Nuevas Ideas"
+   ],
+   "cambios": [],
+   "nota": "Sigla oficial NI; se usa el nombre, como es habitual."
+  },
+  {
+   "sigla": "ARENA",
+   "nombre": "Alianza Republicana Nacionalista",
+   "etiquetas": [
+    "ARENA"
+   ],
+   "cambios": [],
+   "nota": "Milena Mayorga sigue como ARENA tras dejar el partido el 4-6-2020 (la etiqueta no se actualiza)."
+  },
+  {
+   "sigla": "PCN",
+   "nombre": "Partido de Concertación Nacional",
+   "etiquetas": [
+    "PCN"
+   ],
+   "cambios": [],
+   "nota": "Refundado con este nombre tras la cancelación del Partido de Conciliación Nacional en 2011 (https://es.wikipedia.org/wiki/Partido_de_Concertación_Nacional); el corpus empieza en 2018 y solo usa la sigla."
+  },
+  {
+   "sigla": "FMLN",
+   "nombre": "Frente Farabundo Martí para la Liberación Nacional",
+   "etiquetas": [
+    "FMLN"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "GANA",
+   "nombre": "Gran Alianza por la Unidad Nacional",
+   "etiquetas": [
+    "GANA"
+   ],
+   "cambios": [],
+   "nota": "Partido, no alianza electoral, pese al nombre."
+  },
+  {
+   "sigla": "PDC",
+   "nombre": "Partido Demócrata Cristiano",
+   "etiquetas": [
+    "PDC"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "VAMOS",
+   "nombre": "Partido VAMOS",
+   "etiquetas": [
+    "VAMOS"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "CD",
+   "nombre": "Cambio Democrático",
+   "etiquetas": [
+    "CD"
+   ],
+   "cambios": [],
+   "nota": "Juan José Martel y María Odilia Ayala Alemán (2018-2021)."
+  },
+  {
+   "sigla": "Nuestro Tiempo",
+   "nombre": "Nuestro Tiempo",
+   "etiquetas": [
+    "NUESTRO TIEMPO"
+   ],
+   "cambios": [],
+   "nota": "Sigla oficial NT. En el CSV, en mayúsculas."
+  },
+  {
+   "sigla": "Independientes",
+   "nombre": "Independientes",
+   "etiquetas": [
+    "Independiente"
+   ],
+   "cambios": [],
+   "nota": "No es un partido: Leonardo Bonilla, primer diputado no partidario elegido en El Salvador (2018, https://es.wikipedia.org/wiki/Leonardo_Bonilla), y Jorge Juárez (con dos id: «JUAREZ MORALES, JORGE ANTONIO» y «JUÁREZ, JORGE»), con toda probabilidad su suplente."
+  },
+  {
+   "sigla": "Sin identificar",
+   "nombre": "Sin identificar",
+   "etiquetas": [
+    ""
+   ],
+   "cambios": [],
+   "nota": "Una fila: «Diputada Marleni Martínez», 19-9-2019 (id SV00246, sin partido)."
+  }
+ ],
+ "asignacion": {
+  "Nuevas Ideas": "Nuevas Ideas",
+  "ARENA": "ARENA",
+  "PCN": "PCN",
+  "FMLN": "FMLN",
+  "GANA": "GANA",
+  "PDC": "PDC",
+  "VAMOS": "VAMOS",
+  "CD": "CD",
+  "NUESTRO TIEMPO": "Nuestro Tiempo",
+  "Independiente": "Independientes",
+  "": "Sin identificar"
+ },
+ "revisar": [
+  {
+   "etiquetas": [
+    "Independiente"
+   ],
+   "decision": "Independientes",
+   "alternativa": "ninguna razonable",
+   "motivo": "Candidatura no partidaria (Bonilla y, probablemente, su suplente), no un grupo con programa común; se aplica la convención de la regla 6."
+  },
+  {
+   "etiquetas": [
+    "ARENA"
+   ],
+   "decision": "ARENA",
+   "alternativa": "corregir por diputado y fecha, fuera de esta tabla",
+   "motivo": "Milena Mayorga anunció su renuncia a ARENA el 4-6-2020 y se declaró independiente, pero sus 9 intervenciones posteriores (22-6, 17-9 y 22-10-2020) siguen etiquetadas ARENA: la etiqueta es la del partido de elección y no recoge cambios a mitad de legislatura."
+  },
+  {
+   "etiquetas": [
+    ""
+   ],
+   "decision": "Sin identificar",
+   "alternativa": "identificar a la diputada y asignarle partido",
+   "motivo": "Una sola fila (19-9-2019); el id SV00246 no tiene partido."
+  }
+ ],
+ "tipo_propuesto": "por legislatura"
+}

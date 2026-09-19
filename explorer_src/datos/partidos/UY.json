@@ -1,0 +1,862 @@
+{
+ "pais": "UY",
+ "tipo": "por legislatura",
+ "tipo_nota": "Lema (o, sobre todo en la XLII y la XLIII, sublema o sector) del registro del diputado para cada legislatura, aplicado a todas sus intervenciones de esa legislatura; no refleja cambios de partido dentro de la legislatura, y si falta el registro de una legislatura se copia el de otra.",
+ "partidos": [
+  {
+   "sigla": "Frente Amplio",
+   "nombre": "Frente Amplio",
+   "etiquetas": [
+    "Frente Amplio",
+    "Partido Frente Amplio",
+    "Partido Encuentro Progresista",
+    "Unidad Para los Cambios",
+    "Pluralismo y Unidad",
+    "Unidad y Pluralismo Frenteamplista",
+    "Canelones Al Frente",
+    "Democracia Avanzada",
+    "Socialismo Democracia Libertad",
+    "Frente del Pueblo"
+   ],
+   "cambios": [
+    {
+     "de": "Encuentro Progresista-Frente Amplio-Nueva Mayoría",
+     "a": "Frente Amplio",
+     "fecha": "2005-11-19",
+     "fuente": "https://es.wikipedia.org/wiki/Encuentro_Progresista-Frente_Amplio"
+    }
+   ],
+   "nota": "Lema del FA con sus nombres sucesivos: en 1984 sus listas concurrieron bajo el lema Partido Demócrata Cristiano; en 1994, «Partido Frente Amplio»; en 1999, «Partido Encuentro Progresista-Frente Amplio»; en 2004, «Encuentro Progresista-Frente Amplio-Nueva Mayoría». Las convocatorias de suplentes usan esos nombres para las mismas hojas (2121, 90 y 77). «Partido Encuentro Progresista» (XLV) reúne a Barreiro, Castromán y Pérez Morad, que el anexo de la XLV da como Frente Amplio, y a Díaz Maynard (Alianza Progresista, integrada en el FA en 2005). Siete sublemas de 1984 y 1989 se asignan con fuente primaria del corpus.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Partido Frente Amplio"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY003001100133 (Diario de Sesiones de la Cámara, 1995-04-05)",
+     "consultado": "2026-09-19",
+     "cita": "Suplente de la hoja 2121 «del lema Partido Frente Amplio» (misma hoja que en 2000 figura bajo el lema EP-FA)."
+    },
+    {
+     "etiquetas": [
+      "Partido Encuentro Progresista"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY004000300002 (Diario de Sesiones de la Cámara, 2000-02-22)",
+     "consultado": "2026-09-19",
+     "cita": "Suplente de la hoja 2121 «del lema Partido Encuentro Progresista-Frente Amplio»."
+    },
+    {
+     "etiquetas": [
+      "Partido Encuentro Progresista"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY005000100089 (Diario de Sesiones de la Cámara, 2005-02-14)",
+     "consultado": "2026-09-19",
+     "cita": "Brum Canet, electo «por el lema Partido Encuentro Progresista - Frente Amplio - Nueva Mayoría», hoja 2121."
+    },
+    {
+     "etiquetas": [
+      "Partido Encuentro Progresista"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Anexo:XLV_Legislatura_de_la_C%C3%A1mara_de_Representantes_de_Uruguay_(2000-2005)",
+     "consultado": "2026-09-19",
+     "cita": "Anexo XLV: Barreiro (AU), Castromán (Espacio 90), Pérez Morad (Liga Federal) y Díaz Maynard (Alianza Progresista), Frente Amplio."
+    },
+    {
+     "etiquetas": [
+      "Partido Encuentro Progresista"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Encuentro_Progresista-Frente_Amplio",
+     "consultado": "2026-09-19",
+     "cita": "Todos los grupos del EP-FA-NM ingresan al FA: Plenario Nacional del 19-11-2005."
+    },
+    {
+     "etiquetas": [
+      "Socialismo Democracia Libertad"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY004027200006 (Diario de Sesiones de la Cámara, 2003-06-24)",
+     "consultado": "2026-09-19",
+     "cita": "Eden Melo integró la bancada del FA bajo el Lema Partido Demócrata Cristiano, Sublema Socialismo, Democracia, Libertad."
+    },
+    {
+     "etiquetas": [
+      "Socialismo Democracia Libertad"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY001004900013 (Diario de Sesiones de la Cámara, 1985-09-03)",
+     "consultado": "2026-09-19",
+     "cita": "Suplente del Lema Partido Demócrata Cristiano, Sub-Lema «Socialismo, Democracia y Libertad», hoja 99, Clemente Muñoz."
+    },
+    {
+     "etiquetas": [
+      "Frente del Pueblo",
+      "Democracia Avanzada"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY001000100080 (Diario de Sesiones de la Cámara, 1985-02-14)",
+     "consultado": "2026-09-19",
+     "cita": "Proclamaciones: Partido Demócrata Cristiano, sublemas «Frente del Pueblo» (hoja 808) y «Democracia Avanzada...» (hoja 10001)."
+    },
+    {
+     "etiquetas": [
+      "Frente del Pueblo"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY001007400006 (Diario de Sesiones de la Cámara, 1986-03-05)",
+     "consultado": "2026-09-19",
+     "cita": "Suplente de la hoja 99 e IDI del Lema Partido Demócrata Cristiano, Sublema «Frente del Pueblo»."
+    },
+    {
+     "etiquetas": [
+      "Democracia Avanzada"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Anexo:XLII_Legislatura_de_la_C%C3%A1mara_de_Representantes_de_Uruguay_(1985-1990)",
+     "consultado": "2026-09-19",
+     "cita": "Anexo XLII: Ciganda, Ríos, Sica Blanco y Toriani, Frente Amplio, Democracia Avanzada."
+    },
+    {
+     "etiquetas": [
+      "Unidad Para los Cambios",
+      "Unidad y Pluralismo Frenteamplista"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY002000100084 (Diario de Sesiones de la Cámara, 1990-02-14)",
+     "consultado": "2026-09-19",
+     "cita": "Proclamaciones 1989: Partido Frente Amplio, sublemas «Unidad para los Cambios» (1001) y «Unidad y Pluralismo Frenteamplista» (90)."
+    },
+    {
+     "etiquetas": [
+      "Pluralismo y Unidad"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY002005600001 (Diario de Sesiones de la Cámara, 1990-10-04)",
+     "consultado": "2026-09-19",
+     "cita": "Suplente de la hoja 90 del Lema «Partido Frente Amplio», Sub Lema «Pluralismo y Unidad»."
+    },
+    {
+     "etiquetas": [
+      "Canelones Al Frente"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY002006300100 (Diario de Sesiones de la Cámara, 1990-11-13)",
+     "consultado": "2026-09-19",
+     "cita": "Suplente de la hoja 1001 del Lema Partido Frente Amplio, Sub Lema «Canelones al frente»."
+    },
+    {
+     "etiquetas": [
+      "Unidad Para los Cambios",
+      "Pluralismo y Unidad"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Anexo:XLIII_Legislatura_de_la_C%C3%A1mara_de_Representantes_de_Uruguay_(1990-1995)",
+     "consultado": "2026-09-19",
+     "cita": "Anexo XLIII: Toriani y Borges (Lista 1001-PCU) y González Perla (Espacio 90), Frente Amplio."
+    }
+   ]
+  },
+  {
+   "sigla": "Partido Nacional",
+   "nombre": "Partido Nacional",
+   "etiquetas": [
+    "Partido Nacional",
+    "Partido Nacional Desde El",
+    "Herrerismo-renovacion y Victoria",
+    "Herrerismo Renovacion y Victoria",
+    "Herrerismo",
+    "Doctor Luis Alberto de Herrera",
+    "Por Ideales Oribe-saravia-herrera",
+    "Union Nacionalista y Herrerista",
+    "Aparacio Saravia",
+    "Por la Patria",
+    "Por la Patria y Nacional Rocha",
+    "Movimiento P",
+    "Acf Movimiento P",
+    "Con Fe y Carlos Julio",
+    "Adelante Con Fe",
+    "Unidad Nacionalista",
+    "Nacionalistas Unidos Por Colonia",
+    "Nacionalismo Unido",
+    "Patria y Partido",
+    "Poncho Blanco",
+    "Oposicion Democratica Nacionalista",
+    "Blancos Con Libertades Democ",
+    "Union Departamental Nacionalista Hoja",
+    "Con Cerro Largo A la Victoria",
+    "Todo Por San Jose",
+    "Mario Heber",
+    "Dignidad Arriba y Regocijo Abajo",
+    "Defensores de las Leyes",
+    "En Defensa de la Nacion",
+    "Juntos Por Rivera",
+    "La Union Nos Hara Fuerza",
+    "Manos A la Obra",
+    "Por Un Gob",
+    "Por Un Uruguay Democratico",
+    "Patria Para Todos",
+    "Lista"
+   ],
+   "cambios": [],
+   "nota": "«Partido Nacional Desde El» es la etiqueta truncada de 2025 (Miriam Britos). Los 34 sublemas o sectores tienen adscripción al lema comprobada en las proclamaciones de la Corte Electoral y en las convocatorias de suplentes del corpus («del Lema Partido Nacional, Sub Lema...»), o en los anexos de Wikipedia. «Lista» es una suplente de la hoja 15 del Partido Nacional en Rivera (Patricia Rocha, 2016-2018).",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Herrerismo-renovacion y Victoria",
+      "Herrerismo Renovacion y Victoria",
+      "Doctor Luis Alberto de Herrera",
+      "Nacionalistas Unidos Por Colonia",
+      "Patria y Partido",
+      "Poncho Blanco",
+      "Todo Por San Jose",
+      "En Defensa de la Nacion",
+      "La Union Nos Hara Fuerza",
+      "Por Un Gob"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY002000100084 (Diario de Sesiones de la Cámara, 1990-02-14)",
+     "consultado": "2026-09-19",
+     "cita": "Proclamaciones de 1989: todos estos sublemas figuran bajo «Partido Nacional»."
+    },
+    {
+     "etiquetas": [
+      "Unidad Nacionalista"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY002000100085 (Diario de Sesiones de la Cámara, 1990-02-14)",
+     "consultado": "2026-09-19",
+     "cita": "Lema «Partido Nacional», Sublema «Unidad Nacionalista», hoja 904 (Federico Bosch)."
+    },
+    {
+     "etiquetas": [
+      "Herrerismo",
+      "Mario Heber",
+      "Adelante Con Fe",
+      "Aparacio Saravia"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY001000100082 (Diario de Sesiones de la Cámara, 1985-02-14)",
+     "consultado": "2026-09-19",
+     "cita": "Lema Partido Nacional, sublemas «Herrerismo», «Mario Heber», «Adelante con Fe», «Aparicio Saravia»."
+    },
+    {
+     "etiquetas": [
+      "Con Fe y Carlos Julio",
+      "Por la Patria y Nacional Rocha",
+      "Blancos Con Libertades Democ",
+      "Defensores de las Leyes",
+      "Mario Heber",
+      "Patria Para Todos"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY001000100080 (Diario de Sesiones de la Cámara, 1985-02-14)",
+     "consultado": "2026-09-19",
+     "cita": "Proclamaciones de 1984: estos sublemas figuran bajo «Partido Nacional»."
+    },
+    {
+     "etiquetas": [
+      "Por la Patria"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY001007400006 (Diario de Sesiones de la Cámara, 1986-03-05)",
+     "consultado": "2026-09-19",
+     "cita": "Lema Partido Nacional, Sub Lema «Por la Patria»."
+    },
+    {
+     "etiquetas": [
+      "Movimiento P"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY001012600021 (Diario de Sesiones de la Cámara, 1986-11-18)",
+     "consultado": "2026-09-19",
+     "cita": "Suplente de la hoja 158, Lema Partido Nacional, Sub Lema «Movimientos Por la Patria y Nacional de Rocha», Mario W. Long."
+    },
+    {
+     "etiquetas": [
+      "Acf Movimiento P"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY001004900013 (Diario de Sesiones de la Cámara, 1985-09-03)",
+     "consultado": "2026-09-19",
+     "cita": "Suplente de la hoja 504, Lema Partido Nacional, Sub-Lema «ACF Movimientos por la Patria y Nacional de Rocha», Amílcar Cordones."
+    },
+    {
+     "etiquetas": [
+      "Union Nacionalista y Herrerista"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY001017600024 (Diario de Sesiones de la Cámara, 1987-10-06)",
+     "consultado": "2026-09-19",
+     "cita": "Hoja «H», Lema Partido Nacional, Sub Lema «Unión Nacionalista y Herrerista», Néstor López Martínez."
+    },
+    {
+     "etiquetas": [
+      "Oposicion Democratica Nacionalista"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY001004100094 (Diario de Sesiones de la Cámara, 1985-07-17)",
+     "consultado": "2026-09-19",
+     "cita": "Hoja 15, Lema Partido Nacional, Sub Lema «Oposición Democrática Nacionalista»."
+    },
+    {
+     "etiquetas": [
+      "Por Un Uruguay Democratico"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY001015300013 (Diario de Sesiones de la Cámara, 1987-06-16)",
+     "consultado": "2026-09-19",
+     "cita": "Hoja 504, Lema Partido Nacional, Sub Lema «Por un Uruguay democrático sin excepciones»."
+    },
+    {
+     "etiquetas": [
+      "Union Departamental Nacionalista Hoja"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY002000900028 (Diario de Sesiones de la Cámara, 1990-03-27)",
+     "consultado": "2026-09-19",
+     "cita": "Hoja 904, Lema Partido Nacional, Sub Lema «Unión Departamental Nacionalista»."
+    },
+    {
+     "etiquetas": [
+      "Con Cerro Largo A la Victoria"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY002021800052 (Diario de Sesiones de la Cámara, 1992-10-20)",
+     "consultado": "2026-09-19",
+     "cita": "Hoja 504, Lema Partido Nacional, Sub Lema «Con Cerro Largo a la Victoria»."
+    },
+    {
+     "etiquetas": [
+      "Dignidad Arriba y Regocijo Abajo"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY002015000081 (Diario de Sesiones de la Cámara, 1991-11-28)",
+     "consultado": "2026-09-19",
+     "cita": "Hoja 504, Lema Partido Nacional, Sub Lema «Dignidad arriba y regocijo abajo», Jorge Urcelay."
+    },
+    {
+     "etiquetas": [
+      "Por Ideales Oribe-saravia-herrera"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY002011400119 (Diario de Sesiones de la Cámara, 1991-07-16)",
+     "consultado": "2026-09-19",
+     "cita": "Hojas 17 y 50, Lema Partido Nacional, Sub Lema «Por los ideales de Oribe-Saravia y Herrera»."
+    },
+    {
+     "etiquetas": [
+      "Manos A la Obra"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY003000100000 (Diario de Sesiones de la Cámara, 1995-02-14)",
+     "consultado": "2026-09-19",
+     "cita": "Proclamaciones de 1994: Partido Nacional, Sub Lema «Manos a la Obra»."
+    },
+    {
+     "etiquetas": [
+      "Nacionalismo Unido"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY003002300014 (Diario de Sesiones de la Cámara, 1995-05-23)",
+     "consultado": "2026-09-19",
+     "cita": "Lema Partido Nacional, Sub Lema «Nacionalismo Unido», Alberto Lecuna."
+    },
+    {
+     "etiquetas": [
+      "Juntos Por Rivera"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY003000100087 (Diario de Sesiones de la Cámara, 1995-02-14)",
+     "consultado": "2026-09-19",
+     "cita": "Hoja 15, Lema Partido Nacional, Sub Lema «Juntos por Rivera»."
+    },
+    {
+     "etiquetas": [
+      "Lista"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY007000400016 (Diario de Sesiones de la Cámara, 2015-03-10)",
+     "consultado": "2026-09-19",
+     "cita": "Hoja 15 del Lema Partido Nacional (Rivera): suplentes Laura Tassano, Patricia Rocha y José María Olivera."
+    },
+    {
+     "etiquetas": [
+      "Herrerismo",
+      "Unidad Nacionalista",
+      "Nacionalistas Unidos Por Colonia",
+      "Patria y Partido",
+      "Poncho Blanco",
+      "En Defensa de la Nacion",
+      "La Union Nos Hara Fuerza",
+      "Por Un Gob"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Anexo:XLIII_Legislatura_de_la_C%C3%A1mara_de_Representantes_de_Uruguay_(1990-1995)",
+     "consultado": "2026-09-19",
+     "cita": "Anexo XLIII: Losada, Piana, Bosch, Moreira, Sedarri, Gutiérrez Gard, Haedo, Álvarez Viera, Silveira, Suárez Lerena, Partido Nacional."
+    },
+    {
+     "etiquetas": [
+      "Por Un Uruguay Democratico",
+      "Defensores de las Leyes",
+      "Adelante Con Fe",
+      "Con Fe y Carlos Julio",
+      "Por la Patria y Nacional Rocha"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Anexo:XLII_Legislatura_de_la_C%C3%A1mara_de_Representantes_de_Uruguay_(1985-1990)",
+     "consultado": "2026-09-19",
+     "cita": "Anexo XLII: Zunini, Maimó, Oxacelhay, Martínez Roux y Oller, Partido Nacional."
+    }
+   ]
+  },
+  {
+   "sigla": "Partido Colorado",
+   "nombre": "Partido Colorado",
+   "etiquetas": [
+    "Partido Colorado",
+    "Batllismo",
+    "Batllismo Unido",
+    "Union Colorada y Batllista",
+    "Batllismo Hacia El Futuro",
+    "Por los Ideales de Batlle",
+    "Por los Ideales de Batlle y Ordoñez",
+    "Vanguardia Batllista",
+    "Renovacion Colorada",
+    "Para Volver A Vivir",
+    "Por la Defensa de Paysandu",
+    "Unidos Venceremos",
+    "Union y Trabajo",
+    "Acuerdo"
+   ],
+   "cambios": [],
+   "nota": "Los 13 sublemas o sectores tienen adscripción comprobada en las proclamaciones y convocatorias de suplentes del corpus o en los anexos de Wikipedia.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Batllismo Unido"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY001000100082 (Diario de Sesiones de la Cámara, 1985-02-14)",
+     "consultado": "2026-09-19",
+     "cita": "Lema «Partido Colorado», Sublema «Batllismo Unido» (Oscar Lenzi)."
+    },
+    {
+     "etiquetas": [
+      "Union Colorada y Batllista",
+      "Vanguardia Batllista",
+      "Renovacion Colorada",
+      "Por los Ideales de Batlle y Ordoñez"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY001000100080 (Diario de Sesiones de la Cámara, 1985-02-14)",
+     "consultado": "2026-09-19",
+     "cita": "Proclamaciones de 1984: estos sublemas figuran bajo «Partido Colorado»."
+    },
+    {
+     "etiquetas": [
+      "Batllismo"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY001014000001 (Diario de Sesiones de la Cámara, 1987-04-23)",
+     "consultado": "2026-09-19",
+     "cita": "Hoja 15, Lema Partido Colorado, Sub Lema «Batllismo»."
+    },
+    {
+     "etiquetas": [
+      "Por los Ideales de Batlle"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY001006700001 (Diario de Sesiones de la Cámara, 1985-11-20)",
+     "consultado": "2026-09-19",
+     "cita": "Hoja 15, Lema Partido Colorado, Sub Lema «Por los ideales de Batlle»."
+    },
+    {
+     "etiquetas": [
+      "Unidos Venceremos"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY001026200028 (Diario de Sesiones de la Cámara, 1989-04-26)",
+     "consultado": "2026-09-19",
+     "cita": "Lema Partido Colorado, Sub Lema «Unidos Venceremos», hoja 15 (Hugo A. Faget)."
+    },
+    {
+     "etiquetas": [
+      "Union y Trabajo"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY001008800014 (Diario de Sesiones de la Cámara, 1986-06-03)",
+     "consultado": "2026-09-19",
+     "cita": "Hoja 515, Lema Partido Colorado, Sub Lema «Unión y Trabajo»."
+    },
+    {
+     "etiquetas": [
+      "Para Volver A Vivir",
+      "Por la Defensa de Paysandu"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY002000100084 (Diario de Sesiones de la Cámara, 1990-02-14)",
+     "consultado": "2026-09-19",
+     "cita": "Proclamaciones de 1989: Partido Colorado, sublemas «Para Volver a Vivir» y «Por la Defensa de Paysandú»."
+    },
+    {
+     "etiquetas": [
+      "Batllismo Hacia El Futuro"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY002016400170 (Diario de Sesiones de la Cámara, 1992-03-18)",
+     "consultado": "2026-09-19",
+     "cita": "Hoja 515, Lema Partido Colorado, Sublema «Batllismo hacia el futuro»."
+    },
+    {
+     "etiquetas": [
+      "Acuerdo"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY003000100000 (Diario de Sesiones de la Cámara, 1995-02-14)",
+     "consultado": "2026-09-19",
+     "cita": "Proclamaciones de 1994: Partido Colorado, Sub Lema «Acuerdo» (Carlos Soria; Eduardo Rodino)."
+    },
+    {
+     "etiquetas": [
+      "Batllismo",
+      "Batllismo Unido",
+      "Union Colorada y Batllista"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Anexo:XLIII_Legislatura_de_la_C%C3%A1mara_de_Representantes_de_Uruguay_(1990-1995)",
+     "consultado": "2026-09-19",
+     "cita": "Anexo XLIII: Osores y Conde (Lista 15), Lenzi (Lista 15), Amorín, Fernández y Rubio (UCB), Partido Colorado."
+    }
+   ]
+  },
+  {
+   "sigla": "PGP",
+   "nombre": "Partido por el Gobierno del Pueblo",
+   "etiquetas": [
+    "Partido Por El Gobierno del Pueblo (pgp)",
+    "Por El Pais Que Queremos",
+    "Union Democrata Cristiana"
+   ],
+   "cambios": [],
+   "nota": "Lema con el que concurrió en 1989 la coalición Nuevo Espacio (PGP, PDC y Unión Cívica): sus nueve diputados de la XLIII (1990-1995) se reparten entre «Partido Por El Gobierno del Pueblo (pgp)», el sublema «Por el País que Queremos» (hoja 99) y el sublema «Unión Demócrata Cristiana» (hoja 808). En 1994 la Lista 99 pasó al Partido Colorado y el Partido Nuevo Espacio se fundó aparte, así que no se funde con él (reglas 4 y 5). Efecto trayectoria: 1.080 filas de «Por El Pais Que Queremos» son de 1985-1990, cuando Prieto, Caputi y Bertacchi eran diputados del Frente Amplio, y 155 son de la XLIV.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Por El Pais Que Queremos",
+      "Partido Por El Gobierno del Pueblo (pgp)"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY002000100084 (Diario de Sesiones de la Cámara, 1990-02-14)",
+     "consultado": "2026-09-19",
+     "cita": "Proclamaciones de 1989: Partido Por el Gobierno del Pueblo, Sub Lema «Por el País que Queremos», hoja 99 (Fau, Michelini, Prieto, Díaz Maynard, Melo)."
+    },
+    {
+     "etiquetas": [
+      "Por El Pais Que Queremos"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY004027200006 (Diario de Sesiones de la Cámara, 2003-06-24)",
+     "consultado": "2026-09-19",
+     "cita": "En 1990 Eden Melo participó por el Lema Partido por el Gobierno del Pueblo, Sublema Por el País que Queremos, Lista 99."
+    },
+    {
+     "etiquetas": [
+      "Union Democrata Cristiana"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY002004000025 (Diario de Sesiones de la Cámara, 1990-08-07)",
+     "consultado": "2026-09-19",
+     "cita": "Suplente de Lescano: hoja 808, lema Partido por el Gobierno del Pueblo, sub lema «Unión Demócrata Cristiana»."
+    },
+    {
+     "etiquetas": [
+      "Por El Pais Que Queremos",
+      "Partido Por El Gobierno del Pueblo (pgp)"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Anexo:XLIII_Legislatura_de_la_C%C3%A1mara_de_Representantes_de_Uruguay_(1990-1995)",
+     "consultado": "2026-09-19",
+     "cita": "Anexo XLIII: Bertacchi, Caputi, Díaz Maynard, Fau, Lescano, Michelini, Prieto y Sosa, Nuevo Espacio."
+    },
+    {
+     "etiquetas": [
+      "Partido Por El Gobierno del Pueblo (pgp)"
+     ],
+     "fuente": "https://portal.factum.uy/ediciones-anteriores/estpol/anapol/2001/anp01035.html",
+     "consultado": "2026-09-19",
+     "cita": "Factum (24-08-2001): en 1994 la mayoría de la 99 va al Partido Colorado y el Nuevo Espacio se reconstruye como partido."
+    }
+   ]
+  },
+  {
+   "sigla": "Nuevo Espacio",
+   "nombre": "Partido Nuevo Espacio",
+   "etiquetas": [
+    "Nuevo Espacio",
+    "Partido Nuevo Espacio"
+   ],
+   "cambios": [],
+   "nota": "Lema «Partido del Nuevo Espacio» (hoja 99000) en 1994 y 1999; partido fundado el 06-08-1994. En 2004 concurrió dentro del EP-FA-Nueva Mayoría y en 2005 se integró al Frente Amplio como sector, que en 2023 pasó a llamarse Espacio Socialdemócrata Amplio. Como ese nombre corresponde al sector y no al lema, se mantiene «Nuevo Espacio». Las 10 filas de 2018 (Carlos Castaldi) corresponden al sector del FA.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Nuevo Espacio",
+      "Partido Nuevo Espacio"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY003000100087 (Diario de Sesiones de la Cámara, 1995-02-14)",
+     "consultado": "2026-09-19",
+     "cita": "Primer suplente de la hoja 99000, «del lema Partido del Nuevo Espacio», Gabriel Barandiarán."
+    },
+    {
+     "etiquetas": [
+      "Nuevo Espacio"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Nuevo_Espacio",
+     "consultado": "2026-09-19",
+     "cita": "Coalición desde 1989, fundado como partido el 06-08-1994; integrado al FA en 2005; ESA desde 30-11-2023."
+    },
+    {
+     "etiquetas": [
+      "Nuevo Espacio"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Anexo:XLVIII_Legislatura_de_la_C%C3%A1mara_de_Representantes_de_Uruguay_(2015-2020)",
+     "consultado": "2026-09-19",
+     "cita": "Anexo XLVIII: «Nuevo Espacio - 99738» es un sector del Frente Amplio."
+    }
+   ]
+  },
+  {
+   "sigla": "Partido Independiente",
+   "nombre": "Partido Independiente",
+   "etiquetas": [
+    "Partido Independiente"
+   ],
+   "cambios": [],
+   "nota": "Fundado por el grupo de Pablo Mieres que se separó del Nuevo Espacio cuando este se alió con el EP-FA: partido distinto (regla 5).",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Partido Independiente"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Nuevo_Espacio",
+     "consultado": "2026-09-19",
+     "cita": "Un grupo del Nuevo Espacio liderado por Pablo Mieres se opuso a la alianza y formó el Partido Independiente."
+    },
+    {
+     "etiquetas": [
+      "Partido Independiente"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY005000600021 (Diario de Sesiones de la Cámara, 2005-03-08)",
+     "consultado": "2026-09-19",
+     "cita": "Suplente de la hoja 909 «del lema Partido Independiente»."
+    }
+   ]
+  },
+  {
+   "sigla": "Cabildo Abierto",
+   "nombre": "Partido Cabildo Abierto",
+   "etiquetas": [
+    "Partido Cabildo Abierto"
+   ],
+   "cambios": [],
+   "nota": "",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Partido Cabildo Abierto"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY007030500069 (Diario de Sesiones de la Cámara, 2020-02-13)",
+     "consultado": "2026-09-19",
+     "cita": "Proclamado «por el lema Partido Cabildo Abierto»."
+    }
+   ]
+  },
+  {
+   "sigla": "Asamblea Popular",
+   "nombre": "Partido Asamblea Popular (lema de la coalición Unidad Popular)",
+   "etiquetas": [
+    "Asamblea Popular",
+    "Partido Democrata Cristiano"
+   ],
+   "cambios": [],
+   "nota": "Lema «Partido Asamblea Popular» (hoja 326), con el que concurrió la coalición Unidad Popular; un diputado en la XLVIII (Eduardo Rubio). «Partido Democrata Cristiano» es un error de enlace: sus 40 filas (2016-2019) son de Walter Gonzalo Martínez, suplente de Rubio, al que el CSV identifica como «MARTINEZ GALLINAL, WALTER» (ver «revisar»).",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Asamblea Popular"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY007000200001 (Diario de Sesiones de la Cámara, 2015-03-03)",
+     "consultado": "2026-09-19",
+     "cita": "Suplente de la hoja 326 «del lema Partido Asamblea Popular»."
+    },
+    {
+     "etiquetas": [
+      "Asamblea Popular"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Unidad_Popular_(Uruguay)",
+     "consultado": "2026-09-19",
+     "cita": "Asamblea Popular (2006) forma en 2013 la coalición Unidad Popular; concurre bajo el lema Asamblea Popular."
+    },
+    {
+     "etiquetas": [
+      "Asamblea Popular"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Anexo:XLVIII_Legislatura_de_la_C%C3%A1mara_de_Representantes_de_Uruguay_(2015-2020)",
+     "consultado": "2026-09-19",
+     "cita": "Anexo XLVIII: Eduardo Rubio, Unidad Popular (Movimiento 26 de Marzo - 326)."
+    },
+    {
+     "etiquetas": [
+      "Partido Democrata Cristiano"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY007009000015 (Diario de Sesiones de la Cámara, 2016-07-12)",
+     "consultado": "2026-09-19",
+     "cita": "Licencia de Rubio: se convoca al suplente de la hoja 326, lema Partido Asamblea Popular, Walter Gonzalo Martínez."
+    },
+    {
+     "etiquetas": [
+      "Partido Democrata Cristiano"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY007007800017 (Diario de Sesiones de la Cámara, 2016-06-01)",
+     "consultado": "2026-09-19",
+     "cita": "Misma convocatoria de Walter Gonzalo Martínez como suplente de la hoja 326."
+    }
+   ]
+  },
+  {
+   "sigla": "Partido de la Gente",
+   "nombre": "Partido de la Gente",
+   "etiquetas": [
+    "Partido de la Gente"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PERI",
+   "nombre": "Partido Ecologista Radical Intransigente",
+   "etiquetas": [
+    "Partido Ecologista Radical Intransigente (peri)"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Identidad Soberana",
+   "nombre": "Partido Identidad Soberana",
+   "etiquetas": [
+    "Identidad Soberana"
+   ],
+   "cambios": [],
+   "nota": "",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Identidad Soberana"
+     ],
+     "fuente": "corpus data/UY_interventions.csv, id_int UY009003600013 (Diario de Sesiones de la Cámara, 2025-10-01)",
+     "consultado": "2026-09-19",
+     "cita": "Representante «del lema Partido Identidad Soberana», hoja 18010 (Nicolle Salle)."
+    }
+   ]
+  },
+  {
+   "sigla": "Sin identificar",
+   "nombre": "Sin identificar",
+   "etiquetas": [
+    ""
+   ],
+   "cambios": [],
+   "nota": "Etiqueta vacía con diputado identificado: 19.142 filas y 333 diputados, 13.086 de ellas de la XLII (1985-1990)."
+  }
+ ],
+ "asignacion": {
+  "Frente Amplio": "Frente Amplio",
+  "Partido Nacional": "Partido Nacional",
+  "Partido Colorado": "Partido Colorado",
+  "": "Sin identificar",
+  "Nuevo Espacio": "Nuevo Espacio",
+  "Partido Independiente": "Partido Independiente",
+  "Partido Cabildo Abierto": "Cabildo Abierto",
+  "Por El Pais Que Queremos": "PGP",
+  "Partido Nuevo Espacio": "Nuevo Espacio",
+  "Herrerismo-renovacion y Victoria": "Partido Nacional",
+  "Batllismo": "Partido Colorado",
+  "Partido Por El Gobierno del Pueblo (pgp)": "PGP",
+  "Partido Frente Amplio": "Frente Amplio",
+  "Unidad Para los Cambios": "Frente Amplio",
+  "Union Colorada y Batllista": "Partido Colorado",
+  "Partido Encuentro Progresista": "Frente Amplio",
+  "En Defensa de la Nacion": "Partido Nacional",
+  "Batllismo Unido": "Partido Colorado",
+  "Asamblea Popular": "Asamblea Popular",
+  "Unidad Nacionalista": "Partido Nacional",
+  "Herrerismo": "Partido Nacional",
+  "Adelante Con Fe": "Partido Nacional",
+  "Partido Ecologista Radical Intransigente (peri)": "PERI",
+  "Por Un Gob": "Partido Nacional",
+  "Identidad Soberana": "Identidad Soberana",
+  "La Union Nos Hara Fuerza": "Partido Nacional",
+  "Por la Patria y Nacional Rocha": "Partido Nacional",
+  "Para Volver A Vivir": "Partido Colorado",
+  "Nacionalistas Unidos Por Colonia": "Partido Nacional",
+  "Por los Ideales de Batlle": "Partido Colorado",
+  "Patria y Partido": "Partido Nacional",
+  "Pluralismo y Unidad": "Frente Amplio",
+  "Con Fe y Carlos Julio": "Partido Nacional",
+  "Batllismo Hacia El Futuro": "Partido Colorado",
+  "Herrerismo Renovacion y Victoria": "Partido Nacional",
+  "Renovacion Colorada": "Partido Colorado",
+  "Partido de la Gente": "Partido de la Gente",
+  "Poncho Blanco": "Partido Nacional",
+  "Por Un Uruguay Democratico": "Partido Nacional",
+  "Democracia Avanzada": "Frente Amplio",
+  "Defensores de las Leyes": "Partido Nacional",
+  "Frente del Pueblo": "Frente Amplio",
+  "Lista": "Partido Nacional",
+  "Patria Para Todos": "Partido Nacional",
+  "Socialismo Democracia Libertad": "Frente Amplio",
+  "Canelones Al Frente": "Frente Amplio",
+  "Partido Democrata Cristiano": "Asamblea Popular",
+  "Manos A la Obra": "Partido Nacional",
+  "Por la Patria": "Partido Nacional",
+  "Acuerdo": "Partido Colorado",
+  "Union Democrata Cristiana": "PGP",
+  "Union y Trabajo": "Partido Colorado",
+  "Unidad y Pluralismo Frenteamplista": "Frente Amplio",
+  "Por la Defensa de Paysandu": "Partido Colorado",
+  "Dignidad Arriba y Regocijo Abajo": "Partido Nacional",
+  "Oposicion Democratica Nacionalista": "Partido Nacional",
+  "Blancos Con Libertades Democ": "Partido Nacional",
+  "Union Nacionalista y Herrerista": "Partido Nacional",
+  "Mario Heber": "Partido Nacional",
+  "Unidos Venceremos": "Partido Colorado",
+  "Nacionalismo Unido": "Partido Nacional",
+  "Por los Ideales de Batlle y Ordoñez": "Partido Colorado",
+  "Con Cerro Largo A la Victoria": "Partido Nacional",
+  "Todo Por San Jose": "Partido Nacional",
+  "Vanguardia Batllista": "Partido Colorado",
+  "Union Departamental Nacionalista Hoja": "Partido Nacional",
+  "Partido Nacional Desde El": "Partido Nacional",
+  "Doctor Luis Alberto de Herrera": "Partido Nacional",
+  "Aparacio Saravia": "Partido Nacional",
+  "Movimiento P": "Partido Nacional",
+  "Por Ideales Oribe-saravia-herrera": "Partido Nacional",
+  "Acf Movimiento P": "Partido Nacional",
+  "Juntos Por Rivera": "Partido Nacional"
+ },
+ "revisar": [
+  {
+   "etiquetas": [
+    "Partido Por El Gobierno del Pueblo (pgp)",
+    "Por El Pais Que Queremos",
+    "Union Democrata Cristiana"
+   ],
+   "decision": "Partido canónico propio «PGP», que es el lema de 1989.",
+   "alternativa": "Llamarlo «Nuevo Espacio (1989)», nombre de la coalición que usan los anexos de Wikipedia, o fundirlo con Nuevo Espacio.",
+   "motivo": "La etiqueta y las proclamaciones dan el lema PGP, pero políticamente es la coalición Nuevo Espacio de 1989. No se funde con el Partido Nuevo Espacio de 1994 porque la Lista 99 pasó al Partido Colorado. Además, 1.086 filas de 1985-1990 son de diputados que entonces eran del Frente Amplio."
+  },
+  {
+   "etiquetas": [
+    "Partido Encuentro Progresista"
+   ],
+   "decision": "Frente Amplio: es el lema del FA de 1999-2004, con otro nombre, y la coalición con la que concurrió (reglas 2 y 3).",
+   "alternativa": "Partido canónico propio «Encuentro Progresista».",
+   "motivo": "Tres de sus cuatro diputados son de sectores del FA. El cuarto, Díaz Maynard, venía de Alianza Progresista, que se integró al FA en 2005."
+  },
+  {
+   "etiquetas": [
+    "Partido Democrata Cristiano"
+   ],
+   "decision": "Asamblea Popular, porque las 40 filas son de un suplente de ese lema mal enlazado.",
+   "alternativa": "Frente Amplio, al que pertenece el PDC como sector desde 2005, o partido propio «PDC» si se prefiere seguir la etiqueta literal.",
+   "motivo": "Las convocatorias de 2016 dan a Walter Gonzalo Martínez como suplente de la hoja 326 del lema Partido Asamblea Popular. Conviene corregir también el enlace del diputado."
+  },
+  {
+   "etiquetas": [
+    "Asamblea Popular",
+    "Partido Democrata Cristiano"
+   ],
+   "decision": "Sigla «Asamblea Popular», que es el lema.",
+   "alternativa": "«Unidad Popular», nombre público de la coalición en 2014-2019, que es el que usa el anexo de la XLVIII.",
+   "motivo": "En Uruguay el partido es el lema; pero Unidad Popular es el nombre más conocido."
+  },
+  {
+   "etiquetas": [
+    "Nuevo Espacio"
+   ],
+   "decision": "Nuevo Espacio, nombre del lema de 1994-2004.",
+   "alternativa": "«Espacio Socialdemócrata Amplio», su nombre desde 2023, si se aplica literalmente la regla del nombre más reciente.",
+   "motivo": "El cambio de 2023 es de un sector del Frente Amplio, no de un lema. Diez filas de 2018 son de ese sector y quedan en Nuevo Espacio."
+  },
+  {
+   "etiquetas": [
+    "Frente Amplio",
+    "Partido Nacional",
+    "Partido Colorado",
+    "Por El Pais Que Queremos",
+    "Unidad Para los Cambios"
+   ],
+   "decision": "Se asigna por etiqueta, sin corregir por fechas.",
+   "alternativa": "Corregir con una tabla por diputado y legislatura.",
+   "motivo": "La etiqueta se mantiene durante toda la legislatura y a veces se copia de otra. Ejemplos: Daniel Peña y Fernando Amado en la XLVIII, y los sublemas de 1989 aplicados a 1985-1990."
+  }
+ ],
+ "tipo_propuesto": "trayectoria"
+}

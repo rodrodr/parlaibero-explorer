@@ -1,0 +1,218 @@
+{
+ "pais": "DO",
+ "tipo": "por legislatura",
+ "partidos": [
+  {
+   "sigla": "PLD",
+   "nombre": "Partido de la Liberación Dominicana",
+   "etiquetas": [
+    "PLD"
+   ],
+   "cambios": [],
+   "nota": "Los diputados que dejaron el PLD por la Fuerza del Pueblo en mitad de una legislatura siguen como PLD en ella (la etiqueta no se actualiza)."
+  },
+  {
+   "sigla": "PRD",
+   "nombre": "Partido Revolucionario Dominicano",
+   "etiquetas": [
+    "PRD"
+   ],
+   "cambios": [],
+   "nota": "En 2006-2010 la etiqueta PRD/PRSC no cuadra con los escaños oficiales (véase «revisar»)."
+  },
+  {
+   "sigla": "PRM",
+   "nombre": "Partido Revolucionario Moderno",
+   "etiquetas": [
+    "PRM"
+   ],
+   "cambios": [],
+   "nota": "Escisión del PRD en 2014: separado (regla 5); 25 diputados tienen PRD en unas legislaturas y PRM en otras. Dos filas de 2001 llevan PRM por error (véase «revisar»)."
+  },
+  {
+   "sigla": "PRSC",
+   "nombre": "Partido Reformista Social Cristiano",
+   "etiquetas": [
+    "PRSC"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "FP",
+   "nombre": "Fuerza del Pueblo",
+   "etiquetas": [
+    "FP"
+   ],
+   "cambios": [],
+   "nota": "Escisión del PLD en 2019: separado (regla 5). La etiqueta solo aparece desde agosto de 2020."
+  },
+  {
+   "sigla": "FNP",
+   "nombre": "Fuerza Nacional Progresista",
+   "etiquetas": [
+    "FNP"
+   ],
+   "cambios": [],
+   "nota": "Fundada en 1980 por Marino Vinicio Castillo (https://es.wikipedia.org/wiki/Fuerza_Nacional_Progresista)."
+  },
+  {
+   "sigla": "PRSD",
+   "nombre": "Partido Revolucionario Social Demócrata",
+   "etiquetas": [
+    "PRSD"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "ALPAÍS",
+   "nombre": "Alianza País",
+   "etiquetas": [
+    "ALPAIS"
+   ],
+   "cambios": [],
+   "nota": "Partido, no alianza electoral, pese al nombre. Grafía habitual con tilde."
+  },
+  {
+   "sigla": "FA",
+   "nombre": "Frente Amplio",
+   "etiquetas": [
+    "FA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PQDC",
+   "nombre": "Partido Quisqueyano Demócrata Cristiano",
+   "etiquetas": [
+    "PQDC"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PLR",
+   "nombre": "Partido Liberal Reformista",
+   "etiquetas": [
+    "PLR"
+   ],
+   "cambios": [],
+   "nota": "Nombre según Acento (24-8-2015, https://acento.com.do/actualidad/partido-liberal-reformista-activa-sus-trabajos-proselitistas-8277847.html)."
+  },
+  {
+   "sigla": "PCR",
+   "nombre": "Partido Cívico Renovador",
+   "etiquetas": [
+    "PCR"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PPC",
+   "nombre": "Partido Popular Cristiano",
+   "etiquetas": [
+    "PPC"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PHD",
+   "nombre": "Partido Humanista Dominicano",
+   "etiquetas": [
+    "PHD"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "BIS",
+   "nombre": "Bloque Institucional Socialdemócrata",
+   "etiquetas": [
+    "BIS"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "APD",
+   "nombre": "Alianza por la Democracia",
+   "etiquetas": [
+    "APD"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "UDC",
+   "nombre": "Unión Demócrata Cristiana",
+   "etiquetas": [
+    "UDC"
+   ],
+   "cambios": [],
+   "nota": "Un diputado en 2006-2010; la UDC no obtuvo escaños propios en 2006 (https://en.wikipedia.org/wiki/2006_Dominican_Republic_parliamentary_election)."
+  },
+  {
+   "sigla": "Sin identificar",
+   "nombre": "Sin identificar",
+   "etiquetas": [
+    ""
+   ],
+   "cambios": [],
+   "nota": "60 filas de 19 diputados, 35 de ellas en 1998-2002."
+  }
+ ],
+ "asignacion": {
+  "PLD": "PLD",
+  "PRD": "PRD",
+  "PRM": "PRM",
+  "PRSC": "PRSC",
+  "FP": "FP",
+  "FNP": "FNP",
+  "PRSD": "PRSD",
+  "ALPAIS": "ALPAÍS",
+  "FA": "FA",
+  "PQDC": "PQDC",
+  "PLR": "PLR",
+  "PCR": "PCR",
+  "PPC": "PPC",
+  "PHD": "PHD",
+  "BIS": "BIS",
+  "APD": "APD",
+  "UDC": "UDC",
+  "": "Sin identificar"
+ },
+ "revisar": [
+  {
+   "etiquetas": [
+    "PRM"
+   ],
+   "decision": "PRM (la tabla no puede corregirlo)",
+   "alternativa": "corregir por diputado y legislatura las 2 filas de 2001",
+   "motivo": "Mateo Evangelista Espaillat Tavárez fue diputado en 1998-2002 (figura en las listas de asistencia de 2001) y sus 2 intervenciones de 2001 llevan PRM, partido fundado en 2014: la etiqueta se tomó de su registro de 2020-2024. Su partido en 1998-2002 no está verificado (probablemente el PRD)."
+  },
+  {
+   "etiquetas": [
+    "PRD",
+    "PRSC"
+   ],
+   "decision": "mantener PRD y PRSC",
+   "alternativa": "revisar la asignación de partido de 2006-2010 diputado por diputado",
+   "motivo": "En 2006 PRD y PRSC concurrieron en la Gran Alianza Nacional. En 2006-2010, 28 diputados tienen PRD/PRSC distinto del de sus legislaturas vecinas y el recuento de la etiqueta (40 diputados PRD, 39 PRSC) no cuadra con los escaños oficiales (60 y 22). Algunos se identifican en sus discursos con el otro partido: Josefa Castillo (PRSC en el CSV) habla «en nombre del Partido Revolucionario Dominicano, como vicevocera»; Leivin Guerrero (PRSC) dice «nuestro Partido Revolucionario Dominicano»; Mario José Fernández Saviñón (PRD) habla por el Partido Reformista."
+  },
+  {
+   "etiquetas": [
+    "PRM",
+    "PLD",
+    "FP"
+   ],
+   "decision": "mantener",
+   "alternativa": "revisar la asignación de 2020-2024 diputado por diputado",
+   "motivo": "Llevan PRM en 2020-2024 diputados que hablan como PLD (Gustavo Sánchez, «vocero del bloque del Partido de la Liberación Dominicana», 28-8-2020; Víctor Suárez; Magda Rodríguez) o como Fuerza del Pueblo (Rubén Darío Maldonado, Rafael Tobías Crespo, Jesús Martínez Alberti). La etiqueta cuenta 94 diputados PRM y 68 PLD frente a 86 y 75 escaños oficiales. Los casos de FP podrían ser candidaturas en listas aliadas (no verificado); los del PLD son errores."
+  }
+ ],
+ "tipo_propuesto": "por legislatura"
+}

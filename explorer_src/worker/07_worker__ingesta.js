@@ -318,6 +318,7 @@
       await ins.terminar();
       tiempos.compresion += ahora() - t2;
       const distintos = ins.distintos();
+      const equivalencias = ins.equivalenciasPartidos(), conRegistro = !!ins.partidos;
       const n = ins.insertadas, bytesTexto = ins.bytesTexto, bytesComprimidos = ins.bytesComprimidos, nBloques = ins.nBloques;
       const nSesiones = ins.sesiones.size, pais = ins.pais, filasDoc = ins.filasDoc, sinCompresion = ins.sinCompresion;
       tiempos.leer_y_guardar = ahora() - tLeerGuardar;
@@ -344,6 +345,12 @@
       const avisos = [];
       if (lineasVacias) avisos.push(E.aviso('LINEAS_VACIAS', { n: lineasVacias, primera_fila: primeraVacia }));
       if (sinCompresion) avisos.push(E.aviso('SIN_COMPRESION', {}));
+      const fueraDeRegistro = conRegistro ? equivalencias.filter((v) => !v.enRegistro) : [];
+      if (fueraDeRegistro.length) {
+        avisos.push(E.aviso('PARTIDOS_FUERA_DE_REGISTRO', { n: fueraDeRegistro.length,
+          filas: fueraDeRegistro.reduce((t, v) => t + v.siglas.reduce((s, x) => s + x[1], 0), 0),
+          ejemplos: fueraDeRegistro.slice(0, 5).map((v) => v.etiqueta) }));
+      }
 
       // ---------------------------------------------------------------- 3. índices
       let t = ahora();
@@ -381,7 +388,7 @@
         C.analizar(db);
         tiempos.analizar = ahora() - t1;
         t1 = ahora();
-        facetas = F.calcular(db);
+        facetas = F.calcular(db, { pais, partidos: conRegistro ? equivalencias : null });
         C.escribirMeta(db, F.aJson(facetas), n, { n_sessions: nSesiones, pais: pais || '' });
         tiempos.facetas = ahora() - t1;
       });
@@ -457,6 +464,8 @@
           formato_texto: C.FORMATO_TEXTO,
           optimizado: optimizar,
           expresiones,
+          partidos: conRegistro ? { etiquetas: equivalencias.length, partidos: new Set(equivalencias.flatMap((v) => v.siglas.map((x) => x[0]))).size,
+            fuera_de_registro: fueraDeRegistro.length } : null,
           valores_distintos: distintos,
           latidos,
         },

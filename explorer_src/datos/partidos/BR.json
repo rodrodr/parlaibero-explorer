@@ -1,0 +1,569 @@
+{
+ "pais": "BR",
+ "tipo": "por intervencion",
+ "partidos": [
+  {
+   "sigla": "PT",
+   "nombre": "Partido dos Trabalhadores",
+   "etiquetas": [
+    "PT"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MDB",
+   "nombre": "Movimento Democrático Brasileiro",
+   "etiquetas": [
+    "PMDB",
+    "MDB",
+    "PMSD"
+   ],
+   "cambios": [
+    {
+     "de": "PMDB (Partido do Movimento Democrático Brasileiro)",
+     "a": "MDB (Movimento Democrático Brasileiro)",
+     "fecha": "2018-05-15",
+     "fuente": "https://pt.wikipedia.org/wiki/Movimento_Democrático_Brasileiro_(1980)"
+    }
+   ],
+   "nota": "Mismo partido fundado en 1980 (mismo registro). La convención aprobó volver al nombre MDB el 2017-12-19 y el TSE lo aprobó el 2018-05-15; en las cabeceras de los diarios PMDB pasa a MDB en mayo de 2018. PMSD es una errata de cabecera: «VALDIR COLATTO (PMSD-SC)», 2010-11-23; sus otras 135 filas de 2010 son PMDB."
+  },
+  {
+   "sigla": "DEM",
+   "nombre": "Democratas",
+   "etiquetas": [
+    "DEM",
+    "PFL",
+    "PFJ"
+   ],
+   "cambios": [
+    {
+     "de": "PFL (Partido da Frente Liberal)",
+     "a": "DEM (Democratas)",
+     "fecha": "2007-03-28",
+     "fuente": "https://pt.wikipedia.org/wiki/Democratas_(Brasil)"
+    }
+   ],
+   "nota": "Renombramiento del PFL; según la fuente, el TSE considera PFL y DEM un solo partido. PFJ es una errata de cabecera: «RODRIGO MAIA (PFJ-RJ)», 2004-04-15; sus otras 373 filas de 2004 son PFL. En 2022 el DEM se fusionó con el PSL para crear União Brasil (TSE 2022-02-08): por la regla 4 no se funde con União."
+  },
+  {
+   "sigla": "PL",
+   "nombre": "Partido Liberal",
+   "etiquetas": [
+    "PL",
+    "PR",
+    "BLOCOPL"
+   ],
+   "cambios": [
+    {
+     "de": "PR (Partido da República)",
+     "a": "PL (Partido Liberal)",
+     "fecha": "2019-05-07",
+     "fuente": "https://pt.wikipedia.org/wiki/Partido_Liberal_(2006)"
+    }
+   ],
+   "nota": "El PR nació de la fusión del PL de 1985 con el PRONA (2006-10-24; registro 2006-12-19) y el TSE autorizó el 2019-05-07 que volviera a llamarse PL (misma persona jurídica). La etiqueta PL de la legislatura 52 (2003-02 a 2006-12, 30.548 filas con BLOCOPL) corresponde al PL de 1985, predecesor que por la regla 4 no debería fundirse: véase «revisar». BLOCOPL es «EDMAR MOREIRA (BlocoPL-MG)», 2004-02-17."
+  },
+  {
+   "sigla": "PP",
+   "nombre": "Progressistas",
+   "etiquetas": [
+    "PP",
+    "PPB"
+   ],
+   "cambios": [
+    {
+     "de": "PPB (Partido Progressista Brasileiro)",
+     "a": "PP (Partido Progressista)",
+     "fecha": "2003-04-04",
+     "fuente": "https://www.camara.leg.br/tv/147925-ppb-faz-mudancas-para-evitar-confusoes/"
+    },
+    {
+     "de": "PP (Partido Progressista)",
+     "a": "Progressistas (misma sigla PP)",
+     "fecha": "2017-08-16",
+     "fuente": "https://pt.wikipedia.org/wiki/Progressistas"
+    }
+   ],
+   "nota": "Convención del 2003-04-04 (TV Câmara); en 2017 adoptó el nombre Progressistas manteniendo la sigla PP. Las filas PPB llegan hasta 2006."
+  },
+  {
+   "sigla": "PSDB",
+   "nombre": "Partido da Social Democracia Brasileira",
+   "etiquetas": [
+    "PSDB",
+    "PSBD"
+   ],
+   "cambios": [],
+   "nota": "PSBD es una errata de cabecera: «RUI CARNEIRO (PSBD-PB)», 2012-07-16; sus otras 21 filas de 2012 son PSDB."
+  },
+  {
+   "sigla": "PDT",
+   "nombre": "Partido Democrático Trabalhista",
+   "etiquetas": [
+    "PDT",
+    "PTD"
+   ],
+   "cambios": [],
+   "nota": "PTD es una errata de cabecera: «ROBERTO GOÉS (PTD-AP)», 2015-03-16; 24 de sus 27 filas de 2015 son PDT."
+  },
+  {
+   "sigla": "PSB",
+   "nombre": "Partido Socialista Brasileiro",
+   "etiquetas": [
+    "PSB"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PCdoB",
+   "nombre": "Partido Comunista do Brasil",
+   "etiquetas": [
+    "PCDOB"
+   ],
+   "cambios": [],
+   "nota": "PCDOB es la grafía en mayúsculas de PCdoB. En 2019 incorporó al PPL (TSE 2019-05-28), que queda aparte (regla 4)."
+  },
+  {
+   "sigla": "PSD",
+   "nombre": "Partido Social Democrático",
+   "etiquetas": [
+    "PSD"
+   ],
+   "cambios": [],
+   "nota": "Partido de 2011. Las 5 filas fechadas el 2007-12-16 son de la sesión BR0040001, de la legislatura 54 y con fecha errónea (contiene también SD y PROS, partidos de 2013)."
+  },
+  {
+   "sigla": "Republicanos",
+   "nombre": "Republicanos",
+   "etiquetas": [
+    "REPUBLICANOS",
+    "PRB",
+    "PMR"
+   ],
+   "cambios": [
+    {
+     "de": "PMR (Partido Municipalista Renovador)",
+     "a": "PRB (Partido Republicano Brasileiro)",
+     "fecha": "2005-10-25",
+     "fuente": "https://memoria.ebc.com.br/agenciabrasil/noticia/2005-10-25/partido-municipalista-renovador-vira-partido-republicano-brasileiro"
+    },
+    {
+     "de": "PRB (Partido Republicano Brasileiro)",
+     "a": "Republicanos",
+     "fecha": "2019-08-15",
+     "fuente": "https://www.conjur.com.br/2019-ago-15/tse-autoriza-mudanca-prb-republicanos"
+    }
+   ],
+   "nota": "Mismo partido desde 2005 (https://pt.wikipedia.org/wiki/Republicanos_(partido_político)). PMR→PRB: convención del 2005-10-25, efectivo en marzo de 2006 según pt.wikipedia; PRB→Republicanos: autorización del TSE el 2019-08-15. PMR: 2 diputados (José Divino, Vieira Reis), 2005-2006."
+  },
+  {
+   "sigla": "PTB",
+   "nombre": "Partido Trabalhista Brasileiro",
+   "etiquetas": [
+    "PTB"
+   ],
+   "cambios": [],
+   "nota": "Se fusionó con el Patriota para crear el PRD (TSE 2023-11-09): queda aparte (regla 4)."
+  },
+  {
+   "sigla": "PSOL",
+   "nombre": "Partido Socialismo e Liberdade",
+   "etiquetas": [
+    "PSOL"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Solidariedade",
+   "nombre": "Solidariedade",
+   "etiquetas": [
+    "SD",
+    "SOLIDARIEDADE",
+    "SDD"
+   ],
+   "cambios": [],
+   "nota": "Tres grafías del mismo partido (regla 1): según https://pt.wikipedia.org/wiki/Solidariedade_(partido_político) el partido usó primero la sigla SDD, luego SD, y desde el estatuto de 2016 no adopta sigla. En 2023 incorporó al PROS (TSE 2023-02-14), que queda aparte (regla 4)."
+  },
+  {
+   "sigla": "Cidadania",
+   "nombre": "Cidadania",
+   "etiquetas": [
+    "PPS",
+    "CIDADANIA"
+   ],
+   "cambios": [
+    {
+     "de": "PPS (Partido Popular Socialista)",
+     "a": "Cidadania",
+     "fecha": "2019-09-19",
+     "fuente": "https://pt.wikipedia.org/wiki/Cidadania_(partido_político)"
+    }
+   ],
+   "nota": "El partido decidió el cambio en marzo de 2019 y el TSE lo aprobó el 2019-09-19; conservó el número 23."
+  },
+  {
+   "sigla": "PSC",
+   "nombre": "Partido Social Cristão",
+   "etiquetas": [
+    "PSC"
+   ],
+   "cambios": [],
+   "nota": "Incorporado a Podemos (TSE 2023-06-16, según https://pt.wikipedia.org/wiki/Podemos_(Brasil)): queda aparte (regla 4)."
+  },
+  {
+   "sigla": "PSL",
+   "nombre": "Partido Social Liberal",
+   "etiquetas": [
+    "PSL"
+   ],
+   "cambios": [],
+   "nota": "Se fusionó con el DEM para crear União Brasil (TSE 2022-02-08): queda aparte (regla 4)."
+  },
+  {
+   "sigla": "PV",
+   "nombre": "Partido Verde",
+   "etiquetas": [
+    "PV"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Novo",
+   "nombre": "Partido Novo",
+   "etiquetas": [
+    "NOVO"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Podemos",
+   "nombre": "Podemos",
+   "etiquetas": [
+    "PODE",
+    "PTN",
+    "PODEMOS"
+   ],
+   "cambios": [
+    {
+     "de": "PTN (Partido Trabalhista Nacional)",
+     "a": "Podemos",
+     "fecha": "2017-05-16",
+     "fuente": "https://www.congressoemfoco.com.br/noticia/40402/tse-autoriza-mudanca-de-nome-do-ptn-para-%E2%80%9Cpodemos%E2%80%9D"
+    }
+   ],
+   "nota": "Autorización del TSE el 2017-05-16. PODE y PODEMOS son dos grafías de la misma sigla. Incorporó al PHS (2018-12-21) y al PSC (TSE 2023-06-16), que quedan aparte (regla 4)."
+  },
+  {
+   "sigla": "PROS",
+   "nombre": "Partido Republicano da Ordem Social",
+   "etiquetas": [
+    "PROS"
+   ],
+   "cambios": [],
+   "nota": "Incorporado a Solidariedade (TSE 2023-02-14, según https://pt.wikipedia.org/wiki/Solidariedade_(partido_político)): queda aparte (regla 4)."
+  },
+  {
+   "sigla": "Rede",
+   "nombre": "Rede Sustentabilidade",
+   "etiquetas": [
+    "REDE"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "União",
+   "nombre": "União Brasil",
+   "etiquetas": [
+    "UNIÃO"
+   ],
+   "cambios": [],
+   "nota": "Partido nuevo por fusión de DEM y PSL (TSE 2022-02-08, según https://pt.wikipedia.org/wiki/Democratas_(Brasil)); los predecesores quedan aparte (regla 4)."
+  },
+  {
+   "sigla": "Avante",
+   "nombre": "Avante",
+   "etiquetas": [
+    "AVANTE",
+    "PTDOB"
+   ],
+   "cambios": [
+    {
+     "de": "PTdoB (Partido Trabalhista do Brasil)",
+     "a": "Avante",
+     "fecha": "2017-09-12",
+     "fuente": "https://pt.wikipedia.org/wiki/Avante_(partido_político)"
+    }
+   ],
+   "nota": "Convención de abril de 2017; autorización del TSE el 2017-09-12."
+  },
+  {
+   "sigla": "Mobiliza",
+   "nombre": "Mobilização Nacional",
+   "etiquetas": [
+    "PMN"
+   ],
+   "cambios": [
+    {
+     "de": "PMN (Partido da Mobilização Nacional)",
+     "a": "Mobiliza (Mobilização Nacional)",
+     "fecha": "2021-07-25",
+     "fuente": "https://pt.wikipedia.org/wiki/Mobilização_Nacional"
+    }
+   ],
+   "nota": "Mismo registro. Convención del 24-25 de julio de 2021, homologada por el TSE en diciembre de 2023. En el corpus solo aparece como PMN (2003-2019): véase «revisar»."
+  },
+  {
+   "sigla": "PHS",
+   "nombre": "Partido Humanista da Solidariedade",
+   "etiquetas": [
+    "PHS"
+   ],
+   "cambios": [],
+   "nota": "Incorporado a Podemos el 2018-12-21 (según https://pt.wikipedia.org/wiki/Podemos_(Brasil)): queda aparte (regla 4)."
+  },
+  {
+   "sigla": "PRONA",
+   "nombre": "Partido de Reedificação da Ordem Nacional",
+   "etiquetas": [
+    "PRONA"
+   ],
+   "cambios": [],
+   "nota": "Se fusionó con el PL de 1985 para crear el PR (2006-10-24, según https://pt.wikipedia.org/wiki/Partido_Liberal_(2006)): queda aparte (regla 4)."
+  },
+  {
+   "sigla": "Agir",
+   "nombre": "Agir",
+   "etiquetas": [
+    "PTC"
+   ],
+   "cambios": [
+    {
+     "de": "PTC (Partido Trabalhista Cristão)",
+     "a": "Agir",
+     "fecha": "2022-03-31",
+     "fuente": "https://www.portaldacapital.com/2022/04/01/tse-aprova-alteracao-e-partido-trabalhista-cristao-passa-a-se-chamar-agir/"
+    }
+   ],
+   "nota": "Mismo partido (antes PJ y PRN, según https://pt.wikipedia.org/wiki/Agir_(partido_político)). Convención de 2021; aprobación del TSE el 2022-03-31. En el corpus solo aparece como PTC (2006-2019): véase «revisar»."
+  },
+  {
+   "sigla": "Patriota",
+   "nombre": "Patriota",
+   "etiquetas": [
+    "PATRIOTA",
+    "PEN",
+    "PATRI"
+   ],
+   "cambios": [
+    {
+     "de": "PEN (Partido Ecológico Nacional)",
+     "a": "Patriota (sigla PATRI)",
+     "fecha": "2018-04-26",
+     "fuente": "https://www.poder360.com.br/justica/tse-aprova-mudanca-de-nome-do-pen-para-patriota/"
+    },
+    {
+     "de": "Patriota (sigla PATRI)",
+     "a": "Patriota (sin la sigla PATRI)",
+     "fecha": "2019-03-28",
+     "fuente": "https://pt.wikipedia.org/wiki/Patriota_(Brasil)"
+    }
+   ],
+   "nota": "El TSE aprobó el nombre Patriota el 2018-04-26 y el 2019-03-28 que dejara de usar la sigla PATRI (misma sesión en que aprobó la incorporación del PRP, que queda aparte). Se fusionó con el PTB en el PRD (TSE 2023-11-09): el PRD queda aparte (regla 4)."
+  },
+  {
+   "sigla": "Sem partido",
+   "nombre": "Sem partido",
+   "etiquetas": [
+    "S.PART."
+   ],
+   "cambios": [],
+   "nota": "Cabeceras «(Sem Partido-UF)»."
+  },
+  {
+   "sigla": "Democrata",
+   "nombre": "Democrata",
+   "etiquetas": [
+    "PMB"
+   ],
+   "cambios": [
+    {
+     "de": "PMB (Partido da Mulher Brasileira)",
+     "a": "Democrata",
+     "fecha": "2025-12-02",
+     "fuente": "https://www.metropoles.com/colunas/grande-angular/tse-aprova-mudanca-em-partido-e-pmb-passa-a-se-chamar-democrata"
+    }
+   ],
+   "nota": "Cambio aprobado por el TSE el 2025-12-02, con 90 días para adaptar el estatuto. En el corpus solo aparece como PMB (2015-2017): véase «revisar»."
+  },
+  {
+   "sigla": "PRP",
+   "nombre": "Partido Republicano Progressista",
+   "etiquetas": [
+    "PRP"
+   ],
+   "cambios": [],
+   "nota": "Incorporado al Patriota (TSE 2019-03-28, según https://pt.wikipedia.org/wiki/Patriota_(Brasil)): queda aparte (regla 4)."
+  },
+  {
+   "sigla": "PRD",
+   "nombre": "Partido Renovação Democrática",
+   "etiquetas": [
+    "PRD"
+   ],
+   "cambios": [],
+   "nota": "Partido nuevo por fusión de PTB y Patriota (TSE 2023-11-09, según https://pt.wikipedia.org/wiki/Patriota_(Brasil)); los predecesores quedan aparte (regla 4)."
+  },
+  {
+   "sigla": "PRTB",
+   "nombre": "Partido Renovador Trabalhista Brasileiro",
+   "etiquetas": [
+    "PRTB"
+   ],
+   "cambios": [],
+   "nota": "En 2025 anunció que pediría llamarse «Brasileiro» (https://www.cnnbrasil.com.br/politica/prtb-vai-mudar-de-nome-entenda-como-funciona-o-processo/), pero no he encontrado aprobación del TSE: se mantiene PRTB."
+  },
+  {
+   "sigla": "PAN",
+   "nombre": "Partido dos Aposentados da Nação",
+   "etiquetas": [
+    "PAN"
+   ],
+   "cambios": [],
+   "nota": "Según https://pt.wikipedia.org/wiki/Partido_dos_Aposentados_da_Nação fue incorporado al PTB (2006-10-05); en los diarios sus diputados aún figuran como PAN entre febrero y junio de 2007. Queda aparte (regla 4)."
+  },
+  {
+   "sigla": "DC",
+   "nombre": "Democracia Cristã",
+   "etiquetas": [
+    "PSDC",
+    "DC"
+   ],
+   "cambios": [
+    {
+     "de": "PSDC (Partido Social Democrata Cristão)",
+     "a": "DC (Democracia Cristã)",
+     "fecha": "2018-05-17",
+     "fuente": "https://pt.wikipedia.org/wiki/Democracia_Cristã_(Brasil)"
+    }
+   ],
+   "nota": "Homologación del TSE el 2018-05-17."
+  },
+  {
+   "sigla": "PPL",
+   "nombre": "Partido Pátria Livre",
+   "etiquetas": [
+    "PPL"
+   ],
+   "cambios": [],
+   "nota": "Incorporado al PCdoB (TSE 2019-05-28, según https://pt.wikipedia.org/wiki/Partido_Pátria_Livre): queda aparte (regla 4)."
+  },
+  {
+   "sigla": "Sin identificar",
+   "nombre": "Sin identificar",
+   "etiquetas": [
+    "",
+    "BLOCO"
+   ],
+   "cambios": [],
+   "nota": "Etiqueta vacía (regla 6): 11.815 de sus 12.006 filas son presidencias de sesiones del Congreso Nacional a cargo de senadores (Eunício Oliveira 6.907, Davi Alcolumbre 3.708, Eduardo Gomes 314…). BLOCO no es un partido sino una cabecera mal leída: véase «revisar»."
+  }
+ ],
+ "asignacion": {
+  "PT": "PT",
+  "PMDB": "MDB",
+  "DEM": "DEM",
+  "PP": "PP",
+  "PSDB": "PSDB",
+  "PL": "PL",
+  "PR": "PL",
+  "PDT": "PDT",
+  "PSB": "PSB",
+  "PCDOB": "PCdoB",
+  "PFL": "DEM",
+  "PSD": "PSD",
+  "PTB": "PTB",
+  "PSOL": "PSOL",
+  "SD": "Solidariedade",
+  "REPUBLICANOS": "Republicanos",
+  "PPS": "Cidadania",
+  "PSC": "PSC",
+  "PSL": "PSL",
+  "PV": "PV",
+  "PRB": "Republicanos",
+  "NOVO": "Novo",
+  "MDB": "MDB",
+  "": "Sin identificar",
+  "PROS": "PROS",
+  "REDE": "Rede",
+  "PODE": "Podemos",
+  "UNIÃO": "União",
+  "CIDADANIA": "Cidadania",
+  "SOLIDARIEDADE": "Solidariedade",
+  "PTN": "Podemos",
+  "PMN": "Mobiliza",
+  "PHS": "PHS",
+  "AVANTE": "Avante",
+  "PTDOB": "Avante",
+  "PRONA": "PRONA",
+  "PTC": "Agir",
+  "S.PART.": "Sem partido",
+  "SDD": "Solidariedade",
+  "PPB": "PP",
+  "PATRIOTA": "Patriota",
+  "PEN": "Patriota",
+  "PMB": "Democrata",
+  "PODEMOS": "Podemos",
+  "PRP": "PRP",
+  "PATRI": "Patriota",
+  "PRD": "PRD",
+  "PRTB": "PRTB",
+  "PMR": "Republicanos",
+  "PAN": "PAN",
+  "PSDC": "DC",
+  "BLOCO": "Sin identificar",
+  "PPL": "PPL",
+  "DC": "DC",
+  "BLOCOPL": "PL",
+  "PFJ": "DEM",
+  "PMSD": "MDB",
+  "PSBD": "PSDB",
+  "PTD": "PDT"
+ },
+ "revisar": [
+  {
+   "etiquetas": [
+    "PL",
+    "BLOCOPL"
+   ],
+   "decision": "Todas las filas PL van al PL actual (antes PR).",
+   "alternativa": "Regla por fecha: las filas PL de la legislatura 52 (2003-02-01 a 2006-12-22; 30.547 PL + 1 BLOCOPL) → partido propio «PL (1985-2006)», distinto del PL actual.",
+   "motivo": "El PL de 1985 se fusionó con el PRONA en 2006 para crear el PR, que en 2019 recuperó el nombre PL. Por la regla 4 el predecesor no se funde, pero la etiqueta PL no distingue los dos partidos y la tabla por etiqueta no admite reglas por fecha. Las legislaturas 53-55 no tienen ninguna fila PL, así que el corte es limpio."
+  },
+  {
+   "etiquetas": [
+    "BLOCO"
+   ],
+   "decision": "Sin identificar.",
+   "alternativa": "Corregir aguas arriba con la sigla que sigue a «Bloco/» en speaker_raw: Bloco/PR 11 filas (→ PL), Bloco/PL 7 (2003-2004, PL de 1985), Bloco/PP 2, Bloco/PT 1, Bloco/PV 1; «ROBERTO FREIRE (Bloco-SP)» 1 fila sin sigla. O bien un partido canónico propio «Bloco parlamentar».",
+   "motivo": "Error de lectura de cabeceras «(Bloco/PR)» sin UF: el parser tomó «Bloco» como partido (en las filas de 2011-2012 la sigla acabó en la columna district). 23 filas de 13 diputados de al menos 6 partidos; no hay un partido que asignar sin mirar cada fila."
+  },
+  {
+   "etiquetas": [
+    "PTC",
+    "PMN",
+    "PMB"
+   ],
+   "decision": "Nombre más reciente (regla 3): Agir, Mobiliza y Democrata.",
+   "alternativa": "Mantener PTC, PMN y PMB, los únicos nombres con que aparecen en el corpus.",
+   "motivo": "Los tres cambios son posteriores a la última aparición del partido en los diarios (PTC hasta 2019 → Agir 2022; PMN hasta 2019 → Mobiliza 2021/2023; PMB hasta 2017 → Democrata, aprobado el 2025-12-02 y pendiente de ajustar el estatuto). El usuario verá en filtros y redes nombres que no figuran en ningún diario."
+  }
+ ],
+ "tipo_propuesto": "por intervencion"
+}

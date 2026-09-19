@@ -3,7 +3,8 @@
  *
  * meta.facets: recuentos por legislatura, periodo de sesiones, tipo de sesión, sexo, partido, distrito y diputado, años,
  * fechas extremas, sesiones y filas de discurso frente a filas sin orador. Se calcula una vez al construir la base y
- * GET /api/facets lo devuelve tal cual (JSON).
+ * GET /api/facets lo devuelve tal cual (JSON). Los partidos ya son los homogéneos (worker/partidos.js); cada uno lleva su
+ * nombre completo y las etiquetas del CSV que reúne, con sus filas.
  */
 (function (R2) {
   'use strict';
@@ -11,7 +12,7 @@
   const E = R2.errores;
   const ETIQUETAS_SEXO = Object.freeze({ M: 'Hombre', F: 'Mujer', 'Sin identificar': 'Sin identificar' });
 
-  function calcularSinComprobar(db) {
+  function calcularSinComprobar(db, { pais = null, partidos = null } = {}) {
     const sel = (sql, bind) => db.selectArrays(sql, bind || []);
     const grupo = (col, orden = '2 DESC, 1 ASC') =>
       sel(`SELECT ${col} AS v, COUNT(*) AS n, COALESCE(SUM(nwords), 0) AS w FROM speeches_datos GROUP BY 1 ORDER BY ${orden}`)
@@ -28,6 +29,19 @@
     const session_types = grupo('session_type');
     const sexes = grupo('sex').map((x) => Object.assign(x, { label: ETIQUETAS_SEXO[x.value] || x.value }));
     const parties = grupo('party');
+    if (partidos) {
+      const tabla = R2.partidos ? R2.partidos.para(pais) : null, etiquetas = new Map();
+      for (const v of partidos) for (const [s, n] of v.siglas) {
+        if (!etiquetas.has(s)) etiquetas.set(s, []);
+        etiquetas.get(s).push([v.etiqueta, n]);
+      }
+      for (const x of parties) {
+        const nombre = tabla ? tabla.nombre(x.value) : '';
+        if (nombre) x.nombre = nombre;
+        const e = (etiquetas.get(x.value) || []).sort((a, b) => b[1] - a[1]);
+        if (e.length && !(e.length === 1 && e[0][0] === x.value)) x.etiquetas = e;
+      }
+    }
     const districts = grupo('district');
     const speakers = sel(`
 WITH g AS (
@@ -74,9 +88,9 @@ ORDER BY g.n DESC, g.rep_name`)
   const esDesbordamiento = (e) => /integer overflow/i.test(String(e && e.message));
 
   /** calcularSinComprobar, con el desbordamiento de SUM(nwords) convertido en ENTERO_NO_VALIDO. */
-  function calcular(db) {
+  function calcular(db, opciones) {
     try {
-      return calcularSinComprobar(db);
+      return calcularSinComprobar(db, opciones);
     } catch (e) {
       if (!esDesbordamiento(e)) throw e;
       throw E.fallo('ENTERO_NO_VALIDO', { columna: 'nwords', causa: E.textoDe(e), detalle: { motivo: 'suma' } });

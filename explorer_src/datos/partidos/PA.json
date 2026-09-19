@@ -1,0 +1,479 @@
+{
+ "pais": "PA",
+ "tipo": "por intervencion",
+ "partidos": [
+  {
+   "sigla": "PRD",
+   "nombre": "Partido Revolucionario Democrático",
+   "etiquetas": [
+    "PRD",
+    "PRD/MPE",
+    "PRD/SOL/L.NAC.",
+    "PRD/MPE/SOL/L.NAC.",
+    "PRD/L.NAC.",
+    "PRD/SOL",
+    "PRD/LIB.NAC.",
+    "PRD, PP, LIB",
+    "PRD, POPULAR",
+    "PRD, LIB",
+    "PRD, POPULAR, LIB",
+    "PRD, PP"
+   ],
+   "cambios": [],
+   "nota": "En las etiquetas con varios partidos (partidos que postularon al diputado) se asigna el primero, que es el que encabeza la postulación, salvo en las alianzas que se dejan aparte. 1999: los escaños de SOL (4), PLN (3) y PDC (5) son compatibles con los titulares de las etiquetas que esos partidos encabezan (https://es.wikipedia.org/wiki/Elecciones_generales_de_Panam%C3%A1_de_1999), por lo que las encabezadas por el PRD se asignan al PRD. 2009: el Partido Liberal no obtuvo escaños (https://es.wikipedia.org/wiki/Elecciones_generales_de_Panam%C3%A1_de_2009). La mayoría de sus diputados con otras legislaturas figuran como PRD; en «PRD, PP, LIB», R. Araúz y E. Araúz figuran después en CD (véase «revisar»). Ojo: L. Cortizo aparece como PRD en 1994-1999, pero fue elegido en 1994 por Solidaridad (https://es.wikipedia.org/wiki/Laurentino_Cortizo); es un error de la ficha, no de la etiqueta; otras fichas «PRD» de 1994-1999 podrían tener el mismo problema (p. ej. H. Milanés, de SOL en 1999-2004)."
+  },
+  {
+   "sigla": "PAN",
+   "nombre": "Partido Panameñista (hasta 2005, Partido Arnulfista)",
+   "etiquetas": [
+    "ARN",
+    "PAN",
+    "PPA",
+    "ARN/PDC/L.AUT",
+    "ARN/MOL",
+    "PAN, CD, UP",
+    "PAN, MOLIRENA",
+    "PAN, CD",
+    "PAN, MOLIRENA, UP",
+    "PAN, CD, UP, MOLIRENA",
+    "PANA, MOLIRENA",
+    "PAN, MOLIRENA, CD",
+    "PAN, POPULAR"
+   ],
+   "cambios": [
+    {
+     "de": "Partido Arnulfista (ARN)",
+     "a": "Partido Panameñista (PAN)",
+     "fecha": "2005-01",
+     "fuente": "https://en.wikipedia.org/wiki/Paname%C3%B1ista_Party"
+    }
+   ],
+   "nota": "ARN = Partido Arnulfista; PPA es la abreviatura de las etiquetas de 2024 (los mismos diputados figuran como PAN en https://es.wikipedia.org/wiki/Per%C3%ADodo_legislativo_de_2024_a_2029_de_Panam%C3%A1). El cambio de nombre también consta en https://es.wikipedia.org/wiki/Partido_Paname%C3%B1ista («renombrándose … Partido Panameñista» tras las elecciones de 2004). ARN/PDC/L.AUT y ARN/MOL: sus diputados figuran como arnulfistas o panameñistas en otras legislaturas. En las etiquetas con varios partidos (partidos que postularon al diputado) se asigna el primero, que es el que encabeza la postulación, salvo en las alianzas que se dejan aparte."
+  },
+  {
+   "sigla": "CD",
+   "nombre": "Cambio Democrático",
+   "etiquetas": [
+    "CD",
+    "CD, UP",
+    "CD, MOL",
+    "CD/S/CD"
+   ],
+   "cambios": [],
+   "nota": "CD, UP y CD, MOL: diputados que figuran como CD en otras legislaturas. «CD/S/CD» (3 filas) se lee como CD. «CD, MOLIRENA» queda como alianza (véase «revisar»)."
+  },
+  {
+   "sigla": "MOLIRENA",
+   "nombre": "Movimiento Liberal Republicano Nacionalista",
+   "etiquetas": [
+    "MOL",
+    "MOLIRENA",
+    "MOLINERA",
+    "MOL/SOL/MOR",
+    "MOL/ARN/MORENA",
+    "MOL/ARN/MORENA/CD",
+    "MOLIRENA, PAN",
+    "MOLIRENA, PAN, CD"
+   ],
+   "cambios": [],
+   "nota": "«MOLINERA» es errata de 2024 (el diputado figura como MOLIRENA en https://es.wikipedia.org/wiki/Per%C3%ADodo_legislativo_de_2024_a_2029_de_Panam%C3%A1). Las etiquetas encabezadas por MOL son de H. Aparicio y J. Rosas, del MOLIRENA en otras legislaturas; en 1999 son compatibles con sus 3 escaños si se deja aparte «MOL/ARN/MORENA/CD-(NI)»."
+  },
+  {
+   "sigla": "PP",
+   "nombre": "Partido Popular (hasta 2001, Partido Demócrata Cristiano)",
+   "etiquetas": [
+    "PDC",
+    "PPOP",
+    "PP",
+    "PDC/REN.CIV.",
+    "PDC/REN.CIV./PNP/LIB",
+    "POPULAR, LIB",
+    "POPULAR, PAN"
+   ],
+   "cambios": [
+    {
+     "de": "Partido Demócrata Cristiano (PDC)",
+     "a": "Partido Popular (PP)",
+     "fecha": "2001-09-10",
+     "fuente": "https://en.wikipedia.org/wiki/People%27s_Party_(Panama)"
+    }
+   ],
+   "nota": "También en https://es.wikipedia.org/wiki/Partido_Popular_(Panam%C3%A1) («denominado desde 1960 hasta 2001, Partido Demócrata Cristiano»). La etiqueta PDC de 2024 (9 filas) se asigna igualmente al PP. PDC/REN.CIV. y PDC/REN.CIV./PNP/LIB (1999): los 5 escaños del PDC son compatibles con los titulares de las etiquetas que encabeza, aunque E. Garrido y J. L. Varela figuran como arnulfistas en otras legislaturas (véase «revisar»)."
+  },
+  {
+   "sigla": "SOL",
+   "nombre": "Partido Solidaridad",
+   "etiquetas": [
+    "SOL",
+    "SOL/L.NAC.",
+    "SOL/MPE",
+    "SOL/LIB/MUN/LIB.REP."
+   ],
+   "cambios": [],
+   "nota": "Se fusionó con el PLN en Unión Patriótica el 2006-10-05 (https://es.wikipedia.org/wiki/Partido_Solidaridad_(Panam%C3%A1)): SOL, PLN y UP quedan separados (regla 4). SOL/MPE: L. Cortizo, elegido por Solidaridad (https://es.wikipedia.org/wiki/Laurentino_Cortizo)."
+  },
+  {
+   "sigla": "PLN",
+   "nombre": "Partido Liberal Nacional",
+   "etiquetas": [
+    "LN",
+    "L.NAC.",
+    "LIB.NAC."
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "UP",
+   "nombre": "Unión Patriótica",
+   "etiquetas": [
+    "UP, MOLIRENA, CD"
+   ],
+   "cambios": [],
+   "nota": "Fusión de SOL y PLN (2006-10-05) absorbida por CD el 2011-03-27 (https://es.wikipedia.org/wiki/Uni%C3%B3n_Patri%C3%B3tica_(Panam%C3%A1)): queda como partido propio (regla 4)."
+  },
+  {
+   "sigla": "VMP",
+   "nombre": "Vanguardia Moral de la Patria",
+   "etiquetas": [
+    "VMP, MOLIRENA, PAN, CD",
+    "VMP, MOLIRNA, PAN, CD"
+   ],
+   "cambios": [],
+   "nota": "El diputado del circuito 8-4 fue candidato de VMP; como VMP no subsistió, el Tribunal Electoral adjudicó el escaño al PAN (art. 325 del Código Electoral; https://es.wikipedia.org/wiki/Elecciones_generales_de_Panam%C3%A1_de_2009)."
+  },
+  {
+   "sigla": "MPE",
+   "nombre": "Movimiento Papa Egoró",
+   "etiquetas": [
+    "MPE"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PRC",
+   "nombre": "Partido Renovación Civilista",
+   "etiquetas": [
+    "REN.CIV.",
+    "REN.CIV./LIB"
+   ],
+   "cambios": [],
+   "nota": "REN.CIV./LIB (1999): el único escaño del PRC en 1999; su diputado figura como PRC en 1994-1999."
+  },
+  {
+   "sigla": "MORENA",
+   "nombre": "Movimiento de Renovación Nacional",
+   "etiquetas": [
+    "MORENA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PL",
+   "nombre": "Partido Liberal (hasta 1999)",
+   "etiquetas": [
+    "LIB"
+   ],
+   "cambios": [],
+   "nota": "Desapareció tras 1999; el Partido Liberal de 2009 es otro partido (https://es.wikipedia.org/wiki/Partido_Liberal_(Panam%C3%A1)) y solo aparece como socio en etiquetas encabezadas por PRD o PP."
+  },
+  {
+   "sigla": "PLA",
+   "nombre": "Partido Liberal Auténtico",
+   "etiquetas": [
+    "L. AUT",
+    "L.AUT"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "RM",
+   "nombre": "Realizando Metas",
+   "etiquetas": [
+    "RM"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MOCA",
+   "nombre": "Movimiento Otro Camino",
+   "etiquetas": [
+    "MOCA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "ALIANZA",
+   "nombre": "Partido Alianza",
+   "etiquetas": [
+    "AL"
+   ],
+   "cambios": [],
+   "nota": "Escisión de CD fundada en 2018 (https://es.wikipedia.org/wiki/Partido_Alianza); sus diputados de 2024 figuran como «ALZ» en https://es.wikipedia.org/wiki/Per%C3%ADodo_legislativo_de_2024_a_2029_de_Panam%C3%A1."
+  },
+  {
+   "sigla": "Independientes",
+   "nombre": "Independientes (libre postulación)",
+   "etiquetas": [
+    "LIBRE POSTULACIÓN",
+    "INDEPENDIENTE"
+   ],
+   "cambios": [],
+   "nota": "INDEPENDIENTE (2014-2019) corresponde al escaño de libre postulación de 2014."
+  },
+  {
+   "sigla": "Pueblo Unido",
+   "nombre": "Alianza Pueblo Unido (PRD, Partido Laborista Agrario y Partido Liberal Republicano), 1994",
+   "etiquetas": [
+    "PRD/PALA/LIB.REP",
+    "PRD/PALA"
+   ],
+   "cambios": [],
+   "nota": "En 1994 la alianza obtuvo PRD 30, PALA 1 y Partido Liberal Republicano 2 escaños (https://es.wikipedia.org/wiki/Elecciones_generales_de_Panam%C3%A1_de_1994); no hay ninguna etiqueta encabezada por PALA ni por el Liberal Republicano: el escaño de PALA solo puede estar en estas dos etiquetas y los del Liberal Republicano, en ellas o en «SOL/LIB/MUN/LIB.REP.». No se puede saber el partido de cada diputado."
+  },
+  {
+   "sigla": "Alianza Democrática",
+   "nombre": "Alianza Democrática (Partido Arnulfista, Partido Liberal, Partido Liberal Auténtico y Unión Demócrata Independiente), 1994",
+   "etiquetas": [
+    "ARN/UDI/L.AUT",
+    "L.AUT/ARN",
+    "LIB/ARN/UDI",
+    "UDI/ARN",
+    "ARN/L.AUT",
+    "LIB/L.AUT/UDI"
+   ],
+   "cambios": [],
+   "nota": "En 1994 el orden de las etiquetas no permite saber el partido de cada diputado (https://es.wikipedia.org/wiki/Elecciones_generales_de_Panam%C3%A1_de_1994) y sus diputados no tienen etiquetas de un solo partido que lo confirmen."
+  },
+  {
+   "sigla": "Cambio 94",
+   "nombre": "Cambio 94 (MOLIRENA, MORENA y Renovación Civilista), 1994",
+   "etiquetas": [
+    "MOL/REN.CIV./MORENA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Unión por Panamá",
+   "nombre": "Unión por Panamá (Partido Arnulfista, MOLIRENA, Cambio Democrático y MORENA), 1999",
+   "etiquetas": [
+    "ARN/MORENA",
+    "ARN/MORENA/CD",
+    "ARN/CD",
+    "ARN/MOL/MORENA/CD",
+    "ARN/INS MOL",
+    "MOL/ARN/MORENA/CD-(NI)"
+   ],
+   "cambios": [],
+   "nota": "En 1999 MORENA (1 escaño) y CD (2) no encabezan ninguna etiqueta, así que parte de las encabezadas por ARN pueden ser suyas (https://es.wikipedia.org/wiki/Elecciones_generales_de_Panam%C3%A1_de_1999). «INS MOL» y «(NI)» no se han podido interpretar."
+  },
+  {
+   "sigla": "CD–MOLIRENA",
+   "nombre": "Alianza de Cambio Democrático y MOLIRENA, 2014 («Unidos por un Cambio» en el cuadro de curules del Tribunal Electoral)",
+   "etiquetas": [
+    "CD, MOLIRENA"
+   ],
+   "cambios": [],
+   "nota": "Mezcla diputados de CD (Y. Ábrego) y del MOLIRENA (H. Aparicio, del MOLIRENA en 1994-2009 y candidato de CD y MOLIRENA en 2014: https://es.wikipedia.org/wiki/Elecciones_parciales_de_Panam%C3%A1_de_2014)."
+  },
+  {
+   "sigla": "Sin identificar",
+   "nombre": "Sin identificar",
+   "etiquetas": [
+    "",
+    "S"
+   ],
+   "cambios": [],
+   "nota": "«S» (1 fila de 2014) no corresponde a ningún partido."
+  }
+ ],
+ "asignacion": {
+  "PRD": "PRD",
+  "PRD/PALA/LIB.REP": "Pueblo Unido",
+  "CD": "CD",
+  "ARN": "PAN",
+  "PAN": "PAN",
+  "CD, MOLIRENA": "CD–MOLIRENA",
+  "RM": "RM",
+  "SOL/L.NAC.": "SOL",
+  "PAN, CD, UP": "PAN",
+  "PRD, PP, LIB": "PRD",
+  "LIBRE POSTULACIÓN": "Independientes",
+  "SOL": "SOL",
+  "CD, UP": "CD",
+  "PAN, MOLIRENA": "PAN",
+  "MOL": "MOLIRENA",
+  "PDC/REN.CIV.": "PP",
+  "SOL/MPE": "SOL",
+  "PRD/MPE": "PRD",
+  "MPE": "MPE",
+  "PDC": "PP",
+  "PRD/SOL/L.NAC.": "PRD",
+  "REN.CIV./LIB": "PRC",
+  "MOL/ARN/MORENA": "MOLIRENA",
+  "SOL/LIB/MUN/LIB.REP.": "SOL",
+  "PPOP": "PP",
+  "PRD, POPULAR": "PRD",
+  "MOLIRENA": "MOLIRENA",
+  "PPA": "PAN",
+  "PRD, LIB": "PRD",
+  "REN.CIV.": "PRC",
+  "CD, MOL": "CD",
+  "PRD, POPULAR, LIB": "PRD",
+  "INDEPENDIENTE": "Independientes",
+  "PP": "PP",
+  "MOLIRENA, PAN": "MOLIRENA",
+  "": "Sin identificar",
+  "ARN/UDI/L.AUT": "Alianza Democrática",
+  "MOCA": "MOCA",
+  "MORENA": "MORENA",
+  "L. AUT": "PLA",
+  "PRD/PALA": "Pueblo Unido",
+  "LIB": "PL",
+  "L.AUT": "PLA",
+  "PAN, POPULAR": "PAN",
+  "PAN, CD": "PAN",
+  "MOLIRENA, PAN, CD": "MOLIRENA",
+  "MOL/ARN/MORENA/CD": "MOLIRENA",
+  "PRD/LIB.NAC.": "PRD",
+  "VMP, MOLIRENA, PAN, CD": "VMP",
+  "PRD/SOL": "PRD",
+  "ARN/INS MOL": "Unión por Panamá",
+  "LN": "PLN",
+  "LIB.NAC.": "PLN",
+  "PAN, MOLIRENA, UP": "PAN",
+  "ARN/MOL": "PAN",
+  "L.NAC.": "PLN",
+  "ARN/MORENA/CD": "Unión por Panamá",
+  "L.AUT/ARN": "Alianza Democrática",
+  "MOL/ARN/MORENA/CD-(NI)": "Unión por Panamá",
+  "POPULAR, LIB": "PP",
+  "PRD/MPE/SOL/L.NAC.": "PRD",
+  "PRD/L.NAC.": "PRD",
+  "LIB/ARN/UDI": "Alianza Democrática",
+  "POPULAR, PAN": "PP",
+  "MOL/SOL/MOR": "MOLIRENA",
+  "PDC/REN.CIV./PNP/LIB": "PP",
+  "ARN/MORENA": "Unión por Panamá",
+  "MOLINERA": "MOLIRENA",
+  "MOL/REN.CIV./MORENA": "Cambio 94",
+  "ARN/CD": "Unión por Panamá",
+  "PAN, CD, UP, MOLIRENA": "PAN",
+  "PANA, MOLIRENA": "PAN",
+  "ARN/L.AUT": "Alianza Democrática",
+  "PAN, MOLIRENA, CD": "PAN",
+  "UP, MOLIRENA, CD": "UP",
+  "AL": "ALIANZA",
+  "ARN/MOL/MORENA/CD": "Unión por Panamá",
+  "ARN/PDC/L.AUT": "PAN",
+  "LIB/L.AUT/UDI": "Alianza Democrática",
+  "UDI/ARN": "Alianza Democrática",
+  "PRD, PP": "PRD",
+  "CD/S/CD": "CD",
+  "VMP, MOLIRNA, PAN, CD": "VMP",
+  "S": "Sin identificar"
+ },
+ "revisar": [
+  {
+   "etiquetas": [
+    "PRD/PALA/LIB.REP",
+    "PRD/PALA"
+   ],
+   "decision": "Alianza Pueblo Unido (regla 2).",
+   "alternativa": "PRD: los diputados con más intervenciones (J. M. Peralta, C. Pardo, T. Altamirano, R. Ábrego) figuran como PRD en otras legislaturas. Son 30 224 filas, casi todas de diputados del PRD.",
+   "motivo": "En 1994 no hay ninguna etiqueta encabezada por PALA (1 escaño) ni por el Partido Liberal Republicano (2): el de PALA solo puede estar en estas dos etiquetas y los del Liberal Republicano, en ellas o en «SOL/LIB/MUN/LIB.REP.». No se puede saber qué diputados son; asignarlo todo al PRD supone adivinar."
+  },
+  {
+   "etiquetas": [
+    "ARN/UDI/L.AUT",
+    "L.AUT/ARN",
+    "LIB/ARN/UDI",
+    "UDI/ARN",
+    "ARN/L.AUT",
+    "LIB/L.AUT/UDI",
+    "MOL/REN.CIV./MORENA"
+   ],
+   "decision": "Alianzas de 1994 (Alianza Democrática, Cambio 94).",
+   "alternativa": "Asignar cada etiqueta a su primer partido (PAN, PLA, PL, UDI, MOLIRENA); habría que crear UDI como partido.",
+   "motivo": "En 1994 el orden de las etiquetas no identifica el partido del diputado (véase el caso de Pueblo Unido) y ninguno de estos diputados tiene etiquetas de un solo partido en otras legislaturas. Son 1 749 filas."
+  },
+  {
+   "etiquetas": [
+    "ARN/MORENA",
+    "ARN/MORENA/CD",
+    "ARN/CD",
+    "ARN/MOL/MORENA/CD",
+    "ARN/INS MOL",
+    "MOL/ARN/MORENA/CD-(NI)"
+   ],
+   "decision": "Alianza Unión por Panamá (1999).",
+   "alternativa": "PAN (partido que encabeza) para las cuatro primeras; MOLIRENA para «MOL/ARN/MORENA/CD-(NI)»; «ARN/INS MOL» podría significar «postulado por ARN, inscrito en MOLIRENA».",
+   "motivo": "Los escaños de MORENA (1) y CD (2) en 1999 no aparecen en ninguna etiqueta que esos partidos encabecen; los diputados de estas etiquetas no tienen evidencia propia. 1 134 filas."
+  },
+  {
+   "etiquetas": [
+    "CD, MOLIRENA"
+   ],
+   "decision": "Alianza CD–MOLIRENA de 2014.",
+   "alternativa": "CD: 9 866 de sus 10 192 filas son de Yanibel Ábrego, de CD. En cambio «CD, MOL» (misma alianza) va a CD porque sus diputados son de CD.",
+   "motivo": "La etiqueta incluye a Héctor Aparicio, del MOLIRENA en todas sus demás legislaturas."
+  },
+  {
+   "etiquetas": [
+    "PDC/REN.CIV.",
+    "PDC/REN.CIV./PNP/LIB"
+   ],
+   "decision": "PP (antes PDC), primer partido de la postulación.",
+   "alternativa": "Alianza Acción Opositora (1999), o PAN para Enrique Garrido y José Luis Varela.",
+   "motivo": "Los 5 escaños del PDC en 1999 son compatibles con los titulares de las etiquetas que encabeza, pero Garrido (3 269 filas) y Varela figuran como arnulfistas en las legislaturas anterior y siguiente: en 1999 se presentaron con la alianza opositora de Alberto Vallarino."
+  },
+  {
+   "etiquetas": [
+    "VMP, MOLIRENA, PAN, CD",
+    "VMP, MOLIRNA, PAN, CD"
+   ],
+   "decision": "VMP, partido del candidato.",
+   "alternativa": "PAN, partido al que el Tribunal Electoral adjudicó el escaño por no haber subsistido VMP.",
+   "motivo": "La fuente dice que el PAN «también había postulado al mismo candidato que VMP»; el candidato era de VMP."
+  },
+  {
+   "etiquetas": [
+    "PAN, MOLIRENA",
+    "PAN, CD",
+    "PAN, MOLIRENA, CD",
+    "PRD, PP, LIB",
+    "MOLIRENA, PAN",
+    "POPULAR, PAN"
+   ],
+   "decision": "Primer partido de la postulación (PAN, PRD, MOLIRENA, PP).",
+   "alternativa": "Alianzas de 2009 y 2014 (Alianza por el Cambio, Un País para Todos, El Pueblo Primero).",
+   "motivo": "Algunos diputados de estas etiquetas figuran en la legislatura siguiente en otro partido (sobre todo CD, por el trasvase de diputados a CD en 2009-2014) y el caso de VMP muestra que el Tribunal Electoral puede adjudicar el escaño a otro partido postulante (art. 325); no hay evidencia de que estos diputados militaran en el partido socio en el momento de la elección."
+  },
+  {
+   "etiquetas": [
+    "ARN",
+    "PAN",
+    "PPA"
+   ],
+   "decision": "Sigla PAN para el Partido Panameñista (así figura en los resultados de 2009 y en la Asamblea 2024-2029); ARN (Arnulfista) y PPA son el mismo partido.",
+   "alternativa": "Otra sigla (PPA); no usar PA, que en 1999 era la del Partido Arnulfista y hoy se confunde con Partido Alianza.",
+   "motivo": "Cambio de nombre de enero de 2005 (en.wikipedia); la fuente en español no da la fecha."
+  },
+  {
+   "etiquetas": [
+    "S",
+    "CD/S/CD"
+   ],
+   "decision": "«S» a Sin identificar; «CD/S/CD» a CD.",
+   "alternativa": "«S» a MOLIRENA o PAN (su diputado, C. Santana, figura en «MOLIRENA, PAN» en 2009-2014).",
+   "motivo": "Etiquetas anómalas de 1 y 3 filas."
+  }
+ ],
+ "tipo_propuesto": "por intervencion"
+}

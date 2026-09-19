@@ -1,0 +1,285 @@
+{
+ "pais": "PY",
+ "tipo": "por legislatura",
+ "partidos": [
+  {
+   "sigla": "ANR",
+   "nombre": "Asociación Nacional Republicana – Partido Colorado",
+   "etiquetas": [
+    "Asociación Nacional Republicana"
+   ],
+   "cambios": [],
+   "nota": "Partido Colorado. Los diputados que antes o después fueron de UNACE (Tuma, Oviedo Verdún, Fabiola Oviedo, Benítez Cantero, Mendoza Unzain) conservan en cada legislatura su propia etiqueta."
+  },
+  {
+   "sigla": "PLRA",
+   "nombre": "Partido Liberal Radical Auténtico",
+   "etiquetas": [
+    "Partido Liberal Radical Auténtico",
+    "GANAR",
+    "A.P.C.",
+    "P.C.H."
+   ],
+   "cambios": [],
+   "nota": "GANAR (Gran Alianza Nacional Renovada, 2018) era una coalición de siete partidos encabezada por Efraín Alegre, del PLRA (https://es.wikipedia.org/wiki/Gran_Alianza_Nacional_Renovada); sus 5 diputados con esa etiqueta son del PLRA: Vera Bejarano, Sánchez de Da Silva, Kennedy y Torres figuran como PLRA en otras legislaturas, y Manuel Trinidad Colmán es «diputado del Partido Liberal Radical Auténtico» según La Nación (9-9-2021, https://www.lanacion.com.py/politica/2021/09/09/invasores-de-propiedad-privada-reciben-supuesto-apoyo-de-diputado-liberal/). A.P.C. (2008-2013) y P.C.H. (2013-2018) son las etiquetas que SILpy da a un único diputado, Julio Enrique Mineur, cuya ficha dice que «tiene una marcada militancia política en el PLRA», al que ha conducido en alianzas en Presidente Hayes (https://silpy.congreso.gov.py/web/parlamentario/100804); en 2009 actuaba en la bancada «A» del PLRA (Diario de Sesiones). A.P.C. es la Alianza Patriótica para el Cambio de 2008; P.C.H. es, con toda probabilidad, la Alianza Pasión Chaqueña de 2013 (PEN, PLRA, PPQ y PDP), cuyo único diputado fue Mineur (https://en.wikipedia.org/wiki/Chaque%C3%B1a_Passion_Alliance)."
+  },
+  {
+   "sigla": "PEN",
+   "nombre": "Partido Encuentro Nacional",
+   "etiquetas": [
+    "Partido Encuentro Nacional"
+   ],
+   "cambios": [],
+   "nota": "En 1993-1998 la etiqueta cubre a la bancada elegida en la lista de la Alianza Encuentro Nacional, incluidos miembros de otros partidos de la coalición (p. ej., Euclides Acevedo, afiliado febrerista). Véase AEN."
+  },
+  {
+   "sigla": "AEN",
+   "nombre": "Alianza Encuentro Nacional (coalición electoral de 1993)",
+   "etiquetas": [
+    "AEN",
+    "Alianza Encuentro Nacional"
+   ],
+   "cambios": [],
+   "nota": "Coalición de 1993 del Movimiento Encuentro Nacional con el Partido Revolucionario Febrerista, Asunción para Todos y el Partido Demócrata Cristiano (https://es.wikipedia.org/wiki/Partido_Encuentro_Nacional). Las dos etiquetas son sigla y nombre de lo mismo (regla 1). Sus tres diputados son suplentes de 1993-1998 de distintos partidos: Juan Fernando Kurz (afiliado al Encuentro Nacional), Carlos María Ljubetich (febrerista; la banca fue disputada entre ambos, Diario de Sesiones del 18-5-1995) y Julio Alberto Perrota (PEN en 1998-2003). Por eso queda como alianza (regla 2)."
+  },
+  {
+   "sigla": "AD",
+   "nombre": "Alianza Democrática (PLRA y PEN, elecciones de 1998)",
+   "etiquetas": [
+    "Alianza",
+    "Alianza Democrática"
+   ],
+   "cambios": [],
+   "nota": "Alianza del PLRA y el PEN en 1998 (https://es.wikipedia.org/wiki/Elecciones_generales_de_Paraguay_de_1998). Sus diputados con estas etiquetas son de los dos partidos: Dionicio Chilavert («Alianza») era liberal (la bancada del PLRA comunicó su separación el 29-10-1998) y Fabio Gutiérrez Acosta («Alianza Democrática») actuaba en la bancada del PEN en 1999 (Diario de Sesiones). «Alianza» se asimila a la Alianza Democrática porque solo aparece en 1998-2003 y ese año no hubo otra alianza con escaños."
+  },
+  {
+   "sigla": "PPQ",
+   "nombre": "Partido Patria Querida",
+   "etiquetas": [
+    "Partido Patria Querida",
+    "A.D.B."
+   ],
+   "cambios": [
+    {
+     "de": "Movimiento Patria Querida",
+     "a": "Partido Patria Querida",
+     "fecha": "2004-03-04",
+     "fuente": "https://es.wikipedia.org/wiki/Partido_Patria_Querida"
+    }
+   ],
+   "nota": "A.D.B.: sigla sin desarrollar con la que SILpy registra a Orlando Penner en 2008-2013 (https://silpy.congreso.gov.py/web/legislador/101372; en 2003-2008 lo registra como PPQ). Penner es fundador del PPQ (https://es.wikipedia.org/wiki/Orlando_Penner) y en 2008-2010 actuaba en la bancada del PPQ (su líder lo designa para comisiones, Diario de Sesiones)."
+  },
+  {
+   "sigla": "UNACE",
+   "nombre": "Unión Nacional de Ciudadanos Éticos",
+   "etiquetas": [
+    "Unión Nacional de Colorados Éticos",
+    "Unión Nacional de Ciudadanos Éticos",
+    "Partido UNACE"
+   ],
+   "cambios": [
+    {
+     "de": "Unión Nacional de Colorados Éticos (movimiento interno de la ANR)",
+     "a": "Unión Nacional de Ciudadanos Éticos (partido)",
+     "fecha": "2002-03-20",
+     "fuente": "https://es.wikipedia.org/wiki/Unión_Nacional_de_Ciudadanos_Éticos"
+    }
+   ],
+   "nota": "Las tres etiquetas designan la misma bancada en 2003-2013 (regla 1): misma sigla, mismas fechas y mismo grupo; en 2008 su líder, César Ariel Oviedo Verdún (etiquetado «Colorados Éticos»), consta como «Líder de la Bancada del Partido Unión Nacional de Ciudadanos Éticos (PUNACE)» (Diario de Sesiones). «Unión Nacional de Colorados Éticos» fue el movimiento oviedista dentro de la ANR, del que UNACE es sucesor (partido fundado en 2002); en el CSV solo se aplica a diputados elegidos por UNACE en 2003 y 2008."
+  },
+  {
+   "sigla": "PPS",
+   "nombre": "Partido País Solidario",
+   "etiquetas": [
+    "Partido Pais Solidario"
+   ],
+   "cambios": [],
+   "nota": "Escisión del PEN (fundado el 13-12-2000, https://es.wikipedia.org/wiki/Partido_Pa%C3%ADs_Solidario): separado del PEN (regla 5). En el CSV, sin tilde."
+  },
+  {
+   "sigla": "PDP",
+   "nombre": "Partido Democrático Progresista",
+   "etiquetas": [
+    "Partido Democrático Progresista"
+   ],
+   "cambios": [],
+   "nota": "Escisión del PPS en 2007 (https://en.wikipedia.org/wiki/Progressive_Democratic_Party_(Paraguay)): separado (regla 5)."
+  },
+  {
+   "sigla": "Tekojoja",
+   "nombre": "Partido Popular Tekojoja",
+   "etiquetas": [
+    "M.P.T."
+   ],
+   "cambios": [
+    {
+     "de": "Movimiento Popular Tekojoja",
+     "a": "Partido Popular Tekojoja",
+     "fecha": "2008-12-20",
+     "fuente": "https://es.wikipedia.org/wiki/Partido_Popular_Tekojoja"
+    }
+   ],
+   "nota": "M.P.T. = Movimiento Popular Tekojoja: su única diputada, Aída Robles, es «Líder de la Bancada del Movimiento Popular Tekojoja» en el Diario de Sesiones (2008). Nombre canónico: el más reciente (regla 3)."
+  },
+  {
+   "sigla": "FG",
+   "nombre": "Frente Guasú",
+   "etiquetas": [
+    "Frente Guazú"
+   ],
+   "cambios": [],
+   "nota": "Concertación de partidos fundada el 20-3-2010 (https://es.wikipedia.org/wiki/Frente_Guasu). En el CSV, con z."
+  },
+  {
+   "sigla": "Avanza País",
+   "nombre": "Avanza País (alianza electoral de 2013)",
+   "etiquetas": [
+    "Avanza País"
+   ],
+   "cambios": [],
+   "nota": "Alianza de centroizquierda de 2013 (Partido Revolucionario Febrerista, P-MAS, PDC, Partido Tekopyahu, Movimiento 20 de Abril y Unidad Democrática para la Victoria; https://en.wikipedia.org/wiki/Avanza_Pa%C3%ADs_(Paraguay)). Queda como alianza (regla 2)."
+  },
+  {
+   "sigla": "PCN",
+   "nombre": "Partido Cruzada Nacional",
+   "etiquetas": [
+    "Cruzada Nacional"
+   ],
+   "cambios": [
+    {
+     "de": "Movimiento Cruzada Nacional",
+     "a": "Partido Cruzada Nacional",
+     "fecha": "2020-02",
+     "fuente": "https://es.wikipedia.org/wiki/Partido_Cruzada_Nacional"
+    }
+   ],
+   "nota": "En 2018 concurrió como Movimiento Cruzada Nacional. La fuente solo da mes y año del cambio de nombre."
+  },
+  {
+   "sigla": "Hagamos",
+   "nombre": "Partido Político Hagamos",
+   "etiquetas": [
+    "Partido Político Hagamos"
+   ],
+   "cambios": [],
+   "nota": "Fundado el 1-3-2016 (https://en.wikipedia.org/wiki/Hagamos_Political_Party)."
+  },
+  {
+   "sigla": "Yo Creo",
+   "nombre": "Yo Creo Conciencia Democrática Nacional",
+   "etiquetas": [
+    "Conciencia Democrática Nacional"
+   ],
+   "cambios": [
+    {
+     "de": "Conciencia Democrática Nacional (movimiento político «Yo Creo»)",
+     "a": "Yo Creo Conciencia Democrática Nacional (partido)",
+     "fecha": "2025-10-28",
+     "fuente": "https://www.ultimahora.com/yo-creo-de-miguel-prieto-se-convierte-en-partido-politico-oficialmente"
+    }
+   ],
+   "nota": "Movimiento de Miguel Prieto en Alto Paraná, conocido como «Yo Creo»; reconocido como partido por el TSJE el 28-10-2025."
+  },
+  {
+   "sigla": "Independientes",
+   "nombre": "Independientes",
+   "etiquetas": [
+    "Independiente"
+   ],
+   "cambios": [],
+   "nota": "Una sola diputada: Olga Ferreira de López (2013-2018). Elegida por el PPQ en 2013, renunció al partido el 14-11-2013 (https://www.hoy.com.py/nacionales/nombran-a-exdiputada-como-funcionaria-de-la-vicepresidencia); SILpy la registra como «Independiente» para todo el periodo (https://silpy.congreso.gov.py/web/legislador/100072), así que sus filas de julio a noviembre de 2013 llevan una etiqueta posterior."
+  },
+  {
+   "sigla": "Sin identificar",
+   "nombre": "Sin identificar",
+   "etiquetas": [
+    ""
+   ],
+   "cambios": [],
+   "nota": "39.160 filas de 323 diputados; el 96 % (37.656) son de la legislatura 1989-1993, en la que solo 29 de 148 diputados tienen partido en el CSV. Del resto (1.504), 624 filas son de sesiones de cambio de legislatura (30 de junio), con los diputados entrantes, y 32 de la sesión de 1988."
+  }
+ ],
+ "asignacion": {
+  "Asociación Nacional Republicana": "ANR",
+  "Partido Liberal Radical Auténtico": "PLRA",
+  "GANAR": "PLRA",
+  "A.P.C.": "PLRA",
+  "P.C.H.": "PLRA",
+  "Partido Encuentro Nacional": "PEN",
+  "AEN": "AEN",
+  "Alianza Encuentro Nacional": "AEN",
+  "Alianza": "AD",
+  "Alianza Democrática": "AD",
+  "Partido Patria Querida": "PPQ",
+  "A.D.B.": "PPQ",
+  "Unión Nacional de Colorados Éticos": "UNACE",
+  "Unión Nacional de Ciudadanos Éticos": "UNACE",
+  "Partido UNACE": "UNACE",
+  "Partido Pais Solidario": "PPS",
+  "Partido Democrático Progresista": "PDP",
+  "M.P.T.": "Tekojoja",
+  "Frente Guazú": "FG",
+  "Avanza País": "Avanza País",
+  "Cruzada Nacional": "PCN",
+  "Partido Político Hagamos": "Hagamos",
+  "Conciencia Democrática Nacional": "Yo Creo",
+  "Independiente": "Independientes",
+  "": "Sin identificar"
+ },
+ "revisar": [
+  {
+   "etiquetas": [
+    "AEN",
+    "Alianza Encuentro Nacional"
+   ],
+   "decision": "partido propio AEN (coalición de 1993)",
+   "alternativa": "fundir en PEN",
+   "motivo": "Es una coalición de varios partidos y sus diputados etiquetados son de partidos distintos (Kurz, Encuentro Nacional; Ljubetich, febrerista): regla 2. Pero el CSV ya etiqueta como PEN al resto de la bancada de la Alianza Encuentro Nacional de 1993-1998 (incluido el febrerista Euclides Acevedo), de modo que separar parte en dos la misma bancada (213 filas frente a 14.308)."
+  },
+  {
+   "etiquetas": [
+    "Alianza",
+    "Alianza Democrática"
+   ],
+   "decision": "partido propio AD (Alianza Democrática PLRA–PEN de 1998), con las dos etiquetas",
+   "alternativa": "dejar «Alianza» aparte, como alianza sin identificar",
+   "motivo": "Que «Alianza» sea la Alianza Democrática es una deducción (solo aparece en 1998-2003 y fue la única alianza con escaños en 1998). Sus diputados son de los dos partidos (Chilavert, PLRA; Gutiérrez Acosta, bancada del PEN), así que no se pueden asignar a uno solo."
+  },
+  {
+   "etiquetas": [
+    "GANAR"
+   ],
+   "decision": "PLRA",
+   "alternativa": "partido propio GANAR (alianza)",
+   "motivo": "GANAR era una coalición de siete partidos, pero la encabezaba el PLRA y sus 5 diputados etiquetados son del PLRA (regla 2). Si se quiere ver la alianza como tal, separarla (788 filas)."
+  },
+  {
+   "etiquetas": [
+    "A.P.C.",
+    "P.C.H."
+   ],
+   "decision": "PLRA",
+   "alternativa": "partidos propios: APC (Alianza Patriótica para el Cambio, 2008) y Alianza Pasión Chaqueña (2013)",
+   "motivo": "Etiquetas de un solo diputado, Julio Enrique Mineur, militante del PLRA que encabezó alianzas en Presidente Hayes (ficha de SILpy; bancada «A» del PLRA en 2009). Que P.C.H. sea Pasión Chaqueña se deduce de que Mineur fue el único diputado de esa alianza en 2013; ninguna fuente consultada desarrolla la sigla."
+  },
+  {
+   "etiquetas": [
+    "A.D.B."
+   ],
+   "decision": "PPQ",
+   "alternativa": "partido propio A.D.B.",
+   "motivo": "Sigla sin identificar (probablemente una alianza en Boquerón) con la que SILpy registra a Orlando Penner en 2008-2013. Penner es fundador del PPQ y en 2008-2010 actuaba en la bancada del PPQ."
+  },
+  {
+   "etiquetas": [
+    "Unión Nacional de Colorados Éticos",
+    "Unión Nacional de Ciudadanos Éticos",
+    "Partido UNACE"
+   ],
+   "decision": "UNACE",
+   "alternativa": "ninguna razonable",
+   "motivo": "Riesgo bajo. «Colorados Éticos» fue el nombre del movimiento oviedista dentro de la ANR hasta 2002, pero en el CSV solo se aplica a diputados elegidos por UNACE en 2003 y 2008, que se presentaban como bancada del Partido Unión Nacional de Ciudadanos Éticos."
+  }
+ ],
+ "tipo_propuesto": "por legislatura"
+}

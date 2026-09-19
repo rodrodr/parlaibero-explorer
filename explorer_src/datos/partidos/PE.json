@@ -1,0 +1,481 @@
+{
+ "pais": "PE",
+ "tipo": "por intervencion",
+ "partidos": [
+  {
+   "sigla": "Perú Posible",
+   "nombre": "Perú Posible",
+   "etiquetas": [
+    "PERU POSIBLE"
+   ],
+   "cambios": [],
+   "nota": "Partido de Alejandro Toledo, fundado en 1999 como continuación de País Posible (1994), que en 1995 concurrió en la lista CODE-País Posible (https://es.wikipedia.org/wiki/Perú_Posible); las 22 filas de 1995–1996 (Enrique Pulgar Lucas) llevan ya el nombre posterior. En 2011–2016 (PE39) la etiqueta es la de la lista Alianza Perú Posible (Perú Posible, Acción Popular y Somos Perú) e incluye a congresistas de AP como Yonhy Lescano, Manuel Merino de Lama, Víctor Andrés García Belaúnde o Mesías Guevara (véase «revisar»)."
+  },
+  {
+   "sigla": "UPP",
+   "nombre": "Unión por el Perú",
+   "etiquetas": [
+    "UPP",
+    "GPN"
+   ],
+   "cambios": [],
+   "nota": "Es UPP en 1995–2006 y 2020–2021. En 2006–2011 la etiqueta es la de la lista de UPP de 2006, en la que salieron elegidos 33 congresistas del Partido Nacionalista Peruano y 12 de UPP (https://es.wikipedia.org/wiki/Unión_por_el_Perú); en 2011–2016 cubre a la bancada Nacionalista Gana Perú (paréntesis NGP en speaker_raw), aunque UPP concurrió ese año en la Alianza Solidaridad Nacional (véase «revisar»). GPN (Grupo Parlamentario Nacionalista: una fila de Martín Rivas Teixeira, 2010-03-04) se une aquí porque el resto de las intervenciones de ese grupo, con el paréntesis (GPN), llevan la etiqueta UPP."
+  },
+  {
+   "sigla": "APRA",
+   "nombre": "Partido Aprista Peruano",
+   "etiquetas": [
+    "PAP"
+   ],
+   "cambios": [],
+   "nota": "La etiqueta usa la sigla oficial, PAP."
+  },
+  {
+   "sigla": "Fuerza Popular",
+   "nombre": "Fuerza Popular",
+   "etiquetas": [
+    "FUERZA POPULAR",
+    "FUERZA 2011"
+   ],
+   "cambios": [
+    {
+     "de": "Fuerza 2011",
+     "a": "Fuerza Popular",
+     "fecha": "2013-01-04",
+     "fuente": "https://rpp.pe/politica/actualidad/fuerza-2011-oficializa-cambio-de-nombre-a-fuerza-popular-noticia-554790"
+    }
+   ],
+   "nota": "Mismo partido, inscrito en 2010 como Fuerza 2011; el Registro de Organizaciones Políticas tramitó el cambio de denominación desde julio de 2012 (https://andina.pe/agencia/noticia-rop-desestima-tacha-contra-cambio-nombre-fuerza-2011-425727.aspx, 2012-08-24) y el partido lo oficializó el 2013-01-04. En el corpus, FUERZA 2011 cubre toda la legislatura 2011–2016 y FUERZA POPULAR empieza en 2016. Las alianzas fujimoristas anteriores (C90-NM, Perú 2000, Alianza por el Futuro) quedan aparte."
+  },
+  {
+   "sigla": "C90-NM",
+   "nombre": "Alianza Cambio 90–Nueva Mayoría",
+   "etiquetas": [
+    "CAMBIO 90 - NUEVA MAYORIA"
+   ],
+   "cambios": [],
+   "nota": "Alianza de Cambio 90 y Nueva Mayoría: filas del CCD en 1995 (paréntesis NM-C90), legislatura 1995–2000 y tres congresistas de 2001–2006. La etiqueta no dice a cuál de los dos partidos pertenece cada congresista, así que queda como partido propio (regla 2)."
+  },
+  {
+   "sigla": "APP",
+   "nombre": "Alianza para el Progreso",
+   "etiquetas": [
+    "APP"
+   ],
+   "cambios": [],
+   "nota": "En 2011–2016 son dos congresistas de APP elegidos en la lista Alianza por el Gran Cambio (paréntesis APGC)."
+  },
+  {
+   "sigla": "AP",
+   "nombre": "Acción Popular",
+   "etiquetas": [
+    "AP"
+   ],
+   "cambios": [],
+   "nota": "En 2011–2016 sus congresistas figuran como PERU POSIBLE (lista Alianza Perú Posible); véase «revisar»."
+  },
+  {
+   "sigla": "PPC",
+   "nombre": "Partido Popular Cristiano",
+   "etiquetas": [
+    "PPC"
+   ],
+   "cambios": [],
+   "nota": "Incluye a los congresistas del PPC elegidos en las alianzas Unidad Nacional (2001–2011, paréntesis UN) y Alianza por el Gran Cambio (2011–2016)."
+  },
+  {
+   "sigla": "Frente Amplio",
+   "nombre": "Frente Amplio por Justicia, Vida y Libertad",
+   "etiquetas": [
+    "FRENTE AMPLIO"
+   ],
+   "cambios": [],
+   "nota": "En 2016–2019 incluye a los congresistas que formaron la bancada Nuevo Perú (paréntesis NP)."
+  },
+  {
+   "sigla": "Perú Libre",
+   "nombre": "Partido Político Nacional Perú Libre",
+   "etiquetas": [
+    "PERU LIBRE"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "SP",
+   "nombre": "Partido Democrático Somos Perú",
+   "etiquetas": [
+    "SP"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Avanza País",
+   "nombre": "Avanza País – Partido de Integración Social",
+   "etiquetas": [
+    "AVANZA PAIS"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "FIM",
+   "nombre": "Frente Independiente Moralizador",
+   "etiquetas": [
+    "FIM"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Podemos Perú",
+   "nombre": "Podemos Perú",
+   "etiquetas": [
+    "PODEMOS PERU"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Renovación Popular",
+   "nombre": "Renovación Popular",
+   "etiquetas": [
+    "RENOVACION POPULAR",
+    "SOLIDARIDAD NACIONAL"
+   ],
+   "cambios": [
+    {
+     "de": "Solidaridad Nacional",
+     "a": "Renovación Popular",
+     "fecha": "2020-12-12",
+     "fuente": "https://elcomercio.pe/politica/elecciones/elecciones-2021-jne-aprobo-cambio-de-denominacion-y-simbolo-de-renovacion-popular-ex-solidaridad-nacional-nndc-noticia/"
+    }
+   ],
+   "nota": "El JNE aprobó el cambio de denominación y símbolo del partido «registrado anteriormente como Solidaridad Nacional» (El Comercio, 2020-12-12); el cambio se anunció el 2020-10-08 (https://andina.pe/agencia/noticia-elecciones-2021-solidaridad-nacional-cambia-nombre-a-renovacion-popular-816933.aspx) y Wikipedia da el 2020-10-07 como fin de Solidaridad Nacional, con Renovación Popular como sucesor y la misma inscripción (https://es.wikipedia.org/wiki/Solidaridad_Nacional_(Perú)). SOLIDARIDAD NACIONAL cubre 2000–2016 (partido de Luis Castañeda, también dentro de Unidad Nacional y de Alianza Solidaridad Nacional). Véase «revisar»."
+  },
+  {
+   "sigla": "Perú 2000",
+   "nombre": "Alianza Perú 2000",
+   "etiquetas": [
+    "PERU 2000"
+   ],
+   "cambios": [],
+   "nota": "Alianza fujimorista de 2000 (Cambio 90, Nueva Mayoría, Vamos Vecino y otros movimientos; https://es.wikipedia.org/wiki/Perú_2000). Los paréntesis de speaker_raw distinguen C90-NM, VV, FP…, pero la etiqueta no, así que queda como partido propio (regla 2)."
+  },
+  {
+   "sigla": "Alianza por el Futuro",
+   "nombre": "Alianza por el Futuro",
+   "etiquetas": [
+    "ALIANZA POR EL FUTURO"
+   ],
+   "cambios": [],
+   "nota": "Alianza fujimorista de 2006 (Cambio 90, Nueva Mayoría, Siempre Unidos y Sí Cumple; 13 escaños; https://es.wikipedia.org/wiki/Alianza_por_el_Futuro). Partido propio (regla 2)."
+  },
+  {
+   "sigla": "RN",
+   "nombre": "Renovación Nacional",
+   "etiquetas": [
+    "RN"
+   ],
+   "cambios": [],
+   "nota": "Partido de Rafael Rey (lista «Renovación» en 1995; después dentro de Unidad Nacional). No confundir con Restauración Nacional."
+  },
+  {
+   "sigla": "PPK",
+   "nombre": "Peruanos por el Kambio",
+   "etiquetas": [
+    "PPK"
+   ],
+   "cambios": [],
+   "nota": "Solo 2016–2020. El 2019-03-02 cambió de nombre a Contigo (https://es.wikipedia.org/wiki/Peruanos_por_el_Kambio); se conserva PPK porque es el nombre de la bancada en todo el periodo y no hay etiqueta «Contigo» (véase «revisar»)."
+  },
+  {
+   "sigla": "FREPAP",
+   "nombre": "Frente Popular Agrícola FIA del Perú",
+   "etiquetas": [
+    "FREPAP"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Partido Morado",
+   "nombre": "Partido Morado",
+   "etiquetas": [
+    "PARTIDO MORADO"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "JP",
+   "nombre": "Juntos por el Perú",
+   "etiquetas": [
+    "JP",
+    "PHP"
+   ],
+   "cambios": [
+    {
+     "de": "Partido Humanista Peruano",
+     "a": "Juntos por el Perú",
+     "fecha": "2017-05-20",
+     "fuente": "https://andina.pe/agencia/noticia-nace-nuevo-partido-izquierda-juntos-por-peru-667782.aspx"
+    }
+   ],
+   "nota": "Juntos por el Perú se constituyó en mayo de 2017 sobre la inscripción del Partido Humanista Peruano, que cedió su registro y cambió nombre y logo (https://es.wikipedia.org/wiki/Partido_Humanista_Peruano); la fecha es la de la reunión en que se adoptó el nuevo nombre (19–20 de mayo). PHP son 2.549 filas de Yehude Simon (2011–2014, elegido en la Alianza por el Gran Cambio); JP, 2021–2025. Continuidad legal, no política (véase «revisar»)."
+  },
+  {
+   "sigla": "Restauración Nacional",
+   "nombre": "Restauración Nacional",
+   "etiquetas": [
+    "RESTAURACION NACIONAL"
+   ],
+   "cambios": [],
+   "nota": "Partido de Humberto Lay (2006–2016)."
+  },
+  {
+   "sigla": "IU",
+   "nombre": "Izquierda Unida",
+   "etiquetas": [
+    "IU"
+   ],
+   "cambios": [],
+   "nota": "En 1995–2000, Rolando Breña y Javier Diez Canseco. Las 98 filas del CCD (1995) son del Movimiento Democrático de Izquierda (paréntesis MDI: Henry Pease, Gloria Helfer, Julio Castro, Julio Díaz Palacios), que el procesamiento asignó a IU (véase «revisar»)."
+  },
+  {
+   "sigla": "FRENATRACA",
+   "nombre": "Frente Nacional de Trabajadores y Campesinos",
+   "etiquetas": [
+    "FRENATRACA"
+   ],
+   "cambios": [],
+   "nota": "Roger Cáceres Velásquez (lista Perú al 2000/FRENATRACA en 1995; https://es.wikipedia.org/wiki/Elecciones_generales_de_Perú_de_1995) y Jorge Velásquez Gonzales (CCD)."
+  },
+  {
+   "sigla": "OBRAS",
+   "nombre": "Movimiento Cívico Nacional OBRAS",
+   "etiquetas": [
+    "OBRAS"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Solución Popular",
+   "nombre": "Solución Popular",
+   "etiquetas": [
+    "SOLUCION POPULAR"
+   ],
+   "cambios": [],
+   "nota": "Un escaño en 2001, Alfredo González Salazar (https://es.wikipedia.org/wiki/Elecciones_generales_de_Perú_de_2001)."
+  },
+  {
+   "sigla": "UN",
+   "nombre": "Unidad Nacional",
+   "etiquetas": [
+    "UN"
+   ],
+   "cambios": [],
+   "nota": "Alianza electoral de PPC, Solidaridad Nacional, Renovación Nacional y Cambio Radical en 2001 (https://es.wikipedia.org/wiki/Elecciones_generales_de_Perú_de_2001). La etiqueta solo la lleva una congresista de 2001–2006 sin partido identificado («Vargas Gálvez de Benavides»); el resto de los elegidos por UN tienen la etiqueta de su partido. Partido propio (regla 2)."
+  },
+  {
+   "sigla": "CODE",
+   "nombre": "Coordinadora Democrática",
+   "etiquetas": [
+    "CODE"
+   ],
+   "cambios": [],
+   "nota": "Partido de José Barba Caballero (1992): CCD en 1995 y lista CODE-País Posible en 1995. Según Wikipedia (https://es.wikipedia.org/wiki/Cambio_Radical_(Perú)) en 2000 «cambió el nombre a Cambio Radical», sin fecha exacta ni constancia de la inscripción; se deja separado (véase «revisar»)."
+  },
+  {
+   "sigla": "Cambio Radical",
+   "nombre": "Cambio Radical",
+   "etiquetas": [
+    "CAMBIO RADICAL"
+   ],
+   "cambios": [],
+   "nota": "Solo José Barba Caballero, 2001–2005, elegido en Unidad Nacional."
+  },
+  {
+   "sigla": "MIA",
+   "nombre": "Movimiento Independiente Agrario",
+   "etiquetas": [
+    "MIA"
+   ],
+   "cambios": [],
+   "nota": "Horacio García Mundaca (CCD) y Susy Díaz (1995–2000)."
+  },
+  {
+   "sigla": "SODE",
+   "nombre": "Solidaridad y Democracia",
+   "etiquetas": [
+    "SOLIDARIDAD Y DEMOCRACIA"
+   ],
+   "cambios": [],
+   "nota": "Seis filas de Manuel Moreyra Loredo en el CCD (1995; paréntesis SODE)."
+  },
+  {
+   "sigla": "Todos por la Victoria",
+   "nombre": "Todos por la Victoria",
+   "etiquetas": [
+    "TODOS POR LA VICTORIA"
+   ],
+   "cambios": [],
+   "nota": "Una fila (juramento del 2001-07-23) de Mario Molina Almanza; la lista obtuvo un escaño en 2001 (https://es.wikipedia.org/wiki/Elecciones_generales_de_Perú_de_2001). Después figura como PERU POSIBLE."
+  },
+  {
+   "sigla": "RUNA",
+   "nombre": "Renacimiento Andino",
+   "etiquetas": [
+    "RUNA"
+   ],
+   "cambios": [],
+   "nota": "Una fila (juramento del 2001-07-23) de Eduardo Salhuana, único congresista del partido en 2001; después figura como PERU POSIBLE. El partido pasó a llamarse Renacimiento Unido Nacional el 2013-06-15 y Resurgimiento Unido Nacional en 2024, siempre con la sigla RUNA (https://es.wikipedia.org/wiki/Renacimiento_Unido_Nacional)."
+  },
+  {
+   "sigla": "Independientes",
+   "nombre": "Independientes",
+   "etiquetas": [
+    "INDEPENDIENTE"
+   ],
+   "cambios": [],
+   "nota": "Congresistas sin partido elegidos en alianzas (sobre todo Unidad Nacional, 2001–2006) y algunas filas del juramento de 2006."
+  },
+  {
+   "sigla": "Sin identificar",
+   "nombre": "Sin identificar",
+   "etiquetas": [
+    ""
+   ],
+   "cambios": [],
+   "nota": "Filas con diputado identificado pero sin partido."
+  }
+ ],
+ "asignacion": {
+  "PERU POSIBLE": "Perú Posible",
+  "UPP": "UPP",
+  "PAP": "APRA",
+  "FUERZA POPULAR": "Fuerza Popular",
+  "CAMBIO 90 - NUEVA MAYORIA": "C90-NM",
+  "APP": "APP",
+  "AP": "AP",
+  "PPC": "PPC",
+  "FRENTE AMPLIO": "Frente Amplio",
+  "PERU LIBRE": "Perú Libre",
+  "SP": "SP",
+  "AVANZA PAIS": "Avanza País",
+  "FIM": "FIM",
+  "FUERZA 2011": "Fuerza Popular",
+  "PODEMOS PERU": "Podemos Perú",
+  "SOLIDARIDAD NACIONAL": "Renovación Popular",
+  "PERU 2000": "Perú 2000",
+  "ALIANZA POR EL FUTURO": "Alianza por el Futuro",
+  "RN": "RN",
+  "PPK": "PPK",
+  "RENOVACION POPULAR": "Renovación Popular",
+  "FREPAP": "FREPAP",
+  "": "Sin identificar",
+  "PARTIDO MORADO": "Partido Morado",
+  "INDEPENDIENTE": "Independientes",
+  "JP": "JP",
+  "PHP": "JP",
+  "RESTAURACION NACIONAL": "Restauración Nacional",
+  "IU": "IU",
+  "FRENATRACA": "FRENATRACA",
+  "OBRAS": "OBRAS",
+  "SOLUCION POPULAR": "Solución Popular",
+  "UN": "UN",
+  "CODE": "CODE",
+  "CAMBIO RADICAL": "Cambio Radical",
+  "MIA": "MIA",
+  "SOLIDARIDAD Y DEMOCRACIA": "SODE",
+  "TODOS POR LA VICTORIA": "Todos por la Victoria",
+  "RUNA": "RUNA",
+  "GPN": "UPP"
+ },
+ "revisar": [
+  {
+   "etiquetas": [
+    "UPP",
+    "GPN"
+   ],
+   "decision": "UPP.",
+   "alternativa": "Corregir aguas arriba por legislatura: en PE38 (2006–2011) y PE39 (2011–2016) la etiqueta UPP cubre a la bancada nacionalista (PNP; lista de UPP en 2006 y Gana Perú en 2011). Los paréntesis de speaker_raw (GPN, N-UPP, NGP, GPDD) permitirían separar un partido «PNP / Gana Perú».",
+   "motivo": "78.333 de las 98.654 filas con etiqueta UPP (79 %) son de 2006–2016; en 2011 UPP concurrió en la Alianza Solidaridad Nacional y obtuvo 2 escaños, así que las 56.792 filas de PE39 son de Gana Perú. Una tabla etiqueta→partido no puede separarlas."
+  },
+  {
+   "etiquetas": [
+    "PERU POSIBLE"
+   ],
+   "decision": "Perú Posible.",
+   "alternativa": "Reasignar aguas arriba a AP (y a SP) los congresistas de esos partidos elegidos en 2011 en la Alianza Perú Posible (Lescano, Merino de Lama, García Belaúnde, Guevara…).",
+   "motivo": "En PE39 la etiqueta es la de la lista de alianza (Perú Posible, AP y Somos Perú), no la del partido: 15.151 filas, 24 congresistas."
+  },
+  {
+   "etiquetas": [
+    "PHP",
+    "JP"
+   ],
+   "decision": "Fundidos en JP (regla 3: el Partido Humanista cedió su inscripción y cambió nombre y logo en 2017).",
+   "alternativa": "Separar PHP (Yehude Simon, 2011–2014, 2.549 filas) de JP (2021–2025).",
+   "motivo": "Continuidad legal pero no política: JP nació como frente de izquierdas sobre ese registro."
+  },
+  {
+   "etiquetas": [
+    "SOLIDARIDAD NACIONAL",
+    "RENOVACION POPULAR"
+   ],
+   "decision": "Fundidos en Renovación Popular (regla 3; el JNE inscribió el cambio de denominación en 2020).",
+   "alternativa": "Separar Solidaridad Nacional (2000–2016) de Renovación Popular (2021–2025).",
+   "motivo": "López Aliaga lo presentó como una refundación con nuevos estatutos e ideario; las 9.007 filas del partido de Castañeda aparecerán como Renovación Popular."
+  },
+  {
+   "etiquetas": [
+    "CODE",
+    "CAMBIO RADICAL"
+   ],
+   "decision": "Separados.",
+   "alternativa": "Fundirlos en Cambio Radical: Wikipedia dice que en 2000 CODE «cambió el nombre a Cambio Radical» (https://es.wikipedia.org/wiki/Cambio_Radical_(Perú)).",
+   "motivo": "Sin fecha exacta ni constancia de continuidad de la inscripción (el mismo artículo habla de firmas falsas en su inscripción de 2005). Son 136 y 120 filas."
+  },
+  {
+   "etiquetas": [
+    "CAMBIO 90 - NUEVA MAYORIA",
+    "PERU 2000",
+    "ALIANZA POR EL FUTURO",
+    "FUERZA 2011",
+    "FUERZA POPULAR"
+   ],
+   "decision": "Cuatro partidos: tres alianzas fujimoristas y Fuerza Popular.",
+   "alternativa": "Añadir, si interesa, una familia «fujimorismo» como categoría aparte (no como partido).",
+   "motivo": "Alianzas de varios partidos y un partido nuevo de 2010 (reglas 2, 4 y 5)."
+  },
+  {
+   "etiquetas": [
+    "PPK"
+   ],
+   "decision": "PPK (Peruanos por el Kambio).",
+   "alternativa": "Nombrarlo Contigo, su denominación desde el 2019-03-02.",
+   "motivo": "La etiqueta solo cubre 2016–2020 y la bancada fue siempre PPK; Wikipedia recoge el cambio de nombre pero también una «disolución» con Contigo como sucesor."
+  },
+  {
+   "etiquetas": [
+    "IU"
+   ],
+   "decision": "IU.",
+   "alternativa": "Separar aguas arriba al Movimiento Democrático de Izquierda (MDI) en las filas del CCD.",
+   "motivo": "98 filas de 1995 (5 congresistas) llevan el paréntesis MDI; es otra organización."
+  },
+  {
+   "etiquetas": [
+    "RUNA",
+    "TODOS POR LA VICTORIA"
+   ],
+   "decision": "Partidos propios (Renacimiento Andino y Todos por la Victoria).",
+   "alternativa": "Asignarlos a Perú Posible, cuyo grupo integraron después.",
+   "motivo": "Una fila cada uno, del juramento de 2001; son las listas con que fueron elegidos."
+  }
+ ],
+ "tipo_propuesto": "por intervencion"
+}

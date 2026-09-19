@@ -1,0 +1,278 @@
+{
+ "pais": "CR",
+ "tipo": "por legislatura",
+ "partidos": [
+  {
+   "sigla": "PLN",
+   "nombre": "Partido Liberación Nacional",
+   "etiquetas": [
+    "LIBERACIÓN NACIONAL"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PUSC",
+   "nombre": "Partido Unidad Social Cristiana",
+   "etiquetas": [
+    "UNIDAD SOCIAL CRISTIANA",
+    "UNIDAD"
+   ],
+   "cambios": [],
+   "nota": "UNIDAD (2.816 filas) no es una grafía del PUSC sino «Coalición Unidad» (1978–1983, predecesora del PUSC), tomada del periodo 1982 de José Roberto Rodríguez Quesada; pero se aplica a sus intervenciones de 2010–2014, cuando era diputado del PUSC según el TSE (https://www.tse.go.cr/pdf/ifed/Diputados-y-diputadas-electos-por-partido-politico1949-2022.pdf). La fila restante es de Leticia Chacón Jinesta (Coalición Unidad, 1978) en una sesión solemne de 2019. Véase «revisar»."
+  },
+  {
+   "sigla": "PAC",
+   "nombre": "Partido Acción Ciudadana",
+   "etiquetas": [
+    "ACCIÓN CIUDADANA"
+   ],
+   "cambios": [],
+   "nota": "Las 3 filas de 1996 son de Rodrigo Carazo Zeledón antes de ser diputado (2002–2006); llevan la etiqueta de su legislatura."
+  },
+  {
+   "sigla": "ML",
+   "nombre": "Partido Movimiento Libertario",
+   "etiquetas": [
+    "MOVIMIENTO LIBERTARIO"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "FA",
+   "nombre": "Partido Frente Amplio",
+   "etiquetas": [
+    "FRENTE AMPLIO"
+   ],
+   "cambios": [],
+   "nota": "Fundado el 2004-10-16 por José Merino, que había dejado Fuerza Democrática en 2002 (https://es.wikipedia.org/wiki/Frente_Amplio_(Costa_Rica)): partido nuevo, separado de FD (regla 5)."
+  },
+  {
+   "sigla": "Independientes",
+   "nombre": "Independientes",
+   "etiquetas": [
+    "INDEPENDIENTE"
+   ],
+   "cambios": [],
+   "nota": "Diputados que se declararon independientes: la etiqueta vale para toda la legislatura, también antes de la ruptura. En 2018–2022 son doce, elegidos por Restauración Nacional (8), Integración Nacional (2), PRSC (1) y PUSC (1) según la lista del TSE (https://www.tse.go.cr/pdf/ifed/Diputados-y-diputadas-electos-por-partido-politico1949-2022.pdf); ese año Nueva República se escindió de Restauración Nacional con 8 de sus 14 diputados (https://es.wikipedia.org/wiki/Partido_Nueva_República)."
+  },
+  {
+   "sigla": "PASE",
+   "nombre": "Partido Accesibilidad sin Exclusión",
+   "etiquetas": [
+    "ACCESIBILIDAD SIN EXCLUSIÓN"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PRN",
+   "nombre": "Partido Restauración Nacional",
+   "etiquetas": [
+    "RESTAURACIÓN NACIONAL"
+   ],
+   "cambios": [],
+   "nota": "Partido distinto de Renovación Costarricense (de la que venía su fundador, Carlos Avendaño) y de Nueva República (escisión de 2018)."
+  },
+  {
+   "sigla": "PRC",
+   "nombre": "Partido Renovación Costarricense",
+   "etiquetas": [
+    "RENOVACIÓN COSTARRICENSE"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PNR",
+   "nombre": "Partido Nueva República",
+   "etiquetas": [
+    "NUEVA REPÚBLICA"
+   ],
+   "cambios": [],
+   "nota": "Fundado el 2018-10-20 por Fabricio Alvarado como escisión de Restauración Nacional, al que siguieron 8 de sus 14 diputados (https://es.wikipedia.org/wiki/Partido_Nueva_República): partido distinto (regla 5)."
+  },
+  {
+   "sigla": "FD",
+   "nombre": "Partido Fuerza Democrática",
+   "etiquetas": [
+    "FUERZA DEMOCRÁTICA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PPSD",
+   "nombre": "Partido Progreso Social Democrático",
+   "etiquetas": [
+    "PROGRESO SOCIAL DEMOCRÁTICO"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PLP",
+   "nombre": "Partido Liberal Progresista",
+   "etiquetas": [
+    "LIBERAL PROGRESISTA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Sin identificar",
+   "nombre": "Sin identificar",
+   "etiquetas": [
+    ""
+   ],
+   "cambios": [],
+   "nota": "Cuatro diputados con filas sin partido."
+  },
+  {
+   "sigla": "PIN",
+   "nombre": "Partido Integración Nacional",
+   "etiquetas": [
+    "INTEGRACIÓN NACIONAL"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "ADC",
+   "nombre": "Partido Alianza Demócrata Cristiana",
+   "etiquetas": [
+    "ALIANZA DEMÓCRATA CRISTIANA"
+   ],
+   "cambios": [],
+   "nota": "Mario Redondo, 2014–2018 (en 2002–2006 fue diputado del PUSC): partido distinto."
+  },
+  {
+   "sigla": "PUN",
+   "nombre": "Partido Unión Nacional",
+   "etiquetas": [
+    "UNIÓN NACIONAL"
+   ],
+   "cambios": [],
+   "nota": "José Manuel Echandi (2006–2010); 12 filas de 2001 y 2010, fuera de esa legislatura, llevan la misma etiqueta."
+  },
+  {
+   "sigla": "PUAC",
+   "nombre": "Partido Unión Agrícola Cartaginés",
+   "etiquetas": [
+    "UNIÓN AGRÍCOLA CARTAGINÉS"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PAN",
+   "nombre": "Partido Agrario Nacional",
+   "etiquetas": [
+    "AGRARIO NACIONAL"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PALA",
+   "nombre": "Partido Acción Laborista Agrícola",
+   "etiquetas": [
+    "ACCIÓN LABORISTA AGRICOLA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PRSC",
+   "nombre": "Partido Republicano Social Cristiano",
+   "etiquetas": [
+    "REPUBLICANO SOCIAL CRISTIANO"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Pueblo Unido",
+   "nombre": "Coalición Pueblo Unido",
+   "etiquetas": [
+    "PUEBLO UNIDO"
+   ],
+   "cambios": [],
+   "nota": "Rodrigo Gutiérrez Sáenz, legislatura 1990–1994."
+  },
+  {
+   "sigla": "Demócrata Alajuelense",
+   "nombre": "Partido Demócrata Alajuelense",
+   "etiquetas": [
+    "DEMÓCRATA  ALAJUELENSE"
+   ],
+   "cambios": [],
+   "nota": "Etiqueta con doble espacio y sin variante simple. Las 7 filas son discursos del presidente Carlos Alvarado Quesada (2018–2022) emparejados por error con Omar Quesada Alvarado, diputado de 1949 (Social Demócrata según el TSE; «Demócrata Alajuelense» es el partido del diputado siguiente en esa lista). Error de emparejamiento: véase «revisar»."
+  },
+  {
+   "sigla": "Unificación Nacional",
+   "nombre": "Unificación Nacional",
+   "etiquetas": [
+    "UNIFICACIÓN NACIONAL"
+   ],
+   "cambios": [],
+   "nota": "La única fila (2003-05-01) es de Mario Redondo Poveda (PUSC, presidente de la Asamblea), emparejada por error con Mario Arredondo Calderón, diputado de 1966. Véase «revisar»."
+  }
+ ],
+ "asignacion": {
+  "LIBERACIÓN NACIONAL": "PLN",
+  "UNIDAD SOCIAL CRISTIANA": "PUSC",
+  "ACCIÓN CIUDADANA": "PAC",
+  "MOVIMIENTO LIBERTARIO": "ML",
+  "FRENTE AMPLIO": "FA",
+  "INDEPENDIENTE": "Independientes",
+  "ACCESIBILIDAD SIN EXCLUSIÓN": "PASE",
+  "RESTAURACIÓN NACIONAL": "PRN",
+  "RENOVACIÓN COSTARRICENSE": "PRC",
+  "NUEVA REPÚBLICA": "PNR",
+  "FUERZA DEMOCRÁTICA": "FD",
+  "UNIDAD": "PUSC",
+  "PROGRESO SOCIAL DEMOCRÁTICO": "PPSD",
+  "LIBERAL PROGRESISTA": "PLP",
+  "": "Sin identificar",
+  "INTEGRACIÓN NACIONAL": "PIN",
+  "ALIANZA DEMÓCRATA CRISTIANA": "ADC",
+  "UNIÓN NACIONAL": "PUN",
+  "UNIÓN AGRÍCOLA CARTAGINÉS": "PUAC",
+  "AGRARIO NACIONAL": "PAN",
+  "ACCIÓN LABORISTA AGRICOLA": "PALA",
+  "REPUBLICANO SOCIAL CRISTIANO": "PRSC",
+  "PUEBLO UNIDO": "Pueblo Unido",
+  "DEMÓCRATA  ALAJUELENSE": "Demócrata Alajuelense",
+  "UNIFICACIÓN NACIONAL": "Unificación Nacional"
+ },
+ "revisar": [
+  {
+   "etiquetas": [
+    "UNIDAD"
+   ],
+   "decision": "PUSC.",
+   "alternativa": "Partido propio «Coalición Unidad» (regla 4: predecesora del PUSC, que nació en 1983 de la fusión de sus partidos).",
+   "motivo": "La etiqueta procede del periodo 1982 de José Roberto Rodríguez Quesada, pero 2.815 de sus 2.816 filas son sus intervenciones de 2010–2014 como diputado del PUSC; con la alternativa, el PUSC de 2010–2014 perdería a uno de sus 6 diputados. Lo correcto sería arreglar la etiqueta aguas arriba."
+  },
+  {
+   "etiquetas": [
+    "DEMÓCRATA  ALAJUELENSE",
+    "UNIFICACIÓN NACIONAL"
+   ],
+   "decision": "Partidos propios, según lo que dice la etiqueta.",
+   "alternativa": "Corregir el emparejamiento aguas arriba: 7 filas del presidente Carlos Alvarado Quesada (PAC) y 1 de Mario Redondo Poveda (PUSC).",
+   "motivo": "Son diputados históricos (1949 y 1966) emparejados por error; una tabla de partidos no debe arreglar errores de emparejamiento."
+  },
+  {
+   "etiquetas": [
+    "INDEPENDIENTE"
+   ],
+   "decision": "Independientes.",
+   "alternativa": "Fechar la ruptura aguas arriba (p. ej., la salida de diputados de Restauración Nacional hacia Nueva República en 2018).",
+   "motivo": "La etiqueta es la situación final en cada legislatura: esos diputados figuran como independientes desde el primer día."
+  }
+ ],
+ "tipo_propuesto": "ultimo partido por legislatura"
+}

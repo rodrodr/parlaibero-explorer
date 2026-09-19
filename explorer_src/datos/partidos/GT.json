@@ -1,0 +1,511 @@
+{
+ "pais": "GT",
+ "tipo": "ultimo partido",
+ "partidos": [
+  {
+   "sigla": "PP",
+   "nombre": "Partido Patriota",
+   "etiquetas": [
+    "PP"
+   ],
+   "cambios": [],
+   "nota": "Partido Patriota (existió de 2001 a 2017 según https://es.wikipedia.org/wiki/Partidos_políticos_de_Guatemala); tiene filas desde 2000 porque la etiqueta es el último partido del diputado. PPN no es una variante: es Nosotros."
+  },
+  {
+   "sigla": "FRG",
+   "nombre": "Frente Republicano Guatemalteco",
+   "etiquetas": [
+    "FRG"
+   ],
+   "cambios": [],
+   "nota": "Refundado como Partido Republicano Institucional (PRI) en enero de 2013 (https://es.wikipedia.org/wiki/Frente_Republicano_Guatemalteco); se conserva FRG, único nombre que aparece en el corpus."
+  },
+  {
+   "sigla": "UNE",
+   "nombre": "Unidad Nacional de la Esperanza",
+   "etiquetas": [
+    "UNE"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "TODOS",
+   "nombre": "Todos",
+   "etiquetas": [
+    "TODOS"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "GANA",
+   "nombre": "Gran Alianza Nacional",
+   "etiquetas": [
+    "GANA"
+   ],
+   "cambios": [],
+   "nota": "Partido de 2005 (https://es.wikipedia.org/wiki/Partidos_políticos_de_Guatemala) con filas desde 2000 por ser etiqueta de último partido."
+  },
+  {
+   "sigla": "VAMOS",
+   "nombre": "Vamos por una Guatemala Diferente",
+   "etiquetas": [
+    "VAMOS"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Unionista",
+   "nombre": "Partido Unionista",
+   "etiquetas": [
+    "UNIONISTA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PAN",
+   "nombre": "Partido de Avanzada Nacional",
+   "etiquetas": [
+    "PAN"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "LIDER",
+   "nombre": "Libertad Democrática Renovada",
+   "etiquetas": [
+    "LIDER"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "CREO",
+   "nombre": "Compromiso, Renovación y Orden",
+   "etiquetas": [
+    "CREO"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "UNE-GANA",
+   "nombre": "Coalición Unidad Nacional de la Esperanza–Gran Alianza Nacional",
+   "etiquetas": [
+    "UNE-GANA"
+   ],
+   "cambios": [],
+   "nota": "Coalición de las elecciones de 2011 (https://es.wikipedia.org/wiki/Elecciones_generales_de_Guatemala_de_2011). Sus 13 diputados pueden ser de UNE o de GANA y la etiqueta no lo dice: partido propio (regla 2)."
+  },
+  {
+   "sigla": "AZUL",
+   "nombre": "Partido Azul",
+   "etiquetas": [
+    "AZUL"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "UCN",
+   "nombre": "Unión del Cambio Nacional",
+   "etiquetas": [
+    "UCN"
+   ],
+   "cambios": [],
+   "nota": "Partido de 2006 (https://es.wikipedia.org/wiki/Partidos_políticos_de_Guatemala) con filas desde 2000 por ser etiqueta de último partido."
+  },
+  {
+   "sigla": "VIVA",
+   "nombre": "Visión con Valores",
+   "etiquetas": [
+    "VIVA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Independientes",
+   "nombre": "Independientes",
+   "etiquetas": [
+    "INDEPENDIENTE"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "VALOR",
+   "nombre": "Valor",
+   "etiquetas": [
+    "VALOR"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "VOS",
+   "nombre": "Voluntad, Oportunidad y Solidaridad",
+   "etiquetas": [
+    "VOS"
+   ],
+   "cambios": [],
+   "nota": "Inscrito en 2022 (https://www.prensalibre.com/guatemala/politica/cuantos-partidos-politicos-hay-en-guatemala-y-cuales-son-los-mas-antiguos/); filas desde 2012 por ser etiqueta de último partido."
+  },
+  {
+   "sigla": "EG",
+   "nombre": "Encuentro por Guatemala",
+   "etiquetas": [
+    "EG"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PHG",
+   "nombre": "Partido Humanista de Guatemala",
+   "etiquetas": [
+    "HUMANISTA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "FCN-Nación",
+   "nombre": "Frente de Convergencia Nacional",
+   "etiquetas": [
+    "FCN"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Sin identificar",
+   "nombre": "Sin identificar",
+   "etiquetas": [
+    ""
+   ],
+   "cambios": [],
+   "nota": "Filas con diputado identificado pero sin partido; los 23 diputados que las tienen llevan etiqueta en otras legislaturas."
+  },
+  {
+   "sigla": "CABAL",
+   "nombre": "Cabal",
+   "etiquetas": [
+    "CABAL"
+   ],
+   "cambios": [],
+   "nota": "Inscrito en 2022 (https://www.prensalibre.com/guatemala/politica/cuantos-partidos-politicos-hay-en-guatemala-y-cuales-son-los-mas-antiguos/); filas desde 2004 por ser etiqueta de último partido."
+  },
+  {
+   "sigla": "URNG-MAIZ",
+   "nombre": "Unidad Revolucionaria Nacional Guatemalteca–Movimiento Amplio de Izquierda",
+   "etiquetas": [
+    "URNG MAIZ"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Semilla",
+   "nombre": "Movimiento Semilla",
+   "etiquetas": [
+    "SEMILLA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "ANN",
+   "nombre": "Alianza Nueva Nación",
+   "etiquetas": [
+    "ANN"
+   ],
+   "cambios": [],
+   "nota": "Partido formalizado el 2003-06-06 y cancelado al año siguiente por no alcanzar el umbral (https://es.wikipedia.org/wiki/Convergencia_(Guatemala)). Distinto de la coalición DIA-URNG de 1999 y de Convergencia (véase «revisar»)."
+  },
+  {
+   "sigla": "DIA-URNG",
+   "nombre": "Coalición Desarrollo Integral Auténtico–URNG (Alianza Nueva Nación, 1999)",
+   "etiquetas": [
+    "DIA-URNG"
+   ],
+   "cambios": [],
+   "nota": "Coalición de la URNG con DIA y otros partidos en 1999, llamada Alianza Nueva Nación (https://es.wikipedia.org/wiki/Convergencia_(Guatemala)); seis diputados de 2000–2004. Partido propio (regla 2)."
+  },
+  {
+   "sigla": "BIEN",
+   "nombre": "Bienestar Nacional",
+   "etiquetas": [
+    "BIEN"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "VICTORIA",
+   "nombre": "Victoria",
+   "etiquetas": [
+    "VICTORIA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Nosotros",
+   "nombre": "Partido Político Nosotros (PPN)",
+   "etiquetas": [
+    "PPN"
+   ],
+   "cambios": [],
+   "nota": "PPN es la sigla de Nosotros (https://es.wikipedia.org/wiki/Elecciones_generales_de_Guatemala_de_2023), no una variante del Partido Patriota. En febrero de 2024 el partido separó de su bancada a Vivian Preciado y Rudy Pereira, que pasaron a independientes (https://www.prensalibre.com/ahora/guatemala/politica/partido-nosotros-separa-a-dos-diputados-de-su-bancada/); la etiqueta no lo recoge."
+  },
+  {
+   "sigla": "CASA",
+   "nombre": "Centro de Acción Social",
+   "etiquetas": [
+    "CASA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "WINAQ",
+   "nombre": "Movimiento Político Winaq",
+   "etiquetas": [
+    "WINAQ",
+    "MAIZ-WINAQ",
+    "WINAQ URNG MAIZ"
+   ],
+   "cambios": [],
+   "nota": "Las dos etiquetas de coalición corresponden a un solo diputado cada una, ambos dirigentes de Winaq: Amílcar Pop (WINAQ URNG MAIZ; miembro fundador y dirigente, elegido en el Frente Amplio de 2011 y en la coalición Winaq–URNG de 2015; https://es.wikipedia.org/wiki/Amílcar_Pop, https://es.wikipedia.org/wiki/VIII_Legislatura_de_Guatemala) y Sonia Gutiérrez (MAIZ-WINAQ; secretaria general de Winaq desde 2017, https://en.wikipedia.org/wiki/Sonia_Gutiérrez_Raguay; elegida en 2019 por Winaq y en 2023 por la coalición Winaq–URNG, cuyo candidato presidencial era Pop, https://en.wikipedia.org/wiki/Winaq). Regla 2: son diputados de Winaq, que encabezó las candidaturas presidenciales de las alianzas de 2011 (Rigoberta Menchú) y 2023 (Amílcar Pop)."
+  },
+  {
+   "sigla": "PC",
+   "nombre": "Prosperidad Ciudadana",
+   "etiquetas": [
+    "PC"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "DCG",
+   "nombre": "Democracia Cristiana Guatemalteca",
+   "etiquetas": [
+    "DCG"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "UD",
+   "nombre": "Unión Democrática",
+   "etiquetas": [
+    "UD"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "VIVA-EG",
+   "nombre": "Coalición Visión con Valores–Encuentro por Guatemala",
+   "etiquetas": [
+    "VIVA-EG"
+   ],
+   "cambios": [],
+   "nota": "Coalición de las elecciones de 2011 (6 escaños; https://es.wikipedia.org/wiki/Elecciones_generales_de_Guatemala_de_2011). Partido propio (regla 2)."
+  },
+  {
+   "sigla": "Convergencia",
+   "nombre": "Convergencia CPO-CRD",
+   "etiquetas": [
+    "CONVERGENCIA"
+   ],
+   "cambios": [],
+   "nota": "Procede de Alternativa Nueva Nación, inscrita el 2010-06-15 «con la misma estructura e ideología» que ANN y renombrada Convergencia CPO-CRD en 2015 (https://es.wikipedia.org/wiki/Convergencia_(Guatemala)). No se funde con ANN porque ANN fue cancelado y Alternativa es una inscripción nueva."
+  },
+  {
+   "sigla": "DIA",
+   "nombre": "Desarrollo Integral Auténtico",
+   "etiquetas": [
+    "DIA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PODEMOS",
+   "nombre": "Podemos",
+   "etiquetas": [
+    "PODEMOS"
+   ],
+   "cambios": [],
+   "nota": "Partido de 2018 (https://es.wikipedia.org/wiki/Partidos_políticos_de_Guatemala); su único diputado tiene filas desde 2008 por ser etiqueta de último partido."
+  },
+  {
+   "sigla": "CREO-Unionista",
+   "nombre": "Coalición Compromiso, Renovación y Orden–Partido Unionista",
+   "etiquetas": [
+    "CREO - UNIONISTA"
+   ],
+   "cambios": [],
+   "nota": "Coalición de las elecciones de 2015 (5 escaños; https://es.wikipedia.org/wiki/VIII_Legislatura_de_Guatemala). Partido propio (regla 2)."
+  },
+  {
+   "sigla": "FUERZA",
+   "nombre": "Fuerza",
+   "etiquetas": [
+    "FUERZA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PLP",
+   "nombre": "Partido Libertador Progresista",
+   "etiquetas": [
+    "PLP"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MR",
+   "nombre": "Movimiento Reformador",
+   "etiquetas": [
+    "MR"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PSN",
+   "nombre": "Partido Solidaridad Nacional",
+   "etiquetas": [
+    "PSN"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MLP",
+   "nombre": "Movimiento para la Liberación de los Pueblos",
+   "etiquetas": [
+    "MLP"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "ELEFANTE",
+   "nombre": "Comunidad Elefante",
+   "etiquetas": [
+    "ELEFANTE"
+   ],
+   "cambios": [],
+   "nota": "Inscrito en 2022 (https://www.prensalibre.com/guatemala/politica/cuantos-partidos-politicos-hay-en-guatemala-y-cuales-son-los-mas-antiguos/); filas desde 2020 por ser etiqueta de último partido."
+  },
+  {
+   "sigla": "CAMBIO",
+   "nombre": "Cambio",
+   "etiquetas": [
+    "CAMBIO"
+   ],
+   "cambios": [],
+   "nota": ""
+  }
+ ],
+ "asignacion": {
+  "PP": "PP",
+  "FRG": "FRG",
+  "UNE": "UNE",
+  "TODOS": "TODOS",
+  "GANA": "GANA",
+  "VAMOS": "VAMOS",
+  "UNIONISTA": "Unionista",
+  "PAN": "PAN",
+  "LIDER": "LIDER",
+  "CREO": "CREO",
+  "UNE-GANA": "UNE-GANA",
+  "AZUL": "AZUL",
+  "UCN": "UCN",
+  "VIVA": "VIVA",
+  "INDEPENDIENTE": "Independientes",
+  "VALOR": "VALOR",
+  "VOS": "VOS",
+  "EG": "EG",
+  "HUMANISTA": "PHG",
+  "FCN": "FCN-Nación",
+  "": "Sin identificar",
+  "CABAL": "CABAL",
+  "URNG MAIZ": "URNG-MAIZ",
+  "SEMILLA": "Semilla",
+  "ANN": "ANN",
+  "DIA-URNG": "DIA-URNG",
+  "BIEN": "BIEN",
+  "VICTORIA": "VICTORIA",
+  "PPN": "Nosotros",
+  "CASA": "CASA",
+  "WINAQ": "WINAQ",
+  "PC": "PC",
+  "MAIZ-WINAQ": "WINAQ",
+  "DCG": "DCG",
+  "UD": "UD",
+  "VIVA-EG": "VIVA-EG",
+  "WINAQ URNG MAIZ": "WINAQ",
+  "CONVERGENCIA": "Convergencia",
+  "DIA": "DIA",
+  "PODEMOS": "PODEMOS",
+  "CREO - UNIONISTA": "CREO-Unionista",
+  "FUERZA": "FUERZA",
+  "PLP": "PLP",
+  "MR": "MR",
+  "PSN": "PSN",
+  "MLP": "MLP",
+  "ELEFANTE": "ELEFANTE",
+  "CAMBIO": "CAMBIO"
+ },
+ "revisar": [
+  {
+   "etiquetas": [
+    "MAIZ-WINAQ",
+    "WINAQ URNG MAIZ"
+   ],
+   "decision": "WINAQ.",
+   "alternativa": "Mantener una coalición «Winaq–URNG-MAIZ» como partido propio (o dos, una por elección).",
+   "motivo": "Cada etiqueta tiene un solo diputado y los dos son dirigentes de Winaq, que encabezó las candidaturas presidenciales de las alianzas de 2011 y 2023 (regla 2)."
+  },
+  {
+   "etiquetas": [
+    "UNE-GANA"
+   ],
+   "decision": "Coalición propia.",
+   "alternativa": "UNE, primer partido del nombre de la coalición.",
+   "motivo": "13 diputados (6.212 filas); no se ha comprobado el partido de cada uno."
+  },
+  {
+   "etiquetas": [
+    "CREO - UNIONISTA",
+    "VIVA-EG"
+   ],
+   "decision": "Coaliciones propias.",
+   "alternativa": "CREO y VIVA, respectivamente.",
+   "motivo": "Dos diputados cada una (201 y 257 filas); no se ha comprobado su partido."
+  },
+  {
+   "etiquetas": [
+    "DIA-URNG",
+    "ANN",
+    "CONVERGENCIA"
+   ],
+   "decision": "Tres partidos separados.",
+   "alternativa": "Unir la coalición de 1999 con ANN (se llamaba Alianza Nueva Nación) y, como misma línea política, ANN con Convergencia.",
+   "motivo": "No hay continuidad legal: la coalición no es el partido de 2003; ANN fue cancelado y Alternativa Nueva Nación (después Convergencia) es una inscripción de 2010."
+  }
+ ],
+ "tipo_propuesto": "ultimo partido"
+}

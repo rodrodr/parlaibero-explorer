@@ -1,0 +1,1726 @@
+{
+ "pais": "EC",
+ "tipo": "por intervencion",
+ "partidos": [
+  {
+   "sigla": "AP",
+   "nombre": "Movimiento MOVER — Movimiento Verde, Ético, Revolucionario y Democrático (hasta diciembre de 2021, Movimiento Alianza PAIS – Patria Altiva i Soberana)",
+   "etiquetas": [
+    "MPAIS",
+    "MOVIMIENTO ALIANZA PAIS, PATRIA ALTIVA I SOBERANA",
+    "MOVIMIENTO ALIANZA PAÍS, PATRIA ALTIVA I SOBERANA",
+    "MOVIMIENTO PATRIA ALTIVA Y SOBERANA",
+    "35",
+    "MPAIS-MED",
+    "MPAIS/ID/PSFA",
+    "ALIANZA MPAIS/PS-FA",
+    "ALIANZA: MOVIMIENTO ALIANZA PAÍS, PATRIA ALTIVA I SOBERANA - PARTIDO SOCIALISTA FRENTE AMPLIO",
+    "ACUERDO MOVIMIENTO ALIANZA PAIS - PARTIDO SOCIALISTA ECUATORIANO 35-17",
+    "ALIANZA ELECTORAL ENTRE EL MOVIMIENTO PATRIA ALTIVA 1 SOBERANA PAIS LISTA 35 Y EL MOVIMIENTO ACCION REGIONAL POR LA EQUIDAD ARE LISTA    35-61",
+    "ALIANZA PAIS MAR  35-70",
+    "ALIANZA LISTAS 35-62",
+    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 65     35-65",
+    "EUROPA, ASIA Y OCEANÍA"
+   ],
+   "cambios": [
+    {
+     "de": "Movimiento Alianza PAIS – Patria Altiva i Soberana",
+     "a": "Movimiento MOVER",
+     "fecha": "2021-12-04",
+     "fuente": "https://es.wikipedia.org/wiki/Alianza_PAIS"
+    }
+   ],
+   "nota": "Sigla AP por ser la conocida; el nombre oficial final (MOVER) solo aparece en los datos dentro de la coalición PID–MOVER de 2023. Las etiquetas de alianza de AP se asignan aquí cuando todos sus diputados con evidencia eran de AP (anexo de asambleístas 2013-2017, anexo de asambleístas 2017-2021, elecciones a la Asamblea Constituyente de 2007, elecciones legislativas de 2009). Hay filas con etiqueta AP anteriores a 2006 (antes de existir el partido): son intervenciones de diputados cuya única ficha es de 2006-2013 (véase el informe). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "RC",
+   "nombre": "Movimiento Revolución Ciudadana (hasta agosto de 2021, Movimiento Fuerza Compromiso Social)",
+   "etiquetas": [
+    "RC",
+    "RC-Lidera"
+   ],
+   "cambios": [
+    {
+     "de": "Movimiento Fuerza Compromiso Social (FCS)",
+     "a": "Movimiento Revolución Ciudadana (RC)",
+     "fecha": "2021-08-28",
+     "fuente": "https://es.wikipedia.org/wiki/Movimiento_Revoluci%C3%B3n_Ciudadana"
+    }
+   ],
+   "nota": "RC-Lidera: su único diputado (J. L. Vallejo) figura como RC en 2023-2025. FCS solo aparece dentro de la alianza UNES (CD–FCS), que se deja aparte."
+  },
+  {
+   "sigla": "PSC",
+   "nombre": "Partido Social Cristiano",
+   "etiquetas": [
+    "Partido Social Cristiano",
+    "PSC",
+    "PARTIDO SOCIAL CRISTIANO",
+    "SOCIAL CRISTIANO",
+    "Nro. 6 PSC",
+    "No. 6 PSC",
+    "PSC / 6",
+    "PSC 6 - MADERA DE GUERRERO",
+    "PSC - MDG",
+    "ALIANZA PARTIDO SOCIAL CRISTIANO - MADERA DE GUERRERO",
+    "PSC/MCMG",
+    "ALIANZA MOVIMIENTO CREO, CREANDO OPORTUNIADES/MOVIMIENTO TIEMPO DE CAMBIO/PARTIDO SOCIAL CRISTIANO",
+    "ALIANZA PSC-TIEMPO DE CAMBIO   6-61",
+    "ALIANZA: PARTIDO SOCIAL CRISTIANO - MOVIMIENTO CREO, CREANDO OPORTUNIDADES",
+    "PSC/UDC",
+    "CFP-PSC",
+    "SUMA - PSC",
+    "PSP - Mushik Inti - PSC"
+   ],
+   "cambios": [],
+   "nota": "Las alianzas con Madera de Guerrero (2009-2025) y las de L. F. Torres (Tiempo de Cambio) se asignan al PSC porque sus diputados figuran como PSC (elecciones legislativas de 2009, elecciones legislativas de 2013, anexo de asambleístas 2013-2017, anexo de asambleístas 2017-2021, anexo de asambleístas 2021-2023, anexo de asambleístas 2023-2025). PSP - Mushik Inti - PSC: G. Vargas figura como PSC en 2023 (anexo de asambleístas 2023-2025). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "ID",
+   "nombre": "Izquierda Democrática (Partido Izquierda Democrática)",
+   "etiquetas": [
+    "Izquierda Democrática",
+    "ID",
+    "Partido Izquierda Democrática",
+    "IZQUIERDA DEMOCRATICA",
+    "PARTIDO IZQUIERDA DEMOCRÁTICA",
+    "Fertido Izquierda Democrática",
+    "No. 12 PID",
+    "Nro. 12 PID",
+    "ID / 12",
+    "ID/RED",
+    "ID- PS-Pach.",
+    "ID- Mov. Ind INTEGRACION REG. ECUATOR.",
+    "ID – MSI",
+    "ID/MCNP"
+   ],
+   "cambios": [],
+   "nota": "«PID» en las etiquetas de 1992-1994 es Partido Izquierda Democrática (lista 12), no el PID de 2023 (Pueblo, Igualdad y Democracia). El CNE canceló su registro el 2013-07-09 y lo reinscribió el 2016-08-18 con el mismo nombre y la lista 12 (fuente: https://es.wikipedia.org/wiki/Izquierda_Democr%C3%A1tica_(Ecuador)); se trata como el mismo partido. Alianzas asignadas a ID porque sus diputados figuran como «(ID)» (elecciones legislativas de 1998, elecciones legislativas de 2002, elecciones legislativas de 2006). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "DP-UDC",
+   "nombre": "Unión Demócrata Cristiana (hasta 2006, Democracia Popular–Unión Demócrata Cristiana)",
+   "etiquetas": [
+    "Democracia Popular UDC",
+    "DP",
+    "DEMOCRACIA POPULAR - UNION DEMOCRATA CRISTIANA",
+    "Nro. 5 PDP-UDC",
+    "No. 5 PDP-UDC",
+    "ID-DP-UDC",
+    "DP-UPPNP",
+    "FRA/PSFA/DP",
+    "UDC/ID",
+    "UDC/RED"
+   ],
+   "cambios": [
+    {
+     "de": "Democracia Popular–Unión Demócrata Cristiana (DP-UDC)",
+     "a": "Unión Demócrata Cristiana (UDC)",
+     "fecha": "2006",
+     "fuente": "https://es.wikipedia.org/wiki/Democracia_Popular_(Ecuador)"
+    }
+   ],
+   "nota": "Sigla DP-UDC por uso habitual; la fuente solo da el año del cambio (2006). Eliminada del registro en julio de 2013. Alianzas asignadas por el partido del diputado: «(DP)» o «(UDC)» en elecciones legislativas de 1998, elecciones legislativas de 2002 y elecciones legislativas de 2006. [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "PRE",
+   "nombre": "Partido Roldosista Ecuatoriano",
+   "etiquetas": [
+    "Partido Roldosista Ecuatoriano",
+    "PARTIDO ROLDOSISTA ECUATORIANO",
+    "ROLDOSISTA ECUATORIANO",
+    "Nro. 10 PRE",
+    "No. 10 PRE",
+    "PRE / 10"
+   ],
+   "cambios": [],
+   "nota": "Disuelto el 2014-07-03. Fuerza Ecuador (2015) es un partido nuevo con la misma lista 10: va aparte (regla 5; https://es.wikipedia.org/wiki/Fuerza_Ecuador)."
+  },
+  {
+   "sigla": "PRIAN",
+   "nombre": "Partido Renovador Institucional Acción Nacional",
+   "etiquetas": [
+    "PRIAN",
+    "PARTIDO RENOVADOR INSTITUCIONAL ACCION NACIONAL",
+    "PRIAN / 7",
+    "PRIAN/MHE .- AMÉRICA L. EL CARIBE ÁFRICA",
+    "PRIAN/PS-FA/MOA / 7/17/61",
+    "PRIAN/PSFA/MOA"
+   ],
+   "cambios": [],
+   "nota": "Alianzas asignadas porque sus diputados figuran como «(PRIAN)» (elecciones legislativas de 2006, elecciones legislativas de 2009). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "PSP",
+   "nombre": "Partido Sociedad Patriótica 21 de Enero",
+   "etiquetas": [
+    "PARTIDO SOCIEDAD PATRIÓTICA",
+    "PSP",
+    "PARTIDO SOCIEDAD PATRIOTICA",
+    "PARTIDO SOCIEDAD PATRIÓTICA \"21 DE ENERO\"",
+    "SOCIEDAD PATRIOTICA",
+    "PSP / 3",
+    "PSP/MPD",
+    "SOCIEDAD PATRIOTICA / MOVIMIENTO POPULAR DEMOCRATICO",
+    "PSP/MIRC",
+    "PSP/MUSHUK",
+    "PSP-PSC-MDS"
+   ],
+   "cambios": [],
+   "nota": "Alianzas asignadas porque sus diputados figuran como «(PSP)» (elecciones legislativas de 2002, elecciones legislativas de 2006, elecciones legislativas de 2009; Quinto período legislativo (2025-) para PSP-PSC-MDS). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "CFP",
+   "nombre": "Concentración de Fuerzas Populares",
+   "etiquetas": [
+    "Concentración de Fuerzas Populares",
+    "Concentración de Fuerzas Populares (CFP)",
+    "Partido Concentración de Fuerzas Populares",
+    "CFP",
+    "Nro. 4 CFP"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MUPP",
+   "nombre": "Movimiento de Unidad Plurinacional Pachakutik",
+   "etiquetas": [
+    "Pachacutik",
+    "MUPP",
+    "MUPP-NP-",
+    "MOVIMIENTO DE UNIDAD PLURINACIONAL PACHAKUTIK",
+    "MOVIMIENTO UNIDAD PLURINACIONAL PACHAKUTIK-NUEVO PAIS",
+    "MOV. UNIDAD PLURINACIONAL PACHAKUTIK-NUEVO PAIS",
+    "MOVIMIENTO UNIDAD PLURINACIONAL PACHAKUTIK - NUEVO PAIS",
+    "MUPP-NP / 18",
+    "MUPP - MC25",
+    "PSFA-UPPNP-CNP",
+    "SOCIEDAD PATRIÓTICA MUPP-NP",
+    "MUPP - UP",
+    "ALIANZA ID-MPD/PS-FAMUPP-NP",
+    "MUPP/MPD",
+    "ALIANZA MUPP-NP/MPD",
+    "ACUERDO PROVINCIAL POR EL CAMBIO ZAMORA CHINCHIPE  12-18",
+    "ALIANZA 35-18 CHIMBORAZO",
+    "MUPP - RETO",
+    "MUPP Merecemos Más"
+   ],
+   "cambios": [],
+   "nota": "«Pachakutik–Nuevo País» (MUPP-NP) es el nombre con que nació en 1995 la misma organización (lista 18); las fuentes lo usan con y sin el sufijo, por eso se trata como variante (regla 1) y no como cambio fechado (https://es.wikipedia.org/wiki/Pachakutik). Alianzas asignadas porque sus diputados figuran como Pachakutik/MUPP (elecciones legislativas de 1998, elecciones legislativas de 2002, elecciones a la Asamblea Constituyente de 2007, elecciones legislativas de 2009, anexo de asambleístas 2017-2021, anexo de asambleístas 2021-2023, anexo de asambleístas 2023-2025). C. Tiupul (MUPP Merecemos Más) fue expulsada de Pachakutik el 2025-09-16. [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "PSE",
+   "nombre": "Partido Socialista Ecuatoriano (entre 1995 y 2014, Partido Socialista–Frente Amplio, PS-FA)",
+   "etiquetas": [
+    "Partido Socialista Ecuatoriano",
+    "No. 17 PSE",
+    "MPD-PSFA",
+    "CNP-PSFA",
+    "MI/PSF/ID/MOPA"
+   ],
+   "cambios": [
+    {
+     "de": "Partido Socialista Ecuatoriano (PSE)",
+     "a": "Partido Socialista–Frente Amplio (PS-FA)",
+     "fecha": "1995",
+     "fuente": "https://es.wikipedia.org/wiki/Partido_Socialista_Ecuatoriano"
+    },
+    {
+     "de": "Partido Socialista–Frente Amplio (PS-FA)",
+     "a": "Partido Socialista Ecuatoriano (PSE)",
+     "fecha": "2014",
+     "fuente": "https://es.wikipedia.org/wiki/Partido_Socialista_Ecuatoriano"
+    }
+   ],
+   "nota": "En 1995 el PSE absorbió al FADI y pasó a llamarse PS-FA conservando la lista 17; en 2014 retomó su nombre. El FADI queda aparte (regla 4). MPD-PSFA: G. Larriva militaba en el PSE (presidenta desde 2005, https://es.wikipedia.org/wiki/Guadalupe_Larriva), aunque elecciones legislativas de 2002 atribuye el escaño a la lista del MPD. CNP-PSFA y MI/PSF/ID/MOPA: diputados «(PS-FA)» (elecciones legislativas de 1998, elecciones legislativas de 2009). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "FRA",
+   "nombre": "Alfarismo Nacional (hasta 2002, Frente Radical Alfarista)",
+   "etiquetas": [
+    "Frente Radical Alfarista",
+    "Nro. 14 FRA",
+    "DP-FRA",
+    "PSC- Alfarismo Nacional"
+   ],
+   "cambios": [
+    {
+     "de": "Frente Radical Alfarista (FRA)",
+     "a": "Alfarismo Nacional (AN)",
+     "fecha": "2002",
+     "fuente": "https://es.wikipedia.org/wiki/Frente_Radical_Alfarista"
+    }
+   ],
+   "nota": "L. Mejía Montesdeoca figura «(FRA)» en 1998 y «(AN)» en 2002 (elecciones legislativas de 1998, elecciones legislativas de 2002), lo que confirma la continuidad. [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "PLRE",
+   "nombre": "Partido Liberal Radical Ecuatoriano",
+   "etiquetas": [
+    "Partido Liberal Radical Ecuatoriano",
+    "Partido Liberal Radical",
+    "No. 2 PLRE",
+    "Nro. 2 PLRE"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MPD",
+   "nombre": "Movimiento Popular Democrático",
+   "etiquetas": [
+    "Movimiento Popular Democrático",
+    "MPD",
+    "Partido Movimiento Popular Democrático",
+    "PARTIDO MOVIMIENTO POPULAR DEMOCRATICO",
+    "Nro. 15 MPD",
+    "No. 15 MPD",
+    "MPD / 15",
+    "MPD/MUC/MNCS"
+   ],
+   "cambios": [],
+   "nota": "Eliminado del registro el 2014-07-03. Unidad Popular (inscrita en 2015 con la lista 2) es una organización nueva: va aparte (regla 5; https://es.wikipedia.org/wiki/Unidad_Popular_(Ecuador)). MPD/MUC/MNCS: diputada «(MPD)» (elecciones legislativas de 2009). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "PCE",
+   "nombre": "Partido Unión Nacional–UNO (hasta 2001, Partido Conservador Ecuatoriano; tras absorber al PUR, Partido Conservador Ecuatoriano–Unión Nacional)",
+   "etiquetas": [
+    "Partido Conservador Ecuatoriano",
+    "No. 1 PCE",
+    "Nro. 1 PCE",
+    "PCE-FRA",
+    "UNION NACIONAL UNO/PSC"
+   ],
+   "cambios": [
+    {
+     "de": "Partido Conservador Ecuatoriano–Unión Nacional",
+     "a": "Partido Unión Nacional–UNO",
+     "fecha": "2001",
+     "fuente": "https://es.wikipedia.org/wiki/Partido_Conservador_Ecuatoriano"
+    }
+   ],
+   "nota": "Sigla PCE por uso habitual. La fuente no fecha el paso a «PCE–Unión Nacional» (posterior al caso Dahik, 1995). El PUR absorbido queda aparte (regla 4). PCE-FRA: diputado «(PCE)» (elecciones legislativas de 1998). UNION NACIONAL UNO/PSC: diputado «(UNO)», Unión Nacional-UNO (elecciones legislativas de 2002). No confundir con UNO = Una Nueva Opción. [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "CID",
+   "nombre": "Coalición Institucionalista Demócrata",
+   "etiquetas": [
+    "Coalición Institucionalista Demócrata",
+    "Partido Coalición Institucionalista Demócrata",
+    "Partido Coalicion Institucionalista Demócrata"
+   ],
+   "cambios": [],
+   "nota": "Ojo: 10 835 filas de Heinz Moeller en 1996-1998 llevan esta etiqueta, pero era diputado del PSC desde 1992 (https://es.wikipedia.org/wiki/Heinz_Moeller); es un error de la ficha del diputado, no de la etiqueta."
+  },
+  {
+   "sigla": "FADI",
+   "nombre": "Frente Amplio de Izquierda (hasta 1983, Unión Democrática Popular)",
+   "etiquetas": [
+    "Frente Amplio De Izquierda",
+    "Unión Democrática Popular",
+    "Partido Unión Democrática Popular"
+   ],
+   "cambios": [
+    {
+     "de": "Unión Democrática Popular (UDP)",
+     "a": "Frente Amplio de Izquierda (FADI)",
+     "fecha": "1983",
+     "fuente": "https://es.wikipedia.org/wiki/Partido_Comunista_del_Ecuador"
+    }
+   ],
+   "nota": "La UDP «se reestructura» como FADI manteniendo la lista 9. En 1995 se integró en el PS-FA (absorción por el PSE): queda aparte (regla 4)."
+  },
+  {
+   "sigla": "PD",
+   "nombre": "Partido Demócrata",
+   "etiquetas": [
+    "Partido Demócrata"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PUR",
+   "nombre": "Partido Unidad Republicana",
+   "etiquetas": [
+    "Partido Unidad Republicana",
+    "Nro. 8 PUR",
+    "No. 8 PUR"
+   ],
+   "cambios": [],
+   "nota": "Disuelto en 1995 y absorbido por el PCE (https://es.wikipedia.org/wiki/Partido_Unidad_Republicana, https://es.wikipedia.org/wiki/Partido_Conservador_Ecuatoriano): queda aparte (regla 4)."
+  },
+  {
+   "sigla": "PNR",
+   "nombre": "Partido Nacionalista Revolucionario",
+   "etiquetas": [
+    "Nacionalista Revolucionario",
+    "Partido Nacionalista Revolucionario"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PNV",
+   "nombre": "Partido Nacional Velasquista",
+   "etiquetas": [
+    "Partido Nacional Velasquista"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "APRE",
+   "nombre": "Acción Popular Revolucionaria Ecuatoriana",
+   "etiquetas": [
+    "Acción Popular Revolucionaria Ecuator."
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PCD",
+   "nombre": "Pueblo, Cambio y Democracia",
+   "etiquetas": [
+    "Pueblo Cambio y Democracia"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PLN",
+   "nombre": "Partido Liberación Nacional",
+   "etiquetas": [
+    "Partido de Liberación Nacional"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "CREO",
+   "nombre": "Movimiento CREO, Creando Oportunidades",
+   "etiquetas": [
+    "MOVIMIENTO CREO, CREANDO OPORTUNIDADES",
+    "CREO",
+    "MOVIMIENTO CREANDO OPORTUNIDADES CREO",
+    "ALANZA CREO – SUMA   21-23",
+    "CREO - ADE"
+   ],
+   "cambios": [],
+   "nota": "ALANZA CREO – SUMA (errata de la alianza CREO–SUMA) y CREO - ADE: todos sus diputados figuran como CREO (anexo de asambleístas 2017-2021, anexo de asambleístas 2021-2023). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "SUMA",
+   "nombre": "Partido Sociedad Unida Más Acción (SUMA)",
+   "etiquetas": [
+    "MOVIMIENTO SUMA, SOCIEDAD UNIDA MÁS ACCIÓN",
+    "MOVIMIENTO SOCIEDAD UNIDA MAS ACCION. SUMA  23"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Avanza",
+   "nombre": "Partido Avanza",
+   "etiquetas": [
+    "PARTIDO AVANZA",
+    "Avanza",
+    "PARTIDO POLÍTICO AVANZA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "ADN",
+   "nombre": "Acción Democrática Nacional",
+   "etiquetas": [
+    "ADN"
+   ],
+   "cambios": [],
+   "nota": "Movimiento legalizado el 2024-05-23 (https://es.wikipedia.org/wiki/Acci%C3%B3n_Democr%C3%A1tica_Nacional_(Ecuador)). La coalición PID–MOVER que usó su nombre en 2023 queda aparte (véase «revisar»)."
+  },
+  {
+   "sigla": "Construye",
+   "nombre": "Movimiento Construye (MC25)",
+   "etiquetas": [
+    "MC25",
+    "MC25 - AMIGO"
+   ],
+   "cambios": [],
+   "nota": "Heredero con cambio de nombre de Ruptura 25 (2020, https://es.wikipedia.org/wiki/Movimiento_Construye); no hay etiquetas de Ruptura 25 en los datos. MC25 - AMIGO: G. Molina figura como militante de Construye (anexo de asambleístas 2023-2025). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "CD",
+   "nombre": "Movimiento Centro Democrático",
+   "etiquetas": [
+    "CD"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MDS",
+   "nombre": "Movimiento Futuro (hasta 2026, Movimiento Democracia Sí)",
+   "etiquetas": [
+    "MDS"
+   ],
+   "cambios": [
+    {
+     "de": "Movimiento Democracia Sí",
+     "a": "Movimiento Futuro",
+     "fecha": "2026",
+     "fuente": "https://es.wikipedia.org/wiki/Movimiento_Futuro"
+    }
+   ],
+   "nota": "Único diputado: V. Saquicela (2021-2023), elegido por Democracia Sí y expulsado en mayo de 2022 (anexo de asambleístas 2021-2023). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "MCNP",
+   "nombre": "Movimiento Ciudadanos Nuevo País",
+   "etiquetas": [
+    "MCNP"
+   ],
+   "cambios": [],
+   "nota": "F. Cordero Cueva fue elegido en 2006 por este movimiento (elecciones legislativas de 2006). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "MCND",
+   "nombre": "Concertación Nacional Democrática",
+   "etiquetas": [
+    "MCND"
+   ],
+   "cambios": [],
+   "nota": "Refundado en 2014 como Movimiento Concertación tras perder el registro en 2012 (https://es.wikipedia.org/wiki/Movimiento_Concertaci%C3%B3n); no hay etiquetas del segundo en solitario."
+  },
+  {
+   "sigla": "RED",
+   "nombre": "Red Ética y Democracia",
+   "etiquetas": [
+    "RED",
+    "MRED",
+    "MOVIMIENTO RED ETICA Y DEMOCRACIA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "ARE",
+   "nombre": "Movimiento Acción Regional por la Equidad",
+   "etiquetas": [
+    "ARE",
+    "MOVIMIENTO ACCION REGIONAL POR LA EQUIDAD",
+    "ARE/APLA",
+    "ALIANZA ELECTORAL ENTRE EL MOVIMIENTO PATRIA ALTIVA 1 SOBERANA PAIS LISTA 35 Y EL MOVIMIENTO ACCION REGIONAL PCR LA EQUIDAD ARE LISTA 51    35-61"
+   ],
+   "cambios": [],
+   "nota": "ARE/APLA: diputada «(ARE)» (elecciones legislativas de 2009). La alianza AP–ARE de V. Arias: diputada de ARE (anexo de asambleístas 2013-2017, anexo de asambleístas 2017-2021). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "UNO",
+   "nombre": "Movimiento Una Nueva Opción",
+   "etiquetas": [
+    "UNO",
+    "MOVIMIENTO UNA NUEVA OPCION UNO"
+   ],
+   "cambios": [],
+   "nota": "No confundir con Unión Nacional-UNO (el antiguo PCE)."
+  },
+  {
+   "sigla": "MHN",
+   "nombre": "Movimiento Honradez Nacional",
+   "etiquetas": [
+    "MHN"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MCIFY",
+   "nombre": "Movimiento Ciudadano Independiente Futuro Ya",
+   "etiquetas": [
+    "MOVIMIENTO CIUDADANO INDEPENDIENTE FUTURO YA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MMIN",
+   "nombre": "Movimiento Municipalista por la Integridad Nacional",
+   "etiquetas": [
+    "M. MUNICIPALISTA",
+    "MMIN/MGA"
+   ],
+   "cambios": [],
+   "nota": "MMIN/MGA: diputado «(MMIN)» (elecciones legislativas de 2009). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "MIAY",
+   "nombre": "Movimiento Independiente Amauta Yuyay",
+   "etiquetas": [
+    "MIAY",
+    "ALIANZA CREO-AMAUTA YUYAY  21-66"
+   ],
+   "cambios": [],
+   "nota": "CREO–Amauta Yuyay: P. Curichumbi figura como Amauta Yuyay (anexo de asambleístas 2017-2021). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "MAR",
+   "nombre": "Movimiento Autonómico Regional",
+   "etiquetas": [
+    "M A R",
+    "ALIANZA PAIS MAR 35-70",
+    "ALIANZA PAIS MAR"
+   ],
+   "cambios": [],
+   "nota": "Etiquetas de la alianza AP–MAR de 2017 cuyos diputados figuran como MAR (anexo de asambleístas 2017-2021). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "CC",
+   "nombre": "Conciencia Ciudadana",
+   "etiquetas": [
+    "CC"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MSCC",
+   "nombre": "Movimiento Social Conservador del Carchi",
+   "etiquetas": [
+    "MSC",
+    "MSCC",
+    "UDC/MSC"
+   ],
+   "cambios": [],
+   "nota": "MSC y MSCC son el mismo movimiento (E. Vaca «(MSCC)» en elecciones legislativas de 2006 y elecciones legislativas de 2009; E. Moreta en anexo de asambleístas 2023-2025). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "Unidos por Pastaza",
+   "nombre": "Movimiento Unidos por Pastaza",
+   "etiquetas": [
+    "MIUP",
+    "MOVIMIENTO POLÍTICO UNIDOS POR PASTAZA   51",
+    "MOVIMIENTO POLITICO UNIDOS POR PASTAZA",
+    "Unidos por Pastaza",
+    "Unidos por Pastaza - PSC"
+   ],
+   "cambios": [],
+   "nota": "MIUP = «Movimiento Independiente Unidos por Pastaza» (elecciones legislativas de 2009); se trata como variante del mismo nombre. Unidos por Pastaza - PSC: diputado de Unidos por Pastaza (anexo de asambleístas 2021-2023). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "MIOSA",
+   "nombre": "Movimiento Obras Son Amores",
+   "etiquetas": [
+    "MIOSA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Integración Democrática",
+   "nombre": "Movimiento Integración Democrática del Carchi",
+   "etiquetas": [
+    "MOVIMIENTO INTEGRACION DEMOCRATICA DEL CARCHI",
+    "IZQUIERDA DEMOCRATICA-INTEGRACION DEMOCRATICA   12-65"
+   ],
+   "cambios": [],
+   "nota": "ID–Integración Democrática: C. R. Yandún figura como de Integración Democrática del Carchi (anexo de asambleístas 2017-2021). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "Creyendo en Nuestra Gente",
+   "nombre": "Movimiento Peninsular Creyendo en Nuestra Gente",
+   "etiquetas": [
+    "MOVIMIENTO PENINSULAR CREYENDO EN NUESTRA GENTE",
+    "Creyendo en Nuestra Gente"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "FE",
+   "nombre": "Fuerza Ecuador",
+   "etiquetas": [
+    "FUERZA ECUADOR 10"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MEU",
+   "nombre": "Movimiento Ecuatoriano Unido",
+   "etiquetas": [
+    "MEU"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "UE",
+   "nombre": "Unión Ecuatoriana",
+   "etiquetas": [
+    "UE"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MINGA",
+   "nombre": "MINGA (movimiento provincial de Chimborazo)",
+   "etiquetas": [
+    "MINGA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Acuerdo Ciudadano",
+   "nombre": "Acuerdo Ciudadano (movimiento provincial de Sucumbíos)",
+   "etiquetas": [
+    "Acuerdo Ciudadano"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Semilla",
+   "nombre": "Semilla (movimiento provincial de Pastaza)",
+   "etiquetas": [
+    "Semilla"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Únete",
+   "nombre": "Únete (movimiento provincial de Santa Elena)",
+   "etiquetas": [
+    "Únete",
+    "PSC-Únete"
+   ],
+   "cambios": [],
+   "nota": "PSC-Únete: O. Vera figura como de Únete (anexo de asambleístas 2023-2025). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "SUR",
+   "nombre": "Sur Unido Regional (movimiento provincial de El Oro)",
+   "etiquetas": [
+    "Sur Unido Regional",
+    "Avanza - SUMA - SUR"
+   ],
+   "cambios": [],
+   "nota": "Avanza - SUMA - SUR: S. Ordóñez figura como de SUR (anexo de asambleístas 2023-2025). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "AMIGO",
+   "nombre": "Movimiento Acción Movilizadora Independiente Generando Oportunidades (AMIGO)",
+   "etiquetas": [
+    "AMIGO"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Sembramos Más",
+   "nombre": "Sembramos Más (movimiento provincial de Sucumbíos)",
+   "etiquetas": [
+    "Sembramos Más"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Liberación Provincial",
+   "nombre": "Movimiento Independiente Liberación Provincial (Guayas; nombre según la etiqueta)",
+   "etiquetas": [
+    "Movimiento Ind. Liberación Provincial"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Libertad",
+   "nombre": "Partido Libertad",
+   "etiquetas": [
+    "PARTIDO LIBERTAD"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Trabajo y Democracia",
+   "nombre": "Movimiento Independiente Trabajo y Democracia",
+   "etiquetas": [
+    "Mov. Ind. TRABAJO Y DEMOCRACIA",
+    "Mov Ind \"TRABAJO Y DEMOCRACIA\""
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Identidad Provincial",
+   "nombre": "Movimiento de Identidad Provincial (Galápagos)",
+   "etiquetas": [
+    "Mov. Ind. IDENTIDAD PROVINCIAL"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Patria Solidaria",
+   "nombre": "Movimiento Patria Solidaria (Tungurahua)",
+   "etiquetas": [
+    "Mov. Ind. PATRIA SOLIDARIA",
+    "Mov. Indp. \"PATRIA SOLIDARIA\""
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "UNES",
+   "nombre": "Unión por la Esperanza (alianza de Centro Democrático y Fuerza Compromiso Social)",
+   "etiquetas": [
+    "CD - FCS",
+    "1-5 UNIÓN POR LA ESPERANZA"
+   ],
+   "cambios": [],
+   "nota": "Coalición correísta de 2021-2023 (https://es.wikipedia.org/wiki/Uni%C3%B3n_por_la_Esperanza). El anexo de asambleístas 2021-2023 da como de RC (antes FCS) a 51 de los 53 diputados de la lista, pero F. León Flores y R. González Valero eran de Centro Democrático y dejaron ese partido en 2021-2022; por eso la etiqueta, encabezada por CD, queda como alianza (regla 2)."
+  },
+  {
+   "sigla": "PID–MOVER",
+   "nombre": "Acción Democrática Nacional (coalición de Pueblo, Igualdad y Democracia y MOVER, 2023)",
+   "etiquetas": [
+    "PID - MOVER"
+   ],
+   "cambios": [],
+   "nota": "«PID» es Pueblo, Igualdad y Democracia (https://es.wikipedia.org/wiki/Pueblo,_Igualdad_y_Democracia); MOVER es la antigua Alianza PAIS. Diputados de PID, MOVER y del núcleo de ADN aún sin inscribir (anexo de asambleístas 2023-2025). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "CREO–SUMA",
+   "nombre": "Alianza CREO–SUMA (2017)",
+   "etiquetas": [
+    "ALIANZA CREO – SUMA 21-23",
+    "ALIANZA CREO - SUMA"
+   ],
+   "cambios": [],
+   "nota": "Diputados de CREO, SUMA y otros (anexo de asambleístas 2017-2021). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "CREO–SUMA–Participa",
+   "nombre": "Alianza CREO–SUMA–Participa (Azuay, 2017)",
+   "etiquetas": [
+    "CREO-SUMA-PARTICIPA   21-23-62",
+    "ALIANZA CREO-SUMA-PARTICIPA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "CREO–SUMA–Alianza Tsáchila",
+   "nombre": "Alianza CREO–SUMA–Alianza Tsáchila (2017)",
+   "etiquetas": [
+    "ALIANZA CREO SUMA ALIANZA TSACHILA    21-23-62"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "AP–Unidad Primero",
+   "nombre": "Alianza PAIS–Unidad Primero (Manabí, 2013 y 2017)",
+   "etiquetas": [
+    "ALIANZA PAIS - UNIDAD PRIMERO",
+    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 65       35-65",
+    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 55       35-65",
+    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRI"
+   ],
+   "cambios": [],
+   "nota": "Diputados de AP y de Unidad Primero (elecciones legislativas de 2013, anexo de asambleístas 2013-2017, anexo de asambleístas 2017-2021). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "AP–PSE",
+   "nombre": "Alianza PAIS–Partido Socialista (PS-FA/PSE)",
+   "etiquetas": [
+    "ACUERDO MOVIMIENTO ALIANZA PAIS - PARTIDO SOCIALISTA ECUATORIANO    35-17",
+    "ALIANZA: MOVIMIENTO ALIANZA PAIS, PATRIA ALTIVA I SOBERANA - PARTIDO SOCIALISTA FRENTE AMPLIO"
+   ],
+   "cambios": [],
+   "nota": "Diputados de AP y del PS-FA/PSE (elecciones legislativas de 2013, anexo de asambleístas 2017-2021). Se agrupan las alianzas de 2013 (Bolívar) y 2017 (Azuay, Imbabura) porque tienen los mismos socios. [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "AP–MAR",
+   "nombre": "Alianza PAIS–Movimiento Autonómico Regional (El Oro, 2013)",
+   "etiquetas": [
+    "ALIANZA: MOVIMIENTO ALIANZA PAÍS, PATRIA ALTIVA I SOBERANA - MOVIMIENTO AUTONÓMICO REGIONAL"
+   ],
+   "cambios": [],
+   "nota": "Diputados de AP y del MAR (elecciones legislativas de 2013). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "AP–ARE",
+   "nombre": "Alianza PAIS–Acción Regional por la Equidad (Loja, 2017)",
+   "etiquetas": [
+    "ALIANZA ELECTORAL ENTRE EL MOVIMIENTO PATRIA ALTIVA I SOBERA"
+   ],
+   "cambios": [],
+   "nota": "Etiqueta truncada; diputada sin evidencia de partido."
+  },
+  {
+   "sigla": "AP–MUPP",
+   "nombre": "Alianza PAIS–Pachakutik (Chimborazo, 2013)",
+   "etiquetas": [
+    "ALIANZA MOVIMIENTO ALIANZA PAIS PATRIA ALTIVA I SOBERANA - MOVIMIENTO DE UNIDAD PLURINACIONAL DE PACHAKUTIK"
+   ],
+   "cambios": [],
+   "nota": "Un diputado de AP y una de Pachakutik (elecciones legislativas de 2013). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "AP–Frente de Lucha Ciudadana",
+   "nombre": "Alianza PAIS–Frente de Lucha Ciudadana (Santa Elena, 2017)",
+   "etiquetas": [
+    "MOVIMIENTO ALIANZA PAIS FRENTE DE LUCHA CIUDADANA    35-52"
+   ],
+   "cambios": [],
+   "nota": "Un diputado de cada socio (anexo de asambleístas 2017-2021). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "AP–Identidad Provincial",
+   "nombre": "Alianza PAIS–Movimiento de Identidad Provincial (Galápagos)",
+   "etiquetas": [
+    "ALIANZA MPAIS/M. DE IDENTIDAD PROVINCIAL"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "AP–Mushuk Inti–Alianza Amazónica",
+   "nombre": "Alianza PAIS–Mushuk Inti–Alianza Amazónica",
+   "etiquetas": [
+    "ALIANZA MOV. PAIS/MOV. MUSHUK INTI/ALIANZA AMAZONICA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "AP y aliados (etiqueta truncada)",
+   "nombre": "Alianzas de Alianza PAIS con socio desconocido (etiqueta truncada)",
+   "etiquetas": [
+    "ALIANZA: MOVIMIENTO ALIANZA PAÍS, PATRIA ALTIVA I SOBERANA -",
+    "ALIANZA MOVIMIENTO ALIANZA PAIS, PATRIA ALTIVA I SOBERANA - "
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "UPI",
+   "nombre": "Unidad Plurinacional de las Izquierdas (2013)",
+   "etiquetas": [
+    "ALIANZA UNIDAD PLURINACIONAL DE LAS IZQUIERDAS"
+   ],
+   "cambios": [],
+   "nota": "Diputados de Pachakutik y del MPD (elecciones legislativas de 2013, anexo de asambleístas 2013-2017). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "PS-FA–MUPP",
+   "nombre": "Alianza PS-FA–Pachakutik",
+   "etiquetas": [
+    "PSFA/PACHAKUTIK"
+   ],
+   "cambios": [],
+   "nota": "S. Quishpe (Pachakutik, elecciones legislativas de 2002 y elecciones legislativas de 2006) y S. Salgado «(PS-FA)» (elecciones legislativas de 2006). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "DP–PSC–ID",
+   "nombre": "Alianza DP–PSC–ID (Morona Santiago, 1998)",
+   "etiquetas": [
+    "DP-PSC-ID"
+   ],
+   "cambios": [],
+   "nota": "Un diputado «(ID)» y otro «(PSC)» (elecciones legislativas de 1998). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "PSC–Tiempo de Cambio",
+   "nombre": "Alianza PSC–Tiempo de Cambio (Tungurahua)",
+   "etiquetas": [
+    "PSC - Tiempo de Cambio"
+   ],
+   "cambios": [],
+   "nota": "E. Torres Cobo figura como de Tiempo de Cambio en anexo de asambleístas 2017-2021 y anexo de asambleístas 2021-2023 (bancada del PSC). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "PSC–Caminantes",
+   "nombre": "Alianza PSC–Caminantes (Manabí, 2023)",
+   "etiquetas": [
+    "PSC - Caminantes"
+   ],
+   "cambios": [],
+   "nota": "Diputado del movimiento Caminantes (anexo de asambleístas 2023-2025). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "PSC–Positivo",
+   "nombre": "Alianza PSC–Positivo (Santo Domingo, 2023)",
+   "etiquetas": [
+    "PSC - Positivo"
+   ],
+   "cambios": [],
+   "nota": "Diputado del movimiento Positivo (anexo de asambleístas 2023-2025). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "PSP–PSC",
+   "nombre": "Alianza PSP–PSC (Napo, 2023)",
+   "etiquetas": [
+    "PSP - PSC"
+   ],
+   "cambios": [],
+   "nota": "anexo de asambleístas 2023-2025 da al diputado como de SUMA, que no es socio de la alianza. [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "PSP–Antisuyo Ushito",
+   "nombre": "Alianza PSP–Antisuyo Ushito (Napo, 2021)",
+   "etiquetas": [
+    "PSP - Antisuyo Ushito"
+   ],
+   "cambios": [],
+   "nota": "Diputado del movimiento Antisuyo Ushito (anexo de asambleístas 2021-2023). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "Únete–Renacer Peninsular–PSC",
+   "nombre": "Alianza Únete–Renacer Peninsular–PSC (Santa Elena, 2021)",
+   "etiquetas": [
+    "Únete - Renacer Peninsular - PSC"
+   ],
+   "cambios": [],
+   "nota": "Una diputada de Únete y un diputado del PSC (anexo de asambleístas 2021-2023). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "SUMA–Cambio",
+   "nombre": "Alianza SUMA–Cambio (Chimborazo, 2017)",
+   "etiquetas": [
+    "ALIANZA SUMA-CAMBIO  23-62"
+   ],
+   "cambios": [],
+   "nota": "Diputado del movimiento Cambio (anexo de asambleístas 2017-2021). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "SUMA–Movimiento Agrario",
+   "nombre": "Alianza SUMA–Movimiento Agrario de Integración",
+   "etiquetas": [
+    "ALIANZA SUMA Y MOVIMIENTO AGRARIO DE INTEGRACION"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Integración Bolivarense",
+   "nombre": "Alianza por la Integración Bolivarense (CREO–SIARI, Bolívar)",
+   "etiquetas": [
+    "ALIANZA. POR LA INTEGRACIÓN BOLIVARENSE  21-100"
+   ],
+   "cambios": [],
+   "nota": "L. Pachala figura como de SIARI (anexo de asambleístas 2017-2021). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "Actuemos",
+   "nombre": "Actuemos (alianza Avanza–SUMA, 2023)",
+   "etiquetas": [
+    "Avanza - SUMA"
+   ],
+   "cambios": [],
+   "nota": "Diputados de Avanza y de SUMA (anexo de asambleístas 2023-2025). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "Claro Que Se Puede",
+   "nombre": "Claro Que Se Puede (alianza UP–PSE–Democracia Sí, 2023)",
+   "etiquetas": [
+    "UP - PSE - DSI"
+   ],
+   "cambios": [],
+   "nota": "elecciones legislativas de 2023; diputados de UP y otros (anexo de asambleístas 2023-2025). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "UP–PID–PSE",
+   "nombre": "Alianza Unidad Popular–PID–PSE (Carchi, 2025)",
+   "etiquetas": [
+    "UP-PID-PSE"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "RC–RETO",
+   "nombre": "Alianza RC–RETO (2025)",
+   "etiquetas": [
+    "RC-RETO"
+   ],
+   "cambios": [],
+   "nota": "Diputados de RC y de RETO (Quinto período legislativo (2025-)). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "RC–Sí Podemos",
+   "nombre": "Alianza RC–Sí Podemos (Manabí, 2025)",
+   "etiquetas": [
+    "RC-Sí Podemos"
+   ],
+   "cambios": [],
+   "nota": "Un diputado de RC y otro de Sí Podemos (Quinto período legislativo (2025-)). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "RC–PLAN–MAR",
+   "nombre": "Alianza RC–PLAN–MAR (El Oro, 2023)",
+   "etiquetas": [
+    "RC - PLAN - MAR"
+   ],
+   "cambios": [],
+   "nota": "Diputado del movimiento PLAN (anexo de asambleístas 2023-2025). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "CD–RETO–MP",
+   "nombre": "Alianza Centro Democrático–RETO–Movimiento del Pueblo (Orellana, 2023)",
+   "etiquetas": [
+    "CD - RETO - Movimiento del Pueblo"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "ADN–Semilla",
+   "nombre": "Alianza ADN–Semilla (Pastaza, 2025)",
+   "etiquetas": [
+    "ADN-Semilla"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Honestidad",
+   "nombre": "Alianza Honestidad (Partido Socialista Ecuatoriano–Movimiento Concertación, 2021)",
+   "etiquetas": [
+    "PSE - MC"
+   ],
+   "cambios": [],
+   "nota": "F. Villavicencio (Concertación) y D. Esparza (PSE) (anexo de asambleístas 2021-2023). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "Minka por la Vida",
+   "nombre": "Minka por la Vida (alianza Unidad Popular–Pachakutik, 2021)",
+   "etiquetas": [
+    "MINKA POR LA VIDA",
+    "ALIANZA MINKA POR LA VIDA 2-18"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "ID–RED",
+   "nombre": "Alianza ID–RED (2006)",
+   "etiquetas": [
+    "ID/RED / 12/29"
+   ],
+   "cambios": [],
+   "nota": "Etiqueta de suplentes; una de ellas era de RED (elecciones legislativas de 2006). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "sigla": "ID–MCNP",
+   "nombre": "Alianza ID–Movimiento Ciudadanos Nuevo País",
+   "etiquetas": [
+    "IZQUIERDA DEMOCRATICA / MOVIMIENTO CIUDADANOS NUEVO PAIS"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "ID–Poder Ciudadano",
+   "nombre": "Alianza ID–Movimiento Poder Ciudadano",
+   "etiquetas": [
+    "ALIANZA ID/M. PODER CIUDADANO"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "UDC–RED",
+   "nombre": "Alianza UDC–RED (2006)",
+   "etiquetas": [
+    "UDC/RED / 5/29"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "UDC–MSCC",
+   "nombre": "Alianza UDC–Movimiento Social Conservador del Carchi (2006)",
+   "etiquetas": [
+    "UDC/MSC / 5/63"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PSP–MUPP",
+   "nombre": "Alianza PSP–Pachakutik (2002)",
+   "etiquetas": [
+    "SOCIEDAD PATRIOTICA / MOV. UNIDAD PLURINACIONAL PACHAKUTIK-N"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PSP–RED",
+   "nombre": "Alianza PSP–RED",
+   "etiquetas": [
+    "ALIANZA PSP/RED"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MPD–PS-FA",
+   "nombre": "Alianza MPD–PS-FA (2002)",
+   "etiquetas": [
+    "MOVIMIENTO POPULAR DEMOCRATICO / SOCIALISTA - FRENTE AMPLIO"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "AN–PS-FA–DP",
+   "nombre": "Alianza Alfarismo Nacional–PS-FA–DP (Orellana, 2002)",
+   "etiquetas": [
+    "ALFARISMO NACIONAL / PARTIDO SOCIALISTA-FRENTE AMPLIO / DEMO"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Unión Nacional–PSC",
+   "nombre": "Alianza Unión Nacional (UNO)–PSC (Pastaza, 2002)",
+   "etiquetas": [
+    "UNION NACIONAL UNO / SOCIAL CRISTIANO"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MUPP–MNPNS–MOPIN",
+   "nombre": "Alianza Pachakutik–MNPNS–MOPIN (Napo)",
+   "etiquetas": [
+    "ALIANZA MUPP-NP/MNPNS/MOPIN"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MUPP y aliado (etiqueta truncada)",
+   "nombre": "Alianza de Pachakutik–Nuevo País con socio desconocido (etiqueta truncada)",
+   "etiquetas": [
+    "MOVIMIENTO UNIDAD PLURINACIONAL PACHAKUTIK - NUEVO PAIS/MOV."
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Sin identificar",
+   "nombre": "Sin identificar",
+   "etiquetas": [
+    ""
+   ],
+   "cambios": [],
+   "nota": "Etiqueta vacía (convención de la aplicación)."
+  }
+ ],
+ "asignacion": {
+  "Izquierda Democrática": "ID",
+  "Democracia Popular UDC": "DP-UDC",
+  "Partido Social Cristiano": "PSC",
+  "Concentración de Fuerzas Populares": "CFP",
+  "Partido Roldosista Ecuatoriano": "PRE",
+  "": "Sin identificar",
+  "Partido Socialista Ecuatoriano": "PSE",
+  "Frente Radical Alfarista": "FRA",
+  "Partido Liberal Radical Ecuatoriano": "PLRE",
+  "MPAIS": "AP",
+  "MOVIMIENTO ALIANZA PAIS, PATRIA ALTIVA I SOBERANA": "AP",
+  "PRIAN": "PRIAN",
+  "Movimiento Popular Democrático": "MPD",
+  "Partido Conservador Ecuatoriano": "PCE",
+  "Coalición Institucionalista Demócrata": "CID",
+  "Pachacutik": "MUPP",
+  "Partido Demócrata": "PD",
+  "MDS": "MDS",
+  "RC": "RC",
+  "PARTIDO SOCIEDAD PATRIÓTICA": "PSP",
+  "PSC": "PSC",
+  "Concentración de Fuerzas Populares (CFP)": "CFP",
+  "Frente Amplio De Izquierda": "FADI",
+  "ADN": "ADN",
+  "MUPP - MC25": "MUPP",
+  "CD - FCS": "UNES",
+  "ALIANZA CREO – SUMA 21-23": "CREO–SUMA",
+  "PSP": "PSP",
+  "MUPP": "MUPP",
+  "Partido Unidad Republicana": "PUR",
+  "Partido Concentración de Fuerzas Populares": "CFP",
+  "MCNP": "MCNP",
+  "PSFA-UPPNP-CNP": "MUPP",
+  "ID": "ID",
+  "PID - MOVER": "PID–MOVER",
+  "ID/RED": "ID",
+  "Acción Popular Revolucionaria Ecuator.": "APRE",
+  "MC25": "Construye",
+  "Partido Movimiento Popular Democrático": "MPD",
+  "Nacionalista Revolucionario": "PNR",
+  "MPD-PSFA": "PSE",
+  "Partido Izquierda Democrática": "ID",
+  "Unión Democrática Popular": "FADI",
+  "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 65       35-65": "AP–Unidad Primero",
+  "MPD": "MPD",
+  "Partido Coalición Institucionalista Demócrata": "CID",
+  "Partido Nacionalista Revolucionario": "PNR",
+  "DP-FRA": "FRA",
+  "MOVIMIENTO CREO, CREANDO OPORTUNIDADES": "CREO",
+  "MUPP-NP-": "MUPP",
+  "PSFA/PACHAKUTIK": "PS-FA–MUPP",
+  "CFP": "CFP",
+  "ACUERDO MOVIMIENTO ALIANZA PAIS - PARTIDO SOCIALISTA ECUATORIANO    35-17": "AP–PSE",
+  "PSC 6 - MADERA DE GUERRERO": "PSC",
+  "CREO": "CREO",
+  "PSC - MDG": "PSC",
+  "Movimiento Ind. Liberación Provincial": "Liberación Provincial",
+  "DP-PSC-ID": "DP–PSC–ID",
+  "PSC - Tiempo de Cambio": "PSC–Tiempo de Cambio",
+  "ARE": "ARE",
+  "MOVIMIENTO DE UNIDAD PLURINACIONAL PACHAKUTIK": "MUPP",
+  "CREO - ADE": "CREO",
+  "SOCIEDAD PATRIÓTICA MUPP-NP": "MUPP",
+  "Partido Nacional Velasquista": "PNV",
+  "ID- PS-Pach.": "ID",
+  "Mov. Ind. TRABAJO Y DEMOCRACIA": "Trabajo y Democracia",
+  "ID-DP-UDC": "DP-UDC",
+  "CNP-PSFA": "PSE",
+  "PARTIDO LIBERTAD": "Libertad",
+  "M. MUNICIPALISTA": "MMIN",
+  "MUPP - UP": "MUPP",
+  "Partido Coalicion Institucionalista Demócrata": "CID",
+  "Nro. 6 PSC": "PSC",
+  "ALIANZA UNIDAD PLURINACIONAL DE LAS IZQUIERDAS": "UPI",
+  "DP-UPPNP": "DP-UDC",
+  "ID- Mov. Ind INTEGRACION REG. ECUATOR.": "ID",
+  "MIAY": "MIAY",
+  "PSC- Alfarismo Nacional": "FRA",
+  "IZQUIERDA DEMOCRATICA": "ID",
+  "DP": "DP-UDC",
+  "UDC/MSC": "MSCC",
+  "ALIANZA PARTIDO SOCIAL CRISTIANO - MADERA DE GUERRERO": "PSC",
+  "ALIANZA MOVIMIENTO CREO, CREANDO OPORTUNIADES/MOVIMIENTO TIEMPO DE CAMBIO/PARTIDO SOCIAL CRISTIANO": "PSC",
+  "PCE-FRA": "PCE",
+  "ALIANZA PAIS - UNIDAD PRIMERO": "AP–Unidad Primero",
+  "ID – MSI": "ID",
+  "M A R": "MAR",
+  "ALIANZA PSC-TIEMPO DE CAMBIO   6-61": "PSC",
+  "RED": "RED",
+  "MOVIMIENTO ALIANZA PAIS FRENTE DE LUCHA CIUDADANA    35-52": "AP–Frente de Lucha Ciudadana",
+  "PARTIDO AVANZA": "Avanza",
+  "Avanza - SUMA": "Actuemos",
+  "MOVIMIENTO POLÍTICO UNIDOS POR PASTAZA   51": "Unidos por Pastaza",
+  "ALIANZA MOVIMIENTO ALIANZA PAIS PATRIA ALTIVA I SOBERANA - MOVIMIENTO DE UNIDAD PLURINACIONAL DE PACHAKUTIK": "AP–MUPP",
+  "Mov. Ind. IDENTIDAD PROVINCIAL": "Identidad Provincial",
+  "Nro. 10 PRE": "PRE",
+  "Partido de Liberación Nacional": "PLN",
+  "Únete": "Únete",
+  "MMIN/MGA": "MMIN",
+  "IZQUIERDA DEMOCRATICA-INTEGRACION DEMOCRATICA   12-65": "Integración Democrática",
+  "ALANZA CREO – SUMA   21-23": "CREO",
+  "ALIANZA ELECTORAL ENTRE EL MOVIMIENTO PATRIA ALTIVA 1 SOBERANA PAIS LISTA 35 Y EL MOVIMIENTO ACCION REGIONAL PCR LA EQUIDAD ARE LISTA 51    35-61": "ARE",
+  "PSE - MC": "Honestidad",
+  "MOVIMIENTO INTEGRACION DEMOCRATICA DEL CARCHI": "Integración Democrática",
+  "UNO": "UNO",
+  "PSP/MPD": "PSP",
+  "FRA/PSFA/DP": "DP-UDC",
+  "MSC": "MSCC",
+  "RC-RETO": "RC–RETO",
+  "ARE/APLA": "ARE",
+  "MOVIMIENTO SUMA, SOCIEDAD UNIDA MÁS ACCIÓN": "SUMA",
+  "ALIANZA. POR LA INTEGRACIÓN BOLIVARENSE  21-100": "Integración Bolivarense",
+  "ALIANZA: MOVIMIENTO ALIANZA PAÍS, PATRIA ALTIVA I SOBERANA - MOVIMIENTO AUTONÓMICO REGIONAL": "AP–MAR",
+  "1-5 UNIÓN POR LA ESPERANZA": "UNES",
+  "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 55       35-65": "AP–Unidad Primero",
+  "MRED": "RED",
+  "PSC / 6": "PSC",
+  "MCND": "MCND",
+  "UDC/ID": "DP-UDC",
+  "CREO-SUMA-PARTICIPA   21-23-62": "CREO–SUMA–Participa",
+  "PRIAN / 7": "PRIAN",
+  "ALIANZA: MOVIMIENTO ALIANZA PAIS, PATRIA ALTIVA I SOBERANA - PARTIDO SOCIALISTA FRENTE AMPLIO": "AP–PSE",
+  "PSP / 3": "PSP",
+  "PSC/MCMG": "PSC",
+  "CC": "CC",
+  "SOCIEDAD PATRIOTICA / MOVIMIENTO POPULAR DEMOCRATICO": "PSP",
+  "UNION NACIONAL UNO/PSC": "PCE",
+  "MOVIMIENTO UNIDAD PLURINACIONAL PACHAKUTIK-NUEVO PAIS": "MUPP",
+  "ALIANZA SUMA-CAMBIO  23-62": "SUMA–Cambio",
+  "Nro. 8 PUR": "PUR",
+  "MPAIS-MED": "AP",
+  "Fertido Izquierda Democrática": "ID",
+  "MOVIMIENTO PATRIA ALTIVA Y SOBERANA": "AP",
+  "ACUERDO MOVIMIENTO ALIANZA PAIS - PARTIDO SOCIALISTA ECUATORIANO 35-17": "AP",
+  "MUPP/MPD": "MUPP",
+  "Avanza": "Avanza",
+  "MI/PSF/ID/MOPA": "PSE",
+  "Mov. Ind. PATRIA SOLIDARIA": "Patria Solidaria",
+  "CD": "CD",
+  "ALIANZA 35-18 CHIMBORAZO": "MUPP",
+  "UE": "UE",
+  "FUERZA ECUADOR 10": "FE",
+  "Partido Liberal Radical": "PLRE",
+  "MUPP Merecemos Más": "MUPP",
+  "ALIANZA ELECTORAL ENTRE EL MOVIMIENTO PATRIA ALTIVA 1 SOBERANA PAIS LISTA 35 Y EL MOVIMIENTO ACCION REGIONAL POR LA EQUIDAD ARE LISTA    35-61": "AP",
+  "ID/MCNP": "ID",
+  "Mov Ind \"TRABAJO Y DEMOCRACIA\"": "Trabajo y Democracia",
+  "ALIANZA MUPP-NP/MPD": "MUPP",
+  "UDC/RED": "DP-UDC",
+  "MOVIMIENTO PENINSULAR CREYENDO EN NUESTRA GENTE": "Creyendo en Nuestra Gente",
+  "MOV. UNIDAD PLURINACIONAL PACHAKUTIK-NUEVO PAIS": "MUPP",
+  "PSC - Caminantes": "PSC–Caminantes",
+  "PRE / 10": "PRE",
+  "PARTIDO SOCIAL CRISTIANO": "PSC",
+  "ALIANZA CREO SUMA ALIANZA TSACHILA    21-23-62": "CREO–SUMA–Alianza Tsáchila",
+  "EUROPA, ASIA Y OCEANÍA": "AP",
+  "PRIAN/MHE .- AMÉRICA L. EL CARIBE ÁFRICA": "PRIAN",
+  "MPD/MUC/MNCS": "MPD",
+  "Pueblo Cambio y Democracia": "PCD",
+  "No. 10 PRE": "PRE",
+  "PSP - Antisuyo Ushito": "PSP–Antisuyo Ushito",
+  "MOVIMIENTO SOCIEDAD UNIDA MAS ACCION. SUMA  23": "SUMA",
+  "PSP - Mushik Inti - PSC": "PSC",
+  "MHN": "MHN",
+  "PRIAN/PS-FA/MOA / 7/17/61": "PRIAN",
+  "ALIANZA CREO-AMAUTA YUYAY  21-66": "MIAY",
+  "PSP/MUSHUK": "PSP",
+  "No. 12 PID": "ID",
+  "MOVIMIENTO ALIANZA PAÍS, PATRIA ALTIVA I SOBERANA": "AP",
+  "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 65     35-65": "AP",
+  "Únete - Renacer Peninsular - PSC": "Únete–Renacer Peninsular–PSC",
+  "UP - PSE - DSI": "Claro Que Se Puede",
+  "ALIANZA ID-MPD/PS-FAMUPP-NP": "MUPP",
+  "No. 17 PSE": "PSE",
+  "Nro. 15 MPD": "MPD",
+  "MOVIMIENTO ACCION REGIONAL POR LA EQUIDAD": "ARE",
+  "MEU": "MEU",
+  "ALIANZA CREO - SUMA": "CREO–SUMA",
+  "ACUERDO PROVINCIAL POR EL CAMBIO ZAMORA CHINCHIPE  12-18": "MUPP",
+  "Unidos por Pastaza": "Unidos por Pastaza",
+  "Acuerdo Ciudadano": "Acuerdo Ciudadano",
+  "Semilla": "Semilla",
+  "PARTIDO RENOVADOR INSTITUCIONAL ACCION NACIONAL": "PRIAN",
+  "No. 6 PSC": "PSC",
+  "MINGA": "MINGA",
+  "PSC - Positivo": "PSC–Positivo",
+  "ALIANZA PAIS MAR  35-70": "AP",
+  "ALIANZA: MOVIMIENTO ALIANZA PAÍS, PATRIA ALTIVA I SOBERANA - PARTIDO SOCIALISTA FRENTE AMPLIO": "AP",
+  "SOCIAL CRISTIANO": "PSC",
+  "MIUP": "Unidos por Pastaza",
+  "ALIANZA LISTAS 35-62": "AP",
+  "PSP/MIRC": "PSP",
+  "35": "AP",
+  "RC - PLAN - MAR": "RC–PLAN–MAR",
+  "PRIAN/PSFA/MOA": "PRIAN",
+  "PSC/UDC": "PSC",
+  "ALFARISMO NACIONAL / PARTIDO SOCIALISTA-FRENTE AMPLIO / DEMO": "AN–PS-FA–DP",
+  "MC25 - AMIGO": "Construye",
+  "MOVIMIENTO UNIDAD PLURINACIONAL PACHAKUTIK - NUEVO PAIS": "MUPP",
+  "Avanza - SUMA - SUR": "SUR",
+  "SUMA - PSC": "PSC",
+  "ALIANZA PAIS MAR 35-70": "MAR",
+  "MOVIMIENTO RED ETICA Y DEMOCRACIA": "RED",
+  "No. 1 PCE": "PCE",
+  "PSP - PSC": "PSP–PSC",
+  "MUPP - RETO": "MUPP",
+  "No. 15 MPD": "MPD",
+  "Partido Unión Democrática Popular": "FADI",
+  "Mov. Indp. \"PATRIA SOLIDARIA\"": "Patria Solidaria",
+  "No. 8 PUR": "PUR",
+  "MOVIMIENTO UNIDAD PLURINACIONAL PACHAKUTIK - NUEVO PAIS/MOV.": "MUPP y aliado (etiqueta truncada)",
+  "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRI": "AP–Unidad Primero",
+  "Unidos por Pastaza - PSC": "Unidos por Pastaza",
+  "MSCC": "MSCC",
+  "MUPP-NP / 18": "MUPP",
+  "Creyendo en Nuestra Gente": "Creyendo en Nuestra Gente",
+  "PSC-Únete": "Únete",
+  "SOCIEDAD PATRIOTICA / MOV. UNIDAD PLURINACIONAL PACHAKUTIK-N": "PSP–MUPP",
+  "PSP-PSC-MDS": "PSP",
+  "Nro. 1 PCE": "PCE",
+  "PARTIDO SOCIEDAD PATRIOTICA": "PSP",
+  "RC-Sí Podemos": "RC–Sí Podemos",
+  "AMIGO": "AMIGO",
+  "CFP-PSC": "PSC",
+  "ALIANZA PAIS MAR": "MAR",
+  "Nro. 14 FRA": "FRA",
+  "ALIANZA MPAIS/PS-FA": "AP",
+  "PARTIDO MOVIMIENTO POPULAR DEMOCRATICO": "MPD",
+  "DEMOCRACIA POPULAR - UNION DEMOCRATA CRISTIANA": "DP-UDC",
+  "MPAIS/ID/PSFA": "AP",
+  "Sur Unido Regional": "SUR",
+  "Nro. 12 PID": "ID",
+  "MIOSA": "MIOSA",
+  "ALIANZA: MOVIMIENTO ALIANZA PAÍS, PATRIA ALTIVA I SOBERANA -": "AP y aliados (etiqueta truncada)",
+  "PARTIDO POLÍTICO AVANZA": "Avanza",
+  "UP-PID-PSE": "UP–PID–PSE",
+  "MOVIMIENTO POPULAR DEMOCRATICO / SOCIALISTA - FRENTE AMPLIO": "MPD–PS-FA",
+  "PARTIDO ROLDOSISTA ECUATORIANO": "PRE",
+  "PARTIDO IZQUIERDA DEMOCRÁTICA": "ID",
+  "Sembramos Más": "Sembramos Más",
+  "UNION NACIONAL UNO / SOCIAL CRISTIANO": "Unión Nacional–PSC",
+  "ID/RED / 12/29": "ID–RED",
+  "MOVIMIENTO UNA NUEVA OPCION UNO": "UNO",
+  "RC-Lidera": "RC",
+  "Nro. 5 PDP-UDC": "DP-UDC",
+  "PARTIDO SOCIEDAD PATRIÓTICA \"21 DE ENERO\"": "PSP",
+  "SOCIEDAD PATRIOTICA": "PSP",
+  "ALIANZA CREO-SUMA-PARTICIPA": "CREO–SUMA–Participa",
+  "ALIANZA SUMA Y MOVIMIENTO AGRARIO DE INTEGRACION": "SUMA–Movimiento Agrario",
+  "ADN-Semilla": "ADN–Semilla",
+  "ALIANZA MPAIS/M. DE IDENTIDAD PROVINCIAL": "AP–Identidad Provincial",
+  "No. 2 PLRE": "PLRE",
+  "No. 5 PDP-UDC": "DP-UDC",
+  "ALIANZA MOVIMIENTO ALIANZA PAIS, PATRIA ALTIVA I SOBERANA - ": "AP y aliados (etiqueta truncada)",
+  "MPD / 15": "MPD",
+  "ID / 12": "ID",
+  "ALIANZA PSP/RED": "PSP–RED",
+  "ALIANZA MUPP-NP/MNPNS/MOPIN": "MUPP–MNPNS–MOPIN",
+  "MOVIMIENTO CIUDADANO INDEPENDIENTE FUTURO YA": "MCIFY",
+  "ALIANZA MOV. PAIS/MOV. MUSHUK INTI/ALIANZA AMAZONICA": "AP–Mushuk Inti–Alianza Amazónica",
+  "ALIANZA ELECTORAL ENTRE EL MOVIMIENTO PATRIA ALTIVA I SOBERA": "AP–ARE",
+  "CD - RETO - Movimiento del Pueblo": "CD–RETO–MP",
+  "Nro. 2 PLRE": "PLRE",
+  "Nro. 4 CFP": "CFP",
+  "ROLDOSISTA ECUATORIANO": "PRE",
+  "UDC/RED / 5/29": "UDC–RED",
+  "UDC/MSC / 5/63": "UDC–MSCC",
+  "ALIANZA ID/M. PODER CIUDADANO": "ID–Poder Ciudadano",
+  "IZQUIERDA DEMOCRATICA / MOVIMIENTO CIUDADANOS NUEVO PAIS": "ID–MCNP",
+  "ALIANZA: PARTIDO SOCIAL CRISTIANO - MOVIMIENTO CREO, CREANDO OPORTUNIDADES": "PSC",
+  "MOVIMIENTO POLITICO UNIDOS POR PASTAZA": "Unidos por Pastaza",
+  "MINKA POR LA VIDA": "Minka por la Vida",
+  "ALIANZA MINKA POR LA VIDA 2-18": "Minka por la Vida",
+  "MOVIMIENTO CREANDO OPORTUNIDADES CREO": "CREO"
+ },
+ "revisar": [
+  {
+   "etiquetas": [
+    "CD - FCS",
+    "1-5 UNIÓN POR LA ESPERANZA"
+   ],
+   "decision": "UNES, alianza propia (regla 2).",
+   "alternativa": "Fundir con RC: Fuerza Compromiso Social pasó a llamarse Revolución Ciudadana el 2021-08-28 y casi todos los diputados de UNES figuran como RC en 2023-2025.",
+   "motivo": "UNES era una coalición de Centro Democrático y FCS; la etiqueta la encabeza CD. El anexo de asambleístas 2021-2023 da como de RC a 51 de los 53 diputados de la lista, pero al menos dos (F. León Flores, R. González Valero) eran de Centro Democrático. Es la decisión de más peso del país: 3794 filas."
+  },
+  {
+   "etiquetas": [
+    "PID - MOVER"
+   ],
+   "decision": "Coalición ADN de 2023 separada del movimiento ADN (sigla PID–MOVER).",
+   "alternativa": "Fundir con ADN: la coalición se inscribió con el nombre de ADN y la mayoría de sus diputados figuran luego como ADN.",
+   "motivo": "En 2023 ADN no estaba inscrito (se legalizó el 2024-05-23); la lista la formaban PID y MOVER y entre sus diputados hay militantes de ambos (reglas 2 y 4). 1629 filas."
+  },
+  {
+   "etiquetas": [
+    "ALIANZA CREO – SUMA 21-23",
+    "ALIANZA CREO - SUMA",
+    "CREO-SUMA-PARTICIPA   21-23-62",
+    "ALIANZA CREO-SUMA-PARTICIPA",
+    "ALIANZA CREO SUMA ALIANZA TSACHILA    21-23-62"
+   ],
+   "decision": "Alianzas propias (CREO–SUMA, CREO–SUMA–Participa, CREO–SUMA–Alianza Tsáchila).",
+   "alternativa": "Asignar a CREO, que encabeza la alianza y aporta la mayoría de los diputados.",
+   "motivo": "Diputados de CREO, SUMA, RETO y otros según el anexo de asambleístas 2017-2021. En cambio «ALANZA CREO – SUMA   21-23» (errata) va a CREO porque sus tres diputados son de CREO."
+  },
+  {
+   "etiquetas": [
+    "ALIANZA PAIS - UNIDAD PRIMERO",
+    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 65       35-65",
+    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 55       35-65",
+    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 65     35-65",
+    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRI"
+   ],
+   "decision": "Alianza AP–Unidad Primero, salvo «…LISTAS 65     35-65» (cinco espacios), que va a AP porque sus dos diputados eran de AP.",
+   "alternativa": "Todas a AP, o todas a la alianza para que las variantes de la misma lista no se separen.",
+   "motivo": "C. Bergmann, M. Zambrano Vera y D. Mendoza eran de Unidad Primero; el resto de AP. Cada etiqueta se decide por sus propios diputados."
+  },
+  {
+   "etiquetas": [
+    "ACUERDO MOVIMIENTO ALIANZA PAIS - PARTIDO SOCIALISTA ECUATORIANO    35-17",
+    "ALIANZA: MOVIMIENTO ALIANZA PAIS, PATRIA ALTIVA I SOBERANA - PARTIDO SOCIALISTA FRENTE AMPLIO",
+    "ACUERDO MOVIMIENTO ALIANZA PAIS - PARTIDO SOCIALISTA ECUATORIANO 35-17",
+    "ALIANZA: MOVIMIENTO ALIANZA PAÍS, PATRIA ALTIVA I SOBERANA - PARTIDO SOCIALISTA FRENTE AMPLIO",
+    "ALIANZA MPAIS/PS-FA"
+   ],
+   "decision": "Las dos primeras, alianza AP–PSE (tienen diputados de AP y del PS-FA/PSE); las otras tres, AP (todos sus diputados con evidencia eran de AP).",
+   "alternativa": "Todas a AP.",
+   "motivo": "S. Salgado y F. Solano eran del PS-FA/PSE; el resto de AP (elecciones legislativas de 2013, anexo de asambleístas 2017-2021). Variantes de la misma alianza quedan en sitios distintos. [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+  },
+  {
+   "etiquetas": [
+    "PSFA/PACHAKUTIK",
+    "DP-PSC-ID",
+    "ALIANZA UNIDAD PLURINACIONAL DE LAS IZQUIERDAS",
+    "ALIANZA MOVIMIENTO ALIANZA PAIS PATRIA ALTIVA I SOBERANA - MOVIMIENTO DE UNIDAD PLURINACIONAL DE PACHAKUTIK",
+    "ALIANZA: MOVIMIENTO ALIANZA PAÍS, PATRIA ALTIVA I SOBERANA - MOVIMIENTO AUTONÓMICO REGIONAL",
+    "MOVIMIENTO ALIANZA PAIS FRENTE DE LUCHA CIUDADANA    35-52",
+    "Avanza - SUMA",
+    "UP - PSE - DSI",
+    "RC-RETO",
+    "RC-Sí Podemos",
+    "PSE - MC",
+    "Únete - Renacer Peninsular - PSC"
+   ],
+   "decision": "Alianzas propias: cada etiqueta reúne diputados de al menos dos partidos distintos según las fuentes.",
+   "alternativa": "Asignar al partido que encabeza la etiqueta (p. ej. RC–RETO a RC, PSFA/PACHAKUTIK a PSE, UPI a MUPP).",
+   "motivo": "Regla 2: coalición en la que el partido de cada diputado no coincide; la tabla asigna por etiqueta y no puede separar diputados."
+  },
+  {
+   "etiquetas": [
+    "PSC - Tiempo de Cambio",
+    "PSC - Caminantes",
+    "PSC - Positivo",
+    "PSP - Antisuyo Ushito",
+    "RC - PLAN - MAR",
+    "ALIANZA SUMA-CAMBIO  23-62",
+    "ALIANZA. POR LA INTEGRACIÓN BOLIVARENSE  21-100",
+    "PSP - PSC"
+   ],
+   "decision": "Alianzas propias de un solo diputado.",
+   "alternativa": "Crear un partido para cada movimiento local (Tiempo de Cambio, Caminantes, Positivo, Antisuyo Ushito, PLAN, Cambio, SIARI) o asignar al partido que encabeza la etiqueta.",
+   "motivo": "Según los anexos de asambleístas, el diputado pertenece al movimiento local socio, que no tiene etiqueta propia en los datos. En PSC - Tiempo de Cambio (589 filas) las fuentes discrepan: el anexo lo da como de Tiempo de Cambio y la mesa directiva de 2021-2023 como del PSC. En PSP - PSC el anexo da SUMA, que no es socio."
+  },
+  {
+   "etiquetas": [
+    "DP-FRA",
+    "ID-DP-UDC",
+    "SOCIEDAD PATRIÓTICA MUPP-NP",
+    "PSFA-UPPNP-CNP",
+    "CNP-PSFA",
+    "FRA/PSFA/DP",
+    "UDC/MSC",
+    "IZQUIERDA DEMOCRATICA-INTEGRACION DEMOCRATICA   12-65",
+    "ALIANZA ELECTORAL ENTRE EL MOVIMIENTO PATRIA ALTIVA 1 SOBERANA PAIS LISTA 35 Y EL MOVIMIENTO ACCION REGIONAL PCR LA EQUIDAD ARE LISTA 51    35-61",
+    "ALIANZA PAIS MAR 35-70",
+    "ALIANZA PAIS MAR",
+    "ALIANZA 35-18 CHIMBORAZO",
+    "ACUERDO PROVINCIAL POR EL CAMBIO ZAMORA CHINCHIPE  12-18",
+    "PSP - Mushik Inti - PSC",
+    "Avanza - SUMA - SUR",
+    "PSC-Únete",
+    "ALIANZA CREO-AMAUTA YUYAY  21-66",
+    "MI/PSF/ID/MOPA",
+    "PSC- Alfarismo Nacional"
+   ],
+   "decision": "Asignadas al partido del diputado según la fuente, aunque no sea el que encabeza la etiqueta.",
+   "alternativa": "Asignarlas al primer partido de la etiqueta o dejarlas como alianzas.",
+   "motivo": "La regla 2 solo prevé el caso del partido que encabeza; aquí el diputado pertenece, según las fuentes, a otro socio (p. ej. «Luis Mejía Montesdeoca (FRA)» en la lista DP-FRA de 1998, «Rolo San Martín (DP)» en ID-DP-UDC de 2002)."
+  },
+  {
+   "etiquetas": [
+    "MPD-PSFA"
+   ],
+   "decision": "PSE.",
+   "alternativa": "MPD (partido que encabeza la etiqueta; la tabla de 2002 atribuye el escaño a la lista del MPD).",
+   "motivo": "Única diputada: Guadalupe Larriva, militante del Partido Socialista y su presidenta desde octubre de 2005 (https://es.wikipedia.org/wiki/Guadalupe_Larriva). 1026 filas."
+  },
+  {
+   "etiquetas": [
+    "ID/RED / 12/29",
+    "UDC/RED / 5/29",
+    "UDC/MSC / 5/63",
+    "SOCIEDAD PATRIOTICA / MOV. UNIDAD PLURINACIONAL PACHAKUTIK-N",
+    "MOVIMIENTO POPULAR DEMOCRATICO / SOCIALISTA - FRENTE AMPLIO",
+    "ALFARISMO NACIONAL / PARTIDO SOCIALISTA-FRENTE AMPLIO / DEMO",
+    "UNION NACIONAL UNO / SOCIAL CRISTIANO",
+    "IZQUIERDA DEMOCRATICA / MOVIMIENTO CIUDADANOS NUEVO PAIS",
+    "ALIANZA ID/M. PODER CIUDADANO",
+    "ALIANZA PSP/RED",
+    "ALIANZA MUPP-NP/MNPNS/MOPIN",
+    "ALIANZA MOV. PAIS/MOV. MUSHUK INTI/ALIANZA AMAZONICA",
+    "ALIANZA MPAIS/M. DE IDENTIDAD PROVINCIAL",
+    "ALIANZA ELECTORAL ENTRE EL MOVIMIENTO PATRIA ALTIVA I SOBERA",
+    "MINKA POR LA VIDA",
+    "ALIANZA MINKA POR LA VIDA 2-18",
+    "ADN-Semilla",
+    "UP-PID-PSE",
+    "CD - RETO - Movimiento del Pueblo",
+    "ALIANZA SUMA Y MOVIMIENTO AGRARIO DE INTEGRACION",
+    "ALIANZA: MOVIMIENTO ALIANZA PAÍS, PATRIA ALTIVA I SOBERANA -",
+    "ALIANZA MOVIMIENTO ALIANZA PAIS, PATRIA ALTIVA I SOBERANA - ",
+    "MOVIMIENTO UNIDAD PLURINACIONAL PACHAKUTIK - NUEVO PAIS/MOV."
+   ],
+   "decision": "Alianzas propias (casi todas suplentes o etiquetas truncadas, con menos de 30 filas).",
+   "alternativa": "Asignar al partido que encabeza la etiqueta, como su variante principal cuando existe (p. ej. ID/RED → ID, UDC/RED → DP-UDC).",
+   "motivo": "No hay evidencia del partido de sus diputados; en ID/RED / 12/29 una de las dos suplentes era de RED."
+  },
+  {
+   "etiquetas": [
+    "Democracia Popular UDC",
+    "DP",
+    "UDC/ID",
+    "UDC/RED"
+   ],
+   "decision": "Sigla DP-UDC con el nombre final (Unión Demócrata Cristiana).",
+   "alternativa": "Sigla UDC, que es la del nombre más reciente (regla 3 literal).",
+   "motivo": "La sigla DP-UDC es la conocida y la que propone el encargo; la fuente solo da el año del cambio (2006)."
+  },
+  {
+   "etiquetas": [
+    "MPAIS",
+    "MOVIMIENTO ALIANZA PAIS, PATRIA ALTIVA I SOBERANA",
+    "MDS"
+   ],
+   "decision": "Siglas AP y MDS; el nombre oficial final (MOVER, 2021; Movimiento Futuro, 2026) va en «nombre» y en «cambios».",
+   "alternativa": "Usar como sigla y nombre visible el nombre más reciente (MOVER, Futuro), como pide la regla 3.",
+   "motivo": "Los cambios de nombre son posteriores a casi todas sus filas y MOVER no tiene etiquetas propias fuera de la coalición PID-MOVER; mostrar «MOVER» para el partido de Correa confundiría al usuario."
+  },
+  {
+   "etiquetas": [
+    "Partido Socialista Ecuatoriano",
+    "No. 17 PSE",
+    "Frente Amplio De Izquierda"
+   ],
+   "decision": "PSE y PS-FA son el mismo partido (lista 17; en 2014 retomó el nombre); el FADI queda aparte.",
+   "alternativa": "Tratar el PS-FA (1995-2014) como partido nuevo nacido de la fusión PSE+FADI (regla 4).",
+   "motivo": "Las fuentes hablan de «fusión», pero también de «absorber al FADI» y el partido conservó la lista 17 del PSE. La etiqueta «Partido Socialista Ecuatoriano» cubre ambas épocas y no se puede separar."
+  },
+  {
+   "etiquetas": [
+    "Partido Conservador Ecuatoriano",
+    "UNION NACIONAL UNO/PSC"
+   ],
+   "decision": "PCE y Unión Nacional–UNO (2001) son el mismo partido.",
+   "alternativa": "Separar Unión Nacional–UNO (una sola etiqueta de alianza, 119 filas).",
+   "motivo": "Una sola fuente (es.wikipedia, Partido Conservador Ecuatoriano) dice que fue «renombrado» en 2001 y añade que lo formaban exmilitantes de la DP."
+  },
+  {
+   "etiquetas": [
+    "Izquierda Democrática",
+    "ID"
+   ],
+   "decision": "Un solo partido pese a la cancelación del registro (2013-07-09) y la reinscripción (2016-08-18).",
+   "alternativa": "Separar la ID reinscrita (regla 5), lo que exigiría partir etiquetas por fecha.",
+   "motivo": "Mismo nombre, misma lista 12 y la fuente lo presenta como reinscripción del mismo partido."
+  },
+  {
+   "etiquetas": [
+    "MIUP",
+    "MSC"
+   ],
+   "decision": "MIUP va con Unidos por Pastaza y MSC con MSCC (variantes del mismo nombre).",
+   "alternativa": "Mantenerlos separados.",
+   "motivo": "MIUP es «Movimiento Independiente Unidos por Pastaza» (2009) y MSC el Movimiento Social Conservador del Carchi (2006-2009, mismo diputado que usa MSCC en las fuentes); no hay fuente que confirme la continuidad legal tras la reinscripción de movimientos de 2011-2012."
+  },
+  {
+   "etiquetas": [
+    "EUROPA, ASIA Y OCEANÍA"
+   ],
+   "decision": "AP.",
+   "alternativa": "Sin identificar (la etiqueta es una circunscripción, no un partido).",
+   "motivo": "Única diputada: Dora Aguirre, de AP según la tabla de comisiones del periodo 2009-2013."
+  }
+ ],
+ "tipo_propuesto": "por intervencion"
+}

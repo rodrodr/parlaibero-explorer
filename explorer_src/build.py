@@ -54,6 +54,16 @@ def hitos_registro():
         return json.load(f).get('paises') or {}
 
 
+def partidos_registro():
+    """Partidos homogéneos por país (datos/partidos_parlaibero.json, tools/partidos_parlaibero.py): para cada país, el
+    partido canónico de cada etiqueta de la columna party del CSV. {} si no existe."""
+    ruta = os.path.join(ROOT, 'datos', 'partidos_parlaibero.json')
+    if not os.path.exists(ruta):
+        return {}
+    with open(ruta, encoding='utf-8') as f:
+        return json.load(f).get('paises') or {}
+
+
 def datos_json(rel, web=None):
     d = json.loads(leer(rel).decode('utf-8'))
     if BUILD_ID and isinstance(d.get('edicion'), dict):
@@ -67,6 +77,8 @@ def datos_json(rel, web=None):
     if rel == 'datos/worker_datos.json':
         # Hitos históricos por país para la tendencia (R2.gen.hitos.de(país) en el worker).
         d['hitos'] = hitos_registro()
+        # Partidos homogéneos por país: la ingesta guarda en party el partido canónico (R2.partidos en el worker).
+        d['partidos'] = partidos_registro()
         # Palabras vacías publicadas por lengua (stopwords-iso, tools/palabras_vacias.py): las usan las coocurrencias.
         ruta_vacias = os.path.join(ROOT, 'datos', 'palabras_vacias.json')
         if os.path.exists(ruta_vacias):

@@ -88,6 +88,8 @@
       `El índice de palabras no se ha compactado para ahorrar memoria (el texto ocupa ${miles(Math.round(d.bytes / 1048576))} MiB): las búsquedas funcionan igual, algo más lentas.`,
     SIN_EXPRESIONES: (d) =>
       `No se pudieron detectar las expresiones de varias palabras (${d.error || 'error desconocido'}): el léxico y las coocurrencias funcionan solo con palabras sueltas.`,
+    PARTIDOS_FUERA_DE_REGISTRO: (d) =>
+      `${d.n === 1 ? 'Una etiqueta de partido del archivo no está' : `${miles(d.n)} etiquetas de partido del archivo no están`} en la tabla de partidos homogéneos de este país (${miles(d.filas)} ${d.filas === 1 ? 'fila' : 'filas'}; ${(d.ejemplos || []).map((x) => `«${cita(x, 60)}»`).join(', ')}): se muestran tal como vienen. Puede ser una versión del CSV posterior a la tabla.`,
   };
 
   const CAMPOS_UBICACION = ['fila', 'linea', 'byte', 'columna', 'valor', 'detalle', 'causa'];

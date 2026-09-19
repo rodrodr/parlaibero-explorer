@@ -1,0 +1,1730 @@
+{
+ "pais": "CO",
+ "tipo": "por legislatura",
+ "tipo_nota": "Partido del registro del congresista para cada cuatrienio (nombres de Congreso Visible), aplicado a todas sus intervenciones del cuatrienio; sin registro para el cuatrienio se copia el de otro, normalmente el más reciente. No es el partido de cada intervención ni el último partido de toda la carrera.",
+ "partidos": [
+  {
+   "sigla": "Partido Liberal",
+   "nombre": "Partido Liberal Colombiano",
+   "etiquetas": [
+    "Partido Liberal",
+    "Partido Liberal Colombiano",
+    "Liberal Colombiano",
+    "Liberal Colombiano-Partido Conservador Col",
+    "Coalición Partido Liberal Colombiano",
+    "Liberal Colombiano - Unión Patriótica"
+   ],
+   "cambios": [],
+   "nota": "Variantes con y sin «Partido»/«Colombiano»: «Liberal Colombiano» y «Partido Liberal» comparten 12 diputados; «Partido Liberal» y «Partido Liberal Colombiano», 2. Tres etiquetas de listas de coalición de 1998-2002, cada una con un solo diputado de partido conocido (regla 2): Plinio Olano, Jorge Enrique Gómez Celis y Adalberto Jaimes (ver «revisar»).",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Liberal Colombiano-Partido Conservador Col"
+     ],
+     "fuente": "https://congresovisible.uniandes.edu.co/congresistas/perfil/plinio-edilberto-olano-becerra/763/",
+     "consultado": "2026-09-19",
+     "cita": "Congreso Visible, 1998-2002: además de la coalición, «Liberal - Compromiso Ciudadano»; 2002-2006: «Liberal Colombiano»."
+    },
+    {
+     "etiquetas": [
+      "Coalición Partido Liberal Colombiano"
+     ],
+     "fuente": "https://congresovisible.uniandes.edu.co/congresistas/perfil/jorge-enrique-gomez-celis/159/",
+     "consultado": "2026-09-19",
+     "cita": "Congreso Visible: 1998-2002 «Coalición Partido Liberal Colombiano»; 2002-2006 «Liberal Colombiano»."
+    },
+    {
+     "etiquetas": [
+      "Liberal Colombiano - Unión Patriótica"
+     ],
+     "fuente": "https://congresovisible.uniandes.edu.co/congresistas/perfil/adalberto-enrique-jaimes-ochoa/641/",
+     "consultado": "2026-09-19",
+     "cita": "Congreso Visible: 1998-2002 «Liberal Colombiano - Unión Patriótica»; 2002-2006 «Partido Liberal»."
+    },
+    {
+     "etiquetas": [
+      "Liberal Colombiano - Unión Patriótica"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Elecciones_legislativas_de_Colombia_de_2002",
+     "consultado": "2026-09-19",
+     "cita": "Anexo de electos 2002: Adalberto Enrique Jaimes Ochoa, Arauca, Partido Liberal Colombiano."
+    }
+   ]
+  },
+  {
+   "sigla": "Partido Conservador",
+   "nombre": "Partido Conservador Colombiano",
+   "etiquetas": [
+    "Partido Conservador Colombiano",
+    "Conservador Colombiano",
+    "Partido Conservador",
+    "Conservador Colombiano-Pop.Col",
+    "Movimiento Nacional Conservador-Partido Conservador"
+   ],
+   "cambios": [],
+   "nota": "Variantes: «Conservador Colombiano» comparte 11 diputados con «Partido Conservador Colombiano» y 4 con «Partido Conservador». Dos etiquetas de coalición de 1998-2002 con un solo diputado, conservador según Congreso Visible (regla 2): Iván Díaz Mateus y Jorge Mantilla Serrano.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Conservador Colombiano-Pop.Col"
+     ],
+     "fuente": "https://congresovisible.uniandes.edu.co/congresistas/perfil/ivan-diaz-mateus/498/",
+     "consultado": "2026-09-19",
+     "cita": "Congreso Visible, 1998-2002: «Conservador Colombiano-Pop.Col» y «Conservador Colombiano»."
+    },
+    {
+     "etiquetas": [
+      "Movimiento Nacional Conservador-Partido Conservador"
+     ],
+     "fuente": "https://congresovisible.uniandes.edu.co/congresistas/perfil/jorge-humberto-mantilla-serrano/181/",
+     "consultado": "2026-09-19",
+     "cita": "Congreso Visible, 1998-2002: «Movimiento Nacional Conservador-Partido Conservador» y «Conservador Colombiano»."
+    }
+   ]
+  },
+  {
+   "sigla": "Cambio Radical",
+   "nombre": "Partido Cambio Radical",
+   "etiquetas": [
+    "Cambio Radical",
+    "Partido Cambio Radical"
+   ],
+   "cambios": [],
+   "nota": "Variante con/sin «Partido»: comparten 4 diputados (Varón Cotrino, Rozo, Martínez Rosales, Arango)."
+  },
+  {
+   "sigla": "Partido de la U",
+   "nombre": "Partido de la Unión por la Gente (Partido de la U); antes Partido Social de Unidad Nacional",
+   "etiquetas": [
+    "Partido de la U",
+    "Partido de la U - Partido de la Unión por la Gente"
+   ],
+   "cambios": [
+    {
+     "de": "Partido Social de Unidad Nacional",
+     "a": "Partido de la Unión por la Gente (Partido de la U)",
+     "fecha": "2021-10-20",
+     "fuente": "https://www.infobae.com/america/colombia/2021/10/21/el-partido-de-la-u-se-definio-oficialmente-como-un-movimiento-politico-de-centro/"
+    }
+   ],
+   "nota": "Las dos etiquetas comparten 15 diputados y alternan por cuatrienio. Fundado el 30-09-2005: 255 filas de «Partido de la U» son anteriores (efecto trayectoria).",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Partido de la U"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Partido_de_la_Uni%C3%B3n_por_la_Gente",
+     "consultado": "2026-09-19",
+     "cita": "Fundado originalmente como Partido Social de Unidad Nacional (30-09-2005)."
+    }
+   ]
+  },
+  {
+   "sigla": "Centro Democrático",
+   "nombre": "Partido Centro Democrático",
+   "etiquetas": [
+    "Centro Democrático"
+   ],
+   "cambios": [],
+   "nota": "Fundado el 20-01-2013. Las 280 filas anteriores son de Óscar Darío Pérez (1998-2006), elegido en 2002 por Movimiento Equipo Colombia: etiqueta de trayectoria.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Centro Democrático"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Centro_Democr%C3%A1tico_(Colombia)",
+     "consultado": "2026-09-19",
+     "cita": "Fundación 20-01-2013; personería 23-07-2014."
+    },
+    {
+     "etiquetas": [
+      "Centro Democrático"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Elecciones_legislativas_de_Colombia_de_2002",
+     "consultado": "2026-09-19",
+     "cita": "Anexo de electos 2002: Óscar Darío Pérez Pineda, Antioquia, Movimiento Equipo Colombia."
+    }
+   ]
+  },
+  {
+   "sigla": "Alianza Verde",
+   "nombre": "Partido Alianza Verde",
+   "etiquetas": [
+    "Partido Alianza Verde",
+    "Partido Verde",
+    "Partido Verde Opción Centro",
+    "Coalicion Alternativa Santandereana"
+   ],
+   "cambios": [
+    {
+     "de": "Partido Verde Opción Centro",
+     "a": "Partido Verde",
+     "fecha": "2009-10-02",
+     "fuente": "https://es.wikipedia.org/wiki/Partido_Alianza_Verde"
+    },
+    {
+     "de": "Partido Verde",
+     "a": "Alianza Verde",
+     "fecha": "2013-09-24",
+     "fuente": "https://xpagina.alianzaverde.org.co/index.php/normativa/nosotros/historia"
+    }
+   ],
+   "nota": "Mismo partido con tres nombres: Partido Verde Opción Centro (Rodrigo Romero, 2006-2010), Partido Verde (Ángela Robledo, 2010-2014) y Alianza Verde. Wikipedia fecha la fundación de Alianza Verde el 25-11-2005 y Congreso Visible su creación el 02-10-2009 (fecha del nombre «Partido Verde»): continuidad; en 2013 absorbió al movimiento Progresistas (el propio partido lo llama «fusión»; ver «revisar»). «Coalicion Alternativa Santandereana»: su único diputado, Fabián Díaz Plata (2018-2022), era de Alianza Verde (regla 2).",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Partido Verde",
+      "Partido Verde Opción Centro"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Alianza_Verde_(Colombia)",
+     "consultado": "2026-09-19",
+     "cita": "Ficha: fundación 25-11-2005; el V Congreso del Partido Verde aprobó la alianza con Progresistas (26-09-2013)."
+    },
+    {
+     "etiquetas": [
+      "Partido Verde"
+     ],
+     "fuente": "https://congresovisible.uniandes.edu.co/partidos/perfil/alianza-verde/146/",
+     "consultado": "2026-09-19",
+     "cita": "Alianza Verde: fecha de creación 2 de octubre de 2009."
+    },
+    {
+     "etiquetas": [
+      "Coalicion Alternativa Santandereana"
+     ],
+     "fuente": "https://www.vanguardia.com/politica/elecciones/2018/03/11/estos-son-los-nuevos-representantes-a-la-camara-por-santander/",
+     "consultado": "2026-09-19",
+     "cita": "Vanguardia (11-03-2018): Fabián Díaz, de la Alianza Verde, elegido por Santander."
+    }
+   ]
+  },
+  {
+   "sigla": "Pacto Histórico",
+   "nombre": "Coalición Pacto Histórico (partido Pacto Histórico por fusión desde 2025)",
+   "etiquetas": [
+    "Coalición Pacto Histórico"
+   ],
+   "cambios": [],
+   "nota": "Coalición creada el 11-02-2021 (Colombia Humana, UP-PCC, Polo, MAIS, Todos Somos Colombia, etc.); sus diputados son de varios partidos, así que queda como partido propio (regla 2). En 2025-2026 se constituyó como partido por fusión (Polo, PCC y UP, firme el 03-12-2025; Colombia Humana, 03-03-2026): los predecesores no se funden (regla 4). 1.078 filas son anteriores a 2021 (Alirio Uribe 2014-2018, David Racero 2018-2021): efecto trayectoria.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Coalición Pacto Histórico"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Pacto_Hist%C3%B3rico",
+     "consultado": "2026-09-19",
+     "cita": "Coalición fundada el 11-02-2021; partidos fundadores enumerados."
+    },
+    {
+     "etiquetas": [
+      "Coalición Pacto Histórico"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Pacto_Hist%C3%B3rico_(partido_pol%C3%ADtico)",
+     "consultado": "2026-09-19",
+     "cita": "CNE aprobó la fusión de Polo, PCC y UP (17-09-2025, firme 03-12-2025); Colombia Humana, 03-03-2026."
+    }
+   ]
+  },
+  {
+   "sigla": "Polo Democrático",
+   "nombre": "Polo Democrático Alternativo",
+   "etiquetas": [
+    "Polo Democrático Alternativo"
+   ],
+   "cambios": [],
+   "nota": "Fundado el 01-12-2005 (fusión PDI + Alternativa Democrática); disuelto el 17-09-2025 al fusionarse en el Pacto Histórico: se mantiene separado (regla 4). Las 378 filas anteriores a 2005 son de Germán Navas Talero, elegido en 2002 por «Movimiento Rec. Democrática» (efecto trayectoria).",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Polo Democrático Alternativo"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Polo_Democr%C3%A1tico_Alternativo",
+     "consultado": "2026-09-19",
+     "cita": "Fundación 01-12-2005; fusión en Pacto Histórico, disolución 17-09-2025."
+    }
+   ]
+  },
+  {
+   "sigla": "MIR",
+   "nombre": "Movimiento de Integración Regional",
+   "etiquetas": [
+    "Movimiento de Integración Regional",
+    "MIR - Movimiento de Integración Regional"
+   ],
+   "cambios": [],
+   "nota": "Mismo nombre con y sin sigla; Julio Gallardo lleva ambas. Aparece como «Movimiento de Integración Regional» en los resultados de 2002 y 2006.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Movimiento de Integración Regional"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Elecciones_legislativas_de_Colombia_de_2006",
+     "consultado": "2026-09-19",
+     "cita": "Resultados 2006: «Movimiento Integración Regional», 4 escaños."
+    }
+   ]
+  },
+  {
+   "sigla": "Participación Popular",
+   "nombre": "Movimiento de Participación Popular",
+   "etiquetas": [
+    "Movimiento Participación Poular"
+   ],
+   "cambios": [],
+   "nota": "Error de escritura en la etiqueta («Poular»). Alonso Acosta Osio fue elegido en 2002 por el Movimiento de Participación Popular.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Movimiento Participación Poular"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Elecciones_legislativas_de_Colombia_de_2002",
+     "consultado": "2026-09-19",
+     "cita": "Anexo de electos 2002: Alonso Rafael Acosta Osio, Atlántico, Movimiento de Participación Popular."
+    }
+   ]
+  },
+  {
+   "sigla": "Participación Comunitaria",
+   "nombre": "Movimiento Participación Comunitaria (MPC)",
+   "etiquetas": [
+    "Movimiento Participación Común"
+   ],
+   "cambios": [],
+   "nota": "Etiqueta truncada. Venus Albeiro Silva, 2002-2005; distinto del Movimiento de Participación Popular.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Movimiento Participación Común"
+     ],
+     "fuente": "https://congresovisible.uniandes.edu.co/congresistas/perfil/venus-albeiro-silva-gomez/928/",
+     "consultado": "2026-09-19",
+     "cita": "Congreso Visible: 2002-2006 «MPC - Movimiento Participación Comunitaria»."
+    }
+   ]
+  },
+  {
+   "sigla": "Comunes",
+   "nombre": "Comunes (antes Fuerza Alternativa Revolucionaria del Común, FARC)",
+   "etiquetas": [
+    "Partido Comunes",
+    "Comunes"
+   ],
+   "cambios": [
+    {
+     "de": "Fuerza Alternativa Revolucionaria del Común (FARC)",
+     "a": "Comunes",
+     "fecha": "2021-01-24",
+     "fuente": "https://www.infobae.com/america/colombia/2021/01/24/comunes-el-nuevo-nombre-del-partido-politico-de-los-excombatientes-de-las-farc/"
+    }
+   ],
+   "nota": "Variante con/sin «Partido»; ambas son las curules del Acuerdo de Paz desde 2018. 2 filas de 2009 (Carlos Carreño) son efecto trayectoria."
+  },
+  {
+   "sigla": "MIRA",
+   "nombre": "Movimiento MIRA",
+   "etiquetas": [
+    "MIRA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Nuevo Liberalismo",
+   "nombre": "Partido Nuevo Liberalismo",
+   "etiquetas": [
+    "Partido Nuevo Liberalismo"
+   ],
+   "cambios": [],
+   "nota": "Partido de Galán (1979) cuya personería reconoció la Corte Constitucional (SU-257/21, 05-08-2021). Distinto del Movimiento Nuevo Liberalismo de 1999-2006.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Partido Nuevo Liberalismo"
+     ],
+     "fuente": "https://www.corteconstitucional.gov.co/relatoria/2021/su257-21.htm",
+     "consultado": "2026-09-19",
+     "cita": "SU-257/21: el CNE confundió al Movimiento Nuevo Liberalismo con el Partido Nuevo Liberalismo."
+    }
+   ]
+  },
+  {
+   "sigla": "Mov. Nuevo Liberalismo (1999-2006)",
+   "nombre": "Movimiento Nuevo Liberalismo",
+   "etiquetas": [
+    "Movimiento Nuevo Liberalismo"
+   ],
+   "cambios": [],
+   "nota": "Movimiento fundado en 1999 (personería del CNE, Res. 0269 de 02-04-2000; perdida en 2006). La Corte Constitucional lo distingue del Partido Nuevo Liberalismo: se mantiene separado (regla 5).",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Movimiento Nuevo Liberalismo"
+     ],
+     "fuente": "https://www.corteconstitucional.gov.co/relatoria/2021/su257-21.htm",
+     "consultado": "2026-09-19",
+     "cita": "SU-257/21: personería del Movimiento Nuevo Liberalismo por Res. 0269 de 2000, a solicitud de Carlos Antonio Ardila."
+    },
+    {
+     "etiquetas": [
+      "Movimiento Nuevo Liberalismo"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Elecciones_legislativas_de_Colombia_de_2002",
+     "consultado": "2026-09-19",
+     "cita": "Anexo de electos 2002: Betty Esperanza Moreno y Bernabé Celis Carrillo, Movimiento Nuevo Liberalismo."
+    }
+   ]
+  },
+  {
+   "sigla": "Colombia Humana",
+   "nombre": "Colombia Humana",
+   "etiquetas": [
+    "Colombia Humana"
+   ],
+   "cambios": [],
+   "nota": "Única diputada: Ángela María Robledo (distrito «Estatuto de Oposición» en el CSV). Se fusionó en el partido Pacto Histórico el 03-03-2026: se mantiene separado (regla 4). Sus 475 filas de 2014-2018 llevan esta etiqueta por efecto trayectoria.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Colombia Humana"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Pacto_Hist%C3%B3rico_(partido_pol%C3%ADtico)",
+     "consultado": "2026-09-19",
+     "cita": "El 03-03-2026 se aceptó la fusión de Colombia Humana en el Pacto Histórico."
+    }
+   ]
+  },
+  {
+   "sigla": "Lista de la Decencia",
+   "nombre": "Coalición Lista de la Decencia",
+   "etiquetas": [
+    "Coalición Lista de la Decencia"
+   ],
+   "cambios": [],
+   "nota": "Coalición de 2018 (UP, ASI, MAIS, Todos Somos Colombia, Fuerza Ciudadana y Colombia Humana); única diputada María José Pizarro. No se ha confirmado su partido propio: queda como partido propio (regla 2).",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Coalición Lista de la Decencia"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Lista_de_la_Decencia",
+     "consultado": "2026-09-19",
+     "cita": "Integrada por UP, ASI, MAIS, Todos Somos Colombia, Fuerza Ciudadana y Colombia Humana."
+    }
+   ]
+  },
+  {
+   "sigla": "Centro Esperanza",
+   "nombre": "Coalición Centro Esperanza",
+   "etiquetas": [
+    "Coalición Centro Esperanza"
+   ],
+   "cambios": [],
+   "nota": "Coalición de 2022; sus dos diputados (Daniel Carvalho y Jennifer Pedraza) no son del mismo partido: queda como partido propio (regla 2)."
+  },
+  {
+   "sigla": "Coalición (sin especificar)",
+   "nombre": "Coalición (lista de coalición sin partido identificado)",
+   "etiquetas": [
+    "Coalición"
+   ],
+   "cambios": [],
+   "nota": "14 diputados, casi todos de 2002-2006, elegidos en listas registradas como «Coalición» (así figuran también en el anexo de electos de 2002). No se puede asignar un partido a la etiqueta.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Coalición"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Elecciones_legislativas_de_Colombia_de_2002",
+     "consultado": "2026-09-19",
+     "cita": "Anexo de electos 2002: Cuervo, Gutiérrez Jaramillo, Jozame, Almario, Wilchez, Campo, Arcila, entre otros, con partido «Coalición»."
+    }
+   ]
+  },
+  {
+   "sigla": "Frente Social y Político",
+   "nombre": "Movimiento Frente Social y Político",
+   "etiquetas": [
+    "Movimiento Frente Social y Político"
+   ],
+   "cambios": [],
+   "nota": "Wilson Borja y Alexander López, elegidos en 2002 por este movimiento.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Movimiento Frente Social y Político"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Elecciones_legislativas_de_Colombia_de_2002",
+     "consultado": "2026-09-19",
+     "cita": "Anexo de electos 2002: Wilson Borja Díaz y Alexander López Maya, Movimiento Frente Social y Político."
+    }
+   ]
+  },
+  {
+   "sigla": "Vía Alterna",
+   "nombre": "Movimiento Vía Alterna",
+   "etiquetas": [
+    "Movimiento Vía Alterna"
+   ],
+   "cambios": [],
+   "nota": "Gustavo Petro y Antonio Navarro (1998-2006). Las filas posteriores de Petro (2014-2025) conservan esta etiqueta por efecto trayectoria."
+  },
+  {
+   "sigla": "Colombia Siempre",
+   "nombre": "Movimiento Colombia Siempre",
+   "etiquetas": [
+    "Movimiento Colombia Siempre"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Dignidad y Compromiso",
+   "nombre": "Dignidad y Compromiso (antes Dignidad)",
+   "etiquetas": [
+    "Partido Dignidad"
+   ],
+   "cambios": [
+    {
+     "de": "Dignidad",
+     "a": "Dignidad y Compromiso",
+     "fecha": "2023-02-18",
+     "fuente": "https://www.infobae.com/colombia/2023/02/18/sergio-fajardo-y-jorge-robledo-lanzaron-oficialmente-su-nuevo-partido-politico-dignidad-y-compromiso/"
+    }
+   ],
+   "nota": "Dignidad (fundado en 2020, con personería) cambió de nombre al integrar a Compromiso Ciudadano, que no tenía personería: mismo partido con el nombre más reciente (regla 3). Único diputado, Jorge Gómez Gallego, elegido en 2018 por el Polo: 303 filas anteriores a la fundación de Dignidad (efecto trayectoria).",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Partido Dignidad"
+     ],
+     "fuente": "https://www.semana.com/politica/articulo/estamos-trabajando-en-fusionar-en-un-solo-partido-a-dignidad-y-compromiso-ciudadano-jorge-robledo-confirmo-union-con-sergio-fajardo/202339/",
+     "consultado": "2026-09-19",
+     "cita": "Semana (17-01-2023): Dignidad tiene personería y Compromiso Ciudadano no; el cambio lo aprueba un congreso extraordinario de Dignidad."
+    },
+    {
+     "etiquetas": [
+      "Partido Dignidad"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Dignidad_y_Compromiso",
+     "consultado": "2026-09-19",
+     "cita": "Fundado en 2020 bajo el nombre Dignidad."
+    }
+   ]
+  },
+  {
+   "sigla": "Opción Ciudadana",
+   "nombre": "Partido Opción Ciudadana (antes Convergencia Ciudadana y Partido de Integración Nacional, PIN)",
+   "etiquetas": [
+    "Opción Ciudadana",
+    "Partido de Integración Nacional",
+    "PIN - Partido de Integración Nacional",
+    "Movimiento Convergencia Ciudadana",
+    "Convergencia Ciudadana",
+    "Partido Convergencia Ciudadana"
+   ],
+   "cambios": [
+    {
+     "de": "Convergencia Ciudadana",
+     "a": "Partido de Integración Nacional (PIN)",
+     "fecha": "2009-11-09",
+     "fuente": "https://www.eltiempo.com/archivo/documento/CMS-6549307"
+    },
+    {
+     "de": "Partido de Integración Nacional (PIN)",
+     "a": "Opción Ciudadana",
+     "fecha": "2013-06-01",
+     "fuente": "https://www.elpais.com.co/colombia/el-pin-cambio-el-nombre-de-su-partido-a-opcion-ciudadana.html"
+    }
+   ],
+   "nota": "Un mismo partido con tres nombres: Convergencia Ciudadana (1997) → PIN (09-11-2009) → Opción Ciudadana (2013); disuelto en 2022. Congreso Visible sigue a Jorge Enrique Gómez Celis por las tres etiquetas. La continuidad Convergencia → PIN va a «revisar».",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Partido de Integración Nacional",
+      "Opción Ciudadana"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Opci%C3%B3n_Ciudadana",
+     "consultado": "2026-09-19",
+     "cita": "Fundado el 09-11-2009 como PIN; en 2013 cambió su nombre a Opción Ciudadana."
+    },
+    {
+     "etiquetas": [
+      "Convergencia Ciudadana"
+     ],
+     "fuente": "https://en.wikipedia.org/wiki/Citizen_Option",
+     "consultado": "2026-09-19",
+     "cita": "Creado como Citizen Convergence (1997), luego PIN (2009) y Citizen Option (2013)."
+    },
+    {
+     "etiquetas": [
+      "Convergencia Ciudadana"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Convergencia_Ciudadana",
+     "consultado": "2026-09-19",
+     "cita": "En la convención de Convergencia del 09-11-2009 se protocolizó la creación del «nuevo» PIN."
+    },
+    {
+     "etiquetas": [
+      "Convergencia Ciudadana",
+      "Partido de Integración Nacional",
+      "Opción Ciudadana"
+     ],
+     "fuente": "https://congresovisible.uniandes.edu.co/congresistas/perfil/jorge-enrique-gomez-celis/159/",
+     "consultado": "2026-09-19",
+     "cita": "Congreso Visible: 2006-2010 Convergencia Ciudadana; 2014-2017 PIN; desde 2017 Opción Ciudadana."
+    }
+   ]
+  },
+  {
+   "sigla": "Colombia Renaciente",
+   "nombre": "Partido Colombia Renaciente",
+   "etiquetas": [
+    "Partido Colombia Renaciente"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MAIS",
+   "nombre": "Movimiento Alternativo Indígena y Social (MAIS)",
+   "etiquetas": [
+    "Movimiento Alternativo Indígena y Social"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Apertura Liberal",
+   "nombre": "Movimiento Apertura Liberal",
+   "etiquetas": [
+    "Movimiento Apertura Liberal",
+    "Mov. Apertura Liberal",
+    "Apertura Liberal"
+   ],
+   "cambios": [],
+   "nota": "Tres grafías del mismo movimiento (abreviatura «Mov.», con y sin «Movimiento»). En 2002 y 2006 figura como Apertura Liberal.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Movimiento Apertura Liberal"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Elecciones_legislativas_de_Colombia_de_2006",
+     "consultado": "2026-09-19",
+     "cita": "Resultados 2006: «Apertura Liberal», 5 escaños."
+    }
+   ]
+  },
+  {
+   "sigla": "Alianza Social Afrocolombiana",
+   "nombre": "Alianza Social Afrocolombiana",
+   "etiquetas": [
+    "Alianza social afrocolombiana"
+   ],
+   "cambios": [],
+   "nota": "Circunscripción afrodescendiente 2006-2010 (María Isabel Urrutia).",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Alianza social afrocolombiana"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Elecciones_legislativas_de_Colombia_de_2006",
+     "consultado": "2026-09-19",
+     "cita": "Circunscripción afrodescendiente 2006: Alianza Social Afrocolombiana."
+    }
+   ]
+  },
+  {
+   "sigla": "Colombia Justa Libres",
+   "nombre": "Colombia Justa Libres",
+   "etiquetas": [
+    "Colombia Justa Libres"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Por el País que Soñamos",
+   "nombre": "Movimiento Por el País que Soñamos",
+   "etiquetas": [
+    "Por el País que Soñamos"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Movimiento Comunal y Comunitario",
+   "nombre": "Movimiento Comunal y Comunitario de Colombia",
+   "etiquetas": [
+    "Mov. Comunal Colombiano",
+    "Movimiento Comunal y Comunitario de Colombia"
+   ],
+   "cambios": [],
+   "nota": "Pedro Nelson Pardo (Guainía) aparece con las dos etiquetas (dos id); Pedro José Arenas (Guaviare) en la primera. Ambos elegidos en 2002 por el Movimiento Comunal y Comunitario.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Mov. Comunal Colombiano",
+      "Movimiento Comunal y Comunitario de Colombia"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Elecciones_legislativas_de_Colombia_de_2002",
+     "consultado": "2026-09-19",
+     "cita": "Anexo de electos 2002: Pedro Nelson Pardo Rodríguez y Pedro José Arenas García, Movimiento Comunal y Comunitario."
+    }
+   ]
+  },
+  {
+   "sigla": "Fuerza Progresista",
+   "nombre": "Movimiento Fuerza Progresista",
+   "etiquetas": [
+    "Fuerza Nacional Progresista",
+    "Fuerza Progresista"
+   ],
+   "cambios": [],
+   "nota": "Pedro Antonio Jiménez Salazar lleva ambas etiquetas; Congreso Visible da «Fuerza Progresista» para su cuatrienio 1998-2002, que en el CSV figura como «Fuerza Nacional Progresista». Movimiento antioqueño de Fabio Valencia Cossio. Distinto del Movimiento Nacional Progresista.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Fuerza Nacional Progresista"
+     ],
+     "fuente": "https://congresovisible.uniandes.edu.co/congresistas/perfil/pedro-antonio-jimenez-salazar/646/",
+     "consultado": "2026-09-19",
+     "cita": "Congreso Visible: 1998-2002 «Fuerza Progresista»."
+    },
+    {
+     "etiquetas": [
+      "Fuerza Progresista"
+     ],
+     "fuente": "https://en.wikipedia.org/wiki/Progressive_Force",
+     "consultado": "2026-09-19",
+     "cita": "Fuerza Progresista, de Fabio Valencia Cossio: 4 escaños en la Cámara en 1998."
+    }
+   ]
+  },
+  {
+   "sigla": "ASI",
+   "nombre": "Alianza Social Independiente (ASI)",
+   "etiquetas": [
+    "Alianza Social Independiente"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MIPOL",
+   "nombre": "Movimiento MIPOL",
+   "etiquetas": [
+    "Movimiento MIPOL",
+    "Mov. MIPOL"
+   ],
+   "cambios": [],
+   "nota": "Misma sigla con y sin abreviatura; ambas etiquetas en 2002-2010.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Movimiento MIPOL"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Elecciones_legislativas_de_Colombia_de_2002",
+     "consultado": "2026-09-19",
+     "cita": "Anexo de electos 2002: Reginaldo Enrique Montes Álvarez, Córdoba, Movimiento MIPOL."
+    }
+   ]
+  },
+  {
+   "sigla": "MORAL",
+   "nombre": "Movimiento Renovación Acción Laboral (MORAL)",
+   "etiquetas": [
+    "Moral - Movimiento Renovador de Acción Social",
+    "Movimiento Renovación Laboral"
+   ],
+   "cambios": [],
+   "nota": "Las dos etiquetas son del mismo diputado, Sergio Díaz-Granados Guida (dos id), en el mismo cuatrienio 2002-2006: dos grafías de MORAL.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Moral - Movimiento Renovador de Acción Social",
+      "Movimiento Renovación Laboral"
+     ],
+     "fuente": "https://en.wikipedia.org/wiki/Renovation_Movement_Labour_Action",
+     "consultado": "2026-09-19",
+     "cita": "Movimiento Renovación Acción Laboral: representación en 2002 y 1 escaño en 2006."
+    },
+    {
+     "etiquetas": [
+      "Moral - Movimiento Renovador de Acción Social"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Elecciones_legislativas_de_Colombia_de_2006",
+     "consultado": "2026-09-19",
+     "cita": "Resultados 2006: «MORAL», 1 escaño."
+    }
+   ]
+  },
+  {
+   "sigla": "Partido Demócrata Colombiano",
+   "nombre": "Partido Demócrata Colombiano",
+   "etiquetas": [
+    "Partido Demócrata Colombiano"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Movimiento Nacional",
+   "nombre": "Movimiento Nacional",
+   "etiquetas": [
+    "Movimiento Nacional"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "MIO",
+   "nombre": "Movimiento de Inclusión y Oportunidades (MIO)",
+   "etiquetas": [
+    "MIO - Movimiento de Inclusión y Oportunidades",
+    "​​​​​​​Partido Movimiento de Inclusión y Oportunidades - MIO"
+   ],
+   "cambios": [],
+   "nota": "Mismo nombre; la segunda etiqueta empieza con siete espacios de ancho cero (U+200B)."
+  },
+  {
+   "sigla": "Partido Social Democrático",
+   "nombre": "Partido Social Democrático",
+   "etiquetas": [
+    "Partido Social Democrático"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "AICO",
+   "nombre": "Autoridades Indígenas de Colombia (AICO)",
+   "etiquetas": [
+    "Autoridades Indigenas de Colombia"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Convergencia Popular Cívica",
+   "nombre": "Movimiento Convergencia Popular Cívica",
+   "etiquetas": [
+    "Mov. Convergencia Popular",
+    "Movimiento Convergente Popular",
+    "Movimiento Convergencia Popular Cívica"
+   ],
+   "cambios": [],
+   "nota": "Tres grafías del mismo movimiento: Manuel Enríquez Rosero, Sandra Ceballos y Marta Vergara figuran en 2002 como «Movimiento Convergencia Popular»; Gabriel Espinosa (Sucre) aparece en 2004-2005.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Mov. Convergencia Popular",
+      "Movimiento Convergente Popular"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Elecciones_legislativas_de_Colombia_de_2002",
+     "consultado": "2026-09-19",
+     "cita": "Anexo de electos 2002: Enríquez Rosero (Nariño), Ceballos (Bogotá) y Vergara (Sucre), Movimiento Convergencia Popular."
+    }
+   ]
+  },
+  {
+   "sigla": "Movimiento Progresistas (2002)",
+   "nombre": "Movimiento Progresistas",
+   "etiquetas": [
+    "Movimiento Progresistas"
+   ],
+   "cambios": [],
+   "nota": "Movimiento de 2002 (José Ovidio Claros, Óscar Suárez Mira); no es el Progresistas de Petro de 2011.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Movimiento Progresistas"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Elecciones_legislativas_de_Colombia_de_2002",
+     "consultado": "2026-09-19",
+     "cita": "Anexo de electos 2002: Óscar de Jesús Suárez Mira y José Ovidio Claros Polanco, Movimiento Progresistas."
+    }
+   ]
+  },
+  {
+   "sigla": "Afrovides",
+   "nombre": "Afrovides",
+   "etiquetas": [
+    "Afrovides"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Fuerza Ciudadana",
+   "nombre": "Movimiento Fuerza Ciudadana",
+   "etiquetas": [
+    "Movimiento Fuerza Ciudadana"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Salvación Nacional",
+   "nombre": "Movimiento de Salvación Nacional",
+   "etiquetas": [
+    "Movimiento Salvación Nacional",
+    "Movimiento de Salvación Nacional"
+   ],
+   "cambios": [],
+   "nota": "Con y sin «de». Roberto Camacho y Jaime Canal figuran en 2002 como Movimiento de Salvación Nacional.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Movimiento Salvación Nacional",
+      "Movimiento de Salvación Nacional"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Elecciones_legislativas_de_Colombia_de_2002",
+     "consultado": "2026-09-19",
+     "cita": "Anexo de electos 2002: Roberto Camacho Weverberg y Jaime Ernesto Canal Alban, Movimiento de Salvación Nacional."
+    }
+   ]
+  },
+  {
+   "sigla": "Movimiento Popular Unido",
+   "nombre": "Movimiento Popular Unido",
+   "etiquetas": [
+    "Movimiento Popular Unido"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Seriedad Colombia",
+   "nombre": "Movimiento Seriedad Colombia",
+   "etiquetas": [
+    "Movimiento Seriedad Colombia"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Movimiento Republicano",
+   "nombre": "Movimiento Republicano",
+   "etiquetas": [
+    "Movimiento Republicano"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Huella Ciudadana",
+   "nombre": "Movimiento Huella Ciudadana",
+   "etiquetas": [
+    "Movimiento Huella Ciudadana"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Movimiento Unionista",
+   "nombre": "Movimiento Unionista",
+   "etiquetas": [
+    "Movimiento Unionista"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Cien por Ciento por Colombia",
+   "nombre": "Cien por Ciento por Colombia",
+   "etiquetas": [
+    "Cien por Ciento por Colombia"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Frente de Esperanza",
+   "nombre": "Movimiento Independiente Frente de Esperanza (FE)",
+   "etiquetas": [
+    "Ind. Frente de Esperanza Fe"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Conservatismo Independiente",
+   "nombre": "Movimiento Conservatismo Independiente",
+   "etiquetas": [
+    "Movimiento Conservatismo Independiente"
+   ],
+   "cambios": [],
+   "nota": "Ver «revisar»."
+  },
+  {
+   "sigla": "Movimiento Conservatismo",
+   "nombre": "Movimiento Conservatismo",
+   "etiquetas": [
+    "Movimiento Conservatismo"
+   ],
+   "cambios": [],
+   "nota": "Ver «revisar».",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Movimiento Conservatismo"
+     ],
+     "fuente": "https://congresovisible.uniandes.edu.co/congresistas/perfil/oscar-fernando-bravo-realpe/398/",
+     "consultado": "2026-09-19",
+     "cita": "Congreso Visible: 1998-2002 «Movimiento Conservatismo»; después «Conservador Colombiano»."
+    }
+   ]
+  },
+  {
+   "sigla": "Movimiento Nacional Conservador",
+   "nombre": "Movimiento Nacional Conservador",
+   "etiquetas": [
+    "Movimiento Nacional Conservador"
+   ],
+   "cambios": [],
+   "nota": "Partido propio de la familia conservadora (Óscar Tulio Lizcano). Ver «revisar»."
+  },
+  {
+   "sigla": "Todos Somos Colombia",
+   "nombre": "Todos Somos Colombia (antes Fundación Ébano de Colombia, Funeco)",
+   "etiquetas": [
+    "Todos Somos Colombia (Antes Fundación Ébano de Colombia Funeco)",
+    "Funeco"
+   ],
+   "cambios": [
+    {
+     "de": "Fundación Ébano de Colombia (Funeco)",
+     "a": "Todos Somos Colombia",
+     "fecha": null,
+     "fuente": "https://congresovisible.uniandes.edu.co/partidos/perfil/todos-somos-colombia-antes-fundacion-ebano-de-colombia-funeco/176/"
+    }
+   ],
+   "nota": "Misma organización: Moisés Orozco (etiqueta «Todos Somos Colombia...») obtuvo en 2014 el aval de Funeco para la circunscripción afro; Álvaro Rosado figura como «Funeco», en el mismo cuatrienio. Nombre más reciente según Congreso Visible, que no da fecha del cambio.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Todos Somos Colombia (Antes Fundación Ébano de Colombia Funeco)"
+     ],
+     "fuente": "https://www.elespectador.com/judicial/consejo-de-estado-tumbo-eleccion-de-moises-orozco-como-representante-de-comunidades-afro-article-643349/",
+     "consultado": "2026-09-19",
+     "cita": "El Espectador (14-07-2016): Orozco logró el aval de Funeco; el Consejo de Estado anuló su elección."
+    }
+   ]
+  },
+  {
+   "sigla": "Progresismo Democrático",
+   "nombre": "Movimiento Progresismo Democrático",
+   "etiquetas": [
+    "Movimiento Progresismo Democrático"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Afrouninca",
+   "nombre": "Asociación Afrouninca",
+   "etiquetas": [
+    "Asociación Afrouninca"
+   ],
+   "cambios": [],
+   "nota": "Circunscripción afrodescendiente 2006.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Asociación Afrouninca"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Elecciones_legislativas_de_Colombia_de_2006",
+     "consultado": "2026-09-19",
+     "cita": "Circunscripción afrodescendiente 2006: AFROUNINNCA."
+    }
+   ]
+  },
+  {
+   "sigla": "Unidad Democrática",
+   "nombre": "Partido Unidad Democrática",
+   "etiquetas": [
+    "Partido Unidad Democrática"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Vanguardia Moral y Social",
+   "nombre": "Partido Vanguardia Moral y Social",
+   "etiquetas": [
+    "Partido Vanguardia Moral y Social"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Nueva Fuerza Democrática",
+   "nombre": "Movimiento Nueva Fuerza Democrática",
+   "etiquetas": [
+    "Movimiento Nueva Fuerza Democrática"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Movimiento Nacional Progresista",
+   "nombre": "Movimiento Nacional Progresista",
+   "etiquetas": [
+    "Movimiento Nacional Progresista"
+   ],
+   "cambios": [],
+   "nota": "Distinto de Fuerza Progresista.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Movimiento Nacional Progresista"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Elecciones_legislativas_de_Colombia_de_2006",
+     "consultado": "2026-09-19",
+     "cita": "Resultados 2006: Movimiento Nacional Progresista, 1 escaño."
+    }
+   ]
+  },
+  {
+   "sigla": "Voluntad Popular",
+   "nombre": "Movimiento Voluntad Popular",
+   "etiquetas": [
+    "Mov. Voluntad Popular"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Partido de Acción Social",
+   "nombre": "Partido de Acción Social",
+   "etiquetas": [
+    "Partido de Acción Social"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Partido Popular Colombiano",
+   "nombre": "Partido Popular Colombiano",
+   "etiquetas": [
+    "Partido Popular Colombiano"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Equipo Colombia",
+   "nombre": "Movimiento Equipo Colombia",
+   "etiquetas": [
+    "Movimiento Equipo Colombia"
+   ],
+   "cambios": [],
+   "nota": "Se fusionó con ALAS en Alas Equipo Colombia (14-12-2005): no se funde con ella (regla 4).",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Movimiento Equipo Colombia"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Alas_Equipo_Colombia",
+     "consultado": "2026-09-19",
+     "cita": "Fusión de ALAS y Equipo Colombia formalizada el 14-12-2005."
+    }
+   ]
+  },
+  {
+   "sigla": "Alas Equipo Colombia",
+   "nombre": "Movimiento Alas Equipo Colombia",
+   "etiquetas": [
+    "Alas Equipo Colombia"
+   ],
+   "cambios": [],
+   "nota": "Nacido de la fusión de ALAS y Equipo Colombia (2005); disuelto en 2009.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Alas Equipo Colombia"
+     ],
+     "fuente": "https://es.wikipedia.org/wiki/Alas_Equipo_Colombia",
+     "consultado": "2026-09-19",
+     "cita": "Fusión 14-12-2005; la alianza terminó en septiembre de 2009."
+    }
+   ]
+  },
+  {
+   "sigla": "Pa-Vida",
+   "nombre": "Asociación Paz es Vida (Pa-Vida)",
+   "etiquetas": [
+    "Asociación Paz es vida (Pa-Vida)"
+   ],
+   "cambios": [],
+   "nota": "Curul de paz (circunscripción transitoria especial de paz), 2022-2026; organización de víctimas, no partido.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Asociación Paz es vida (Pa-Vida)"
+     ],
+     "fuente": "https://www.elespectador.com/colombia-20/paz-y-memoria/en-vivo-asi-avanza-el-preconteo-para-las-16-curules-de-paz/",
+     "consultado": "2026-09-19",
+     "cita": "El Espectador (13-03-2022): Jorge Tovar, elegido/a en una de las 16 curules de paz."
+    }
+   ]
+  },
+  {
+   "sigla": "Cocoman",
+   "nombre": "Consejo Comunitario Mayor de Nóvita (Cocoman)",
+   "etiquetas": [
+    "Consejo Comunitario Mayor de Novita (Cocoman)"
+   ],
+   "cambios": [],
+   "nota": "Curul de paz (circunscripción transitoria especial de paz), 2022-2026; organización de víctimas, no partido.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Consejo Comunitario Mayor de Novita (Cocoman)"
+     ],
+     "fuente": "https://www.elespectador.com/colombia-20/paz-y-memoria/en-vivo-asi-avanza-el-preconteo-para-las-16-curules-de-paz/",
+     "consultado": "2026-09-19",
+     "cita": "El Espectador (13-03-2022): James Mosquera, elegido/a en una de las 16 curules de paz."
+    }
+   ]
+  },
+  {
+   "sigla": "Asociación de Víctimas Intercultural y Regional",
+   "nombre": "Asociación de Víctimas Intercultural y Regional",
+   "etiquetas": [
+    "Asociación de Víctimas Intercultural y Regional"
+   ],
+   "cambios": [],
+   "nota": "Curul de paz (circunscripción transitoria especial de paz), 2022-2026; organización de víctimas, no partido.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Asociación de Víctimas Intercultural y Regional"
+     ],
+     "fuente": "https://www.elespectador.com/colombia-20/paz-y-memoria/en-vivo-asi-avanza-el-preconteo-para-las-16-curules-de-paz/",
+     "consultado": "2026-09-19",
+     "cita": "El Espectador (13-03-2022): Karen Manrique, elegido/a en una de las 16 curules de paz."
+    }
+   ]
+  },
+  {
+   "sigla": "Asocamproariari",
+   "nombre": "Asocamproariari",
+   "etiquetas": [
+    "Asocamproariari"
+   ],
+   "cambios": [],
+   "nota": "Curul de paz (circunscripción transitoria especial de paz), 2022-2026; organización de víctimas, no partido.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Asocamproariari"
+     ],
+     "fuente": "https://www.elespectador.com/colombia-20/paz-y-memoria/en-vivo-asi-avanza-el-preconteo-para-las-16-curules-de-paz/",
+     "consultado": "2026-09-19",
+     "cita": "El Espectador (13-03-2022): William Aljure, elegido/a en una de las 16 curules de paz."
+    }
+   ]
+  },
+  {
+   "sigla": "Recompas",
+   "nombre": "Corporación Red de Consejos Comunitarios del Pacífico Sur (Recompas)",
+   "etiquetas": [
+    "Corporación Red de Consejos Comunitarios del Pacífico Sur Recompas"
+   ],
+   "cambios": [],
+   "nota": "Curul de paz (circunscripción transitoria especial de paz), 2022-2026; organización de víctimas, no partido.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Corporación Red de Consejos Comunitarios del Pacífico Sur Recompas"
+     ],
+     "fuente": "https://www.elespectador.com/colombia-20/paz-y-memoria/en-vivo-asi-avanza-el-preconteo-para-las-16-curules-de-paz/",
+     "consultado": "2026-09-19",
+     "cita": "El Espectador (13-03-2022): Gerson Montaño, elegido/a en una de las 16 curules de paz."
+    }
+   ]
+  },
+  {
+   "sigla": "Consejo Comunitario Fernando Ríos Hidalgo",
+   "nombre": "Consejo Comunitario Fernando Ríos Hidalgo",
+   "etiquetas": [
+    "Consejo Comunitario Fernando Rios Hidalgo"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Fundación Igualdad Social",
+   "nombre": "Fundación Igualdad Social",
+   "etiquetas": [
+    "Fundación Igualdad social"
+   ],
+   "cambios": [],
+   "nota": "Curul de paz (circunscripción transitoria especial de paz), 2022-2026; organización de víctimas, no partido.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Fundación Igualdad social"
+     ],
+     "fuente": "https://www.elespectador.com/colombia-20/paz-y-memoria/en-vivo-asi-avanza-el-preconteo-para-las-16-curules-de-paz/",
+     "consultado": "2026-09-19",
+     "cita": "El Espectador (13-03-2022): John Freddy Núñez, elegido/a en una de las 16 curules de paz."
+    }
+   ]
+  },
+  {
+   "sigla": "Consejo Comunitario Los Andes",
+   "nombre": "Consejo Comunitario Los Andes",
+   "etiquetas": [
+    "Consejo Comunitario los Andes"
+   ],
+   "cambios": [],
+   "nota": "Curul de paz (circunscripción transitoria especial de paz), 2022-2026; organización de víctimas, no partido.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Consejo Comunitario los Andes"
+     ],
+     "fuente": "https://www.elespectador.com/colombia-20/paz-y-memoria/en-vivo-asi-avanza-el-preconteo-para-las-16-curules-de-paz/",
+     "consultado": "2026-09-19",
+     "cita": "El Espectador (13-03-2022): Jhon Fredy Valencia, elegido/a en una de las 16 curules de paz."
+    }
+   ]
+  },
+  {
+   "sigla": "Asociación de Familias Desplazadas de Hacarí",
+   "nombre": "Asociación de Familias Desplazadas de Hacarí",
+   "etiquetas": [
+    "Asociación de Familias Desplazadas de Hacarí"
+   ],
+   "cambios": [],
+   "nota": "Curul de paz (circunscripción transitoria especial de paz), 2022-2026; organización de víctimas, no partido.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Asociación de Familias Desplazadas de Hacarí"
+     ],
+     "fuente": "https://www.elespectador.com/colombia-20/paz-y-memoria/en-vivo-asi-avanza-el-preconteo-para-las-16-curules-de-paz/",
+     "consultado": "2026-09-19",
+     "cita": "El Espectador (13-03-2022): Diógenes Quintero, elegido/a en una de las 16 curules de paz."
+    }
+   ]
+  },
+  {
+   "sigla": "Asociación de Desplazados de Briceño",
+   "nombre": "Asociación de Desplazados del Municipio de Briceño",
+   "etiquetas": [
+    "Asociación de Desplazados del Municipio de Briceño"
+   ],
+   "cambios": [],
+   "nota": "Curul de paz (circunscripción transitoria especial de paz), 2022-2026; organización de víctimas, no partido.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Asociación de Desplazados del Municipio de Briceño"
+     ],
+     "fuente": "https://www.elespectador.com/colombia-20/paz-y-memoria/en-vivo-asi-avanza-el-preconteo-para-las-16-curules-de-paz/",
+     "consultado": "2026-09-19",
+     "cita": "El Espectador (13-03-2022): John Jairo González, elegido/a en una de las 16 curules de paz."
+    }
+   ]
+  },
+  {
+   "sigla": "ASOINTEC",
+   "nombre": "ASOINTEC",
+   "etiquetas": [
+    "ASOINTEC"
+   ],
+   "cambios": [],
+   "nota": "Curul de paz (circunscripción transitoria especial de paz), 2022-2026; organización de víctimas, no partido.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "ASOINTEC"
+     ],
+     "fuente": "https://www.elespectador.com/colombia-20/paz-y-memoria/en-vivo-asi-avanza-el-preconteo-para-las-16-curules-de-paz/",
+     "consultado": "2026-09-19",
+     "cita": "El Espectador (13-03-2022): Juan Pablo Salazar, elegido/a en una de las 16 curules de paz."
+    }
+   ]
+  },
+  {
+   "sigla": "Gente en Movimiento",
+   "nombre": "Grupo Significativo de Ciudadanos Gente en Movimiento",
+   "etiquetas": [
+    "Grupo Significativo de Ciudadanos Gente en Movimiento"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Consejo Comunitario La Mamuncia",
+   "nombre": "Consejo Comunitario La Mamuncia",
+   "etiquetas": [
+    "Consejo Comunitario La Mamuncia"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Asociación Víctimas Núcleo Santiago Pérez",
+   "nombre": "Asociación Víctimas Núcleo Santiago Pérez",
+   "etiquetas": [
+    "Asociación Víctimas Núcleo Santiago Pérez"
+   ],
+   "cambios": [],
+   "nota": "Curul de paz (circunscripción transitoria especial de paz), 2022-2026; organización de víctimas, no partido.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Asociación Víctimas Núcleo Santiago Pérez"
+     ],
+     "fuente": "https://www.elespectador.com/colombia-20/paz-y-memoria/en-vivo-asi-avanza-el-preconteo-para-las-16-curules-de-paz/",
+     "consultado": "2026-09-19",
+     "cita": "El Espectador (13-03-2022): Haiver Rincón, elegido/a en una de las 16 curules de paz."
+    }
+   ]
+  },
+  {
+   "sigla": "Consejo Comunitario del Río Naya",
+   "nombre": "Consejo Comunitario del Río Naya",
+   "etiquetas": [
+    "Consejo Comunitario del Río Naya"
+   ],
+   "cambios": [],
+   "nota": "Curul de paz (circunscripción transitoria especial de paz), 2022-2026; organización de víctimas, no partido.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Consejo Comunitario del Río Naya"
+     ],
+     "fuente": "https://www.elespectador.com/colombia-20/paz-y-memoria/en-vivo-asi-avanza-el-preconteo-para-las-16-curules-de-paz/",
+     "consultado": "2026-09-19",
+     "cita": "El Espectador (13-03-2022): Orlando Castillo, elegido/a en una de las 16 curules de paz."
+    }
+   ]
+  },
+  {
+   "sigla": "Aprocasur",
+   "nombre": "Asociación de Productores de Cacao (Aprocasur)",
+   "etiquetas": [
+    "Asociación de Productores de Cacao (Aprocasur)"
+   ],
+   "cambios": [],
+   "nota": "Curul de paz (circunscripción transitoria especial de paz), 2022-2026; organización de víctimas, no partido.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Asociación de Productores de Cacao (Aprocasur)"
+     ],
+     "fuente": "https://www.elespectador.com/colombia-20/paz-y-memoria/en-vivo-asi-avanza-el-preconteo-para-las-16-curules-de-paz/",
+     "consultado": "2026-09-19",
+     "cita": "El Espectador (13-03-2022): Juan Carlos Vargas, elegido/a en una de las 16 curules de paz."
+    }
+   ]
+  },
+  {
+   "sigla": "Narrar para Vivir",
+   "nombre": "Corporación Narrar para Vivir",
+   "etiquetas": [
+    "Corporación Narrar Para Vivir"
+   ],
+   "cambios": [],
+   "nota": "Curul de paz (circunscripción transitoria especial de paz), 2022-2026; organización de víctimas, no partido.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Corporación Narrar Para Vivir"
+     ],
+     "fuente": "https://www.elespectador.com/colombia-20/paz-y-memoria/en-vivo-asi-avanza-el-preconteo-para-las-16-curules-de-paz/",
+     "consultado": "2026-09-19",
+     "cita": "El Espectador (13-03-2022): Luis Ramiro Ricardo Buelvas, elegido/a en una de las 16 curules de paz."
+    }
+   ]
+  },
+  {
+   "sigla": "Yo soy Urabá",
+   "nombre": "Yo soy Urabá",
+   "etiquetas": [
+    "Yo soy Urabá"
+   ],
+   "cambios": [],
+   "nota": "Curul de paz (circunscripción transitoria especial de paz), 2022-2026; organización de víctimas, no partido.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Yo soy Urabá"
+     ],
+     "fuente": "https://www.elespectador.com/colombia-20/paz-y-memoria/en-vivo-asi-avanza-el-preconteo-para-las-16-curules-de-paz/",
+     "consultado": "2026-09-19",
+     "cita": "El Espectador (13-03-2022): Karen Juliana López, elegido/a en una de las 16 curules de paz."
+    }
+   ]
+  },
+  {
+   "sigla": "Consejo Comunitario San Antonio y El Castillo",
+   "nombre": "Consejo Comunitario de los Corregimientos de San Antonio y del Castillo",
+   "etiquetas": [
+    "Consejo Cominitario de los Corregimientos de San Antonio y del Castillo"
+   ],
+   "cambios": [],
+   "nota": "Error de escritura en la etiqueta («Cominitario»)."
+  },
+  {
+   "sigla": "Mujeres Víctimas de Jericó",
+   "nombre": "Asociación Agropecuaria de Mujeres Víctimas de Jericó",
+   "etiquetas": [
+    "Asociación Agropecuaria de Mujeres Víctimas de Jericó"
+   ],
+   "cambios": [],
+   "nota": "Curul de paz (circunscripción transitoria especial de paz), 2022-2026; organización de víctimas, no partido.",
+   "fuentes": [
+    {
+     "etiquetas": [
+      "Asociación Agropecuaria de Mujeres Víctimas de Jericó"
+     ],
+     "fuente": "https://www.elespectador.com/colombia-20/paz-y-memoria/en-vivo-asi-avanza-el-preconteo-para-las-16-curules-de-paz/",
+     "consultado": "2026-09-19",
+     "cita": "El Espectador (13-03-2022): Leonor Palencia, elegido/a en una de las 16 curules de paz."
+    }
+   ]
+  },
+  {
+   "sigla": "Sin identificar",
+   "nombre": "Sin identificar",
+   "etiquetas": [
+    ""
+   ],
+   "cambios": [],
+   "nota": "Etiqueta vacía con diputado identificado (2.985 filas, 24 diputados)."
+  }
+ ],
+ "asignacion": {
+  "Partido Conservador Colombiano": "Partido Conservador",
+  "Partido Liberal": "Partido Liberal",
+  "Cambio Radical": "Cambio Radical",
+  "Partido de la U": "Partido de la U",
+  "Partido Liberal Colombiano": "Partido Liberal",
+  "Centro Democrático": "Centro Democrático",
+  "Partido Alianza Verde": "Alianza Verde",
+  "Coalición Pacto Histórico": "Pacto Histórico",
+  "Polo Democrático Alternativo": "Polo Democrático",
+  "Partido Cambio Radical": "Cambio Radical",
+  "Partido de la U - Partido de la Unión por la Gente": "Partido de la U",
+  "Movimiento de Integración Regional": "MIR",
+  "Movimiento Participación Poular": "Participación Popular",
+  "": "Sin identificar",
+  "Liberal Colombiano": "Partido Liberal",
+  "MIR - Movimiento de Integración Regional": "MIR",
+  "Asociación Paz es vida (Pa-Vida)": "Pa-Vida",
+  "Coalición Centro Esperanza": "Centro Esperanza",
+  "Coalición": "Coalición (sin especificar)",
+  "Movimiento Equipo Colombia": "Equipo Colombia",
+  "Partido Comunes": "Comunes",
+  "MIRA": "MIRA",
+  "Partido Nuevo Liberalismo": "Nuevo Liberalismo",
+  "Conservador Colombiano": "Partido Conservador",
+  "Coalición Lista de la Decencia": "Lista de la Decencia",
+  "Movimiento Frente Social y Político": "Frente Social y Político",
+  "Colombia Humana": "Colombia Humana",
+  "Movimiento Colombia Siempre": "Colombia Siempre",
+  "Partido Dignidad": "Dignidad y Compromiso",
+  "Partido Conservador": "Partido Conservador",
+  "Opción Ciudadana": "Opción Ciudadana",
+  "Partido Colombia Renaciente": "Colombia Renaciente",
+  "Movimiento Vía Alterna": "Vía Alterna",
+  "Movimiento Alternativo Indígena y Social": "MAIS",
+  "Movimiento Apertura Liberal": "Apertura Liberal",
+  "Movimiento Participación Común": "Participación Comunitaria",
+  "Coalicion Alternativa Santandereana": "Alianza Verde",
+  "Partido de Integración Nacional": "Opción Ciudadana",
+  "Alianza social afrocolombiana": "Alianza Social Afrocolombiana",
+  "Comunes": "Comunes",
+  "Colombia Justa Libres": "Colombia Justa Libres",
+  "Movimiento Convergencia Ciudadana": "Opción Ciudadana",
+  "Mov. Apertura Liberal": "Apertura Liberal",
+  "Partido Verde": "Alianza Verde",
+  "Por el País que Soñamos": "Por el País que Soñamos",
+  "Consejo Comunitario Mayor de Novita (Cocoman)": "Cocoman",
+  "Alas Equipo Colombia": "Alas Equipo Colombia",
+  "Convergencia Ciudadana": "Opción Ciudadana",
+  "Mov. Comunal Colombiano": "Movimiento Comunal y Comunitario",
+  "Fuerza Nacional Progresista": "Fuerza Progresista",
+  "Alianza Social Independiente": "ASI",
+  "Movimiento MIPOL": "MIPOL",
+  "Moral - Movimiento Renovador de Acción Social": "MORAL",
+  "Movimiento Renovación Laboral": "MORAL",
+  "Partido Demócrata Colombiano": "Partido Demócrata Colombiano",
+  "Movimiento Nacional": "Movimiento Nacional",
+  "MIO - Movimiento de Inclusión y Oportunidades": "MIO",
+  "Partido Social Democrático": "Partido Social Democrático",
+  "Asociación de Víctimas Intercultural y Regional": "Asociación de Víctimas Intercultural y Regional",
+  "Partido Verde Opción Centro": "Alianza Verde",
+  "Autoridades Indigenas de Colombia": "AICO",
+  "Mov. Convergencia Popular": "Convergencia Popular Cívica",
+  "Asocamproariari": "Asocamproariari",
+  "Corporación Red de Consejos Comunitarios del Pacífico Sur Recompas": "Recompas",
+  "Fuerza Progresista": "Fuerza Progresista",
+  "Consejo Comunitario Fernando Rios Hidalgo": "Consejo Comunitario Fernando Ríos Hidalgo",
+  "Liberal Colombiano-Partido Conservador Col": "Partido Liberal",
+  "Fundación Igualdad social": "Fundación Igualdad Social",
+  "Movimiento Progresistas": "Movimiento Progresistas (2002)",
+  "Consejo Comunitario los Andes": "Consejo Comunitario Los Andes",
+  "Asociación de Familias Desplazadas de Hacarí": "Asociación de Familias Desplazadas de Hacarí",
+  "Asociación de Desplazados del Municipio de Briceño": "Asociación de Desplazados de Briceño",
+  "Afrovides": "Afrovides",
+  "PIN - Partido de Integración Nacional": "Opción Ciudadana",
+  "Movimiento Fuerza Ciudadana": "Fuerza Ciudadana",
+  "ASOINTEC": "ASOINTEC",
+  "Grupo Significativo de Ciudadanos Gente en Movimiento": "Gente en Movimiento",
+  "Movimiento Salvación Nacional": "Salvación Nacional",
+  "Movimiento de Salvación Nacional": "Salvación Nacional",
+  "Conservador Colombiano-Pop.Col": "Partido Conservador",
+  "Movimiento Popular Unido": "Movimiento Popular Unido",
+  "Consejo Comunitario La Mamuncia": "Consejo Comunitario La Mamuncia",
+  "Movimiento Seriedad Colombia": "Seriedad Colombia",
+  "Coalición Partido Liberal Colombiano": "Partido Liberal",
+  "Asociación Víctimas Núcleo Santiago Pérez": "Asociación Víctimas Núcleo Santiago Pérez",
+  "Movimiento Nacional Conservador-Partido Conservador": "Partido Conservador",
+  "Consejo Comunitario del Río Naya": "Consejo Comunitario del Río Naya",
+  "Movimiento Republicano": "Movimiento Republicano",
+  "Asociación de Productores de Cacao (Aprocasur)": "Aprocasur",
+  "Apertura Liberal": "Apertura Liberal",
+  "Corporación Narrar Para Vivir": "Narrar para Vivir",
+  "Movimiento Huella Ciudadana": "Huella Ciudadana",
+  "Movimiento Unionista": "Movimiento Unionista",
+  "Cien por Ciento por Colombia": "Cien por Ciento por Colombia",
+  "Ind. Frente de Esperanza Fe": "Frente de Esperanza",
+  "Movimiento Conservatismo Independiente": "Conservatismo Independiente",
+  "Movimiento Nacional Conservador": "Movimiento Nacional Conservador",
+  "Yo soy Urabá": "Yo soy Urabá",
+  "​​​​​​​Partido Movimiento de Inclusión y Oportunidades - MIO": "MIO",
+  "Todos Somos Colombia (Antes Fundación Ébano de Colombia Funeco)": "Todos Somos Colombia",
+  "Movimiento Progresismo Democrático": "Progresismo Democrático",
+  "Asociación Afrouninca": "Afrouninca",
+  "Mov. MIPOL": "MIPOL",
+  "Partido Unidad Democrática": "Unidad Democrática",
+  "Partido Vanguardia Moral y Social": "Vanguardia Moral y Social",
+  "Funeco": "Todos Somos Colombia",
+  "Consejo Cominitario de los Corregimientos de San Antonio y del Castillo": "Consejo Comunitario San Antonio y El Castillo",
+  "Movimiento Nueva Fuerza Democrática": "Nueva Fuerza Democrática",
+  "Movimiento Conservatismo": "Movimiento Conservatismo",
+  "Movimiento Nuevo Liberalismo": "Mov. Nuevo Liberalismo (1999-2006)",
+  "Movimiento Comunal y Comunitario de Colombia": "Movimiento Comunal y Comunitario",
+  "Movimiento Nacional Progresista": "Movimiento Nacional Progresista",
+  "Movimiento Convergente Popular": "Convergencia Popular Cívica",
+  "Movimiento Convergencia Popular Cívica": "Convergencia Popular Cívica",
+  "Liberal Colombiano - Unión Patriótica": "Partido Liberal",
+  "Mov. Voluntad Popular": "Voluntad Popular",
+  "Partido de Acción Social": "Partido de Acción Social",
+  "Asociación Agropecuaria de Mujeres Víctimas de Jericó": "Mujeres Víctimas de Jericó",
+  "Partido Convergencia Ciudadana": "Opción Ciudadana",
+  "Partido Popular Colombiano": "Partido Popular Colombiano"
+ },
+ "revisar": [
+  {
+   "etiquetas": [
+    "Movimiento Convergencia Ciudadana",
+    "Convergencia Ciudadana",
+    "Partido Convergencia Ciudadana"
+   ],
+   "decision": "Fundidas en Opción Ciudadana (Convergencia Ciudadana → PIN en 2009 → Opción Ciudadana en 2013).",
+   "alternativa": "Mantener Convergencia Ciudadana como partido propio y fundir solo PIN y Opción Ciudadana.",
+   "motivo": "El Tiempo (09-11-2009) y Wikipedia en inglés hablan de cambio de nombre; Wikipedia en español dice que en la convención de Convergencia se creó un «nuevo» PIN."
+  },
+  {
+   "etiquetas": [
+    "Liberal Colombiano-Partido Conservador Col",
+    "Coalición Partido Liberal Colombiano",
+    "Liberal Colombiano - Unión Patriótica",
+    "Conservador Colombiano-Pop.Col",
+    "Movimiento Nacional Conservador-Partido Conservador",
+    "Coalicion Alternativa Santandereana"
+   ],
+   "decision": "Cada etiqueta de coalición tiene un solo diputado y se asigna a su partido (regla 2): las tres primeras al Partido Liberal, las dos siguientes al Partido Conservador y la última a Alianza Verde.",
+   "alternativa": "Tratar cada coalición como partido canónico propio.",
+   "motivo": "El partido del diputado sale de Congreso Visible, del anexo de electos de 2002 o de la prensa. Para Gómez Celis y Jaimes Ochoa se deduce de su cuatrienio siguiente; son 42 filas."
+  },
+  {
+   "etiquetas": [
+    "Partido Verde",
+    "Partido Verde Opción Centro"
+   ],
+   "decision": "Fundidas en Alianza Verde: cambios de nombre con continuidad (Wikipedia la fecha en 2005 y Congreso Visible en 2009).",
+   "alternativa": "Mantenerlas separadas y tratar Alianza Verde como partido nuevo de 2013 (regla 4).",
+   "motivo": "La web del partido describe 2013 como «fusión» con Progresistas, pero la decidió el congreso del Partido Verde y Progresistas no tenía personería."
+  },
+  {
+   "etiquetas": [
+    "Partido Dignidad"
+   ],
+   "decision": "Dignidad y Compromiso, nombre actual del mismo partido (regla 3).",
+   "alternativa": "Mostrarlo como «Dignidad», que es el nombre del partido durante el periodo del único diputado.",
+   "motivo": "La continuidad legal se apoya en que Dignidad aportó la personería (Semana, 17-01-2023); la prensa del lanzamiento habla de «nuevo partido»."
+  },
+  {
+   "etiquetas": [
+    "Colombia Humana",
+    "Coalición Lista de la Decencia",
+    "Coalición Pacto Histórico",
+    "Polo Democrático Alternativo"
+   ],
+   "decision": "Cuatro partidos distintos: Pacto Histórico es una coalición y después un partido nacido por fusión; los predecesores no se funden (regla 4).",
+   "alternativa": "Agrupar en «Pacto Histórico» a quienes acabaron en él, para el análisis político.",
+   "motivo": "La fusión (2025-2026) es posterior a casi todas las filas de Polo y Colombia Humana."
+  },
+  {
+   "etiquetas": [
+    "Movimiento Conservatismo Independiente",
+    "Movimiento Conservatismo",
+    "Movimiento Nacional Conservador"
+   ],
+   "decision": "Separados, cada uno con su nombre.",
+   "alternativa": "Fundir «Movimiento Conservatismo» con «Movimiento Conservatismo Independiente» o asignar los tres al Partido Conservador si se prueban sectores suyos.",
+   "motivo": "No hay fuente que confirme su relación con el Partido Conservador. En el anexo de 2002, Gerlein figura como Partido Conservador, pero su etiqueta es «Conservatismo Independiente». Son 37 filas."
+  },
+  {
+   "etiquetas": [
+    "Fuerza Nacional Progresista",
+    "Fuerza Progresista"
+   ],
+   "decision": "Fundidas en Fuerza Progresista: «Nacional» parece un error de la etiqueta.",
+   "alternativa": "Mantener separada «Fuerza Nacional Progresista».",
+   "motivo": "Congreso Visible da «Fuerza Progresista» al cuatrienio 1998-2002 de Jiménez Salazar, que el CSV etiqueta como «Fuerza Nacional Progresista». No se ha encontrado un partido con ese nombre."
+  },
+  {
+   "etiquetas": [
+    "Movimiento Nuevo Liberalismo",
+    "Partido Nuevo Liberalismo"
+   ],
+   "decision": "Separados.",
+   "alternativa": "Fundirlos por el nombre.",
+   "motivo": "La sentencia SU-257/21 distingue el Movimiento Nuevo Liberalismo (1999-2006) del Partido Nuevo Liberalismo de Galán."
+  },
+  {
+   "etiquetas": [
+    "Todos Somos Colombia (Antes Fundación Ébano de Colombia Funeco)",
+    "Funeco"
+   ],
+   "decision": "Fundidas con el nombre más reciente, Todos Somos Colombia.",
+   "alternativa": "Usar «Funeco» como nombre canónico, que es el nombre con que obtuvo las curules afro de 2014.",
+   "motivo": "Congreso Visible confirma el cambio de nombre pero sin fecha."
+  },
+  {
+   "etiquetas": [
+    "Centro Democrático",
+    "Coalición Pacto Histórico",
+    "Partido de la U",
+    "Polo Democrático Alternativo",
+    "Partido Dignidad",
+    "Colombia Humana",
+    "Movimiento Vía Alterna"
+   ],
+   "decision": "Se asigna por etiqueta, sin corregir fechas.",
+   "alternativa": "Corregir con una tabla por diputado y cuatrienio: la etiqueta de un cuatrienio sin registro propio se copia de otro.",
+   "motivo": "Unas 2.770 filas llevan un partido que aún no existía en la fecha de la intervención (Centro Democrático 280, Pacto Histórico 1.078, Partido de la U 255, Polo 378, Dignidad 303, Colombia Humana 475). Hay además filas con otro partido que sí existía, que no pueden contarse así."
+  }
+ ],
+ "tipo_propuesto": "trayectoria"
+}

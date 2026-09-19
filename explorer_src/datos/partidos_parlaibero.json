@@ -1,0 +1,7357 @@
+{
+ "descripcion": "Partido canónico de cada etiqueta de la columna party de los CSV de ParlaIbero, por país (fuentes en datos/partidos/, tools/partidos_parlaibero.py).",
+ "generado": "2026-09-19",
+ "paises": {
+  "AR": {
+   "tipo": "trayectoria",
+   "partidos": {
+    "Acción Federal": {
+     "nombre": "Acción Federal",
+     "inicio": "2020-05-26"
+    },
+    "Acción Provinciana": {
+     "nombre": "Acción Provinciana",
+     "inicio": "1987-12-10"
+    },
+    "Acción por la República": {
+     "nombre": "Acción por la República",
+     "inicio": "1997-12-10"
+    },
+    "Ahora Patria": {
+     "nombre": "Ahora Patria",
+     "inicio": "2021-12-10"
+    },
+    "Autonomista": {
+     "nombre": "Partido Autonomista (Corrientes)",
+     "inicio": "1983-12-16"
+    },
+    "Avanza Libertad": {
+     "nombre": "Avanza Libertad",
+     "inicio": "2021-12-10"
+    },
+    "Avanzar San Luis": {
+     "nombre": "Avanzar San Luis",
+     "inicio": "2016-02-22"
+    },
+    "AyL": {
+     "nombre": "Autodeterminación y Libertad",
+     "inicio": "2001-12-10"
+    },
+    "BA para Todos": {
+     "nombre": "Buenos Aires para Todos en Proyecto Sur",
+     "inicio": "2007-12-10"
+    },
+    "Bandera Blanca": {
+     "nombre": "Defensa Provincial - Bandera Blanca",
+     "inicio": "1987-12-10"
+    },
+    "Bloque Buenos Aires": {
+     "nombre": "Bloque Buenos Aires",
+     "inicio": "2003-12-10"
+    },
+    "Bloque de los Trabajadores": {
+     "nombre": "Bloque de los Trabajadores",
+     "inicio": "2017-05-16"
+    },
+    "Brig. Gral. J. B. Bustos": {
+     "nombre": "Brigadier General Juan Bautista Bustos",
+     "inicio": "2016-03-15"
+    },
+    "Buenos Aires Libre": {
+     "nombre": "Buenos Aires Libre",
+     "inicio": "2023-03-29"
+    },
+    "Buenos Aires por el Cambio": {
+     "nombre": "Buenos Aires por el Cambio",
+     "inicio": "2009-03-31"
+    },
+    "CC-ARI": {
+     "nombre": "Coalición Cívica ARI",
+     "inicio": "2001-05-09"
+    },
+    "CREO": {
+     "nombre": "CREO",
+     "inicio": "2021-12-14"
+    },
+    "Chubut Somos Todos": {
+     "nombre": "Chubut Somos Todos",
+     "inicio": "2015-12-10"
+    },
+    "Compromiso con San Juan": {
+     "nombre": "Compromiso con San Juan",
+     "inicio": "2015-12-10"
+    },
+    "ConFe": {
+     "nombre": "Consenso Federal (ConFe, 2008-2011)",
+     "inicio": "2008-08-14"
+    },
+    "Concertación": {
+     "nombre": "De la Concertación",
+     "inicio": "2007-12-10"
+    },
+    "Concertación Entrerriana": {
+     "nombre": "Concertación Entrerriana",
+     "inicio": "2005-12-10"
+    },
+    "Concordia Misionero": {
+     "nombre": "Frente de la Concordia Misionero",
+     "inicio": "2016-06-16"
+    },
+    "Consenso Federal": {
+     "nombre": "Consenso Federal (2019-2023)",
+     "inicio": "2019-06-26"
+    },
+    "Conv. Pop. Emancipadora": {
+     "nombre": "Convergencia Popular Emancipadora",
+     "inicio": "1989-07-19"
+    },
+    "Convergencia": {
+     "nombre": "Convergencia",
+     "inicio": "2003-12-10"
+    },
+    "Corriente Grande": {
+     "nombre": "Corriente Grande",
+     "inicio": "1995-04-11"
+    },
+    "Corriente Peronista Federal": {
+     "nombre": "Corriente Peronista Federal",
+     "inicio": "2009-10-21"
+    },
+    "Corriente de Pensamiento Federal": {
+     "nombre": "Corriente de Pensamiento Federal",
+     "inicio": "2009-12-10"
+    },
+    "Cruzada Renovadora": {
+     "nombre": "Cruzada Renovadora",
+     "inicio": "1989-12-10"
+    },
+    "Cultura, Educación y Trabajo": {
+     "nombre": "Cultura, Educación y Trabajo",
+     "inicio": "2013-07-05"
+    },
+    "Córdoba Federal": {
+     "nombre": "Córdoba Federal",
+     "inicio": "2009-12-10"
+    },
+    "Córdoba Trabajo y Producción": {
+     "nombre": "Córdoba Trabajo y Producción",
+     "inicio": "2017-12-10"
+    },
+    "DIP": {
+     "nombre": "Democracia Igualitaria y Participativa",
+     "inicio": "2011-08-05"
+    },
+    "Del Bicentenario": {
+     "nombre": "Del Bicentenario",
+     "inicio": "2016-04-05"
+    },
+    "Democracia Popular": {
+     "nombre": "Democracia Popular",
+     "inicio": "1989-08-02"
+    },
+    "Des y Justicia": {
+     "nombre": "Des y Justicia (así en la fuente)",
+     "inicio": "1997-12-10"
+    },
+    "Desarrollo Social y Equidad": {
+     "nombre": "Unidad para el Desarrollo Social y la Equidad",
+     "inicio": "2011-12-10"
+    },
+    "Dignidad Peronista": {
+     "nombre": "Dignidad Peronista",
+     "inicio": "2007-08-17"
+    },
+    "Dignidad y Justicia": {
+     "nombre": "Dignidad y Justicia",
+     "inicio": "2007-09-13"
+    },
+    "Diálogo por Buenos Aires": {
+     "nombre": "Diálogo por Buenos Aires",
+     "inicio": "2007-09-17"
+    },
+    "Diálogo y Trabajo": {
+     "nombre": "Diálogo y Trabajo",
+     "inicio": "2016-03-21"
+    },
+    "ECO": {
+     "nombre": "Encuentro por Corrientes",
+     "inicio": "2013-12-10"
+    },
+    "EPyS": {
+     "nombre": "Encuentro Popular y Social",
+     "inicio": "2007-12-10"
+    },
+    "El Chacho": {
+     "nombre": "El Chacho",
+     "inicio": "2013-10-08"
+    },
+    "Elijo Catamarca": {
+     "nombre": "Elijo Catamarca",
+     "inicio": "2017-12-13"
+    },
+    "Emancipación y Justicia": {
+     "nombre": "Emancipación y Justicia",
+     "inicio": "2003-12-10"
+    },
+    "Encuentro (2003)": {
+     "nombre": "Encuentro (2003-2005)",
+     "inicio": "2003-12-10"
+    },
+    "Encuentro Federal": {
+     "nombre": "Encuentro Federal",
+     "inicio": "2021-12-10"
+    },
+    "Encuentro Popular (2003)": {
+     "nombre": "Encuentro Popular (2003-2005)",
+     "inicio": "2003-03-01"
+    },
+    "Eva Perón": {
+     "nombre": "Eva Perón",
+     "inicio": "2003-12-10"
+    },
+    "Evolución Radical": {
+     "nombre": "Evolución Radical",
+     "inicio": "2017-12-10"
+    },
+    "FCpS": {
+     "nombre": "Frente Cívico por Santiago",
+     "inicio": "2005-12-10"
+    },
+    "FCyS": {
+     "nombre": "Frente Cívico y Social de Catamarca",
+     "inicio": "1997-12-10"
+    },
+    "FG": {
+     "nombre": "Frente Grande",
+     "inicio": "1993-12-10"
+    },
+    "FIT-U": {
+     "nombre": "Frente de Izquierda y de Trabajadores - Unidad",
+     "inicio": "2013-12-10"
+    },
+    "FJL Catamarca": {
+     "nombre": "Frente Justicialista de Liberación - Catamarca",
+     "inicio": "1987-09-30"
+    },
+    "FMP": {
+     "nombre": "Frente del Movimiento Popular",
+     "inicio": "2002-12-11"
+    },
+    "FORJA": {
+     "nombre": "Concertación FORJA",
+     "inicio": "2008-09-30"
+    },
+    "FPCyS": {
+     "nombre": "Frente Progresista Cívico y Social",
+     "inicio": "2018-06-11"
+    },
+    "FR": {
+     "nombre": "Frente Renovador",
+     "inicio": "2013-09-11"
+    },
+    "FREJULI": {
+     "nombre": "Frente Justicia, Unión y Libertad (FREJULI)",
+     "inicio": "2007-12-10"
+    },
+    "FREPANU": {
+     "nombre": "FREPANU",
+     "inicio": "1997-12-10"
+    },
+    "FREPASO": {
+     "nombre": "FREPASO (Frente País Solidario)",
+     "inicio": "1995-12-10"
+    },
+    "Fe": {
+     "nombre": "Fe",
+     "inicio": "2013-11-15"
+    },
+    "Federal (2001)": {
+     "nombre": "Federal (2001-2003)",
+     "inicio": "2001-03-22"
+    },
+    "Federal UNA": {
+     "nombre": "Federal Unidos por una Nueva Argentina",
+     "inicio": "2015-12-10"
+    },
+    "Federal-CFI": {
+     "nombre": "Federal - CFI (1987-1993)",
+     "inicio": "1987-12-10"
+    },
+    "Fiscal": {
+     "nombre": "Fiscal",
+     "inicio": "2001-12-10"
+    },
+    "Frente Cívico (Córdoba)": {
+     "nombre": "Frente Cívico - Córdoba",
+     "inicio": "2009-12-10"
+    },
+    "Frente Cívico Tucumán": {
+     "nombre": "Frente Cívico Tucumán",
+     "inicio": "2003-12-10"
+    },
+    "Frente Peronista": {
+     "nombre": "Frente Peronista (2011-2013)",
+     "inicio": "2011-12-07"
+    },
+    "Frente Peronista Federal": {
+     "nombre": "Frente Peronista Federal",
+     "inicio": "2009-12-10"
+    },
+    "Frente Popular Bonaerense": {
+     "nombre": "Frente Popular Bonaerense",
+     "inicio": "2003-12-10"
+    },
+    "Frente Producción y Trabajo": {
+     "nombre": "Frente Producción y Trabajo",
+     "inicio": "2005-12-10"
+    },
+    "Frente Renovador Peronista": {
+     "nombre": "Frente Renovador Peronista",
+     "inicio": "2013-02-05"
+    },
+    "Frente de Unidad Provincial": {
+     "nombre": "Frente de Unidad Provincial",
+     "inicio": "2003-12-10"
+    },
+    "Frente para el Cambio": {
+     "nombre": "Frente para el Cambio",
+     "inicio": "2001-04-05"
+    },
+    "Frente por la Inclusión Social": {
+     "nombre": "Frente por la Inclusión Social",
+     "inicio": "2013-10-22"
+    },
+    "Fuerza Republicana": {
+     "nombre": "Fuerza Republicana",
+     "inicio": "1989-12-10"
+    },
+    "GEN": {
+     "nombre": "GEN (Generación para un Encuentro Nacional)",
+     "inicio": "2009-11-12"
+    },
+    "Guardia Peronista": {
+     "nombre": "Guardia Peronista",
+     "inicio": "2006-02-15"
+    },
+    "IDC": {
+     "nombre": "Integración y Desarrollo Chubutense",
+     "inicio": "2021-12-10"
+    },
+    "IS": {
+     "nombre": "Izquierda Socialista - Frente de Izquierda",
+     "inicio": "2016-12-06"
+    },
+    "IU": {
+     "nombre": "Izquierda Unida",
+     "inicio": "2001-12-10"
+    },
+    "Identidad Bonaerense": {
+     "nombre": "Identidad Bonaerense",
+     "inicio": "2021-12-10"
+    },
+    "JSRN": {
+     "nombre": "Juntos Somos Río Negro",
+     "inicio": "2019-12-10"
+    },
+    "Juntos por Argentina": {
+     "nombre": "Juntos por Argentina",
+     "inicio": "2015-05-13"
+    },
+    "Justicialista (2016)": {
+     "nombre": "Bloque Justicialista (escisión del FpV-PJ, 2016-2021)",
+     "inicio": "2016-02-04"
+    },
+    "Justicialista Azul y Blanco": {
+     "nombre": "Frente Federal Justicialista Azul y Blanco",
+     "inicio": "2002-11-21"
+    },
+    "Justicialista Bonaerense": {
+     "nombre": "Justicialista de la Provincia de Buenos Aires",
+     "inicio": "2015-12-10"
+    },
+    "Justicialista Nacional": {
+     "nombre": "Justicialista Nacional",
+     "inicio": "2006-04-05"
+    },
+    "Justicialista por Tucumán": {
+     "nombre": "Justicialista por Tucumán",
+     "inicio": "2017-12-06"
+    },
+    "JxC Chubut": {
+     "nombre": "Juntos por el Cambio Chubut",
+     "inicio": "2022-06-13"
+    },
+    "LLA": {
+     "nombre": "La Libertad Avanza",
+     "inicio": "2021-12-10"
+    },
+    "La Argentina de los Valores": {
+     "nombre": "La Argentina de los Valores",
+     "inicio": "2004-12-08"
+    },
+    "Libertad, Valores y Cambio": {
+     "nombre": "Libertad, Valores y Cambio",
+     "inicio": "2015-08-07"
+    },
+    "Libres del Sur": {
+     "nombre": "Libres del Sur",
+     "inicio": "2009-12-10"
+    },
+    "MAS": {
+     "nombre": "Movimiento al Socialismo",
+     "inicio": "1989-12-10"
+    },
+    "MID": {
+     "nombre": "Movimiento de Integración y Desarrollo",
+     "inicio": "1985-12-10"
+    },
+    "MMTA": {
+     "nombre": "Movimiento Multisectorial por el Trabajo y la Autodeterminación",
+     "inicio": "2002-11-01"
+    },
+    "MOFEPA": {
+     "nombre": "Movimiento Federalista Pampeano",
+     "inicio": "1983-12-10"
+    },
+    "MOPOF": {
+     "nombre": "Movimiento Popular Fueguino",
+     "inicio": "1991-12-18"
+    },
+    "MORECI": {
+     "nombre": "MORECI",
+     "inicio": "1996-05-07"
+    },
+    "MPC": {
+     "nombre": "Movimiento Popular Catamarqueño",
+     "inicio": "1985-12-10"
+    },
+    "MPJ": {
+     "nombre": "Movimiento Popular Jujeño",
+     "inicio": "1983-12-10"
+    },
+    "MPN": {
+     "nombre": "Movimiento Popular Neuquino",
+     "inicio": "1983-12-10"
+    },
+    "MPR": {
+     "nombre": "Movimiento Popular Rionegrino",
+     "inicio": "1987-12-10"
+    },
+    "Memoria y Democracia": {
+     "nombre": "Memoria y Democracia",
+     "inicio": "2007-12-06"
+    },
+    "Misiones": {
+     "nombre": "Misiones",
+     "inicio": "2017-12-10"
+    },
+    "Mov. Nac. Alfonsinista": {
+     "nombre": "Movimiento Nacional Alfonsinista",
+     "inicio": "2015-02-24"
+    },
+    "Mov. Social Entrerriano": {
+     "nombre": "Movimiento Social Entrerriano",
+     "inicio": "1999-11-16"
+    },
+    "Movimiento Cívico y Social": {
+     "nombre": "Movimiento Cívico y Social",
+     "inicio": "1999-12-10"
+    },
+    "Movimiento Evita": {
+     "nombre": "Movimiento Evita",
+     "inicio": "2016-06-23"
+    },
+    "Movimiento Independiente": {
+     "nombre": "Movimiento Independiente",
+     "inicio": "2006-03-20"
+    },
+    "Movimiento Peronista": {
+     "nombre": "Movimiento Peronista (1991-1993)",
+     "inicio": "1991-01-08"
+    },
+    "Nacional Sindical": {
+     "nombre": "Nacional Sindical",
+     "inicio": "2006-12-06"
+    },
+    "Nueva Dirigencia": {
+     "nombre": "Frente Nueva Dirigencia",
+     "inicio": "1996-08-20"
+    },
+    "Nuevo Espacio Entrerriano": {
+     "nombre": "Nuevo Espacio Entrerriano",
+     "inicio": "2003-12-10"
+    },
+    "Nuevo Espacio Santafesino": {
+     "nombre": "Nuevo Espacio Santafesino",
+     "inicio": "2017-12-10"
+    },
+    "Núcleo Unidad Peronista": {
+     "nombre": "Núcleo Unidad Peronista",
+     "inicio": "2011-03-01"
+    },
+    "PAIS": {
+     "nombre": "PAIS (Política Abierta para la Integridad Social)",
+     "inicio": "1994-09-13"
+    },
+    "PAUFE": {
+     "nombre": "Unidad Federalista (PAUFE)",
+     "inicio": "2001-08-01"
+    },
+    "PB": {
+     "nombre": "Partido Bloquista de San Juan",
+     "inicio": "1983-12-10"
+    },
+    "PCP": {
+     "nombre": "Partido Conservador Popular",
+     "inicio": "1992-04-30"
+    },
+    "PD": {
+     "nombre": "Partido Demócrata de Mendoza",
+     "inicio": "1985-12-10"
+    },
+    "PD Capital": {
+     "nombre": "Partido Demócrata de la Capital Federal",
+     "inicio": "2000-10-11"
+    },
+    "PDC": {
+     "nombre": "Partido Demócrata Cristiano",
+     "inicio": "1983-12-10"
+    },
+    "PDP": {
+     "nombre": "Partido Demócrata Progresista",
+     "inicio": "1985-12-10"
+    },
+    "PFF": {
+     "nombre": "Partido Federal Fueguino",
+     "inicio": "2009-12-10"
+    },
+    "PI": {
+     "nombre": "Partido Intransigente",
+     "inicio": "1983-12-10"
+    },
+    "PJ La Pampa": {
+     "nombre": "Partido Justicialista La Pampa",
+     "inicio": "2009-12-10"
+    },
+    "PL": {
+     "nombre": "Partido Liberal de Corrientes",
+     "inicio": "1983-12-10"
+    },
+    "PRO": {
+     "nombre": "PRO (Propuesta Republicana)",
+     "inicio": "2003-12-10"
+    },
+    "PRS": {
+     "nombre": "Partido Renovador de Salta",
+     "inicio": "1985-12-10"
+    },
+    "PS": {
+     "nombre": "Partido Socialista",
+     "inicio": "2002-10-01"
+    },
+    "PSP": {
+     "nombre": "Partido Socialista Popular",
+     "inicio": "1987-12-10"
+    },
+    "PSU": {
+     "nombre": "Socialista Unificado",
+     "inicio": "1987-12-10"
+    },
+    "PTS": {
+     "nombre": "PTS - Frente de Izquierda",
+     "inicio": "2013-12-10"
+    },
+    "Partido Blanco de los Jubilados": {
+     "nombre": "Partido Blanco de los Jubilados",
+     "inicio": "1989-12-10"
+    },
+    "Partido Nuevo (Corrientes)": {
+     "nombre": "Partido Nuevo (Corrientes)",
+     "inicio": "2003-12-10"
+    },
+    "Partido Nuevo (Córdoba)": {
+     "nombre": "Partido Nuevo contra la Corrupción, por la Honestidad y la Transparencia",
+     "inicio": "2003-12-10"
+    },
+    "Partido por la Justicia Social": {
+     "nombre": "Partido por la Justicia Social",
+     "inicio": "2017-12-10"
+    },
+    "Peronismo Cordobés": {
+     "nombre": "Peronismo Cordobés",
+     "inicio": "2010-04-21"
+    },
+    "Peronismo Federal": {
+     "nombre": "Peronismo Federal (2009-2011)",
+     "inicio": "2009-07-28"
+    },
+    "Peronismo Jujeño": {
+     "nombre": "Peronismo Jujeño",
+     "inicio": "2009-09-09"
+    },
+    "Peronismo Más al Sur": {
+     "nombre": "Peronismo Más al Sur",
+     "inicio": "2013-09-26"
+    },
+    "Peronismo Peronista": {
+     "nombre": "Peronismo Peronista",
+     "inicio": "2007-06-27"
+    },
+    "Peronismo Popular": {
+     "nombre": "Peronismo Popular",
+     "inicio": "2005-03-01"
+    },
+    "Peronista": {
+     "nombre": "Peronista (2009-2011)",
+     "inicio": "2009-12-10"
+    },
+    "Peronista 17 de Octubre": {
+     "nombre": "Peronista 17 de Octubre",
+     "inicio": "1985-05-01"
+    },
+    "Peronista Córdoba Ciudadana": {
+     "nombre": "Peronista Córdoba Ciudadana",
+     "inicio": "2010-04-23"
+    },
+    "Peronista Federal": {
+     "nombre": "Peronista Federal (2005-2009)",
+     "inicio": "2005-11-09"
+    },
+    "Peronista Salteño": {
+     "nombre": "Peronista Salteño",
+     "inicio": "2009-09-08"
+    },
+    "Polo Social": {
+     "nombre": "Polo Social",
+     "inicio": "2001-12-10"
+    },
+    "Por la Verdad": {
+     "nombre": "Por la Verdad",
+     "inicio": "2007-02-14"
+    },
+    "Primero Argentina": {
+     "nombre": "Primero Argentina",
+     "inicio": "2017-12-06"
+    },
+    "Primero Tucumán": {
+     "nombre": "Primero Tucumán",
+     "inicio": "2015-12-15"
+    },
+    "Producción y Trabajo": {
+     "nombre": "Producción y Trabajo",
+     "inicio": "2019-12-10"
+    },
+    "Propuesta Salteña": {
+     "nombre": "Partido Propuesta Salteña",
+     "inicio": "2019-12-10"
+    },
+    "Protectora": {
+     "nombre": "Bloque Protectora",
+     "inicio": "2018-06-13"
+    },
+    "Proyecto Corrientes": {
+     "nombre": "Proyecto Corrientes",
+     "inicio": "2003-12-10"
+    },
+    "Proyecto Progresista": {
+     "nombre": "Proyecto Progresista",
+     "inicio": "2009-08-31"
+    },
+    "Proyecto Social Alternativo": {
+     "nombre": "Proyecto Social Alternativo",
+     "inicio": "2004-10-29"
+    },
+    "Proyecto Sur": {
+     "nombre": "Proyecto Sur",
+     "inicio": "2009-12-10"
+    },
+    "Recrear": {
+     "nombre": "Recrear para el Crecimiento",
+     "inicio": "2003-04-21"
+    },
+    "Red por Argentina": {
+     "nombre": "Red por Argentina",
+     "inicio": "2018-10-22"
+    },
+    "Redes": {
+     "nombre": "Redes",
+     "inicio": "2005-03-23"
+    },
+    "Renovador Bonaerense": {
+     "nombre": "Renovador de la Provincia de Buenos Aires",
+     "inicio": "1987-11-26"
+    },
+    "Republicanos Unidos": {
+     "nombre": "Republicanos Unidos",
+     "inicio": "2021-12-10"
+    },
+    "Ricardo Balbín": {
+     "nombre": "Unipersonal 'Ricardo Balbín'",
+     "inicio": "2002-12-05"
+    },
+    "SER": {
+     "nombre": "SER - Somos Energía para Renovar",
+     "inicio": "2021-12-10"
+    },
+    "Salta Somos Todos": {
+     "nombre": "Salta Somos Todos",
+     "inicio": "2009-12-10"
+    },
+    "Santa Fe Federal": {
+     "nombre": "Santa Fe Federal",
+     "inicio": "2009-02-24"
+    },
+    "Santa Fe en Movimiento": {
+     "nombre": "Santa Fe en Movimiento",
+     "inicio": "2011-12-10"
+    },
+    "Sin bloque": {
+     "nombre": "Sin bloque",
+     "inicio": "1985-09-05"
+    },
+    "Sin identificar": {
+     "nombre": "Sin identificar",
+     "inicio": "1983-11-29"
+    },
+    "Soberanía Popular": {
+     "nombre": "Soberanía Popular",
+     "inicio": "2003-12-29"
+    },
+    "Social Patagónico": {
+     "nombre": "Social Patagónico",
+     "inicio": "2010-09-09"
+    },
+    "Socialista del MIJD": {
+     "nombre": "Socialista del MIJD",
+     "inicio": "2011-12-10"
+    },
+    "Solidario SI": {
+     "nombre": "Solidario SI",
+     "inicio": "2009-12-10"
+    },
+    "Somos": {
+     "nombre": "Somos",
+     "inicio": "2018-10-30"
+    },
+    "Somos Mendoza": {
+     "nombre": "Somos Mendoza",
+     "inicio": "2017-12-10"
+    },
+    "Somos San Juan": {
+     "nombre": "Somos San Juan",
+     "inicio": "2017-12-01"
+    },
+    "Suma+UNEN": {
+     "nombre": "Suma + UNEN",
+     "inicio": "2013-12-10"
+    },
+    "Todos Juntos por San Juan": {
+     "nombre": "Todos Juntos por San Juan",
+     "inicio": "2017-12-06"
+    },
+    "Trabajo y Dignidad": {
+     "nombre": "Trabajo y Dignidad",
+     "inicio": "2009-10-28"
+    },
+    "UCR": {
+     "nombre": "Unión Cívica Radical",
+     "inicio": "1983-12-10"
+    },
+    "UCeDé": {
+     "nombre": "Unión del Centro Democrático",
+     "inicio": "1983-12-10"
+    },
+    "UDESO Salta": {
+     "nombre": "UDESO Salta",
+     "inicio": "2011-12-10"
+    },
+    "UJ San Luis": {
+     "nombre": "Unidad Justicialista (San Luis)",
+     "inicio": "2013-09-17"
+    },
+    "UNA": {
+     "nombre": "Unidos por una Nueva Argentina",
+     "inicio": "2016-03-01"
+    },
+    "UNIR": {
+     "nombre": "UNIR",
+     "inicio": "2013-09-12"
+    },
+    "UPT": {
+     "nombre": "Unión por Todos",
+     "inicio": "1997-04-22"
+    },
+    "Unidad Bonaerense": {
+     "nombre": "Unidad Bonaerense",
+     "inicio": "1985-12-10"
+    },
+    "Unidad Justicialista": {
+     "nombre": "Unidad Justicialista (1984-1987)",
+     "inicio": "1984-03-19"
+    },
+    "Unidad Popular": {
+     "nombre": "Unidad Popular",
+     "inicio": "2007-12-10"
+    },
+    "Unidad Socialista": {
+     "nombre": "Unidad Socialista - Honestidad, Trabajo y Eficiencia",
+     "inicio": "1991-12-10"
+    },
+    "Unidad y Equidad Federal": {
+     "nombre": "Unidad y Equidad Federal",
+     "inicio": "2019-12-10"
+    },
+    "Unidos por San Luis": {
+     "nombre": "Unidos por San Luis",
+     "inicio": "2021-12-10"
+    },
+    "Unión Celeste y Blanco": {
+     "nombre": "Unión Celeste y Blanco",
+     "inicio": "2007-12-05"
+    },
+    "Unión Peronista": {
+     "nombre": "Unión Peronista",
+     "inicio": "2008-11-19"
+    },
+    "Unión por Argentina": {
+     "nombre": "Unión por Argentina",
+     "inicio": "2002-10-11"
+    },
+    "Unión por Córdoba": {
+     "nombre": "Unión por Córdoba",
+     "inicio": "2013-12-10"
+    },
+    "Unión por Entre Ríos": {
+     "nombre": "Unión por Entre Ríos",
+     "inicio": "2013-12-10"
+    },
+    "Unión por San Juan": {
+     "nombre": "Unión por San Juan",
+     "inicio": "2011-12-10"
+    },
+    "UxP": {
+     "nombre": "Unión por la Patria",
+     "inicio": "1983-12-10"
+    },
+    "Valores Republicanos": {
+     "nombre": "Valores Republicanos",
+     "inicio": "2023-03-27"
+    },
+    "Valores para mi País": {
+     "nombre": "Valores para mi País",
+     "inicio": "2009-07-31"
+    },
+    "Vida y Compromiso": {
+     "nombre": "Vida y Compromiso",
+     "inicio": "2005-11-08"
+    }
+   },
+   "etiquetas": {
+    "": "Sin identificar",
+    "ACCION PROVINCIANA, JUSTICIALISTA, ACCION PROVINCIANA": [
+     [
+      "Acción Provinciana",
+      "1987-12-10"
+     ],
+     [
+      "UxP",
+      "1989-11-10"
+     ],
+     [
+      "Acción Provinciana",
+      "1991-12-10"
+     ]
+    ],
+    "ACCION REPUBLICA": "Acción por la República",
+    "ACCION REPUBLICA, FEDERAL, JUSTICIALISTA, RECREAR PARA EL CRECIMIENTO": [
+     [
+      "Acción por la República",
+      "1999-12-10"
+     ],
+     [
+      "Federal (2001)",
+      "2001-11-14"
+     ],
+     [
+      "Recrear",
+      "2003-04-21"
+     ]
+    ],
+    "ACCION REPUBLICA, FRENTE JUSTICIA UNION Y LIBERTAD - FREJULI, PERONISMO FEDERAL": [
+     [
+      "Acción por la República",
+      "1997-12-10"
+     ],
+     [
+      "FREJULI",
+      "2007-12-10"
+     ],
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ]
+    ],
+    "ACCION REPUBLICA, JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO": [
+     [
+      "Acción por la República",
+      "1999-12-10"
+     ],
+     [
+      "UxP",
+      "2001-11-15"
+     ],
+     [
+      "Justicialista Azul y Blanco",
+      "2002-11-21"
+     ],
+     [
+      "UxP",
+      "2003-06-27"
+     ]
+    ],
+    "ACCION REPUBLICA, MOVIMIENTO PAMPA SUR, ACCION REPUBLICA": "Acción por la República",
+    "ACCION REPUBLICA, UNION POR ARGENTINA": [
+     [
+      "Acción por la República",
+      "2001-12-10"
+     ],
+     [
+      "Unión por Argentina",
+      "2002-10-11"
+     ]
+    ],
+    "AHORA PATRIA": "Ahora Patria",
+    "ARI": "CC-ARI",
+    "ARI AUTONOMO 8 +, SOLIDARIDAD E IGUALDAD (SI) - ARI (T.D.F.), SOLIDARIDAD E IGUALDAD (SI) - PROYECTO PROGRESISTA, PROYECTO PROGRESISTA, SOCIAL PATAGONICO": [
+     [
+      "Unidad Popular",
+      "2007-12-10"
+     ],
+     [
+      "Proyecto Progresista",
+      "2009-08-31"
+     ],
+     [
+      "Social Patagónico",
+      "2010-09-09"
+     ]
+    ],
+    "ARI AUTONOMO 8 +, SOLIDARIDAD E IGUALDAD (SI) - ARI (T.D.F.), SOLIDARIDAD E IGUALDAD (SI) - PROYECTO PROGRESISTA, SOLIDARIDAD E IGUALDAD (SI), SI POR LA UNIDAD POPULAR, UNIDAD POPULAR": "Unidad Popular",
+    "ARI, COALICION CIVICA - ARI - GEN - UPT, COALICION CIVICA, FRENTE RENOVADOR": [
+     [
+      "CC-ARI",
+      "2003-12-10"
+     ],
+     [
+      "FR",
+      "2013-12-10"
+     ]
+    ],
+    "ARI, COALICION CIVICA ARI - UNEN, COALICION CIVICA": "CC-ARI",
+    "ARI, FRENTE CIVICO Y SOCIAL DE, COALICION CIVICA - ARI - GEN - UPT, COALICION CIVICA": "CC-ARI",
+    "ARI, FRENTE GRANDE, FREPASO": [
+     [
+      "FREPASO",
+      "2001-12-10"
+     ],
+     [
+      "FG",
+      "2002-01-23"
+     ],
+     [
+      "CC-ARI",
+      "2003-12-10"
+     ]
+    ],
+    "ARI, PERONISTA FEDERAL, ARI": "CC-ARI",
+    "ARI, PROPUESTA PERONISTA, COALICION CIVICA, DEMOCRACIA IGUALITARIA Y PARTICIPATIVA (D.I.P.)": [
+     [
+      "CC-ARI",
+      "2001-12-10"
+     ],
+     [
+      "DIP",
+      "2011-08-05"
+     ]
+    ],
+    "AUTODETERMINACION Y LIBERTAD, PROYECTO SOCIAL ALTERNATIVO, FRENTE PARA LA VICTORIA ‐ PJ": [
+     [
+      "AyL",
+      "2003-12-10"
+     ],
+     [
+      "Proyecto Social Alternativo",
+      "2004-10-29"
+     ],
+     [
+      "UxP",
+      "2005-12-10"
+     ]
+    ],
+    "AUTODETERMINACION Y LIBERTAD, REDES": [
+     [
+      "AyL",
+      "2003-12-10"
+     ],
+     [
+      "Redes",
+      "2005-03-23"
+     ]
+    ],
+    "AUTONOMISTA": "Autonomista",
+    "AVANZA LIBERTAD": "Avanza Libertad",
+    "AVANZA LIBERTAD, Buenos Aires Libre": [
+     [
+      "Avanza Libertad",
+      "2021-12-10"
+     ],
+     [
+      "Buenos Aires Libre",
+      "2023-03-29"
+     ]
+    ],
+    "BLOQUE BUENOS AIRES, PERONISTA FEDERAL, DIGNIDAD Y JUSTICIA": [
+     [
+      "Bloque Buenos Aires",
+      "2003-12-10"
+     ],
+     [
+      "Peronista Federal",
+      "2005-11-10"
+     ],
+     [
+      "Dignidad y Justicia",
+      "2007-09-13"
+     ]
+    ],
+    "BLOQUISTA": "PB",
+    "CHUBUT SOMOS TODOS, CULTURA, EDUCACION Y TRABAJO": [
+     [
+      "Chubut Somos Todos",
+      "2015-12-10"
+     ],
+     [
+      "Cultura, Educación y Trabajo",
+      "2018-03-20"
+     ]
+    ],
+    "COALICION CIVICA": "CC-ARI",
+    "COALICION CIVICA - ARI - GEN - UPT, COALICION CIVICA": "CC-ARI",
+    "COALICION CIVICA - ARI - GEN - UPT, COALICION CIVICA, PRO": [
+     [
+      "CC-ARI",
+      "2007-12-10"
+     ],
+     [
+      "PRO",
+      "2017-12-10"
+     ]
+    ],
+    "COALICION CIVICA - ARI - GEN - UPT, GEN": [
+     [
+      "CC-ARI",
+      "2007-12-10"
+     ],
+     [
+      "GEN",
+      "2009-11-12"
+     ]
+    ],
+    "COALICION CIVICA ARI - UNEN": "CC-ARI",
+    "COALICION CIVICA ARI - UNEN, COALICION CIVICA": "CC-ARI",
+    "COALICION CIVICA, COALICION CIVICA - ARI": "CC-ARI",
+    "COALICION CIVICA, COALICION CIVICA - ARI, COALICION CIVICA ARI - UNEN, COALICION CIVICA": "CC-ARI",
+    "COALICION CIVICA, VALORES REPUBLICANOS": [
+     [
+      "CC-ARI",
+      "2019-12-10"
+     ],
+     [
+      "Valores Republicanos",
+      "2023-03-27"
+     ]
+    ],
+    "COMPROMISO CON SAN JUAN": "Compromiso con San Juan",
+    "COMPROMISO CON SAN JUAN, SOMOS SAN JUAN, TODOS JUNTOS POR SAN JUAN, SOMOS SAN JUAN": [
+     [
+      "Compromiso con San Juan",
+      "2016-06-01"
+     ],
+     [
+      "Somos San Juan",
+      "2017-12-01"
+     ],
+     [
+      "Todos Juntos por San Juan",
+      "2017-12-06"
+     ],
+     [
+      "Somos San Juan",
+      "2017-12-07"
+     ]
+    ],
+    "COMPROMISO FEDERAL": "UJ San Luis",
+    "COMPROMISO FEDERAL, UNIDAD JUSTICIALISTA": "UJ San Luis",
+    "COMPROMISO FEDERAL, UNIDAD JUSTICIALISTA, FRENTE DE TODOS": [
+     [
+      "UJ San Luis",
+      "2017-12-10"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "COMPROMISO PARA EL CAMBIO, PRO, UNION PRO, PRO Y UNION POR ENTRE RIOS": "PRO",
+    "CONCERTACION FORJA": "FORJA",
+    "CONSERVADOR POPULAR, UNION PRO": [
+     [
+      "PCP",
+      "2013-12-10"
+     ],
+     [
+      "PRO",
+      "2016-03-08"
+     ]
+    ],
+    "CONV POP EMAN": "Conv. Pop. Emancipadora",
+    "CONVERGENCIA, DIALOGO POR BUENOS AIRES": [
+     [
+      "Convergencia",
+      "2003-12-10"
+     ],
+     [
+      "Diálogo por Buenos Aires",
+      "2007-09-17"
+     ]
+    ],
+    "CONVERGENCIA, UNIPERSONAL, AUTODETERMINACION Y LIBERTAD": [
+     [
+      "AyL",
+      "2001-12-10"
+     ],
+     [
+      "Sin bloque",
+      "2002-12-18"
+     ],
+     [
+      "Convergencia",
+      "2003-12-10"
+     ]
+    ],
+    "CORDOBA FEDERAL": "Córdoba Federal",
+    "CORRIENTE DE PENSAMIENTO FEDERAL, FRENTE RENOVADOR": [
+     [
+      "Corriente de Pensamiento Federal",
+      "2009-12-10"
+     ],
+     [
+      "FR",
+      "2013-09-11"
+     ]
+    ],
+    "CORRIENTE GRANDE, FRENTE GRANDE, MOVIMIENTO PROYECTO SUR": [
+     [
+      "FG",
+      "1993-12-10"
+     ],
+     [
+      "Corriente Grande",
+      "1995-04-11"
+     ],
+     [
+      "Proyecto Sur",
+      "2009-12-10"
+     ]
+    ],
+    "CRUZADA RENOV": "Cruzada Renovadora",
+    "DE LA CONCERTACION": "Concertación",
+    "DE LA CONCERTACION, BUENOS AIRES POR EL CAMBIO, UCR": [
+     [
+      "Concertación",
+      "2007-12-10"
+     ],
+     [
+      "Buenos Aires por el Cambio",
+      "2009-03-31"
+     ],
+     [
+      "UCR",
+      "2009-11-12"
+     ]
+    ],
+    "DE LA CONCERTACION, CONSENSO FEDERAL": [
+     [
+      "Concertación",
+      "2007-12-10"
+     ],
+     [
+      "ConFe",
+      "2008-08-14"
+     ]
+    ],
+    "DE LA CONCERTACION, CONSENSO FEDERAL, UCR": [
+     [
+      "Concertación",
+      "2007-12-10"
+     ],
+     [
+      "ConFe",
+      "2008-08-14"
+     ],
+     [
+      "UCR",
+      "2009-11-12"
+     ]
+    ],
+    "DE LA CONCERTACION, UCR": [
+     [
+      "Concertación",
+      "2007-12-10"
+     ],
+     [
+      "UCR",
+      "2009-11-12"
+     ]
+    ],
+    "DEFENSA PROVINCIAL BANDERA, BLANCA, DEFENSA PROVINCIAL BANDERA, BLANCA, DEFENSA PROVINCIAL": "Bandera Blanca",
+    "DEMOCRATA": "PD",
+    "DEMOCRATA CAP FED": "PD Capital",
+    "DEMOCRATA CAP FED, JUSTICIALISTA, ACCION REPUBLICA, DEMOCRATA CAP FED": [
+     [
+      "Acción por la República",
+      "2001-04-18"
+     ],
+     [
+      "PD Capital",
+      "2001-04-19"
+     ]
+    ],
+    "DEMOCRATA CRISTIANO": "PDC",
+    "DEMOCRATA CRISTIANO, FREPASO": [
+     [
+      "PDC",
+      "1989-12-10"
+     ],
+     [
+      "FREPASO",
+      "1995-12-10"
+     ]
+    ],
+    "DEMOCRATA CRISTIANO, HUMANISTICO Y LIBERACION ‐ FRENTE, SOCIAL": [
+     [
+      "PDC",
+      "1985-12-10"
+     ],
+     [
+      "Democracia Popular",
+      "1989-08-02"
+     ]
+    ],
+    "DEMOCRATA CRISTIANO, HUMANISTICO Y LIBERACION ‐ FRENTE, SOCIAL, DEMOCRACIA POPULAR, HUMANISTICO Y LIBERACION ‐ FRENTE, SOCIAL": [
+     [
+      "PDC",
+      "1987-12-10"
+     ],
+     [
+      "Democracia Popular",
+      "1989-08-02"
+     ]
+    ],
+    "DEMOCRATA DE MENDOZA": "PD",
+    "DEMOCRATA DE MENDOZA, PRO, PERONISTA FEDERAL": [
+     [
+      "PD",
+      "2005-12-10"
+     ],
+     [
+      "PRO",
+      "2019-12-10"
+     ]
+    ],
+    "DEMOCRATA PROGRESISTA": "PDP",
+    "DEMOCRATA PROGRESISTA, UNION POR TODOS, DEMOCRATA PROGRESISTA": "PDP",
+    "DEMOCRATA, ARI": "PD",
+    "DES Y JUSTICIA": "Des y Justicia",
+    "EMANCIPACION Y JUSTICIA, BUENOS AIRES PARA TODOS EN PROYECTO SUR, MOVIMIENTO PROYECTO SUR, UNIDAD POPULAR": [
+     [
+      "Emancipación y Justicia",
+      "2003-12-10"
+     ],
+     [
+      "BA para Todos",
+      "2007-12-10"
+     ],
+     [
+      "Proyecto Sur",
+      "2009-12-10"
+     ],
+     [
+      "Unidad Popular",
+      "2011-09-07"
+     ]
+    ],
+    "ENCUENTRO FEDERAL, UCR, GEN": [
+     [
+      "UCR",
+      "1997-12-10"
+     ],
+     [
+      "GEN",
+      "2009-12-10"
+     ],
+     [
+      "Encuentro Federal",
+      "2021-12-10"
+     ]
+    ],
+    "ENCUENTRO POPULAR": "Encuentro Popular (2003)",
+    "ENCUENTRO POPULAR, ENCUENTRO POPULAR Y SOCIAL, LIBRES DEL SUR": [
+     [
+      "EPyS",
+      "2007-12-10"
+     ],
+     [
+      "Libres del Sur",
+      "2009-12-10"
+     ]
+    ],
+    "ENCUENTRO POPULAR, ENCUENTRO POPULAR Y SOCIAL, LIBRES DEL SUR, SOMOS, FRENTE DE TODOS": [
+     [
+      "EPyS",
+      "2007-12-10"
+     ],
+     [
+      "Libres del Sur",
+      "2009-12-10"
+     ],
+     [
+      "Somos",
+      "2018-10-30"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "ENCUENTRO POPULAR, ENCUENTRO POPULAR Y SOCIAL, NUEVO ENCUENTRO POPULAR Y SOLIDARIO": [
+     [
+      "EPyS",
+      "2007-12-10"
+     ],
+     [
+      "Solidario SI",
+      "2009-12-10"
+     ]
+    ],
+    "ENCUENTRO POR CORRIENTES, UCR": [
+     [
+      "ECO",
+      "2013-12-10"
+     ],
+     [
+      "UCR",
+      "2015-12-10"
+     ]
+    ],
+    "ENCUENTRO, UCR": [
+     [
+      "Encuentro (2003)",
+      "2003-12-10"
+     ],
+     [
+      "UCR",
+      "2005-12-10"
+     ]
+    ],
+    "EVA PERON, JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO": [
+     [
+      "UxP",
+      "2002-07-17"
+     ],
+     [
+      "Justicialista Azul y Blanco",
+      "2002-11-21"
+     ],
+     [
+      "UxP",
+      "2003-06-27"
+     ],
+     [
+      "Eva Perón",
+      "2003-12-10"
+     ]
+    ],
+    "EVOLUCION RADICAL": "Evolución Radical",
+    "FEDERAL": "Federal (2001)",
+    "FEDERAL UNIDOS POR UNA NUEVA ARGENTINA": "Federal UNA",
+    "FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, CONSENSO FEDERAL": [
+     [
+      "Federal UNA",
+      "2015-12-10"
+     ],
+     [
+      "Consenso Federal",
+      "2019-06-26"
+     ]
+    ],
+    "FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, FRENTE DE TODOS": [
+     [
+      "Federal UNA",
+      "2015-12-10"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, RED POR ARGENTINA": [
+     [
+      "Federal UNA",
+      "2018-05-23"
+     ],
+     [
+      "Red por Argentina",
+      "2018-10-22"
+     ]
+    ],
+    "FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, RED POR ARGENTINA, FRENTE DE TODOS": [
+     [
+      "Federal UNA",
+      "2017-12-10"
+     ],
+     [
+      "Red por Argentina",
+      "2018-10-22"
+     ],
+     [
+      "UxP",
+      "2021-12-10"
+     ]
+    ],
+    "FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, UNIDOS POR UNA NUEVA ARGENTINA, CORDOBA TRABAJO Y PRODUCCION, CORDOBA FEDERAL": [
+     [
+      "Federal UNA",
+      "2015-12-10"
+     ],
+     [
+      "UNA",
+      "2016-03-01"
+     ],
+     [
+      "Córdoba Trabajo y Producción",
+      "2017-12-10"
+     ],
+     [
+      "Córdoba Federal",
+      "2018-12-18"
+     ]
+    ],
+    "FEDERAL ‐ CFI": "Federal-CFI",
+    "FEDERAL, FEDERAL ‐ CFI, FEDERAL": "Federal-CFI",
+    "FISCAL": "Fiscal",
+    "FRENTE CIVICO - CORDOBA": "Frente Cívico (Córdoba)",
+    "FRENTE CIVICO POR SANTIAGO": "FCpS",
+    "FRENTE CIVICO POR SANTIAGO, FRENTE DE TODOS": [
+     [
+      "FCpS",
+      "2009-12-10"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "FRENTE CIVICO POR SANTIAGO, UCR, FRENTE CIVICO POR SANTIAGO": [
+     [
+      "FCpS",
+      "2005-12-10"
+     ],
+     [
+      "UCR",
+      "2006-05-23"
+     ],
+     [
+      "FCpS",
+      "2007-12-10"
+     ]
+    ],
+    "FRENTE CIVICO POR SANTIAGO, UCR, FRENTE CIVICO POR SANTIAGO, FRENTE DE TODOS": [
+     [
+      "FCpS",
+      "2005-12-10"
+     ],
+     [
+      "UCR",
+      "2006-05-23"
+     ],
+     [
+      "FCpS",
+      "2007-12-10"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "FRENTE CIVICO TUCUMAN, PRO, FRENTE CIVICO TUCUMAN": [
+     [
+      "Frente Cívico Tucumán",
+      "2003-12-10"
+     ],
+     [
+      "PRO",
+      "2005-12-12"
+     ]
+    ],
+    "FRENTE CIVICO Y SOCIAL DE": "FCyS",
+    "FRENTE CIVICO Y SOCIAL DE CATAMARCA": "FCyS",
+    "FRENTE CIVICO Y SOCIAL DE CATAMARCA, UCR, FRENTE CIVICO Y SOCIAL DE CATAMARCA": [
+     [
+      "FCyS",
+      "2013-12-10"
+     ],
+     [
+      "UCR",
+      "2019-12-10"
+     ],
+     [
+      "FCyS",
+      "2019-12-27"
+     ]
+    ],
+    "FRENTE CIVICO Y SOCIAL DE, UCR": [
+     [
+      "FCyS",
+      "2003-12-10"
+     ],
+     [
+      "UCR",
+      "2006-05-23"
+     ]
+    ],
+    "FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES": "FIT-U",
+    "FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES, PARTIDO OBRERO FRENTE DE IZQUIERDA Y DE TRABAJADORES UNIDAD": "FIT-U",
+    "FRENTE DE LA CONCORDIA MISIONERO": "Concordia Misionero",
+    "FRENTE DE TODOS": "UxP",
+    "FRENTE DE TODOS, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA": [
+     [
+      "Federal UNA",
+      "2016-03-01"
+     ],
+     [
+      "UxP",
+      "2021-12-10"
+     ]
+    ],
+    "FRENTE DE UNIDAD PROVINCIAL": "Frente de Unidad Provincial",
+    "FRENTE DEL MOVIMIENTO POPULAR": "FMP",
+    "FRENTE DEL MOVIMIENTO POPULAR, FRENTE JUSTICIA UNION Y LIBERTAD - FREJULI, PERONISMO FEDERAL, FRENTE PERONISTA, COMPROMISO FEDERAL, UNIDAD JUSTICIALISTA": [
+     [
+      "FMP",
+      "2007-08-15"
+     ],
+     [
+      "FREJULI",
+      "2007-12-10"
+     ],
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "Frente Peronista",
+      "2011-12-07"
+     ],
+     [
+      "UJ San Luis",
+      "2013-09-17"
+     ]
+    ],
+    "FRENTE DEL MOVIMIENTO POPULAR, JUSTICIALISTA NACIONAL, COMPROMISO FEDERAL, AVANZAR SAN LUIS": [
+     [
+      "FMP",
+      "2003-12-17"
+     ],
+     [
+      "Justicialista Nacional",
+      "2006-04-05"
+     ],
+     [
+      "FMP",
+      "2006-09-20"
+     ],
+     [
+      "UJ San Luis",
+      "2015-12-10"
+     ],
+     [
+      "Avanzar San Luis",
+      "2016-02-22"
+     ]
+    ],
+    "FRENTE GRANDE, JUSTICIALISTA, FREPASO, FRENTE GRANDE": [
+     [
+      "UxP",
+      "1993-12-10"
+     ],
+     [
+      "FG",
+      "1994-08-02"
+     ],
+     [
+      "FREPASO",
+      "1999-12-10"
+     ],
+     [
+      "FG",
+      "2002-01-23"
+     ]
+    ],
+    "FRENTE JUSTICIA UNION Y LIBERTAD - FREJULI, PERONISMO FEDERAL": [
+     [
+      "FREJULI",
+      "2007-12-10"
+     ],
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ]
+    ],
+    "FRENTE JUSTICIALISTA DE LIBERACION": "FJL Catamarca",
+    "FRENTE PARA LA VICTORIA - PJ": "UxP",
+    "FRENTE PARA LA VICTORIA - PJ, BRIGADIER GENERAL JUAN BAUTISTA BUSTOS": [
+     [
+      "UxP",
+      "2014-08-27"
+     ],
+     [
+      "Brig. Gral. J. B. Bustos",
+      "2016-03-15"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, CULTURA, EDUCACION Y TRABAJO": [
+     [
+      "UxP",
+      "2009-12-10"
+     ],
+     [
+      "Cultura, Educación y Trabajo",
+      "2013-07-05"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, CULTURA, EDUCACION Y TRABAJO, FRENTE RENOVADOR, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, RED POR ARGENTINA, FRENTE DE TODOS": [
+     [
+      "UxP",
+      "2011-12-10"
+     ],
+     [
+      "Cultura, Educación y Trabajo",
+      "2013-12-10"
+     ],
+     [
+      "FR",
+      "2015-07-14"
+     ],
+     [
+      "Federal UNA",
+      "2015-12-10"
+     ],
+     [
+      "Red por Argentina",
+      "2018-10-22"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, ELIJO CATAMARCA": [
+     [
+      "UxP",
+      "2017-12-10"
+     ],
+     [
+      "Elijo Catamarca",
+      "2017-12-13"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, ELIJO CATAMARCA, FRENTE DE TODOS": [
+     [
+      "UxP",
+      "2017-12-10"
+     ],
+     [
+      "Elijo Catamarca",
+      "2017-12-13"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, FRENTE DE LA CONCORDIA MISIONERO": [
+     [
+      "UxP",
+      "2015-12-10"
+     ],
+     [
+      "Concordia Misionero",
+      "2016-06-16"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, FRENTE DE LA CONCORDIA MISIONERO, MISIONES": [
+     [
+      "UxP",
+      "2015-12-10"
+     ],
+     [
+      "Concordia Misionero",
+      "2016-06-16"
+     ],
+     [
+      "Misiones",
+      "2017-12-10"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, FRENTE DE TODOS": "UxP",
+    "FRENTE PARA LA VICTORIA - PJ, FRENTE DE TODOS, UCR": [
+     [
+      "UCR",
+      "1983-12-10"
+     ],
+     [
+      "UxP",
+      "2017-12-10"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, JUSTICIALISTA": [
+     [
+      "UxP",
+      "2013-12-10"
+     ],
+     [
+      "Justicialista (2016)",
+      "2016-02-04"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, JUSTICIALISTA POR TUCUMAN, FRENTE PARA LA VICTORIA - PJ": [
+     [
+      "UxP",
+      "2015-12-10"
+     ],
+     [
+      "Justicialista por Tucumán",
+      "2017-12-06"
+     ],
+     [
+      "UxP",
+      "2017-12-12"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, JUSTICIALISTA, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA": [
+     [
+      "UxP",
+      "2015-12-10"
+     ],
+     [
+      "Justicialista (2016)",
+      "2016-02-04"
+     ],
+     [
+      "Federal UNA",
+      "2019-06-27"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, NO INTEGRA BLOQUE, PERONISMO JUJEÑO": [
+     [
+      "UxP",
+      "2007-12-10"
+     ],
+     [
+      "Sin bloque",
+      "2009-08-12"
+     ],
+     [
+      "Peronismo Jujeño",
+      "2009-09-09"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, PARTIDO BLOQUISTA DE SAN JUAN, TODOS JUNTOS POR SAN JUAN, PARTIDO BLOQUISTA DE SAN JUAN, FRENTE DE TODOS": [
+     [
+      "UxP",
+      "2007-12-10"
+     ],
+     [
+      "PB",
+      "2016-03-30"
+     ],
+     [
+      "Todos Juntos por San Juan",
+      "2017-12-06"
+     ],
+     [
+      "PB",
+      "2017-12-08"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, PERONISMO FEDERAL": [
+     [
+      "UxP",
+      "2007-12-10"
+     ],
+     [
+      "Peronismo Federal",
+      "2009-07-28"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, PERONISMO FEDERAL, FRENTE PERONISTA, UNION POR ENTRE RIOS": [
+     [
+      "UxP",
+      "2007-12-10"
+     ],
+     [
+      "Peronismo Federal",
+      "2009-07-28"
+     ],
+     [
+      "Frente Peronista",
+      "2011-12-07"
+     ],
+     [
+      "Unión por Entre Ríos",
+      "2013-12-10"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, PERONISMO MAS AL SUR": [
+     [
+      "UxP",
+      "2007-12-10"
+     ],
+     [
+      "Peronismo Más al Sur",
+      "2013-09-26"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, PERONISMO PARA LA VICTORIA, BRIGADIER GENERAL JUAN BAUTISTA BUSTOS": [
+     [
+      "UxP",
+      "2016-03-01"
+     ],
+     [
+      "Movimiento Evita",
+      "2016-06-23"
+     ],
+     [
+      "Brig. Gral. J. B. Bustos",
+      "2017-06-26"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, PERONISMO PARA LA VICTORIA, MOVIMIENTO EVITA": [
+     [
+      "UxP",
+      "2016-03-01"
+     ],
+     [
+      "Movimiento Evita",
+      "2016-06-23"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, PERONISMO PARA LA VICTORIA, MOVIMIENTO EVITA, FRENTE DE TODOS": [
+     [
+      "UxP",
+      "2011-12-10"
+     ],
+     [
+      "Movimiento Evita",
+      "2016-06-23"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, PERONISMO PARA LA VICTORIA, MOVIMIENTO EVITA, FRENTE GRANDE, FREPASO, CONVERGENCIA, FRENTE PARA LA VICTORIA ‐ PJ": [
+     [
+      "FREPASO",
+      "2001-12-10"
+     ],
+     [
+      "Convergencia",
+      "2003-12-10"
+     ],
+     [
+      "UxP",
+      "2005-12-12"
+     ],
+     [
+      "Movimiento Evita",
+      "2016-06-23"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, PRIMERO ARGENTINA": [
+     [
+      "UxP",
+      "2015-12-10"
+     ],
+     [
+      "Primero Argentina",
+      "2017-12-06"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, PRIMERO TUCUMAN, JUSTICIALISTA POR TUCUMAN, PRIMERO TUCUMAN, JUSTICIALISTA POR TUCUMAN": [
+     [
+      "UxP",
+      "2015-12-10"
+     ],
+     [
+      "Primero Tucumán",
+      "2015-12-15"
+     ],
+     [
+      "Justicialista por Tucumán",
+      "2017-12-06"
+     ],
+     [
+      "Primero Tucumán",
+      "2017-12-10"
+     ],
+     [
+      "Justicialista por Tucumán",
+      "2018-02-07"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, SANTA FE FEDERAL, PERONISMO FEDERAL": [
+     [
+      "UxP",
+      "2007-12-10"
+     ],
+     [
+      "Santa Fe Federal",
+      "2009-02-24"
+     ],
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, SOMOS MENDOZA, FRENTE DE TODOS": [
+     [
+      "UxP",
+      "2009-12-10"
+     ],
+     [
+      "Somos Mendoza",
+      "2017-12-10"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, TRABAJO Y DIGNIDAD, PERONISTA": [
+     [
+      "UxP",
+      "2007-12-10"
+     ],
+     [
+      "Trabajo y Dignidad",
+      "2009-10-28"
+     ],
+     [
+      "Peronista",
+      "2009-12-10"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, UNION PERONISTA, PERONISMO FEDERAL, UNION PERONISTA": [
+     [
+      "UxP",
+      "2007-12-10"
+     ],
+     [
+      "Unión Peronista",
+      "2008-11-19"
+     ],
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "Unión Peronista",
+      "2011-10-26"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA - PJ, UNIPERSONAL, LIBERTAD Y DEMOCRACIA, LIBERTAD VALORES Y CAMBIO": [
+     [
+      "UxP",
+      "2009-12-10"
+     ],
+     [
+      "Sin bloque",
+      "2015-07-29"
+     ],
+     [
+      "Libertad, Valores y Cambio",
+      "2015-08-07"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA ‐ PJ": "UxP",
+    "FRENTE PARA LA VICTORIA ‐ PJ, FRENTE DEL MOVIMIENTO POPULAR": "UxP",
+    "FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ": "UxP",
+    "FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ, FRENTE DE TODOS": "UxP",
+    "FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ, PERONISMO PARA LA VICTORIA": [
+     [
+      "UxP",
+      "2005-12-10"
+     ],
+     [
+      "Movimiento Evita",
+      "2016-06-23"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA ‐ PJ, FRENTE POPULAR BONAERENSE, FRENTE PARA LA VICTORIA - PJ": "UxP",
+    "FRENTE PARA LA VICTORIA ‐ PJ, JUSTICIALISTA, FRENTE DE TODOS": [
+     [
+      "UxP",
+      "2005-12-10"
+     ],
+     [
+      "Justicialista (2016)",
+      "2017-12-18"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA ‐ PJ, NO INTEGRA BLOQUE": "UxP",
+    "FRENTE PARA LA VICTORIA ‐ PJ, PERONISMO FEDERAL, FRENTE PERONISTA": [
+     [
+      "UxP",
+      "2005-12-10"
+     ],
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "Frente Peronista",
+      "2011-12-07"
+     ]
+    ],
+    "FRENTE PARA LA VICTORIA ‐ PJ, POR LA VERDAD": [
+     [
+      "UxP",
+      "2005-12-10"
+     ],
+     [
+      "Por la Verdad",
+      "2007-02-14"
+     ]
+    ],
+    "FRENTE PERONISTA FEDERAL": "Frente Peronista Federal",
+    "FRENTE PERONISTA, COMPROMISO FEDERAL": [
+     [
+      "Frente Peronista",
+      "2011-12-10"
+     ],
+     [
+      "UJ San Luis",
+      "2013-09-17"
+     ]
+    ],
+    "FRENTE PERONISTA, FRENTE RENOVADOR PERONISTA, FRENTE RENOVADOR, NO INTEGRA BLOQUE, JUSTICIALISTA DE LA PROVINCIA DE BUENOS AIRES, JUSTICIALISTA": [
+     [
+      "Frente Peronista",
+      "2011-12-10"
+     ],
+     [
+      "Frente Renovador Peronista",
+      "2013-02-05"
+     ],
+     [
+      "FR",
+      "2013-09-11"
+     ],
+     [
+      "Sin bloque",
+      "2015-11-05"
+     ],
+     [
+      "Justicialista Bonaerense",
+      "2015-12-10"
+     ],
+     [
+      "Justicialista (2016)",
+      "2016-02-04"
+     ]
+    ],
+    "FRENTE PERONISTA, UNIR, COMPROMISO FEDERAL, UNIR, PRO": [
+     [
+      "Frente Peronista",
+      "2011-12-10"
+     ],
+     [
+      "UNIR",
+      "2013-09-12"
+     ],
+     [
+      "UJ San Luis",
+      "2013-09-17"
+     ],
+     [
+      "UNIR",
+      "2013-12-10"
+     ],
+     [
+      "PRO",
+      "2019-12-10"
+     ]
+    ],
+    "FRENTE POPULAR BONAERENSE": "Frente Popular Bonaerense",
+    "FRENTE POPULAR BONAERENSE, FRENTE PARA LA VICTORIA ‐ PJ": [
+     [
+      "Frente Popular Bonaerense",
+      "2003-12-10"
+     ],
+     [
+      "UxP",
+      "2005-12-12"
+     ]
+    ],
+    "FRENTE PRODUCCION Y TRABAJO": "Frente Producción y Trabajo",
+    "FRENTE RENOVADOR": "FR",
+    "FRENTE RENOVADOR, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA": [
+     [
+      "FR",
+      "2013-12-10"
+     ],
+     [
+      "Federal UNA",
+      "2015-12-10"
+     ]
+    ],
+    "FRENTE RENOVADOR, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, BLOQUE DE LOS TRABAJADORES": [
+     [
+      "FR",
+      "2013-12-10"
+     ],
+     [
+      "Federal UNA",
+      "2015-12-10"
+     ],
+     [
+      "Bloque de los Trabajadores",
+      "2017-05-16"
+     ]
+    ],
+    "FRENTE RENOVADOR, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, FRENTE DE TODOS": [
+     [
+      "FR",
+      "2013-12-10"
+     ],
+     [
+      "Federal UNA",
+      "2015-12-10"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "FRENTE RENOVADOR, RENOVADOR SOCIAL CRISTIANO, BLOQUE SOCIAL CRISTIANO, JUNTOS POR ARGENTINA": [
+     [
+      "FR",
+      "2013-12-10"
+     ],
+     [
+      "Juntos por Argentina",
+      "2015-05-13"
+     ]
+    ],
+    "FREPANU": "FREPANU",
+    "FREPASO": "FREPASO",
+    "FREPASO, ARI": [
+     [
+      "FREPASO",
+      "1995-12-10"
+     ],
+     [
+      "CC-ARI",
+      "2001-12-10"
+     ]
+    ],
+    "FREPASO, ARI, FRENTE DEL MOVIMIENTO POPULAR, ARI AUTONOMO 8 +, SOLIDARIDAD E IGUALDAD (SI) - ARI (T.D.F.), SOLIDARIDAD E IGUALDAD (SI) - PROYECTO PROGRESISTA, SOLIDARIDAD E IGUALDAD (SI), SI POR LA UNIDAD POPULAR, UNIDAD POPULAR": [
+     [
+      "FREPASO",
+      "1999-12-10"
+     ],
+     [
+      "CC-ARI",
+      "2001-12-10"
+     ],
+     [
+      "Unidad Popular",
+      "2007-12-10"
+     ]
+    ],
+    "FREPASO, ARI, JUSTICIALISTA, PARTIDO SOCIALISTA": [
+     [
+      "FREPASO",
+      "2001-03-07"
+     ],
+     [
+      "CC-ARI",
+      "2001-05-09"
+     ],
+     [
+      "PS",
+      "2002-10-01"
+     ]
+    ],
+    "FREPASO, ARI, PARTIDO SOCIALISTA, ENCUENTRO POPULAR Y SOCIAL, NUEVO ENCUENTRO POPULAR Y SOLIDARIO, FRENTE PARA LA VICTORIA - PJ": [
+     [
+      "FREPASO",
+      "1997-12-10"
+     ],
+     [
+      "CC-ARI",
+      "2001-05-09"
+     ],
+     [
+      "PS",
+      "2002-10-01"
+     ],
+     [
+      "EPyS",
+      "2009-05-20"
+     ],
+     [
+      "Solidario SI",
+      "2009-12-10"
+     ],
+     [
+      "UxP",
+      "2011-12-10"
+     ]
+    ],
+    "FREPASO, ENCUENTRO": [
+     [
+      "FREPASO",
+      "2001-12-10"
+     ],
+     [
+      "Encuentro (2003)",
+      "2003-12-18"
+     ]
+    ],
+    "FREPASO, ENCUENTRO POPULAR, JUSTICIALISTA": [
+     [
+      "FREPASO",
+      "1995-12-10"
+     ],
+     [
+      "Encuentro Popular (2003)",
+      "2003-03-01"
+     ]
+    ],
+    "FREPASO, FRENTE GRANDE": [
+     [
+      "FREPASO",
+      "1995-12-10"
+     ],
+     [
+      "FG",
+      "2002-01-23"
+     ]
+    ],
+    "FREPASO, FRENTE GRANDE, ARI": [
+     [
+      "FREPASO",
+      "1997-12-10"
+     ],
+     [
+      "FG",
+      "2002-01-23"
+     ],
+     [
+      "CC-ARI",
+      "2003-12-10"
+     ]
+    ],
+    "FREPASO, FRENTE GRANDE, ARI, NUEVO ENCUENTRO POPULAR Y SOLIDARIO, NUEVO ENCUENTRO, FRENTE NUEVO ENCUENTRO, SOLIDARIO SI, UCR": [
+     [
+      "UCR",
+      "1989-12-10"
+     ],
+     [
+      "FREPASO",
+      "1995-12-10"
+     ],
+     [
+      "FG",
+      "2002-01-23"
+     ],
+     [
+      "CC-ARI",
+      "2005-12-10"
+     ],
+     [
+      "Solidario SI",
+      "2011-12-10"
+     ]
+    ],
+    "FREPASO, FRENTE GRANDE, ENCUENTRO": [
+     [
+      "FREPASO",
+      "2001-12-10"
+     ],
+     [
+      "FG",
+      "2002-01-23"
+     ],
+     [
+      "Encuentro (2003)",
+      "2003-12-18"
+     ]
+    ],
+    "FREPASO, FRENTE PARA EL CAMBIO": [
+     [
+      "FREPASO",
+      "1997-12-10"
+     ],
+     [
+      "Frente para el Cambio",
+      "2001-04-05"
+     ]
+    ],
+    "FREPASO, FRENTE PARA EL CAMBIO, FRENTE DEL MOVIMIENTO POPULAR, FRENTE PARA EL CAMBIO, FREPASO": [
+     [
+      "FREPASO",
+      "1995-12-10"
+     ],
+     [
+      "Frente para el Cambio",
+      "2001-04-05"
+     ]
+    ],
+    "FREPASO, FRENTE PARA LA VICTORIA - PJ": [
+     [
+      "FREPASO",
+      "1995-12-10"
+     ],
+     [
+      "UxP",
+      "2015-12-10"
+     ]
+    ],
+    "FREPASO, FRENTE PARA LA VICTORIA ‐ PJ": [
+     [
+      "FREPASO",
+      "2003-12-10"
+     ],
+     [
+      "UxP",
+      "2005-12-12"
+     ]
+    ],
+    "FREPASO, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ": [
+     [
+      "FREPASO",
+      "1997-12-10"
+     ],
+     [
+      "UxP",
+      "2005-12-10"
+     ]
+    ],
+    "FREPASO, JUSTICIALISTA": [
+     [
+      "FREPASO",
+      "2000-02-24"
+     ],
+     [
+      "UxP",
+      "2001-12-17"
+     ]
+    ],
+    "FREPASO, JUSTICIALISTA, ARI, COALICION CIVICA - ARI - GEN - UPT, COALICION CIVICA": [
+     [
+      "FREPASO",
+      "1999-12-10"
+     ],
+     [
+      "CC-ARI",
+      "2001-12-10"
+     ]
+    ],
+    "FREPASO, JUSTICIALISTA, FRENTE GRANDE": [
+     [
+      "FREPASO",
+      "1999-12-10"
+     ],
+     [
+      "FG",
+      "2002-01-23"
+     ]
+    ],
+    "FREPASO, JUSTICIALISTA, FREPASO": "FREPASO",
+    "FREPASO, PARTIDO SOCIALISTA POPULAR": [
+     [
+      "FREPASO",
+      "1995-12-10"
+     ],
+     [
+      "PSP",
+      "1987-12-10"
+     ]
+    ],
+    "FREPASO, PARTIDO SOCIALISTA POPULAR, PARTIDO SOCIALISTA": [
+     [
+      "FREPASO",
+      "2000-11-22"
+     ],
+     [
+      "PSP",
+      "2001-11-13"
+     ],
+     [
+      "PS",
+      "2003-05-08"
+     ]
+    ],
+    "FREPASO, PARTIDO SOCIALISTA POPULAR, PARTIDO SOCIALISTA, PARTIDO SOCIALISTA POPULAR": [
+     [
+      "FREPASO",
+      "1997-12-10"
+     ],
+     [
+      "PSP",
+      "2001-11-14"
+     ],
+     [
+      "PS",
+      "2002-10-01"
+     ]
+    ],
+    "FZA REPUBLICANA": "Fuerza Republicana",
+    "FZA REPUBLICANA, FRENTE PARA LA VICTORIA ‐ PJ, FPV ‐ PJ ‐., FZA REPUBLICANA": "Fuerza Republicana",
+    "FZA REPUBLICANA, JUSTICIALISTA": "Fuerza Republicana",
+    "GEN": "GEN",
+    "GEN, PRO": [
+     [
+      "GEN",
+      "2009-12-10"
+     ],
+     [
+      "PRO",
+      "2021-12-10"
+     ]
+    ],
+    "IDENTIDAD BONAERENSE": "Identidad Bonaerense",
+    "INTRANSIGENTE": "PI",
+    "IZQUIERDA SOCIALISTA - FRENTE DE IZQUIERDA": "IS",
+    "IZQUIERDA UNIDA": "IU",
+    "JUNTOS SOMOS RIO NEGRO": "JSRN",
+    "JUSTICIALISTA": "UxP",
+    "JUSTICIALISTA NACIONAL, PERONISMO FEDERAL, FRENTE PERONISTA, UNION CELESTE Y BLANCO": [
+     [
+      "Justicialista Nacional",
+      "2006-04-05"
+     ],
+     [
+      "Unión Celeste y Blanco",
+      "2007-12-05"
+     ],
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "Frente Peronista",
+      "2011-12-07"
+     ],
+     [
+      "Unión Celeste y Blanco",
+      "2013-12-10"
+     ]
+    ],
+    "JUSTICIALISTA POR TUCUMAN, FRENTE DE TODOS": [
+     [
+      "Justicialista por Tucumán",
+      "2017-12-10"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, ACCION REPUBLICA": [
+     [
+      "UxP",
+      "1987-12-10"
+     ],
+     [
+      "Acción por la República",
+      "1997-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, ARI": [
+     [
+      "UxP",
+      "1999-12-10"
+     ],
+     [
+      "CC-ARI",
+      "2001-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, ARI, SOBERANIA POPULAR": [
+     [
+      "UxP",
+      "1997-12-10"
+     ],
+     [
+      "CC-ARI",
+      "2001-12-10"
+     ],
+     [
+      "Soberanía Popular",
+      "2003-12-29"
+     ]
+    ],
+    "JUSTICIALISTA, BLOQUE BUENOS AIRES, LA ARGENTINA DE LOS VALORES, FRENTE POPULAR BONAERENSE, JUSTICIALISTA NACIONAL": [
+     [
+      "UxP",
+      "1993-12-10"
+     ],
+     [
+      "Bloque Buenos Aires",
+      "2003-12-10"
+     ],
+     [
+      "La Argentina de los Valores",
+      "2004-12-08"
+     ],
+     [
+      "Frente Popular Bonaerense",
+      "2005-12-12"
+     ],
+     [
+      "Justicialista Nacional",
+      "2006-04-05"
+     ],
+     [
+      "Frente Popular Bonaerense",
+      "2006-09-20"
+     ]
+    ],
+    "JUSTICIALISTA, CONCERTACION ENTRERRIANA": [
+     [
+      "UxP",
+      "1993-12-10"
+     ],
+     [
+      "Concertación Entrerriana",
+      "2005-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, E., JUSTICIALISTA": "UxP",
+    "JUSTICIALISTA, ENCUENTRO, FRENTE PARA LA VICTORIA ‐ PJ": [
+     [
+      "UxP",
+      "1993-07-18"
+     ],
+     [
+      "Encuentro (2003)",
+      "2003-12-10"
+     ],
+     [
+      "UxP",
+      "2005-12-12"
+     ]
+    ],
+    "JUSTICIALISTA, FRENTE DE TODOS": [
+     [
+      "Justicialista (2016)",
+      "2017-12-10"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, FRENTE DEL MOVIMIENTO POPULAR": [
+     [
+      "UxP",
+      "2001-12-10"
+     ],
+     [
+      "FMP",
+      "2003-06-04"
+     ]
+    ],
+    "JUSTICIALISTA, FRENTE DEL MOVIMIENTO POPULAR, JUSTICIALISTA": [
+     [
+      "UxP",
+      "2001-12-10"
+     ],
+     [
+      "FMP",
+      "2002-12-11"
+     ],
+     [
+      "UxP",
+      "2003-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, FRENTE DEL MOVIMIENTO POPULAR, JUSTICIALISTA NACIONAL": [
+     [
+      "UxP",
+      "2001-12-10"
+     ],
+     [
+      "FMP",
+      "2002-12-11"
+     ],
+     [
+      "Justicialista Nacional",
+      "2006-04-05"
+     ],
+     [
+      "FMP",
+      "2006-09-20"
+     ]
+    ],
+    "JUSTICIALISTA, FRENTE DEL MOVIMIENTO POPULAR, JUSTICIALISTA NACIONAL, COMPROMISO FEDERAL": [
+     [
+      "UxP",
+      "2001-03-07"
+     ],
+     [
+      "FMP",
+      "2005-12-10"
+     ],
+     [
+      "Justicialista Nacional",
+      "2006-04-05"
+     ],
+     [
+      "FMP",
+      "2006-09-20"
+     ],
+     [
+      "UJ San Luis",
+      "2016-03-01"
+     ]
+    ],
+    "JUSTICIALISTA, FRENTE DEL MOVIMIENTO POPULAR, PERONISTA FEDERAL, JUSTICIALISTA NACIONAL": [
+     [
+      "UxP",
+      "2001-12-10"
+     ],
+     [
+      "FMP",
+      "2002-12-11"
+     ],
+     [
+      "Peronista Federal",
+      "2005-12-23"
+     ],
+     [
+      "Justicialista Nacional",
+      "2006-04-05"
+     ],
+     [
+      "Peronista Federal",
+      "2006-06-30"
+     ],
+     [
+      "UxP",
+      "2007-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, FRENTE NUEVA DIRIGENCIA, CAMBIO 97, COALICION CIVICA - ARI - GEN - UPT, COALICION CIVICA, UNION POR TODOS, UNION PRO": [
+     [
+      "UxP",
+      "1993-12-10"
+     ],
+     [
+      "Nueva Dirigencia",
+      "1996-08-20"
+     ],
+     [
+      "UPT",
+      "1997-04-22"
+     ],
+     [
+      "CC-ARI",
+      "2007-12-10"
+     ],
+     [
+      "UPT",
+      "2011-12-10"
+     ],
+     [
+      "PRO",
+      "2013-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ": "UxP",
+    "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, EL CHACHO": [
+     [
+      "UxP",
+      "1989-07-19"
+     ],
+     [
+      "El Chacho",
+      "2013-10-08"
+     ]
+    ],
+    "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, FRENTE DE TODOS": "UxP",
+    "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, PERONISTA SALTEÑO, PERONISTA": [
+     [
+      "UxP",
+      "1989-12-10"
+     ],
+     [
+      "Peronista Salteño",
+      "2009-09-08"
+     ],
+     [
+      "Peronista",
+      "2009-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, SANTA FE FEDERAL, PERONISMO FEDERAL, FRENTE PARA LA VICTORIA - PJ": [
+     [
+      "UxP",
+      "1999-12-10"
+     ],
+     [
+      "Santa Fe Federal",
+      "2009-02-24"
+     ],
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "UxP",
+      "2013-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, UNION PERONISTA, PERONISMO FEDERAL, NO INTEGRA BLOQUE, PERONISMO FEDERAL, NO INTEGRA BLOQUE, UNION PERONISTA, FRENTE RENOVADOR, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, RED POR ARGENTINA, FRENTE DE TODOS": [
+     [
+      "UxP",
+      "1991-12-18"
+     ],
+     [
+      "Unión Peronista",
+      "2008-11-19"
+     ],
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "Sin bloque",
+      "2011-10-04"
+     ],
+     [
+      "Unión Peronista",
+      "2011-10-26"
+     ],
+     [
+      "FR",
+      "2013-09-11"
+     ],
+     [
+      "Federal UNA",
+      "2015-12-10"
+     ],
+     [
+      "Red por Argentina",
+      "2018-10-22"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ": "UxP",
+    "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE DE LA CONCORDIA MISIONERO": [
+     [
+      "UxP",
+      "2003-12-10"
+     ],
+     [
+      "Concordia Misionero",
+      "2019-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE DE TODOS": "UxP",
+    "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ": "UxP",
+    "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ, FRENTE DE TODOS": "UxP",
+    "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ, UNION PERONISTA, PERONISMO FEDERAL, UNION PERONISTA": [
+     [
+      "UxP",
+      "1999-12-10"
+     ],
+     [
+      "Unión Peronista",
+      "2008-11-19"
+     ],
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "Unión Peronista",
+      "2011-10-26"
+     ]
+    ],
+    "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, JUSTICIALISTA": "UxP",
+    "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, JUSTICIALISTA AZUL Y BLANCO": [
+     [
+      "UxP",
+      "1999-12-10"
+     ],
+     [
+      "Justicialista Azul y Blanco",
+      "2002-11-21"
+     ],
+     [
+      "UxP",
+      "2003-06-27"
+     ]
+    ],
+    "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ": "UxP",
+    "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, UNION PERONISTA, PERONISTA, NUCLEO UNIDAD PERONISTA": [
+     [
+      "UxP",
+      "2003-12-10"
+     ],
+     [
+      "Unión Peronista",
+      "2008-11-19"
+     ],
+     [
+      "Peronista",
+      "2009-12-10"
+     ],
+     [
+      "Núcleo Unidad Peronista",
+      "2011-03-01"
+     ]
+    ],
+    "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, UNION POR CORDOBA": [
+     [
+      "UxP",
+      "2003-12-10"
+     ],
+     [
+      "Unión por Córdoba",
+      "2013-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, FRENTE POPULAR BONAERENSE, FRENTE PARA LA VICTORIA ‐ PJ": "UxP",
+    "JUSTICIALISTA, FREPASO, FRENTE PARA LA VICTORIA ‐ PJ": [
+     [
+      "UxP",
+      "1985-12-10"
+     ],
+     [
+      "FREPASO",
+      "1997-12-10"
+     ],
+     [
+      "UxP",
+      "2005-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO": [
+     [
+      "UxP",
+      "1999-12-10"
+     ],
+     [
+      "Justicialista Azul y Blanco",
+      "2002-11-21"
+     ],
+     [
+      "UxP",
+      "2003-06-27"
+     ]
+    ],
+    "JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO, FRENTE PARA LA VICTORIA ‐ PJ": [
+     [
+      "UxP",
+      "1995-12-10"
+     ],
+     [
+      "Justicialista Azul y Blanco",
+      "2002-11-21"
+     ],
+     [
+      "UxP",
+      "2003-06-27"
+     ]
+    ],
+    "JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO, JUSTICIALISTA": [
+     [
+      "UxP",
+      "2001-12-10"
+     ],
+     [
+      "Justicialista Azul y Blanco",
+      "2002-11-21"
+     ],
+     [
+      "UxP",
+      "2003-06-27"
+     ]
+    ],
+    "JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO, JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ": [
+     [
+      "UxP",
+      "2001-12-10"
+     ],
+     [
+      "Justicialista Azul y Blanco",
+      "2002-11-21"
+     ],
+     [
+      "UxP",
+      "2003-06-27"
+     ]
+    ],
+    "JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO, JUSTICIALISTA, PERONISMO POPULAR, PERONISTA FEDERAL, JUSTICIALISTA NACIONAL": [
+     [
+      "UxP",
+      "1999-12-10"
+     ],
+     [
+      "Justicialista Azul y Blanco",
+      "2002-11-21"
+     ],
+     [
+      "UxP",
+      "2003-06-27"
+     ],
+     [
+      "Peronismo Popular",
+      "2005-03-01"
+     ],
+     [
+      "Peronista Federal",
+      "2005-12-10"
+     ],
+     [
+      "Justicialista Nacional",
+      "2006-04-05"
+     ]
+    ],
+    "JUSTICIALISTA, JUSTICIALISTA NACIONAL, PRO": [
+     [
+      "UxP",
+      "2003-12-10"
+     ],
+     [
+      "Justicialista Nacional",
+      "2006-04-05"
+     ],
+     [
+      "PRO",
+      "2019-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, MOV PERONISTA, JUSTICIALISTA": [
+     [
+      "UxP",
+      "1987-12-10"
+     ],
+     [
+      "Movimiento Peronista",
+      "1991-01-08"
+     ]
+    ],
+    "JUSTICIALISTA, MOV PERONISTA, JUSTICIALISTA, ACCION REPUBLICA, JUSTICIALISTA, JUNTOS POR ARGENTINA": [
+     [
+      "UxP",
+      "1989-07-19"
+     ],
+     [
+      "Movimiento Peronista",
+      "1991-01-08"
+     ],
+     [
+      "Acción por la República",
+      "1999-12-10"
+     ],
+     [
+      "UxP",
+      "2001-12-10"
+     ],
+     [
+      "Juntos por Argentina",
+      "2016-03-15"
+     ]
+    ],
+    "JUSTICIALISTA, MOV SOC ENTRERRIANO": [
+     [
+      "UxP",
+      "1997-12-10"
+     ],
+     [
+      "Mov. Social Entrerriano",
+      "1999-11-16"
+     ]
+    ],
+    "JUSTICIALISTA, PAIS, CRECIMIENTO Y JUSTICIA, JUSTICIALISTA, FREPASO": [
+     [
+      "UxP",
+      "1989-12-10"
+     ],
+     [
+      "PAIS",
+      "1994-09-13"
+     ],
+     [
+      "FREPASO",
+      "1997-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, PERONISMO FEDERAL, FRENTE PERONISTA": [
+     [
+      "UxP",
+      "1987-12-10"
+     ],
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "Frente Peronista",
+      "2011-12-07"
+     ]
+    ],
+    "JUSTICIALISTA, PERONISMO FEDERAL, FRENTE PERONISTA, FRENTE RENOVADOR, UNION PRO, PRO": [
+     [
+      "UxP",
+      "1991-12-18"
+     ],
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "Frente Peronista",
+      "2011-12-07"
+     ],
+     [
+      "FR",
+      "2013-09-11"
+     ],
+     [
+      "PRO",
+      "2015-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, PERONISMO POPULAR, PERONISTA FEDERAL, JUSTICIALISTA NACIONAL": [
+     [
+      "UxP",
+      "1999-12-10"
+     ],
+     [
+      "Peronismo Popular",
+      "2005-03-01"
+     ],
+     [
+      "Peronista Federal",
+      "2005-12-10"
+     ],
+     [
+      "Justicialista Nacional",
+      "2006-04-05"
+     ]
+    ],
+    "JUSTICIALISTA, PERONISTA 17 DE OCTUBRE": [
+     [
+      "UxP",
+      "1983-12-10"
+     ],
+     [
+      "Peronista 17 de Octubre",
+      "1985-05-01"
+     ]
+    ],
+    "JUSTICIALISTA, PERONISTA FEDERAL": [
+     [
+      "UxP",
+      "1993-12-10"
+     ],
+     [
+      "Peronista Federal",
+      "2005-11-10"
+     ]
+    ],
+    "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE DEL MOVIMIENTO POPULAR": [
+     [
+      "UxP",
+      "1995-12-10"
+     ],
+     [
+      "Peronista Federal",
+      "2005-11-10"
+     ]
+    ],
+    "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PARA LA VICTORIA - PJ": [
+     [
+      "UxP",
+      "1987-12-10"
+     ],
+     [
+      "Peronista Federal",
+      "2005-11-10"
+     ],
+     [
+      "UxP",
+      "2007-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PARA LA VICTORIA - PJ, FRENTE RENOVADOR": [
+     [
+      "UxP",
+      "1993-12-10"
+     ],
+     [
+      "Peronista Federal",
+      "2005-12-10"
+     ],
+     [
+      "UxP",
+      "2007-12-10"
+     ],
+     [
+      "FR",
+      "2013-09-11"
+     ]
+    ],
+    "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PARA LA VICTORIA - PJ, PERONISTA, FRENTE PERONISTA, FRENTE RENOVADOR, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, CONSENSO FEDERAL, IDENTIDAD BONAERENSE": [
+     [
+      "UxP",
+      "1989-12-10"
+     ],
+     [
+      "Peronista Federal",
+      "2005-11-10"
+     ],
+     [
+      "UxP",
+      "2007-12-10"
+     ],
+     [
+      "Peronista",
+      "2009-12-10"
+     ],
+     [
+      "Frente Peronista",
+      "2011-12-07"
+     ],
+     [
+      "FR",
+      "2013-09-11"
+     ],
+     [
+      "Federal UNA",
+      "2015-12-10"
+     ],
+     [
+      "Consenso Federal",
+      "2019-06-26"
+     ],
+     [
+      "Identidad Bonaerense",
+      "2021-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PARA LA VICTORIA ‐ PJ": [
+     [
+      "UxP",
+      "2002-02-28"
+     ],
+     [
+      "Peronista Federal",
+      "2005-11-10"
+     ],
+     [
+      "UxP",
+      "2006-01-02"
+     ]
+    ],
+    "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PERONISTA, FE": [
+     [
+      "UxP",
+      "2001-12-10"
+     ],
+     [
+      "Peronista Federal",
+      "2005-11-10"
+     ],
+     [
+      "Frente Peronista",
+      "2011-12-10"
+     ],
+     [
+      "Fe",
+      "2013-11-15"
+     ]
+    ],
+    "JUSTICIALISTA, PERONISTA FEDERAL, JUSTICIALISTA NACIONAL": [
+     [
+      "UxP",
+      "1991-12-18"
+     ],
+     [
+      "Peronista Federal",
+      "2005-11-10"
+     ],
+     [
+      "Justicialista Nacional",
+      "2006-04-05"
+     ]
+    ],
+    "JUSTICIALISTA, PERONISTA FEDERAL, JUSTICIALISTA NACIONAL, UNION CELESTE Y BLANCO, PERONISTA, NUCLEO UNIDAD PERONISTA": [
+     [
+      "UxP",
+      "2003-12-10"
+     ],
+     [
+      "Peronista Federal",
+      "2005-11-10"
+     ],
+     [
+      "Justicialista Nacional",
+      "2006-04-05"
+     ],
+     [
+      "Unión Celeste y Blanco",
+      "2007-12-10"
+     ],
+     [
+      "Peronista",
+      "2009-12-10"
+     ],
+     [
+      "Núcleo Unidad Peronista",
+      "2011-03-01"
+     ]
+    ],
+    "JUSTICIALISTA, PERONISTA FEDERAL, PERONISMO FEDERAL, FRENTE PERONISTA": [
+     [
+      "UxP",
+      "1995-12-10"
+     ],
+     [
+      "Peronista Federal",
+      "2005-11-10"
+     ],
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "Frente Peronista",
+      "2011-12-07"
+     ]
+    ],
+    "JUSTICIALISTA, TRABAJO Y DIGNIDAD": [
+     [
+      "UxP",
+      "1995-12-10"
+     ],
+     [
+      "Trabajo y Dignidad",
+      "2013-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, UCR": "UCR",
+    "JUSTICIALISTA, UCR, JUSTICIALISTA, PERONISTA FEDERAL": [
+     [
+      "UxP",
+      "1993-12-10"
+     ],
+     [
+      "UCR",
+      "1999-12-10"
+     ],
+     [
+      "UxP",
+      "2001-12-10"
+     ],
+     [
+      "Peronista Federal",
+      "2005-11-10"
+     ]
+    ],
+    "JUSTICIALISTA, UNIDAD FEDERALISTA, NACIONAL SINDICAL": [
+     [
+      "UxP",
+      "1989-12-10"
+     ],
+     [
+      "PAUFE",
+      "2006-05-31"
+     ],
+     [
+      "Nacional Sindical",
+      "2006-12-06"
+     ]
+    ],
+    "JUSTICIALISTA, UNIDAD JUSTICIALISTA": [
+     [
+      "UxP",
+      "1983-12-10"
+     ],
+     [
+      "Unidad Justicialista",
+      "1984-04-09"
+     ]
+    ],
+    "JUSTICIALISTA, UNION POR CORDOBA": [
+     [
+      "UxP",
+      "1993-12-10"
+     ],
+     [
+      "Unión por Córdoba",
+      "2013-12-10"
+     ]
+    ],
+    "JUSTICIALISTA, VIDA Y COMPROMISO": [
+     [
+      "UxP",
+      "2003-12-10"
+     ],
+     [
+      "Vida y Compromiso",
+      "2005-11-08"
+     ]
+    ],
+    "LA ARGENTINA DE LOS VALORES, PARTIDO NUEVO CONTRA CORRUP., POR HONEST. Y TRANSP.": "Partido Nuevo (Córdoba)",
+    "LA LIBERTAD AVANZA": "LLA",
+    "LIBERAL": "PL",
+    "LIBRES DEL SUR": "Libres del Sur",
+    "MAS ‐ IZQUIERDA UNIDA, MOVIMIENTO AL SOCIALISMO, AUTODETERMINACION Y LIBERTAD": [
+     [
+      "MAS",
+      "1989-12-10"
+     ],
+     [
+      "AyL",
+      "2001-12-10"
+     ]
+    ],
+    "MEMORIA Y DEMOCRACIA, PARTIDO NUEVO CONTRA CORRUP., POR HONEST. Y TRANSP.": [
+     [
+      "Partido Nuevo (Córdoba)",
+      "2005-12-10"
+     ],
+     [
+      "Memoria y Democracia",
+      "2007-12-06"
+     ]
+    ],
+    "MID": "MID",
+    "MMTA, POLO SOCIAL": [
+     [
+      "Polo Social",
+      "2001-12-10"
+     ],
+     [
+      "MMTA",
+      "2002-11-01"
+     ]
+    ],
+    "MORECI, FREPASO": [
+     [
+      "FREPASO",
+      "1999-12-10"
+     ],
+     [
+      "MORECI",
+      "2001-11-30"
+     ]
+    ],
+    "MOV PERONISTA, JUSTICIALISTA": [
+     [
+      "UxP",
+      "1989-12-10"
+     ],
+     [
+      "Movimiento Peronista",
+      "1991-01-08"
+     ]
+    ],
+    "MOV PERONISTA, JUSTICIALISTA, FREPASO": [
+     [
+      "UxP",
+      "1989-12-10"
+     ],
+     [
+      "Movimiento Peronista",
+      "1991-01-08"
+     ],
+     [
+      "FREPASO",
+      "1995-12-10"
+     ]
+    ],
+    "MOV POP FUEGUINO": "MOPOF",
+    "MOV POP JUJEÑO": "MPJ",
+    "MOV POP NEUQUINO": "MPN",
+    "MOV POP NEUQUINO, FRENTE PARA LA VICTORIA ‐ PJ, MOV POP NEUQUINO": "MPN",
+    "MOVIM CIVICO Y SOC": "Movimiento Cívico y Social",
+    "MOVIMIENTO FEDERALISTA, PAMPEANO": "MOFEPA",
+    "MOVIMIENTO POPULAR NEUQUINO": "MPN",
+    "MOVIMIENTO POPULAR RIONEGRINO": "MPR",
+    "MOVIMIENTO POPULAR, CATAMARQUEÑO, MOVIMIENTO POPULAR, CATAMARQUEÑO": "MPC",
+    "MOVIMIENTO PROYECTO SUR": "Proyecto Sur",
+    "MOVIMIENTO PROYECTO SUR, PROYECTO SUR - UNEN": "Proyecto Sur",
+    "MOVIMIENTO PROYECTO SUR, UNIDAD POPULAR": [
+     [
+      "Proyecto Sur",
+      "2009-12-10"
+     ],
+     [
+      "Unidad Popular",
+      "2011-09-07"
+     ]
+    ],
+    "NO INTEGRA BLOQUE, DIGNIDAD PERONISTA": [
+     [
+      "Sin bloque",
+      "2007-07-11"
+     ],
+     [
+      "Dignidad Peronista",
+      "2007-08-17"
+     ]
+    ],
+    "NO INTEGRA BLOQUE, INTRANSIGENTE": [
+     [
+      "PI",
+      "1985-12-10"
+     ],
+     [
+      "Sin bloque",
+      "1987-04-15"
+     ]
+    ],
+    "NO INTEGRA BLOQUE, JUSTICIALISTA": [
+     [
+      "UxP",
+      "1985-12-10"
+     ],
+     [
+      "Sin bloque",
+      "1987-04-30"
+     ]
+    ],
+    "NUEVO ENCUENTRO POPULAR Y SOLIDARIO, NUEVO ENCUENTRO, FRENTE NUEVO ENCUENTRO": "Solidario SI",
+    "NUEVO ENCUENTRO POPULAR Y SOLIDARIO, NUEVO ENCUENTRO, FRENTE NUEVO ENCUENTRO, FRENTE PARA LA VICTORIA - PJ": [
+     [
+      "Solidario SI",
+      "2011-12-10"
+     ],
+     [
+      "UxP",
+      "2013-12-19"
+     ]
+    ],
+    "NUEVO ENCUENTRO POPULAR Y SOLIDARIO, NUEVO ENCUENTRO, FRENTE NUEVO ENCUENTRO, SOLIDARIO SI": "Solidario SI",
+    "NUEVO ENCUENTRO POPULAR Y SOLIDARIO, NUEVO ENCUENTRO, FRENTE NUEVO ENCUENTRO, SOLIDARIO SI, FRENTE DE TODOS": [
+     [
+      "Solidario SI",
+      "2009-12-10"
+     ],
+     [
+      "UxP",
+      "2019-12-19"
+     ]
+    ],
+    "NUEVO ENCUENTRO, FRENTE NUEVO ENCUENTRO": "Solidario SI",
+    "NUEVO ESPACIO ENTRERRIANO, CONCERTACION ENTRERRIANA": [
+     [
+      "Nuevo Espacio Entrerriano",
+      "2003-12-10"
+     ],
+     [
+      "Concertación Entrerriana",
+      "2005-12-12"
+     ]
+    ],
+    "NUEVO ESPACIO SANTAFESINO, FRENTE DE TODOS": [
+     [
+      "Nuevo Espacio Santafesino",
+      "2017-12-10"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "PAIS, CRECIMIENTO Y JUSTICIA, PAIS, JUSTICIALISTA, FREPASO": [
+     [
+      "UxP",
+      "1993-12-10"
+     ],
+     [
+      "PAIS",
+      "1994-09-13"
+     ],
+     [
+      "FREPASO",
+      "1999-12-10"
+     ]
+    ],
+    "PARTIDO BLANCO DE LOS JUBILADOS": "Partido Blanco de los Jubilados",
+    "PARTIDO FEDERAL FUEGUINO": "PFF",
+    "PARTIDO INTRANSIGENTE": "PI",
+    "PARTIDO INTRANSIGENTE, BLOQUE PROTECTORA, UNIDAD Y EQUIDAD FEDERAL": [
+     [
+      "PI",
+      "2017-12-10"
+     ],
+     [
+      "Protectora",
+      "2018-06-13"
+     ],
+     [
+      "Unidad y Equidad Federal",
+      "2019-12-10"
+     ]
+    ],
+    "PARTIDO JUSTICIALISTA LA PAMPA": "PJ La Pampa",
+    "PARTIDO JUSTICIALISTA LA PAMPA, PARTIDO JUSTICIALISTA PAMPEANO, JUSTICIALISTA": [
+     [
+      "PJ La Pampa",
+      "2013-12-10"
+     ],
+     [
+      "Justicialista (2016)",
+      "2016-02-04"
+     ]
+    ],
+    "PARTIDO JUSTICIALISTA PAMPEANO, JUSTICIALISTA": [
+     [
+      "PJ La Pampa",
+      "2015-12-10"
+     ],
+     [
+      "Justicialista (2016)",
+      "2016-02-04"
+     ]
+    ],
+    "PARTIDO LIBERAL DE CORRIENTES": "PL",
+    "PARTIDO NUEVO": "Partido Nuevo (Corrientes)",
+    "PARTIDO NUEVO CONTRA CORRUP., POR HONEST. Y TRANSP.": "Partido Nuevo (Córdoba)",
+    "PARTIDO NUEVO CONTRA CORRUP., POR HONEST. Y TRANSP., FRENTE PARA LA VICTORIA - PJ": [
+     [
+      "Partido Nuevo (Córdoba)",
+      "2005-12-10"
+     ],
+     [
+      "UxP",
+      "2011-12-10"
+     ]
+    ],
+    "PARTIDO NUEVO CONTRA CORRUP., POR HONEST. Y TRANSP., PARTIDO NUEVO CONTRA CORRUP., POR HONEST. Y TRANSP.": "Partido Nuevo (Córdoba)",
+    "PARTIDO NUEVO CONTRA CORRUP., POR HONEST. Y TRANSP., PARTIDO NUEVO CONTRA CORRUP., POR HONEST. Y TRANSP., FRENTE CIVICO - CORDOBA": [
+     [
+      "Partido Nuevo (Córdoba)",
+      "2003-12-10"
+     ],
+     [
+      "Frente Cívico (Córdoba)",
+      "2009-12-10"
+     ]
+    ],
+    "PARTIDO POR LA JUSTICIA SOCIAL": "Partido por la Justicia Social",
+    "PARTIDO PROPUESTA SALTEÑA, PRO": [
+     [
+      "Propuesta Salteña",
+      "2019-12-10"
+     ],
+     [
+      "PRO",
+      "2020-02-26"
+     ]
+    ],
+    "PARTIDO SOCIALISTA": "PS",
+    "PARTIDO SOCIALISTA POPULAR, PARTIDO SOCIALISTA": [
+     [
+      "PSP",
+      "2001-12-10"
+     ],
+     [
+      "PS",
+      "2002-10-01"
+     ]
+    ],
+    "PARTIDO SOCIALISTA, ENCUENTRO POPULAR, ENCUENTRO POPULAR Y SOCIAL, NUEVO ENCUENTRO POPULAR Y SOLIDARIO, ARI": [
+     [
+      "CC-ARI",
+      "2001-12-10"
+     ],
+     [
+      "PS",
+      "2002-10-01"
+     ],
+     [
+      "EPyS",
+      "2007-12-10"
+     ],
+     [
+      "Solidario SI",
+      "2009-12-10"
+     ]
+    ],
+    "PARTIDO SOCIALISTA, FRENTE PROGRESISTA CIVICO Y SOCIAL": [
+     [
+      "PS",
+      "2017-12-10"
+     ],
+     [
+      "FPCyS",
+      "2018-06-11"
+     ]
+    ],
+    "PERONISMO CORDOBES, PERONISTA CORDOBA CIUDADANA, NUCLEO UNIDAD PERONISTA": [
+     [
+      "Peronismo Cordobés",
+      "2010-04-21"
+     ],
+     [
+      "Peronista Córdoba Ciudadana",
+      "2010-04-23"
+     ],
+     [
+      "Núcleo Unidad Peronista",
+      "2011-03-01"
+     ]
+    ],
+    "PERONISMO FEDERAL, FRENTE PARA LA VICTORIA - PJ": [
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "UxP",
+      "2011-12-10"
+     ]
+    ],
+    "PERONISMO FEDERAL, FRENTE PERONISTA": [
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "Frente Peronista",
+      "2011-12-07"
+     ]
+    ],
+    "PERONISMO FEDERAL, FRENTE PERONISTA, COMPROMISO FEDERAL": [
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "Frente Peronista",
+      "2011-12-07"
+     ],
+     [
+      "UJ San Luis",
+      "2013-09-17"
+     ]
+    ],
+    "PERONISMO FEDERAL, FRENTE PERONISTA, FRENTE RENOVADOR": [
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "Frente Peronista",
+      "2011-12-07"
+     ],
+     [
+      "FR",
+      "2013-09-11"
+     ]
+    ],
+    "PERONISMO FEDERAL, FRENTE PERONISTA, UNIDOS POR UNA NUEVA ARGENTINA": [
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "Frente Peronista",
+      "2011-12-07"
+     ],
+     [
+      "UNA",
+      "2016-03-01"
+     ]
+    ],
+    "PERONISMO FEDERAL, SANTA FE EN MOVIMIENTO, FRENTE PARA LA VICTORIA - PJ": [
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "Santa Fe en Movimiento",
+      "2011-12-10"
+     ],
+     [
+      "UxP",
+      "2013-04-18"
+     ]
+    ],
+    "PERONISMO FEDERAL, UNION PERONISTA, FRENTE RENOVADOR": [
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "Unión Peronista",
+      "2011-10-26"
+     ],
+     [
+      "FR",
+      "2013-09-11"
+     ]
+    ],
+    "PERONISMO FEDERAL, UNION POR SAN JUAN": [
+     [
+      "Peronismo Federal",
+      "2009-12-10"
+     ],
+     [
+      "Unión por San Juan",
+      "2011-12-10"
+     ]
+    ],
+    "PERONISMO PERONISTA": "Peronismo Peronista",
+    "PERONISTA 17 DE OCTUBRE": "Peronista 17 de Octubre",
+    "PERONISTA 17 DE OCTUBRE, JUSTICIALISTA": [
+     [
+      "UxP",
+      "1983-12-10"
+     ],
+     [
+      "Peronista 17 de Octubre",
+      "1985-05-01"
+     ]
+    ],
+    "PERONISTA FEDERAL": "Peronista Federal",
+    "PERONISTA FEDERAL, FRENTE CIVICO Y  SOCIAL DE": "Peronista Federal",
+    "PERONISTA FEDERAL, JUSTICIALISTA NACIONAL, CONSENSO FEDERAL": [
+     [
+      "Peronista Federal",
+      "2005-12-10"
+     ],
+     [
+      "Justicialista Nacional",
+      "2006-04-05"
+     ],
+     [
+      "Consenso Federal",
+      "2019-12-19"
+     ]
+    ],
+    "PERONISTA FEDERAL, JUSTICIALISTA, PERONISTA FEDERAL": [
+     [
+      "UxP",
+      "2004-08-11"
+     ],
+     [
+      "Peronista Federal",
+      "2005-11-10"
+     ]
+    ],
+    "PERONISTA FEDERAL, JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PARA LA VICTORIA - PJ": [
+     [
+      "UxP",
+      "2005-03-16"
+     ],
+     [
+      "Peronista Federal",
+      "2005-11-09"
+     ],
+     [
+      "UxP",
+      "2007-12-10"
+     ]
+    ],
+    "PERONISTA, FRENTE PARA LA VICTORIA - PJ": [
+     [
+      "Peronista",
+      "2009-12-10"
+     ],
+     [
+      "UxP",
+      "2011-12-06"
+     ]
+    ],
+    "POLO SOCIAL, FRENTE PARA LA VICTORIA ‐ PJ": [
+     [
+      "Polo Social",
+      "2001-12-10"
+     ],
+     [
+      "UxP",
+      "2005-12-10"
+     ]
+    ],
+    "PRO": "PRO",
+    "PRO, ENCUENTRO FEDERAL": [
+     [
+      "PRO",
+      "2019-12-10"
+     ],
+     [
+      "Encuentro Federal",
+      "2021-12-10"
+     ]
+    ],
+    "PRO, GUARDIA PERONISTA": [
+     [
+      "PRO",
+      "2005-12-10"
+     ],
+     [
+      "Guardia Peronista",
+      "2006-02-15"
+     ]
+    ],
+    "PRO, INTEGRACION Y DESARROLLO CHUBUTENSE, JUNTOS POR EL CAMBIO CHUBUT": [
+     [
+      "PRO",
+      "2019-12-10"
+     ],
+     [
+      "IDC",
+      "2021-12-10"
+     ],
+     [
+      "JxC Chubut",
+      "2022-06-13"
+     ]
+    ],
+    "PRO, RECREAR PARA EL CRECIMIENTO": [
+     [
+      "PRO",
+      "2005-12-10"
+     ],
+     [
+      "Recrear",
+      "2007-11-07"
+     ]
+    ],
+    "PRO, UNIDAD Y EQUIDAD FEDERAL": [
+     [
+      "PRO",
+      "2017-12-10"
+     ],
+     [
+      "Unidad y Equidad Federal",
+      "2019-12-10"
+     ]
+    ],
+    "PRO, UNIDAD Y EQUIDAD FEDERAL, ACCION FEDERAL": [
+     [
+      "PRO",
+      "2017-12-10"
+     ],
+     [
+      "Unidad y Equidad Federal",
+      "2019-12-10"
+     ],
+     [
+      "Acción Federal",
+      "2020-10-29"
+     ]
+    ],
+    "PRO, UNION PRO": "PRO",
+    "PRO, UNION PRO, PRO": "PRO",
+    "PRO, VALORES PARA MI PAIS": [
+     [
+      "PRO",
+      "2007-12-10"
+     ],
+     [
+      "Valores para mi País",
+      "2009-07-31"
+     ]
+    ],
+    "PRODUCCION Y TRABAJO": "Producción y Trabajo",
+    "PRODUCCION Y TRABAJO, ACCION FEDERAL, SER - SOMOS ENERGIA PARA RENOVAR": [
+     [
+      "Producción y Trabajo",
+      "2019-12-10"
+     ],
+     [
+      "Acción Federal",
+      "2020-05-26"
+     ],
+     [
+      "SER",
+      "2021-12-10"
+     ]
+    ],
+    "PROYECTO CORRIENTES": "Proyecto Corrientes",
+    "PTS - FRENTE DE IZQUIERDA": "PTS",
+    "PTS - FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD, FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD": [
+     [
+      "FIT-U",
+      "2021-12-10"
+     ],
+     [
+      "PTS",
+      "2022-02-02"
+     ]
+    ],
+    "PTS - FRENTE DE IZQUIERDA, FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD, PTS - FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD": [
+     [
+      "PTS",
+      "2013-12-10"
+     ],
+     [
+      "FIT-U",
+      "2021-12-10"
+     ],
+     [
+      "PTS",
+      "2022-02-02"
+     ]
+    ],
+    "RECREAR PARA EL CRECIMIENTO, PRO": [
+     [
+      "Recrear",
+      "2003-12-10"
+     ],
+     [
+      "PRO",
+      "2005-12-12"
+     ]
+    ],
+    "RENOVADOR": "PRS",
+    "RENOVADOR DE LA PROVINCIA DE": "Renovador Bonaerense",
+    "RENOVADOR DE SALTA": "PRS",
+    "RENOVADOR, JUSTICIALISTA": [
+     [
+      "PRS",
+      "2001-12-10"
+     ],
+     [
+      "Justicialista (2016)",
+      "2017-12-10"
+     ]
+    ],
+    "RENOVADOR, PAIS, RENOVADOR": "PRS",
+    "REPUBLICANOS UNIDOS": "Republicanos Unidos",
+    "SALTA SOMOS TODOS, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, SALTA SOMOS TODOS": [
+     [
+      "Salta Somos Todos",
+      "2009-12-10"
+     ],
+     [
+      "Federal UNA",
+      "2015-12-10"
+     ],
+     [
+      "Salta Somos Todos",
+      "2015-12-18"
+     ]
+    ],
+    "SER - SOMOS ENERGIA PARA RENOVAR": "SER",
+    "SI POR LA UNIDAD POPULAR, UNIDAD POPULAR": "Unidad Popular",
+    "SIN BLOQUE, PRO, CREO": [
+     [
+      "PRO",
+      "2021-12-10"
+     ],
+     [
+      "Sin bloque",
+      "2021-12-11"
+     ],
+     [
+      "CREO",
+      "2021-12-14"
+     ]
+    ],
+    "SOCIALISTA": "PS",
+    "SOCIALISTA DEL MIJD, FRENTE POR LA INCLUSION SOCIAL": [
+     [
+      "Socialista del MIJD",
+      "2011-12-10"
+     ],
+     [
+      "Frente por la Inclusión Social",
+      "2013-10-22"
+     ]
+    ],
+    "SOCIALISTA UNIFICADO CRISTIANO, HUMANISTICO Y LIBERACION ‐ FRENTE, SOCIAL, DEMOCRACIA POPULAR, HUMANISTICO Y LIBERACION ‐ FRENTE, SOCIAL": [
+     [
+      "PSU",
+      "1987-12-10"
+     ],
+     [
+      "Democracia Popular",
+      "1989-08-02"
+     ]
+    ],
+    "SOCIALISTA UNIFICADO, SOCIALISTA UNIFICADO CRISTIANO": "PSU",
+    "SOCIALISTA, PARTIDO SOCIALISTA": "PS",
+    "SUMA + UNEN, EVOLUCION RADICAL": [
+     [
+      "Suma+UNEN",
+      "2013-12-10"
+     ],
+     [
+      "Evolución Radical",
+      "2017-12-10"
+     ]
+    ],
+    "SUMA + UNEN, UCR, EVOLUCION RADICAL, UCR, EVOLUCION RADICAL": [
+     [
+      "Suma+UNEN",
+      "2013-12-10"
+     ],
+     [
+      "UCR",
+      "2016-02-19"
+     ],
+     [
+      "Evolución Radical",
+      "2017-12-10"
+     ],
+     [
+      "UCR",
+      "2019-12-10"
+     ],
+     [
+      "Evolución Radical",
+      "2021-12-10"
+     ]
+    ],
+    "TODOS JUNTOS POR SAN JUAN, FRENTE DE TODOS": [
+     [
+      "Todos Juntos por San Juan",
+      "2017-12-10"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "TRABAJO Y DIGNIDAD": "Trabajo y Dignidad",
+    "TRABAJO Y DIGNIDAD, FRENTE DE TODOS": [
+     [
+      "Trabajo y Dignidad",
+      "2017-12-10"
+     ],
+     [
+      "UxP",
+      "2019-12-10"
+     ]
+    ],
+    "UCEDE": "UCeDé",
+    "UCEDE, BÖSCH DE SARTORI, IRENE MIRIAM, CONVERGENCIA": "UCeDé",
+    "UCR": "UCR",
+    "UCR, ARI": [
+     [
+      "UCR",
+      "1995-12-10"
+     ],
+     [
+      "CC-ARI",
+      "2001-12-10"
+     ]
+    ],
+    "UCR, ARI, MMTA, ARI, COALICION CIVICA, COALICION CIVICA - ARI, COALICION CIVICA ARI - UNEN, COALICION CIVICA": [
+     [
+      "UCR",
+      "1995-12-10"
+     ],
+     [
+      "CC-ARI",
+      "2001-05-09"
+     ]
+    ],
+    "UCR, COALICION CIVICA - ARI - GEN - UPT, COALICION CIVICA": [
+     [
+      "UCR",
+      "1993-12-10"
+     ],
+     [
+      "CC-ARI",
+      "2007-12-10"
+     ]
+    ],
+    "UCR, COMPROMISO PARA EL CAMBIO, PRO": [
+     [
+      "UCR",
+      "1983-12-10"
+     ],
+     [
+      "PRO",
+      "2003-12-10"
+     ]
+    ],
+    "UCR, CONVERGENCIA, UCR, BÖSCH DE SARTORI, IRENE MIRIAM, UCR": "UCR",
+    "UCR, DE LA CONCERTACION, PARTIDO DE LA CONCERTACION - FORJA": [
+     [
+      "UCR",
+      "1993-12-10"
+     ],
+     [
+      "Concertación",
+      "2007-12-10"
+     ],
+     [
+      "FORJA",
+      "2008-09-30"
+     ]
+    ],
+    "UCR, DEL BICENTENARIO": [
+     [
+      "UCR",
+      "2009-12-10"
+     ],
+     [
+      "Del Bicentenario",
+      "2016-04-05"
+     ]
+    ],
+    "UCR, DEL BICENTENARIO, EVOLUCION RADICAL": [
+     [
+      "UCR",
+      "2015-12-10"
+     ],
+     [
+      "Del Bicentenario",
+      "2016-04-05"
+     ],
+     [
+      "Evolución Radical",
+      "2017-12-10"
+     ]
+    ],
+    "UCR, EVOLUCION RADICAL": [
+     [
+      "UCR",
+      "2019-12-10"
+     ],
+     [
+      "Evolución Radical",
+      "2021-12-10"
+     ]
+    ],
+    "UCR, FRENTE CIVICO Y SOCIAL DE CATAMARCA": [
+     [
+      "UCR",
+      "2010-03-17"
+     ],
+     [
+      "FCyS",
+      "2011-11-02"
+     ]
+    ],
+    "UCR, FRENTE CIVICO Y SOCIAL DE CATAMARCA, FRENTE RENOVADOR": [
+     [
+      "UCR",
+      "2009-12-10"
+     ],
+     [
+      "FCyS",
+      "2011-11-02"
+     ],
+     [
+      "FR",
+      "2013-09-11"
+     ]
+    ],
+    "UCR, FRENTE CIVICO Y SOCIAL DE, UCR, JUSTICIALISTA, UCR": [
+     [
+      "UCR",
+      "1993-12-10"
+     ],
+     [
+      "FCyS",
+      "1997-12-10"
+     ],
+     [
+      "UCR",
+      "1999-12-10"
+     ]
+    ],
+    "UCR, FRENTE DEL MOVIMIENTO POPULAR": [
+     [
+      "UCR",
+      "1995-12-10"
+     ],
+     [
+      "FMP",
+      "2003-06-04"
+     ]
+    ],
+    "UCR, FREPASO": [
+     [
+      "UCR",
+      "1989-12-10"
+     ],
+     [
+      "FREPASO",
+      "1997-12-10"
+     ]
+    ],
+    "UCR, JUSTICIALISTA": "UCR",
+    "UCR, JUSTICIALISTA, UCR": "UCR",
+    "UCR, MOVIMIENTO NACIONAL ALFONSINISTA": [
+     [
+      "UCR",
+      "1991-12-18"
+     ],
+     [
+      "Mov. Nac. Alfonsinista",
+      "2015-02-24"
+     ]
+    ],
+    "UCR, UNIPERSONAL 'RICARDO BALBIN', FRENTE DEL MOVIMIENTO POPULAR, UNIPERSONAL 'RICARDO BALBIN'": [
+     [
+      "UCR",
+      "1997-12-10"
+     ],
+     [
+      "Ricardo Balbín",
+      "2002-12-05"
+     ],
+     [
+      "FMP",
+      "2002-12-11"
+     ],
+     [
+      "Ricardo Balbín",
+      "2004-05-11"
+     ]
+    ],
+    "UDESO SALTA": "UDESO Salta",
+    "UNIDAD BONAERENSE, JUSTICIALISTA, UNIDAD BONAERENSE": [
+     [
+      "Unidad Bonaerense",
+      "1985-12-10"
+     ],
+     [
+      "UxP",
+      "1987-12-30"
+     ]
+    ],
+    "UNIDAD BONAERENSE, UNIDAD FEDERALISTA": [
+     [
+      "Unidad Bonaerense",
+      "1999-12-10"
+     ],
+     [
+      "PAUFE",
+      "2001-08-01"
+     ]
+    ],
+    "UNIDAD FEDERALISTA": "PAUFE",
+    "UNIDAD FEDERALISTA, JUSTICIALISTA, FRENTE DEL MOVIMIENTO POPULAR": [
+     [
+      "PAUFE",
+      "2001-12-10"
+     ],
+     [
+      "UxP",
+      "2002-02-12"
+     ],
+     [
+      "FMP",
+      "2002-12-11"
+     ]
+    ],
+    "UNIDAD FEDERALISTA, PARTIDO NUEVO CONTRA CORRUP., POR HONEST. Y TRANSP.": "PAUFE",
+    "UNIDAD JUSTICIALISTA, JUSTICIALISTA": [
+     [
+      "UxP",
+      "1983-12-10"
+     ],
+     [
+      "Unidad Justicialista",
+      "1984-03-19"
+     ]
+    ],
+    "UNIDAD JUSTICIALISTA, JUSTICIALISTA, MOVIMIENTO POR LA REVOLUCION, NACIONAL, JUSTICIALISTA": [
+     [
+      "Unidad Justicialista",
+      "1985-12-10"
+     ],
+     [
+      "UxP",
+      "1987-12-30"
+     ]
+    ],
+    "UNIDAD JUSTICIALISTA, JUSTICIALISTA, UNIDAD JUSTICIALISTA": [
+     [
+      "Unidad Justicialista",
+      "1985-12-10"
+     ],
+     [
+      "UxP",
+      "1987-12-30"
+     ]
+    ],
+    "UNIDAD JUSTICIALISTA, JUSTICIALISTA, UNIDAD JUSTICIALISTA, JUSTICIALISTA, UNIDAD JUSTICIALISTA": [
+     [
+      "UxP",
+      "1983-12-10"
+     ],
+     [
+      "Unidad Justicialista",
+      "1984-03-19"
+     ],
+     [
+      "UxP",
+      "1987-12-30"
+     ]
+    ],
+    "UNIDAD JUSTICIALISTA, JUSTICIALISTA, UNIDAD JUSTICIALISTA, PRO, UNION PRO": [
+     [
+      "Unidad Justicialista",
+      "1985-12-10"
+     ],
+     [
+      "UxP",
+      "1987-12-30"
+     ],
+     [
+      "PRO",
+      "2009-12-10"
+     ]
+    ],
+    "UNIDAD PARA EL DESARROLLO SOCIAL Y LA EQUIDAD, PRO, FREPASO, ARI, NO INTEGRA BLOQUE": [
+     [
+      "FREPASO",
+      "1999-12-10"
+     ],
+     [
+      "CC-ARI",
+      "2001-12-10"
+     ],
+     [
+      "Sin bloque",
+      "2004-07-02"
+     ],
+     [
+      "Desarrollo Social y Equidad",
+      "2011-12-10"
+     ],
+     [
+      "PRO",
+      "2017-12-10"
+     ]
+    ],
+    "UNIDAD POPULAR": "Unidad Popular",
+    "UNIDAD SOCIALISTA HONESTIDAD, TRABAJO Y EFICIENCIA, UNIDAD SOCIALISTA HONESTIDAD, TRABAJO Y EFICIENCIA, FREPASO, ARI, PARTIDO SOCIALISTA": [
+     [
+      "Unidad Socialista",
+      "1993-12-10"
+     ],
+     [
+      "FREPASO",
+      "1997-12-10"
+     ],
+     [
+      "CC-ARI",
+      "2001-05-09"
+     ],
+     [
+      "PS",
+      "2002-10-01"
+     ]
+    ],
+    "UNIDAD SOCIALISTA HONESTIDAD, TRABAJO Y EFICIENCIA, UNIDAD SOCIALISTA HONESTIDAD, TRABAJO Y EFICIENCIA, FREPASO, ARI, PARTIDO SOCIALISTA, ARI": [
+     [
+      "Unidad Socialista",
+      "1991-12-10"
+     ],
+     [
+      "FREPASO",
+      "1995-12-10"
+     ],
+     [
+      "CC-ARI",
+      "2001-05-09"
+     ],
+     [
+      "PS",
+      "2002-10-01"
+     ]
+    ],
+    "UNIDOS POR SAN LUIS, PRO": [
+     [
+      "Unidos por San Luis",
+      "2021-12-10"
+     ],
+     [
+      "PRO",
+      "2021-12-11"
+     ]
+    ],
+    "UNIDOS POR UNA NUEVA ARGENTINA": "UNA",
+    "UNIDOS POR UNA NUEVA ARGENTINA, CORDOBA FEDERAL": [
+     [
+      "UNA",
+      "2016-03-01"
+     ],
+     [
+      "Córdoba Federal",
+      "2017-12-06"
+     ]
+    ],
+    "UNION CELESTE Y BLANCO, CORRIENTE PERONISTA FEDERAL, CORRIENTE DE PENSAMIENTO FEDERAL": [
+     [
+      "Unión Celeste y Blanco",
+      "2007-12-10"
+     ],
+     [
+      "Corriente Peronista Federal",
+      "2009-10-21"
+     ],
+     [
+      "Corriente de Pensamiento Federal",
+      "2009-12-10"
+     ]
+    ],
+    "UNION POR CORDOBA, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, UNIDOS POR UNA NUEVA ARGENTINA": [
+     [
+      "Unión por Córdoba",
+      "2013-12-10"
+     ],
+     [
+      "Federal UNA",
+      "2015-12-10"
+     ],
+     [
+      "UNA",
+      "2016-03-01"
+     ]
+    ],
+    "UNION PRO": "PRO",
+    "UNION PRO, PRO": "PRO",
+    "UNION PRO, PRO, ENCUENTRO FEDERAL": [
+     [
+      "PRO",
+      "2015-12-10"
+     ],
+     [
+      "Encuentro Federal",
+      "2021-12-10"
+     ]
+    ],
+    "UNIPERSONAL, DIALOGO Y TRABAJO": [
+     [
+      "Sin bloque",
+      "2016-03-08"
+     ],
+     [
+      "Diálogo y Trabajo",
+      "2016-03-21"
+     ]
+    ],
+    "UNIPERSONAL, MOVIMIENTO INDEPENDIENTE": [
+     [
+      "Sin bloque",
+      "2005-12-10"
+     ],
+     [
+      "Movimiento Independiente",
+      "2006-03-20"
+     ]
+    ],
+    "VON NIEDERHÄUSERN, NORBERTO B CHUBUT, JUSTICIALISTA": "UxP"
+   }
+  },
+  "BR": {
+   "tipo": "por intervencion",
+   "partidos": {
+    "Agir": {
+     "nombre": "Agir"
+    },
+    "Avante": {
+     "nombre": "Avante"
+    },
+    "Cidadania": {
+     "nombre": "Cidadania"
+    },
+    "DC": {
+     "nombre": "Democracia Cristã"
+    },
+    "DEM": {
+     "nombre": "Democratas"
+    },
+    "Democrata": {
+     "nombre": "Democrata"
+    },
+    "MDB": {
+     "nombre": "Movimento Democrático Brasileiro"
+    },
+    "Mobiliza": {
+     "nombre": "Mobilização Nacional"
+    },
+    "Novo": {
+     "nombre": "Partido Novo"
+    },
+    "PAN": {
+     "nombre": "Partido dos Aposentados da Nação"
+    },
+    "PCdoB": {
+     "nombre": "Partido Comunista do Brasil"
+    },
+    "PDT": {
+     "nombre": "Partido Democrático Trabalhista"
+    },
+    "PHS": {
+     "nombre": "Partido Humanista da Solidariedade"
+    },
+    "PL": {
+     "nombre": "Partido Liberal"
+    },
+    "PP": {
+     "nombre": "Progressistas"
+    },
+    "PPL": {
+     "nombre": "Partido Pátria Livre"
+    },
+    "PRD": {
+     "nombre": "Partido Renovação Democrática"
+    },
+    "PRONA": {
+     "nombre": "Partido de Reedificação da Ordem Nacional"
+    },
+    "PROS": {
+     "nombre": "Partido Republicano da Ordem Social"
+    },
+    "PRP": {
+     "nombre": "Partido Republicano Progressista"
+    },
+    "PRTB": {
+     "nombre": "Partido Renovador Trabalhista Brasileiro"
+    },
+    "PSB": {
+     "nombre": "Partido Socialista Brasileiro"
+    },
+    "PSC": {
+     "nombre": "Partido Social Cristão"
+    },
+    "PSD": {
+     "nombre": "Partido Social Democrático"
+    },
+    "PSDB": {
+     "nombre": "Partido da Social Democracia Brasileira"
+    },
+    "PSL": {
+     "nombre": "Partido Social Liberal"
+    },
+    "PSOL": {
+     "nombre": "Partido Socialismo e Liberdade"
+    },
+    "PT": {
+     "nombre": "Partido dos Trabalhadores"
+    },
+    "PTB": {
+     "nombre": "Partido Trabalhista Brasileiro"
+    },
+    "PV": {
+     "nombre": "Partido Verde"
+    },
+    "Patriota": {
+     "nombre": "Patriota"
+    },
+    "Podemos": {
+     "nombre": "Podemos"
+    },
+    "Rede": {
+     "nombre": "Rede Sustentabilidade"
+    },
+    "Republicanos": {
+     "nombre": "Republicanos"
+    },
+    "Sem partido": {
+     "nombre": "Sem partido"
+    },
+    "Sin identificar": {
+     "nombre": "Sin identificar"
+    },
+    "Solidariedade": {
+     "nombre": "Solidariedade"
+    },
+    "União": {
+     "nombre": "União Brasil"
+    }
+   },
+   "etiquetas": {
+    "": "Sin identificar",
+    "AVANTE": "Avante",
+    "BLOCO": "Sin identificar",
+    "BLOCOPL": "PL",
+    "CIDADANIA": "Cidadania",
+    "DC": "DC",
+    "DEM": "DEM",
+    "MDB": "MDB",
+    "NOVO": "Novo",
+    "PAN": "PAN",
+    "PATRI": "Patriota",
+    "PATRIOTA": "Patriota",
+    "PCDOB": "PCdoB",
+    "PDT": "PDT",
+    "PEN": "Patriota",
+    "PFJ": "DEM",
+    "PFL": "DEM",
+    "PHS": "PHS",
+    "PL": "PL",
+    "PMB": "Democrata",
+    "PMDB": "MDB",
+    "PMN": "Mobiliza",
+    "PMR": "Republicanos",
+    "PMSD": "MDB",
+    "PODE": "Podemos",
+    "PODEMOS": "Podemos",
+    "PP": "PP",
+    "PPB": "PP",
+    "PPL": "PPL",
+    "PPS": "Cidadania",
+    "PR": "PL",
+    "PRB": "Republicanos",
+    "PRD": "PRD",
+    "PRONA": "PRONA",
+    "PROS": "PROS",
+    "PRP": "PRP",
+    "PRTB": "PRTB",
+    "PSB": "PSB",
+    "PSBD": "PSDB",
+    "PSC": "PSC",
+    "PSD": "PSD",
+    "PSDB": "PSDB",
+    "PSDC": "DC",
+    "PSL": "PSL",
+    "PSOL": "PSOL",
+    "PT": "PT",
+    "PTB": "PTB",
+    "PTC": "Agir",
+    "PTD": "PDT",
+    "PTDOB": "Avante",
+    "PTN": "Podemos",
+    "PV": "PV",
+    "REDE": "Rede",
+    "REPUBLICANOS": "Republicanos",
+    "S.PART.": "Sem partido",
+    "SD": "Solidariedade",
+    "SDD": "Solidariedade",
+    "SOLIDARIEDADE": "Solidariedade",
+    "UNIÃO": "União"
+   }
+  },
+  "CL": {
+   "tipo": "por intervencion",
+   "partidos": {
+    "AH": {
+     "nombre": "Acción Humanista"
+    },
+    "Amarillos": {
+     "nombre": "Movimiento Amarillos por Chile"
+    },
+    "Amplitud": {
+     "nombre": "Amplitud"
+    },
+    "CS": {
+     "nombre": "Convergencia Social"
+    },
+    "Comunes": {
+     "nombre": "Comunes"
+    },
+    "DC": {
+     "nombre": "Partido Demócrata Cristiano"
+    },
+    "Demócratas": {
+     "nombre": "Demócratas"
+    },
+    "Evópoli": {
+     "nombre": "Evolución Política"
+    },
+    "FA": {
+     "nombre": "Frente Amplio"
+    },
+    "FRVS": {
+     "nombre": "Federación Regionalista Verde Social"
+    },
+    "IC": {
+     "nombre": "Izquierda Ciudadana de Chile"
+    },
+    "Igualdad": {
+     "nombre": "Partido Igualdad"
+    },
+    "Independientes": {
+     "nombre": "Independientes (sin militancia)"
+    },
+    "PC": {
+     "nombre": "Partido Comunista de Chile"
+    },
+    "PCC": {
+     "nombre": "Partido Conservador Cristiano"
+    },
+    "PDG": {
+     "nombre": "Partido de la Gente"
+    },
+    "PEV": {
+     "nombre": "Partido Ecologista Verde"
+    },
+    "PH": {
+     "nombre": "Partido Humanista"
+    },
+    "PL": {
+     "nombre": "Partido Liberal de Chile"
+    },
+    "PNL": {
+     "nombre": "Partido Nacional Libertario"
+    },
+    "PPD": {
+     "nombre": "Partido por la Democracia"
+    },
+    "PR": {
+     "nombre": "Partido Radical de Chile"
+    },
+    "PRI": {
+     "nombre": "Partido Regionalista Independiente"
+    },
+    "PRO": {
+     "nombre": "Partido Progresista"
+    },
+    "PS": {
+     "nombre": "Partido Socialista de Chile"
+    },
+    "PSC": {
+     "nombre": "Partido Social Cristiano"
+    },
+    "RD": {
+     "nombre": "Revolución Democrática"
+    },
+    "RN": {
+     "nombre": "Renovación Nacional"
+    },
+    "Republicanos": {
+     "nombre": "Partido Republicano de Chile"
+    },
+    "Sin identificar": {
+     "nombre": "Sin partido identificado en el CSV"
+    },
+    "UCCP": {
+     "nombre": "Unión de Centro Centro Progresista"
+    },
+    "UDI": {
+     "nombre": "Unión Demócrata Independiente"
+    }
+   },
+   "etiquetas": {
+    "": "Sin identificar",
+    "AMA": "Amarillos",
+    "AMPL": "Amplitud",
+    "COMUNES": "Comunes",
+    "DC": "DC",
+    "DEM": "Demócratas",
+    "EVOP": "Evópoli",
+    "FA": "FA",
+    "FRVS": "FRVS",
+    "IC": "IC",
+    "IGUAL": "Igualdad",
+    "IND": "Independientes",
+    "LIBERAL": "PL",
+    "PAH": "AH",
+    "PC": "PC",
+    "PCC": "PCC",
+    "PCS": "CS",
+    "PDG": "PDG",
+    "PEV": "PEV",
+    "PH": "PH",
+    "PL": "PL",
+    "PNL": "PNL",
+    "PPD": "PPD",
+    "PR": "PR",
+    "PREP": "Republicanos",
+    "PRI": "PRI",
+    "PRO": "PRO",
+    "PS": "PS",
+    "PSC": "PSC",
+    "RD": "RD",
+    "RN": "RN",
+    "UCP": "UCCP",
+    "UDI": "UDI"
+   }
+  },
+  "CO": {
+   "tipo": "por legislatura",
+   "partidos": {
+    "AICO": {
+     "nombre": "Autoridades Indígenas de Colombia (AICO)"
+    },
+    "ASI": {
+     "nombre": "Alianza Social Independiente (ASI)"
+    },
+    "ASOINTEC": {
+     "nombre": "ASOINTEC"
+    },
+    "Afrouninca": {
+     "nombre": "Asociación Afrouninca"
+    },
+    "Afrovides": {
+     "nombre": "Afrovides"
+    },
+    "Alas Equipo Colombia": {
+     "nombre": "Movimiento Alas Equipo Colombia"
+    },
+    "Alianza Social Afrocolombiana": {
+     "nombre": "Alianza Social Afrocolombiana"
+    },
+    "Alianza Verde": {
+     "nombre": "Partido Alianza Verde"
+    },
+    "Apertura Liberal": {
+     "nombre": "Movimiento Apertura Liberal"
+    },
+    "Aprocasur": {
+     "nombre": "Asociación de Productores de Cacao (Aprocasur)"
+    },
+    "Asocamproariari": {
+     "nombre": "Asocamproariari"
+    },
+    "Asociación Víctimas Núcleo Santiago Pérez": {
+     "nombre": "Asociación Víctimas Núcleo Santiago Pérez"
+    },
+    "Asociación de Desplazados de Briceño": {
+     "nombre": "Asociación de Desplazados del Municipio de Briceño"
+    },
+    "Asociación de Familias Desplazadas de Hacarí": {
+     "nombre": "Asociación de Familias Desplazadas de Hacarí"
+    },
+    "Asociación de Víctimas Intercultural y Regional": {
+     "nombre": "Asociación de Víctimas Intercultural y Regional"
+    },
+    "Cambio Radical": {
+     "nombre": "Partido Cambio Radical"
+    },
+    "Centro Democrático": {
+     "nombre": "Partido Centro Democrático"
+    },
+    "Centro Esperanza": {
+     "nombre": "Coalición Centro Esperanza"
+    },
+    "Cien por Ciento por Colombia": {
+     "nombre": "Cien por Ciento por Colombia"
+    },
+    "Coalición (sin especificar)": {
+     "nombre": "Coalición (lista de coalición sin partido identificado)"
+    },
+    "Cocoman": {
+     "nombre": "Consejo Comunitario Mayor de Nóvita (Cocoman)"
+    },
+    "Colombia Humana": {
+     "nombre": "Colombia Humana"
+    },
+    "Colombia Justa Libres": {
+     "nombre": "Colombia Justa Libres"
+    },
+    "Colombia Renaciente": {
+     "nombre": "Partido Colombia Renaciente"
+    },
+    "Colombia Siempre": {
+     "nombre": "Movimiento Colombia Siempre"
+    },
+    "Comunes": {
+     "nombre": "Comunes (antes Fuerza Alternativa Revolucionaria del Común, FARC)"
+    },
+    "Consejo Comunitario Fernando Ríos Hidalgo": {
+     "nombre": "Consejo Comunitario Fernando Ríos Hidalgo"
+    },
+    "Consejo Comunitario La Mamuncia": {
+     "nombre": "Consejo Comunitario La Mamuncia"
+    },
+    "Consejo Comunitario Los Andes": {
+     "nombre": "Consejo Comunitario Los Andes"
+    },
+    "Consejo Comunitario San Antonio y El Castillo": {
+     "nombre": "Consejo Comunitario de los Corregimientos de San Antonio y del Castillo"
+    },
+    "Consejo Comunitario del Río Naya": {
+     "nombre": "Consejo Comunitario del Río Naya"
+    },
+    "Conservatismo Independiente": {
+     "nombre": "Movimiento Conservatismo Independiente"
+    },
+    "Convergencia Popular Cívica": {
+     "nombre": "Movimiento Convergencia Popular Cívica"
+    },
+    "Dignidad y Compromiso": {
+     "nombre": "Dignidad y Compromiso (antes Dignidad)"
+    },
+    "Equipo Colombia": {
+     "nombre": "Movimiento Equipo Colombia"
+    },
+    "Frente Social y Político": {
+     "nombre": "Movimiento Frente Social y Político"
+    },
+    "Frente de Esperanza": {
+     "nombre": "Movimiento Independiente Frente de Esperanza (FE)"
+    },
+    "Fuerza Ciudadana": {
+     "nombre": "Movimiento Fuerza Ciudadana"
+    },
+    "Fuerza Progresista": {
+     "nombre": "Movimiento Fuerza Progresista"
+    },
+    "Fundación Igualdad Social": {
+     "nombre": "Fundación Igualdad Social"
+    },
+    "Gente en Movimiento": {
+     "nombre": "Grupo Significativo de Ciudadanos Gente en Movimiento"
+    },
+    "Huella Ciudadana": {
+     "nombre": "Movimiento Huella Ciudadana"
+    },
+    "Lista de la Decencia": {
+     "nombre": "Coalición Lista de la Decencia"
+    },
+    "MAIS": {
+     "nombre": "Movimiento Alternativo Indígena y Social (MAIS)"
+    },
+    "MIO": {
+     "nombre": "Movimiento de Inclusión y Oportunidades (MIO)"
+    },
+    "MIPOL": {
+     "nombre": "Movimiento MIPOL"
+    },
+    "MIR": {
+     "nombre": "Movimiento de Integración Regional"
+    },
+    "MIRA": {
+     "nombre": "Movimiento MIRA"
+    },
+    "MORAL": {
+     "nombre": "Movimiento Renovación Acción Laboral (MORAL)"
+    },
+    "Mov. Nuevo Liberalismo (1999-2006)": {
+     "nombre": "Movimiento Nuevo Liberalismo"
+    },
+    "Movimiento Comunal y Comunitario": {
+     "nombre": "Movimiento Comunal y Comunitario de Colombia"
+    },
+    "Movimiento Conservatismo": {
+     "nombre": "Movimiento Conservatismo"
+    },
+    "Movimiento Nacional": {
+     "nombre": "Movimiento Nacional"
+    },
+    "Movimiento Nacional Conservador": {
+     "nombre": "Movimiento Nacional Conservador"
+    },
+    "Movimiento Nacional Progresista": {
+     "nombre": "Movimiento Nacional Progresista"
+    },
+    "Movimiento Popular Unido": {
+     "nombre": "Movimiento Popular Unido"
+    },
+    "Movimiento Progresistas (2002)": {
+     "nombre": "Movimiento Progresistas"
+    },
+    "Movimiento Republicano": {
+     "nombre": "Movimiento Republicano"
+    },
+    "Movimiento Unionista": {
+     "nombre": "Movimiento Unionista"
+    },
+    "Mujeres Víctimas de Jericó": {
+     "nombre": "Asociación Agropecuaria de Mujeres Víctimas de Jericó"
+    },
+    "Narrar para Vivir": {
+     "nombre": "Corporación Narrar para Vivir"
+    },
+    "Nueva Fuerza Democrática": {
+     "nombre": "Movimiento Nueva Fuerza Democrática"
+    },
+    "Nuevo Liberalismo": {
+     "nombre": "Partido Nuevo Liberalismo"
+    },
+    "Opción Ciudadana": {
+     "nombre": "Partido Opción Ciudadana (antes Convergencia Ciudadana y Partido de Integración Nacional, PIN)"
+    },
+    "Pa-Vida": {
+     "nombre": "Asociación Paz es Vida (Pa-Vida)"
+    },
+    "Pacto Histórico": {
+     "nombre": "Coalición Pacto Histórico (partido Pacto Histórico por fusión desde 2025)"
+    },
+    "Participación Comunitaria": {
+     "nombre": "Movimiento Participación Comunitaria (MPC)"
+    },
+    "Participación Popular": {
+     "nombre": "Movimiento de Participación Popular"
+    },
+    "Partido Conservador": {
+     "nombre": "Partido Conservador Colombiano"
+    },
+    "Partido Demócrata Colombiano": {
+     "nombre": "Partido Demócrata Colombiano"
+    },
+    "Partido Liberal": {
+     "nombre": "Partido Liberal Colombiano"
+    },
+    "Partido Popular Colombiano": {
+     "nombre": "Partido Popular Colombiano"
+    },
+    "Partido Social Democrático": {
+     "nombre": "Partido Social Democrático"
+    },
+    "Partido de Acción Social": {
+     "nombre": "Partido de Acción Social"
+    },
+    "Partido de la U": {
+     "nombre": "Partido de la Unión por la Gente (Partido de la U); antes Partido Social de Unidad Nacional"
+    },
+    "Polo Democrático": {
+     "nombre": "Polo Democrático Alternativo"
+    },
+    "Por el País que Soñamos": {
+     "nombre": "Movimiento Por el País que Soñamos"
+    },
+    "Progresismo Democrático": {
+     "nombre": "Movimiento Progresismo Democrático"
+    },
+    "Recompas": {
+     "nombre": "Corporación Red de Consejos Comunitarios del Pacífico Sur (Recompas)"
+    },
+    "Salvación Nacional": {
+     "nombre": "Movimiento de Salvación Nacional"
+    },
+    "Seriedad Colombia": {
+     "nombre": "Movimiento Seriedad Colombia"
+    },
+    "Sin identificar": {
+     "nombre": "Sin identificar"
+    },
+    "Todos Somos Colombia": {
+     "nombre": "Todos Somos Colombia (antes Fundación Ébano de Colombia, Funeco)"
+    },
+    "Unidad Democrática": {
+     "nombre": "Partido Unidad Democrática"
+    },
+    "Vanguardia Moral y Social": {
+     "nombre": "Partido Vanguardia Moral y Social"
+    },
+    "Voluntad Popular": {
+     "nombre": "Movimiento Voluntad Popular"
+    },
+    "Vía Alterna": {
+     "nombre": "Movimiento Vía Alterna"
+    },
+    "Yo soy Urabá": {
+     "nombre": "Yo soy Urabá"
+    }
+   },
+   "etiquetas": {
+    "": "Sin identificar",
+    "ASOINTEC": "ASOINTEC",
+    "Afrovides": "Afrovides",
+    "Alas Equipo Colombia": "Alas Equipo Colombia",
+    "Alianza Social Independiente": "ASI",
+    "Alianza social afrocolombiana": "Alianza Social Afrocolombiana",
+    "Apertura Liberal": "Apertura Liberal",
+    "Asocamproariari": "Asocamproariari",
+    "Asociación Afrouninca": "Afrouninca",
+    "Asociación Agropecuaria de Mujeres Víctimas de Jericó": "Mujeres Víctimas de Jericó",
+    "Asociación Paz es vida (Pa-Vida)": "Pa-Vida",
+    "Asociación Víctimas Núcleo Santiago Pérez": "Asociación Víctimas Núcleo Santiago Pérez",
+    "Asociación de Desplazados del Municipio de Briceño": "Asociación de Desplazados de Briceño",
+    "Asociación de Familias Desplazadas de Hacarí": "Asociación de Familias Desplazadas de Hacarí",
+    "Asociación de Productores de Cacao (Aprocasur)": "Aprocasur",
+    "Asociación de Víctimas Intercultural y Regional": "Asociación de Víctimas Intercultural y Regional",
+    "Autoridades Indigenas de Colombia": "AICO",
+    "Cambio Radical": "Cambio Radical",
+    "Centro Democrático": "Centro Democrático",
+    "Cien por Ciento por Colombia": "Cien por Ciento por Colombia",
+    "Coalicion Alternativa Santandereana": "Alianza Verde",
+    "Coalición": "Coalición (sin especificar)",
+    "Coalición Centro Esperanza": "Centro Esperanza",
+    "Coalición Lista de la Decencia": "Lista de la Decencia",
+    "Coalición Pacto Histórico": "Pacto Histórico",
+    "Coalición Partido Liberal Colombiano": "Partido Liberal",
+    "Colombia Humana": "Colombia Humana",
+    "Colombia Justa Libres": "Colombia Justa Libres",
+    "Comunes": "Comunes",
+    "Consejo Cominitario de los Corregimientos de San Antonio y del Castillo": "Consejo Comunitario San Antonio y El Castillo",
+    "Consejo Comunitario Fernando Rios Hidalgo": "Consejo Comunitario Fernando Ríos Hidalgo",
+    "Consejo Comunitario La Mamuncia": "Consejo Comunitario La Mamuncia",
+    "Consejo Comunitario Mayor de Novita (Cocoman)": "Cocoman",
+    "Consejo Comunitario del Río Naya": "Consejo Comunitario del Río Naya",
+    "Consejo Comunitario los Andes": "Consejo Comunitario Los Andes",
+    "Conservador Colombiano": "Partido Conservador",
+    "Conservador Colombiano-Pop.Col": "Partido Conservador",
+    "Convergencia Ciudadana": "Opción Ciudadana",
+    "Corporación Narrar Para Vivir": "Narrar para Vivir",
+    "Corporación Red de Consejos Comunitarios del Pacífico Sur Recompas": "Recompas",
+    "Fuerza Nacional Progresista": "Fuerza Progresista",
+    "Fuerza Progresista": "Fuerza Progresista",
+    "Fundación Igualdad social": "Fundación Igualdad Social",
+    "Funeco": "Todos Somos Colombia",
+    "Grupo Significativo de Ciudadanos Gente en Movimiento": "Gente en Movimiento",
+    "Ind. Frente de Esperanza Fe": "Frente de Esperanza",
+    "Liberal Colombiano": "Partido Liberal",
+    "Liberal Colombiano - Unión Patriótica": "Partido Liberal",
+    "Liberal Colombiano-Partido Conservador Col": "Partido Liberal",
+    "MIO - Movimiento de Inclusión y Oportunidades": "MIO",
+    "MIR - Movimiento de Integración Regional": "MIR",
+    "MIRA": "MIRA",
+    "Moral - Movimiento Renovador de Acción Social": "MORAL",
+    "Mov. Apertura Liberal": "Apertura Liberal",
+    "Mov. Comunal Colombiano": "Movimiento Comunal y Comunitario",
+    "Mov. Convergencia Popular": "Convergencia Popular Cívica",
+    "Mov. MIPOL": "MIPOL",
+    "Mov. Voluntad Popular": "Voluntad Popular",
+    "Movimiento Alternativo Indígena y Social": "MAIS",
+    "Movimiento Apertura Liberal": "Apertura Liberal",
+    "Movimiento Colombia Siempre": "Colombia Siempre",
+    "Movimiento Comunal y Comunitario de Colombia": "Movimiento Comunal y Comunitario",
+    "Movimiento Conservatismo": "Movimiento Conservatismo",
+    "Movimiento Conservatismo Independiente": "Conservatismo Independiente",
+    "Movimiento Convergencia Ciudadana": "Opción Ciudadana",
+    "Movimiento Convergencia Popular Cívica": "Convergencia Popular Cívica",
+    "Movimiento Convergente Popular": "Convergencia Popular Cívica",
+    "Movimiento Equipo Colombia": "Equipo Colombia",
+    "Movimiento Frente Social y Político": "Frente Social y Político",
+    "Movimiento Fuerza Ciudadana": "Fuerza Ciudadana",
+    "Movimiento Huella Ciudadana": "Huella Ciudadana",
+    "Movimiento MIPOL": "MIPOL",
+    "Movimiento Nacional": "Movimiento Nacional",
+    "Movimiento Nacional Conservador": "Movimiento Nacional Conservador",
+    "Movimiento Nacional Conservador-Partido Conservador": "Partido Conservador",
+    "Movimiento Nacional Progresista": "Movimiento Nacional Progresista",
+    "Movimiento Nueva Fuerza Democrática": "Nueva Fuerza Democrática",
+    "Movimiento Nuevo Liberalismo": "Mov. Nuevo Liberalismo (1999-2006)",
+    "Movimiento Participación Común": "Participación Comunitaria",
+    "Movimiento Participación Poular": "Participación Popular",
+    "Movimiento Popular Unido": "Movimiento Popular Unido",
+    "Movimiento Progresismo Democrático": "Progresismo Democrático",
+    "Movimiento Progresistas": "Movimiento Progresistas (2002)",
+    "Movimiento Renovación Laboral": "MORAL",
+    "Movimiento Republicano": "Movimiento Republicano",
+    "Movimiento Salvación Nacional": "Salvación Nacional",
+    "Movimiento Seriedad Colombia": "Seriedad Colombia",
+    "Movimiento Unionista": "Movimiento Unionista",
+    "Movimiento Vía Alterna": "Vía Alterna",
+    "Movimiento de Integración Regional": "MIR",
+    "Movimiento de Salvación Nacional": "Salvación Nacional",
+    "Opción Ciudadana": "Opción Ciudadana",
+    "PIN - Partido de Integración Nacional": "Opción Ciudadana",
+    "Partido Alianza Verde": "Alianza Verde",
+    "Partido Cambio Radical": "Cambio Radical",
+    "Partido Colombia Renaciente": "Colombia Renaciente",
+    "Partido Comunes": "Comunes",
+    "Partido Conservador": "Partido Conservador",
+    "Partido Conservador Colombiano": "Partido Conservador",
+    "Partido Convergencia Ciudadana": "Opción Ciudadana",
+    "Partido Demócrata Colombiano": "Partido Demócrata Colombiano",
+    "Partido Dignidad": "Dignidad y Compromiso",
+    "Partido Liberal": "Partido Liberal",
+    "Partido Liberal Colombiano": "Partido Liberal",
+    "Partido Nuevo Liberalismo": "Nuevo Liberalismo",
+    "Partido Popular Colombiano": "Partido Popular Colombiano",
+    "Partido Social Democrático": "Partido Social Democrático",
+    "Partido Unidad Democrática": "Unidad Democrática",
+    "Partido Vanguardia Moral y Social": "Vanguardia Moral y Social",
+    "Partido Verde": "Alianza Verde",
+    "Partido Verde Opción Centro": "Alianza Verde",
+    "Partido de Acción Social": "Partido de Acción Social",
+    "Partido de Integración Nacional": "Opción Ciudadana",
+    "Partido de la U": "Partido de la U",
+    "Partido de la U - Partido de la Unión por la Gente": "Partido de la U",
+    "Polo Democrático Alternativo": "Polo Democrático",
+    "Por el País que Soñamos": "Por el País que Soñamos",
+    "Todos Somos Colombia (Antes Fundación Ébano de Colombia Funeco)": "Todos Somos Colombia",
+    "Yo soy Urabá": "Yo soy Urabá",
+    "​​​​​​​Partido Movimiento de Inclusión y Oportunidades - MIO": "MIO"
+   }
+  },
+  "CR": {
+   "tipo": "por legislatura",
+   "partidos": {
+    "ADC": {
+     "nombre": "Partido Alianza Demócrata Cristiana"
+    },
+    "Demócrata Alajuelense": {
+     "nombre": "Partido Demócrata Alajuelense"
+    },
+    "FA": {
+     "nombre": "Partido Frente Amplio"
+    },
+    "FD": {
+     "nombre": "Partido Fuerza Democrática"
+    },
+    "Independientes": {
+     "nombre": "Independientes"
+    },
+    "ML": {
+     "nombre": "Partido Movimiento Libertario"
+    },
+    "PAC": {
+     "nombre": "Partido Acción Ciudadana"
+    },
+    "PALA": {
+     "nombre": "Partido Acción Laborista Agrícola"
+    },
+    "PAN": {
+     "nombre": "Partido Agrario Nacional"
+    },
+    "PASE": {
+     "nombre": "Partido Accesibilidad sin Exclusión"
+    },
+    "PIN": {
+     "nombre": "Partido Integración Nacional"
+    },
+    "PLN": {
+     "nombre": "Partido Liberación Nacional"
+    },
+    "PLP": {
+     "nombre": "Partido Liberal Progresista"
+    },
+    "PNR": {
+     "nombre": "Partido Nueva República"
+    },
+    "PPSD": {
+     "nombre": "Partido Progreso Social Democrático"
+    },
+    "PRC": {
+     "nombre": "Partido Renovación Costarricense"
+    },
+    "PRN": {
+     "nombre": "Partido Restauración Nacional"
+    },
+    "PRSC": {
+     "nombre": "Partido Republicano Social Cristiano"
+    },
+    "PUAC": {
+     "nombre": "Partido Unión Agrícola Cartaginés"
+    },
+    "PUN": {
+     "nombre": "Partido Unión Nacional"
+    },
+    "PUSC": {
+     "nombre": "Partido Unidad Social Cristiana"
+    },
+    "Pueblo Unido": {
+     "nombre": "Coalición Pueblo Unido"
+    },
+    "Sin identificar": {
+     "nombre": "Sin identificar"
+    },
+    "Unificación Nacional": {
+     "nombre": "Unificación Nacional"
+    }
+   },
+   "etiquetas": {
+    "": "Sin identificar",
+    "ACCESIBILIDAD SIN EXCLUSIÓN": "PASE",
+    "ACCIÓN CIUDADANA": "PAC",
+    "ACCIÓN LABORISTA AGRICOLA": "PALA",
+    "AGRARIO NACIONAL": "PAN",
+    "ALIANZA DEMÓCRATA CRISTIANA": "ADC",
+    "DEMÓCRATA  ALAJUELENSE": "Demócrata Alajuelense",
+    "FRENTE AMPLIO": "FA",
+    "FUERZA DEMOCRÁTICA": "FD",
+    "INDEPENDIENTE": "Independientes",
+    "INTEGRACIÓN NACIONAL": "PIN",
+    "LIBERACIÓN NACIONAL": "PLN",
+    "LIBERAL PROGRESISTA": "PLP",
+    "MOVIMIENTO LIBERTARIO": "ML",
+    "NUEVA REPÚBLICA": "PNR",
+    "PROGRESO SOCIAL DEMOCRÁTICO": "PPSD",
+    "PUEBLO UNIDO": "Pueblo Unido",
+    "RENOVACIÓN COSTARRICENSE": "PRC",
+    "REPUBLICANO SOCIAL CRISTIANO": "PRSC",
+    "RESTAURACIÓN NACIONAL": "PRN",
+    "UNIDAD": "PUSC",
+    "UNIDAD SOCIAL CRISTIANA": "PUSC",
+    "UNIFICACIÓN NACIONAL": "Unificación Nacional",
+    "UNIÓN AGRÍCOLA CARTAGINÉS": "PUAC",
+    "UNIÓN NACIONAL": "PUN"
+   }
+  },
+  "DO": {
+   "tipo": "por legislatura",
+   "partidos": {
+    "ALPAÍS": {
+     "nombre": "Alianza País"
+    },
+    "APD": {
+     "nombre": "Alianza por la Democracia"
+    },
+    "BIS": {
+     "nombre": "Bloque Institucional Socialdemócrata"
+    },
+    "FA": {
+     "nombre": "Frente Amplio"
+    },
+    "FNP": {
+     "nombre": "Fuerza Nacional Progresista"
+    },
+    "FP": {
+     "nombre": "Fuerza del Pueblo"
+    },
+    "PCR": {
+     "nombre": "Partido Cívico Renovador"
+    },
+    "PHD": {
+     "nombre": "Partido Humanista Dominicano"
+    },
+    "PLD": {
+     "nombre": "Partido de la Liberación Dominicana"
+    },
+    "PLR": {
+     "nombre": "Partido Liberal Reformista"
+    },
+    "PPC": {
+     "nombre": "Partido Popular Cristiano"
+    },
+    "PQDC": {
+     "nombre": "Partido Quisqueyano Demócrata Cristiano"
+    },
+    "PRD": {
+     "nombre": "Partido Revolucionario Dominicano"
+    },
+    "PRM": {
+     "nombre": "Partido Revolucionario Moderno"
+    },
+    "PRSC": {
+     "nombre": "Partido Reformista Social Cristiano"
+    },
+    "PRSD": {
+     "nombre": "Partido Revolucionario Social Demócrata"
+    },
+    "Sin identificar": {
+     "nombre": "Sin identificar"
+    },
+    "UDC": {
+     "nombre": "Unión Demócrata Cristiana"
+    }
+   },
+   "etiquetas": {
+    "": "Sin identificar",
+    "ALPAIS": "ALPAÍS",
+    "APD": "APD",
+    "BIS": "BIS",
+    "FA": "FA",
+    "FNP": "FNP",
+    "FP": "FP",
+    "PCR": "PCR",
+    "PHD": "PHD",
+    "PLD": "PLD",
+    "PLR": "PLR",
+    "PPC": "PPC",
+    "PQDC": "PQDC",
+    "PRD": "PRD",
+    "PRM": "PRM",
+    "PRSC": "PRSC",
+    "PRSD": "PRSD",
+    "UDC": "UDC"
+   }
+  },
+  "EC": {
+   "tipo": "por intervencion",
+   "partidos": {
+    "ADN": {
+     "nombre": "Acción Democrática Nacional"
+    },
+    "ADN–Semilla": {
+     "nombre": "Alianza ADN–Semilla (Pastaza, 2025)"
+    },
+    "AMIGO": {
+     "nombre": "Movimiento Acción Movilizadora Independiente Generando Oportunidades (AMIGO)"
+    },
+    "AN–PS-FA–DP": {
+     "nombre": "Alianza Alfarismo Nacional–PS-FA–DP (Orellana, 2002)"
+    },
+    "AP": {
+     "nombre": "Movimiento MOVER — Movimiento Verde, Ético, Revolucionario y Democrático (hasta diciembre de 2021, Movimiento Alianza PAIS – Patria Altiva i Soberana)"
+    },
+    "AP y aliados (etiqueta truncada)": {
+     "nombre": "Alianzas de Alianza PAIS con socio desconocido (etiqueta truncada)"
+    },
+    "APRE": {
+     "nombre": "Acción Popular Revolucionaria Ecuatoriana"
+    },
+    "AP–ARE": {
+     "nombre": "Alianza PAIS–Acción Regional por la Equidad (Loja, 2017)"
+    },
+    "AP–Frente de Lucha Ciudadana": {
+     "nombre": "Alianza PAIS–Frente de Lucha Ciudadana (Santa Elena, 2017)"
+    },
+    "AP–Identidad Provincial": {
+     "nombre": "Alianza PAIS–Movimiento de Identidad Provincial (Galápagos)"
+    },
+    "AP–MAR": {
+     "nombre": "Alianza PAIS–Movimiento Autonómico Regional (El Oro, 2013)"
+    },
+    "AP–MUPP": {
+     "nombre": "Alianza PAIS–Pachakutik (Chimborazo, 2013)"
+    },
+    "AP–Mushuk Inti–Alianza Amazónica": {
+     "nombre": "Alianza PAIS–Mushuk Inti–Alianza Amazónica"
+    },
+    "AP–PSE": {
+     "nombre": "Alianza PAIS–Partido Socialista (PS-FA/PSE)"
+    },
+    "AP–Unidad Primero": {
+     "nombre": "Alianza PAIS–Unidad Primero (Manabí, 2013 y 2017)"
+    },
+    "ARE": {
+     "nombre": "Movimiento Acción Regional por la Equidad"
+    },
+    "Actuemos": {
+     "nombre": "Actuemos (alianza Avanza–SUMA, 2023)"
+    },
+    "Acuerdo Ciudadano": {
+     "nombre": "Acuerdo Ciudadano (movimiento provincial de Sucumbíos)"
+    },
+    "Avanza": {
+     "nombre": "Partido Avanza"
+    },
+    "CC": {
+     "nombre": "Conciencia Ciudadana"
+    },
+    "CD": {
+     "nombre": "Movimiento Centro Democrático"
+    },
+    "CD–RETO–MP": {
+     "nombre": "Alianza Centro Democrático–RETO–Movimiento del Pueblo (Orellana, 2023)"
+    },
+    "CFP": {
+     "nombre": "Concentración de Fuerzas Populares"
+    },
+    "CID": {
+     "nombre": "Coalición Institucionalista Demócrata"
+    },
+    "CREO": {
+     "nombre": "Movimiento CREO, Creando Oportunidades"
+    },
+    "CREO–SUMA": {
+     "nombre": "Alianza CREO–SUMA (2017)"
+    },
+    "CREO–SUMA–Alianza Tsáchila": {
+     "nombre": "Alianza CREO–SUMA–Alianza Tsáchila (2017)"
+    },
+    "CREO–SUMA–Participa": {
+     "nombre": "Alianza CREO–SUMA–Participa (Azuay, 2017)"
+    },
+    "Claro Que Se Puede": {
+     "nombre": "Claro Que Se Puede (alianza UP–PSE–Democracia Sí, 2023)"
+    },
+    "Construye": {
+     "nombre": "Movimiento Construye (MC25)"
+    },
+    "Creyendo en Nuestra Gente": {
+     "nombre": "Movimiento Peninsular Creyendo en Nuestra Gente"
+    },
+    "DP-UDC": {
+     "nombre": "Unión Demócrata Cristiana (hasta 2006, Democracia Popular–Unión Demócrata Cristiana)"
+    },
+    "DP–PSC–ID": {
+     "nombre": "Alianza DP–PSC–ID (Morona Santiago, 1998)"
+    },
+    "FADI": {
+     "nombre": "Frente Amplio de Izquierda (hasta 1983, Unión Democrática Popular)"
+    },
+    "FE": {
+     "nombre": "Fuerza Ecuador"
+    },
+    "FRA": {
+     "nombre": "Alfarismo Nacional (hasta 2002, Frente Radical Alfarista)"
+    },
+    "Honestidad": {
+     "nombre": "Alianza Honestidad (Partido Socialista Ecuatoriano–Movimiento Concertación, 2021)"
+    },
+    "ID": {
+     "nombre": "Izquierda Democrática (Partido Izquierda Democrática)"
+    },
+    "ID–MCNP": {
+     "nombre": "Alianza ID–Movimiento Ciudadanos Nuevo País"
+    },
+    "ID–Poder Ciudadano": {
+     "nombre": "Alianza ID–Movimiento Poder Ciudadano"
+    },
+    "ID–RED": {
+     "nombre": "Alianza ID–RED (2006)"
+    },
+    "Identidad Provincial": {
+     "nombre": "Movimiento de Identidad Provincial (Galápagos)"
+    },
+    "Integración Bolivarense": {
+     "nombre": "Alianza por la Integración Bolivarense (CREO–SIARI, Bolívar)"
+    },
+    "Integración Democrática": {
+     "nombre": "Movimiento Integración Democrática del Carchi"
+    },
+    "Liberación Provincial": {
+     "nombre": "Movimiento Independiente Liberación Provincial (Guayas; nombre según la etiqueta)"
+    },
+    "Libertad": {
+     "nombre": "Partido Libertad"
+    },
+    "MAR": {
+     "nombre": "Movimiento Autonómico Regional"
+    },
+    "MCIFY": {
+     "nombre": "Movimiento Ciudadano Independiente Futuro Ya"
+    },
+    "MCND": {
+     "nombre": "Concertación Nacional Democrática"
+    },
+    "MCNP": {
+     "nombre": "Movimiento Ciudadanos Nuevo País"
+    },
+    "MDS": {
+     "nombre": "Movimiento Futuro (hasta 2026, Movimiento Democracia Sí)"
+    },
+    "MEU": {
+     "nombre": "Movimiento Ecuatoriano Unido"
+    },
+    "MHN": {
+     "nombre": "Movimiento Honradez Nacional"
+    },
+    "MIAY": {
+     "nombre": "Movimiento Independiente Amauta Yuyay"
+    },
+    "MINGA": {
+     "nombre": "MINGA (movimiento provincial de Chimborazo)"
+    },
+    "MIOSA": {
+     "nombre": "Movimiento Obras Son Amores"
+    },
+    "MMIN": {
+     "nombre": "Movimiento Municipalista por la Integridad Nacional"
+    },
+    "MPD": {
+     "nombre": "Movimiento Popular Democrático"
+    },
+    "MPD–PS-FA": {
+     "nombre": "Alianza MPD–PS-FA (2002)"
+    },
+    "MSCC": {
+     "nombre": "Movimiento Social Conservador del Carchi"
+    },
+    "MUPP": {
+     "nombre": "Movimiento de Unidad Plurinacional Pachakutik"
+    },
+    "MUPP y aliado (etiqueta truncada)": {
+     "nombre": "Alianza de Pachakutik–Nuevo País con socio desconocido (etiqueta truncada)"
+    },
+    "MUPP–MNPNS–MOPIN": {
+     "nombre": "Alianza Pachakutik–MNPNS–MOPIN (Napo)"
+    },
+    "Minka por la Vida": {
+     "nombre": "Minka por la Vida (alianza Unidad Popular–Pachakutik, 2021)"
+    },
+    "PCD": {
+     "nombre": "Pueblo, Cambio y Democracia"
+    },
+    "PCE": {
+     "nombre": "Partido Unión Nacional–UNO (hasta 2001, Partido Conservador Ecuatoriano; tras absorber al PUR, Partido Conservador Ecuatoriano–Unión Nacional)"
+    },
+    "PD": {
+     "nombre": "Partido Demócrata"
+    },
+    "PID–MOVER": {
+     "nombre": "Acción Democrática Nacional (coalición de Pueblo, Igualdad y Democracia y MOVER, 2023)"
+    },
+    "PLN": {
+     "nombre": "Partido Liberación Nacional"
+    },
+    "PLRE": {
+     "nombre": "Partido Liberal Radical Ecuatoriano"
+    },
+    "PNR": {
+     "nombre": "Partido Nacionalista Revolucionario"
+    },
+    "PNV": {
+     "nombre": "Partido Nacional Velasquista"
+    },
+    "PRE": {
+     "nombre": "Partido Roldosista Ecuatoriano"
+    },
+    "PRIAN": {
+     "nombre": "Partido Renovador Institucional Acción Nacional"
+    },
+    "PS-FA–MUPP": {
+     "nombre": "Alianza PS-FA–Pachakutik"
+    },
+    "PSC": {
+     "nombre": "Partido Social Cristiano"
+    },
+    "PSC–Caminantes": {
+     "nombre": "Alianza PSC–Caminantes (Manabí, 2023)"
+    },
+    "PSC–Positivo": {
+     "nombre": "Alianza PSC–Positivo (Santo Domingo, 2023)"
+    },
+    "PSC–Tiempo de Cambio": {
+     "nombre": "Alianza PSC–Tiempo de Cambio (Tungurahua)"
+    },
+    "PSE": {
+     "nombre": "Partido Socialista Ecuatoriano (entre 1995 y 2014, Partido Socialista–Frente Amplio, PS-FA)"
+    },
+    "PSP": {
+     "nombre": "Partido Sociedad Patriótica 21 de Enero"
+    },
+    "PSP–Antisuyo Ushito": {
+     "nombre": "Alianza PSP–Antisuyo Ushito (Napo, 2021)"
+    },
+    "PSP–MUPP": {
+     "nombre": "Alianza PSP–Pachakutik (2002)"
+    },
+    "PSP–PSC": {
+     "nombre": "Alianza PSP–PSC (Napo, 2023)"
+    },
+    "PSP–RED": {
+     "nombre": "Alianza PSP–RED"
+    },
+    "PUR": {
+     "nombre": "Partido Unidad Republicana"
+    },
+    "Patria Solidaria": {
+     "nombre": "Movimiento Patria Solidaria (Tungurahua)"
+    },
+    "RC": {
+     "nombre": "Movimiento Revolución Ciudadana (hasta agosto de 2021, Movimiento Fuerza Compromiso Social)"
+    },
+    "RC–PLAN–MAR": {
+     "nombre": "Alianza RC–PLAN–MAR (El Oro, 2023)"
+    },
+    "RC–RETO": {
+     "nombre": "Alianza RC–RETO (2025)"
+    },
+    "RC–Sí Podemos": {
+     "nombre": "Alianza RC–Sí Podemos (Manabí, 2025)"
+    },
+    "RED": {
+     "nombre": "Red Ética y Democracia"
+    },
+    "SUMA": {
+     "nombre": "Partido Sociedad Unida Más Acción (SUMA)"
+    },
+    "SUMA–Cambio": {
+     "nombre": "Alianza SUMA–Cambio (Chimborazo, 2017)"
+    },
+    "SUMA–Movimiento Agrario": {
+     "nombre": "Alianza SUMA–Movimiento Agrario de Integración"
+    },
+    "SUR": {
+     "nombre": "Sur Unido Regional (movimiento provincial de El Oro)"
+    },
+    "Sembramos Más": {
+     "nombre": "Sembramos Más (movimiento provincial de Sucumbíos)"
+    },
+    "Semilla": {
+     "nombre": "Semilla (movimiento provincial de Pastaza)"
+    },
+    "Sin identificar": {
+     "nombre": "Sin identificar"
+    },
+    "Trabajo y Democracia": {
+     "nombre": "Movimiento Independiente Trabajo y Democracia"
+    },
+    "UDC–MSCC": {
+     "nombre": "Alianza UDC–Movimiento Social Conservador del Carchi (2006)"
+    },
+    "UDC–RED": {
+     "nombre": "Alianza UDC–RED (2006)"
+    },
+    "UE": {
+     "nombre": "Unión Ecuatoriana"
+    },
+    "UNES": {
+     "nombre": "Unión por la Esperanza (alianza de Centro Democrático y Fuerza Compromiso Social)"
+    },
+    "UNO": {
+     "nombre": "Movimiento Una Nueva Opción"
+    },
+    "UPI": {
+     "nombre": "Unidad Plurinacional de las Izquierdas (2013)"
+    },
+    "UP–PID–PSE": {
+     "nombre": "Alianza Unidad Popular–PID–PSE (Carchi, 2025)"
+    },
+    "Unidos por Pastaza": {
+     "nombre": "Movimiento Unidos por Pastaza"
+    },
+    "Unión Nacional–PSC": {
+     "nombre": "Alianza Unión Nacional (UNO)–PSC (Pastaza, 2002)"
+    },
+    "Únete": {
+     "nombre": "Únete (movimiento provincial de Santa Elena)"
+    },
+    "Únete–Renacer Peninsular–PSC": {
+     "nombre": "Alianza Únete–Renacer Peninsular–PSC (Santa Elena, 2021)"
+    }
+   },
+   "etiquetas": {
+    "": "Sin identificar",
+    "1-5 UNIÓN POR LA ESPERANZA": "UNES",
+    "35": "AP",
+    "ACUERDO MOVIMIENTO ALIANZA PAIS - PARTIDO SOCIALISTA ECUATORIANO    35-17": "AP–PSE",
+    "ACUERDO MOVIMIENTO ALIANZA PAIS - PARTIDO SOCIALISTA ECUATORIANO 35-17": "AP",
+    "ACUERDO PROVINCIAL POR EL CAMBIO ZAMORA CHINCHIPE  12-18": "MUPP",
+    "ADN": "ADN",
+    "ADN-Semilla": "ADN–Semilla",
+    "ALANZA CREO – SUMA   21-23": "CREO",
+    "ALFARISMO NACIONAL / PARTIDO SOCIALISTA-FRENTE AMPLIO / DEMO": "AN–PS-FA–DP",
+    "ALIANZA 35-18 CHIMBORAZO": "MUPP",
+    "ALIANZA CREO - SUMA": "CREO–SUMA",
+    "ALIANZA CREO SUMA ALIANZA TSACHILA    21-23-62": "CREO–SUMA–Alianza Tsáchila",
+    "ALIANZA CREO – SUMA 21-23": "CREO–SUMA",
+    "ALIANZA CREO-AMAUTA YUYAY  21-66": "MIAY",
+    "ALIANZA CREO-SUMA-PARTICIPA": "CREO–SUMA–Participa",
+    "ALIANZA ELECTORAL ENTRE EL MOVIMIENTO PATRIA ALTIVA 1 SOBERANA PAIS LISTA 35 Y EL MOVIMIENTO ACCION REGIONAL PCR LA EQUIDAD ARE LISTA 51    35-61": "ARE",
+    "ALIANZA ELECTORAL ENTRE EL MOVIMIENTO PATRIA ALTIVA 1 SOBERANA PAIS LISTA 35 Y EL MOVIMIENTO ACCION REGIONAL POR LA EQUIDAD ARE LISTA    35-61": "AP",
+    "ALIANZA ELECTORAL ENTRE EL MOVIMIENTO PATRIA ALTIVA I SOBERA": "AP–ARE",
+    "ALIANZA ID-MPD/PS-FAMUPP-NP": "MUPP",
+    "ALIANZA ID/M. PODER CIUDADANO": "ID–Poder Ciudadano",
+    "ALIANZA LISTAS 35-62": "AP",
+    "ALIANZA MINKA POR LA VIDA 2-18": "Minka por la Vida",
+    "ALIANZA MOV. PAIS/MOV. MUSHUK INTI/ALIANZA AMAZONICA": "AP–Mushuk Inti–Alianza Amazónica",
+    "ALIANZA MOVIMIENTO ALIANZA PAIS PATRIA ALTIVA I SOBERANA - MOVIMIENTO DE UNIDAD PLURINACIONAL DE PACHAKUTIK": "AP–MUPP",
+    "ALIANZA MOVIMIENTO ALIANZA PAIS, PATRIA ALTIVA I SOBERANA -": "AP y aliados (etiqueta truncada)",
+    "ALIANZA MOVIMIENTO CREO, CREANDO OPORTUNIADES/MOVIMIENTO TIEMPO DE CAMBIO/PARTIDO SOCIAL CRISTIANO": "PSC",
+    "ALIANZA MPAIS/M. DE IDENTIDAD PROVINCIAL": "AP–Identidad Provincial",
+    "ALIANZA MPAIS/PS-FA": "AP",
+    "ALIANZA MUPP-NP/MNPNS/MOPIN": "MUPP–MNPNS–MOPIN",
+    "ALIANZA MUPP-NP/MPD": "MUPP",
+    "ALIANZA PAIS - UNIDAD PRIMERO": "AP–Unidad Primero",
+    "ALIANZA PAIS MAR": "MAR",
+    "ALIANZA PAIS MAR  35-70": "AP",
+    "ALIANZA PAIS MAR 35-70": "MAR",
+    "ALIANZA PARTIDO SOCIAL CRISTIANO - MADERA DE GUERRERO": "PSC",
+    "ALIANZA PSC-TIEMPO DE CAMBIO   6-61": "PSC",
+    "ALIANZA PSP/RED": "PSP–RED",
+    "ALIANZA SUMA Y MOVIMIENTO AGRARIO DE INTEGRACION": "SUMA–Movimiento Agrario",
+    "ALIANZA SUMA-CAMBIO  23-62": "SUMA–Cambio",
+    "ALIANZA UNIDAD PLURINACIONAL DE LAS IZQUIERDAS": "UPI",
+    "ALIANZA. POR LA INTEGRACIÓN BOLIVARENSE  21-100": "Integración Bolivarense",
+    "ALIANZA: MOVIMIENTO ALIANZA PAIS, PATRIA ALTIVA I SOBERANA - PARTIDO SOCIALISTA FRENTE AMPLIO": "AP–PSE",
+    "ALIANZA: MOVIMIENTO ALIANZA PAÍS, PATRIA ALTIVA I SOBERANA -": "AP y aliados (etiqueta truncada)",
+    "ALIANZA: MOVIMIENTO ALIANZA PAÍS, PATRIA ALTIVA I SOBERANA - MOVIMIENTO AUTONÓMICO REGIONAL": "AP–MAR",
+    "ALIANZA: MOVIMIENTO ALIANZA PAÍS, PATRIA ALTIVA I SOBERANA - PARTIDO SOCIALISTA FRENTE AMPLIO": "AP",
+    "ALIANZA: PARTIDO SOCIAL CRISTIANO - MOVIMIENTO CREO, CREANDO OPORTUNIDADES": "PSC",
+    "AMIGO": "AMIGO",
+    "ARE": "ARE",
+    "ARE/APLA": "ARE",
+    "Acción Popular Revolucionaria Ecuator.": "APRE",
+    "Acuerdo Ciudadano": "Acuerdo Ciudadano",
+    "Avanza": "Avanza",
+    "Avanza - SUMA": "Actuemos",
+    "Avanza - SUMA - SUR": "SUR",
+    "CC": "CC",
+    "CD": "CD",
+    "CD - FCS": "UNES",
+    "CD - RETO - Movimiento del Pueblo": "CD–RETO–MP",
+    "CFP": "CFP",
+    "CFP-PSC": "PSC",
+    "CNP-PSFA": "PSE",
+    "CREO": "CREO",
+    "CREO - ADE": "CREO",
+    "CREO-SUMA-PARTICIPA   21-23-62": "CREO–SUMA–Participa",
+    "Coalición Institucionalista Demócrata": "CID",
+    "Concentración de Fuerzas Populares": "CFP",
+    "Concentración de Fuerzas Populares (CFP)": "CFP",
+    "Creyendo en Nuestra Gente": "Creyendo en Nuestra Gente",
+    "DEMOCRACIA POPULAR - UNION DEMOCRATA CRISTIANA": "DP-UDC",
+    "DP": "DP-UDC",
+    "DP-FRA": "FRA",
+    "DP-PSC-ID": "DP–PSC–ID",
+    "DP-UPPNP": "DP-UDC",
+    "Democracia Popular UDC": "DP-UDC",
+    "EUROPA, ASIA Y OCEANÍA": "AP",
+    "FRA/PSFA/DP": "DP-UDC",
+    "FUERZA ECUADOR 10": "FE",
+    "Fertido Izquierda Democrática": "ID",
+    "Frente Amplio De Izquierda": "FADI",
+    "Frente Radical Alfarista": "FRA",
+    "ID": "ID",
+    "ID / 12": "ID",
+    "ID – MSI": "ID",
+    "ID- Mov. Ind INTEGRACION REG. ECUATOR.": "ID",
+    "ID- PS-Pach.": "ID",
+    "ID-DP-UDC": "DP-UDC",
+    "ID/MCNP": "ID",
+    "ID/RED": "ID",
+    "ID/RED / 12/29": "ID–RED",
+    "IZQUIERDA DEMOCRATICA": "ID",
+    "IZQUIERDA DEMOCRATICA / MOVIMIENTO CIUDADANOS NUEVO PAIS": "ID–MCNP",
+    "IZQUIERDA DEMOCRATICA-INTEGRACION DEMOCRATICA   12-65": "Integración Democrática",
+    "Izquierda Democrática": "ID",
+    "M A R": "MAR",
+    "M. MUNICIPALISTA": "MMIN",
+    "MC25": "Construye",
+    "MC25 - AMIGO": "Construye",
+    "MCND": "MCND",
+    "MCNP": "MCNP",
+    "MDS": "MDS",
+    "MEU": "MEU",
+    "MHN": "MHN",
+    "MI/PSF/ID/MOPA": "PSE",
+    "MIAY": "MIAY",
+    "MINGA": "MINGA",
+    "MINKA POR LA VIDA": "Minka por la Vida",
+    "MIOSA": "MIOSA",
+    "MIUP": "Unidos por Pastaza",
+    "MMIN/MGA": "MMIN",
+    "MOV. UNIDAD PLURINACIONAL PACHAKUTIK-NUEVO PAIS": "MUPP",
+    "MOVIMIENTO ACCION REGIONAL POR LA EQUIDAD": "ARE",
+    "MOVIMIENTO ALIANZA PAIS FRENTE DE LUCHA CIUDADANA    35-52": "AP–Frente de Lucha Ciudadana",
+    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRI": "AP–Unidad Primero",
+    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 55       35-65": "AP–Unidad Primero",
+    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 65       35-65": "AP–Unidad Primero",
+    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 65     35-65": "AP",
+    "MOVIMIENTO ALIANZA PAIS, PATRIA ALTIVA I SOBERANA": "AP",
+    "MOVIMIENTO ALIANZA PAÍS, PATRIA ALTIVA I SOBERANA": "AP",
+    "MOVIMIENTO CIUDADANO INDEPENDIENTE FUTURO YA": "MCIFY",
+    "MOVIMIENTO CREANDO OPORTUNIDADES CREO": "CREO",
+    "MOVIMIENTO CREO, CREANDO OPORTUNIDADES": "CREO",
+    "MOVIMIENTO DE UNIDAD PLURINACIONAL PACHAKUTIK": "MUPP",
+    "MOVIMIENTO INTEGRACION DEMOCRATICA DEL CARCHI": "Integración Democrática",
+    "MOVIMIENTO PATRIA ALTIVA Y SOBERANA": "AP",
+    "MOVIMIENTO PENINSULAR CREYENDO EN NUESTRA GENTE": "Creyendo en Nuestra Gente",
+    "MOVIMIENTO POLITICO UNIDOS POR PASTAZA": "Unidos por Pastaza",
+    "MOVIMIENTO POLÍTICO UNIDOS POR PASTAZA   51": "Unidos por Pastaza",
+    "MOVIMIENTO POPULAR DEMOCRATICO / SOCIALISTA - FRENTE AMPLIO": "MPD–PS-FA",
+    "MOVIMIENTO RED ETICA Y DEMOCRACIA": "RED",
+    "MOVIMIENTO SOCIEDAD UNIDA MAS ACCION. SUMA  23": "SUMA",
+    "MOVIMIENTO SUMA, SOCIEDAD UNIDA MÁS ACCIÓN": "SUMA",
+    "MOVIMIENTO UNA NUEVA OPCION UNO": "UNO",
+    "MOVIMIENTO UNIDAD PLURINACIONAL PACHAKUTIK - NUEVO PAIS": "MUPP",
+    "MOVIMIENTO UNIDAD PLURINACIONAL PACHAKUTIK - NUEVO PAIS/MOV.": "MUPP y aliado (etiqueta truncada)",
+    "MOVIMIENTO UNIDAD PLURINACIONAL PACHAKUTIK-NUEVO PAIS": "MUPP",
+    "MPAIS": "AP",
+    "MPAIS-MED": "AP",
+    "MPAIS/ID/PSFA": "AP",
+    "MPD": "MPD",
+    "MPD / 15": "MPD",
+    "MPD-PSFA": "PSE",
+    "MPD/MUC/MNCS": "MPD",
+    "MRED": "RED",
+    "MSC": "MSCC",
+    "MSCC": "MSCC",
+    "MUPP": "MUPP",
+    "MUPP - MC25": "MUPP",
+    "MUPP - RETO": "MUPP",
+    "MUPP - UP": "MUPP",
+    "MUPP Merecemos Más": "MUPP",
+    "MUPP-NP / 18": "MUPP",
+    "MUPP-NP-": "MUPP",
+    "MUPP/MPD": "MUPP",
+    "Mov Ind \"TRABAJO Y DEMOCRACIA\"": "Trabajo y Democracia",
+    "Mov. Ind. IDENTIDAD PROVINCIAL": "Identidad Provincial",
+    "Mov. Ind. PATRIA SOLIDARIA": "Patria Solidaria",
+    "Mov. Ind. TRABAJO Y DEMOCRACIA": "Trabajo y Democracia",
+    "Mov. Indp. \"PATRIA SOLIDARIA\"": "Patria Solidaria",
+    "Movimiento Ind. Liberación Provincial": "Liberación Provincial",
+    "Movimiento Popular Democrático": "MPD",
+    "Nacionalista Revolucionario": "PNR",
+    "No. 1 PCE": "PCE",
+    "No. 10 PRE": "PRE",
+    "No. 12 PID": "ID",
+    "No. 15 MPD": "MPD",
+    "No. 17 PSE": "PSE",
+    "No. 2 PLRE": "PLRE",
+    "No. 5 PDP-UDC": "DP-UDC",
+    "No. 6 PSC": "PSC",
+    "No. 8 PUR": "PUR",
+    "Nro. 1 PCE": "PCE",
+    "Nro. 10 PRE": "PRE",
+    "Nro. 12 PID": "ID",
+    "Nro. 14 FRA": "FRA",
+    "Nro. 15 MPD": "MPD",
+    "Nro. 2 PLRE": "PLRE",
+    "Nro. 4 CFP": "CFP",
+    "Nro. 5 PDP-UDC": "DP-UDC",
+    "Nro. 6 PSC": "PSC",
+    "Nro. 8 PUR": "PUR",
+    "PARTIDO AVANZA": "Avanza",
+    "PARTIDO IZQUIERDA DEMOCRÁTICA": "ID",
+    "PARTIDO LIBERTAD": "Libertad",
+    "PARTIDO MOVIMIENTO POPULAR DEMOCRATICO": "MPD",
+    "PARTIDO POLÍTICO AVANZA": "Avanza",
+    "PARTIDO RENOVADOR INSTITUCIONAL ACCION NACIONAL": "PRIAN",
+    "PARTIDO ROLDOSISTA ECUATORIANO": "PRE",
+    "PARTIDO SOCIAL CRISTIANO": "PSC",
+    "PARTIDO SOCIEDAD PATRIOTICA": "PSP",
+    "PARTIDO SOCIEDAD PATRIÓTICA": "PSP",
+    "PARTIDO SOCIEDAD PATRIÓTICA \"21 DE ENERO\"": "PSP",
+    "PCE-FRA": "PCE",
+    "PID - MOVER": "PID–MOVER",
+    "PRE / 10": "PRE",
+    "PRIAN": "PRIAN",
+    "PRIAN / 7": "PRIAN",
+    "PRIAN/MHE .- AMÉRICA L. EL CARIBE ÁFRICA": "PRIAN",
+    "PRIAN/PS-FA/MOA / 7/17/61": "PRIAN",
+    "PRIAN/PSFA/MOA": "PRIAN",
+    "PSC": "PSC",
+    "PSC - Caminantes": "PSC–Caminantes",
+    "PSC - MDG": "PSC",
+    "PSC - Positivo": "PSC–Positivo",
+    "PSC - Tiempo de Cambio": "PSC–Tiempo de Cambio",
+    "PSC / 6": "PSC",
+    "PSC 6 - MADERA DE GUERRERO": "PSC",
+    "PSC- Alfarismo Nacional": "FRA",
+    "PSC-Únete": "Únete",
+    "PSC/MCMG": "PSC",
+    "PSC/UDC": "PSC",
+    "PSE - MC": "Honestidad",
+    "PSFA-UPPNP-CNP": "MUPP",
+    "PSFA/PACHAKUTIK": "PS-FA–MUPP",
+    "PSP": "PSP",
+    "PSP - Antisuyo Ushito": "PSP–Antisuyo Ushito",
+    "PSP - Mushik Inti - PSC": "PSC",
+    "PSP - PSC": "PSP–PSC",
+    "PSP / 3": "PSP",
+    "PSP-PSC-MDS": "PSP",
+    "PSP/MIRC": "PSP",
+    "PSP/MPD": "PSP",
+    "PSP/MUSHUK": "PSP",
+    "Pachacutik": "MUPP",
+    "Partido Coalicion Institucionalista Demócrata": "CID",
+    "Partido Coalición Institucionalista Demócrata": "CID",
+    "Partido Concentración de Fuerzas Populares": "CFP",
+    "Partido Conservador Ecuatoriano": "PCE",
+    "Partido Demócrata": "PD",
+    "Partido Izquierda Democrática": "ID",
+    "Partido Liberal Radical": "PLRE",
+    "Partido Liberal Radical Ecuatoriano": "PLRE",
+    "Partido Movimiento Popular Democrático": "MPD",
+    "Partido Nacional Velasquista": "PNV",
+    "Partido Nacionalista Revolucionario": "PNR",
+    "Partido Roldosista Ecuatoriano": "PRE",
+    "Partido Social Cristiano": "PSC",
+    "Partido Socialista Ecuatoriano": "PSE",
+    "Partido Unidad Republicana": "PUR",
+    "Partido Unión Democrática Popular": "FADI",
+    "Partido de Liberación Nacional": "PLN",
+    "Pueblo Cambio y Democracia": "PCD",
+    "RC": "RC",
+    "RC - PLAN - MAR": "RC–PLAN–MAR",
+    "RC-Lidera": "RC",
+    "RC-RETO": "RC–RETO",
+    "RC-Sí Podemos": "RC–Sí Podemos",
+    "RED": "RED",
+    "ROLDOSISTA ECUATORIANO": "PRE",
+    "SOCIAL CRISTIANO": "PSC",
+    "SOCIEDAD PATRIOTICA": "PSP",
+    "SOCIEDAD PATRIOTICA / MOV. UNIDAD PLURINACIONAL PACHAKUTIK-N": "PSP–MUPP",
+    "SOCIEDAD PATRIOTICA / MOVIMIENTO POPULAR DEMOCRATICO": "PSP",
+    "SOCIEDAD PATRIÓTICA MUPP-NP": "MUPP",
+    "SUMA - PSC": "PSC",
+    "Sembramos Más": "Sembramos Más",
+    "Semilla": "Semilla",
+    "Sur Unido Regional": "SUR",
+    "UDC/ID": "DP-UDC",
+    "UDC/MSC": "MSCC",
+    "UDC/MSC / 5/63": "UDC–MSCC",
+    "UDC/RED": "DP-UDC",
+    "UDC/RED / 5/29": "UDC–RED",
+    "UE": "UE",
+    "UNION NACIONAL UNO / SOCIAL CRISTIANO": "Unión Nacional–PSC",
+    "UNION NACIONAL UNO/PSC": "PCE",
+    "UNO": "UNO",
+    "UP - PSE - DSI": "Claro Que Se Puede",
+    "UP-PID-PSE": "UP–PID–PSE",
+    "Unidos por Pastaza": "Unidos por Pastaza",
+    "Unidos por Pastaza - PSC": "Unidos por Pastaza",
+    "Unión Democrática Popular": "FADI",
+    "Únete": "Únete",
+    "Únete - Renacer Peninsular - PSC": "Únete–Renacer Peninsular–PSC"
+   }
+  },
+  "ES": {
+   "tipo": "por intervencion",
+   "partidos": {
+    "A la valenciana": {
+     "nombre": "Compromís–Podemos–EUPV: A la valenciana (2016)"
+    },
+    "AIC": {
+     "nombre": "Agrupaciones Independientes de Canarias"
+    },
+    "Amaiur": {
+     "nombre": "Amaiur"
+    },
+    "BNG": {
+     "nombre": "Bloque Nacionalista Galego"
+    },
+    "CAIC": {
+     "nombre": "Candidatura Aragonesa Independiente de Centro (1977)"
+    },
+    "CC": {
+     "nombre": "Coalición Canaria"
+    },
+    "CC-NC-PNC": {
+     "nombre": "Coalición Coalición Canaria–Nueva Canarias–PNC (2011 y 2019)"
+    },
+    "CD": {
+     "nombre": "Coalición Democrática (1979) y coalición AP-PDP (1982)"
+    },
+    "CDC": {
+     "nombre": "Convergència Democràtica de Catalunya"
+    },
+    "CDS": {
+     "nombre": "Centro Democrático y Social"
+    },
+    "CG": {
+     "nombre": "Coalición Galega"
+    },
+    "CHA": {
+     "nombre": "Chunta Aragonesista"
+    },
+    "CIC": {
+     "nombre": "Candidatura Independiente de Centro (Castellón, 1977)"
+    },
+    "CP": {
+     "nombre": "Coalición Popular"
+    },
+    "CUP": {
+     "nombre": "Candidatura d'Unitat Popular"
+    },
+    "CiU": {
+     "nombre": "Convergència i Unió"
+    },
+    "Compromís": {
+     "nombre": "Coalició Compromís"
+    },
+    "Compromís-Podemos": {
+     "nombre": "Compromís–Podemos–És el moment (2015)"
+    },
+    "Cs": {
+     "nombre": "Ciudadanos-Partido de la Ciudadanía"
+    },
+    "DL": {
+     "nombre": "Democràcia i Llibertat (2015)"
+    },
+    "EA": {
+     "nombre": "Eusko Alkartasuna"
+    },
+    "EAJ-PNV": {
+     "nombre": "Euzko Alderdi Jeltzalea-Partido Nacionalista Vasco"
+    },
+    "EC-UP": {
+     "nombre": "En Común–Unidas Podemos"
+    },
+    "ECP": {
+     "nombre": "En Comú Podem"
+    },
+    "EE": {
+     "nombre": "Euskadiko Ezkerra"
+    },
+    "EH Bildu": {
+     "nombre": "Euskal Herria Bildu"
+    },
+    "ERC": {
+     "nombre": "Esquerra Republicana de Catalunya"
+    },
+    "En Marea": {
+     "nombre": "En Marea (Podemos–En Marea–Anova–Esquerda Unida)"
+    },
+    "FN": {
+     "nombre": "Fuerza Nueva"
+    },
+    "Foro": {
+     "nombre": "Foro de Ciudadanos (Foro Asturias)"
+    },
+    "GBai": {
+     "nombre": "Geroa Bai"
+    },
+    "HB": {
+     "nombre": "Herri Batasuna"
+    },
+    "ICV": {
+     "nombre": "Iniciativa per Catalunya Verds"
+    },
+    "ICV-EUiA": {
+     "nombre": "Coalición Iniciativa per Catalunya Verds–Esquerra Unida i Alternativa"
+    },
+    "IU": {
+     "nombre": "Izquierda Unida"
+    },
+    "IZQ-PLU": {
+     "nombre": "La Izquierda Plural (IU, ICV-EUiA, CHA)"
+    },
+    "Junts": {
+     "nombre": "Junts per Catalunya"
+    },
+    "JxCat": {
+     "nombre": "Junts per Catalunya (coalición electoral 2017-2020)"
+    },
+    "Más País-Equo": {
+     "nombre": "Más País–Equo"
+    },
+    "NC": {
+     "nombre": "Nueva Canarias"
+    },
+    "Na-Bai": {
+     "nombre": "Nafarroa Bai"
+    },
+    "PA": {
+     "nombre": "Partido Andalucista"
+    },
+    "PAR": {
+     "nombre": "Partido Aragonés"
+    },
+    "PCE": {
+     "nombre": "Partido Comunista de España"
+    },
+    "PDC": {
+     "nombre": "Pacte Democràtic per Catalunya (1977)"
+    },
+    "PDeCAT": {
+     "nombre": "Partit Demòcrata Europeu Català"
+    },
+    "PP": {
+     "nombre": "Partido Popular"
+    },
+    "PP-CG": {
+     "nombre": "Coalición Partido Popular–Centristas de Galicia (1989)"
+    },
+    "PP-FORO": {
+     "nombre": "Coalición Partido Popular–Foro Asturias"
+    },
+    "PP-PAR": {
+     "nombre": "Coalición Partido Popular–Partido Aragonés"
+    },
+    "PRC": {
+     "nombre": "Partido Regionalista de Cantabria"
+    },
+    "PSOE": {
+     "nombre": "Partido Socialista Obrero Español"
+    },
+    "PSOE-NCa": {
+     "nombre": "Coalición PSOE–Nueva Canarias (2015-2016)"
+    },
+    "PSP-US": {
+     "nombre": "Partido Socialista Popular–Unidad Socialista (1977)"
+    },
+    "PSUC": {
+     "nombre": "Partit Socialista Unificat de Catalunya"
+    },
+    "Podemos": {
+     "nombre": "Podemos"
+    },
+    "Sin identificar": {
+     "nombre": "Sin identificar"
+    },
+    "Sumar": {
+     "nombre": "Sumar"
+    },
+    "UCD": {
+     "nombre": "Unión de Centro Democrático"
+    },
+    "UCDCC": {
+     "nombre": "Unió del Centre i la Democràcia Cristiana de Catalunya (1977)"
+    },
+    "UP": {
+     "nombre": "Unidas Podemos (Unidos Podemos en 2016)"
+    },
+    "UPC": {
+     "nombre": "Unión del Pueblo Canario"
+    },
+    "UPN": {
+     "nombre": "Unión del Pueblo Navarro"
+    },
+    "UPyD": {
+     "nombre": "Unión Progreso y Democracia"
+    },
+    "UV": {
+     "nombre": "Unió Valenciana"
+    },
+    "Vox": {
+     "nombre": "VOX"
+    },
+    "¡Teruel Existe!": {
+     "nombre": "¡Teruel Existe!"
+    }
+   },
+   "etiquetas": {
+    "": "Sin identificar",
+    "AIC": "AIC",
+    "AMAIUR": "Amaiur",
+    "AP": "PP",
+    "BNG": "BNG",
+    "C-P-EUPV": "A la valenciana",
+    "C:B-I-V": "Compromís",
+    "CAIC": "CAIC",
+    "CC": "CC",
+    "CC-NC-PNC": "CC-NC-PNC",
+    "CC-PNC": "CC",
+    "CC-UCD": "UCD",
+    "CCa": "CC",
+    "CCa-PNC": "CC",
+    "CCa-PNC-NC": "CC",
+    "CD": "CD",
+    "CDC": "CDC",
+    "CDS": "CDS",
+    "CG": "CG",
+    "CHA": "CHA",
+    "CIC": "CIC",
+    "CIU": "CiU",
+    "COMPROMÍS-Q": "Compromís",
+    "CP": "CP",
+    "CUP-PR": "CUP",
+    "CiU": "CiU",
+    "Cs": "Cs",
+    "DL": "DL",
+    "EA": "EA",
+    "EA-EE": "EA",
+    "EAJ-PNV": "EAJ-PNV",
+    "EC": "ERC",
+    "EC-UP": "EC-UP",
+    "ECP": "ECP",
+    "ECP-GUANYEM EL CANVI": "ECP",
+    "EE": "EE",
+    "EH Bildu": "EH Bildu",
+    "EM-P-A-EU": "En Marea",
+    "EN COMÚ": "ECP",
+    "ERC": "ERC",
+    "ERC-CATSÍ": "ERC",
+    "ERC-RI.cat": "ERC",
+    "ERC-S": "ERC",
+    "EUPV": "IU",
+    "FORO": "Foro",
+    "GB": "GBai",
+    "HB": "HB",
+    "IC": "ICV",
+    "IC-EV": "ICV",
+    "IC-V": "ICV",
+    "ICV-EUiA": "ICV-EUiA",
+    "IU": "IU",
+    "IU-A": "IU",
+    "IU-Alternativa": "IU",
+    "IU-CA": "IU",
+    "IU-CM": "IU",
+    "IU-EB": "IU",
+    "IU-EU": "IU",
+    "IU-EUPV": "IU",
+    "IU-IX": "IU",
+    "IU-LV": "IU",
+    "IU-LV-CA": "IU",
+    "IU-UPeC": "IU",
+    "IZQ-PLU": "IZQ-PLU",
+    "JxCAT-JUNTS": "Junts",
+    "JxCat-JUNTS": "JxCat",
+    "JxCat-JUNTS (Junts)": "Junts",
+    "JxCat-JUNTS (PDeCAT)": "PDeCAT",
+    "MÁS PAÍS-EQUO": "Más País-Equo",
+    "MÉS COMPROMÍS": "Compromís",
+    "NA+": "UPN",
+    "NC": "NC",
+    "NC-CCa-PNC": "CC-NC-PNC",
+    "Na-Bai": "Na-Bai",
+    "PA": "PA",
+    "PAR": "PAR",
+    "PCE": "PCE",
+    "PCE-PCPV": "PCE",
+    "PCPV": "PCE",
+    "PDC": "PDC",
+    "PNV": "EAJ-PNV",
+    "PODEMOS": "Podemos",
+    "PODEMOS-COMPROMÍS": "Compromís-Podemos",
+    "PODEMOS-En Marea-ANOVA-EU": "En Marea",
+    "PP": "PP",
+    "PP-CG": "PP-CG",
+    "PP-EU": "PP",
+    "PP-FORO": "PP-FORO",
+    "PP-PAR": "PP-PAR",
+    "PP-UPM": "PP",
+    "PPdeC": "PP",
+    "PRC": "PRC",
+    "PSA": "PA",
+    "PSC": "PSOE",
+    "PSC(PSC-PSOE)": "PSOE",
+    "PSC-PSOE": "PSOE",
+    "PSE-EE": "PSOE",
+    "PSE-EE (PSOE)": "PSOE",
+    "PSE-EE (PSOE-progresistas)": "PSOE",
+    "PSE-EE(PSOE)": "PSOE",
+    "PSE-EE-PSOE": "PSOE",
+    "PSE-PSOE": "PSOE",
+    "PSG-PSOE": "PSOE",
+    "PSIB-PSOE": "PSOE",
+    "PSN-PSOE": "PSOE",
+    "PSOE": "PSOE",
+    "PSOE-A": "PSOE",
+    "PSOE-NCa": "PSOE-NCa",
+    "PSOE-progresistas": "PSOE",
+    "PSOEdeAndalucía": "PSOE",
+    "PSUC": "PSUC",
+    "PSdG-PSOE": "PSOE",
+    "PSdeG-PSOE": "PSOE",
+    "PSdeG-PSOE-progresistas": "PSOE",
+    "PsdeG-PSOE": "PSOE",
+    "Pse-EE(PSOE)": "PSOE",
+    "SUMAR": "Sumar",
+    "UCD": "UCD",
+    "UCIDCC": "UCDCC",
+    "UEC": "PSUC",
+    "UN": "FN",
+    "UP": "UP",
+    "UPC": "UPC",
+    "UPM": "Podemos",
+    "UPN": "UPN",
+    "UPN-PP": "UPN",
+    "UPyD": "UPyD",
+    "US": "PSP-US",
+    "US-PSP": "PSP-US",
+    "UV": "UV",
+    "VOX": "Vox",
+    "Vox": "Vox",
+    "¡Teruel Existe!": "¡Teruel Existe!"
+   }
+  },
+  "GT": {
+   "tipo": "ultimo partido",
+   "partidos": {
+    "ANN": {
+     "nombre": "Alianza Nueva Nación"
+    },
+    "AZUL": {
+     "nombre": "Partido Azul"
+    },
+    "BIEN": {
+     "nombre": "Bienestar Nacional"
+    },
+    "CABAL": {
+     "nombre": "Cabal"
+    },
+    "CAMBIO": {
+     "nombre": "Cambio"
+    },
+    "CASA": {
+     "nombre": "Centro de Acción Social"
+    },
+    "CREO": {
+     "nombre": "Compromiso, Renovación y Orden"
+    },
+    "CREO-Unionista": {
+     "nombre": "Coalición Compromiso, Renovación y Orden–Partido Unionista"
+    },
+    "Convergencia": {
+     "nombre": "Convergencia CPO-CRD"
+    },
+    "DCG": {
+     "nombre": "Democracia Cristiana Guatemalteca"
+    },
+    "DIA": {
+     "nombre": "Desarrollo Integral Auténtico"
+    },
+    "DIA-URNG": {
+     "nombre": "Coalición Desarrollo Integral Auténtico–URNG (Alianza Nueva Nación, 1999)"
+    },
+    "EG": {
+     "nombre": "Encuentro por Guatemala"
+    },
+    "ELEFANTE": {
+     "nombre": "Comunidad Elefante"
+    },
+    "FCN-Nación": {
+     "nombre": "Frente de Convergencia Nacional"
+    },
+    "FRG": {
+     "nombre": "Frente Republicano Guatemalteco"
+    },
+    "FUERZA": {
+     "nombre": "Fuerza"
+    },
+    "GANA": {
+     "nombre": "Gran Alianza Nacional"
+    },
+    "Independientes": {
+     "nombre": "Independientes"
+    },
+    "LIDER": {
+     "nombre": "Libertad Democrática Renovada"
+    },
+    "MLP": {
+     "nombre": "Movimiento para la Liberación de los Pueblos"
+    },
+    "MR": {
+     "nombre": "Movimiento Reformador"
+    },
+    "Nosotros": {
+     "nombre": "Partido Político Nosotros (PPN)"
+    },
+    "PAN": {
+     "nombre": "Partido de Avanzada Nacional"
+    },
+    "PC": {
+     "nombre": "Prosperidad Ciudadana"
+    },
+    "PHG": {
+     "nombre": "Partido Humanista de Guatemala"
+    },
+    "PLP": {
+     "nombre": "Partido Libertador Progresista"
+    },
+    "PODEMOS": {
+     "nombre": "Podemos"
+    },
+    "PP": {
+     "nombre": "Partido Patriota"
+    },
+    "PSN": {
+     "nombre": "Partido Solidaridad Nacional"
+    },
+    "Semilla": {
+     "nombre": "Movimiento Semilla"
+    },
+    "Sin identificar": {
+     "nombre": "Sin identificar"
+    },
+    "TODOS": {
+     "nombre": "Todos"
+    },
+    "UCN": {
+     "nombre": "Unión del Cambio Nacional"
+    },
+    "UD": {
+     "nombre": "Unión Democrática"
+    },
+    "UNE": {
+     "nombre": "Unidad Nacional de la Esperanza"
+    },
+    "UNE-GANA": {
+     "nombre": "Coalición Unidad Nacional de la Esperanza–Gran Alianza Nacional"
+    },
+    "URNG-MAIZ": {
+     "nombre": "Unidad Revolucionaria Nacional Guatemalteca–Movimiento Amplio de Izquierda"
+    },
+    "Unionista": {
+     "nombre": "Partido Unionista"
+    },
+    "VALOR": {
+     "nombre": "Valor"
+    },
+    "VAMOS": {
+     "nombre": "Vamos por una Guatemala Diferente"
+    },
+    "VICTORIA": {
+     "nombre": "Victoria"
+    },
+    "VIVA": {
+     "nombre": "Visión con Valores"
+    },
+    "VIVA-EG": {
+     "nombre": "Coalición Visión con Valores–Encuentro por Guatemala"
+    },
+    "VOS": {
+     "nombre": "Voluntad, Oportunidad y Solidaridad"
+    },
+    "WINAQ": {
+     "nombre": "Movimiento Político Winaq"
+    }
+   },
+   "etiquetas": {
+    "": "Sin identificar",
+    "ANN": "ANN",
+    "AZUL": "AZUL",
+    "BIEN": "BIEN",
+    "CABAL": "CABAL",
+    "CAMBIO": "CAMBIO",
+    "CASA": "CASA",
+    "CONVERGENCIA": "Convergencia",
+    "CREO": "CREO",
+    "CREO - UNIONISTA": "CREO-Unionista",
+    "DCG": "DCG",
+    "DIA": "DIA",
+    "DIA-URNG": "DIA-URNG",
+    "EG": "EG",
+    "ELEFANTE": "ELEFANTE",
+    "FCN": "FCN-Nación",
+    "FRG": "FRG",
+    "FUERZA": "FUERZA",
+    "GANA": "GANA",
+    "HUMANISTA": "PHG",
+    "INDEPENDIENTE": "Independientes",
+    "LIDER": "LIDER",
+    "MAIZ-WINAQ": "WINAQ",
+    "MLP": "MLP",
+    "MR": "MR",
+    "PAN": "PAN",
+    "PC": "PC",
+    "PLP": "PLP",
+    "PODEMOS": "PODEMOS",
+    "PP": "PP",
+    "PPN": "Nosotros",
+    "PSN": "PSN",
+    "SEMILLA": "Semilla",
+    "TODOS": "TODOS",
+    "UCN": "UCN",
+    "UD": "UD",
+    "UNE": "UNE",
+    "UNE-GANA": "UNE-GANA",
+    "UNIONISTA": "Unionista",
+    "URNG MAIZ": "URNG-MAIZ",
+    "VALOR": "VALOR",
+    "VAMOS": "VAMOS",
+    "VICTORIA": "VICTORIA",
+    "VIVA": "VIVA",
+    "VIVA-EG": "VIVA-EG",
+    "VOS": "VOS",
+    "WINAQ": "WINAQ",
+    "WINAQ URNG MAIZ": "WINAQ"
+   }
+  },
+  "MX": {
+   "tipo": "por legislatura",
+   "partidos": {
+    "Independientes": {
+     "nombre": "Independientes (sin partido)"
+    },
+    "MC": {
+     "nombre": "Movimiento Ciudadano"
+    },
+    "Morena": {
+     "nombre": "Movimiento Regeneración Nacional"
+    },
+    "PAN": {
+     "nombre": "Partido Acción Nacional"
+    },
+    "PANAL": {
+     "nombre": "Nueva Alianza"
+    },
+    "PARM": {
+     "nombre": "Partido Auténtico de la Revolución Mexicana"
+    },
+    "PAS": {
+     "nombre": "Partido Alianza Social"
+    },
+    "PES": {
+     "nombre": "Partido Encuentro Social"
+    },
+    "PFCRN": {
+     "nombre": "Partido del Frente Cardenista de Reconstrucción Nacional"
+    },
+    "PMS": {
+     "nombre": "Partido Mexicano Socialista"
+    },
+    "PPS": {
+     "nombre": "Partido Popular Socialista"
+    },
+    "PRD": {
+     "nombre": "Partido de la Revolución Democrática"
+    },
+    "PRI": {
+     "nombre": "Partido Revolucionario Institucional"
+    },
+    "PSD": {
+     "nombre": "Partido Socialdemócrata"
+    },
+    "PT": {
+     "nombre": "Partido del Trabajo"
+    },
+    "PVEM": {
+     "nombre": "Partido Verde Ecologista de México"
+    },
+    "Sin identificar": {
+     "nombre": "Sin identificar"
+    }
+   },
+   "etiquetas": {
+    "": "Sin identificar",
+    "CONVERGENCIA": "MC",
+    "INDEPENDIENTE": "Independientes",
+    "MC": "MC",
+    "MORENA": "Morena",
+    "PAN": "PAN",
+    "PANAL": "PANAL",
+    "PARM": "PARM",
+    "PAS": "PAS",
+    "PASC": "PSD",
+    "PES": "PES",
+    "PFCRN": "PFCRN",
+    "PMS": "PMS",
+    "PPS": "PPS",
+    "PRD": "PRD",
+    "PRI": "PRI",
+    "PT": "PT",
+    "PVEM": "PVEM",
+    "SIN PARTIDO": "Sin identificar"
+   }
+  },
+  "PA": {
+   "tipo": "por intervencion",
+   "partidos": {
+    "ALIANZA": {
+     "nombre": "Partido Alianza"
+    },
+    "Alianza Democrática": {
+     "nombre": "Alianza Democrática (Partido Arnulfista, Partido Liberal, Partido Liberal Auténtico y Unión Demócrata Independiente), 1994"
+    },
+    "CD": {
+     "nombre": "Cambio Democrático"
+    },
+    "CD–MOLIRENA": {
+     "nombre": "Alianza de Cambio Democrático y MOLIRENA, 2014 («Unidos por un Cambio» en el cuadro de curules del Tribunal Electoral)"
+    },
+    "Cambio 94": {
+     "nombre": "Cambio 94 (MOLIRENA, MORENA y Renovación Civilista), 1994"
+    },
+    "Independientes": {
+     "nombre": "Independientes (libre postulación)"
+    },
+    "MOCA": {
+     "nombre": "Movimiento Otro Camino"
+    },
+    "MOLIRENA": {
+     "nombre": "Movimiento Liberal Republicano Nacionalista"
+    },
+    "MORENA": {
+     "nombre": "Movimiento de Renovación Nacional"
+    },
+    "MPE": {
+     "nombre": "Movimiento Papa Egoró"
+    },
+    "PAN": {
+     "nombre": "Partido Panameñista (hasta 2005, Partido Arnulfista)"
+    },
+    "PL": {
+     "nombre": "Partido Liberal (hasta 1999)"
+    },
+    "PLA": {
+     "nombre": "Partido Liberal Auténtico"
+    },
+    "PLN": {
+     "nombre": "Partido Liberal Nacional"
+    },
+    "PP": {
+     "nombre": "Partido Popular (hasta 2001, Partido Demócrata Cristiano)"
+    },
+    "PRC": {
+     "nombre": "Partido Renovación Civilista"
+    },
+    "PRD": {
+     "nombre": "Partido Revolucionario Democrático"
+    },
+    "Pueblo Unido": {
+     "nombre": "Alianza Pueblo Unido (PRD, Partido Laborista Agrario y Partido Liberal Republicano), 1994"
+    },
+    "RM": {
+     "nombre": "Realizando Metas"
+    },
+    "SOL": {
+     "nombre": "Partido Solidaridad"
+    },
+    "Sin identificar": {
+     "nombre": "Sin identificar"
+    },
+    "UP": {
+     "nombre": "Unión Patriótica"
+    },
+    "Unión por Panamá": {
+     "nombre": "Unión por Panamá (Partido Arnulfista, MOLIRENA, Cambio Democrático y MORENA), 1999"
+    },
+    "VMP": {
+     "nombre": "Vanguardia Moral de la Patria"
+    }
+   },
+   "etiquetas": {
+    "": "Sin identificar",
+    "AL": "ALIANZA",
+    "ARN": "PAN",
+    "ARN/CD": "Unión por Panamá",
+    "ARN/INS MOL": "Unión por Panamá",
+    "ARN/L.AUT": "Alianza Democrática",
+    "ARN/MOL": "PAN",
+    "ARN/MOL/MORENA/CD": "Unión por Panamá",
+    "ARN/MORENA": "Unión por Panamá",
+    "ARN/MORENA/CD": "Unión por Panamá",
+    "ARN/PDC/L.AUT": "PAN",
+    "ARN/UDI/L.AUT": "Alianza Democrática",
+    "CD": "CD",
+    "CD, MOL": "CD",
+    "CD, MOLIRENA": "CD–MOLIRENA",
+    "CD, UP": "CD",
+    "CD/S/CD": "CD",
+    "INDEPENDIENTE": "Independientes",
+    "L. AUT": "PLA",
+    "L.AUT": "PLA",
+    "L.AUT/ARN": "Alianza Democrática",
+    "L.NAC.": "PLN",
+    "LIB": "PL",
+    "LIB.NAC.": "PLN",
+    "LIB/ARN/UDI": "Alianza Democrática",
+    "LIB/L.AUT/UDI": "Alianza Democrática",
+    "LIBRE POSTULACIÓN": "Independientes",
+    "LN": "PLN",
+    "MOCA": "MOCA",
+    "MOL": "MOLIRENA",
+    "MOL/ARN/MORENA": "MOLIRENA",
+    "MOL/ARN/MORENA/CD": "MOLIRENA",
+    "MOL/ARN/MORENA/CD-(NI)": "Unión por Panamá",
+    "MOL/REN.CIV./MORENA": "Cambio 94",
+    "MOL/SOL/MOR": "MOLIRENA",
+    "MOLINERA": "MOLIRENA",
+    "MOLIRENA": "MOLIRENA",
+    "MOLIRENA, PAN": "MOLIRENA",
+    "MOLIRENA, PAN, CD": "MOLIRENA",
+    "MORENA": "MORENA",
+    "MPE": "MPE",
+    "PAN": "PAN",
+    "PAN, CD": "PAN",
+    "PAN, CD, UP": "PAN",
+    "PAN, CD, UP, MOLIRENA": "PAN",
+    "PAN, MOLIRENA": "PAN",
+    "PAN, MOLIRENA, CD": "PAN",
+    "PAN, MOLIRENA, UP": "PAN",
+    "PAN, POPULAR": "PAN",
+    "PANA, MOLIRENA": "PAN",
+    "PDC": "PP",
+    "PDC/REN.CIV.": "PP",
+    "PDC/REN.CIV./PNP/LIB": "PP",
+    "POPULAR, LIB": "PP",
+    "POPULAR, PAN": "PP",
+    "PP": "PP",
+    "PPA": "PAN",
+    "PPOP": "PP",
+    "PRD": "PRD",
+    "PRD, LIB": "PRD",
+    "PRD, POPULAR": "PRD",
+    "PRD, POPULAR, LIB": "PRD",
+    "PRD, PP": "PRD",
+    "PRD, PP, LIB": "PRD",
+    "PRD/L.NAC.": "PRD",
+    "PRD/LIB.NAC.": "PRD",
+    "PRD/MPE": "PRD",
+    "PRD/MPE/SOL/L.NAC.": "PRD",
+    "PRD/PALA": "Pueblo Unido",
+    "PRD/PALA/LIB.REP": "Pueblo Unido",
+    "PRD/SOL": "PRD",
+    "PRD/SOL/L.NAC.": "PRD",
+    "REN.CIV.": "PRC",
+    "REN.CIV./LIB": "PRC",
+    "RM": "RM",
+    "S": "Sin identificar",
+    "SOL": "SOL",
+    "SOL/L.NAC.": "SOL",
+    "SOL/LIB/MUN/LIB.REP.": "SOL",
+    "SOL/MPE": "SOL",
+    "UDI/ARN": "Alianza Democrática",
+    "UP, MOLIRENA, CD": "UP",
+    "VMP, MOLIRENA, PAN, CD": "VMP",
+    "VMP, MOLIRNA, PAN, CD": "VMP"
+   }
+  },
+  "PE": {
+   "tipo": "por intervencion",
+   "partidos": {
+    "AP": {
+     "nombre": "Acción Popular"
+    },
+    "APP": {
+     "nombre": "Alianza para el Progreso"
+    },
+    "APRA": {
+     "nombre": "Partido Aprista Peruano"
+    },
+    "Alianza por el Futuro": {
+     "nombre": "Alianza por el Futuro"
+    },
+    "Avanza País": {
+     "nombre": "Avanza País – Partido de Integración Social"
+    },
+    "C90-NM": {
+     "nombre": "Alianza Cambio 90–Nueva Mayoría"
+    },
+    "CODE": {
+     "nombre": "Coordinadora Democrática"
+    },
+    "Cambio Radical": {
+     "nombre": "Cambio Radical"
+    },
+    "FIM": {
+     "nombre": "Frente Independiente Moralizador"
+    },
+    "FRENATRACA": {
+     "nombre": "Frente Nacional de Trabajadores y Campesinos"
+    },
+    "FREPAP": {
+     "nombre": "Frente Popular Agrícola FIA del Perú"
+    },
+    "Frente Amplio": {
+     "nombre": "Frente Amplio por Justicia, Vida y Libertad"
+    },
+    "Fuerza Popular": {
+     "nombre": "Fuerza Popular"
+    },
+    "IU": {
+     "nombre": "Izquierda Unida"
+    },
+    "Independientes": {
+     "nombre": "Independientes"
+    },
+    "JP": {
+     "nombre": "Juntos por el Perú"
+    },
+    "MIA": {
+     "nombre": "Movimiento Independiente Agrario"
+    },
+    "OBRAS": {
+     "nombre": "Movimiento Cívico Nacional OBRAS"
+    },
+    "PPC": {
+     "nombre": "Partido Popular Cristiano"
+    },
+    "PPK": {
+     "nombre": "Peruanos por el Kambio"
+    },
+    "Partido Morado": {
+     "nombre": "Partido Morado"
+    },
+    "Perú 2000": {
+     "nombre": "Alianza Perú 2000"
+    },
+    "Perú Libre": {
+     "nombre": "Partido Político Nacional Perú Libre"
+    },
+    "Perú Posible": {
+     "nombre": "Perú Posible"
+    },
+    "Podemos Perú": {
+     "nombre": "Podemos Perú"
+    },
+    "RN": {
+     "nombre": "Renovación Nacional"
+    },
+    "RUNA": {
+     "nombre": "Renacimiento Andino"
+    },
+    "Renovación Popular": {
+     "nombre": "Renovación Popular"
+    },
+    "Restauración Nacional": {
+     "nombre": "Restauración Nacional"
+    },
+    "SODE": {
+     "nombre": "Solidaridad y Democracia"
+    },
+    "SP": {
+     "nombre": "Partido Democrático Somos Perú"
+    },
+    "Sin identificar": {
+     "nombre": "Sin identificar"
+    },
+    "Solución Popular": {
+     "nombre": "Solución Popular"
+    },
+    "Todos por la Victoria": {
+     "nombre": "Todos por la Victoria"
+    },
+    "UN": {
+     "nombre": "Unidad Nacional"
+    },
+    "UPP": {
+     "nombre": "Unión por el Perú"
+    }
+   },
+   "etiquetas": {
+    "": "Sin identificar",
+    "ALIANZA POR EL FUTURO": "Alianza por el Futuro",
+    "AP": "AP",
+    "APP": "APP",
+    "AVANZA PAIS": "Avanza País",
+    "CAMBIO 90 - NUEVA MAYORIA": "C90-NM",
+    "CAMBIO RADICAL": "Cambio Radical",
+    "CODE": "CODE",
+    "FIM": "FIM",
+    "FRENATRACA": "FRENATRACA",
+    "FRENTE AMPLIO": "Frente Amplio",
+    "FREPAP": "FREPAP",
+    "FUERZA 2011": "Fuerza Popular",
+    "FUERZA POPULAR": "Fuerza Popular",
+    "GPN": "UPP",
+    "INDEPENDIENTE": "Independientes",
+    "IU": "IU",
+    "JP": "JP",
+    "MIA": "MIA",
+    "OBRAS": "OBRAS",
+    "PAP": "APRA",
+    "PARTIDO MORADO": "Partido Morado",
+    "PERU 2000": "Perú 2000",
+    "PERU LIBRE": "Perú Libre",
+    "PERU POSIBLE": "Perú Posible",
+    "PHP": "JP",
+    "PODEMOS PERU": "Podemos Perú",
+    "PPC": "PPC",
+    "PPK": "PPK",
+    "RENOVACION POPULAR": "Renovación Popular",
+    "RESTAURACION NACIONAL": "Restauración Nacional",
+    "RN": "RN",
+    "RUNA": "RUNA",
+    "SOLIDARIDAD NACIONAL": "Renovación Popular",
+    "SOLIDARIDAD Y DEMOCRACIA": "SODE",
+    "SOLUCION POPULAR": "Solución Popular",
+    "SP": "SP",
+    "TODOS POR LA VICTORIA": "Todos por la Victoria",
+    "UN": "UN",
+    "UPP": "UPP"
+   }
+  },
+  "PT": {
+   "tipo": "ultimo partido",
+   "partidos": {
+    "ASDI": {
+     "nombre": "Acção Social-Democrata Independente"
+    },
+    "BE": {
+     "nombre": "Bloco de Esquerda"
+    },
+    "CDS-PP": {
+     "nombre": "CDS – Partido Popular"
+    },
+    "CH": {
+     "nombre": "CHEGA"
+    },
+    "DR": {
+     "nombre": "Reformadores (Movimento dos Reformadores)"
+    },
+    "ID": {
+     "nombre": "Intervenção Democrática"
+    },
+    "IL": {
+     "nombre": "Iniciativa Liberal"
+    },
+    "Independentes": {
+     "nombre": "Deputados independentes"
+    },
+    "JPP": {
+     "nombre": "Juntos pelo Povo"
+    },
+    "L": {
+     "nombre": "LIVRE"
+    },
+    "MDP/CDE": {
+     "nombre": "Movimento Democrático Português/Comissão Democrática Eleitoral"
+    },
+    "Não inscritos": {
+     "nombre": "Deputados não inscritos"
+    },
+    "PAN": {
+     "nombre": "PESSOAS–ANIMAIS–NATUREZA"
+    },
+    "PCP": {
+     "nombre": "Partido Comunista Português"
+    },
+    "PEV": {
+     "nombre": "Partido Ecologista \"Os Verdes\""
+    },
+    "PPM": {
+     "nombre": "Partido Popular Monárquico"
+    },
+    "PRD": {
+     "nombre": "Partido Renovador Democrático"
+    },
+    "PS": {
+     "nombre": "Partido Socialista"
+    },
+    "PSD": {
+     "nombre": "Partido Social Democrata (PPD/PSD)"
+    },
+    "Sin identificar": {
+     "nombre": "Sin identificar"
+    },
+    "UDP": {
+     "nombre": "União Democrática Popular"
+    },
+    "UEDS": {
+     "nombre": "União de Esquerda para a Democracia Socialista"
+    }
+   },
+   "etiquetas": {
+    "": "Sin identificar",
+    "ASDI": "ASDI",
+    "BE": "BE",
+    "CDS": "CDS-PP",
+    "CDS-PP": "CDS-PP",
+    "CH": "CH",
+    "DR": "DR",
+    "ID": "ID",
+    "IL": "IL",
+    "INDEP": "Independentes",
+    "Indep": "Independentes",
+    "JPP": "JPP",
+    "L": "L",
+    "MDP/CDE": "MDP/CDE",
+    "Ninsc": "Não inscritos",
+    "OS VERDES": "PEV",
+    "PAN": "PAN",
+    "PCP": "PCP",
+    "PEV": "PEV",
+    "PPD": "PSD",
+    "PPM": "PPM",
+    "PRD": "PRD",
+    "PS": "PS",
+    "PSD": "PSD",
+    "UDP": "UDP",
+    "UEDS": "UEDS"
+   }
+  },
+  "PY": {
+   "tipo": "por legislatura",
+   "partidos": {
+    "AD": {
+     "nombre": "Alianza Democrática (PLRA y PEN, elecciones de 1998)"
+    },
+    "AEN": {
+     "nombre": "Alianza Encuentro Nacional (coalición electoral de 1993)"
+    },
+    "ANR": {
+     "nombre": "Asociación Nacional Republicana – Partido Colorado"
+    },
+    "Avanza País": {
+     "nombre": "Avanza País (alianza electoral de 2013)"
+    },
+    "FG": {
+     "nombre": "Frente Guasú"
+    },
+    "Hagamos": {
+     "nombre": "Partido Político Hagamos"
+    },
+    "Independientes": {
+     "nombre": "Independientes"
+    },
+    "PCN": {
+     "nombre": "Partido Cruzada Nacional"
+    },
+    "PDP": {
+     "nombre": "Partido Democrático Progresista"
+    },
+    "PEN": {
+     "nombre": "Partido Encuentro Nacional"
+    },
+    "PLRA": {
+     "nombre": "Partido Liberal Radical Auténtico"
+    },
+    "PPQ": {
+     "nombre": "Partido Patria Querida"
+    },
+    "PPS": {
+     "nombre": "Partido País Solidario"
+    },
+    "Sin identificar": {
+     "nombre": "Sin identificar"
+    },
+    "Tekojoja": {
+     "nombre": "Partido Popular Tekojoja"
+    },
+    "UNACE": {
+     "nombre": "Unión Nacional de Ciudadanos Éticos"
+    },
+    "Yo Creo": {
+     "nombre": "Yo Creo Conciencia Democrática Nacional"
+    }
+   },
+   "etiquetas": {
+    "": "Sin identificar",
+    "A.D.B.": "PPQ",
+    "A.P.C.": "PLRA",
+    "AEN": "AEN",
+    "Alianza": "AD",
+    "Alianza Democrática": "AD",
+    "Alianza Encuentro Nacional": "AEN",
+    "Asociación Nacional Republicana": "ANR",
+    "Avanza País": "Avanza País",
+    "Conciencia Democrática Nacional": "Yo Creo",
+    "Cruzada Nacional": "PCN",
+    "Frente Guazú": "FG",
+    "GANAR": "PLRA",
+    "Independiente": "Independientes",
+    "M.P.T.": "Tekojoja",
+    "P.C.H.": "PLRA",
+    "Partido Democrático Progresista": "PDP",
+    "Partido Encuentro Nacional": "PEN",
+    "Partido Liberal Radical Auténtico": "PLRA",
+    "Partido Pais Solidario": "PPS",
+    "Partido Patria Querida": "PPQ",
+    "Partido Político Hagamos": "Hagamos",
+    "Partido UNACE": "UNACE",
+    "Unión Nacional de Ciudadanos Éticos": "UNACE",
+    "Unión Nacional de Colorados Éticos": "UNACE"
+   }
+  },
+  "SV": {
+   "tipo": "por legislatura",
+   "partidos": {
+    "ARENA": {
+     "nombre": "Alianza Republicana Nacionalista"
+    },
+    "CD": {
+     "nombre": "Cambio Democrático"
+    },
+    "FMLN": {
+     "nombre": "Frente Farabundo Martí para la Liberación Nacional"
+    },
+    "GANA": {
+     "nombre": "Gran Alianza por la Unidad Nacional"
+    },
+    "Independientes": {
+     "nombre": "Independientes"
+    },
+    "Nuestro Tiempo": {
+     "nombre": "Nuestro Tiempo"
+    },
+    "Nuevas Ideas": {
+     "nombre": "Nuevas Ideas"
+    },
+    "PCN": {
+     "nombre": "Partido de Concertación Nacional"
+    },
+    "PDC": {
+     "nombre": "Partido Demócrata Cristiano"
+    },
+    "Sin identificar": {
+     "nombre": "Sin identificar"
+    },
+    "VAMOS": {
+     "nombre": "Partido VAMOS"
+    }
+   },
+   "etiquetas": {
+    "": "Sin identificar",
+    "ARENA": "ARENA",
+    "CD": "CD",
+    "FMLN": "FMLN",
+    "GANA": "GANA",
+    "Independiente": "Independientes",
+    "NUESTRO TIEMPO": "Nuestro Tiempo",
+    "Nuevas Ideas": "Nuevas Ideas",
+    "PCN": "PCN",
+    "PDC": "PDC",
+    "VAMOS": "VAMOS"
+   }
+  },
+  "UY": {
+   "tipo": "por legislatura",
+   "partidos": {
+    "Asamblea Popular": {
+     "nombre": "Partido Asamblea Popular (lema de la coalición Unidad Popular)"
+    },
+    "Cabildo Abierto": {
+     "nombre": "Partido Cabildo Abierto"
+    },
+    "Frente Amplio": {
+     "nombre": "Frente Amplio"
+    },
+    "Identidad Soberana": {
+     "nombre": "Partido Identidad Soberana"
+    },
+    "Nuevo Espacio": {
+     "nombre": "Partido Nuevo Espacio"
+    },
+    "PERI": {
+     "nombre": "Partido Ecologista Radical Intransigente"
+    },
+    "PGP": {
+     "nombre": "Partido por el Gobierno del Pueblo"
+    },
+    "Partido Colorado": {
+     "nombre": "Partido Colorado"
+    },
+    "Partido Independiente": {
+     "nombre": "Partido Independiente"
+    },
+    "Partido Nacional": {
+     "nombre": "Partido Nacional"
+    },
+    "Partido de la Gente": {
+     "nombre": "Partido de la Gente"
+    },
+    "Sin identificar": {
+     "nombre": "Sin identificar"
+    }
+   },
+   "etiquetas": {
+    "": "Sin identificar",
+    "Acf Movimiento P": "Partido Nacional",
+    "Acuerdo": "Partido Colorado",
+    "Adelante Con Fe": "Partido Nacional",
+    "Aparacio Saravia": "Partido Nacional",
+    "Asamblea Popular": "Asamblea Popular",
+    "Batllismo": "Partido Colorado",
+    "Batllismo Hacia El Futuro": "Partido Colorado",
+    "Batllismo Unido": "Partido Colorado",
+    "Blancos Con Libertades Democ": "Partido Nacional",
+    "Canelones Al Frente": "Frente Amplio",
+    "Con Cerro Largo A la Victoria": "Partido Nacional",
+    "Con Fe y Carlos Julio": "Partido Nacional",
+    "Defensores de las Leyes": "Partido Nacional",
+    "Democracia Avanzada": "Frente Amplio",
+    "Dignidad Arriba y Regocijo Abajo": "Partido Nacional",
+    "Doctor Luis Alberto de Herrera": "Partido Nacional",
+    "En Defensa de la Nacion": "Partido Nacional",
+    "Frente Amplio": "Frente Amplio",
+    "Frente del Pueblo": "Frente Amplio",
+    "Herrerismo": "Partido Nacional",
+    "Herrerismo Renovacion y Victoria": "Partido Nacional",
+    "Herrerismo-renovacion y Victoria": "Partido Nacional",
+    "Identidad Soberana": "Identidad Soberana",
+    "Juntos Por Rivera": "Partido Nacional",
+    "La Union Nos Hara Fuerza": "Partido Nacional",
+    "Lista": "Partido Nacional",
+    "Manos A la Obra": "Partido Nacional",
+    "Mario Heber": "Partido Nacional",
+    "Movimiento P": "Partido Nacional",
+    "Nacionalismo Unido": "Partido Nacional",
+    "Nacionalistas Unidos Por Colonia": "Partido Nacional",
+    "Nuevo Espacio": "Nuevo Espacio",
+    "Oposicion Democratica Nacionalista": "Partido Nacional",
+    "Para Volver A Vivir": "Partido Colorado",
+    "Partido Cabildo Abierto": "Cabildo Abierto",
+    "Partido Colorado": "Partido Colorado",
+    "Partido Democrata Cristiano": "Asamblea Popular",
+    "Partido Ecologista Radical Intransigente (peri)": "PERI",
+    "Partido Encuentro Progresista": "Frente Amplio",
+    "Partido Frente Amplio": "Frente Amplio",
+    "Partido Independiente": "Partido Independiente",
+    "Partido Nacional": "Partido Nacional",
+    "Partido Nacional Desde El": "Partido Nacional",
+    "Partido Nuevo Espacio": "Nuevo Espacio",
+    "Partido Por El Gobierno del Pueblo (pgp)": "PGP",
+    "Partido de la Gente": "Partido de la Gente",
+    "Patria Para Todos": "Partido Nacional",
+    "Patria y Partido": "Partido Nacional",
+    "Pluralismo y Unidad": "Frente Amplio",
+    "Poncho Blanco": "Partido Nacional",
+    "Por El Pais Que Queremos": "PGP",
+    "Por Ideales Oribe-saravia-herrera": "Partido Nacional",
+    "Por Un Gob": "Partido Nacional",
+    "Por Un Uruguay Democratico": "Partido Nacional",
+    "Por la Defensa de Paysandu": "Partido Colorado",
+    "Por la Patria": "Partido Nacional",
+    "Por la Patria y Nacional Rocha": "Partido Nacional",
+    "Por los Ideales de Batlle": "Partido Colorado",
+    "Por los Ideales de Batlle y Ordoñez": "Partido Colorado",
+    "Renovacion Colorada": "Partido Colorado",
+    "Socialismo Democracia Libertad": "Frente Amplio",
+    "Todo Por San Jose": "Partido Nacional",
+    "Unidad Nacionalista": "Partido Nacional",
+    "Unidad Para los Cambios": "Frente Amplio",
+    "Unidad y Pluralismo Frenteamplista": "Frente Amplio",
+    "Unidos Venceremos": "Partido Colorado",
+    "Union Colorada y Batllista": "Partido Colorado",
+    "Union Democrata Cristiana": "PGP",
+    "Union Departamental Nacionalista Hoja": "Partido Nacional",
+    "Union Nacionalista y Herrerista": "Partido Nacional",
+    "Union y Trabajo": "Partido Colorado",
+    "Vanguardia Batllista": "Partido Colorado"
+   }
+  }
+ },
+ "resumen": {
+  "AR": {
+   "etiquetas": 419,
+   "partidos": 210,
+   "tipo": "trayectoria"
+  },
+  "BR": {
+   "etiquetas": 59,
+   "partidos": 38,
+   "tipo": "por intervencion"
+  },
+  "CL": {
+   "etiquetas": 33,
+   "partidos": 32,
+   "tipo": "por intervencion"
+  },
+  "CO": {
+   "etiquetas": 120,
+   "partidos": 88,
+   "tipo": "por legislatura"
+  },
+  "CR": {
+   "etiquetas": 25,
+   "partidos": 24,
+   "tipo": "por legislatura"
+  },
+  "DO": {
+   "etiquetas": 18,
+   "partidos": 18,
+   "tipo": "por legislatura"
+  },
+  "EC": {
+   "etiquetas": 274,
+   "partidos": 111,
+   "tipo": "por intervencion"
+  },
+  "ES": {
+   "etiquetas": 133,
+   "partidos": 67,
+   "tipo": "por intervencion"
+  },
+  "GT": {
+   "etiquetas": 48,
+   "partidos": 46,
+   "tipo": "ultimo partido"
+  },
+  "MX": {
+   "etiquetas": 19,
+   "partidos": 17,
+   "tipo": "por legislatura"
+  },
+  "PA": {
+   "etiquetas": 84,
+   "partidos": 24,
+   "tipo": "por intervencion"
+  },
+  "PE": {
+   "etiquetas": 40,
+   "partidos": 36,
+   "tipo": "por intervencion"
+  },
+  "PT": {
+   "etiquetas": 26,
+   "partidos": 22,
+   "tipo": "ultimo partido"
+  },
+  "PY": {
+   "etiquetas": 25,
+   "partidos": 17,
+   "tipo": "por legislatura"
+  },
+  "SV": {
+   "etiquetas": 11,
+   "partidos": 11,
+   "tipo": "por legislatura"
+  },
+  "UY": {
+   "etiquetas": 73,
+   "partidos": 12,
+   "tipo": "por legislatura"
+  }
+ }
+}

@@ -1,0 +1,1032 @@
+{
+ "pais": "ES",
+ "tipo": "por intervencion",
+ "partidos": [
+  {
+   "sigla": "PSOE",
+   "nombre": "Partido Socialista Obrero Español",
+   "etiquetas": [
+    "PSOE",
+    "PSC-PSOE",
+    "PSC(PSC-PSOE)",
+    "PSC",
+    "PSIB-PSOE",
+    "PSOE-A",
+    "PSOEdeAndalucía",
+    "PSG-PSOE",
+    "PsdeG-PSOE",
+    "PSdeG-PSOE",
+    "PSdG-PSOE",
+    "PSdeG-PSOE-progresistas",
+    "PSE-PSOE",
+    "PSE-EE",
+    "PSE-EE (PSOE-progresistas)",
+    "Pse-EE(PSOE)",
+    "PSE-EE(PSOE)",
+    "PSE-EE-PSOE",
+    "PSE-EE (PSOE)",
+    "PSN-PSOE",
+    "PSOE-progresistas"
+   ],
+   "cambios": [],
+   "nota": "Federaciones y partido federado del PSOE: PSC (Cataluña; PSC-PSOE, PSC(PSC-PSOE) y PSC son grafías de la misma formación), PSIB (Baleares), PSOE-A/PSOEdeAndalucía, PSG/PSdeG/PsdeG/PSdG (Galicia), PSE-PSOE y PSE-EE (Euskadi; PSE-EE nace en 1993 de la fusión del PSE-PSOE con Euskadiko Ezkerra, que queda como partido propio por la regla 4) y PSN (Navarra). PSOE-progresistas es la lista de 2000 con el PDNI de Nueva Izquierda, que decidió integrarse en el PSOE en octubre de 2000 y lo ratificó en marzo de 2001 (https://es.wikipedia.org/wiki/Partido_Democrático_de_la_Nueva_Izquierda); su único diputado del PDNI identificado en la etiqueta es Diego López Garrido (127 de 4.065 filas). Sin esta fusión el PSOE desaparecería de la VII legislatura: la etiqueta PSOE solo tiene 4 filas en ella."
+  },
+  {
+   "sigla": "PP",
+   "nombre": "Partido Popular",
+   "etiquetas": [
+    "PP",
+    "AP",
+    "PPdeC",
+    "PP-EU",
+    "PP-UPM"
+   ],
+   "cambios": [
+    {
+     "de": "AP",
+     "a": "PP",
+     "fecha": "1989-01-20",
+     "fuente": "https://es.wikipedia.org/wiki/Partido_Popular"
+    }
+   ],
+   "nota": "AP (Alianza Popular) pasó a llamarse Partido Popular en el IX Congreso (enero de 1989); el cambio de denominación se aplicó al Partido Unido de Alianza Popular, y el PP conserva como fecha de inscripción la de AP (4-5-1977) (https://es.wikipedia.org/wiki/Alianza_Popular_(España)). En 1977 AP era todavía una federación en la que no se habían disuelto ADE (Silva Muñoz) ni UNE (Fernández de la Mora). PPdeC es el PP de Cataluña. PP-EU (lista con Extremadura Unida, 2011): sus diputados en el corpus son del PP (Floriano, Angulo, Rodríguez-Ponga…) y no he encontrado ninguno de EU (https://es.wikipedia.org/wiki/Extremadura_Unida no menciona ninguno). PP-UPM es la lista del PP en Melilla en 2000: 4 filas de Antonio Gutiérrez Molina, del PP en las demás legislaturas."
+  },
+  {
+   "sigla": "CD",
+   "nombre": "Coalición Democrática (1979) y coalición AP-PDP (1982)",
+   "etiquetas": [
+    "CD"
+   ],
+   "cambios": [],
+   "nota": "Coalición encabezada por AP (Fraga) con Acción Ciudadana Liberal (Areilza), Partido Demócrata Progresista (Osorio), Renovación Española y Partido Popular de Cataluña; 9 escaños en 1979 (https://es.wikipedia.org/wiki/Coalición_Democrática). El CSV aplica también CD a la II legislatura (1982-1986), es decir, a la coalición AP-PDP-UL y aliados regionales (acuerdo de 13-9-1982, antecedente de Coalición Popular): en ella figuran Alzaga (PDP), Schwartz (UL), Gómez de las Roces (PAR) o Aizpún (UPN). Coalición de varios partidos sin partido identificable por diputado: queda aparte (regla 2)."
+  },
+  {
+   "sigla": "CP",
+   "nombre": "Coalición Popular",
+   "etiquetas": [
+    "CP"
+   ],
+   "cambios": [],
+   "nota": "AP, PDP, PL y partidos regionales (UV, UPN, Centristas de Galicia) en 1986, encabezada por Fraga; el PDP pasó al Grupo Mixto el 15-7-1986 y el PL el 19-1-1987; AP, PDP y PL confluyeron en el PP en 1989 (https://es.wikipedia.org/wiki/Coalición_Popular). Coalición: queda aparte (regla 2)."
+  },
+  {
+   "sigla": "PP-PAR",
+   "nombre": "Coalición Partido Popular–Partido Aragonés",
+   "etiquetas": [
+    "PP-PAR"
+   ],
+   "cambios": [],
+   "nota": "Listas conjuntas en Aragón (1996, 2011, 2015, 2016). La mayoría de sus diputados son del PP, pero el PAR obtuvo un diputado dentro de la coalición en 1996, 2011 y 2015 (https://es.wikipedia.org/wiki/Partido_Aragonés); p. ej., Antonio Serrano Vinué (51 filas) aparece en el BOCG de 4-11-1996 como «Diputado del Partido Aragonés» (https://www.congreso.es/es/busqueda-de-publicaciones?p_p_id=publicaciones&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&_publicaciones_mode=mostrarTextoIntegro&_publicaciones_legislatura=VI&_publicaciones_id_texto=(CDA19961104001406.CODI.)). Coalición mixta: queda aparte."
+  },
+  {
+   "sigla": "PP-FORO",
+   "nombre": "Coalición Partido Popular–Foro Asturias",
+   "etiquetas": [
+    "PP-FORO"
+   ],
+   "cambios": [],
+   "nota": "723 de sus 778 filas son de Isidro Martínez Oblanca, cofundador de Foro Asturias (https://en.wikipedia.org/wiki/Isidro_Martínez_Oblanca), que actuó por Foro; el resto, de diputadas y diputados del PP. Coalición mixta: queda aparte."
+  },
+  {
+   "sigla": "PP-CG",
+   "nombre": "Coalición Partido Popular–Centristas de Galicia (1989)",
+   "etiquetas": [
+    "PP-CG"
+   ],
+   "cambios": [],
+   "nota": "Centristas de Galicia (1985-1991, sobre todo en Ourense) concurrió con AP/PP y se integró en el PP en 1991 (https://es.wikipedia.org/wiki/Centristas_de_Galicia). No he podido confirmar el partido de sus dos diputados (Carreño Rodríguez-Maribona, Busto Salgado). Coalición: queda aparte (regla 2). 46 filas."
+  },
+  {
+   "sigla": "UPN",
+   "nombre": "Unión del Pueblo Navarro",
+   "etiquetas": [
+    "UPN",
+    "UPN-PP",
+    "NA+"
+   ],
+   "cambios": [],
+   "nota": "UPN-PP: por el acuerdo de 1991 el PP desapareció en Navarra y sus militantes se integraron en UPN, que se sentó en el grupo del PP hasta la ruptura de 2008 y volvió a concurrir con él en 2015-2016 (https://es.wikipedia.org/wiki/Unión_del_Pueblo_Navarro); los diputados de la etiqueta son de UPN (Jaime Ignacio del Burgo fue elegido en 1989 como presidente del PP de Navarra y desde 1991 representó a UPN: https://es.wikipedia.org/wiki/Jaime_Ignacio_del_Burgo). NA+ (Navarra Suma, 2019: UPN, PP y Cs): sus dos diputados, Carlos García Adanero y Sergio Sayas, eran de UPN; en 2022 rompieron con la dirección de UPN, que les reclamó el acta, y en 2023 fueron elegidos por el PP."
+  },
+  {
+   "sigla": "UCD",
+   "nombre": "Unión de Centro Democrático",
+   "etiquetas": [
+    "UCD",
+    "CC-UCD"
+   ],
+   "cambios": [],
+   "nota": "CC-UCD es Centristes de Catalunya-UCD: coalición de 1979 de la federación catalana de UCD, UDCA (Cañellas) y Unió de Centre Català, unificada el 23-12-1979 como partido catalán de UCD (https://es.wikipedia.org/wiki/Centristes_de_Catalunya-UCD)."
+  },
+  {
+   "sigla": "CIC",
+   "nombre": "Candidatura Independiente de Centro (Castellón, 1977)",
+   "etiquetas": [
+    "CIC"
+   ],
+   "cambios": [],
+   "nota": "José Miguel Ortí Bordás, elegido fuera de partido; se integró en UCD al constituirse las Cámaras (https://es.wikipedia.org/wiki/José_Miguel_Ortí_Bordás). 6 filas."
+  },
+  {
+   "sigla": "CDS",
+   "nombre": "Centro Democrático y Social",
+   "etiquetas": [
+    "CDS"
+   ],
+   "cambios": [],
+   "nota": "Partido nuevo fundado por Suárez en 1982, no continuación legal de UCD; se integró en el PP en 2005 (absorción: queda aparte, regla 4)."
+  },
+  {
+   "sigla": "Cs",
+   "nombre": "Ciudadanos-Partido de la Ciudadanía",
+   "etiquetas": [
+    "Cs"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "UPyD",
+   "nombre": "Unión Progreso y Democracia",
+   "etiquetas": [
+    "UPyD"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Vox",
+   "nombre": "VOX",
+   "etiquetas": [
+    "Vox",
+    "VOX"
+   ],
+   "cambios": [],
+   "nota": "Variante de mayúsculas: Vox en XIII-XIV y VOX en XV; 23 diputados comparten ambas etiquetas."
+  },
+  {
+   "sigla": "CiU",
+   "nombre": "Convergència i Unió",
+   "etiquetas": [
+    "CIU",
+    "CiU"
+   ],
+   "cambios": [],
+   "nota": "Variante de mayúsculas (CIU hasta 2000, CiU desde 1995; 9 diputados en ambas). Coalición y después federación de CDC y UDC: se mantiene como formación propia, distinta de CDC."
+  },
+  {
+   "sigla": "PDC",
+   "nombre": "Pacte Democràtic per Catalunya (1977)",
+   "etiquetas": [
+    "PDC"
+   ],
+   "cambios": [],
+   "nota": "Coalición de 1977 de CDC, Esquerra Democràtica de Catalunya, PSC-Reagrupament y otros; incluye a Josep Verde i Aldea y Josep Pau, después del PSC. Coalición de varios partidos: queda aparte."
+  },
+  {
+   "sigla": "DL",
+   "nombre": "Democràcia i Llibertat (2015)",
+   "etiquetas": [
+    "DL"
+   ],
+   "cambios": [],
+   "nota": "Coalición de CDC, Demòcrates de Catalunya y Reagrupament (https://es.wikipedia.org/wiki/Democràcia_i_Llibertat). Siete de sus ocho diputados eran de CDC; Elena Ribera era de Demòcrates (https://ca.wikipedia.org/wiki/Elena_Ribera_i_Garijo), 3 de 39 filas. Coalición mixta: queda aparte."
+  },
+  {
+   "sigla": "CDC",
+   "nombre": "Convergència Democràtica de Catalunya",
+   "etiquetas": [
+    "CDC"
+   ],
+   "cambios": [],
+   "nota": "Lista de CDC en 2016. El PDeCAT se fundó el 8-10 de julio de 2016 como «refundación» de CDC, pero CDC no se disolvió y conserva personalidad jurídica (https://es.wikipedia.org/wiki/Partit_Demòcrata_Europeu_Català): son partidos distintos (regla 4). Todas las filas de la etiqueta (desde 31-8-2016) son posteriores a la fundación del PDeCAT."
+  },
+  {
+   "sigla": "PDeCAT",
+   "nombre": "Partit Demòcrata Europeu Català",
+   "etiquetas": [
+    "JxCat-JUNTS (PDeCAT)"
+   ],
+   "cambios": [],
+   "nota": "Diputados de la lista JxCat-Junts de 2019 que siguieron en el PDeCAT tras la escisión de 2020 (Bel, Boadella, Miquel, Cañadell)."
+  },
+  {
+   "sigla": "JxCat",
+   "nombre": "Junts per Catalunya (coalición electoral 2017-2020)",
+   "etiquetas": [
+    "JxCat-JUNTS"
+   ],
+   "cambios": [],
+   "nota": "En abril de 2019 la coalición la formaban PDeCAT, CDC y el partido Junts per Catalunya (registrado el 11-7-2018 por la dirección del PDeCAT); en noviembre, PDeCAT y Junts; se disolvió el 21-12-2020 (https://es.wikipedia.org/wiki/Junts_per_Catalunya_(coalición)). En la etiqueta hay independientes que luego fueron de Junts (Borràs, Alonso-Cuevillas) y un diputado del PDeCAT (Sergi Miquel). No es una simple variante de mayúsculas de JxCAT-JUNTS: queda aparte."
+  },
+  {
+   "sigla": "Junts",
+   "nombre": "Junts per Catalunya",
+   "etiquetas": [
+    "JxCat-JUNTS (Junts)",
+    "JxCAT-JUNTS"
+   ],
+   "cambios": [],
+   "nota": "Partido controlado desde julio de 2020 por el entorno de Puigdemont (congreso fundacional concluido el 4-10-2020) (https://es.wikipedia.org/wiki/Junts_per_Catalunya_(partido_político)). JxCAT-JUNTS es la lista de 2023, encabezada por Junts, con Moviment d'Esquerres y Demòcrates como socios menores."
+  },
+  {
+   "sigla": "UCDCC",
+   "nombre": "Unió del Centre i la Democràcia Cristiana de Catalunya (1977)",
+   "etiquetas": [
+    "UCIDCC"
+   ],
+   "cambios": [],
+   "nota": "Coalición de Centre Català y UDC; sus dos diputados eran uno de cada partido: Cañellas (UDC) y Güell de Sentmenat (Centre Català) (https://es.wikipedia.org/wiki/Unió_del_Centre_i_la_Democràcia_Cristiana_de_Catalunya). Queda aparte."
+  },
+  {
+   "sigla": "ERC",
+   "nombre": "Esquerra Republicana de Catalunya",
+   "etiquetas": [
+    "ERC",
+    "ERC-S",
+    "ERC-CATSÍ",
+    "ERC-RI.cat",
+    "EC"
+   ],
+   "cambios": [],
+   "nota": "Listas de ERC: ERC-RI.cat (2011, con Reagrupament), ERC-CATSÍ (2015-2016, con independientes de Catalunya Sí), ERC-S (2019, con Sobiranistes) y EC (Esquerra de Catalunya, 1977: su único diputado, Heribert Barrera, era de ERC: https://es.wikipedia.org/wiki/Esquerra_de_Catalunya). Excepción: Joan Josep Nuet (Comunistes de Catalunya/Sobiranistes; https://es.wikipedia.org/wiki/Joan_Josep_Nuet) figura en ERC-S con 10 de 1.181 filas."
+  },
+  {
+   "sigla": "CUP",
+   "nombre": "Candidatura d'Unitat Popular",
+   "etiquetas": [
+    "CUP-PR"
+   ],
+   "cambios": [],
+   "nota": "CUP-PR es la lista de la CUP en 2019 (CUP–Per la Ruptura)."
+  },
+  {
+   "sigla": "EAJ-PNV",
+   "nombre": "Euzko Alderdi Jeltzalea-Partido Nacionalista Vasco",
+   "etiquetas": [
+    "EAJ-PNV",
+    "PNV"
+   ],
+   "cambios": [],
+   "nota": "Mismo partido con sigla corta (PNV, 1977-1993) y completa (EAJ-PNV, desde 1989); 5 diputados comparten ambas."
+  },
+  {
+   "sigla": "EA",
+   "nombre": "Eusko Alkartasuna",
+   "etiquetas": [
+    "EA",
+    "EA-EE"
+   ],
+   "cambios": [],
+   "nota": "EA-EE es la coalición Eusko Alkartasuna–Euskal Ezkerra de 1993; su único diputado, Xabier Albistur, era de EA (https://es.wikipedia.org/wiki/Xabier_Albistur)."
+  },
+  {
+   "sigla": "EE",
+   "nombre": "Euskadiko Ezkerra",
+   "etiquetas": [
+    "EE"
+   ],
+   "cambios": [],
+   "nota": "Coalición en 1977 y partido desde 1982; se fusionó con el PSE-PSOE en 1993 (https://es.wikipedia.org/wiki/Euskadiko_Ezkerra): queda aparte (regla 4)."
+  },
+  {
+   "sigla": "HB",
+   "nombre": "Herri Batasuna",
+   "etiquetas": [
+    "HB"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Amaiur",
+   "nombre": "Amaiur",
+   "etiquetas": [
+    "AMAIUR"
+   ],
+   "cambios": [],
+   "nota": "Coalición de 2011 (EA, Aralar, Alternatiba e independientes de la izquierda abertzale), disuelta en 2015; EH Bildu es su sucesora política, sin continuidad legal (https://es.wikipedia.org/wiki/Amaiur): queda aparte."
+  },
+  {
+   "sigla": "EH Bildu",
+   "nombre": "Euskal Herria Bildu",
+   "etiquetas": [
+    "EH Bildu"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Na-Bai",
+   "nombre": "Nafarroa Bai",
+   "etiquetas": [
+    "Na-Bai"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "GBai",
+   "nombre": "Geroa Bai",
+   "etiquetas": [
+    "GB"
+   ],
+   "cambios": [],
+   "nota": "Coalición fundada el 29-9-2011 (PNV, Atarrabia y otros) tras la ruptura de Nafarroa Bai, cuyo nombre retuvo Aralar (https://es.wikipedia.org/wiki/Geroa_Bai): queda aparte de Na-Bai."
+  },
+  {
+   "sigla": "BNG",
+   "nombre": "Bloque Nacionalista Galego",
+   "etiquetas": [
+    "BNG"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "CG",
+   "nombre": "Coalición Galega",
+   "etiquetas": [
+    "CG"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PCE",
+   "nombre": "Partido Comunista de España",
+   "etiquetas": [
+    "PCE",
+    "PCPV",
+    "PCE-PCPV"
+   ],
+   "cambios": [],
+   "nota": "El PCPV es la federación valenciana del PCE desde 1978 (https://es.wikipedia.org/wiki/Partit_Comunista_del_País_Valencià). Tras 1986 los diputados del PCE figuran como IU, coalición distinta (regla 5)."
+  },
+  {
+   "sigla": "PSUC",
+   "nombre": "Partit Socialista Unificat de Catalunya",
+   "etiquetas": [
+    "PSUC",
+    "UEC"
+   ],
+   "cambios": [],
+   "nota": "Partido con organización propia, referente del PCE en Cataluña (https://es.wikipedia.org/wiki/Partit_Socialista_Unificat_de_Catalunya). UEC (Unió de l'Esquerra Catalana, 1986) era la coalición PSUC–ENE; su único diputado, Ramon Espasa, era del PSUC (https://ca.wikipedia.org/wiki/Ramon_Espasa_i_Oliver)."
+  },
+  {
+   "sigla": "IU",
+   "nombre": "Izquierda Unida",
+   "etiquetas": [
+    "IU",
+    "IU-LV-CA",
+    "IU-CA",
+    "IU-A",
+    "IU-CM",
+    "IU-EU",
+    "IU-EUPV",
+    "EUPV",
+    "IU-LV",
+    "IU-EB",
+    "IU-Alternativa",
+    "IU-IX",
+    "IU-UPeC"
+   ],
+   "cambios": [],
+   "nota": "Federaciones territoriales de IU (https://es.wikipedia.org/wiki/Izquierda_Unida_(España)): Andalucía (IU-CA, IU-LV-CA), Madrid (IU-CM), Comunidad Valenciana (EUPV, IU-EUPV, IU-EU), País Vasco (Ezker Batua, IU-EB), Asturias (IU-IX), Murcia (IU-LV), Aragón/Andalucía (IU-A); IU-Alternativa es la lista de Llamazares en 2008; IU-UPeC (Unidad Popular en Común, 2015) con Garzón y Sánchez Maroto, ambos de IU."
+  },
+  {
+   "sigla": "ICV",
+   "nombre": "Iniciativa per Catalunya Verds",
+   "etiquetas": [
+    "IC",
+    "IC-EV",
+    "IC-V"
+   ],
+   "cambios": [
+    {
+     "de": "IC",
+     "a": "IC-V",
+     "fecha": "1998",
+     "fuente": "https://www.enciclopedia.cat/gran-enciclopedia-catalana/iniciativa-per-catalunya-verds"
+    },
+    {
+     "de": "IC-V",
+     "a": "ICV",
+     "fecha": "2002",
+     "fuente": "https://ca.wikipedia.org/wiki/Iniciativa_per_Catalunya_Verds"
+    }
+   ],
+   "nota": "Federación de PSUC, ENE y PCC en 1987, partido único de hecho y formalmente desde 1997; IC-EV es la coalición con Els Verds de 1995-1996 (sus diputados, Saura y Rivadulla, eran de IC). Cambios de denominación del mismo partido: Iniciativa per Catalunya-Verds (1998) e Iniciativa per Catalunya Verds (2002)."
+  },
+  {
+   "sigla": "ICV-EUiA",
+   "nombre": "Coalición Iniciativa per Catalunya Verds–Esquerra Unida i Alternativa",
+   "etiquetas": [
+    "ICV-EUiA"
+   ],
+   "cambios": [],
+   "nota": "Joan Herrera y Carme García (ICV; https://ca.wikipedia.org/wiki/Carme_García_i_Suárez) y Núria Buenaventura (EUiA; https://ca.wikipedia.org/wiki/Núria_Buenaventura_i_Puig), que tiene 139 de 1.142 filas. Coalición mixta: queda aparte."
+  },
+  {
+   "sigla": "IZQ-PLU",
+   "nombre": "La Izquierda Plural (IU, ICV-EUiA, CHA)",
+   "etiquetas": [
+    "IZQ-PLU"
+   ],
+   "cambios": [],
+   "nota": "Coalición de 2011 con diputados de IU, ICV (Coscubiela, Ortiz), EUiA (Nuet) y CHA (Yuste). Queda aparte."
+  },
+  {
+   "sigla": "Podemos",
+   "nombre": "Podemos",
+   "etiquetas": [
+    "PODEMOS",
+    "UPM"
+   ],
+   "cambios": [],
+   "nota": "UPM es Units Podem Més (Baleares, 2016: Podemos, EUIB y Més per Mallorca; https://en.wikipedia.org/wiki/Units_Podem_Més); sus dos diputados, Juan Pedro Yllanes y Mae de la Concha, son los que Podemos había obtenido en solitario en 2015 (Yllanes figura con la etiqueta PODEMOS en la XI)."
+  },
+  {
+   "sigla": "UP",
+   "nombre": "Unidas Podemos (Unidos Podemos en 2016)",
+   "etiquetas": [
+    "UP"
+   ],
+   "cambios": [],
+   "nota": "Coalición con diputados de Podemos, IU/PCE (Garzón, Santiago, García Sempere) y Equo (López de Uralde). Queda aparte de Podemos."
+  },
+  {
+   "sigla": "ECP",
+   "nombre": "En Comú Podem",
+   "etiquetas": [
+    "ECP",
+    "EN COMÚ",
+    "ECP-GUANYEM EL CANVI"
+   ],
+   "cambios": [],
+   "nota": "Misma coalición en 2015, 2016 y 2019 (en 2019, «En Comú Podem-Guanyem el Canvi», con Catalunya en Comú en lugar de Barcelona en Comú) (https://es.wikipedia.org/wiki/En_Comú_Podem). Coalición de comuns, ICV, EUiA y Podem: queda aparte."
+  },
+  {
+   "sigla": "En Marea",
+   "nombre": "En Marea (Podemos–En Marea–Anova–Esquerda Unida)",
+   "etiquetas": [
+    "PODEMOS-En Marea-ANOVA-EU",
+    "EM-P-A-EU"
+   ],
+   "cambios": [],
+   "nota": "La misma coalición en 2015 y 2016 (https://es.wikipedia.org/wiki/En_Marea). Queda aparte."
+  },
+  {
+   "sigla": "EC-UP",
+   "nombre": "En Común–Unidas Podemos",
+   "etiquetas": [
+    "EC-UP"
+   ],
+   "cambios": [],
+   "nota": "Coalición gallega de 2019 formada por Podemos, EU y Anova tras romper con En Marea (https://es.wikipedia.org/wiki/En_Marea); Yolanda Díaz (EU) y Antonio Gómez-Reino (Podemos). Queda aparte."
+  },
+  {
+   "sigla": "Compromís",
+   "nombre": "Coalició Compromís",
+   "etiquetas": [
+    "COMPROMÍS-Q",
+    "C:B-I-V",
+    "MÉS COMPROMÍS"
+   ],
+   "cambios": [],
+   "nota": "Listas de Compromís: con Equo en 2011 (Compromís-Q), «Compromís: Bloc-Iniciativa-VerdsEquo» en abril de 2019 y «Més Compromís» en noviembre de 2019. Diputados: Joan Baldoví y Maria Josep Picó, independiente en la lista de Compromís (https://valenciaplaza.com/maria-josep-pico-toma-posesion-diputada-congreso-sustitucion-joan-baldovi)."
+  },
+  {
+   "sigla": "Compromís-Podemos",
+   "nombre": "Compromís–Podemos–És el moment (2015)",
+   "etiquetas": [
+    "PODEMOS-COMPROMÍS"
+   ],
+   "cambios": [],
+   "nota": "Coalición con diputados de Compromís (Baldoví, Bataller, Sorlí, Candela) y de Podemos (Ballester, Martínez Dalmau). Queda aparte."
+  },
+  {
+   "sigla": "A la valenciana",
+   "nombre": "Compromís–Podemos–EUPV: A la valenciana (2016)",
+   "etiquetas": [
+    "C-P-EUPV"
+   ],
+   "cambios": [],
+   "nota": "Coalición con diputados de Compromís, Podemos (Guijarro, Ballester, Bosaho, Pastor) y EUPV (Sixto). Queda aparte."
+  },
+  {
+   "sigla": "Sumar",
+   "nombre": "Sumar",
+   "etiquetas": [
+    "SUMAR"
+   ],
+   "cambios": [],
+   "nota": "Coalición de 2023 con diputados de Movimiento Sumar, IU, Podemos, comuns, Compromís, Más Madrid y otros. Queda aparte."
+  },
+  {
+   "sigla": "Más País-Equo",
+   "nombre": "Más País–Equo",
+   "etiquetas": [
+    "MÁS PAÍS-EQUO"
+   ],
+   "cambios": [],
+   "nota": "Íñigo Errejón (Más País, 160 filas) e Inés Sabanés (Equo, 109 filas). Coalición mixta: queda aparte."
+  },
+  {
+   "sigla": "CC",
+   "nombre": "Coalición Canaria",
+   "etiquetas": [
+    "CC",
+    "CC-PNC",
+    "CCa-PNC",
+    "CCa",
+    "CCa-PNC-NC"
+   ],
+   "cambios": [],
+   "nota": "Listas de CC con el Partido Nacionalista Canario. CCa-PNC-NC (noviembre de 2019, circunscripción de Santa Cruz) solo tiene a Ana Oramas, de CC."
+  },
+  {
+   "sigla": "CC-NC-PNC",
+   "nombre": "Coalición Coalición Canaria–Nueva Canarias–PNC (2011 y 2019)",
+   "etiquetas": [
+    "CC-NC-PNC",
+    "NC-CCa-PNC"
+   ],
+   "cambios": [],
+   "nota": "Alianza CC–NC–PNC con diputados de los dos partidos: en 2011, Ana Oramas (CC) y Pedro Quevedo (NC); en 2019 (lista de Las Palmas), Quevedo (NC) y, desde el 12-7-2022, María Fernández (CC), que le sustituyó por el acuerdo de reparto del escaño (https://www.eldiario.es/canariasahora/politica/maria-fernandez-coalicion-canaria-estrena-congreso-sustitucion-pedro-quevedo-nc_1_9164974.html). Queda aparte."
+  },
+  {
+   "sigla": "NC",
+   "nombre": "Nueva Canarias",
+   "etiquetas": [
+    "NC"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PSOE-NCa",
+   "nombre": "Coalición PSOE–Nueva Canarias (2015-2016)",
+   "etiquetas": [
+    "PSOE-NCa"
+   ],
+   "cambios": [],
+   "nota": "Pedro Quevedo (NC) tiene 76 de las 99 filas; Tamara Raya y Sebastián Franquis son del PSOE. Coalición mixta: queda aparte."
+  },
+  {
+   "sigla": "AIC",
+   "nombre": "Agrupaciones Independientes de Canarias",
+   "etiquetas": [
+    "AIC"
+   ],
+   "cambios": [],
+   "nota": "Una de las fundadoras de Coalición Canaria en 1993: queda aparte (regla 4)."
+  },
+  {
+   "sigla": "UPC",
+   "nombre": "Unión del Pueblo Canario",
+   "etiquetas": [
+    "UPC"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PA",
+   "nombre": "Partido Andalucista",
+   "etiquetas": [
+    "PA",
+    "PSA"
+   ],
+   "cambios": [
+    {
+     "de": "PSA",
+     "a": "PA",
+     "fecha": "1984-02",
+     "fuente": "https://www.historiaelectoral.com/psa.html"
+    }
+   ],
+   "nota": "Partido Socialista de Andalucía (PSA) desde 1976, PSA-Partido Andaluz desde 1979 y Partido Andalucista desde febrero de 1984 (V Congreso); mismo partido (https://es.wikipedia.org/wiki/Partido_Andalucista). La fuente no da el día."
+  },
+  {
+   "sigla": "PAR",
+   "nombre": "Partido Aragonés",
+   "etiquetas": [
+    "PAR"
+   ],
+   "cambios": [],
+   "nota": "Partido Aragonés Regionalista hasta 1990 (misma sigla)."
+  },
+  {
+   "sigla": "CAIC",
+   "nombre": "Candidatura Aragonesa Independiente de Centro (1977)",
+   "etiquetas": [
+    "CAIC"
+   ],
+   "cambios": [],
+   "nota": "El PAR se fundó entre finales de 1977 y principios de 1978 «a partir de» la CAIC (https://es.wikipedia.org/wiki/Partido_Aragonés), pero no consta continuidad legal: queda aparte."
+  },
+  {
+   "sigla": "CHA",
+   "nombre": "Chunta Aragonesista",
+   "etiquetas": [
+    "CHA"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "UV",
+   "nombre": "Unió Valenciana",
+   "etiquetas": [
+    "UV"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PRC",
+   "nombre": "Partido Regionalista de Cantabria",
+   "etiquetas": [
+    "PRC"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "Foro",
+   "nombre": "Foro de Ciudadanos (Foro Asturias)",
+   "etiquetas": [
+    "FORO"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "¡Teruel Existe!",
+   "nombre": "¡Teruel Existe!",
+   "etiquetas": [
+    "¡Teruel Existe!"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PSP-US",
+   "nombre": "Partido Socialista Popular–Unidad Socialista (1977)",
+   "etiquetas": [
+    "US",
+    "US-PSP"
+   ],
+   "cambios": [],
+   "nota": "US y US-PSP son la misma coalición de 1977 del PSP con partidos de la Federación de Partidos Socialistas: 6 diputados, 5 del PSP y 1 del Partido Socialista de Aragón (Emilio Gastón, en US) (https://es.wikipedia.org/wiki/Partido_Socialista_Popular_(España)). El PSP se integró en el PSOE en 1978 (absorción): queda aparte (regla 4)."
+  },
+  {
+   "sigla": "FN",
+   "nombre": "Fuerza Nueva",
+   "etiquetas": [
+    "UN"
+   ],
+   "cambios": [],
+   "nota": "UN es Unión Nacional (1979), coalición de Fuerza Nueva, FE de las JONS y otros (https://es.wikipedia.org/wiki/Unión_Nacional_(España,_1979)); su único diputado, Blas Piñar, fundó y presidía Fuerza Nueva (https://es.wikipedia.org/wiki/Blas_Piñar)."
+  },
+  {
+   "sigla": "Sin identificar",
+   "nombre": "Sin identificar",
+   "etiquetas": [
+    ""
+   ],
+   "cambios": [],
+   "nota": "Filas con diputado identificado pero sin partido en el CSV (689 filas, 40 diputados)."
+  }
+ ],
+ "asignacion": {
+  "PSOE": "PSOE",
+  "PSC-PSOE": "PSOE",
+  "PSC(PSC-PSOE)": "PSOE",
+  "PSC": "PSOE",
+  "PSIB-PSOE": "PSOE",
+  "PSOE-A": "PSOE",
+  "PSOEdeAndalucía": "PSOE",
+  "PSG-PSOE": "PSOE",
+  "PsdeG-PSOE": "PSOE",
+  "PSdeG-PSOE": "PSOE",
+  "PSdG-PSOE": "PSOE",
+  "PSdeG-PSOE-progresistas": "PSOE",
+  "PSE-PSOE": "PSOE",
+  "PSE-EE": "PSOE",
+  "PSE-EE (PSOE-progresistas)": "PSOE",
+  "Pse-EE(PSOE)": "PSOE",
+  "PSE-EE(PSOE)": "PSOE",
+  "PSE-EE-PSOE": "PSOE",
+  "PSE-EE (PSOE)": "PSOE",
+  "PSN-PSOE": "PSOE",
+  "PSOE-progresistas": "PSOE",
+  "PP": "PP",
+  "AP": "PP",
+  "PPdeC": "PP",
+  "PP-EU": "PP",
+  "PP-UPM": "PP",
+  "CD": "CD",
+  "CP": "CP",
+  "PP-PAR": "PP-PAR",
+  "PP-FORO": "PP-FORO",
+  "PP-CG": "PP-CG",
+  "UPN": "UPN",
+  "UPN-PP": "UPN",
+  "NA+": "UPN",
+  "UCD": "UCD",
+  "CC-UCD": "UCD",
+  "CIC": "CIC",
+  "CDS": "CDS",
+  "Cs": "Cs",
+  "UPyD": "UPyD",
+  "Vox": "Vox",
+  "VOX": "Vox",
+  "CIU": "CiU",
+  "CiU": "CiU",
+  "PDC": "PDC",
+  "DL": "DL",
+  "CDC": "CDC",
+  "JxCat-JUNTS (PDeCAT)": "PDeCAT",
+  "JxCat-JUNTS": "JxCat",
+  "JxCat-JUNTS (Junts)": "Junts",
+  "JxCAT-JUNTS": "Junts",
+  "UCIDCC": "UCDCC",
+  "ERC": "ERC",
+  "ERC-S": "ERC",
+  "ERC-CATSÍ": "ERC",
+  "ERC-RI.cat": "ERC",
+  "EC": "ERC",
+  "CUP-PR": "CUP",
+  "EAJ-PNV": "EAJ-PNV",
+  "PNV": "EAJ-PNV",
+  "EA": "EA",
+  "EA-EE": "EA",
+  "EE": "EE",
+  "HB": "HB",
+  "AMAIUR": "Amaiur",
+  "EH Bildu": "EH Bildu",
+  "Na-Bai": "Na-Bai",
+  "GB": "GBai",
+  "BNG": "BNG",
+  "CG": "CG",
+  "PCE": "PCE",
+  "PCPV": "PCE",
+  "PCE-PCPV": "PCE",
+  "PSUC": "PSUC",
+  "UEC": "PSUC",
+  "IU": "IU",
+  "IU-LV-CA": "IU",
+  "IU-CA": "IU",
+  "IU-A": "IU",
+  "IU-CM": "IU",
+  "IU-EU": "IU",
+  "IU-EUPV": "IU",
+  "EUPV": "IU",
+  "IU-LV": "IU",
+  "IU-EB": "IU",
+  "IU-Alternativa": "IU",
+  "IU-IX": "IU",
+  "IU-UPeC": "IU",
+  "IC": "ICV",
+  "IC-EV": "ICV",
+  "IC-V": "ICV",
+  "ICV-EUiA": "ICV-EUiA",
+  "IZQ-PLU": "IZQ-PLU",
+  "PODEMOS": "Podemos",
+  "UPM": "Podemos",
+  "UP": "UP",
+  "ECP": "ECP",
+  "EN COMÚ": "ECP",
+  "ECP-GUANYEM EL CANVI": "ECP",
+  "PODEMOS-En Marea-ANOVA-EU": "En Marea",
+  "EM-P-A-EU": "En Marea",
+  "EC-UP": "EC-UP",
+  "COMPROMÍS-Q": "Compromís",
+  "C:B-I-V": "Compromís",
+  "MÉS COMPROMÍS": "Compromís",
+  "PODEMOS-COMPROMÍS": "Compromís-Podemos",
+  "C-P-EUPV": "A la valenciana",
+  "SUMAR": "Sumar",
+  "MÁS PAÍS-EQUO": "Más País-Equo",
+  "CC": "CC",
+  "CC-PNC": "CC",
+  "CCa-PNC": "CC",
+  "CCa": "CC",
+  "CCa-PNC-NC": "CC",
+  "CC-NC-PNC": "CC-NC-PNC",
+  "NC-CCa-PNC": "CC-NC-PNC",
+  "NC": "NC",
+  "PSOE-NCa": "PSOE-NCa",
+  "AIC": "AIC",
+  "UPC": "UPC",
+  "PA": "PA",
+  "PSA": "PA",
+  "PAR": "PAR",
+  "CAIC": "CAIC",
+  "CHA": "CHA",
+  "UV": "UV",
+  "PRC": "PRC",
+  "FORO": "Foro",
+  "¡Teruel Existe!": "¡Teruel Existe!",
+  "US": "PSP-US",
+  "US-PSP": "PSP-US",
+  "UN": "FN",
+  "": "Sin identificar"
+ },
+ "revisar": [
+  {
+   "etiquetas": [
+    "CD",
+    "CP",
+    "AP",
+    "PP"
+   ],
+   "decision": "AP se funde con el PP; CD y CP quedan como coaliciones propias.",
+   "alternativa": "Fundir también CD y CP en el PP (línea AP → PP), con lo que el PP tendría continuidad de 1977 a 2025.",
+   "motivo": "Las dos coaliciones estaban encabezadas por AP (Fraga), pero incluían diputados de otros partidos (ACL, PDP de Osorio, PPC en 1979; PDP, UL/PL, PAR, UPN, UV y Centristas de Galicia en 1982-1986) que la etiqueta no permite separar. La continuidad legal AP → PP solo justifica fundir la etiqueta AP. Resultado: el PP aparece en 1977-1979 y desde 1989, con CD y CP en medio."
+  },
+  {
+   "etiquetas": [
+    "JxCat-JUNTS",
+    "JxCAT-JUNTS"
+   ],
+   "decision": "JxCat-JUNTS (2019-2021) queda como coalición propia (JxCat); JxCAT-JUNTS (2023) va a Junts.",
+   "alternativa": "Tratarlas como variante de mayúsculas y llevar ambas a Junts.",
+   "motivo": "Misma marca, distinta composición: en 2019 era una coalición de PDeCAT, CDC y el partido Junts, con independientes; en 2023, el partido Junts. En la etiqueta de 2019 hay un diputado del PDeCAT (Sergi Miquel, 6 filas); las otras 145 filas son de Borràs, Alonso-Cuevillas y Nogueras, luego de Junts."
+  },
+  {
+   "etiquetas": [
+    "CDC"
+   ],
+   "decision": "CDC queda como partido propio.",
+   "alternativa": "Asignarla al PDeCAT.",
+   "motivo": "Es la lista de CDC de 2016, pero todas sus filas (desde 31-8-2016) son posteriores a la fundación del PDeCAT (8-10 de julio de 2016), al que pasaron sus diputados. CDC no se disolvió y la regla 4 impide fundir predecesor y sucesor."
+  },
+  {
+   "etiquetas": [
+    "DL"
+   ],
+   "decision": "DL queda como coalición propia.",
+   "alternativa": "Asignarla a CDC.",
+   "motivo": "Siete de sus ocho diputados eran de CDC; Elena Ribera era de Demòcrates de Catalunya (3 de 39 filas)."
+  },
+  {
+   "etiquetas": [
+    "PSOE-progresistas",
+    "PSdeG-PSOE-progresistas",
+    "PSE-EE (PSOE-progresistas)"
+   ],
+   "decision": "Se asignan al PSOE.",
+   "alternativa": "Dejar PSOE-progresistas como coalición propia.",
+   "motivo": "Coalición con el PDNI, que tuvo tres diputados (Diego López Garrido, 127 de 4.065 filas, es el único identificado en la etiqueta) y se integró en el PSOE en 2000-2001. Sin esta asignación el PSOE casi desaparece de la VII legislatura."
+  },
+  {
+   "etiquetas": [
+    "ERC-S"
+   ],
+   "decision": "Se asigna a ERC.",
+   "alternativa": "Dejar ERC-S como coalición propia.",
+   "motivo": "Lista de ERC con Sobiranistes en 2019: 15 de sus 16 diputados son de ERC o independientes de su cupo; Joan Josep Nuet (Comunistes de Catalunya/Sobiranistes) solo suma 10 de 1.181 filas."
+  },
+  {
+   "etiquetas": [
+    "PSC-PSOE",
+    "PSC(PSC-PSOE)",
+    "PSC"
+   ],
+   "decision": "Se asignan al PSOE, como pide la pauta de federaciones.",
+   "alternativa": "Dejar el PSC como partido propio.",
+   "motivo": "El PSC es un partido jurídicamente distinto, federado con el PSOE; sus diputados se sientan en el grupo socialista. Tiene 45.983 filas (en buena parte de la presidencia del Congreso de Meritxell Batet en la XIV)."
+  },
+  {
+   "etiquetas": [
+    "PSUC",
+    "UEC",
+    "PCE"
+   ],
+   "decision": "El PSUC (con UEC) queda aparte del PCE.",
+   "alternativa": "Fundir PSUC y UEC en el PCE.",
+   "motivo": "El PSUC tenía organización propia aunque era el referente del PCE en Cataluña y formó grupo con él. En la duda, separados (regla 5)."
+  },
+  {
+   "etiquetas": [
+    "UPN-PP",
+    "NA+"
+   ],
+   "decision": "Se asignan a UPN.",
+   "alternativa": "UPN-PP al PP (como sugiere la pauta de listas del PP) y NA+ como coalición propia.",
+   "motivo": "Los diputados de ambas etiquetas son de UPN. Del Burgo fue elegido en 1989 como presidente del PP navarro, antes de que el PP se integrase en UPN (1991). García Adanero y Sayas rompieron con UPN en 2022 y siguieron con la etiqueta NA+ hasta 2023."
+  },
+  {
+   "etiquetas": [
+    "PP-PAR",
+    "PP-FORO",
+    "PP-CG"
+   ],
+   "decision": "Quedan como coaliciones propias.",
+   "alternativa": "Asignarlas al PP.",
+   "motivo": "Tienen diputados de otros partidos: el PAR tuvo un diputado en 1996, 2011 y 2015 (Serrano Vinué en 1996); en PP-FORO el 93 % de las filas son de Martínez Oblanca (Foro), y asignarlas al PP atribuiría al PP las intervenciones de Foro; de PP-CG no he podido confirmar el partido de sus dos diputados."
+  },
+  {
+   "etiquetas": [
+    "PP-EU"
+   ],
+   "decision": "Se asigna al PP.",
+   "alternativa": "Dejarla como coalición propia.",
+   "motivo": "No he encontrado ningún diputado de Extremadura Unida; los seis diputados de la etiqueta son conocidos del PP, pero no he comprobado uno por uno a Serrano Calurano, González Gutiérrez y Suárez-Bárcena. 30 filas."
+  },
+  {
+   "etiquetas": [
+    "ICV-EUiA",
+    "IZQ-PLU"
+   ],
+   "decision": "Quedan como coaliciones propias.",
+   "alternativa": "ICV-EUiA a ICV; IZQ-PLU a IU.",
+   "motivo": "ICV-EUiA tiene una diputada de EUiA (Buenaventura, 12 % de las filas); La Izquierda Plural reúne diputados de IU, ICV, EUiA y CHA."
+  },
+  {
+   "etiquetas": [
+    "UP",
+    "ECP",
+    "EN COMÚ",
+    "ECP-GUANYEM EL CANVI",
+    "EM-P-A-EU",
+    "PODEMOS-En Marea-ANOVA-EU",
+    "EC-UP",
+    "PODEMOS-COMPROMÍS",
+    "C-P-EUPV",
+    "SUMAR",
+    "MÁS PAÍS-EQUO"
+   ],
+   "decision": "Cada coalición del espacio de Podemos queda aparte (UP, ECP, En Marea, EC-UP, Compromís-Podemos, A la valenciana, Sumar, Más País-Equo); solo PODEMOS y UPM van a Podemos.",
+   "alternativa": "Agrupar las confluencias en UP (grupo confederal) o, al menos, unir PODEMOS-COMPROMÍS y C-P-EUPV.",
+   "motivo": "Son coaliciones distintas, con diputados de varios partidos. Fragmenta el espacio en ocho entidades."
+  },
+  {
+   "etiquetas": [
+    "CC-NC-PNC",
+    "NC-CCa-PNC",
+    "CCa-PNC-NC",
+    "PSOE-NCa"
+   ],
+   "decision": "CC-NC-PNC y NC-CCa-PNC forman una coalición propia; CCa-PNC-NC va a CC; PSOE-NCa queda aparte.",
+   "alternativa": "Llevar las tres etiquetas CC-NC a una sola coalición, o asignar por partido del cabeza de lista (CCa… a CC, NC… a NC).",
+   "motivo": "La etiqueta es la de cada circunscripción: CCa-PNC-NC solo tiene a Oramas (CC); NC-CCa-PNC tiene a Quevedo (NC) y a María Fernández (CC); CC-NC-PNC (2011), a Oramas y Quevedo; en PSOE-NCa, Quevedo (NC) suma 76 de 99 filas."
+  },
+  {
+   "etiquetas": [
+    "AMAIUR",
+    "EH Bildu",
+    "HB"
+   ],
+   "decision": "HB, Amaiur y EH Bildu quedan separados.",
+   "alternativa": "Fundir Amaiur en EH Bildu.",
+   "motivo": "EH Bildu sucede políticamente a Amaiur, sin continuidad legal; HB es un partido anterior, sin continuidad legal con ninguna de las dos."
+  },
+  {
+   "etiquetas": [
+    "Na-Bai",
+    "GB"
+   ],
+   "decision": "Nafarroa Bai y Geroa Bai quedan separadas.",
+   "alternativa": "Fundirlas (misma diputada, Uxue Barkos).",
+   "motivo": "Geroa Bai (2011) es una coalición nueva tras la ruptura de Nafarroa Bai, cuyo nombre retuvo Aralar."
+  },
+  {
+   "etiquetas": [
+    "CAIC",
+    "PAR"
+   ],
+   "decision": "CAIC queda aparte del PAR.",
+   "alternativa": "Fundir CAIC en el PAR.",
+   "motivo": "El PAR nació de la CAIC en 1977-1978 con el mismo diputado (Gómez de las Roces), pero no he encontrado constancia de continuidad legal."
+  },
+  {
+   "etiquetas": [
+    "AIC",
+    "CC"
+   ],
+   "decision": "AIC queda aparte de CC.",
+   "alternativa": "Fundir AIC en CC.",
+   "motivo": "AIC fue una de las fundadoras de CC (1993); regla 4."
+  },
+  {
+   "etiquetas": [
+    "CIC"
+   ],
+   "decision": "Queda aparte.",
+   "alternativa": "Asignarla a UCD.",
+   "motivo": "Ortí Bordás se presentó fuera de partido y se integró en UCD al constituirse las Cámaras. 6 filas."
+  },
+  {
+   "etiquetas": [
+    "UN"
+   ],
+   "decision": "Se asigna a Fuerza Nueva (FN).",
+   "alternativa": "Dejar Unión Nacional como coalición propia.",
+   "motivo": "Coalición de 1979 cuyo único diputado, Blas Piñar, era el líder de Fuerza Nueva."
+  }
+ ],
+ "tipo_propuesto": "por intervencion"
+}

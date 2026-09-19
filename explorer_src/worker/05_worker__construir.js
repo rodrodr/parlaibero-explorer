@@ -16,6 +16,8 @@
  *
  * Convenciones heredadas del motor: rep_name y party/district/legislature vacíos → «Sin identificar»; una fila sin orador
  * (dm_speech = 0) lleva speaker «SUMARIO» si es la fila 0 de la sesión (encabezado/sumario) y «COMENTARIOS» en otro caso.
+ * party guarda el partido homogéneo del registro del país (R2.partidos), no la etiqueta del CSV; equivalenciasPartidos()
+ * dice qué etiquetas fueron a cada partido y con cuántas filas.
  */
 (function (R2) {
   'use strict';
@@ -168,6 +170,9 @@ CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT);
       this.pais = null;
       this.sesiones = new Map(); // id_session → num_session (por orden de aparición)
       this.diputados = new Map(); // id_dep → rep_id (por orden de aparición)
+      this.partidos = undefined; // registro de partidos del país (R2.partidos.para), en cuanto se conoce el país
+      this.etiquetasPartido = []; // valores del memo de party: etiqueta del CSV → siglas, con sus filas
+      this.cadenasPartido = new Map(); // sigla → cadena C (una por sigla aunque venga de varias etiquetas)
 
       // Bloques de texto
       this.bloqueId = 1;
@@ -195,7 +200,7 @@ CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT);
         fecha: new Memo((s) => {
           let year = null;
           try { year = T.anio(s); } catch (e) { year = null; }
-          return { date: s ? c(s) : null, year };
+          return { date: s ? c(s) : null, year, texto: s || null };
         }),
         tipo: new Memo((s) => c(T.derivar.sinIdentificar(s))),
         orador: new Memo((s) => { const v = T.pyStrip(s); return v ? c(v) : null; }),
@@ -208,7 +213,7 @@ CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT);
         }),
         diputado: new Memo((s) => c(T.pyStrip(s) || SIN_IDENTIFICAR)),
         sexo: new Memo((s) => c(T.pyStrip(s).toUpperCase() || SIN_IDENTIFICAR)),
-        partido: new Memo((s) => c(T.derivar.sinIdentificar(s))),
+        partido: new Memo((s) => this._partido(s)),
         distrito: new Memo((s) => c(T.derivar.sinIdentificar(s))),
       };
 
@@ -229,6 +234,27 @@ CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT);
 
     _texto(P, i, par) {
       return par === null ? this.X.sqlite3_bind_null(P, i) : this.X.sqlite3_bind_text(P, i, par[0], par[1], 0);
+    }
+
+    /**
+     * Valor memorizado de una etiqueta de party: sus siglas en el registro del país (una, o varias si es una trayectoria,
+     * con el inicio de cada una para elegir por fecha) y las filas que van a cada sigla. Sin registro o fuera de él, la
+     * etiqueta tal cual («Sin identificar» si está vacía). El país ya se conoce: la sesión se lee antes que el partido.
+     */
+    _partido(s) {
+      if (this.partidos === undefined) this.partidos = R2.partidos && this.pais ? R2.partidos.para(this.pais) : null;
+      const etiqueta = T.pyStrip(s);
+      const r = this.partidos ? this.partidos.resolver(etiqueta) : null;
+      const opciones = r && r.opciones ? r.opciones : null;
+      const siglas = opciones ? opciones.map((o) => o[1]) : [r ? r.sigla : etiqueta || SIN_IDENTIFICAR];
+      const punteros = siglas.map((x) => {
+        let par = this.cadenasPartido.get(x);
+        if (!par) { par = this._cadena(x); this.cadenasPartido.set(x, par); }
+        return par;
+      });
+      const v = { etiqueta: etiqueta || SIN_IDENTIFICAR, enRegistro: !!r, siglas, punteros, opciones, filas: siglas.map(() => 0) };
+      this.etiquetasPartido.push(v);
+      return v;
     }
 
     _entero(P, i, v) {
@@ -347,7 +373,10 @@ CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT);
       const dip = m.diputadoId.obtener(b, a(9), f[9]);
       const nombre = m.diputado.obtener(b, a(10), f[10]);
       const sexo = m.sexo.obtener(b, a(11), f[11]);
-      const partido = m.partido.obtener(b, a(12), f[12]);
+      const etqPartido = m.partido.obtener(b, a(12), f[12]);
+      const kPartido = etqPartido.opciones ? R2.partidos.enFecha(etqPartido.opciones, fecha.texto) : 0;
+      etqPartido.filas[kPartido]++;
+      const partido = etqPartido.punteros[kPartido];
       const distrito = m.distrito.obtener(b, a(13), f[13]);
       let dmSpeech = this._leerEntero(b, a(14), f[14], true, 'dm_speech', fila, byte);
       const aTexto = a(15), zTexto = f[15], largo = zTexto - aTexto;
@@ -406,6 +435,14 @@ CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT);
       r.sesiones = this.sesiones.size;
       r.diputados = this.diputados.size;
       return r;
+    }
+
+    /** Etiquetas de party y adónde fueron: [{ etiqueta, enRegistro, siglas: [[sigla, filas], …] }], de más a menos filas. */
+    equivalenciasPartidos() {
+      return this.etiquetasPartido
+        .map((v) => ({ etiqueta: v.etiqueta, enRegistro: v.enRegistro, siglas: v.siglas.map((s, k) => [s, v.filas[k]]).filter((x) => x[1] > 0) }))
+        .filter((v) => v.siglas.length)
+        .sort((a, b) => b.siglas.reduce((n, x) => n + x[1], 0) - a.siglas.reduce((n, x) => n + x[1], 0) || (a.etiqueta < b.etiqueta ? -1 : 1));
     }
 
     /** Cierra el último bloque, lo vuelca, confirma la transacción y libera. */

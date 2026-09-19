@@ -1,0 +1,307 @@
+{
+ "pais": "PT",
+ "tipo": "ultimo partido",
+ "partidos": [
+  {
+   "sigla": "PS",
+   "nombre": "Partido Socialista",
+   "etiquetas": [
+    "PS"
+   ],
+   "cambios": [],
+   "nota": "Por el carácter de trayectoria de la etiqueta incluye intervenciones de diputados que acabaron en el PS pero hablaron por otros partidos: UEDS (Lopes Cardoso, António Vitorino; 4.184 filas con cabecera «(UEDS)»), UDP (Acácio Barreiros, 1.360), PCP (Vital Moreira, José Magalhães, 11.811 filas con cabecera «(PCP)») o CDS-PP (Basílio Horta)."
+  },
+  {
+   "sigla": "PSD",
+   "nombre": "Partido Social Democrata (PPD/PSD)",
+   "etiquetas": [
+    "PSD",
+    "PPD"
+   ],
+   "cambios": [
+    {
+     "de": "PPD",
+     "a": "PSD",
+     "fecha": "1976-10-03",
+     "fuente": "https://pt.wikipedia.org/wiki/Partido_Social_Democrata_(Portugal)"
+    }
+   ],
+   "nota": "El Partido Popular Democrático (PPD), fundado el 6-5-1974, pasó a llamarse Partido Social Democrata el 3-10-1976; mismo partido, sigla oficial PPD/PSD (https://www.tribunalconstitucional.pt/tc/partidos.html). La etiqueta PPD (17 diputados, solo en la I legislatura, 622 de sus 645 filas posteriores al cambio de nombre) es el nombre anterior."
+  },
+  {
+   "sigla": "PCP",
+   "nombre": "Partido Comunista Português",
+   "etiquetas": [
+    "PCP"
+   ],
+   "cambios": [],
+   "nota": "Incluye a diputados elegidos en las listas APU (1979-1983) y CDU (desde 1987) que no eran del PCP: 10.176 filas con cabecera «(Os Verdes)» o «(PEV)» (p. ej., Heloísa Apolónia), 2.049 con «(MDP/CDE)» y 497 con «(ID)» (Corregedor da Fonseca) llevan PCP."
+  },
+  {
+   "sigla": "CDS-PP",
+   "nombre": "CDS – Partido Popular",
+   "etiquetas": [
+    "CDS-PP",
+    "CDS"
+   ],
+   "cambios": [
+    {
+     "de": "CDS",
+     "a": "CDS-PP",
+     "fecha": "1993-01-24",
+     "fuente": "https://www.maltez.info/respublica/portugalpolitico/acontecimentos/1993.htm"
+    }
+   ],
+   "nota": "El Centro Democrático e Social (19-7-1974) añadió «Partido Popular» a su nombre en el XI Congreso extraordinario, en enero de 1993 (https://www.cds.pt/historia.html; https://pt.wikipedia.org/wiki/CDS_–_Partido_Popular). Las dos etiquetas se reparten las intervenciones de los mismos diputados: 84 de los 85 con etiqueta CDS (todos con su última intervención antes de 1993) también tienen filas CDS-PP, y la etiqueta CDS-PP cubre 30.722 filas anteriores al cambio de nombre."
+  },
+  {
+   "sigla": "BE",
+   "nombre": "Bloco de Esquerda",
+   "etiquetas": [
+    "BE"
+   ],
+   "cambios": [],
+   "nota": "Fundado en 1999; las 21 filas de 1992 (Luís Fazenda, entonces «Indep.») son un efecto de la etiqueta de trayectoria."
+  },
+  {
+   "sigla": "CH",
+   "nombre": "CHEGA",
+   "etiquetas": [
+    "CH"
+   ],
+   "cambios": [],
+   "nota": "Nombre oficial según el Tribunal Constitucional (https://www.tribunalconstitucional.pt/tc/partidos.html). Las 122 filas anteriores a 2019 son de Henrique Rocha de Freitas, diputado del PSD en 2005-2009, por el carácter de trayectoria de la etiqueta."
+  },
+  {
+   "sigla": "IL",
+   "nombre": "Iniciativa Liberal",
+   "etiquetas": [
+    "IL"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "L",
+   "nombre": "LIVRE",
+   "etiquetas": [
+    "L"
+   ],
+   "cambios": [],
+   "nota": "Joacine Katar Moreira, elegida por Livre en 2019 y no inscrita desde 2020, figura toda su legislatura como Ninsc."
+  },
+  {
+   "sigla": "PAN",
+   "nombre": "PESSOAS–ANIMAIS–NATUREZA",
+   "etiquetas": [
+    "PAN"
+   ],
+   "cambios": [],
+   "nota": "Nombre oficial actual según el Tribunal Constitucional (https://www.tribunalconstitucional.pt/tc/partidos.html)."
+  },
+  {
+   "sigla": "PEV",
+   "nombre": "Partido Ecologista \"Os Verdes\"",
+   "etiquetas": [
+    "PEV",
+    "OS VERDES"
+   ],
+   "cambios": [],
+   "nota": "OS VERDES es el nombre del partido cuya sigla es PEV (https://pt.wikipedia.org/wiki/Partido_Ecologista_\"Os_Verdes\"); comparten diputados (André Martins, Isabel Castro). Sus diputados, elegidos en las listas de la CDU con el PCP, formaron grupo propio; buena parte de sus intervenciones figura como PCP (véase la nota de PCP)."
+  },
+  {
+   "sigla": "Independentes",
+   "nombre": "Deputados independentes",
+   "etiquetas": [
+    "Indep",
+    "INDEP"
+   ],
+   "cambios": [],
+   "nota": "Indep e INDEP son grafías de la misma condición. Por el carácter de trayectoria incluye todas las intervenciones de diputados cuyo último estado fue el de independiente (p. ej., Jorge Lemos: 7.397 filas con cabecera «(PCP)» etiquetadas Indep)."
+  },
+  {
+   "sigla": "Não inscritos",
+   "nombre": "Deputados não inscritos",
+   "etiquetas": [
+    "Ninsc"
+   ],
+   "cambios": [],
+   "nota": ""
+  },
+  {
+   "sigla": "PRD",
+   "nombre": "Partido Renovador Democrático",
+   "etiquetas": [
+    "PRD"
+   ],
+   "cambios": [],
+   "nota": "Fundado el 10-7-1985 en torno a Ramalho Eanes; en 2000 se refundó como Partido Nacional Renovador (https://pt.wikipedia.org/wiki/Partido_Renovador_Democrático). 14.663 filas son anteriores a su fundación: sobre todo Vasco da Gama Fernandes (presidente de la Assembleia en 1976-1978, elegido por el PS; 11.071 filas como «O Sr. Presidente») y Magalhães Mota (PSD, luego ASDI)."
+  },
+  {
+   "sigla": "UEDS",
+   "nombre": "União de Esquerda para a Democracia Socialista",
+   "etiquetas": [
+    "UEDS"
+   ],
+   "cambios": [],
+   "nota": "Escisión del PS (1978) que concurrió con él en la FRS en 1980; sus miembros se integraron en el PS tras 1986 (https://pt.wikipedia.org/wiki/União_de_Esquerda_para_a_Democracia_Socialista): queda aparte (regla 4)."
+  },
+  {
+   "sigla": "ASDI",
+   "nombre": "Acção Social-Democrata Independente",
+   "etiquetas": [
+    "ASDI"
+   ],
+   "cambios": [],
+   "nota": "Escisión del PSD (1979-1980), en la FRS con el PS en 1980 (https://pt.wikipedia.org/wiki/Ação_Social_Democrata_Independente)."
+  },
+  {
+   "sigla": "MDP/CDE",
+   "nombre": "Movimento Democrático Português/Comissão Democrática Eleitoral",
+   "etiquetas": [
+    "MDP/CDE"
+   ],
+   "cambios": [],
+   "nota": "En la APU con el PCP de 1978 a 1983; rompió con el PCP en 1986 (https://pt.wikipedia.org/wiki/Movimento_Democrático_Português)."
+  },
+  {
+   "sigla": "PPM",
+   "nombre": "Partido Popular Monárquico",
+   "etiquetas": [
+    "PPM"
+   ],
+   "cambios": [],
+   "nota": "En la Aliança Democrática (1979-1980) con PSD y CDS."
+  },
+  {
+   "sigla": "UDP",
+   "nombre": "União Democrática Popular",
+   "etiquetas": [
+    "UDP"
+   ],
+   "cambios": [],
+   "nota": "Solo 14 filas llevan la etiqueta, aunque las cabeceras «(UDP)» son unas 2.500: las de Acácio Barreiros figuran como PS y las de Mário Tomé como Indep. Cofundadora del BE en 1999: queda aparte (regla 4)."
+  },
+  {
+   "sigla": "ID",
+   "nombre": "Intervenção Democrática",
+   "etiquetas": [
+    "ID"
+   ],
+   "cambios": [],
+   "nota": "Asociación formada en 1987 por disidentes del MDP/CDE (https://pt.wikipedia.org/wiki/Movimento_Democrático_Português), que concurrió en las listas de la CDU."
+  },
+  {
+   "sigla": "DR",
+   "nombre": "Reformadores (Movimento dos Reformadores)",
+   "etiquetas": [
+    "DR"
+   ],
+   "cambios": [],
+   "nota": "Cinco diputados independientes elegidos en las listas de la AD en las elecciones intercalares de 1979 con el rótulo de Reformadores, que formaron agrupamento parlamentar en 1979-1980 (https://pt.wikipedia.org/wiki/Movimento_dos_Reformadores). El Diário los identifica con «(DR)». La etiqueta solo cubre a tres (Godinho de Matos, Adão e Silva, Pelágio Madureira); Sousa Tavares figura como PSD y Medeiros Ferreira como PS."
+  },
+  {
+   "sigla": "JPP",
+   "nombre": "Juntos pelo Povo",
+   "etiquetas": [
+    "JPP"
+   ],
+   "cambios": [],
+   "nota": "Nombre oficial según el Tribunal Constitucional (https://www.tribunalconstitucional.pt/tc/partidos.html)."
+  },
+  {
+   "sigla": "Sin identificar",
+   "nombre": "Sin identificar",
+   "etiquetas": [
+    ""
+   ],
+   "cambios": [],
+   "nota": "Filas con diputado identificado pero sin partido en el CSV (149 filas, 14 diputados)."
+  }
+ ],
+ "asignacion": {
+  "PS": "PS",
+  "PSD": "PSD",
+  "PPD": "PSD",
+  "PCP": "PCP",
+  "CDS-PP": "CDS-PP",
+  "CDS": "CDS-PP",
+  "BE": "BE",
+  "CH": "CH",
+  "IL": "IL",
+  "L": "L",
+  "PAN": "PAN",
+  "PEV": "PEV",
+  "OS VERDES": "PEV",
+  "Indep": "Independentes",
+  "INDEP": "Independentes",
+  "Ninsc": "Não inscritos",
+  "PRD": "PRD",
+  "UEDS": "UEDS",
+  "ASDI": "ASDI",
+  "MDP/CDE": "MDP/CDE",
+  "PPM": "PPM",
+  "UDP": "UDP",
+  "ID": "ID",
+  "DR": "DR",
+  "JPP": "JPP",
+  "": "Sin identificar"
+ },
+ "revisar": [
+  {
+   "etiquetas": [
+    "PRD",
+    "PS",
+    "PCP",
+    "Indep",
+    "CH",
+    "BE",
+    "UDP",
+    "UEDS",
+    "ASDI",
+    "MDP/CDE",
+    "PPM"
+   ],
+   "decision": "Tipo «trayectoria». La tabla solo unifica etiquetas; no puede corregir intervenciones asignadas al partido final del diputado.",
+   "alternativa": "Recalcular el partido de cada intervención a partir de la sigla de la cabecera del Diário («O Sr. X (PCP)») y, en las filas de continuación, de la última cabecera del mismo orador.",
+   "motivo": "El 99,0 % de las filas lleva la etiqueta más frecuente de su diputado (2.262 de 2.403 diputados tienen al menos el 95 % de sus filas con una sola etiqueta), que suele ser la de su último partido: PRD en 1976-1985 (14.663 filas antes de su fundación), CH en 2005-2009, BE en 1992; UDP solo tiene 14 filas frente a unas 2.500 cabeceras «(UDP)». En el 7 % de las filas con sigla en la cabecera (51.666) la etiqueta contradice esa sigla y coincide con la del diputado."
+  },
+  {
+   "etiquetas": [
+    "PS",
+    "PSD"
+   ],
+   "decision": "Se mantienen como partidos distintos, sin cambios.",
+   "alternativa": "Corregir en origen: sustituir la etiqueta de las filas afectadas por el partido habitual del diputado en esa legislatura.",
+   "motivo": "Los 278 diputados que comparten PS y PSD no son filas con el partido de otro orador: en 273 la etiqueta minoritaria procede de cabeceras con la sigla equivocada («O Sr. Guilherme Silva (PS)», «O Sr. José Magalhães (PSD)»), errata del Diário o del OCR que el CSV copia (709 de las 826 filas minoritarias; mediana del 0,4 % de las filas del diputado). Solo dos casos reflejan un cambio real de partido: Helena Roseta (PSD → PS) y Francisco Torres (PSD en 1995-1999, PS desde 1999)."
+  },
+  {
+   "etiquetas": [
+    "PCP",
+    "PEV",
+    "OS VERDES"
+   ],
+   "decision": "PCP y PEV quedan separados; las intervenciones de PEV etiquetadas PCP siguen en PCP.",
+   "alternativa": "Recalcular desde la cabecera, como en el primer punto.",
+   "motivo": "10.176 de las 15.192 filas con cabecera «(Os Verdes)» o «(PEV)» llevan la etiqueta PCP (CDU), lo que infla el PCP y reduce el PEV en léxico y redes."
+  },
+  {
+   "etiquetas": [
+    "CDS",
+    "CDS-PP"
+   ],
+   "decision": "Se funden en CDS-PP (cambio de nombre de 24-1-1993).",
+   "alternativa": "Ninguna razonable; con fusión o sin ella las etiquetas ya están mezcladas.",
+   "motivo": "Las filas con cabecera «(CDS)» anteriores a 1993 llevan CDS-PP y sus continuaciones («O Orador») llevan CDS, para los mismos 84 diputados."
+  },
+  {
+   "etiquetas": [
+    "DR"
+   ],
+   "decision": "Sigla DR, la que usa el Diário en las cabeceras.",
+   "alternativa": "Usar «Reformadores» como sigla visible.",
+   "motivo": "No he encontrado una sigla oficial del agrupamento; «(DR)» es la forma del Diário en 1980."
+  }
+ ],
+ "tipo_propuesto": "trayectoria"
+}
