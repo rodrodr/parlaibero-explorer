@@ -2582,6 +2582,7 @@ async function loadLibraryItems(cid) {
   const mine = ++S.libSeq;
   S.libSel = cid;
   S.lex.ctrl?.abort(); ++S.lex.seq;
+  menAbortar();
   $$('.lib-card').forEach(e => e.classList.toggle('sel', +e.dataset.lib === cid));
   listHead();
   $('#hits').innerHTML = `<div class="empty"><span class="spin"></span></div>`;
@@ -2595,6 +2596,7 @@ async function loadLibraryItems(cid) {
     renderLibHead();
     if (S.libTab === 'lexico') lexLoad();
     else if (S.libTab === 'coocurrencias') cooLoad();
+    else if (S.libTab === 'menciones') menLoad();
     else renderLibItems();
   } catch (e) {
     if (mine !== S.libSeq) return;
@@ -2615,7 +2617,9 @@ function renderLibHead() {
     + `<button type="button" role="tab" data-libtab="lexico" aria-selected="${S.libTab === 'lexico'}"`
     + ` title="Términos característicos de la biblioteca frente al resto del corpus (keyness)">Léxico</button>`
     + `<button type="button" role="tab" data-libtab="coocurrencias" aria-selected="${S.libTab === 'coocurrencias'}"`
-    + ` title="Red de coocurrencias de los términos del léxico y temas detectados en ella con el algoritmo de Leiden">Coocurrencias</button></div>`
+    + ` title="Red de coocurrencias de los términos del léxico y temas detectados en ella con el algoritmo de Leiden">Coocurrencias</button>`
+    + `<button type="button" role="tab" data-libtab="menciones" aria-selected="${S.libTab === 'menciones'}"`
+    + ` title="Personas mencionadas en las intervenciones y red de quién menciona a quién">Menciones</button></div>`
     + (S.libTab === 'lexico' || S.libTab === 'coocurrencias'
       ? `<label class="chk lex-solo" title="Excluye listas de votación, crónica del acta, acotaciones, tablas y notas">`
         + `<input type="checkbox" id="lexSolo"${S.lex.solo ? ' checked' : ''}><span class="lbl">Solo discurso</span></label>`
@@ -2648,8 +2652,10 @@ function libTabClick(e) {
   renderLibHead();
   if (tab !== 'lexico') { S.lex.ctrl?.abort(); ++S.lex.seq; }
   if (tab !== 'coocurrencias') { S.coo.ctrl?.abort(); ++S.coo.seq; }
+  if (tab !== 'menciones') menAbortar();
   if (tab === 'lexico') lexLoad();
   else if (tab === 'coocurrencias') cooLoad();
+  else if (tab === 'menciones') menLoad();
   else renderLibItems();
 }
 
@@ -6017,6 +6023,7 @@ function resetAll() {
   S.readMode = 'speech'; ++S.readSeq;
   S.careo.ctrl?.abort(); S.careo = careoState();
   S.libTab = 'items'; S.libInfo = null; S.lex.ctrl?.abort(); ++S.lex.seq;
+  menAbortar(); MEN.cache.clear();
 
   $('#q').value = '';
   $('#variants').checked = false;

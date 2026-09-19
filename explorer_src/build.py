@@ -64,6 +64,16 @@ def partidos_registro():
         return json.load(f).get('paises') or {}
 
 
+def menciones_registro():
+    """Formas de tratamiento, jefes de Estado y de Gobierno, figuras históricas y nombres de pila por país
+    (datos/menciones_parlaibero.json): los usa el detector de menciones del worker. {} si no existe."""
+    ruta = os.path.join(ROOT, 'datos', 'menciones_parlaibero.json')
+    if not os.path.exists(ruta):
+        return {}
+    with open(ruta, encoding='utf-8') as f:
+        return json.load(f)
+
+
 def datos_json(rel, web=None):
     d = json.loads(leer(rel).decode('utf-8'))
     if BUILD_ID and isinstance(d.get('edicion'), dict):
@@ -79,6 +89,8 @@ def datos_json(rel, web=None):
         d['hitos'] = hitos_registro()
         # Partidos homogéneos por país: la ingesta guarda en party el partido canónico (R2.partidos en el worker).
         d['partidos'] = partidos_registro()
+        # Formas de tratamiento y tablas de jefes de Estado por país: las usa el detector de menciones (R2.menciones).
+        d['menciones'] = menciones_registro()
         # Palabras vacías publicadas por lengua (stopwords-iso, tools/palabras_vacias.py): las usan las coocurrencias.
         ruta_vacias = os.path.join(ROOT, 'datos', 'palabras_vacias.json')
         if os.path.exists(ruta_vacias):

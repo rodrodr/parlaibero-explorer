@@ -320,6 +320,58 @@ de Node.
 | El Salvador, siete términos de agenda | 14.498 | 5,8 s | 2,6 s |
 | Brasil, reforma tributaria | 85.318 | 54 s | 23 s |
 
+## Menciones a personas
+
+La pestaña «Menciones» de una biblioteca reconoce a las personas nombradas en sus intervenciones y construye la red de
+quién menciona a quién. Motor en `worker/45_engine__menciones.js`, ruta `GET /collections/{cid}/mentions` en
+`worker/45b_engine__rutas_menciones.js` (prioridad de fondo: cede el hilo por trozos, así que las búsquedas y el lector
+siguen respondiendo), interfaz en `page/22_menciones.js` y `page/23_menciones_red.js`, estilos en `css/style_06.css`.
+
+Qué lee: las intervenciones de discurso de la biblioteca (`dm_speech = 1`) y, sin texto, **todas las de sus sesiones**,
+que sitúan los turnos de la Mesa aunque la biblioteca guarde solo una parte; si pasan de 250.000 filas se usan solo las de
+la biblioteca. También la lista de oradores del corpus (nombre, partido, sexo, legislatura y turnos de Gobierno), que sirve
+para identificar y desempatar.
+
+1. **Formas de tratamiento**, en `datos/menciones_parlaibero.json` (16 países, 282 KiB; lo genera
+   `tools/menciones_parlaibero.cjs` a partir de `tools/menciones_formas.cjs` y `tools/menciones_nombres_pila.json`).
+   Salen del sondeo de los propios corpus —qué palabras preceden a los apellidos de los miembros—: «señor diputado» en
+   Argentina, «diputado señor» en Chile, «doctor» en Colombia, «don» en Costa Rica, «asambleísta» en Ecuador, «congresista»
+   en Perú, «Sr. Deputado» en Portugal, «señor representante» en Uruguay. Cada forma es de miembro, de tratamiento, de
+   gobierno, descriptiva o externa (un cargo que no ocupa quien tiene escaño: senador, gobernador, alcalde, juez).
+2. **Identificación**: el nombre que sigue a la forma se casa con los oradores del corpus, con o sin tildes. En castellano
+   se nombra por el primer apellido y, si es de los diez más comunes, por los dos; en portugués, también por el nombre de
+   pila. Los apellidos compartidos se desempatan por el sexo del tratamiento, por quien preside la sesión, por el cargo en
+   el Gobierno de esa legislatura, por la actividad en el corpus y, al final, por cómo llama la biblioteca a cada uno. El
+   apellido suelto solo cuenta si la biblioteca lo usa con tratamiento al menos tres veces.
+3. **Personas externas**: con su cargo («ministro X», «senador Y») o, ya identificadas por el cargo, por su nombre solo.
+   Los jefes de Estado y de Gobierno salen de las tablas del registro (178 mandatos, fechas contrastadas con Wikidata):
+   el nodo externo vale **desde el inicio de su mandato**; antes, si tuvieron escaño, es su nodo de miembro.
+4. **Qué no cuenta**: los turnos de quien preside y de la Mesa (secretarios, relatores; en Guatemala y El Salvador la
+   presidencia se infiere de quién tiene al menos la cuarta parte de los turnos, y cortos), el protocolo dirigido a la
+   Presidencia, las fórmulas de dar la palabra, las lecturas de dictámenes, las automenciones, las acotaciones entre
+   paréntesis, las listas de asistencia y de votación, los usos genéricos del cargo y los cargos subnacionales. Las
+   menciones de la Mesa sí sirven como prueba de cómo se llama a cada persona.
+5. **Red y focos**: aristas dirigidas de quien habla a quien nombra; los focos son comunidades de Leiden sobre la red sin
+   dirección (resolución 0,6, 1 o 1,6, semilla fija), con la modularidad y la información mutua normalizada con los
+   partidos. No son coaliciones: un foco reúne a quienes hablan de las mismas personas, a favor o en contra.
+
+La vista de la red combina una agrupación (sectores por partido o por foco), un sentido (todas las menciones, las hechas
+o las recibidas), un filtro de conexiones de dos o más menciones y un modo ego que la rehace alrededor de una persona.
+Los anillos son cuantiles de la medida del sentido elegido, sin partir empates.
+
+Precisión medida a mano en tres rondas sobre muestras de los 16 países (siete categorías por país): alrededor de nueve de
+cada diez menciones señalan a la persona correcta. El recuerdo no está medido: faltan las referencias indirectas («su
+señoría», «el relator», «el orador que me ha precedido»). El error que más queda es el cargo usado en abstracto («el
+presidente de la República» en una norma) y las lecturas de la Secretaría atribuidas a un diputado, sobre todo en Guatemala.
+
+Exportaciones: una fila por mención en CSV (quién habla, a quién menciona, cómo, la fecha y las palabras con las que la
+nombra) y la red dirigida en GEXF para Gephi, las dos con los parámetros y la cita del conjunto de datos.
+
+| biblioteca | intervenciones | menciones | tiempo |
+|---|---|---|---|
+| España, «constitución» 1977-1979 | 2.083 (2.006 con discurso) | 3.431 | 16 s |
+| España, 1.500 intervenciones seguidas | 1.500 | 335 | 0,7 s |
+
 ## Edición web (GitHub Pages)
 
 `build.py` produce a la vez el HTML autónomo (`../Diarios_Explorer.html`) y la edición web en `../docs/`: `index.html`,
