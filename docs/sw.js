@@ -1,9 +1,9 @@
 /* Service worker de la edición web de ParlaIbero · Explorador de Diarios de Sesiones.
  * Guarda en caché la aplicación (HTML, CSS, JS, worker, wasm y capitulares) para abrirla sin conexión; la versión
  * es el build_id del ensamblado, así que cada ensamblado nuevo se instala aparte y se activa al recargar. */
-const VERSION = '9bfe34e950d6b895';
+const VERSION = 'a4144cbf88fa99b6';
 const CACHE = `diarios-explorer-${VERSION}`;
-const PRECARGA = ["./", "./index.html", "./app.css?v=9bfe34e950d6b895", "./app.js?v=9bfe34e950d6b895", "./worker.js?v=9bfe34e950d6b895", "./sqlite3.wasm?v=9bfe34e950d6b895"];
+const PRECARGA = ["./", "./index.html", "./app.css?v=a4144cbf88fa99b6", "./app.js?v=a4144cbf88fa99b6", "./worker.js?v=a4144cbf88fa99b6", "./sqlite3.wasm?v=a4144cbf88fa99b6"];
 
 self.addEventListener('install', (ev) => {
   ev.waitUntil(caches.open(CACHE).then((c) => c.addAll(PRECARGA)).catch(() => {}));

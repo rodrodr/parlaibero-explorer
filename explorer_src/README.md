@@ -212,8 +212,9 @@ de «listo») y, si coincide, carga la tabla en lugar de detectar; la barra de p
 siempre y el informe de construcción guarda el motivo. Probado en El Salvador y Paraguay (una pasada y muestra con
 recuento exacto): la tabla cargada es idéntica a la detectada y la fase pasa de 5,2 a 0,6 s y de 18,4 a 1,5 s; en Brasil
 o México, de unos 90 s a unos 8 (estimado: casi todo es releer el archivo para la SHA-256). El HTML autónomo no las lleva
-y detecta siempre. Estado (19 de septiembre de 2026): 15 países, 23,7 MB; falta Ecuador, porque el CSV de `data/` no es
-el publicado (MD5 distinto).
+y detecta siempre. Estado (19 de septiembre de 2026): los 16 países, 25,8 MB, de las versiones publicadas en Dataverse
+(V2, salvo Perú, V1). La comprobación del MD5 evita generar tablas de archivos intermedios: la salida de estandarización
+de Ecuador, por ejemplo, lleva dos sesiones de enero de 2026 que el paquete publicado excluye.
 
 ```bash
 python3 explorer_src/tools/expresiones_precalculadas.py          # 4 construcciones a la vez; --paises BR,MX para algunos

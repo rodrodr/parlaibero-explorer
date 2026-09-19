@@ -1,7 +1,7 @@
 {
  "formato": 1,
  "version_expresiones": 2,
- "generado": "2026-09-19T02:43:09Z",
+ "generado": "2026-09-19T02:52:59Z",
  "paises": {
   "AR": {
    "csv": {
@@ -139,6 +139,29 @@
     "intervenciones": 101381,
     "muestra_1_de": 1,
     "frecuencia_minima": 20
+   }
+  },
+  "EC": {
+   "csv": {
+    "nombre": "EC_interventions.csv",
+    "bytes": 1153237752,
+    "sha256": "9e786e73c19886216cc287344ff998f96959d1f0c2d9024110b4993a53e6bbcc",
+    "md5": "6d7a0346b5eba781fecbebc3921c9fe1"
+   },
+   "dataverse": {
+    "doi": "10.7910/DVN/M2QJN6",
+    "version": "2.0",
+    "id_archivo": 14215090
+   },
+   "archivo": "EC.json.gz",
+   "bytes": 2075824,
+   "sha256": "9fd78cf0292db7d14378171094ba2962b8c2b50de45ed55578d7fe10cc0c1997",
+   "expresiones": 106290,
+   "resumen": {
+    "tokens": 151068414,
+    "intervenciones": 1280822,
+    "muestra_1_de": 7,
+    "frecuencia_minima": 37
    }
   },
   "ES": {
