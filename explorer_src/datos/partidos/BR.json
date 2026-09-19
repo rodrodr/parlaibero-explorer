@@ -304,8 +304,8 @@
    "nota": "Convención de abril de 2017; autorización del TSE el 2017-09-12."
   },
   {
-   "sigla": "Mobiliza",
-   "nombre": "Mobilização Nacional",
+   "sigla": "PMN",
+   "nombre": "Partido da Mobilização Nacional (Mobiliza desde 2023)",
    "etiquetas": [
     "PMN"
    ],
@@ -317,7 +317,7 @@
      "fuente": "https://pt.wikipedia.org/wiki/Mobilização_Nacional"
     }
    ],
-   "nota": "Mismo registro. Convención del 24-25 de julio de 2021, homologada por el TSE en diciembre de 2023. En el corpus solo aparece como PMN (2003-2019): véase «revisar»."
+   "nota": "Mismo registro. Convención del 24-25 de julio de 2021, homologada por el TSE en diciembre de 2023. En el corpus solo aparece como PMN (2003-2019): véase «revisar». Nombre del corpus."
   },
   {
    "sigla": "PHS",
@@ -338,8 +338,8 @@
    "nota": "Se fusionó con el PL de 1985 para crear el PR (2006-10-24, según https://pt.wikipedia.org/wiki/Partido_Liberal_(2006)): queda aparte (regla 4)."
   },
   {
-   "sigla": "Agir",
-   "nombre": "Agir",
+   "sigla": "PTC",
+   "nombre": "Partido Trabalhista Cristão (Agir desde 2022)",
    "etiquetas": [
     "PTC"
    ],
@@ -351,7 +351,7 @@
      "fuente": "https://www.portaldacapital.com/2022/04/01/tse-aprova-alteracao-e-partido-trabalhista-cristao-passa-a-se-chamar-agir/"
     }
    ],
-   "nota": "Mismo partido (antes PJ y PRN, según https://pt.wikipedia.org/wiki/Agir_(partido_político)). Convención de 2021; aprobación del TSE el 2022-03-31. En el corpus solo aparece como PTC (2006-2019): véase «revisar»."
+   "nota": "Mismo partido (antes PJ y PRN, según https://pt.wikipedia.org/wiki/Agir_(partido_político)). Convención de 2021; aprobación del TSE el 2022-03-31. En el corpus solo aparece como PTC (2006-2019): véase «revisar». Nombre del corpus."
   },
   {
    "sigla": "Patriota",
@@ -387,8 +387,8 @@
    "nota": "Cabeceras «(Sem Partido-UF)»."
   },
   {
-   "sigla": "Democrata",
-   "nombre": "Democrata",
+   "sigla": "PMB",
+   "nombre": "Partido da Mulher Brasileira (Democrata desde 2025)",
    "etiquetas": [
     "PMB"
    ],
@@ -400,7 +400,7 @@
      "fuente": "https://www.metropoles.com/colunas/grande-angular/tse-aprova-mudanca-em-partido-e-pmb-passa-a-se-chamar-democrata"
     }
    ],
-   "nota": "Cambio aprobado por el TSE el 2025-12-02, con 90 días para adaptar el estatuto. En el corpus solo aparece como PMB (2015-2017): véase «revisar»."
+   "nota": "Cambio aprobado por el TSE el 2025-12-02, con 90 días para adaptar el estatuto. En el corpus solo aparece como PMB (2015-2017): véase «revisar». Nombre del corpus."
   },
   {
    "sigla": "PRP",
@@ -507,18 +507,18 @@
   "CIDADANIA": "Cidadania",
   "SOLIDARIEDADE": "Solidariedade",
   "PTN": "Podemos",
-  "PMN": "Mobiliza",
+  "PMN": "PMN",
   "PHS": "PHS",
   "AVANTE": "Avante",
   "PTDOB": "Avante",
   "PRONA": "PRONA",
-  "PTC": "Agir",
+  "PTC": "PTC",
   "S.PART.": "Sem partido",
   "SDD": "Solidariedade",
   "PPB": "PP",
   "PATRIOTA": "Patriota",
   "PEN": "Patriota",
-  "PMB": "Democrata",
+  "PMB": "PMB",
   "PODEMOS": "Podemos",
   "PRP": "PRP",
   "PATRI": "Patriota",
@@ -544,7 +544,8 @@
    ],
    "decision": "Todas las filas PL van al PL actual (antes PR).",
    "alternativa": "Regla por fecha: las filas PL de la legislatura 52 (2003-02-01 a 2006-12-22; 30.547 PL + 1 BLOCOPL) → partido propio «PL (1985-2006)», distinto del PL actual.",
-   "motivo": "El PL de 1985 se fusionó con el PRONA en 2006 para crear el PR, que en 2019 recuperó el nombre PL. Por la regla 4 el predecesor no se funde, pero la etiqueta PL no distingue los dos partidos y la tabla por etiqueta no admite reglas por fecha. Las legislaturas 53-55 no tienen ninguna fila PL, así que el corte es limpio."
+   "motivo": "El PL de 1985 se fusionó con el PRONA en 2006 para crear el PR, que en 2019 recuperó el nombre PL. Por la regla 4 el predecesor no se funde, pero la etiqueta PL no distingue los dos partidos y la tabla por etiqueta no admite reglas por fecha. Las legislaturas 53-55 no tienen ninguna fila PL, así que el corte es limpio.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -552,7 +553,8 @@
    ],
    "decision": "Sin identificar.",
    "alternativa": "Corregir aguas arriba con la sigla que sigue a «Bloco/» en speaker_raw: Bloco/PR 11 filas (→ PL), Bloco/PL 7 (2003-2004, PL de 1985), Bloco/PP 2, Bloco/PT 1, Bloco/PV 1; «ROBERTO FREIRE (Bloco-SP)» 1 fila sin sigla. O bien un partido canónico propio «Bloco parlamentar».",
-   "motivo": "Error de lectura de cabeceras «(Bloco/PR)» sin UF: el parser tomó «Bloco» como partido (en las filas de 2011-2012 la sigla acabó en la columna district). 23 filas de 13 diputados de al menos 6 partidos; no hay un partido que asignar sin mirar cada fila."
+   "motivo": "Error de lectura de cabeceras «(Bloco/PR)» sin UF: el parser tomó «Bloco» como partido (en las filas de 2011-2012 la sigla acabó en la columna district). 23 filas de 13 diputados de al menos 6 partidos; no hay un partido que asignar sin mirar cada fila.",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -562,7 +564,8 @@
    ],
    "decision": "Nombre más reciente (regla 3): Agir, Mobiliza y Democrata.",
    "alternativa": "Mantener PTC, PMN y PMB, los únicos nombres con que aparecen en el corpus.",
-   "motivo": "Los tres cambios son posteriores a la última aparición del partido en los diarios (PTC hasta 2019 → Agir 2022; PMN hasta 2019 → Mobiliza 2021/2023; PMB hasta 2017 → Democrata, aprobado el 2025-12-02 y pendiente de ajustar el estatuto). El usuario verá en filtros y redes nombres que no figuran en ningún diario."
+   "motivo": "Los tres cambios son posteriores a la última aparición del partido en los diarios (PTC hasta 2019 → Agir 2022; PMN hasta 2019 → Mobiliza 2021/2023; PMB hasta 2017 → Democrata, aprobado el 2025-12-02 y pendiente de ajustar el estatuto). El usuario verá en filtros y redes nombres que no figuran en ningún diario.",
+   "estado": "Aplicada la alternativa (19-9-2026)."
   }
  ],
  "tipo_propuesto": "por intervencion"

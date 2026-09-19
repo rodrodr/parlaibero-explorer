@@ -478,8 +478,8 @@
    "nota": ""
   },
   {
-   "sigla": "Dignidad y Compromiso",
-   "nombre": "Dignidad y Compromiso (antes Dignidad)",
+   "sigla": "Dignidad",
+   "nombre": "Dignidad (Dignidad y Compromiso desde 2023)",
    "etiquetas": [
     "Partido Dignidad"
    ],
@@ -491,7 +491,7 @@
      "fuente": "https://www.infobae.com/colombia/2023/02/18/sergio-fajardo-y-jorge-robledo-lanzaron-oficialmente-su-nuevo-partido-politico-dignidad-y-compromiso/"
     }
    ],
-   "nota": "Dignidad (fundado en 2020, con personería) cambió de nombre al integrar a Compromiso Ciudadano, que no tenía personería: mismo partido con el nombre más reciente (regla 3). Único diputado, Jorge Gómez Gallego, elegido en 2018 por el Polo: 303 filas anteriores a la fundación de Dignidad (efecto trayectoria).",
+   "nota": "Dignidad (fundado en 2020, con personería) cambió de nombre al integrar a Compromiso Ciudadano, que no tenía personería: mismo partido con el nombre más reciente (regla 3). Único diputado, Jorge Gómez Gallego, elegido en 2018 por el Polo: 303 filas anteriores a la fundación de Dignidad (efecto trayectoria). Nombre del periodo del corpus.",
    "fuentes": [
     {
      "etiquetas": [
@@ -951,29 +951,11 @@
    "sigla": "Conservatismo Independiente",
    "nombre": "Movimiento Conservatismo Independiente",
    "etiquetas": [
-    "Movimiento Conservatismo Independiente"
-   ],
-   "cambios": [],
-   "nota": "Ver «revisar»."
-  },
-  {
-   "sigla": "Movimiento Conservatismo",
-   "nombre": "Movimiento Conservatismo",
-   "etiquetas": [
+    "Movimiento Conservatismo Independiente",
     "Movimiento Conservatismo"
    ],
    "cambios": [],
-   "nota": "Ver «revisar».",
-   "fuentes": [
-    {
-     "etiquetas": [
-      "Movimiento Conservatismo"
-     ],
-     "fuente": "https://congresovisible.uniandes.edu.co/congresistas/perfil/oscar-fernando-bravo-realpe/398/",
-     "consultado": "2026-09-19",
-     "cita": "Congreso Visible: 1998-2002 «Movimiento Conservatismo»; después «Conservador Colombiano»."
-    }
-   ]
+   "nota": "Ver «revisar». «Movimiento Conservatismo» se une como variante (19-9-2026)."
   },
   {
    "sigla": "Movimiento Nacional Conservador",
@@ -1529,7 +1511,7 @@
   "Movimiento Frente Social y Político": "Frente Social y Político",
   "Colombia Humana": "Colombia Humana",
   "Movimiento Colombia Siempre": "Colombia Siempre",
-  "Partido Dignidad": "Dignidad y Compromiso",
+  "Partido Dignidad": "Dignidad",
   "Partido Conservador": "Partido Conservador",
   "Opción Ciudadana": "Opción Ciudadana",
   "Partido Colombia Renaciente": "Colombia Renaciente",
@@ -1609,7 +1591,7 @@
   "Funeco": "Todos Somos Colombia",
   "Consejo Cominitario de los Corregimientos de San Antonio y del Castillo": "Consejo Comunitario San Antonio y El Castillo",
   "Movimiento Nueva Fuerza Democrática": "Nueva Fuerza Democrática",
-  "Movimiento Conservatismo": "Movimiento Conservatismo",
+  "Movimiento Conservatismo": "Conservatismo Independiente",
   "Movimiento Nuevo Liberalismo": "Mov. Nuevo Liberalismo (1999-2006)",
   "Movimiento Comunal y Comunitario de Colombia": "Movimiento Comunal y Comunitario",
   "Movimiento Nacional Progresista": "Movimiento Nacional Progresista",
@@ -1631,7 +1613,8 @@
    ],
    "decision": "Fundidas en Opción Ciudadana (Convergencia Ciudadana → PIN en 2009 → Opción Ciudadana en 2013).",
    "alternativa": "Mantener Convergencia Ciudadana como partido propio y fundir solo PIN y Opción Ciudadana.",
-   "motivo": "El Tiempo (09-11-2009) y Wikipedia en inglés hablan de cambio de nombre; Wikipedia en español dice que en la convención de Convergencia se creó un «nuevo» PIN."
+   "motivo": "El Tiempo (09-11-2009) y Wikipedia en inglés hablan de cambio de nombre; Wikipedia en español dice que en la convención de Convergencia se creó un «nuevo» PIN.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1644,7 +1627,8 @@
    ],
    "decision": "Cada etiqueta de coalición tiene un solo diputado y se asigna a su partido (regla 2): las tres primeras al Partido Liberal, las dos siguientes al Partido Conservador y la última a Alianza Verde.",
    "alternativa": "Tratar cada coalición como partido canónico propio.",
-   "motivo": "El partido del diputado sale de Congreso Visible, del anexo de electos de 2002 o de la prensa. Para Gómez Celis y Jaimes Ochoa se deduce de su cuatrienio siguiente; son 42 filas."
+   "motivo": "El partido del diputado sale de Congreso Visible, del anexo de electos de 2002 o de la prensa. Para Gómez Celis y Jaimes Ochoa se deduce de su cuatrienio siguiente; son 42 filas.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1653,7 +1637,8 @@
    ],
    "decision": "Fundidas en Alianza Verde: cambios de nombre con continuidad (Wikipedia la fecha en 2005 y Congreso Visible en 2009).",
    "alternativa": "Mantenerlas separadas y tratar Alianza Verde como partido nuevo de 2013 (regla 4).",
-   "motivo": "La web del partido describe 2013 como «fusión» con Progresistas, pero la decidió el congreso del Partido Verde y Progresistas no tenía personería."
+   "motivo": "La web del partido describe 2013 como «fusión» con Progresistas, pero la decidió el congreso del Partido Verde y Progresistas no tenía personería.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1661,7 +1646,8 @@
    ],
    "decision": "Dignidad y Compromiso, nombre actual del mismo partido (regla 3).",
    "alternativa": "Mostrarlo como «Dignidad», que es el nombre del partido durante el periodo del único diputado.",
-   "motivo": "La continuidad legal se apoya en que Dignidad aportó la personería (Semana, 17-01-2023); la prensa del lanzamiento habla de «nuevo partido»."
+   "motivo": "La continuidad legal se apoya en que Dignidad aportó la personería (Semana, 17-01-2023); la prensa del lanzamiento habla de «nuevo partido».",
+   "estado": "Aplicada la alternativa (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1672,7 +1658,8 @@
    ],
    "decision": "Cuatro partidos distintos: Pacto Histórico es una coalición y después un partido nacido por fusión; los predecesores no se funden (regla 4).",
    "alternativa": "Agrupar en «Pacto Histórico» a quienes acabaron en él, para el análisis político.",
-   "motivo": "La fusión (2025-2026) es posterior a casi todas las filas de Polo y Colombia Humana."
+   "motivo": "La fusión (2025-2026) es posterior a casi todas las filas de Polo y Colombia Humana.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1682,7 +1669,8 @@
    ],
    "decision": "Separados, cada uno con su nombre.",
    "alternativa": "Fundir «Movimiento Conservatismo» con «Movimiento Conservatismo Independiente» o asignar los tres al Partido Conservador si se prueban sectores suyos.",
-   "motivo": "No hay fuente que confirme su relación con el Partido Conservador. En el anexo de 2002, Gerlein figura como Partido Conservador, pero su etiqueta es «Conservatismo Independiente». Son 37 filas."
+   "motivo": "No hay fuente que confirme su relación con el Partido Conservador. En el anexo de 2002, Gerlein figura como Partido Conservador, pero su etiqueta es «Conservatismo Independiente». Son 37 filas.",
+   "estado": "Aplicada la alternativa (se funden «Movimiento Conservatismo» y «Movimiento Conservatismo Independiente»; el Movimiento Nacional Conservador sigue aparte) (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1691,7 +1679,8 @@
    ],
    "decision": "Fundidas en Fuerza Progresista: «Nacional» parece un error de la etiqueta.",
    "alternativa": "Mantener separada «Fuerza Nacional Progresista».",
-   "motivo": "Congreso Visible da «Fuerza Progresista» al cuatrienio 1998-2002 de Jiménez Salazar, que el CSV etiqueta como «Fuerza Nacional Progresista». No se ha encontrado un partido con ese nombre."
+   "motivo": "Congreso Visible da «Fuerza Progresista» al cuatrienio 1998-2002 de Jiménez Salazar, que el CSV etiqueta como «Fuerza Nacional Progresista». No se ha encontrado un partido con ese nombre.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1700,7 +1689,8 @@
    ],
    "decision": "Separados.",
    "alternativa": "Fundirlos por el nombre.",
-   "motivo": "La sentencia SU-257/21 distingue el Movimiento Nuevo Liberalismo (1999-2006) del Partido Nuevo Liberalismo de Galán."
+   "motivo": "La sentencia SU-257/21 distingue el Movimiento Nuevo Liberalismo (1999-2006) del Partido Nuevo Liberalismo de Galán.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1709,7 +1699,8 @@
    ],
    "decision": "Fundidas con el nombre más reciente, Todos Somos Colombia.",
    "alternativa": "Usar «Funeco» como nombre canónico, que es el nombre con que obtuvo las curules afro de 2014.",
-   "motivo": "Congreso Visible confirma el cambio de nombre pero sin fecha."
+   "motivo": "Congreso Visible confirma el cambio de nombre pero sin fecha.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1723,7 +1714,8 @@
    ],
    "decision": "Se asigna por etiqueta, sin corregir fechas.",
    "alternativa": "Corregir con una tabla por diputado y cuatrienio: la etiqueta de un cuatrienio sin registro propio se copia de otro.",
-   "motivo": "Unas 2.770 filas llevan un partido que aún no existía en la fecha de la intervención (Centro Democrático 280, Pacto Histórico 1.078, Partido de la U 255, Polo 378, Dignidad 303, Colombia Humana 475). Hay además filas con otro partido que sí existía, que no pueden contarse así."
+   "motivo": "Unas 2.770 filas llevan un partido que aún no existía en la fecha de la intervención (Centro Democrático 280, Pacto Histórico 1.078, Partido de la U 255, Polo 378, Dignidad 303, Colombia Humana 475). Hay además filas con otro partido que sí existía, que no pueden contarse así.",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   }
  ],
  "tipo_propuesto": "trayectoria"

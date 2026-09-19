@@ -41,7 +41,7 @@ def blob(nombre, datos, atributos=''):
             f'data-bytes="{len(datos)}" data-sha256="{sha}"{atributos}>{b64}</script>\n').encode('utf-8')
 
 
-BUILD_ID = None  # se fija en main() a partir del contenido del worker
+BUILD_ID = None  # se fija en main() a partir del contenido del worker y del registro de partidos
 VERSION_WEB = None  # se fija en main(): huella de todas las fuentes (código, estilos, datos); versiona la caché de la edición web
 
 
@@ -171,7 +171,9 @@ def construir_web(destino):
 def main():
     global BUILD_ID
     partes_worker = [leer('vendor/sqlite3.js')] + [leer(rel) for rel in archivos('worker', '.js')]
-    BUILD_ID = hashlib.sha256(b''.join(partes_worker)).hexdigest()[:16]
+    # el registro de partidos cambia lo que la ingesta guarda: con otro registro, la base se reconstruye
+    registro = [leer('datos/partidos_parlaibero.json')] if os.path.isfile(os.path.join(ROOT, 'datos', 'partidos_parlaibero.json')) else []
+    BUILD_ID = hashlib.sha256(b''.join(partes_worker + registro)).hexdigest()[:16]
     global VERSION_WEB
     fuentes = [leer(rel) for sub, ext in (('html', '.html'), ('css', '.css'), ('page', '.js'), ('web', '.js'), ('datos', '.json'))
                for rel in archivos(sub, ext)] + [leer('assets/capitales.json')] + partes_worker

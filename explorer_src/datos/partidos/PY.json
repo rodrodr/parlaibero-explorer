@@ -27,20 +27,12 @@
    "sigla": "PEN",
    "nombre": "Partido Encuentro Nacional",
    "etiquetas": [
-    "Partido Encuentro Nacional"
-   ],
-   "cambios": [],
-   "nota": "En 1993-1998 la etiqueta cubre a la bancada elegida en la lista de la Alianza Encuentro Nacional, incluidos miembros de otros partidos de la coalición (p. ej., Euclides Acevedo, afiliado febrerista). Véase AEN."
-  },
-  {
-   "sigla": "AEN",
-   "nombre": "Alianza Encuentro Nacional (coalición electoral de 1993)",
-   "etiquetas": [
+    "Partido Encuentro Nacional",
     "AEN",
     "Alianza Encuentro Nacional"
    ],
    "cambios": [],
-   "nota": "Coalición de 1993 del Movimiento Encuentro Nacional con el Partido Revolucionario Febrerista, Asunción para Todos y el Partido Demócrata Cristiano (https://es.wikipedia.org/wiki/Partido_Encuentro_Nacional). Las dos etiquetas son sigla y nombre de lo mismo (regla 1). Sus tres diputados son suplentes de 1993-1998 de distintos partidos: Juan Fernando Kurz (afiliado al Encuentro Nacional), Carlos María Ljubetich (febrerista; la banca fue disputada entre ambos, Diario de Sesiones del 18-5-1995) y Julio Alberto Perrota (PEN en 1998-2003). Por eso queda como alianza (regla 2)."
+   "nota": "En 1993-1998 la etiqueta cubre a la bancada elegida en la lista de la Alianza Encuentro Nacional, incluidos miembros de otros partidos de la coalición (p. ej., Euclides Acevedo, afiliado febrerista). Véase AEN. La Alianza Encuentro Nacional (1993) va al PEN, como el resto de su bancada (19-9-2026)."
   },
   {
    "sigla": "AD",
@@ -206,8 +198,8 @@
   "A.P.C.": "PLRA",
   "P.C.H.": "PLRA",
   "Partido Encuentro Nacional": "PEN",
-  "AEN": "AEN",
-  "Alianza Encuentro Nacional": "AEN",
+  "AEN": "PEN",
+  "Alianza Encuentro Nacional": "PEN",
   "Alianza": "AD",
   "Alianza Democrática": "AD",
   "Partido Patria Querida": "PPQ",
@@ -234,7 +226,8 @@
    ],
    "decision": "partido propio AEN (coalición de 1993)",
    "alternativa": "fundir en PEN",
-   "motivo": "Es una coalición de varios partidos y sus diputados etiquetados son de partidos distintos (Kurz, Encuentro Nacional; Ljubetich, febrerista): regla 2. Pero el CSV ya etiqueta como PEN al resto de la bancada de la Alianza Encuentro Nacional de 1993-1998 (incluido el febrerista Euclides Acevedo), de modo que separar parte en dos la misma bancada (213 filas frente a 14.308)."
+   "motivo": "Es una coalición de varios partidos y sus diputados etiquetados son de partidos distintos (Kurz, Encuentro Nacional; Ljubetich, febrerista): regla 2. Pero el CSV ya etiqueta como PEN al resto de la bancada de la Alianza Encuentro Nacional de 1993-1998 (incluido el febrerista Euclides Acevedo), de modo que separar parte en dos la misma bancada (213 filas frente a 14.308).",
+   "estado": "Aplicada la alternativa (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -243,7 +236,8 @@
    ],
    "decision": "partido propio AD (Alianza Democrática PLRA–PEN de 1998), con las dos etiquetas",
    "alternativa": "dejar «Alianza» aparte, como alianza sin identificar",
-   "motivo": "Que «Alianza» sea la Alianza Democrática es una deducción (solo aparece en 1998-2003 y fue la única alianza con escaños en 1998). Sus diputados son de los dos partidos (Chilavert, PLRA; Gutiérrez Acosta, bancada del PEN), así que no se pueden asignar a uno solo."
+   "motivo": "Que «Alianza» sea la Alianza Democrática es una deducción (solo aparece en 1998-2003 y fue la única alianza con escaños en 1998). Sus diputados son de los dos partidos (Chilavert, PLRA; Gutiérrez Acosta, bancada del PEN), así que no se pueden asignar a uno solo.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -251,7 +245,8 @@
    ],
    "decision": "PLRA",
    "alternativa": "partido propio GANAR (alianza)",
-   "motivo": "GANAR era una coalición de siete partidos, pero la encabezaba el PLRA y sus 5 diputados etiquetados son del PLRA (regla 2). Si se quiere ver la alianza como tal, separarla (788 filas)."
+   "motivo": "GANAR era una coalición de siete partidos, pero la encabezaba el PLRA y sus 5 diputados etiquetados son del PLRA (regla 2). Si se quiere ver la alianza como tal, separarla (788 filas).",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -260,7 +255,8 @@
    ],
    "decision": "PLRA",
    "alternativa": "partidos propios: APC (Alianza Patriótica para el Cambio, 2008) y Alianza Pasión Chaqueña (2013)",
-   "motivo": "Etiquetas de un solo diputado, Julio Enrique Mineur, militante del PLRA que encabezó alianzas en Presidente Hayes (ficha de SILpy; bancada «A» del PLRA en 2009). Que P.C.H. sea Pasión Chaqueña se deduce de que Mineur fue el único diputado de esa alianza en 2013; ninguna fuente consultada desarrolla la sigla."
+   "motivo": "Etiquetas de un solo diputado, Julio Enrique Mineur, militante del PLRA que encabezó alianzas en Presidente Hayes (ficha de SILpy; bancada «A» del PLRA en 2009). Que P.C.H. sea Pasión Chaqueña se deduce de que Mineur fue el único diputado de esa alianza en 2013; ninguna fuente consultada desarrolla la sigla.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -268,7 +264,8 @@
    ],
    "decision": "PPQ",
    "alternativa": "partido propio A.D.B.",
-   "motivo": "Sigla sin identificar (probablemente una alianza en Boquerón) con la que SILpy registra a Orlando Penner en 2008-2013. Penner es fundador del PPQ y en 2008-2010 actuaba en la bancada del PPQ."
+   "motivo": "Sigla sin identificar (probablemente una alianza en Boquerón) con la que SILpy registra a Orlando Penner en 2008-2013. Penner es fundador del PPQ y en 2008-2010 actuaba en la bancada del PPQ.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -278,7 +275,8 @@
    ],
    "decision": "UNACE",
    "alternativa": "ninguna razonable",
-   "motivo": "Riesgo bajo. «Colorados Éticos» fue el nombre del movimiento oviedista dentro de la ANR hasta 2002, pero en el CSV solo se aplica a diputados elegidos por UNACE en 2003 y 2008, que se presentaban como bancada del Partido Unión Nacional de Ciudadanos Éticos."
+   "motivo": "Riesgo bajo. «Colorados Éticos» fue el nombre del movimiento oviedista dentro de la ANR hasta 2002, pero en el CSV solo se aplica a diputados elegidos por UNACE en 2003 y 2008, que se presentaban como bancada del Partido Unión Nacional de Ciudadanos Éticos.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   }
  ],
  "tipo_propuesto": "por legislatura"

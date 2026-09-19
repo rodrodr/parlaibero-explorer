@@ -203,10 +203,11 @@
    "sigla": "PSC",
    "nombre": "Partido Social Cristiano",
    "etiquetas": [
-    "PSC"
+    "PSC",
+    "PCC"
    ],
    "cambios": [],
-   "nota": "Fundado el 2022-09-23 por exmilitantes del Partido Conservador Cristiano, ya disuelto, e independientes (https://es.wikipedia.org/wiki/Partido_Social_Cristiano_(Chile,_2022)). Separado del PCC: véase «revisar»."
+   "nota": "Fundado el 2022-09-23 por exmilitantes del Partido Conservador Cristiano, ya disuelto, e independientes (https://es.wikipedia.org/wiki/Partido_Social_Cristiano_(Chile,_2022)). Separado del PCC: véase «revisar». PCC (2021-2022) se une al PSC, su sucesor: la misma diputada (19-9-2026)."
   },
   {
    "sigla": "IC",
@@ -270,15 +271,6 @@
    "nota": "Escisión de RN (2014-2018) (https://es.wikipedia.org/wiki/Amplitud_(partido_político))."
   },
   {
-   "sigla": "PCC",
-   "nombre": "Partido Conservador Cristiano",
-   "etiquetas": [
-    "PCC"
-   ],
-   "cambios": [],
-   "nota": "Fundado en 2020 y disuelto el 2022-02-03 (https://es.wikipedia.org/wiki/Partido_Conservador_Cristiano). Único diputado: Sara Concha."
-  },
-  {
    "sigla": "PRO",
    "nombre": "Partido Progresista",
    "etiquetas": [
@@ -327,7 +319,7 @@
   "UCP": "UCCP",
   "PNL": "PNL",
   "AMPL": "Amplitud",
-  "PCC": "PCC",
+  "PCC": "PSC",
   "PRO": "PRO",
   "IGUAL": "Igualdad"
  },
@@ -338,7 +330,8 @@
    ],
    "decision": "Un solo partido: PR (Partido Radical de Chile, antes PRSD).",
    "alternativa": "Regla por fecha: filas anteriores al 1994-08-18 (1.742, diputados radicales del periodo 1990-1994) → partido propio «Partido Radical (hasta 1994)».",
-   "motivo": "El PRSD nació de una fusión (regla 4: los predecesores no se funden), pero se declaró heredero del Partido Radical y en 2018 recuperó el nombre. La etiqueta PR no distingue los dos momentos."
+   "motivo": "El PRSD nació de una fusión (regla 4: los predecesores no se funden), pero se declaró heredero del Partido Radical y en 2018 recuperó el nombre. La etiqueta PR no distingue los dos momentos.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -347,7 +340,8 @@
    ],
    "decision": "Partidos separados.",
    "alternativa": "Fundirlos en PSC: la página del PCC dice que el grupo intentó recuperar la legalidad en noviembre de 2022 con el nombre Partido Social Cristiano.",
-   "motivo": "El PCC fue disuelto el 2022-02-03 y el PSC es una inscripción nueva, fundada por exmilitantes e independientes: sucesor sin continuidad legal (regla 5). Afecta a Sara Concha (57 filas PCC, 176 PSC)."
+   "motivo": "El PCC fue disuelto el 2022-02-03 y el PSC es una inscripción nueva, fundada por exmilitantes e independientes: sucesor sin continuidad legal (regla 5). Afecta a Sara Concha (57 filas PCC, 176 PSC).",
+   "estado": "Aplicada la alternativa (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -356,7 +350,8 @@
    ],
    "decision": "Un solo partido: PL (Partido Liberal de Chile).",
    "alternativa": "Separar PL (2014-2018) y LIBERAL (2018-2025).",
-   "motivo": "El cambio de etiqueta coincide con el cambio de periodo legislativo, no con un hecho legal; las disoluciones y reinscripciones del partido (2014, 2016, 2018) caen dentro del tramo PL o en torno a 2018, y la fuente lo trata como un mismo partido."
+   "motivo": "El cambio de etiqueta coincide con el cambio de periodo legislativo, no con un hecho legal; las disoluciones y reinscripciones del partido (2014, 2016, 2018) caen dentro del tramo PL o en torno a 2018, y la fuente lo trata como un mismo partido.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -366,7 +361,8 @@
    ],
    "decision": "Una sola entidad por etiqueta.",
    "alternativa": "Reglas por fecha: PRI desde el 2018-02-20 (196 filas, Enrique Lee) → «PRI Demócrata»; PH de 1990-1991 (50 filas, Laura Rodríguez) separado del PH reinscrito.",
-   "motivo": "Etiquetas que abarcan entidades legales sucesivas: fusión del PRI con Democracia Regional Patagónica en 2018 (misma sigla); fusión del PH con Los Verdes en 1991 y reinscripción en 2023; disolución de la IC en 2014 y reinscripción en 2016. En los tres casos la continuidad política es clara y la etiqueta no permite separar."
+   "motivo": "Etiquetas que abarcan entidades legales sucesivas: fusión del PRI con Democracia Regional Patagónica en 2018 (misma sigla); fusión del PH con Los Verdes en 1991 y reinscripción en 2023; disolución de la IC en 2014 y reinscripción en 2016. En los tres casos la continuidad política es clara y la etiqueta no permite separar.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -378,7 +374,8 @@
    ],
    "decision": "Mantener la asignación; no es un problema de la tabla.",
    "alternativa": "Corregir el emparejamiento aguas arriba (unas 75 filas): «El señor MOLINA (Presidente)» 1993-10-05, 66 filas → Evópoli; «El señor MORENO (director ejecutivo del Instituto de Fomento Pesquero)» 2004 y «El señor MORENO» 2020 → Republicanos; «El señor VERGARA (director nacional del Senama)» 2018-2019, 2 → Republicanos; «El señor VALDÉS (Presidente del Senado)» 1996 y «El señor VALDÉS» 2015 → PDG; «La señora VELOSO (Subdirectora del Servicio Nacional de la Mujer)» 1994 → RD; «El señor BARRAZA (director del Servicio de Impuestos Internos)» 2016 → PC; «El señor CRUZ-COKE (presidente del Consejo Nacional de la Cultura…)» 2013, ministro antes de ser diputado.",
-   "motivo": "Son las fechas raras de la consigna (RD desde 1994, Evópoli desde 1993, PDG desde 1996, Republicanos desde 2004): oradores que no son el diputado —funcionarios, el presidente del Senado o de la Cámara— enlazados con un diputado homónimo posterior, cuya militancia heredan."
+   "motivo": "Son las fechas raras de la consigna (RD desde 1994, Evópoli desde 1993, PDG desde 1996, Republicanos desde 2004): oradores que no son el diputado —funcionarios, el presidente del Senado o de la Cámara— enlazados con un diputado homónimo posterior, cuya militancia heredan.",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   }
  ],
  "tipo_propuesto": "por intervencion"

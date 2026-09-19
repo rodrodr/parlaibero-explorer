@@ -3,8 +3,8 @@
  "tipo": "trayectoria",
  "partidos": [
   {
-   "sigla": "UxP",
-   "nombre": "Unión por la Patria",
+   "sigla": "PJ",
+   "nombre": "Justicialismo (PJ, Frente para la Victoria-PJ, Frente de Todos, Unión por la Patria)",
    "bloques": [
     "FPV ‐ PJ ‐.",
     "FRENTE DE TODOS",
@@ -34,7 +34,7 @@
      "fuente": "https://www.lapoliticaonline.com/congreso/german-martinez-revalido-su-jefatura-de-la-bancada-union-por-la-patria-y-se-evito-la-conversion-en-interbloque/ ; https://datos.hcdn.gob.ar/dataset/legisladores/resource/169de2eb-465f-4007-a4c2-39a5ba4c0df3"
     }
    ],
-   "nota": "Bloque principal del peronismo: Justicialista (1983-2005), Frente para la Victoria-PJ (2005-2019), Frente de Todos (2019-2023), Unión por la Patria (desde 2023). Fusión discutible (ver «revisar»): la HCDN anota en 2005 y 2019 «se cambió a bloque», no cambio de nombre; el 10-12/12/2005 pasaron en bloque 55 diputados justicialistas con mandato en curso (35 duhaldistas se habían ido a Peronista Federal el 9-10/11/2005) y el 10/12/2019 pasaron 40 del FpV-PJ con mandato en curso. La etiqueta «JUSTICIALISTA» posterior a 2016 es otro bloque: «Justicialista (2016)». La etiqueta «FRENTE DE TODOS» incluye 8 intervenciones de María Josefa Areta (Frente de Todos de Corrientes, 2007-2011), que no pueden separarse porque comparten etiqueta. Inicio: primer registro de «JUSTICIALISTA» en la fuente (1983-12-10)."
+   "nota": "Bloque principal del peronismo: Justicialista (1983-2005), Frente para la Victoria-PJ (2005-2019), Frente de Todos (2019-2023), Unión por la Patria (desde 2023). Fusión discutible (ver «revisar»): la HCDN anota en 2005 y 2019 «se cambió a bloque», no cambio de nombre; el 10-12/12/2005 pasaron en bloque 55 diputados justicialistas con mandato en curso (35 duhaldistas se habían ido a Peronista Federal el 9-10/11/2005) y el 10/12/2019 pasaron 40 del FpV-PJ con mandato en curso. La etiqueta «JUSTICIALISTA» posterior a 2016 es otro bloque: «Justicialista (2016)». La etiqueta «FRENTE DE TODOS» incluye 8 intervenciones de María Josefa Areta (Frente de Todos de Corrientes, 2007-2011), que no pueden separarse porque comparten etiqueta. Inicio: primer registro de «JUSTICIALISTA» en la fuente (1983-12-10). Sigla PJ, más reconocible para 1983-2025 que UxP (19-9-2026)."
   },
   {
    "sigla": "UCR",
@@ -187,12 +187,13 @@
    "nombre": "Partido Socialista",
    "bloques": [
     "PARTIDO SOCIALISTA",
-    "SOCIALISTA"
+    "SOCIALISTA",
+    "PARTIDO SOCIALISTA POPULAR"
    ],
-   "inicio": "2002-10-01",
+   "inicio": "1987-12-10",
    "fuente_inicio": "https://www2.hcdn.gob.ar/export/hcdn/secparl/dgral_info_parlamentaria/dip/archivos/IE_103_Composicion_HCDN.pdf",
    "cambios": [],
-   "nota": "Incluye el bloque «Socialista» (2019-2023). Variante sin «Partido»: «SOCIALISTA» (bloque desde el 10/12/2019). Inicio: primer registro de «PARTIDO SOCIALISTA» en la fuente (2002-10-01)."
+   "nota": "Incluye el bloque «Socialista» (2019-2023). Variante sin «Partido»: «SOCIALISTA» (bloque desde el 10/12/2019). Inicio: primer registro de «PARTIDO SOCIALISTA» en la fuente (2002-10-01). Decisión del 19-9-2026: fusión para el análisis por fuerza política."
   },
   {
    "sigla": "Federal UNA",
@@ -226,25 +227,6 @@
    "fuente_inicio": "https://www2.hcdn.gob.ar/export/hcdn/secparl/dgral_info_parlamentaria/dip/archivos/IE_103_Composicion_HCDN.pdf",
    "cambios": [],
    "nota": "Inicio: primer registro de «DEMOCRATA PROGRESISTA» en la fuente (1985-12-10)."
-  },
-  {
-   "sigla": "PTS",
-   "nombre": "PTS - Frente de Izquierda",
-   "bloques": [
-    "PTS - FRENTE DE IZQUIERDA",
-    "PTS - FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD"
-   ],
-   "inicio": "2013-12-10",
-   "fuente_inicio": "https://www2.hcdn.gob.ar/export/hcdn/secparl/dgral_info_parlamentaria/dip/archivos/IE_103_Composicion_HCDN.pdf",
-   "cambios": [
-    {
-     "de": "PTS - FRENTE DE IZQUIERDA",
-     "a": "PTS - FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD",
-     "fecha": "2022-02-02",
-     "fuente": "https://datos.hcdn.gob.ar/dataset/legisladores/resource/169de2eb-465f-4007-a4c2-39a5ba4c0df3"
-    }
-   ],
-   "nota": "Bloque del Partido de los Trabajadores Socialistas dentro del FIT-U. Inicio: primer registro de «PTS ‐ FRENTE DE IZQUIERDA» en la fuente (2013-12-10)."
   },
   {
    "sigla": "Evolución Radical",
@@ -287,7 +269,10 @@
    "bloques": [
     "FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES",
     "FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD",
-    "PARTIDO OBRERO FRENTE DE IZQUIERDA Y DE TRABAJADORES UNIDAD"
+    "PARTIDO OBRERO FRENTE DE IZQUIERDA Y DE TRABAJADORES UNIDAD",
+    "PTS - FRENTE DE IZQUIERDA",
+    "PTS - FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD",
+    "IZQUIERDA SOCIALISTA - FRENTE DE IZQUIERDA"
    ],
    "inicio": "2013-12-10",
    "fuente_inicio": "https://www2.hcdn.gob.ar/export/hcdn/secparl/dgral_info_parlamentaria/dip/archivos/IE_103_Composicion_HCDN.pdf",
@@ -297,9 +282,15 @@
      "a": "FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD",
      "fecha": "2021-12-10",
      "fuente": "https://es.wikipedia.org/wiki/Frente_de_Izquierda_y_de_Trabajadores_-_Unidad ; https://datos.hcdn.gob.ar/dataset/legisladores/resource/169de2eb-465f-4007-a4c2-39a5ba4c0df3"
+    },
+    {
+     "de": "PTS - FRENTE DE IZQUIERDA",
+     "a": "PTS - FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD",
+     "fecha": "2022-02-02",
+     "fuente": "https://datos.hcdn.gob.ar/dataset/legisladores/resource/169de2eb-465f-4007-a4c2-39a5ba4c0df3"
     }
    ],
-   "nota": "Bloques con el nombre del frente: «Frente de Izquierda y de los Trabajadores» (2013-2021, del Partido Obrero) y «FIT-U» (desde 2021); incluye el bloque «Partido Obrero FIT-U» (2021). El frente pasó a llamarse FIT-Unidad el 13/6/2019 (Wikipedia). En 2013-2021 el bloque con el nombre del frente era el del Partido Obrero; el PTS y la Izquierda Socialista tuvieron bloques propios (siglas PTS e IS). Inicio: primer registro de «FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES» en la fuente (2013-12-10)."
+   "nota": "Bloques con el nombre del frente: «Frente de Izquierda y de los Trabajadores» (2013-2021, del Partido Obrero) y «FIT-U» (desde 2021); incluye el bloque «Partido Obrero FIT-U» (2021). El frente pasó a llamarse FIT-Unidad el 13/6/2019 (Wikipedia). En 2013-2021 el bloque con el nombre del frente era el del Partido Obrero; el PTS y la Izquierda Socialista tuvieron bloques propios (siglas PTS e IS). Inicio: primer registro de «FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES» en la fuente (2013-12-10). Decisión del 19-9-2026: fusión para el análisis por fuerza política."
   },
   {
    "sigla": "Justicialista (2016)",
@@ -416,8 +407,8 @@
    "nota": "Inicio: primer registro de «AUTODETERMINACION Y LIBERTAD» en la fuente (2001-12-10)."
   },
   {
-   "sigla": "Solidario SI",
-   "nombre": "Solidario SI",
+   "sigla": "Nuevo Encuentro",
+   "nombre": "Nuevo Encuentro (Solidario SI desde 2015)",
    "bloques": [
     "FRENTE NUEVO ENCUENTRO",
     "NUEVO ENCUENTRO",
@@ -446,7 +437,7 @@
      "fuente": "https://www2.hcdn.gob.ar/export/hcdn/secparl/dgral_info_parlamentaria/dip/archivos/IE_103_Composicion_HCDN.pdf"
     }
    ],
-   "nota": "Nuevo Encuentro Popular y Solidario (10/12/2009) -> Nuevo Encuentro (13/12/2011) -> Frente Nuevo Encuentro (28/6/2013) -> Solidario SI (9/6/2015). Inicio: primer registro de «NUEVO ENCUENTRO POPULAR Y SOLIDARIO» en la fuente (2009-12-10)."
+   "nota": "Nuevo Encuentro Popular y Solidario (10/12/2009) -> Nuevo Encuentro (13/12/2011) -> Frente Nuevo Encuentro (28/6/2013) -> Solidario SI (9/6/2015). Inicio: primer registro de «NUEVO ENCUENTRO POPULAR Y SOLIDARIO» en la fuente (2009-12-10). Nombre visible «Nuevo Encuentro» (19-9-2026)."
   },
   {
    "sigla": "PRS",
@@ -475,12 +466,15 @@
    "sigla": "Córdoba Federal",
    "nombre": "Córdoba Federal",
    "bloques": [
-    "CORDOBA FEDERAL"
+    "CORDOBA FEDERAL",
+    "UNION POR CORDOBA",
+    "UNIDOS POR UNA NUEVA ARGENTINA",
+    "CORDOBA TRABAJO Y PRODUCCION"
    ],
    "inicio": "2009-12-10",
    "fuente_inicio": "https://www2.hcdn.gob.ar/export/hcdn/secparl/dgral_info_parlamentaria/dip/archivos/IE_103_Composicion_HCDN.pdf",
    "cambios": [],
-   "nota": "Inicio: primer registro de «CORDOBA FEDERAL» en la fuente (2009-12-10)."
+   "nota": "Inicio: primer registro de «CORDOBA FEDERAL» en la fuente (2009-12-10). Decisión del 19-9-2026: fusión para el análisis por fuerza política."
   },
   {
    "sigla": "UJ San Luis",
@@ -648,17 +642,6 @@
    "fuente_inicio": "https://www2.hcdn.gob.ar/export/hcdn/secparl/dgral_info_parlamentaria/dip/archivos/IE_103_Composicion_HCDN.pdf",
    "cambios": [],
    "nota": "Inicio: primer registro de «EMANCIPACION Y JUSTICIA» en la fuente (2003-12-10)."
-  },
-  {
-   "sigla": "IS",
-   "nombre": "Izquierda Socialista - Frente de Izquierda",
-   "bloques": [
-    "IZQUIERDA SOCIALISTA - FRENTE DE IZQUIERDA"
-   ],
-   "inicio": "2016-12-06",
-   "fuente_inicio": "https://www2.hcdn.gob.ar/export/hcdn/secparl/dgral_info_parlamentaria/dip/archivos/IE_103_Composicion_HCDN.pdf",
-   "cambios": [],
-   "nota": "Inicio: primer registro de «IZQUIERDA SOCIALISTA ‐ FRENTE DE IZQUIERDA» en la fuente (2016-12-06)."
   },
   {
    "sigla": "MID",
@@ -846,17 +829,6 @@
     }
    ],
    "nota": "«Defensa Provincial» (1987) -> «Defensa Provincial Bandera Blanca» (1988). Inicio: primer registro de «DEFENSA PROVINCIAL» en la fuente (1987-12-10)."
-  },
-  {
-   "sigla": "UNA",
-   "nombre": "Unidos por una Nueva Argentina",
-   "bloques": [
-    "UNIDOS POR UNA NUEVA ARGENTINA"
-   ],
-   "inicio": "2016-03-01",
-   "fuente_inicio": "https://www2.hcdn.gob.ar/export/hcdn/secparl/dgral_info_parlamentaria/dip/archivos/IE_103_Composicion_HCDN.pdf",
-   "cambios": [],
-   "nota": "Peronistas cordobeses tras dejar Federal UNA (1/3/2016). Inicio: primer registro de «UNIDOS POR UNA NUEVA ARGENTINA» en la fuente (2016-03-01)."
   },
   {
    "sigla": "UPT",
@@ -1339,17 +1311,6 @@
    "nota": "Inicio: primer registro de «JUSTICIALISTA AZUL Y BLANCO» en la fuente (2002-11-21)."
   },
   {
-   "sigla": "Unión por Córdoba",
-   "nombre": "Unión por Córdoba",
-   "bloques": [
-    "UNION POR CORDOBA"
-   ],
-   "inicio": "2013-12-10",
-   "fuente_inicio": "https://www2.hcdn.gob.ar/export/hcdn/secparl/dgral_info_parlamentaria/dip/archivos/IE_103_Composicion_HCDN.pdf",
-   "cambios": [],
-   "nota": "Inicio: primer registro de «UNION POR CORDOBA» en la fuente (2013-12-10)."
-  },
-  {
    "sigla": "ConFe",
    "nombre": "Consenso Federal (ConFe, 2008-2011)",
    "bloques": [
@@ -1359,17 +1320,6 @@
    "fuente_inicio": "https://www2.hcdn.gob.ar/export/hcdn/secparl/dgral_info_parlamentaria/dip/archivos/IE_103_Composicion_HCDN.pdf",
    "cambios": [],
    "nota": "Radicales K alineados con Julio Cobos (14/8/2008). Mismo nombre que el bloque de 2019, pero otro bloque. Inicio: primer registro de «CONSENSO FEDERAL» en la fuente (2008-08-14)."
-  },
-  {
-   "sigla": "PSP",
-   "nombre": "Partido Socialista Popular",
-   "bloques": [
-    "PARTIDO SOCIALISTA POPULAR"
-   ],
-   "inicio": "1987-12-10",
-   "fuente_inicio": "https://www2.hcdn.gob.ar/export/hcdn/secparl/dgral_info_parlamentaria/dip/archivos/IE_103_Composicion_HCDN.pdf",
-   "cambios": [],
-   "nota": "Variantes: «SOCIALISTA POPULAR» (1987-1991) y «PARTIDO SOCIALISTA POPULAR» (2001-2002). Inicio: primer registro de «SOCIALISTA POPULAR» en la fuente (1987-12-10)."
   },
   {
    "sigla": "Elijo Catamarca",
@@ -1969,17 +1919,6 @@
     }
    ],
    "nota": "Movimiento por la Revolución Nacional (19/7/1989) -> «Conv Pop Eman» (2/8/1989). Inicio: primer registro de «MOVIMIENTO POR LA REVOLUCION NACIONAL» en la fuente (1989-07-19)."
-  },
-  {
-   "sigla": "Córdoba Trabajo y Producción",
-   "nombre": "Córdoba Trabajo y Producción",
-   "bloques": [
-    "CORDOBA TRABAJO Y PRODUCCION"
-   ],
-   "inicio": "2017-12-10",
-   "fuente_inicio": "https://www2.hcdn.gob.ar/export/hcdn/secparl/dgral_info_parlamentaria/dip/archivos/IE_103_Composicion_HCDN.pdf",
-   "cambios": [],
-   "nota": "Inicio: primer registro de «CORDOBA TRABAJO Y PRODUCCION» en la fuente (2017-12-10)."
   },
   {
    "sigla": "Des y Justicia",
@@ -2619,13 +2558,13 @@
    "UCR"
   ],
   "JUSTICIALISTA": [
-   "UxP"
+   "PJ"
   ],
   "": [
    "Sin identificar"
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, JUSTICIALISTA NACIONAL": [
-   "UxP",
+   "PJ",
    "Peronista Federal",
    "Justicialista Nacional"
   ],
@@ -2634,32 +2573,32 @@
    "Encuentro Federal"
   ],
   "FRENTE PARA LA VICTORIA - PJ": [
-   "UxP"
+   "PJ"
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ": [
-   "UxP"
+   "PJ"
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ": [
-   "UxP"
+   "PJ"
   ],
   "FRENTE RENOVADOR, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, FRENTE DE TODOS": [
    "FR",
    "Federal UNA",
-   "UxP"
+   "PJ"
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ": [
-   "UxP"
+   "PJ"
   ],
   "FRENTE CIVICO POR SANTIAGO, FRENTE DE TODOS": [
    "FCpS",
-   "UxP"
+   "PJ"
   ],
   "FRENTE DE TODOS": [
-   "UxP"
+   "PJ"
   ],
   "FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, FRENTE DE TODOS": [
    "Federal UNA",
-   "UxP"
+   "PJ"
   ],
   "PRO": [
    "PRO"
@@ -2668,7 +2607,7 @@
    "PRO"
   ],
   "FRENTE PARA LA VICTORIA - PJ, FRENTE DE TODOS": [
-   "UxP"
+   "PJ"
   ],
   "UCEDE": [
    "UCeDé"
@@ -2681,15 +2620,15 @@
    "PRO"
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ": [
-   "UxP"
+   "PJ"
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ": [
-   "UxP"
+   "PJ"
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PARA LA VICTORIA - PJ, PERONISTA, FRENTE PERONISTA, FRENTE RENOVADOR, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, CONSENSO FEDERAL, IDENTIDAD BONAERENSE": [
-   "UxP",
+   "PJ",
    "Peronista Federal",
-   "UxP",
+   "PJ",
    "Peronista",
    "Frente Peronista",
    "FR",
@@ -2698,7 +2637,7 @@
    "Identidad Bonaerense"
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ, FRENTE DE TODOS": [
-   "UxP"
+   "PJ"
   ],
   "DEMOCRATA PROGRESISTA": [
    "PDP"
@@ -2708,7 +2647,7 @@
    "PRO"
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, FRENTE DE TODOS": [
-   "UxP"
+   "PJ"
   ],
   "COALICION CIVICA": [
    "CC-ARI"
@@ -2717,16 +2656,14 @@
    "PS"
   ],
   "UNIDAD JUSTICIALISTA, JUSTICIALISTA": [
-   "UxP",
+   "PJ",
    "Unidad Justicialista"
   ],
   "LIBERAL": [
    "PL"
   ],
   "PTS - FRENTE DE IZQUIERDA, FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD, PTS - FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD": [
-   "PTS",
-   "FIT-U",
-   "PTS"
+   "FIT-U"
   ],
   "UCR, ARI, MMTA, ARI, COALICION CIVICA, COALICION CIVICA - ARI, COALICION CIVICA ARI - UNEN, COALICION CIVICA": [
    "UCR",
@@ -2740,12 +2677,12 @@
    "MPN"
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL": [
-   "UxP",
+   "PJ",
    "Peronista Federal"
   ],
   "NUEVO ENCUENTRO POPULAR Y SOLIDARIO, NUEVO ENCUENTRO, FRENTE NUEVO ENCUENTRO, SOLIDARIO SI, FRENTE DE TODOS": [
-   "Solidario SI",
-   "UxP"
+   "Nuevo Encuentro",
+   "PJ"
   ],
   "COMPROMISO PARA EL CAMBIO, PRO, UNION PRO, PRO Y UNION POR ENTRE RIOS": [
    "PRO"
@@ -2781,23 +2718,23 @@
    "Unidad Popular"
   ],
   "FRENTE PARA LA VICTORIA - PJ, JUSTICIALISTA": [
-   "UxP",
+   "PJ",
    "Justicialista (2016)"
   ],
   "MOV POP JUJEÑO": [
    "MPJ"
   ],
   "JUSTICIALISTA, ARI, SOBERANIA POPULAR": [
-   "UxP",
+   "PJ",
    "CC-ARI",
    "Soberanía Popular"
   ],
   "JUSTICIALISTA, UNIDAD JUSTICIALISTA": [
-   "UxP",
+   "PJ",
    "Unidad Justicialista"
   ],
   "JUSTICIALISTA, FRENTE NUEVA DIRIGENCIA, CAMBIO 97, COALICION CIVICA - ARI - GEN - UPT, COALICION CIVICA, UNION POR TODOS, UNION PRO": [
-   "UxP",
+   "PJ",
    "Nueva Dirigencia",
    "UPT",
    "CC-ARI",
@@ -2827,9 +2764,9 @@
    "Consenso Federal"
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PARA LA VICTORIA - PJ": [
-   "UxP",
+   "PJ",
    "Peronista Federal",
-   "UxP"
+   "PJ"
   ],
   "FRENTE DE IZQUIERDA Y DE LOS TRABAJADORES, PARTIDO OBRERO FRENTE DE IZQUIERDA Y DE TRABAJADORES UNIDAD": [
    "FIT-U"
@@ -2839,7 +2776,7 @@
   ],
   "FREPASO, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ": [
    "FREPASO",
-   "UxP"
+   "PJ"
   ],
   "CORDOBA FEDERAL": [
    "Córdoba Federal"
@@ -2848,7 +2785,7 @@
    "CC-ARI"
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, UNION PERONISTA, PERONISMO FEDERAL, NO INTEGRA BLOQUE, PERONISMO FEDERAL, NO INTEGRA BLOQUE, UNION PERONISTA, FRENTE RENOVADOR, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, RED POR ARGENTINA, FRENTE DE TODOS": [
-   "UxP",
+   "PJ",
    "Unión Peronista",
    "Peronismo Federal",
    "Sin bloque",
@@ -2856,7 +2793,7 @@
    "FR",
    "Federal UNA",
    "Red por Argentina",
-   "UxP"
+   "PJ"
   ],
   "COALICION CIVICA, COALICION CIVICA - ARI": [
    "CC-ARI"
@@ -2868,7 +2805,7 @@
    "FREPASO"
   ],
   "JUSTICIALISTA, JUSTICIALISTA NACIONAL, PRO": [
-   "UxP",
+   "PJ",
    "Justicialista Nacional",
    "PRO"
   ],
@@ -2894,14 +2831,14 @@
   ],
   "JUSTICIALISTA, FRENTE DE TODOS": [
    "Justicialista (2016)",
-   "UxP"
+   "PJ"
   ],
   "AUTODETERMINACION Y LIBERTAD, REDES": [
    "AyL",
    "Redes"
   ],
   "JUSTICIALISTA, FRENTE DEL MOVIMIENTO POPULAR, JUSTICIALISTA NACIONAL, COMPROMISO FEDERAL": [
-   "UxP",
+   "PJ",
    "FMP",
    "Justicialista Nacional",
    "FMP",
@@ -2911,13 +2848,13 @@
    "EPyS",
    "Libres del Sur",
    "Somos",
-   "UxP"
+   "PJ"
   ],
   "IZQUIERDA SOCIALISTA - FRENTE DE IZQUIERDA": [
-   "IS"
+   "FIT-U"
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE DE TODOS": [
-   "UxP"
+   "PJ"
   ],
   "CONVERGENCIA, DIALOGO POR BUENOS AIRES": [
    "Convergencia",
@@ -2928,7 +2865,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, FRENTE DE TODOS, UCR": [
    "UCR",
-   "UxP"
+   "PJ"
   ],
   "UCR, EVOLUCION RADICAL": [
    "UCR",
@@ -2965,8 +2902,8 @@
    "CC-ARI",
    "PS",
    "EPyS",
-   "Solidario SI",
-   "UxP"
+   "Nuevo Encuentro",
+   "PJ"
   ],
   "UNIDAD SOCIALISTA HONESTIDAD, TRABAJO Y EFICIENCIA, UNIDAD SOCIALISTA HONESTIDAD, TRABAJO Y EFICIENCIA, FREPASO, ARI, PARTIDO SOCIALISTA, ARI": [
    "Unidad Socialista",
@@ -2993,14 +2930,14 @@
    "FREPASO",
    "FG",
    "CC-ARI",
-   "Solidario SI"
+   "Nuevo Encuentro"
   ],
   "PRO, UNION PRO": [
    "PRO"
   ],
   "FREPASO, FRENTE PARA LA VICTORIA - PJ": [
    "FREPASO",
-   "UxP"
+   "PJ"
   ],
   "ENCUENTRO, UCR": [
    "Encuentro (2003)",
@@ -3010,7 +2947,7 @@
    "CC-ARI"
   ],
   "JUSTICIALISTA, PERONISMO FEDERAL, FRENTE PERONISTA, FRENTE RENOVADOR, UNION PRO, PRO": [
-   "UxP",
+   "PJ",
    "Peronismo Federal",
    "Frente Peronista",
    "FR",
@@ -3038,7 +2975,7 @@
   "FRENTE PARA LA VICTORIA - PJ, PERONISMO PARA LA VICTORIA, MOVIMIENTO EVITA, FRENTE GRANDE, FREPASO, CONVERGENCIA, FRENTE PARA LA VICTORIA ‐ PJ": [
    "FREPASO",
    "Convergencia",
-   "UxP",
+   "PJ",
    "Movimiento Evita"
   ],
   "FRENTE CIVICO - CORDOBA": [
@@ -3046,7 +2983,7 @@
   ],
   "ENCUENTRO POPULAR, ENCUENTRO POPULAR Y SOCIAL, NUEVO ENCUENTRO POPULAR Y SOLIDARIO": [
    "EPyS",
-   "Solidario SI"
+   "Nuevo Encuentro"
   ],
   "FRENTE CIVICO POR SANTIAGO": [
    "FCpS"
@@ -3055,15 +2992,15 @@
    "JSRN"
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ, PERONISMO PARA LA VICTORIA": [
-   "UxP",
+   "PJ",
    "Movimiento Evita"
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, EL CHACHO": [
-   "UxP",
+   "PJ",
    "El Chacho"
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, PERONISTA SALTEÑO, PERONISTA": [
-   "UxP",
+   "PJ",
    "Peronista Salteño",
    "Peronista"
   ],
@@ -3071,11 +3008,11 @@
    "Proyecto Sur"
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ": [
-   "UxP"
+   "PJ"
   ],
   "JUSTICIALISTA POR TUCUMAN, FRENTE DE TODOS": [
    "Justicialista por Tucumán",
-   "UxP"
+   "PJ"
   ],
   "DEFENSA PROVINCIAL BANDERA, BLANCA, DEFENSA PROVINCIAL BANDERA, BLANCA, DEFENSA PROVINCIAL": [
    "Bandera Blanca"
@@ -3085,12 +3022,12 @@
    "Justicialista (2016)"
   ],
   "PERONISTA FEDERAL, JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PARA LA VICTORIA - PJ": [
-   "UxP",
+   "PJ",
    "Peronista Federal",
-   "UxP"
+   "PJ"
   ],
   "FRENTE GRANDE, JUSTICIALISTA, FREPASO, FRENTE GRANDE": [
-   "UxP",
+   "PJ",
    "FG",
    "FREPASO",
    "FG"
@@ -3106,7 +3043,6 @@
    "PRO"
   ],
   "UNIDOS POR UNA NUEVA ARGENTINA, CORDOBA FEDERAL": [
-   "UNA",
    "Córdoba Federal"
   ],
   "NUEVO ESPACIO ENTRERRIANO, CONCERTACION ENTRERRIANA": [
@@ -3120,17 +3056,17 @@
    "Autonomista"
   ],
   "MOV PERONISTA, JUSTICIALISTA, FREPASO": [
-   "UxP",
+   "PJ",
    "Movimiento Peronista",
    "FREPASO"
   ],
   "JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO, JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ": [
-   "UxP",
+   "PJ",
    "Justicialista Azul y Blanco",
-   "UxP"
+   "PJ"
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, FRENTE POPULAR BONAERENSE, FRENTE PARA LA VICTORIA - PJ": [
-   "UxP"
+   "PJ"
   ],
   "SALTA SOMOS TODOS, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, SALTA SOMOS TODOS": [
    "Salta Somos Todos",
@@ -3140,22 +3076,21 @@
   "FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, RED POR ARGENTINA, FRENTE DE TODOS": [
    "Federal UNA",
    "Red por Argentina",
-   "UxP"
+   "PJ"
   ],
   "PTS - FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD, FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD": [
-   "FIT-U",
-   "PTS"
+   "FIT-U"
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ, FRENTE DE TODOS": [
-   "UxP"
+   "PJ"
   ],
   "PARTIDO INTRANSIGENTE": [
    "PI"
   ],
   "JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO, JUSTICIALISTA": [
-   "UxP",
+   "PJ",
    "Justicialista Azul y Blanco",
-   "UxP"
+   "PJ"
   ],
   "UNION PRO": [
    "PRO"
@@ -3179,7 +3114,7 @@
    "Unión por Argentina"
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, PERONISMO FEDERAL, FRENTE PERONISTA": [
-   "UxP",
+   "PJ",
    "Peronismo Federal",
    "Frente Peronista"
   ],
@@ -3188,22 +3123,22 @@
    "GEN"
   ],
   "FRENTE PARA LA VICTORIA - PJ, PERONISMO PARA LA VICTORIA, MOVIMIENTO EVITA": [
-   "UxP",
+   "PJ",
    "Movimiento Evita"
   ],
   "FRENTE PARA LA VICTORIA - PJ, FRENTE DE LA CONCORDIA MISIONERO": [
-   "UxP",
+   "PJ",
    "Concordia Misionero"
   ],
   "NO INTEGRA BLOQUE, JUSTICIALISTA": [
-   "UxP",
+   "PJ",
    "Sin bloque"
   ],
   "PARTIDO SOCIALISTA, ENCUENTRO POPULAR, ENCUENTRO POPULAR Y SOCIAL, NUEVO ENCUENTRO POPULAR Y SOLIDARIO, ARI": [
    "CC-ARI",
    "PS",
    "EPyS",
-   "Solidario SI"
+   "Nuevo Encuentro"
   ],
   "PARTIDO SOCIALISTA, FRENTE PROGRESISTA CIVICO Y SOCIAL": [
    "PS",
@@ -3220,15 +3155,15 @@
    "Peronismo Federal"
   ],
   "FRENTE PARA LA VICTORIA - PJ, ELIJO CATAMARCA, FRENTE DE TODOS": [
-   "UxP",
+   "PJ",
    "Elijo Catamarca",
-   "UxP"
+   "PJ"
   ],
   "DE LA CONCERTACION": [
    "Concertación"
   ],
   "FRENTE PARA LA VICTORIA - PJ, JUSTICIALISTA, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA": [
-   "UxP",
+   "PJ",
    "Justicialista (2016)",
    "Federal UNA"
   ],
@@ -3242,33 +3177,33 @@
    "Juntos por Argentina"
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, JUSTICIALISTA, FRENTE DE TODOS": [
-   "UxP",
+   "PJ",
    "Justicialista (2016)",
-   "UxP"
+   "PJ"
   ],
   "RENOVADOR DE SALTA": [
    "PRS"
   ],
   "FRENTE PARA LA VICTORIA - PJ, PERONISMO PARA LA VICTORIA, MOVIMIENTO EVITA, FRENTE DE TODOS": [
-   "UxP",
+   "PJ",
    "Movimiento Evita",
-   "UxP"
+   "PJ"
   ],
   "JUSTICIALISTA, ACCION REPUBLICA": [
-   "UxP",
+   "PJ",
    "Acción por la República"
   ],
   "COMPROMISO FEDERAL": [
    "UJ San Luis"
   ],
   "JUSTICIALISTA, ENCUENTRO, FRENTE PARA LA VICTORIA ‐ PJ": [
-   "UxP",
+   "PJ",
    "Encuentro (2003)",
-   "UxP"
+   "PJ"
   ],
   "COMPROMISO FEDERAL, UNIDAD JUSTICIALISTA, FRENTE DE TODOS": [
    "UJ San Luis",
-   "UxP"
+   "PJ"
   ],
   "SIN BLOQUE, PRO, CREO": [
    "PRO",
@@ -3287,7 +3222,7 @@
    "PS"
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PERONISTA, FE": [
-   "UxP",
+   "PJ",
    "Peronista Federal",
    "Frente Peronista",
    "Fe"
@@ -3303,10 +3238,10 @@
    "Ahora Patria"
   ],
   "JUSTICIALISTA, MOV PERONISTA, JUSTICIALISTA, ACCION REPUBLICA, JUSTICIALISTA, JUNTOS POR ARGENTINA": [
-   "UxP",
+   "PJ",
    "Movimiento Peronista",
    "Acción por la República",
-   "UxP",
+   "PJ",
    "Juntos por Argentina"
   ],
   "SUMA + UNEN, EVOLUCION RADICAL": [
@@ -3321,7 +3256,6 @@
   ],
   "FREPASO, PARTIDO SOCIALISTA POPULAR, PARTIDO SOCIALISTA, PARTIDO SOCIALISTA POPULAR": [
    "FREPASO",
-   "PSP",
    "PS"
   ],
   "MOVIMIENTO POPULAR, CATAMARQUEÑO, MOVIMIENTO POPULAR, CATAMARQUEÑO": [
@@ -3334,9 +3268,9 @@
    "Federal-CFI"
   ],
   "JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO, FRENTE PARA LA VICTORIA ‐ PJ": [
-   "UxP",
+   "PJ",
    "Justicialista Azul y Blanco",
-   "UxP"
+   "PJ"
   ],
   "CORRIENTE GRANDE, FRENTE GRANDE, MOVIMIENTO PROYECTO SUR": [
    "FG",
@@ -3357,21 +3291,21 @@
    "PS"
   ],
   "PTS - FRENTE DE IZQUIERDA": [
-   "PTS"
+   "FIT-U"
   ],
   "JUSTICIALISTA, UCR": [
    "UCR"
   ],
   "FRENTE DE TODOS, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA": [
    "Federal UNA",
-   "UxP"
+   "PJ"
   ],
   "PARTIDO PROPUESTA SALTEÑA, PRO": [
    "Propuesta Salteña",
    "PRO"
   ],
   "JUSTICIALISTA, PERONISMO POPULAR, PERONISTA FEDERAL, JUSTICIALISTA NACIONAL": [
-   "UxP",
+   "PJ",
    "Peronismo Popular",
    "Peronista Federal",
    "Justicialista Nacional"
@@ -3393,16 +3327,16 @@
    "FORJA"
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, SANTA FE FEDERAL, PERONISMO FEDERAL, FRENTE PARA LA VICTORIA - PJ": [
-   "UxP",
+   "PJ",
    "Santa Fe Federal",
    "Peronismo Federal",
-   "UxP"
+   "PJ"
   ],
   "MOVIMIENTO FEDERALISTA, PAMPEANO": [
    "MOFEPA"
   ],
   "PAIS, CRECIMIENTO Y JUSTICIA, PAIS, JUSTICIALISTA, FREPASO": [
-   "UxP",
+   "PJ",
    "PAIS",
    "FREPASO"
   ],
@@ -3412,12 +3346,12 @@
    "UCR"
   ],
   "FRENTE PARA LA VICTORIA - PJ, CULTURA, EDUCACION Y TRABAJO, FRENTE RENOVADOR, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, RED POR ARGENTINA, FRENTE DE TODOS": [
-   "UxP",
+   "PJ",
    "Cultura, Educación y Trabajo",
    "FR",
    "Federal UNA",
    "Red por Argentina",
-   "UxP"
+   "PJ"
   ],
   "FRENTE RENOVADOR, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, BLOQUE DE LOS TRABAJADORES": [
    "FR",
@@ -3426,7 +3360,7 @@
   ],
   "TODOS JUNTOS POR SAN JUAN, FRENTE DE TODOS": [
    "Todos Juntos por San Juan",
-   "UxP"
+   "PJ"
   ],
   "ACCION REPUBLICA, FEDERAL, JUSTICIALISTA, RECREAR PARA EL CRECIMIENTO": [
    "Acción por la República",
@@ -3442,15 +3376,15 @@
    "Federal UNA"
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, PERONISMO FEDERAL, FRENTE PERONISTA": [
-   "UxP",
+   "PJ",
    "Peronista Federal",
    "Peronismo Federal",
    "Frente Peronista"
   ],
   "EVA PERON, JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO": [
-   "UxP",
+   "PJ",
    "Justicialista Azul y Blanco",
-   "UxP",
+   "PJ",
    "Eva Perón"
   ],
   "PRO, VALORES PARA MI PAIS": [
@@ -3458,7 +3392,7 @@
    "Valores para mi País"
   ],
   "FRENTE PARA LA VICTORIA - PJ, SANTA FE FEDERAL, PERONISMO FEDERAL": [
-   "UxP",
+   "PJ",
    "Santa Fe Federal",
    "Peronismo Federal"
   ],
@@ -3468,11 +3402,11 @@
   ],
   "UNIDAD JUSTICIALISTA, JUSTICIALISTA, UNIDAD JUSTICIALISTA, PRO, UNION PRO": [
    "Unidad Justicialista",
-   "UxP",
+   "PJ",
    "PRO"
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ, UNION PERONISTA, PERONISMO FEDERAL, UNION PERONISTA": [
-   "UxP",
+   "PJ",
    "Unión Peronista",
    "Peronismo Federal",
    "Unión Peronista"
@@ -3481,15 +3415,15 @@
    "PAUFE"
   ],
   "UNION POR CORDOBA, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, UNIDOS POR UNA NUEVA ARGENTINA": [
-   "Unión por Córdoba",
+   "Córdoba Federal",
    "Federal UNA",
-   "UNA"
+   "Córdoba Federal"
   ],
   "LA ARGENTINA DE LOS VALORES, PARTIDO NUEVO CONTRA CORRUP., POR HONEST. Y TRANSP.": [
    "Partido Nuevo (Córdoba)"
   ],
   "FRENTE PARA LA VICTORIA - PJ, CULTURA, EDUCACION Y TRABAJO": [
-   "UxP",
+   "PJ",
    "Cultura, Educación y Trabajo"
   ],
   "CONSERVADOR POPULAR, UNION PRO": [
@@ -3501,13 +3435,13 @@
    "Del Bicentenario"
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PARA LA VICTORIA - PJ, FRENTE RENOVADOR": [
-   "UxP",
+   "PJ",
    "Peronista Federal",
-   "UxP",
+   "PJ",
    "FR"
   ],
   "FRENTE PARA LA VICTORIA - PJ, PERONISMO FEDERAL, FRENTE PERONISTA, UNION POR ENTRE RIOS": [
-   "UxP",
+   "PJ",
    "Peronismo Federal",
    "Frente Peronista",
    "Unión por Entre Ríos"
@@ -3520,15 +3454,15 @@
    "PRS"
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, JUSTICIALISTA AZUL Y BLANCO": [
-   "UxP",
+   "PJ",
    "Justicialista Azul y Blanco",
-   "UxP"
+   "PJ"
   ],
   "FRENTE DEL MOVIMIENTO POPULAR": [
    "FMP"
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, JUSTICIALISTA": [
-   "UxP"
+   "PJ"
   ],
   "MOVIMIENTO PROYECTO SUR": [
    "Proyecto Sur"
@@ -3547,12 +3481,12 @@
    "Justicialista (2016)"
   ],
   "FRENTE PARA LA VICTORIA - PJ, ELIJO CATAMARCA": [
-   "UxP",
+   "PJ",
    "Elijo Catamarca"
   ],
   "UNIDAD JUSTICIALISTA, JUSTICIALISTA, MOVIMIENTO POR LA REVOLUCION, NACIONAL, JUSTICIALISTA": [
    "Unidad Justicialista",
-   "UxP"
+   "PJ"
   ],
   "DE LA CONCERTACION, CONSENSO FEDERAL": [
    "Concertación",
@@ -3569,14 +3503,14 @@
   ],
   "POLO SOCIAL, FRENTE PARA LA VICTORIA ‐ PJ": [
    "Polo Social",
-   "UxP"
+   "PJ"
   ],
   "JUSTICIALISTA, UNION POR CORDOBA": [
-   "UxP",
-   "Unión por Córdoba"
+   "PJ",
+   "Córdoba Federal"
   ],
   "JUSTICIALISTA, MOV SOC ENTRERRIANO": [
-   "UxP",
+   "PJ",
    "Mov. Social Entrerriano"
   ],
   "FRENTE PERONISTA FEDERAL": [
@@ -3590,15 +3524,15 @@
    "MPN"
   ],
   "FRENTE PARA LA VICTORIA - PJ, PARTIDO BLOQUISTA DE SAN JUAN, TODOS JUNTOS POR SAN JUAN, PARTIDO BLOQUISTA DE SAN JUAN, FRENTE DE TODOS": [
-   "UxP",
+   "PJ",
    "PB",
    "Todos Juntos por San Juan",
    "PB",
-   "UxP"
+   "PJ"
   ],
   "TRABAJO Y DIGNIDAD, FRENTE DE TODOS": [
    "Trabajo y Dignidad",
-   "UxP"
+   "PJ"
   ],
   "LA LIBERTAD AVANZA": [
    "LLA"
@@ -3618,11 +3552,10 @@
    "UDESO Salta"
   ],
   "JUSTICIALISTA, TRABAJO Y DIGNIDAD": [
-   "UxP",
+   "PJ",
    "Trabajo y Dignidad"
   ],
   "PARTIDO SOCIALISTA POPULAR, PARTIDO SOCIALISTA": [
-   "PSP",
    "PS"
   ],
   "ENCUENTRO POPULAR, ENCUENTRO POPULAR Y SOCIAL, LIBRES DEL SUR": [
@@ -3634,18 +3567,15 @@
    "Justicialista (2016)"
   ],
   "PERONISTA FEDERAL, JUSTICIALISTA, PERONISTA FEDERAL": [
-   "UxP",
+   "PJ",
    "Peronista Federal"
   ],
   "FREPASO, PARTIDO SOCIALISTA POPULAR, PARTIDO SOCIALISTA": [
    "FREPASO",
-   "PSP",
    "PS"
   ],
   "FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, UNIDOS POR UNA NUEVA ARGENTINA, CORDOBA TRABAJO Y PRODUCCION, CORDOBA FEDERAL": [
    "Federal UNA",
-   "UNA",
-   "Córdoba Trabajo y Producción",
    "Córdoba Federal"
   ],
   "FRENTE DE LA CONCORDIA MISIONERO": [
@@ -3659,7 +3589,7 @@
    "Encuentro Federal"
   ],
   "JUSTICIALISTA, CONCERTACION ENTRERRIANA": [
-   "UxP",
+   "PJ",
    "Concertación Entrerriana"
   ],
   "FRENTE JUSTICIA UNION Y LIBERTAD - FREJULI, PERONISMO FEDERAL": [
@@ -3674,7 +3604,7 @@
    "FMP"
   ],
   "FRENTE PARA LA VICTORIA - PJ, PERONISMO MAS AL SUR": [
-   "UxP",
+   "PJ",
    "Peronismo Más al Sur"
   ],
   "ENCUENTRO POPULAR": [
@@ -3684,7 +3614,7 @@
    "FCpS",
    "UCR",
    "FCpS",
-   "UxP"
+   "PJ"
   ],
   "FRENTE PERONISTA, FRENTE RENOVADOR PERONISTA, FRENTE RENOVADOR, NO INTEGRA BLOQUE, JUSTICIALISTA DE LA PROVINCIA DE BUENOS AIRES, JUSTICIALISTA": [
    "Frente Peronista",
@@ -3695,14 +3625,14 @@
    "Justicialista (2016)"
   ],
   "FRENTE PARA LA VICTORIA - PJ, FRENTE DE LA CONCORDIA MISIONERO, MISIONES": [
-   "UxP",
+   "PJ",
    "Concordia Misionero",
    "Misiones"
   ],
   "JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO": [
-   "UxP",
+   "PJ",
    "Justicialista Azul y Blanco",
-   "UxP"
+   "PJ"
   ],
   "FREPASO, JUSTICIALISTA, ARI, COALICION CIVICA - ARI - GEN - UPT, COALICION CIVICA": [
    "FREPASO",
@@ -3719,11 +3649,11 @@
    "FG"
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, UNION POR CORDOBA": [
-   "UxP",
-   "Unión por Córdoba"
+   "PJ",
+   "Córdoba Federal"
   ],
   "JUSTICIALISTA, BLOQUE BUENOS AIRES, LA ARGENTINA DE LOS VALORES, FRENTE POPULAR BONAERENSE, JUSTICIALISTA NACIONAL": [
-   "UxP",
+   "PJ",
    "Bloque Buenos Aires",
    "La Argentina de los Valores",
    "Frente Popular Bonaerense",
@@ -3734,9 +3664,9 @@
    "PL"
   ],
   "FRENTE PARA LA VICTORIA - PJ, SOMOS MENDOZA, FRENTE DE TODOS": [
-   "UxP",
+   "PJ",
    "Somos Mendoza",
-   "UxP"
+   "PJ"
   ],
   "MOV POP FUEGUINO": [
    "MOPOF"
@@ -3745,14 +3675,14 @@
    "CC-ARI"
   ],
   "FRENTE PARA LA VICTORIA - PJ, PRIMERO ARGENTINA": [
-   "UxP",
+   "PJ",
    "Primero Argentina"
   ],
   "ARI, PERONISTA FEDERAL, ARI": [
    "CC-ARI"
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, JUSTICIALISTA NACIONAL, UNION CELESTE Y BLANCO, PERONISTA, NUCLEO UNIDAD PERONISTA": [
-   "UxP",
+   "PJ",
    "Peronista Federal",
    "Justicialista Nacional",
    "Unión Celeste y Blanco",
@@ -3760,27 +3690,27 @@
    "Núcleo Unidad Peronista"
   ],
   "FRENTE PARA LA VICTORIA - PJ, UNIPERSONAL, LIBERTAD Y DEMOCRACIA, LIBERTAD VALORES Y CAMBIO": [
-   "UxP",
+   "PJ",
    "Sin bloque",
    "Libertad, Valores y Cambio"
   ],
   "JUSTICIALISTA, FREPASO, FRENTE PARA LA VICTORIA ‐ PJ": [
-   "UxP",
+   "PJ",
    "FREPASO",
-   "UxP"
+   "PJ"
   ],
   "ACCION PROVINCIANA, JUSTICIALISTA, ACCION PROVINCIANA": [
    "Acción Provinciana",
-   "UxP",
+   "PJ",
    "Acción Provinciana"
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE DE LA CONCORDIA MISIONERO": [
-   "UxP",
+   "PJ",
    "Concordia Misionero"
   ],
   "NUEVO ENCUENTRO POPULAR Y SOLIDARIO, NUEVO ENCUENTRO, FRENTE NUEVO ENCUENTRO, FRENTE PARA LA VICTORIA - PJ": [
-   "Solidario SI",
-   "UxP"
+   "Nuevo Encuentro",
+   "PJ"
   ],
   "FRENTE CIVICO Y SOCIAL DE CATAMARCA, UCR, FRENTE CIVICO Y SOCIAL DE CATAMARCA": [
    "FCyS",
@@ -3798,9 +3728,9 @@
   ],
   "ACCION REPUBLICA, JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO": [
    "Acción por la República",
-   "UxP",
+   "PJ",
    "Justicialista Azul y Blanco",
-   "UxP"
+   "PJ"
   ],
   "BLOQUE BUENOS AIRES, PERONISTA FEDERAL, DIGNIDAD Y JUSTICIA": [
    "Bloque Buenos Aires",
@@ -3808,20 +3738,20 @@
    "Dignidad y Justicia"
   ],
   "NUEVO ENCUENTRO POPULAR Y SOLIDARIO, NUEVO ENCUENTRO, FRENTE NUEVO ENCUENTRO": [
-   "Solidario SI"
+   "Nuevo Encuentro"
   ],
   "FRENTE CIVICO Y SOCIAL DE CATAMARCA": [
    "FCyS"
   ],
   "UNIDAD JUSTICIALISTA, JUSTICIALISTA, UNIDAD JUSTICIALISTA, JUSTICIALISTA, UNIDAD JUSTICIALISTA": [
-   "UxP",
+   "PJ",
    "Unidad Justicialista",
-   "UxP"
+   "PJ"
   ],
   "JUSTICIALISTA, UCR, JUSTICIALISTA, PERONISTA FEDERAL": [
-   "UxP",
+   "PJ",
    "UCR",
-   "UxP",
+   "PJ",
    "Peronista Federal"
   ],
   "PERONISMO FEDERAL, UNION PERONISTA, FRENTE RENOVADOR": [
@@ -3833,7 +3763,7 @@
    "Fuerza Republicana"
   ],
   "JUSTICIALISTA, FRENTE DEL MOVIMIENTO POPULAR, JUSTICIALISTA NACIONAL": [
-   "UxP",
+   "PJ",
    "FMP",
    "Justicialista Nacional",
    "FMP"
@@ -3848,10 +3778,10 @@
   ],
   "FREPASO, FRENTE PARA LA VICTORIA ‐ PJ": [
    "FREPASO",
-   "UxP"
+   "PJ"
   ],
   "JUSTICIALISTA, UNIDAD FEDERALISTA, NACIONAL SINDICAL": [
-   "UxP",
+   "PJ",
    "PAUFE",
    "Nacional Sindical"
   ],
@@ -3864,7 +3794,7 @@
   ],
   "NUEVO ESPACIO SANTAFESINO, FRENTE DE TODOS": [
    "Nuevo Espacio Santafesino",
-   "UxP"
+   "PJ"
   ],
   "CRUZADA RENOV": [
    "Cruzada Renovadora"
@@ -3899,11 +3829,11 @@
    "PD Capital"
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE DEL MOVIMIENTO POPULAR": [
-   "UxP",
+   "PJ",
    "Peronista Federal"
   ],
   "JUSTICIALISTA, FRENTE DEL MOVIMIENTO POPULAR": [
-   "UxP",
+   "PJ",
    "FMP"
   ],
   "UCR, JUSTICIALISTA, UCR": [
@@ -3934,12 +3864,12 @@
    "PRO"
   ],
   "JUSTICIALISTA, FRENTE DEL MOVIMIENTO POPULAR, PERONISTA FEDERAL, JUSTICIALISTA NACIONAL": [
-   "UxP",
+   "PJ",
    "FMP",
    "Peronista Federal",
    "Justicialista Nacional",
    "Peronista Federal",
-   "UxP"
+   "PJ"
   ],
   "NO INTEGRA BLOQUE, DIGNIDAD PERONISTA": [
    "Sin bloque",
@@ -3961,13 +3891,13 @@
    "Frente Cívico (Córdoba)"
   ],
   "NUEVO ENCUENTRO POPULAR Y SOLIDARIO, NUEVO ENCUENTRO, FRENTE NUEVO ENCUENTRO, SOLIDARIO SI": [
-   "Solidario SI"
+   "Nuevo Encuentro"
   ],
   "MOVIMIENTO POPULAR NEUQUINO": [
    "MPN"
   ],
   "JUSTICIALISTA, PERONISMO FEDERAL, FRENTE PERONISTA": [
-   "UxP",
+   "PJ",
    "Peronismo Federal",
    "Frente Peronista"
   ],
@@ -3975,7 +3905,7 @@
    "Partido Blanco de los Jubilados"
   ],
   "FRENTE PARA LA VICTORIA - PJ, TRABAJO Y DIGNIDAD, PERONISTA": [
-   "UxP",
+   "PJ",
    "Trabajo y Dignidad",
    "Peronista"
   ],
@@ -3990,14 +3920,14 @@
    "Evolución Radical"
   ],
   "FRENTE PARA LA VICTORIA - PJ, JUSTICIALISTA POR TUCUMAN, FRENTE PARA LA VICTORIA - PJ": [
-   "UxP",
+   "PJ",
    "Justicialista por Tucumán",
-   "UxP"
+   "PJ"
   ],
   "JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO, JUSTICIALISTA, PERONISMO POPULAR, PERONISTA FEDERAL, JUSTICIALISTA NACIONAL": [
-   "UxP",
+   "PJ",
    "Justicialista Azul y Blanco",
-   "UxP",
+   "PJ",
    "Peronismo Popular",
    "Peronista Federal",
    "Justicialista Nacional"
@@ -4007,7 +3937,7 @@
    "Movimiento Independiente"
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, POR LA VERDAD": [
-   "UxP",
+   "PJ",
    "Por la Verdad"
   ],
   "CORRIENTE DE PENSAMIENTO FEDERAL, FRENTE RENOVADOR": [
@@ -4015,7 +3945,7 @@
    "FR"
   ],
   "FRENTE PARA LA VICTORIA - PJ, UNION PERONISTA, PERONISMO FEDERAL, UNION PERONISTA": [
-   "UxP",
+   "PJ",
    "Unión Peronista",
    "Peronismo Federal",
    "Unión Peronista"
@@ -4024,7 +3954,7 @@
    "Unidad Popular"
   ],
   "FRENTE PARA LA VICTORIA - PJ, PERONISMO PARA LA VICTORIA, BRIGADIER GENERAL JUAN BAUTISTA BUSTOS": [
-   "UxP",
+   "PJ",
    "Movimiento Evita",
    "Brig. Gral. J. B. Bustos"
   ],
@@ -4033,7 +3963,7 @@
    "Buenos Aires Libre"
   ],
   "JUSTICIALISTA, PERONISTA 17 DE OCTUBRE": [
-   "UxP",
+   "PJ",
    "Peronista 17 de Octubre"
   ],
   "DEMOCRATA PROGRESISTA, UNION POR TODOS, DEMOCRATA PROGRESISTA": [
@@ -4050,7 +3980,7 @@
    "Convergencia"
   ],
   "JUSTICIALISTA, VIDA Y COMPROMISO": [
-   "UxP",
+   "PJ",
    "Vida y Compromiso"
   ],
   "JUSTICIALISTA NACIONAL, PERONISMO FEDERAL, FRENTE PERONISTA, UNION CELESTE Y BLANCO": [
@@ -4070,7 +4000,7 @@
    "FR"
   ],
   "UNIDOS POR UNA NUEVA ARGENTINA": [
-   "UNA"
+   "Córdoba Federal"
   ],
   "FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, RED POR ARGENTINA": [
    "Federal UNA",
@@ -4081,13 +4011,13 @@
   ],
   "FREPASO, PARTIDO SOCIALISTA POPULAR": [
    "FREPASO",
-   "PSP"
+   "PS"
   ],
   "DES Y JUSTICIA": [
    "Des y Justicia"
   ],
   "JUSTICIALISTA, PAIS, CRECIMIENTO Y JUSTICIA, JUSTICIALISTA, FREPASO": [
-   "UxP",
+   "PJ",
    "PAIS",
    "FREPASO"
   ],
@@ -4097,19 +4027,19 @@
   "AUTODETERMINACION Y LIBERTAD, PROYECTO SOCIAL ALTERNATIVO, FRENTE PARA LA VICTORIA ‐ PJ": [
    "AyL",
    "Proyecto Social Alternativo",
-   "UxP"
+   "PJ"
   ],
   "PERONISMO FEDERAL, FRENTE PERONISTA, UNIDOS POR UNA NUEVA ARGENTINA": [
    "Peronismo Federal",
    "Frente Peronista",
-   "UNA"
+   "Córdoba Federal"
   ],
   "SER - SOMOS ENERGIA PARA RENOVAR": [
    "SER"
   ],
   "FREPASO, JUSTICIALISTA": [
    "FREPASO",
-   "UxP"
+   "PJ"
   ],
   "UCR, UNIPERSONAL 'RICARDO BALBIN', FRENTE DEL MOVIMIENTO POPULAR, UNIPERSONAL 'RICARDO BALBIN'": [
    "UCR",
@@ -4122,11 +4052,11 @@
   ],
   "PERONISMO FEDERAL, FRENTE PARA LA VICTORIA - PJ": [
    "Peronismo Federal",
-   "UxP"
+   "PJ"
   ],
   "FRENTE POPULAR BONAERENSE, FRENTE PARA LA VICTORIA ‐ PJ": [
    "Frente Popular Bonaerense",
-   "UxP"
+   "PJ"
   ],
   "PARTIDO NUEVO CONTRA CORRUP., POR HONEST. Y TRANSP., PARTIDO NUEVO CONTRA CORRUP., POR HONEST. Y TRANSP.": [
    "Partido Nuevo (Córdoba)"
@@ -4136,7 +4066,7 @@
    "CC-ARI"
   ],
   "FRENTE PARA LA VICTORIA - PJ, PRIMERO TUCUMAN, JUSTICIALISTA POR TUCUMAN, PRIMERO TUCUMAN, JUSTICIALISTA POR TUCUMAN": [
-   "UxP",
+   "PJ",
    "Primero Tucumán",
    "Justicialista por Tucumán",
    "Primero Tucumán",
@@ -4146,7 +4076,7 @@
    "FREPANU"
   ],
   "FRENTE PARA LA VICTORIA - PJ, PERONISMO FEDERAL": [
-   "UxP",
+   "PJ",
    "Peronismo Federal"
   ],
   "UCR, FRENTE CIVICO Y SOCIAL DE CATAMARCA, FRENTE RENOVADOR": [
@@ -4171,13 +4101,13 @@
    "MORECI"
   ],
   "JUSTICIALISTA, FRENTE DEL MOVIMIENTO POPULAR, JUSTICIALISTA": [
-   "UxP",
+   "PJ",
    "FMP",
-   "UxP"
+   "PJ"
   ],
   "UNIDAD FEDERALISTA, JUSTICIALISTA, FRENTE DEL MOVIMIENTO POPULAR": [
    "PAUFE",
-   "UxP",
+   "PJ",
    "FMP"
   ],
   "PERONISMO CORDOBES, PERONISTA CORDOBA CIUDADANA, NUCLEO UNIDAD PERONISTA": [
@@ -4196,7 +4126,7 @@
    "PAUFE"
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, FRENTE DEL MOVIMIENTO POPULAR": [
-   "UxP"
+   "PJ"
   ],
   "PERONISMO PERONISTA": [
    "Peronismo Peronista"
@@ -4206,7 +4136,7 @@
    "FCyS"
   ],
   "PERONISTA 17 DE OCTUBRE, JUSTICIALISTA": [
-   "UxP",
+   "PJ",
    "Peronista 17 de Octubre"
   ],
   "FEDERAL ‐ CFI": [
@@ -4220,12 +4150,12 @@
    "PD Capital"
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PARA LA VICTORIA ‐ PJ": [
-   "UxP",
+   "PJ",
    "Peronista Federal",
-   "UxP"
+   "PJ"
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, UNION PERONISTA, PERONISTA, NUCLEO UNIDAD PERONISTA": [
-   "UxP",
+   "PJ",
    "Unión Peronista",
    "Peronista",
    "Núcleo Unidad Peronista"
@@ -4236,7 +4166,7 @@
   "PERONISMO FEDERAL, SANTA FE EN MOVIMIENTO, FRENTE PARA LA VICTORIA - PJ": [
    "Peronismo Federal",
    "Santa Fe en Movimiento",
-   "UxP"
+   "PJ"
   ],
   "ENCUENTRO POR CORRIENTES, UCR": [
    "ECO",
@@ -4249,7 +4179,7 @@
    "Somos San Juan"
   ],
   "FRENTE PARA LA VICTORIA - PJ, BRIGADIER GENERAL JUAN BAUTISTA BUSTOS": [
-   "UxP",
+   "PJ",
    "Brig. Gral. J. B. Bustos"
   ],
   "PRO, UNIDAD Y EQUIDAD FEDERAL, ACCION FEDERAL": [
@@ -4263,13 +4193,13 @@
   ],
   "UNIDAD BONAERENSE, JUSTICIALISTA, UNIDAD BONAERENSE": [
    "Unidad Bonaerense",
-   "UxP"
+   "PJ"
   ],
   "FRENTE JUSTICIALISTA DE LIBERACION": [
    "FJL Catamarca"
   ],
   "JUSTICIALISTA, E., JUSTICIALISTA": [
-   "UxP"
+   "PJ"
   ],
   "DEMOCRATA, ARI": [
    "PD"
@@ -4278,26 +4208,26 @@
    "Frente de Unidad Provincial"
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, NO INTEGRA BLOQUE": [
-   "UxP"
+   "PJ"
   ],
   "FRENTE PARA LA VICTORIA - PJ, NO INTEGRA BLOQUE, PERONISMO JUJEÑO": [
-   "UxP",
+   "PJ",
    "Sin bloque",
    "Peronismo Jujeño"
   ],
   "PERONISTA, FRENTE PARA LA VICTORIA - PJ": [
    "Peronista",
-   "UxP"
+   "PJ"
   ],
   "VON NIEDERHÄUSERN, NORBERTO B CHUBUT, JUSTICIALISTA": [
-   "UxP"
+   "PJ"
   ],
   "JUSTICIALISTA, MOV PERONISTA, JUSTICIALISTA": [
-   "UxP",
+   "PJ",
    "Movimiento Peronista"
   ],
   "MOV PERONISTA, JUSTICIALISTA": [
-   "UxP",
+   "PJ",
    "Movimiento Peronista"
   ],
   "FREPASO, ARI, JUSTICIALISTA, PARTIDO SOCIALISTA": [
@@ -4310,13 +4240,13 @@
   ],
   "PARTIDO NUEVO CONTRA CORRUP., POR HONEST. Y TRANSP., FRENTE PARA LA VICTORIA - PJ": [
    "Partido Nuevo (Córdoba)",
-   "UxP"
+   "PJ"
   ],
   "JUSTICIALISTA, FRENTE POPULAR BONAERENSE, FRENTE PARA LA VICTORIA ‐ PJ": [
-   "UxP"
+   "PJ"
   ],
   "NUEVO ENCUENTRO, FRENTE NUEVO ENCUENTRO": [
-   "Solidario SI"
+   "Nuevo Encuentro"
   ],
   "COMPROMISO CON SAN JUAN": [
    "Compromiso con San Juan"
@@ -4326,13 +4256,13 @@
   ],
   "UNIDAD JUSTICIALISTA, JUSTICIALISTA, UNIDAD JUSTICIALISTA": [
    "Unidad Justicialista",
-   "UxP"
+   "PJ"
   ],
   "UCR, JUSTICIALISTA": [
    "UCR"
   ],
   "JUSTICIALISTA, ARI": [
-   "UxP",
+   "PJ",
    "CC-ARI"
   ],
   "PROYECTO CORRIENTES": [
@@ -4356,7 +4286,7 @@
   ],
   "JUSTICIALISTA": [
    [
-    "UxP",
+    "PJ",
     "1983-12-10"
    ]
   ],
@@ -4368,7 +4298,7 @@
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, JUSTICIALISTA NACIONAL": [
    [
-    "UxP",
+    "PJ",
     "1991-12-18"
    ],
    [
@@ -4392,19 +4322,19 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ": [
    [
-    "UxP",
+    "PJ",
     "2011-12-10"
    ]
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ": [
    [
-    "UxP",
+    "PJ",
     "1991-12-05"
    ]
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ": [
    [
-    "UxP",
+    "PJ",
     "1991-12-18"
    ]
   ],
@@ -4418,13 +4348,13 @@
     "2015-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ": [
    [
-    "UxP",
+    "PJ",
     "2005-12-10"
    ]
   ],
@@ -4434,13 +4364,13 @@
     "2009-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
   "FRENTE DE TODOS": [
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
@@ -4450,7 +4380,7 @@
     "2015-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
@@ -4468,7 +4398,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, FRENTE DE TODOS": [
    [
-    "UxP",
+    "PJ",
     "2015-12-10"
    ]
   ],
@@ -4496,19 +4426,19 @@
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ": [
    [
-    "UxP",
+    "PJ",
     "2005-12-10"
    ]
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ": [
    [
-    "UxP",
+    "PJ",
     "2003-12-10"
    ]
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PARA LA VICTORIA - PJ, PERONISTA, FRENTE PERONISTA, FRENTE RENOVADOR, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, CONSENSO FEDERAL, IDENTIDAD BONAERENSE": [
    [
-    "UxP",
+    "PJ",
     "1989-12-10"
    ],
    [
@@ -4516,7 +4446,7 @@
     "2005-11-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2007-12-10"
    ],
    [
@@ -4546,7 +4476,7 @@
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ, FRENTE DE TODOS": [
    [
-    "UxP",
+    "PJ",
     "2005-12-10"
    ]
   ],
@@ -4568,7 +4498,7 @@
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, FRENTE DE TODOS": [
    [
-    "UxP",
+    "PJ",
     "1991-12-10"
    ]
   ],
@@ -4586,7 +4516,7 @@
   ],
   "UNIDAD JUSTICIALISTA, JUSTICIALISTA": [
    [
-    "UxP",
+    "PJ",
     "1983-12-10"
    ],
    [
@@ -4602,7 +4532,7 @@
   ],
   "PTS - FRENTE DE IZQUIERDA, FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD, PTS - FRENTE DE IZQUIERDA Y DE TRABAJADORES - UNIDAD": [
    [
-    "PTS",
+    "FIT-U",
     "2013-12-10"
    ],
    [
@@ -4610,7 +4540,7 @@
     "2021-12-10"
    ],
    [
-    "PTS",
+    "FIT-U",
     "2022-02-02"
    ]
   ],
@@ -4642,7 +4572,7 @@
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL": [
    [
-    "UxP",
+    "PJ",
     "1993-12-10"
    ],
    [
@@ -4652,11 +4582,11 @@
   ],
   "NUEVO ENCUENTRO POPULAR Y SOLIDARIO, NUEVO ENCUENTRO, FRENTE NUEVO ENCUENTRO, SOLIDARIO SI, FRENTE DE TODOS": [
    [
-    "Solidario SI",
+    "Nuevo Encuentro",
     "2009-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-19"
    ]
   ],
@@ -4746,7 +4676,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, JUSTICIALISTA": [
    [
-    "UxP",
+    "PJ",
     "2013-12-10"
    ],
    [
@@ -4762,7 +4692,7 @@
   ],
   "JUSTICIALISTA, ARI, SOBERANIA POPULAR": [
    [
-    "UxP",
+    "PJ",
     "1997-12-10"
    ],
    [
@@ -4776,7 +4706,7 @@
   ],
   "JUSTICIALISTA, UNIDAD JUSTICIALISTA": [
    [
-    "UxP",
+    "PJ",
     "1983-12-10"
    ],
    [
@@ -4786,7 +4716,7 @@
   ],
   "JUSTICIALISTA, FRENTE NUEVA DIRIGENCIA, CAMBIO 97, COALICION CIVICA - ARI - GEN - UPT, COALICION CIVICA, UNION POR TODOS, UNION PRO": [
    [
-    "UxP",
+    "PJ",
     "1993-12-10"
    ],
    [
@@ -4870,7 +4800,7 @@
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PARA LA VICTORIA - PJ": [
    [
-    "UxP",
+    "PJ",
     "1987-12-10"
    ],
    [
@@ -4878,7 +4808,7 @@
     "2005-11-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2007-12-10"
    ]
   ],
@@ -4900,7 +4830,7 @@
     "1997-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2005-12-10"
    ]
   ],
@@ -4918,7 +4848,7 @@
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, UNION PERONISTA, PERONISMO FEDERAL, NO INTEGRA BLOQUE, PERONISMO FEDERAL, NO INTEGRA BLOQUE, UNION PERONISTA, FRENTE RENOVADOR, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, RED POR ARGENTINA, FRENTE DE TODOS": [
    [
-    "UxP",
+    "PJ",
     "1991-12-18"
    ],
    [
@@ -4950,7 +4880,7 @@
     "2018-10-22"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
@@ -4974,7 +4904,7 @@
   ],
   "JUSTICIALISTA, JUSTICIALISTA NACIONAL, PRO": [
    [
-    "UxP",
+    "PJ",
     "2003-12-10"
    ],
    [
@@ -5042,7 +4972,7 @@
     "2017-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
@@ -5058,7 +4988,7 @@
   ],
   "JUSTICIALISTA, FRENTE DEL MOVIMIENTO POPULAR, JUSTICIALISTA NACIONAL, COMPROMISO FEDERAL": [
    [
-    "UxP",
+    "PJ",
     "2001-03-07"
    ],
    [
@@ -5092,19 +5022,19 @@
     "2018-10-30"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
   "IZQUIERDA SOCIALISTA - FRENTE DE IZQUIERDA": [
    [
-    "IS",
+    "FIT-U",
     "2016-12-06"
    ]
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE DE TODOS": [
    [
-    "UxP",
+    "PJ",
     "2001-12-10"
    ]
   ],
@@ -5130,7 +5060,7 @@
     "1983-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2017-12-10"
    ]
   ],
@@ -5224,11 +5154,11 @@
     "2009-05-20"
    ],
    [
-    "Solidario SI",
+    "Nuevo Encuentro",
     "2009-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2011-12-10"
    ]
   ],
@@ -5312,7 +5242,7 @@
     "2005-12-10"
    ],
    [
-    "Solidario SI",
+    "Nuevo Encuentro",
     "2011-12-10"
    ]
   ],
@@ -5328,7 +5258,7 @@
     "1995-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2015-12-10"
    ]
   ],
@@ -5350,7 +5280,7 @@
   ],
   "JUSTICIALISTA, PERONISMO FEDERAL, FRENTE PERONISTA, FRENTE RENOVADOR, UNION PRO, PRO": [
    [
-    "UxP",
+    "PJ",
     "1991-12-18"
    ],
    [
@@ -5432,7 +5362,7 @@
     "2003-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2005-12-12"
    ],
    [
@@ -5452,7 +5382,7 @@
     "2007-12-10"
    ],
    [
-    "Solidario SI",
+    "Nuevo Encuentro",
     "2009-12-10"
    ]
   ],
@@ -5470,7 +5400,7 @@
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ, PERONISMO PARA LA VICTORIA": [
    [
-    "UxP",
+    "PJ",
     "2005-12-10"
    ],
    [
@@ -5480,7 +5410,7 @@
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, EL CHACHO": [
    [
-    "UxP",
+    "PJ",
     "1989-07-19"
    ],
    [
@@ -5490,7 +5420,7 @@
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, PERONISTA SALTEÑO, PERONISTA": [
    [
-    "UxP",
+    "PJ",
     "1989-12-10"
    ],
    [
@@ -5510,7 +5440,7 @@
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ": [
    [
-    "UxP",
+    "PJ",
     "2003-12-10"
    ]
   ],
@@ -5520,7 +5450,7 @@
     "2017-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
@@ -5542,7 +5472,7 @@
   ],
   "PERONISTA FEDERAL, JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PARA LA VICTORIA - PJ": [
    [
-    "UxP",
+    "PJ",
     "2005-03-16"
    ],
    [
@@ -5550,13 +5480,13 @@
     "2005-11-09"
    ],
    [
-    "UxP",
+    "PJ",
     "2007-12-10"
    ]
   ],
   "FRENTE GRANDE, JUSTICIALISTA, FREPASO, FRENTE GRANDE": [
    [
-    "UxP",
+    "PJ",
     "1993-12-10"
    ],
    [
@@ -5602,7 +5532,7 @@
   ],
   "UNIDOS POR UNA NUEVA ARGENTINA, CORDOBA FEDERAL": [
    [
-    "UNA",
+    "Córdoba Federal",
     "2016-03-01"
    ],
    [
@@ -5634,7 +5564,7 @@
   ],
   "MOV PERONISTA, JUSTICIALISTA, FREPASO": [
    [
-    "UxP",
+    "PJ",
     "1989-12-10"
    ],
    [
@@ -5648,7 +5578,7 @@
   ],
   "JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO, JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ": [
    [
-    "UxP",
+    "PJ",
     "2001-12-10"
    ],
    [
@@ -5656,13 +5586,13 @@
     "2002-11-21"
    ],
    [
-    "UxP",
+    "PJ",
     "2003-06-27"
    ]
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, FRENTE POPULAR BONAERENSE, FRENTE PARA LA VICTORIA - PJ": [
    [
-    "UxP",
+    "PJ",
     "2005-12-10"
    ]
   ],
@@ -5690,7 +5620,7 @@
     "2018-10-22"
    ],
    [
-    "UxP",
+    "PJ",
     "2021-12-10"
    ]
   ],
@@ -5700,13 +5630,13 @@
     "2021-12-10"
    ],
    [
-    "PTS",
+    "FIT-U",
     "2022-02-02"
    ]
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ, FRENTE DE TODOS": [
    [
-    "UxP",
+    "PJ",
     "2001-12-10"
    ]
   ],
@@ -5718,7 +5648,7 @@
   ],
   "JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO, JUSTICIALISTA": [
    [
-    "UxP",
+    "PJ",
     "2001-12-10"
    ],
    [
@@ -5726,7 +5656,7 @@
     "2002-11-21"
    ],
    [
-    "UxP",
+    "PJ",
     "2003-06-27"
    ]
   ],
@@ -5780,7 +5710,7 @@
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, PERONISMO FEDERAL, FRENTE PERONISTA": [
    [
-    "UxP",
+    "PJ",
     "2005-12-10"
    ],
    [
@@ -5804,7 +5734,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, PERONISMO PARA LA VICTORIA, MOVIMIENTO EVITA": [
    [
-    "UxP",
+    "PJ",
     "2016-03-01"
    ],
    [
@@ -5814,7 +5744,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, FRENTE DE LA CONCORDIA MISIONERO": [
    [
-    "UxP",
+    "PJ",
     "2015-12-10"
    ],
    [
@@ -5824,7 +5754,7 @@
   ],
   "NO INTEGRA BLOQUE, JUSTICIALISTA": [
    [
-    "UxP",
+    "PJ",
     "1985-12-10"
    ],
    [
@@ -5846,7 +5776,7 @@
     "2007-12-10"
    ],
    [
-    "Solidario SI",
+    "Nuevo Encuentro",
     "2009-12-10"
    ]
   ],
@@ -5890,7 +5820,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, ELIJO CATAMARCA, FRENTE DE TODOS": [
    [
-    "UxP",
+    "PJ",
     "2017-12-10"
    ],
    [
@@ -5898,7 +5828,7 @@
     "2017-12-13"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
@@ -5910,7 +5840,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, JUSTICIALISTA, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA": [
    [
-    "UxP",
+    "PJ",
     "2015-12-10"
    ],
    [
@@ -5948,7 +5878,7 @@
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, JUSTICIALISTA, FRENTE DE TODOS": [
    [
-    "UxP",
+    "PJ",
     "2005-12-10"
    ],
    [
@@ -5956,7 +5886,7 @@
     "2017-12-18"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
@@ -5968,7 +5898,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, PERONISMO PARA LA VICTORIA, MOVIMIENTO EVITA, FRENTE DE TODOS": [
    [
-    "UxP",
+    "PJ",
     "2011-12-10"
    ],
    [
@@ -5976,13 +5906,13 @@
     "2016-06-23"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
   "JUSTICIALISTA, ACCION REPUBLICA": [
    [
-    "UxP",
+    "PJ",
     "1987-12-10"
    ],
    [
@@ -5998,7 +5928,7 @@
   ],
   "JUSTICIALISTA, ENCUENTRO, FRENTE PARA LA VICTORIA ‐ PJ": [
    [
-    "UxP",
+    "PJ",
     "1993-07-18"
    ],
    [
@@ -6006,7 +5936,7 @@
     "2003-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2005-12-12"
    ]
   ],
@@ -6016,7 +5946,7 @@
     "2017-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
@@ -6062,7 +5992,7 @@
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PERONISTA, FE": [
    [
-    "UxP",
+    "PJ",
     "2001-12-10"
    ],
    [
@@ -6102,7 +6032,7 @@
   ],
   "JUSTICIALISTA, MOV PERONISTA, JUSTICIALISTA, ACCION REPUBLICA, JUSTICIALISTA, JUNTOS POR ARGENTINA": [
    [
-    "UxP",
+    "PJ",
     "1989-07-19"
    ],
    [
@@ -6114,7 +6044,7 @@
     "1999-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2001-12-10"
    ],
    [
@@ -6150,7 +6080,7 @@
     "1997-12-10"
    ],
    [
-    "PSP",
+    "PS",
     "2001-11-14"
    ],
    [
@@ -6178,7 +6108,7 @@
   ],
   "JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO, FRENTE PARA LA VICTORIA ‐ PJ": [
    [
-    "UxP",
+    "PJ",
     "1995-12-10"
    ],
    [
@@ -6186,7 +6116,7 @@
     "2002-11-21"
    ],
    [
-    "UxP",
+    "PJ",
     "2003-06-27"
    ]
   ],
@@ -6234,7 +6164,7 @@
   ],
   "PTS - FRENTE DE IZQUIERDA": [
    [
-    "PTS",
+    "FIT-U",
     "2017-06-21"
    ]
   ],
@@ -6250,7 +6180,7 @@
     "2016-03-01"
    ],
    [
-    "UxP",
+    "PJ",
     "2021-12-10"
    ]
   ],
@@ -6266,7 +6196,7 @@
   ],
   "JUSTICIALISTA, PERONISMO POPULAR, PERONISTA FEDERAL, JUSTICIALISTA NACIONAL": [
    [
-    "UxP",
+    "PJ",
     "1999-12-10"
    ],
    [
@@ -6318,7 +6248,7 @@
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, SANTA FE FEDERAL, PERONISMO FEDERAL, FRENTE PARA LA VICTORIA - PJ": [
    [
-    "UxP",
+    "PJ",
     "1999-12-10"
    ],
    [
@@ -6330,7 +6260,7 @@
     "2009-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2013-12-10"
    ]
   ],
@@ -6342,7 +6272,7 @@
   ],
   "PAIS, CRECIMIENTO Y JUSTICIA, PAIS, JUSTICIALISTA, FREPASO": [
    [
-    "UxP",
+    "PJ",
     "1993-12-10"
    ],
    [
@@ -6370,7 +6300,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, CULTURA, EDUCACION Y TRABAJO, FRENTE RENOVADOR, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, RED POR ARGENTINA, FRENTE DE TODOS": [
    [
-    "UxP",
+    "PJ",
     "2011-12-10"
    ],
    [
@@ -6390,7 +6320,7 @@
     "2018-10-22"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
@@ -6414,7 +6344,7 @@
     "2017-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
@@ -6454,7 +6384,7 @@
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, PERONISMO FEDERAL, FRENTE PERONISTA": [
    [
-    "UxP",
+    "PJ",
     "1995-12-10"
    ],
    [
@@ -6472,7 +6402,7 @@
   ],
   "EVA PERON, JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO": [
    [
-    "UxP",
+    "PJ",
     "2002-07-17"
    ],
    [
@@ -6480,7 +6410,7 @@
     "2002-11-21"
    ],
    [
-    "UxP",
+    "PJ",
     "2003-06-27"
    ],
    [
@@ -6500,7 +6430,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, SANTA FE FEDERAL, PERONISMO FEDERAL": [
    [
-    "UxP",
+    "PJ",
     "2007-12-10"
    ],
    [
@@ -6528,7 +6458,7 @@
     "1985-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "1987-12-30"
    ],
    [
@@ -6538,7 +6468,7 @@
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE PARA LA VICTORIA - PJ, UNION PERONISTA, PERONISMO FEDERAL, UNION PERONISTA": [
    [
-    "UxP",
+    "PJ",
     "1999-12-10"
    ],
    [
@@ -6562,7 +6492,7 @@
   ],
   "UNION POR CORDOBA, FEDERAL UNIDOS POR UNA NUEVA ARGENTINA, UNIDOS POR UNA NUEVA ARGENTINA": [
    [
-    "Unión por Córdoba",
+    "Córdoba Federal",
     "2013-12-10"
    ],
    [
@@ -6570,7 +6500,7 @@
     "2015-12-10"
    ],
    [
-    "UNA",
+    "Córdoba Federal",
     "2016-03-01"
    ]
   ],
@@ -6582,7 +6512,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, CULTURA, EDUCACION Y TRABAJO": [
    [
-    "UxP",
+    "PJ",
     "2009-12-10"
    ],
    [
@@ -6612,7 +6542,7 @@
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PARA LA VICTORIA - PJ, FRENTE RENOVADOR": [
    [
-    "UxP",
+    "PJ",
     "1993-12-10"
    ],
    [
@@ -6620,7 +6550,7 @@
     "2005-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2007-12-10"
    ],
    [
@@ -6630,7 +6560,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, PERONISMO FEDERAL, FRENTE PERONISTA, UNION POR ENTRE RIOS": [
    [
-    "UxP",
+    "PJ",
     "2007-12-10"
    ],
    [
@@ -6664,7 +6594,7 @@
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, JUSTICIALISTA AZUL Y BLANCO": [
    [
-    "UxP",
+    "PJ",
     "1999-12-10"
    ],
    [
@@ -6672,7 +6602,7 @@
     "2002-11-21"
    ],
    [
-    "UxP",
+    "PJ",
     "2003-06-27"
    ]
   ],
@@ -6684,7 +6614,7 @@
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, JUSTICIALISTA": [
    [
-    "UxP",
+    "PJ",
     "1991-12-10"
    ]
   ],
@@ -6724,7 +6654,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, ELIJO CATAMARCA": [
    [
-    "UxP",
+    "PJ",
     "2017-12-10"
    ],
    [
@@ -6738,7 +6668,7 @@
     "1985-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "1987-12-30"
    ]
   ],
@@ -6782,23 +6712,23 @@
     "2001-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2005-12-10"
    ]
   ],
   "JUSTICIALISTA, UNION POR CORDOBA": [
    [
-    "UxP",
+    "PJ",
     "1993-12-10"
    ],
    [
-    "Unión por Córdoba",
+    "Córdoba Federal",
     "2013-12-10"
    ]
   ],
   "JUSTICIALISTA, MOV SOC ENTRERRIANO": [
    [
-    "UxP",
+    "PJ",
     "1997-12-10"
    ],
    [
@@ -6830,7 +6760,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, PARTIDO BLOQUISTA DE SAN JUAN, TODOS JUNTOS POR SAN JUAN, PARTIDO BLOQUISTA DE SAN JUAN, FRENTE DE TODOS": [
    [
-    "UxP",
+    "PJ",
     "2007-12-10"
    ],
    [
@@ -6846,7 +6776,7 @@
     "2017-12-08"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
@@ -6856,7 +6786,7 @@
     "2017-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
@@ -6900,7 +6830,7 @@
   ],
   "JUSTICIALISTA, TRABAJO Y DIGNIDAD": [
    [
-    "UxP",
+    "PJ",
     "1995-12-10"
    ],
    [
@@ -6910,7 +6840,7 @@
   ],
   "PARTIDO SOCIALISTA POPULAR, PARTIDO SOCIALISTA": [
    [
-    "PSP",
+    "PS",
     "2001-12-10"
    ],
    [
@@ -6940,7 +6870,7 @@
   ],
   "PERONISTA FEDERAL, JUSTICIALISTA, PERONISTA FEDERAL": [
    [
-    "UxP",
+    "PJ",
     "2004-08-11"
    ],
    [
@@ -6954,7 +6884,7 @@
     "2000-11-22"
    ],
    [
-    "PSP",
+    "PS",
     "2001-11-13"
    ],
    [
@@ -6968,11 +6898,11 @@
     "2015-12-10"
    ],
    [
-    "UNA",
+    "Córdoba Federal",
     "2016-03-01"
    ],
    [
-    "Córdoba Trabajo y Producción",
+    "Córdoba Federal",
     "2017-12-10"
    ],
    [
@@ -7004,7 +6934,7 @@
   ],
   "JUSTICIALISTA, CONCERTACION ENTRERRIANA": [
    [
-    "UxP",
+    "PJ",
     "1993-12-10"
    ],
    [
@@ -7040,7 +6970,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, PERONISMO MAS AL SUR": [
    [
-    "UxP",
+    "PJ",
     "2007-12-10"
    ],
    [
@@ -7068,7 +6998,7 @@
     "2007-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
@@ -7100,7 +7030,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, FRENTE DE LA CONCORDIA MISIONERO, MISIONES": [
    [
-    "UxP",
+    "PJ",
     "2015-12-10"
    ],
    [
@@ -7114,7 +7044,7 @@
   ],
   "JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO": [
    [
-    "UxP",
+    "PJ",
     "1999-12-10"
    ],
    [
@@ -7122,7 +7052,7 @@
     "2002-11-21"
    ],
    [
-    "UxP",
+    "PJ",
     "2003-06-27"
    ]
   ],
@@ -7160,17 +7090,17 @@
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, UNION POR CORDOBA": [
    [
-    "UxP",
+    "PJ",
     "2003-12-10"
    ],
    [
-    "Unión por Córdoba",
+    "Córdoba Federal",
     "2013-12-10"
    ]
   ],
   "JUSTICIALISTA, BLOQUE BUENOS AIRES, LA ARGENTINA DE LOS VALORES, FRENTE POPULAR BONAERENSE, JUSTICIALISTA NACIONAL": [
    [
-    "UxP",
+    "PJ",
     "1993-12-10"
    ],
    [
@@ -7202,7 +7132,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, SOMOS MENDOZA, FRENTE DE TODOS": [
    [
-    "UxP",
+    "PJ",
     "2009-12-10"
    ],
    [
@@ -7210,7 +7140,7 @@
     "2017-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
@@ -7228,7 +7158,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, PRIMERO ARGENTINA": [
    [
-    "UxP",
+    "PJ",
     "2015-12-10"
    ],
    [
@@ -7244,7 +7174,7 @@
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, JUSTICIALISTA NACIONAL, UNION CELESTE Y BLANCO, PERONISTA, NUCLEO UNIDAD PERONISTA": [
    [
-    "UxP",
+    "PJ",
     "2003-12-10"
    ],
    [
@@ -7270,7 +7200,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, UNIPERSONAL, LIBERTAD Y DEMOCRACIA, LIBERTAD VALORES Y CAMBIO": [
    [
-    "UxP",
+    "PJ",
     "2009-12-10"
    ],
    [
@@ -7284,7 +7214,7 @@
   ],
   "JUSTICIALISTA, FREPASO, FRENTE PARA LA VICTORIA ‐ PJ": [
    [
-    "UxP",
+    "PJ",
     "1985-12-10"
    ],
    [
@@ -7292,7 +7222,7 @@
     "1997-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2005-12-10"
    ]
   ],
@@ -7302,7 +7232,7 @@
     "1987-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "1989-11-10"
    ],
    [
@@ -7312,7 +7242,7 @@
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, FRENTE DE LA CONCORDIA MISIONERO": [
    [
-    "UxP",
+    "PJ",
     "2003-12-10"
    ],
    [
@@ -7322,11 +7252,11 @@
   ],
   "NUEVO ENCUENTRO POPULAR Y SOLIDARIO, NUEVO ENCUENTRO, FRENTE NUEVO ENCUENTRO, FRENTE PARA LA VICTORIA - PJ": [
    [
-    "Solidario SI",
+    "Nuevo Encuentro",
     "2011-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2013-12-19"
    ]
   ],
@@ -7374,7 +7304,7 @@
     "1999-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2001-11-15"
    ],
    [
@@ -7382,7 +7312,7 @@
     "2002-11-21"
    ],
    [
-    "UxP",
+    "PJ",
     "2003-06-27"
    ]
   ],
@@ -7402,7 +7332,7 @@
   ],
   "NUEVO ENCUENTRO POPULAR Y SOLIDARIO, NUEVO ENCUENTRO, FRENTE NUEVO ENCUENTRO": [
    [
-    "Solidario SI",
+    "Nuevo Encuentro",
     "2009-12-10"
    ]
   ],
@@ -7414,7 +7344,7 @@
   ],
   "UNIDAD JUSTICIALISTA, JUSTICIALISTA, UNIDAD JUSTICIALISTA, JUSTICIALISTA, UNIDAD JUSTICIALISTA": [
    [
-    "UxP",
+    "PJ",
     "1983-12-10"
    ],
    [
@@ -7422,13 +7352,13 @@
     "1984-03-19"
    ],
    [
-    "UxP",
+    "PJ",
     "1987-12-30"
    ]
   ],
   "JUSTICIALISTA, UCR, JUSTICIALISTA, PERONISTA FEDERAL": [
    [
-    "UxP",
+    "PJ",
     "1993-12-10"
    ],
    [
@@ -7436,7 +7366,7 @@
     "1999-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2001-12-10"
    ],
    [
@@ -7466,7 +7396,7 @@
   ],
   "JUSTICIALISTA, FRENTE DEL MOVIMIENTO POPULAR, JUSTICIALISTA NACIONAL": [
    [
-    "UxP",
+    "PJ",
     "2001-12-10"
    ],
    [
@@ -7508,13 +7438,13 @@
     "2003-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2005-12-12"
    ]
   ],
   "JUSTICIALISTA, UNIDAD FEDERALISTA, NACIONAL SINDICAL": [
    [
-    "UxP",
+    "PJ",
     "1989-12-10"
    ],
    [
@@ -7548,7 +7478,7 @@
     "2017-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2019-12-10"
    ]
   ],
@@ -7628,7 +7558,7 @@
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE DEL MOVIMIENTO POPULAR": [
    [
-    "UxP",
+    "PJ",
     "1995-12-10"
    ],
    [
@@ -7638,7 +7568,7 @@
   ],
   "JUSTICIALISTA, FRENTE DEL MOVIMIENTO POPULAR": [
    [
-    "UxP",
+    "PJ",
     "2001-12-10"
    ],
    [
@@ -7714,7 +7644,7 @@
   ],
   "JUSTICIALISTA, FRENTE DEL MOVIMIENTO POPULAR, PERONISTA FEDERAL, JUSTICIALISTA NACIONAL": [
    [
-    "UxP",
+    "PJ",
     "2001-12-10"
    ],
    [
@@ -7734,7 +7664,7 @@
     "2006-06-30"
    ],
    [
-    "UxP",
+    "PJ",
     "2007-12-10"
    ]
   ],
@@ -7786,7 +7716,7 @@
   ],
   "NUEVO ENCUENTRO POPULAR Y SOLIDARIO, NUEVO ENCUENTRO, FRENTE NUEVO ENCUENTRO, SOLIDARIO SI": [
    [
-    "Solidario SI",
+    "Nuevo Encuentro",
     "2011-12-10"
    ]
   ],
@@ -7798,7 +7728,7 @@
   ],
   "JUSTICIALISTA, PERONISMO FEDERAL, FRENTE PERONISTA": [
    [
-    "UxP",
+    "PJ",
     "1987-12-10"
    ],
    [
@@ -7818,7 +7748,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, TRABAJO Y DIGNIDAD, PERONISTA": [
    [
-    "UxP",
+    "PJ",
     "2007-12-10"
    ],
    [
@@ -7860,7 +7790,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, JUSTICIALISTA POR TUCUMAN, FRENTE PARA LA VICTORIA - PJ": [
    [
-    "UxP",
+    "PJ",
     "2015-12-10"
    ],
    [
@@ -7868,13 +7798,13 @@
     "2017-12-06"
    ],
    [
-    "UxP",
+    "PJ",
     "2017-12-12"
    ]
   ],
   "JUSTICIALISTA, JUSTICIALISTA AZUL Y BLANCO, JUSTICIALISTA, PERONISMO POPULAR, PERONISTA FEDERAL, JUSTICIALISTA NACIONAL": [
    [
-    "UxP",
+    "PJ",
     "1999-12-10"
    ],
    [
@@ -7882,7 +7812,7 @@
     "2002-11-21"
    ],
    [
-    "UxP",
+    "PJ",
     "2003-06-27"
    ],
    [
@@ -7910,7 +7840,7 @@
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, POR LA VERDAD": [
    [
-    "UxP",
+    "PJ",
     "2005-12-10"
    ],
    [
@@ -7930,7 +7860,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, UNION PERONISTA, PERONISMO FEDERAL, UNION PERONISTA": [
    [
-    "UxP",
+    "PJ",
     "2007-12-10"
    ],
    [
@@ -7954,7 +7884,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, PERONISMO PARA LA VICTORIA, BRIGADIER GENERAL JUAN BAUTISTA BUSTOS": [
    [
-    "UxP",
+    "PJ",
     "2016-03-01"
    ],
    [
@@ -7978,7 +7908,7 @@
   ],
   "JUSTICIALISTA, PERONISTA 17 DE OCTUBRE": [
    [
-    "UxP",
+    "PJ",
     "1983-12-10"
    ],
    [
@@ -8022,7 +7952,7 @@
   ],
   "JUSTICIALISTA, VIDA Y COMPROMISO": [
    [
-    "UxP",
+    "PJ",
     "2003-12-10"
    ],
    [
@@ -8078,7 +8008,7 @@
   ],
   "UNIDOS POR UNA NUEVA ARGENTINA": [
    [
-    "UNA",
+    "Córdoba Federal",
     "2016-03-01"
    ]
   ],
@@ -8104,7 +8034,7 @@
     "1995-12-10"
    ],
    [
-    "PSP",
+    "PS",
     "1987-12-10"
    ]
   ],
@@ -8116,7 +8046,7 @@
   ],
   "JUSTICIALISTA, PAIS, CRECIMIENTO Y JUSTICIA, JUSTICIALISTA, FREPASO": [
    [
-    "UxP",
+    "PJ",
     "1989-12-10"
    ],
    [
@@ -8144,7 +8074,7 @@
     "2004-10-29"
    ],
    [
-    "UxP",
+    "PJ",
     "2005-12-10"
    ]
   ],
@@ -8158,7 +8088,7 @@
     "2011-12-07"
    ],
    [
-    "UNA",
+    "Córdoba Federal",
     "2016-03-01"
    ]
   ],
@@ -8174,7 +8104,7 @@
     "2000-02-24"
    ],
    [
-    "UxP",
+    "PJ",
     "2001-12-17"
    ]
   ],
@@ -8208,7 +8138,7 @@
     "2009-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2011-12-10"
    ]
   ],
@@ -8218,7 +8148,7 @@
     "2003-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2005-12-12"
    ]
   ],
@@ -8240,7 +8170,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, PRIMERO TUCUMAN, JUSTICIALISTA POR TUCUMAN, PRIMERO TUCUMAN, JUSTICIALISTA POR TUCUMAN": [
    [
-    "UxP",
+    "PJ",
     "2015-12-10"
    ],
    [
@@ -8268,7 +8198,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, PERONISMO FEDERAL": [
    [
-    "UxP",
+    "PJ",
     "2007-12-10"
    ],
    [
@@ -8332,7 +8262,7 @@
   ],
   "JUSTICIALISTA, FRENTE DEL MOVIMIENTO POPULAR, JUSTICIALISTA": [
    [
-    "UxP",
+    "PJ",
     "2001-12-10"
    ],
    [
@@ -8340,7 +8270,7 @@
     "2002-12-11"
    ],
    [
-    "UxP",
+    "PJ",
     "2003-12-10"
    ]
   ],
@@ -8350,7 +8280,7 @@
     "2001-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2002-02-12"
    ],
    [
@@ -8396,7 +8326,7 @@
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, FRENTE DEL MOVIMIENTO POPULAR": [
    [
-    "UxP",
+    "PJ",
     "2005-12-14"
    ]
   ],
@@ -8418,7 +8348,7 @@
   ],
   "PERONISTA 17 DE OCTUBRE, JUSTICIALISTA": [
    [
-    "UxP",
+    "PJ",
     "1983-12-10"
    ],
    [
@@ -8450,7 +8380,7 @@
   ],
   "JUSTICIALISTA, PERONISTA FEDERAL, FRENTE PARA LA VICTORIA ‐ PJ": [
    [
-    "UxP",
+    "PJ",
     "2002-02-28"
    ],
    [
@@ -8458,13 +8388,13 @@
     "2005-11-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2006-01-02"
    ]
   ],
   "JUSTICIALISTA, FRENTE PARA LA VICTORIA ‐ PJ, JUSTICIALISTA, FRENTE PARA LA VICTORIA - PJ, UNION PERONISTA, PERONISTA, NUCLEO UNIDAD PERONISTA": [
    [
-    "UxP",
+    "PJ",
     "2003-12-10"
    ],
    [
@@ -8496,7 +8426,7 @@
     "2011-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2013-04-18"
    ]
   ],
@@ -8530,7 +8460,7 @@
   ],
   "FRENTE PARA LA VICTORIA - PJ, BRIGADIER GENERAL JUAN BAUTISTA BUSTOS": [
    [
-    "UxP",
+    "PJ",
     "2014-08-27"
    ],
    [
@@ -8568,7 +8498,7 @@
     "1985-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "1987-12-30"
    ]
   ],
@@ -8580,7 +8510,7 @@
   ],
   "JUSTICIALISTA, E., JUSTICIALISTA": [
    [
-    "UxP",
+    "PJ",
     "1989-12-10"
    ]
   ],
@@ -8598,13 +8528,13 @@
   ],
   "FRENTE PARA LA VICTORIA ‐ PJ, NO INTEGRA BLOQUE": [
    [
-    "UxP",
+    "PJ",
     "2005-12-10"
    ]
   ],
   "FRENTE PARA LA VICTORIA - PJ, NO INTEGRA BLOQUE, PERONISMO JUJEÑO": [
    [
-    "UxP",
+    "PJ",
     "2007-12-10"
    ],
    [
@@ -8622,19 +8552,19 @@
     "2009-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2011-12-06"
    ]
   ],
   "VON NIEDERHÄUSERN, NORBERTO B CHUBUT, JUSTICIALISTA": [
    [
-    "UxP",
+    "PJ",
     "1983-12-10"
    ]
   ],
   "JUSTICIALISTA, MOV PERONISTA, JUSTICIALISTA": [
    [
-    "UxP",
+    "PJ",
     "1987-12-10"
    ],
    [
@@ -8644,7 +8574,7 @@
   ],
   "MOV PERONISTA, JUSTICIALISTA": [
    [
-    "UxP",
+    "PJ",
     "1989-12-10"
    ],
    [
@@ -8678,19 +8608,19 @@
     "2005-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "2011-12-10"
    ]
   ],
   "JUSTICIALISTA, FRENTE POPULAR BONAERENSE, FRENTE PARA LA VICTORIA ‐ PJ": [
    [
-    "UxP",
+    "PJ",
     "2004-11-17"
    ]
   ],
   "NUEVO ENCUENTRO, FRENTE NUEVO ENCUENTRO": [
    [
-    "Solidario SI",
+    "Nuevo Encuentro",
     "2013-06-05"
    ]
   ],
@@ -8712,7 +8642,7 @@
     "1985-12-10"
    ],
    [
-    "UxP",
+    "PJ",
     "1987-12-30"
    ]
   ],
@@ -8724,7 +8654,7 @@
   ],
   "JUSTICIALISTA, ARI": [
    [
-    "UxP",
+    "PJ",
     "1999-12-10"
    ],
    [
@@ -8780,7 +8710,8 @@
    ],
    "decision": "Una sola sigla, UxP (Unión por la Patria), para el bloque principal del peronismo: Justicialista (1983-2005), Frente para la Victoria-PJ (2005-2019), Frente de Todos (2019-2023) y Unión por la Patria (desde el 10/12/2023). Afecta a 149 etiquetas (se citan las de más filas).",
    "alternativa": "Separar PJ (1983-2005) y FpV-PJ (2005-2019) de FdT/UxP, o conservar la cadena con la sigla PJ, más reconocible para 1983-2005.",
-   "motivo": "Solo el paso de 2023 está documentado como cambio de nombre (La Política Online, 6/12/2023). En 2005 y 2019 la HCDN anota «se cambió a bloque»: el 10-12/12/2005 pasaron en bloque 55 diputados justicialistas con mandato en curso (35 duhaldistas ya se habían ido a Peronista Federal el 9-10/11/2005) y el 10/12/2019 pasaron 40 del FpV-PJ, junto con el FR y otros bloques. Se funde por la continuidad del bloque oficial del PJ, como pedía la regla b."
+   "motivo": "Solo el paso de 2023 está documentado como cambio de nombre (La Política Online, 6/12/2023). En 2005 y 2019 la HCDN anota «se cambió a bloque»: el 10-12/12/2005 pasaron en bloque 55 diputados justicialistas con mandato en curso (35 duhaldistas ya se habían ido a Peronista Federal el 9-10/11/2005) y el 10/12/2019 pasaron 40 del FpV-PJ, junto con el FR y otros bloques. Se funde por la continuidad del bloque oficial del PJ, como pedía la regla b.",
+   "estado": "Aplicada la alternativa (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -8807,7 +8738,8 @@
    ],
    "decision": "ARI (2001-2007) va en la misma sigla que la Coalición Cívica (CC-ARI).",
    "alternativa": "Sigla ARI propia para 2001-2007.",
-   "motivo": "El 10/12/2007 el ARI se partió: 4 diputados con mandato en curso pasaron a CC-ARI-GEN-UPT y 7 a ARI Autónomo 8+ (sigla Unidad Popular). Se funde porque el partido ARI es el mismo que adoptó el nombre Coalición Cívica ARI el 2/10/2009 (Wikipedia) y el bloque de Carrió mantuvo la continuidad."
+   "motivo": "El 10/12/2007 el ARI se partió: 4 diputados con mandato en curso pasaron a CC-ARI-GEN-UPT y 7 a ARI Autónomo 8+ (sigla Unidad Popular). Se funde porque el partido ARI es el mismo que adoptó el nombre Coalición Cívica ARI el 2/10/2009 (Wikipedia) y el bloque de Carrió mantuvo la continuidad.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -8820,7 +8752,8 @@
    ],
    "decision": "Tres siglas para la izquierda: FIT-U (bloques con el nombre del frente, que en 2013-2021 era el del Partido Obrero, más el bloque «Partido Obrero FIT-U»), PTS e IS.",
    "alternativa": "Una sola sigla FIT-U para todos los bloques del frente.",
-   "motivo": "Son bloques distintos de partidos aliados (regla c), y la separación por partido se mantuvo desde 2013 (Wikipedia, FIT-U). Para análisis por fuerza política conviene fundirlos."
+   "motivo": "Son bloques distintos de partidos aliados (regla c), y la separación por partido se mantuvo desde 2013 (Wikipedia, FIT-U). Para análisis por fuerza política conviene fundirlos.",
+   "estado": "Aplicada la alternativa (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -8840,7 +8773,8 @@
    ],
    "decision": "Nuevo Encuentro Popular y Solidario (2009) -> Nuevo Encuentro -> Frente Nuevo Encuentro -> Solidario SI en una sigla («Solidario SI», nombre más reciente); Encuentro Popular y Social (2007-2009) aparte, con sigla EPyS.",
    "alternativa": "Fundir también EPyS en la cadena (3 de sus 5 diputados pasaron a Nuevo Encuentro el 10/12/2009), o usar «Nuevo Encuentro» como nombre visible.",
-   "motivo": "La HCDN anota «cambio de nombre de bloque» en 2011, 2013 y 2015, pero no en 2009, cuando EPyS se partió entre Nuevo Encuentro (3) y Libres del Sur (2)."
+   "motivo": "La HCDN anota «cambio de nombre de bloque» en 2011, 2013 y 2015, pero no en 2009, cuando EPyS se partió entre Nuevo Encuentro (3) y Libres del Sur (2).",
+   "estado": "Aplicada la alternativa (se usa «Nuevo Encuentro» como nombre visible; Encuentro Popular y Social sigue aparte) (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -8874,7 +8808,8 @@
    ],
    "decision": "Compromiso Federal (2013) y la Unidad Justicialista puntana (2018) comparten sigla («UJ San Luis»); Frente Peronista (2011-2013) y UNIR van aparte; la Unidad Justicialista de 1984 es otra sigla.",
    "alternativa": "Mantener Compromiso Federal como sigla propia.",
-   "motivo": "La HCDN anota «cambio de denominación del bloque» el 6/2/2018 (Compromiso Federal -> Unidad Justicialista); en 2013 los miembros del Frente Peronista se repartieron entre Compromiso Federal (6), el FR (3) y UNIR, con la nota «se cambió a bloque», no cambio de nombre."
+   "motivo": "La HCDN anota «cambio de denominación del bloque» el 6/2/2018 (Compromiso Federal -> Unidad Justicialista); en 2013 los miembros del Frente Peronista se repartieron entre Compromiso Federal (6), el FR (3) y UNIR, con la nota «se cambió a bloque», no cambio de nombre.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -8893,7 +8828,8 @@
    ],
    "decision": "Se mantienen separados cinco cambios de nombre de bloques de uno o dos diputados en los que cambia la identidad partidaria o de frente: Libres del Sur -> Somos (Donda, 2018), Partido Socialista -> Frente Progresista Cívico y Social (Contigiani, 2018), Partido Intransigente -> Bloque Protectora (Ramón, 2018), Convergencia -> Diálogo por Buenos Aires (Bonasso, 2007) y Corriente Peronista Federal -> Corriente de Pensamiento Federal (2009, sin nota de cambio de nombre).",
    "alternativa": "Fundir cada par en una sigla con el nombre más reciente, como indica la HCDN en cuatro de los cinco casos.",
-   "motivo": "Fundirlos atribuiría, por ejemplo, el nombre «Somos» a los diputados de Libres del Sur de 2009-2017 o «Protectora» a todo el Partido Intransigente."
+   "motivo": "Fundirlos atribuiría, por ejemplo, el nombre «Somos» a los diputados de Libres del Sur de 2009-2017 o «Protectora» a todo el Partido Intransigente.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -8920,7 +8856,8 @@
    ],
    "decision": "Bloques peronistas disidentes separados: Peronista Federal (2005), Justicialista Nacional (2006), Peronismo Federal (2009), Peronista (2009), Unión Peronista (2008), Frente Peronista (2011), Frente del Movimiento Popular (2002) y FREJULI (2007).",
    "alternativa": "Agrupar sucesiones con continuidad parcial: Peronismo Federal -> Frente Peronista (15 diputados pasaron el 7/12/2011) y Frente del Movimiento Popular -> FREJULI (4 el 10/12/2007).",
-   "motivo": "La HCDN los registra como creación de bloques nuevos, no como cambios de nombre (regla c)."
+   "motivo": "La HCDN los registra como creación de bloques nuevos, no como cambios de nombre (regla c).",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -8940,7 +8877,8 @@
    ],
    "decision": "Partido Socialista Popular (PSP), Unidad Socialista (1991-1997) y Partido Socialista (desde 2002) van separados; «SOCIALISTA» (2019) se funde con PS como variante.",
    "alternativa": "Fundir PSP en PS.",
-   "motivo": "El 1/10/2002 los diputados del PSP (2) y los socialistas que estaban en el ARI (5) pasaron al nuevo bloque Partido Socialista; la HCDN lo anota como «se cambió a bloque Partido Socialista», no como cambio de nombre."
+   "motivo": "El 1/10/2002 los diputados del PSP (2) y los socialistas que estaban en el ARI (5) pasaron al nuevo bloque Partido Socialista; la HCDN lo anota como «se cambió a bloque Partido Socialista», no como cambio de nombre.",
+   "estado": "Aplicada la alternativa (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -8960,7 +8898,8 @@
    ],
    "decision": "«No integra bloque», «Sin bloque» y los bloques «Unipersonal» sin nombre -> «Sin bloque».",
    "alternativa": "Sigla propia «Unipersonal», porque formalmente es un bloque de un solo diputado.",
-   "motivo": "Un bloque unipersonal sin nombre no identifica a ninguna fuerza; agruparlo como partido mezclaría diputados sin relación."
+   "motivo": "Un bloque unipersonal sin nombre no identifica a ninguna fuerza; agruparlo como partido mezclaría diputados sin relación.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -8981,7 +8920,8 @@
    ],
    "decision": "Nombres repetidos que corresponden a bloques distintos se resuelven por la fecha del registro: JUSTICIALISTA (desde 2016 = «Justicialista (2016)»), FRENTE DE TODOS (antes de 2019 = Frente de Todos de Corrientes), UNIDAD JUSTICIALISTA (1984 / San Luis 2018), CONSENSO FEDERAL (ConFe 2008 / Lavagna 2019), FEDERAL (1987 / 2001), ENCUENTRO POPULAR (2003 / 2007).",
    "alternativa": "Ninguna mejor dentro del esquema por etiqueta: en las dos etiquetas de un solo bloque compartidas por ambos casos se asigna el bloque mayoritario.",
-   "motivo": "En «JUSTICIALISTA» quedan mal asignadas 18 intervenciones de Juan José Bahillo (bloque Justicialista 2017-2019) y en «FRENTE DE TODOS» 8 de María Josefa Areta (Frente de Todos de Corrientes, 2007-2011)."
+   "motivo": "En «JUSTICIALISTA» quedan mal asignadas 18 intervenciones de Juan José Bahillo (bloque Justicialista 2017-2019) y en «FRENTE DE TODOS» 8 de María Josefa Areta (Frente de Todos de Corrientes, 2007-2011).",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -9027,7 +8967,8 @@
    ],
    "decision": "En estas 39 etiquetas se descartan bloques que no figuran en la trayectoria oficial del diputado (Informe especial 103 y datos.hcdn). Los principales: Peronista Federal (De Marchi), MMTA (Carrió), Justicialista (Rodil, Pernasetti y otros diez), Propuesta Peronista (M. V. Rodríguez), Frente del Movimiento Popular (Macaluse y otros tres), Movimiento Pampa Sur (Alchourón), Frente Grande (Méndez de Ferreyra), Frente Popular Bonaerense (Depetri), Convergencia y «BÖSCH DE SARTORI, IRENE MIRIAM» (Bossa, Borsani).",
    "alternativa": "Conservarlos en la lista.",
-   "motivo": "Parecen errores de construcción del CSV: nombres parecidos (Alchourón/Alarcón, Bossa y Borsani/Bösch), homónimos, restos de notas («FPV ‐ PJ ‐.») o texto que no es un bloque («E.», «BÖSCH DE SARTORI, IRENE MIRIAM», «VON NIEDERHÄUSERN, NORBERTO B CHUBUT»). Se comprobó buscando cada caso por apellido en ambas fuentes. «MOVIMIENTO PAMPA SUR» y «PROPUESTA PERONISTA» solo aparecen en estas posiciones descartadas, por eso no tienen ficha en «partidos»; las variantes «FPV ‐ PJ ‐.», «FRENTE CIVICO Y  SOCIAL DE» y «MOVIMIENTO POR LA REVOLUCION, NACIONAL» figuran en las fichas de UxP, FCyS y Conv. Pop. Emancipadora."
+   "motivo": "Parecen errores de construcción del CSV: nombres parecidos (Alchourón/Alarcón, Bossa y Borsani/Bösch), homónimos, restos de notas («FPV ‐ PJ ‐.») o texto que no es un bloque («E.», «BÖSCH DE SARTORI, IRENE MIRIAM», «VON NIEDERHÄUSERN, NORBERTO B CHUBUT»). Se comprobó buscando cada caso por apellido en ambas fuentes. «MOVIMIENTO PAMPA SUR» y «PROPUESTA PERONISTA» solo aparecen en estas posiciones descartadas, por eso no tienen ficha en «partidos»; las variantes «FPV ‐ PJ ‐.», «FRENTE CIVICO Y  SOCIAL DE» y «MOVIMIENTO POR LA REVOLUCION, NACIONAL» figuran en las fichas de UxP, FCyS y Conv. Pop. Emancipadora.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -9063,7 +9004,8 @@
    ],
    "decision": "En estas 29 etiquetas la lista sigue el orden cronológico de la HCDN y no el de la etiqueta.",
    "alternativa": "Respetar el orden de la etiqueta.",
-   "motivo": "El orden de la etiqueta es cronológico en 236 de 265 etiquetas con más de una sigla, pero no en estas: mandatos en otro orden (Moreau, Raimundi, Stolbizer, Méndez de Ferreyra, Litza) o bloques invertidos dentro de un mandato (Unidad Justicialista en 1984, Roselli, Carbonetto)."
+   "motivo": "El orden de la etiqueta es cronológico en 236 de 265 etiquetas con más de una sigla, pero no en estas: mandatos en otro orden (Moreau, Raimundi, Stolbizer, Méndez de Ferreyra, Litza) o bloques invertidos dentro de un mandato (Unidad Justicialista en 1984, Roselli, Carbonetto).",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -9078,7 +9020,8 @@
    ],
    "decision": "Las listas solo contienen bloques de la etiqueta, que refleja cambios hasta al menos el 23/8/2023 y ninguno desde el 22/11/2023.",
    "alternativa": "Añadir los bloques posteriores (LLA, UCR - Unión Cívica Radical, Hacemos Coalición Federal, etc.) tomándolos de datos.hcdn.",
-   "motivo": "Unas 1.240 intervenciones de 2023-2025 quedan con el bloque anterior (y otras 560 anteriores, porque la etiqueta omite algún bloque real): Álvaro Martínez (PRO -> LLA, 622 intervenciones), De Loredo y Tetaz (Evolución Radical -> UCR, dic. 2023), Monzó y Stolbizer (Encuentro Federal -> Hacemos Coalición Federal, dic. 2023-ago. 2024), entre otros."
+   "motivo": "Unas 1.240 intervenciones de 2023-2025 quedan con el bloque anterior (y otras 560 anteriores, porque la etiqueta omite algún bloque real): Álvaro Martínez (PRO -> LLA, 622 intervenciones), De Loredo y Tetaz (Evolución Radical -> UCR, dic. 2023), Monzó y Stolbizer (Encuentro Federal -> Hacemos Coalición Federal, dic. 2023-ago. 2024), entre otros.",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -9086,7 +9029,8 @@
    ],
    "decision": "La etiqueta vacía se asigna a «Sin identificar» (convención de la aplicación).",
    "alternativa": "Recuperar el bloque desde datos.hcdn por diputado y fecha.",
-   "motivo": "Son 16.269 intervenciones con diputado identificado (sobre todo 2024-2025, diputados que asumieron el 10/12/2023); 13.917 tienen bloque conocido en la fuente oficial."
+   "motivo": "Son 16.269 intervenciones con diputado identificado (sobre todo 2024-2025, diputados que asumieron el 10/12/2023); 13.917 tienen bloque conocido en la fuente oficial.",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -9098,7 +9042,8 @@
    ],
    "decision": "Se entrega la trayectoria cronológica. Con la regla de fechas por sigla acierta el 94,8 % de las intervenciones con etiqueta y el 85,8 % en las etiquetas con más de una sigla; se añade la clave «asignacion_fechada» (misma lista con la fecha de ingreso en cada bloque), que con la misma regla acierta el 99,0 % y el 98,9 %.",
    "alternativa": "Usar «asignacion_fechada» en la aplicación, o reordenar las listas para maximizar la regla por sigla (techo: 97,5 %, pero dejan de ser trayectorias).",
-   "motivo": "La regla falla cuando el diputado pasa de un bloque reciente a uno antiguo o vuelve a un bloque anterior: el inicio de UxP (1983), UCR (1983) o PRO (2003) es anterior a su ingreso. Ejemplo: las 4.359 intervenciones de Norma Abdala de Matarazzo en el Frente Cívico por Santiago (2009-2019) quedan en UxP porque su lista termina en UxP."
+   "motivo": "La regla falla cuando el diputado pasa de un bloque reciente a uno antiguo o vuelve a un bloque anterior: el inicio de UxP (1983), UCR (1983) o PRO (2003) es anterior a su ingreso. Ejemplo: las 4.359 intervenciones de Norma Abdala de Matarazzo en el Frente Cívico por Santiago (2009-2019) quedan en UxP porque su lista termina en UxP.",
+   "estado": "Ya aplicada: la aplicación usa la asignación fechada (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -9127,7 +9072,8 @@
    ],
    "decision": "Los bloques de los peronistas cordobeses van separados: Córdoba Federal (2009-2013 y 2017-2023), Unión por Córdoba (2013), Federal UNA (2015, con el FR), UNA (2016) y Córdoba Trabajo y Producción (2017).",
    "alternativa": "Una sigla para el peronismo cordobés (Córdoba Federal) salvo Federal UNA.",
-   "motivo": "La HCDN no registra estos pasos como cambios de nombre (Federal UNA y Córdoba Federal figuran como «creación nuevo bloque»)."
+   "motivo": "La HCDN no registra estos pasos como cambios de nombre (Federal UNA y Córdoba Federal figuran como «creación nuevo bloque»).",
+   "estado": "Aplicada la alternativa (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -9149,7 +9095,8 @@
    ],
    "decision": "Buenos Aires para Todos en Proyecto Sur (Lozano, 2007) separado de Proyecto Sur (2009); De la Concertación (radicales K, 2007) separado de ConFe (2008) y de FORJA (2008).",
    "alternativa": "Tratar Proyecto Sur y la Concertación como cadenas con continuidad.",
-   "motivo": "La HCDN no registra cambio de nombre: Movimiento Proyecto Sur se formó el 10/12/2009 con Solanas, Argumedo, Cardelli y Parada, cuyos mandatos empezaban ese día, y Lozano se incorporó; ConFe figura como «creación nuevo bloque» el 14/8/2008 y a él pasaron 4 radicales K."
+   "motivo": "La HCDN no registra cambio de nombre: Movimiento Proyecto Sur se formó el 10/12/2009 con Solanas, Argumedo, Cardelli y Parada, cuyos mandatos empezaban ese día, y Lozano se incorporó; ConFe figura como «creación nuevo bloque» el 14/8/2008 y a él pasaron 4 radicales K.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   }
  ],
  "tipo_propuesto": "trayectoria"

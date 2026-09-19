@@ -264,7 +264,8 @@
    ],
    "decision": "Tipo «trayectoria». La tabla solo unifica etiquetas; no puede corregir intervenciones asignadas al partido final del diputado.",
    "alternativa": "Recalcular el partido de cada intervención a partir de la sigla de la cabecera del Diário («O Sr. X (PCP)») y, en las filas de continuación, de la última cabecera del mismo orador.",
-   "motivo": "El 99,0 % de las filas lleva la etiqueta más frecuente de su diputado (2.262 de 2.403 diputados tienen al menos el 95 % de sus filas con una sola etiqueta), que suele ser la de su último partido: PRD en 1976-1985 (14.663 filas antes de su fundación), CH en 2005-2009, BE en 1992; UDP solo tiene 14 filas frente a unas 2.500 cabeceras «(UDP)». En el 7 % de las filas con sigla en la cabecera (51.666) la etiqueta contradice esa sigla y coincide con la del diputado."
+   "motivo": "El 99,0 % de las filas lleva la etiqueta más frecuente de su diputado (2.262 de 2.403 diputados tienen al menos el 95 % de sus filas con una sola etiqueta), que suele ser la de su último partido: PRD en 1976-1985 (14.663 filas antes de su fundación), CH en 2005-2009, BE en 1992; UDP solo tiene 14 filas frente a unas 2.500 cabeceras «(UDP)». En el 7 % de las filas con sigla en la cabecera (51.666) la etiqueta contradice esa sigla y coincide con la del diputado.",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -273,7 +274,8 @@
    ],
    "decision": "Se mantienen como partidos distintos, sin cambios.",
    "alternativa": "Corregir en origen: sustituir la etiqueta de las filas afectadas por el partido habitual del diputado en esa legislatura.",
-   "motivo": "Los 278 diputados que comparten PS y PSD no son filas con el partido de otro orador: en 273 la etiqueta minoritaria procede de cabeceras con la sigla equivocada («O Sr. Guilherme Silva (PS)», «O Sr. José Magalhães (PSD)»), errata del Diário o del OCR que el CSV copia (709 de las 826 filas minoritarias; mediana del 0,4 % de las filas del diputado). Solo dos casos reflejan un cambio real de partido: Helena Roseta (PSD → PS) y Francisco Torres (PSD en 1995-1999, PS desde 1999)."
+   "motivo": "Los 278 diputados que comparten PS y PSD no son filas con el partido de otro orador: en 273 la etiqueta minoritaria procede de cabeceras con la sigla equivocada («O Sr. Guilherme Silva (PS)», «O Sr. José Magalhães (PSD)»), errata del Diário o del OCR que el CSV copia (709 de las 826 filas minoritarias; mediana del 0,4 % de las filas del diputado). Solo dos casos reflejan un cambio real de partido: Helena Roseta (PSD → PS) y Francisco Torres (PSD en 1995-1999, PS desde 1999).",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -283,7 +285,8 @@
    ],
    "decision": "PCP y PEV quedan separados; las intervenciones de PEV etiquetadas PCP siguen en PCP.",
    "alternativa": "Recalcular desde la cabecera, como en el primer punto.",
-   "motivo": "10.176 de las 15.192 filas con cabecera «(Os Verdes)» o «(PEV)» llevan la etiqueta PCP (CDU), lo que infla el PCP y reduce el PEV en léxico y redes."
+   "motivo": "10.176 de las 15.192 filas con cabecera «(Os Verdes)» o «(PEV)» llevan la etiqueta PCP (CDU), lo que infla el PCP y reduce el PEV en léxico y redes.",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -292,7 +295,8 @@
    ],
    "decision": "Se funden en CDS-PP (cambio de nombre de 24-1-1993).",
    "alternativa": "Ninguna razonable; con fusión o sin ella las etiquetas ya están mezcladas.",
-   "motivo": "Las filas con cabecera «(CDS)» anteriores a 1993 llevan CDS-PP y sus continuaciones («O Orador») llevan CDS, para los mismos 84 diputados."
+   "motivo": "Las filas con cabecera «(CDS)» anteriores a 1993 llevan CDS-PP y sus continuaciones («O Orador») llevan CDS, para los mismos 84 diputados.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -300,7 +304,8 @@
    ],
    "decision": "Sigla DR, la que usa el Diário en las cabeceras.",
    "alternativa": "Usar «Reformadores» como sigla visible.",
-   "motivo": "No he encontrado una sigla oficial del agrupamento; «(DR)» es la forma del Diário en 1980."
+   "motivo": "No he encontrado una sigla oficial del agrupamento; «(DR)» es la forma del Diário en 1980.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   }
  ],
  "tipo_propuesto": "trayectoria"

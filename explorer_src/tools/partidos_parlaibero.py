@@ -76,8 +76,8 @@ def validar(pais, t, errores, avisos):
             valor = ops[0][0]
         else:
             valor = [[s, fecha] if fecha else s for s, fecha in ops]
-            if tipo != 'trayectoria':
-                errores.append(f'{pais}: «{crudo}» tiene varias siglas, pero la tabla no es de trayectorias')
+            if tipo != 'trayectoria' and any(not fecha for _, fecha in ops[1:]):   # fuera de las trayectorias, solo con fecha
+                errores.append(f'{pais}: «{crudo}» tiene varias siglas sin fecha, pero la tabla no es de trayectorias')
             for s, fecha in ops[1:]:
                 if not fecha and not partidos.get(s, {}).get('inicio'):
                     avisos.append(f'{pais}: «{s}» aparece en trayectorias sin fecha (se elige por orden)')
@@ -229,10 +229,11 @@ def main():
             lineas.append(f'- {p}: {c["etiquetas_csv"]} etiquetas en el CSV; faltan {len(c["faltan"])}; en la tabla y no en el CSV: {len(c["sobran"])}')
     revisar = [(p, x) for p, t in tablas.items() for x in t.get('revisar') or []]
     if revisar:
-        lineas += ['', '## Decisiones para revisar', '']
+        lineas += ['', '## Decisiones discutibles', '']
         for p, x in revisar:
             lineas.append(f'- {p} · {", ".join(x.get("etiquetas") or [])}: {x.get("decision", "")} '
-                          f'(alternativa: {x.get("alternativa", "—")}). {x.get("motivo", "")}')
+                          f'(alternativa: {x.get("alternativa", "—")}). {x.get("motivo", "")}'
+                          + (f' **{x["estado"]}**' if x.get('estado') else ''))
     if avisos:
         lineas += ['', '## Avisos', ''] + [f'- {x}' for x in avisos]
     if errores:

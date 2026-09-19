@@ -628,14 +628,14 @@
    ]
   },
   {
-   "sigla": "Asamblea Popular",
-   "nombre": "Partido Asamblea Popular (lema de la coalición Unidad Popular)",
+   "sigla": "Unidad Popular",
+   "nombre": "Unidad Popular (lema Partido Asamblea Popular)",
    "etiquetas": [
     "Asamblea Popular",
     "Partido Democrata Cristiano"
    ],
    "cambios": [],
-   "nota": "Lema «Partido Asamblea Popular» (hoja 326), con el que concurrió la coalición Unidad Popular; un diputado en la XLVIII (Eduardo Rubio). «Partido Democrata Cristiano» es un error de enlace: sus 40 filas (2016-2019) son de Walter Gonzalo Martínez, suplente de Rubio, al que el CSV identifica como «MARTINEZ GALLINAL, WALTER» (ver «revisar»).",
+   "nota": "Lema «Partido Asamblea Popular» (hoja 326), con el que concurrió la coalición Unidad Popular; un diputado en la XLVIII (Eduardo Rubio). «Partido Democrata Cristiano» es un error de enlace: sus 40 filas (2016-2019) son de Walter Gonzalo Martínez, suplente de Rubio, al que el CSV identifica como «MARTINEZ GALLINAL, WALTER» (ver «revisar»). Nombre público de la coalición.",
    "fuentes": [
     {
      "etiquetas": [
@@ -745,7 +745,7 @@
   "Partido Encuentro Progresista": "Frente Amplio",
   "En Defensa de la Nacion": "Partido Nacional",
   "Batllismo Unido": "Partido Colorado",
-  "Asamblea Popular": "Asamblea Popular",
+  "Asamblea Popular": "Unidad Popular",
   "Unidad Nacionalista": "Partido Nacional",
   "Herrerismo": "Partido Nacional",
   "Adelante Con Fe": "Partido Nacional",
@@ -773,7 +773,7 @@
   "Patria Para Todos": "Partido Nacional",
   "Socialismo Democracia Libertad": "Frente Amplio",
   "Canelones Al Frente": "Frente Amplio",
-  "Partido Democrata Cristiano": "Asamblea Popular",
+  "Partido Democrata Cristiano": "Unidad Popular",
   "Manos A la Obra": "Partido Nacional",
   "Por la Patria": "Partido Nacional",
   "Acuerdo": "Partido Colorado",
@@ -810,7 +810,8 @@
    ],
    "decision": "Partido canónico propio «PGP», que es el lema de 1989.",
    "alternativa": "Llamarlo «Nuevo Espacio (1989)», nombre de la coalición que usan los anexos de Wikipedia, o fundirlo con Nuevo Espacio.",
-   "motivo": "La etiqueta y las proclamaciones dan el lema PGP, pero políticamente es la coalición Nuevo Espacio de 1989. No se funde con el Partido Nuevo Espacio de 1994 porque la Lista 99 pasó al Partido Colorado. Además, 1.086 filas de 1985-1990 son de diputados que entonces eran del Frente Amplio."
+   "motivo": "La etiqueta y las proclamaciones dan el lema PGP, pero políticamente es la coalición Nuevo Espacio de 1989. No se funde con el Partido Nuevo Espacio de 1994 porque la Lista 99 pasó al Partido Colorado. Además, 1.086 filas de 1985-1990 son de diputados que entonces eran del Frente Amplio.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -818,7 +819,8 @@
    ],
    "decision": "Frente Amplio: es el lema del FA de 1999-2004, con otro nombre, y la coalición con la que concurrió (reglas 2 y 3).",
    "alternativa": "Partido canónico propio «Encuentro Progresista».",
-   "motivo": "Tres de sus cuatro diputados son de sectores del FA. El cuarto, Díaz Maynard, venía de Alianza Progresista, que se integró al FA en 2005."
+   "motivo": "Tres de sus cuatro diputados son de sectores del FA. El cuarto, Díaz Maynard, venía de Alianza Progresista, que se integró al FA en 2005.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -826,7 +828,8 @@
    ],
    "decision": "Asamblea Popular, porque las 40 filas son de un suplente de ese lema mal enlazado.",
    "alternativa": "Frente Amplio, al que pertenece el PDC como sector desde 2005, o partido propio «PDC» si se prefiere seguir la etiqueta literal.",
-   "motivo": "Las convocatorias de 2016 dan a Walter Gonzalo Martínez como suplente de la hoja 326 del lema Partido Asamblea Popular. Conviene corregir también el enlace del diputado."
+   "motivo": "Las convocatorias de 2016 dan a Walter Gonzalo Martínez como suplente de la hoja 326 del lema Partido Asamblea Popular. Conviene corregir también el enlace del diputado.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -835,7 +838,8 @@
    ],
    "decision": "Sigla «Asamblea Popular», que es el lema.",
    "alternativa": "«Unidad Popular», nombre público de la coalición en 2014-2019, que es el que usa el anexo de la XLVIII.",
-   "motivo": "En Uruguay el partido es el lema; pero Unidad Popular es el nombre más conocido."
+   "motivo": "En Uruguay el partido es el lema; pero Unidad Popular es el nombre más conocido.",
+   "estado": "Aplicada la alternativa (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -843,7 +847,8 @@
    ],
    "decision": "Nuevo Espacio, nombre del lema de 1994-2004.",
    "alternativa": "«Espacio Socialdemócrata Amplio», su nombre desde 2023, si se aplica literalmente la regla del nombre más reciente.",
-   "motivo": "El cambio de 2023 es de un sector del Frente Amplio, no de un lema. Diez filas de 2018 son de ese sector y quedan en Nuevo Espacio."
+   "motivo": "El cambio de 2023 es de un sector del Frente Amplio, no de un lema. Diez filas de 2018 son de ese sector y quedan en Nuevo Espacio.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -855,7 +860,8 @@
    ],
    "decision": "Se asigna por etiqueta, sin corregir por fechas.",
    "alternativa": "Corregir con una tabla por diputado y legislatura.",
-   "motivo": "La etiqueta se mantiene durante toda la legislatura y a veces se copia de otra. Ejemplos: Daniel Peña y Fernando Amado en la XLVIII, y los sublemas de 1989 aplicados a 1985-1990."
+   "motivo": "La etiqueta se mantiene durante toda la legislatura y a veces se copia de otra. Ejemplos: Daniel Peña y Fernando Amado en la XLVIII, y los sublemas de 1989 aplicados a 1985-1990.",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   }
  ],
  "tipo_propuesto": "trayectoria"

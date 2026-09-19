@@ -20,7 +20,13 @@
     "ALIANZA PAIS MAR  35-70",
     "ALIANZA LISTAS 35-62",
     "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 65     35-65",
-    "EUROPA, ASIA Y OCEANÍA"
+    "EUROPA, ASIA Y OCEANÍA",
+    "ALIANZA PAIS - UNIDAD PRIMERO",
+    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 65       35-65",
+    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 55       35-65",
+    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRI",
+    "ACUERDO MOVIMIENTO ALIANZA PAIS - PARTIDO SOCIALISTA ECUATORIANO    35-17",
+    "ALIANZA: MOVIMIENTO ALIANZA PAIS, PATRIA ALTIVA I SOBERANA - PARTIDO SOCIALISTA FRENTE AMPLIO"
    ],
    "cambios": [
     {
@@ -30,14 +36,16 @@
      "fuente": "https://es.wikipedia.org/wiki/Alianza_PAIS"
     }
    ],
-   "nota": "Sigla AP por ser la conocida; el nombre oficial final (MOVER) solo aparece en los datos dentro de la coalición PID–MOVER de 2023. Las etiquetas de alianza de AP se asignan aquí cuando todos sus diputados con evidencia eran de AP (anexo de asambleístas 2013-2017, anexo de asambleístas 2017-2021, elecciones a la Asamblea Constituyente de 2007, elecciones legislativas de 2009). Hay filas con etiqueta AP anteriores a 2006 (antes de existir el partido): son intervenciones de diputados cuya única ficha es de 2006-2013 (véase el informe). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+   "nota": "Sigla AP por ser la conocida; el nombre oficial final (MOVER) solo aparece en los datos dentro de la coalición PID–MOVER de 2023. Las etiquetas de alianza de AP se asignan aquí cuando todos sus diputados con evidencia eran de AP (anexo de asambleístas 2013-2017, anexo de asambleístas 2017-2021, elecciones a la Asamblea Constituyente de 2007, elecciones legislativas de 2009). Hay filas con etiqueta AP anteriores a 2006 (antes de existir el partido): son intervenciones de diputados cuya única ficha es de 2006-2013 (véase el informe). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.] Las alianzas AP–Unidad Primero y AP–PSE van a AP, que aportaba la mayoría de los diputados (19-9-2026)."
   },
   {
    "sigla": "RC",
    "nombre": "Movimiento Revolución Ciudadana (hasta agosto de 2021, Movimiento Fuerza Compromiso Social)",
    "etiquetas": [
     "RC",
-    "RC-Lidera"
+    "RC-Lidera",
+    "CD - FCS",
+    "1-5 UNIÓN POR LA ESPERANZA"
    ],
    "cambios": [
     {
@@ -47,7 +55,7 @@
      "fuente": "https://es.wikipedia.org/wiki/Movimiento_Revoluci%C3%B3n_Ciudadana"
     }
    ],
-   "nota": "RC-Lidera: su único diputado (J. L. Vallejo) figura como RC en 2023-2025. FCS solo aparece dentro de la alianza UNES (CD–FCS), que se deja aparte."
+   "nota": "RC-Lidera: su único diputado (J. L. Vallejo) figura como RC en 2023-2025. FCS solo aparece dentro de la alianza UNES (CD–FCS), que se deja aparte. UNES (2021-2023) va a RC: 51 de sus 53 diputados eran de RC (19-9-2026)."
   },
   {
    "sigla": "PSC",
@@ -405,10 +413,15 @@
     "CREO",
     "MOVIMIENTO CREANDO OPORTUNIDADES CREO",
     "ALANZA CREO – SUMA   21-23",
-    "CREO - ADE"
+    "CREO - ADE",
+    "ALIANZA CREO – SUMA 21-23",
+    "ALIANZA CREO - SUMA",
+    "CREO-SUMA-PARTICIPA   21-23-62",
+    "ALIANZA CREO-SUMA-PARTICIPA",
+    "ALIANZA CREO SUMA ALIANZA TSACHILA    21-23-62"
    ],
    "cambios": [],
-   "nota": "ALANZA CREO – SUMA (errata de la alianza CREO–SUMA) y CREO - ADE: todos sus diputados figuran como CREO (anexo de asambleístas 2017-2021, anexo de asambleístas 2021-2023). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+   "nota": "ALANZA CREO – SUMA (errata de la alianza CREO–SUMA) y CREO - ADE: todos sus diputados figuran como CREO (anexo de asambleístas 2017-2021, anexo de asambleístas 2021-2023). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.] Las alianzas CREO–SUMA de 2017 van a CREO, que las encabezaba y aportaba la mayoría (19-9-2026)."
   },
   {
    "sigla": "SUMA",
@@ -435,10 +448,11 @@
    "sigla": "ADN",
    "nombre": "Acción Democrática Nacional",
    "etiquetas": [
-    "ADN"
+    "ADN",
+    "PID - MOVER"
    ],
    "cambios": [],
-   "nota": "Movimiento legalizado el 2024-05-23 (https://es.wikipedia.org/wiki/Acci%C3%B3n_Democr%C3%A1tica_Nacional_(Ecuador)). La coalición PID–MOVER que usó su nombre en 2023 queda aparte (véase «revisar»)."
+   "nota": "Movimiento legalizado el 2024-05-23 (https://es.wikipedia.org/wiki/Acci%C3%B3n_Democr%C3%A1tica_Nacional_(Ecuador)). La coalición PID–MOVER que usó su nombre en 2023 queda aparte (véase «revisar»). La coalición ADN de 2023 va a ADN (19-9-2026)."
   },
   {
    "sigla": "Construye",
@@ -775,76 +789,6 @@
    ],
    "cambios": [],
    "nota": ""
-  },
-  {
-   "sigla": "UNES",
-   "nombre": "Unión por la Esperanza (alianza de Centro Democrático y Fuerza Compromiso Social)",
-   "etiquetas": [
-    "CD - FCS",
-    "1-5 UNIÓN POR LA ESPERANZA"
-   ],
-   "cambios": [],
-   "nota": "Coalición correísta de 2021-2023 (https://es.wikipedia.org/wiki/Uni%C3%B3n_por_la_Esperanza). El anexo de asambleístas 2021-2023 da como de RC (antes FCS) a 51 de los 53 diputados de la lista, pero F. León Flores y R. González Valero eran de Centro Democrático y dejaron ese partido en 2021-2022; por eso la etiqueta, encabezada por CD, queda como alianza (regla 2)."
-  },
-  {
-   "sigla": "PID–MOVER",
-   "nombre": "Acción Democrática Nacional (coalición de Pueblo, Igualdad y Democracia y MOVER, 2023)",
-   "etiquetas": [
-    "PID - MOVER"
-   ],
-   "cambios": [],
-   "nota": "«PID» es Pueblo, Igualdad y Democracia (https://es.wikipedia.org/wiki/Pueblo,_Igualdad_y_Democracia); MOVER es la antigua Alianza PAIS. Diputados de PID, MOVER y del núcleo de ADN aún sin inscribir (anexo de asambleístas 2023-2025). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
-  },
-  {
-   "sigla": "CREO–SUMA",
-   "nombre": "Alianza CREO–SUMA (2017)",
-   "etiquetas": [
-    "ALIANZA CREO – SUMA 21-23",
-    "ALIANZA CREO - SUMA"
-   ],
-   "cambios": [],
-   "nota": "Diputados de CREO, SUMA y otros (anexo de asambleístas 2017-2021). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
-  },
-  {
-   "sigla": "CREO–SUMA–Participa",
-   "nombre": "Alianza CREO–SUMA–Participa (Azuay, 2017)",
-   "etiquetas": [
-    "CREO-SUMA-PARTICIPA   21-23-62",
-    "ALIANZA CREO-SUMA-PARTICIPA"
-   ],
-   "cambios": [],
-   "nota": ""
-  },
-  {
-   "sigla": "CREO–SUMA–Alianza Tsáchila",
-   "nombre": "Alianza CREO–SUMA–Alianza Tsáchila (2017)",
-   "etiquetas": [
-    "ALIANZA CREO SUMA ALIANZA TSACHILA    21-23-62"
-   ],
-   "cambios": [],
-   "nota": ""
-  },
-  {
-   "sigla": "AP–Unidad Primero",
-   "nombre": "Alianza PAIS–Unidad Primero (Manabí, 2013 y 2017)",
-   "etiquetas": [
-    "ALIANZA PAIS - UNIDAD PRIMERO",
-    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 65       35-65",
-    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 55       35-65",
-    "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRI"
-   ],
-   "cambios": [],
-   "nota": "Diputados de AP y de Unidad Primero (elecciones legislativas de 2013, anexo de asambleístas 2013-2017, anexo de asambleístas 2017-2021). [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
-  },
-  {
-   "sigla": "AP–PSE",
-   "nombre": "Alianza PAIS–Partido Socialista (PS-FA/PSE)",
-   "etiquetas": [
-    "ACUERDO MOVIMIENTO ALIANZA PAIS - PARTIDO SOCIALISTA ECUATORIANO    35-17",
-    "ALIANZA: MOVIMIENTO ALIANZA PAIS, PATRIA ALTIVA I SOBERANA - PARTIDO SOCIALISTA FRENTE AMPLIO"
-   ],
-   "cambios": [],
-   "nota": "Diputados de AP y del PS-FA/PSE (elecciones legislativas de 2013, anexo de asambleístas 2017-2021). Se agrupan las alianzas de 2013 (Bolívar) y 2017 (Azuay, Imbabura) porque tienen los mismos socios. [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
   },
   {
    "sigla": "AP–MAR",
@@ -1253,8 +1197,8 @@
   "Frente Amplio De Izquierda": "FADI",
   "ADN": "ADN",
   "MUPP - MC25": "MUPP",
-  "CD - FCS": "UNES",
-  "ALIANZA CREO – SUMA 21-23": "CREO–SUMA",
+  "CD - FCS": "RC",
+  "ALIANZA CREO – SUMA 21-23": "CREO",
   "PSP": "PSP",
   "MUPP": "MUPP",
   "Partido Unidad Republicana": "PUR",
@@ -1262,7 +1206,7 @@
   "MCNP": "MCNP",
   "PSFA-UPPNP-CNP": "MUPP",
   "ID": "ID",
-  "PID - MOVER": "PID–MOVER",
+  "PID - MOVER": "ADN",
   "ID/RED": "ID",
   "Acción Popular Revolucionaria Ecuator.": "APRE",
   "MC25": "Construye",
@@ -1271,7 +1215,7 @@
   "MPD-PSFA": "PSE",
   "Partido Izquierda Democrática": "ID",
   "Unión Democrática Popular": "FADI",
-  "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 65       35-65": "AP–Unidad Primero",
+  "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 65       35-65": "AP",
   "MPD": "MPD",
   "Partido Coalición Institucionalista Demócrata": "CID",
   "Partido Nacionalista Revolucionario": "PNR",
@@ -1280,7 +1224,7 @@
   "MUPP-NP-": "MUPP",
   "PSFA/PACHAKUTIK": "PS-FA–MUPP",
   "CFP": "CFP",
-  "ACUERDO MOVIMIENTO ALIANZA PAIS - PARTIDO SOCIALISTA ECUATORIANO    35-17": "AP–PSE",
+  "ACUERDO MOVIMIENTO ALIANZA PAIS - PARTIDO SOCIALISTA ECUATORIANO    35-17": "AP",
   "PSC 6 - MADERA DE GUERRERO": "PSC",
   "CREO": "CREO",
   "PSC - MDG": "PSC",
@@ -1312,7 +1256,7 @@
   "ALIANZA PARTIDO SOCIAL CRISTIANO - MADERA DE GUERRERO": "PSC",
   "ALIANZA MOVIMIENTO CREO, CREANDO OPORTUNIADES/MOVIMIENTO TIEMPO DE CAMBIO/PARTIDO SOCIAL CRISTIANO": "PSC",
   "PCE-FRA": "PCE",
-  "ALIANZA PAIS - UNIDAD PRIMERO": "AP–Unidad Primero",
+  "ALIANZA PAIS - UNIDAD PRIMERO": "AP",
   "ID – MSI": "ID",
   "M A R": "MAR",
   "ALIANZA PSC-TIEMPO DE CAMBIO   6-61": "PSC",
@@ -1341,15 +1285,15 @@
   "MOVIMIENTO SUMA, SOCIEDAD UNIDA MÁS ACCIÓN": "SUMA",
   "ALIANZA. POR LA INTEGRACIÓN BOLIVARENSE  21-100": "Integración Bolivarense",
   "ALIANZA: MOVIMIENTO ALIANZA PAÍS, PATRIA ALTIVA I SOBERANA - MOVIMIENTO AUTONÓMICO REGIONAL": "AP–MAR",
-  "1-5 UNIÓN POR LA ESPERANZA": "UNES",
-  "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 55       35-65": "AP–Unidad Primero",
+  "1-5 UNIÓN POR LA ESPERANZA": "RC",
+  "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRIMERO LISTAS 55       35-65": "AP",
   "MRED": "RED",
   "PSC / 6": "PSC",
   "MCND": "MCND",
   "UDC/ID": "DP-UDC",
-  "CREO-SUMA-PARTICIPA   21-23-62": "CREO–SUMA–Participa",
+  "CREO-SUMA-PARTICIPA   21-23-62": "CREO",
   "PRIAN / 7": "PRIAN",
-  "ALIANZA: MOVIMIENTO ALIANZA PAIS, PATRIA ALTIVA I SOBERANA - PARTIDO SOCIALISTA FRENTE AMPLIO": "AP–PSE",
+  "ALIANZA: MOVIMIENTO ALIANZA PAIS, PATRIA ALTIVA I SOBERANA - PARTIDO SOCIALISTA FRENTE AMPLIO": "AP",
   "PSP / 3": "PSP",
   "PSC/MCMG": "PSC",
   "CC": "CC",
@@ -1382,7 +1326,7 @@
   "PSC - Caminantes": "PSC–Caminantes",
   "PRE / 10": "PRE",
   "PARTIDO SOCIAL CRISTIANO": "PSC",
-  "ALIANZA CREO SUMA ALIANZA TSACHILA    21-23-62": "CREO–SUMA–Alianza Tsáchila",
+  "ALIANZA CREO SUMA ALIANZA TSACHILA    21-23-62": "CREO",
   "EUROPA, ASIA Y OCEANÍA": "AP",
   "PRIAN/MHE .- AMÉRICA L. EL CARIBE ÁFRICA": "PRIAN",
   "MPD/MUC/MNCS": "MPD",
@@ -1405,7 +1349,7 @@
   "Nro. 15 MPD": "MPD",
   "MOVIMIENTO ACCION REGIONAL POR LA EQUIDAD": "ARE",
   "MEU": "MEU",
-  "ALIANZA CREO - SUMA": "CREO–SUMA",
+  "ALIANZA CREO - SUMA": "CREO",
   "ACUERDO PROVINCIAL POR EL CAMBIO ZAMORA CHINCHIPE  12-18": "MUPP",
   "Unidos por Pastaza": "Unidos por Pastaza",
   "Acuerdo Ciudadano": "Acuerdo Ciudadano",
@@ -1439,7 +1383,7 @@
   "Mov. Indp. \"PATRIA SOLIDARIA\"": "Patria Solidaria",
   "No. 8 PUR": "PUR",
   "MOVIMIENTO UNIDAD PLURINACIONAL PACHAKUTIK - NUEVO PAIS/MOV.": "MUPP y aliado (etiqueta truncada)",
-  "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRI": "AP–Unidad Primero",
+  "MOVIMIENTO ALIANZA PAIS LISTAS 35 Y EL MOVIMIENTO UNIDAD PRI": "AP",
   "Unidos por Pastaza - PSC": "Unidos por Pastaza",
   "MSCC": "MSCC",
   "MUPP-NP / 18": "MUPP",
@@ -1475,7 +1419,7 @@
   "Nro. 5 PDP-UDC": "DP-UDC",
   "PARTIDO SOCIEDAD PATRIÓTICA \"21 DE ENERO\"": "PSP",
   "SOCIEDAD PATRIOTICA": "PSP",
-  "ALIANZA CREO-SUMA-PARTICIPA": "CREO–SUMA–Participa",
+  "ALIANZA CREO-SUMA-PARTICIPA": "CREO",
   "ALIANZA SUMA Y MOVIMIENTO AGRARIO DE INTEGRACION": "SUMA–Movimiento Agrario",
   "ADN-Semilla": "ADN–Semilla",
   "ALIANZA MPAIS/M. DE IDENTIDAD PROVINCIAL": "AP–Identidad Provincial",
@@ -1511,7 +1455,8 @@
    ],
    "decision": "UNES, alianza propia (regla 2).",
    "alternativa": "Fundir con RC: Fuerza Compromiso Social pasó a llamarse Revolución Ciudadana el 2021-08-28 y casi todos los diputados de UNES figuran como RC en 2023-2025.",
-   "motivo": "UNES era una coalición de Centro Democrático y FCS; la etiqueta la encabeza CD. El anexo de asambleístas 2021-2023 da como de RC a 51 de los 53 diputados de la lista, pero al menos dos (F. León Flores, R. González Valero) eran de Centro Democrático. Es la decisión de más peso del país: 3794 filas."
+   "motivo": "UNES era una coalición de Centro Democrático y FCS; la etiqueta la encabeza CD. El anexo de asambleístas 2021-2023 da como de RC a 51 de los 53 diputados de la lista, pero al menos dos (F. León Flores, R. González Valero) eran de Centro Democrático. Es la decisión de más peso del país: 3794 filas.",
+   "estado": "Aplicada la alternativa (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1519,7 +1464,8 @@
    ],
    "decision": "Coalición ADN de 2023 separada del movimiento ADN (sigla PID–MOVER).",
    "alternativa": "Fundir con ADN: la coalición se inscribió con el nombre de ADN y la mayoría de sus diputados figuran luego como ADN.",
-   "motivo": "En 2023 ADN no estaba inscrito (se legalizó el 2024-05-23); la lista la formaban PID y MOVER y entre sus diputados hay militantes de ambos (reglas 2 y 4). 1629 filas."
+   "motivo": "En 2023 ADN no estaba inscrito (se legalizó el 2024-05-23); la lista la formaban PID y MOVER y entre sus diputados hay militantes de ambos (reglas 2 y 4). 1629 filas.",
+   "estado": "Aplicada la alternativa (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1531,7 +1477,8 @@
    ],
    "decision": "Alianzas propias (CREO–SUMA, CREO–SUMA–Participa, CREO–SUMA–Alianza Tsáchila).",
    "alternativa": "Asignar a CREO, que encabeza la alianza y aporta la mayoría de los diputados.",
-   "motivo": "Diputados de CREO, SUMA, RETO y otros según el anexo de asambleístas 2017-2021. En cambio «ALANZA CREO – SUMA   21-23» (errata) va a CREO porque sus tres diputados son de CREO."
+   "motivo": "Diputados de CREO, SUMA, RETO y otros según el anexo de asambleístas 2017-2021. En cambio «ALANZA CREO – SUMA   21-23» (errata) va a CREO porque sus tres diputados son de CREO.",
+   "estado": "Aplicada la alternativa (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1543,7 +1490,8 @@
    ],
    "decision": "Alianza AP–Unidad Primero, salvo «…LISTAS 65     35-65» (cinco espacios), que va a AP porque sus dos diputados eran de AP.",
    "alternativa": "Todas a AP, o todas a la alianza para que las variantes de la misma lista no se separen.",
-   "motivo": "C. Bergmann, M. Zambrano Vera y D. Mendoza eran de Unidad Primero; el resto de AP. Cada etiqueta se decide por sus propios diputados."
+   "motivo": "C. Bergmann, M. Zambrano Vera y D. Mendoza eran de Unidad Primero; el resto de AP. Cada etiqueta se decide por sus propios diputados.",
+   "estado": "Aplicada la alternativa (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1555,7 +1503,8 @@
    ],
    "decision": "Las dos primeras, alianza AP–PSE (tienen diputados de AP y del PS-FA/PSE); las otras tres, AP (todos sus diputados con evidencia eran de AP).",
    "alternativa": "Todas a AP.",
-   "motivo": "S. Salgado y F. Solano eran del PS-FA/PSE; el resto de AP (elecciones legislativas de 2013, anexo de asambleístas 2017-2021). Variantes de la misma alianza quedan en sitios distintos. [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]"
+   "motivo": "S. Salgado y F. Solano eran del PS-FA/PSE; el resto de AP (elecciones legislativas de 2013, anexo de asambleístas 2017-2021). Variantes de la misma alianza quedan en sitios distintos. [Fuentes citadas: artículos de es.wikipedia; URL en EC.md.]",
+   "estado": "Aplicada la alternativa (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1574,7 +1523,8 @@
    ],
    "decision": "Alianzas propias: cada etiqueta reúne diputados de al menos dos partidos distintos según las fuentes.",
    "alternativa": "Asignar al partido que encabeza la etiqueta (p. ej. RC–RETO a RC, PSFA/PACHAKUTIK a PSE, UPI a MUPP).",
-   "motivo": "Regla 2: coalición en la que el partido de cada diputado no coincide; la tabla asigna por etiqueta y no puede separar diputados."
+   "motivo": "Regla 2: coalición en la que el partido de cada diputado no coincide; la tabla asigna por etiqueta y no puede separar diputados.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1589,7 +1539,8 @@
    ],
    "decision": "Alianzas propias de un solo diputado.",
    "alternativa": "Crear un partido para cada movimiento local (Tiempo de Cambio, Caminantes, Positivo, Antisuyo Ushito, PLAN, Cambio, SIARI) o asignar al partido que encabeza la etiqueta.",
-   "motivo": "Según los anexos de asambleístas, el diputado pertenece al movimiento local socio, que no tiene etiqueta propia en los datos. En PSC - Tiempo de Cambio (589 filas) las fuentes discrepan: el anexo lo da como de Tiempo de Cambio y la mesa directiva de 2021-2023 como del PSC. En PSP - PSC el anexo da SUMA, que no es socio."
+   "motivo": "Según los anexos de asambleístas, el diputado pertenece al movimiento local socio, que no tiene etiqueta propia en los datos. En PSC - Tiempo de Cambio (589 filas) las fuentes discrepan: el anexo lo da como de Tiempo de Cambio y la mesa directiva de 2021-2023 como del PSC. En PSP - PSC el anexo da SUMA, que no es socio.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1615,7 +1566,8 @@
    ],
    "decision": "Asignadas al partido del diputado según la fuente, aunque no sea el que encabeza la etiqueta.",
    "alternativa": "Asignarlas al primer partido de la etiqueta o dejarlas como alianzas.",
-   "motivo": "La regla 2 solo prevé el caso del partido que encabeza; aquí el diputado pertenece, según las fuentes, a otro socio (p. ej. «Luis Mejía Montesdeoca (FRA)» en la lista DP-FRA de 1998, «Rolo San Martín (DP)» en ID-DP-UDC de 2002)."
+   "motivo": "La regla 2 solo prevé el caso del partido que encabeza; aquí el diputado pertenece, según las fuentes, a otro socio (p. ej. «Luis Mejía Montesdeoca (FRA)» en la lista DP-FRA de 1998, «Rolo San Martín (DP)» en ID-DP-UDC de 2002).",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1623,7 +1575,8 @@
    ],
    "decision": "PSE.",
    "alternativa": "MPD (partido que encabeza la etiqueta; la tabla de 2002 atribuye el escaño a la lista del MPD).",
-   "motivo": "Única diputada: Guadalupe Larriva, militante del Partido Socialista y su presidenta desde octubre de 2005 (https://es.wikipedia.org/wiki/Guadalupe_Larriva). 1026 filas."
+   "motivo": "Única diputada: Guadalupe Larriva, militante del Partido Socialista y su presidenta desde octubre de 2005 (https://es.wikipedia.org/wiki/Guadalupe_Larriva). 1026 filas.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1653,7 +1606,8 @@
    ],
    "decision": "Alianzas propias (casi todas suplentes o etiquetas truncadas, con menos de 30 filas).",
    "alternativa": "Asignar al partido que encabeza la etiqueta, como su variante principal cuando existe (p. ej. ID/RED → ID, UDC/RED → DP-UDC).",
-   "motivo": "No hay evidencia del partido de sus diputados; en ID/RED / 12/29 una de las dos suplentes era de RED."
+   "motivo": "No hay evidencia del partido de sus diputados; en ID/RED / 12/29 una de las dos suplentes era de RED.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1664,7 +1618,8 @@
    ],
    "decision": "Sigla DP-UDC con el nombre final (Unión Demócrata Cristiana).",
    "alternativa": "Sigla UDC, que es la del nombre más reciente (regla 3 literal).",
-   "motivo": "La sigla DP-UDC es la conocida y la que propone el encargo; la fuente solo da el año del cambio (2006)."
+   "motivo": "La sigla DP-UDC es la conocida y la que propone el encargo; la fuente solo da el año del cambio (2006).",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1674,7 +1629,8 @@
    ],
    "decision": "Siglas AP y MDS; el nombre oficial final (MOVER, 2021; Movimiento Futuro, 2026) va en «nombre» y en «cambios».",
    "alternativa": "Usar como sigla y nombre visible el nombre más reciente (MOVER, Futuro), como pide la regla 3.",
-   "motivo": "Los cambios de nombre son posteriores a casi todas sus filas y MOVER no tiene etiquetas propias fuera de la coalición PID-MOVER; mostrar «MOVER» para el partido de Correa confundiría al usuario."
+   "motivo": "Los cambios de nombre son posteriores a casi todas sus filas y MOVER no tiene etiquetas propias fuera de la coalición PID-MOVER; mostrar «MOVER» para el partido de Correa confundiría al usuario.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1684,7 +1640,8 @@
    ],
    "decision": "PSE y PS-FA son el mismo partido (lista 17; en 2014 retomó el nombre); el FADI queda aparte.",
    "alternativa": "Tratar el PS-FA (1995-2014) como partido nuevo nacido de la fusión PSE+FADI (regla 4).",
-   "motivo": "Las fuentes hablan de «fusión», pero también de «absorber al FADI» y el partido conservó la lista 17 del PSE. La etiqueta «Partido Socialista Ecuatoriano» cubre ambas épocas y no se puede separar."
+   "motivo": "Las fuentes hablan de «fusión», pero también de «absorber al FADI» y el partido conservó la lista 17 del PSE. La etiqueta «Partido Socialista Ecuatoriano» cubre ambas épocas y no se puede separar.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1693,7 +1650,8 @@
    ],
    "decision": "PCE y Unión Nacional–UNO (2001) son el mismo partido.",
    "alternativa": "Separar Unión Nacional–UNO (una sola etiqueta de alianza, 119 filas).",
-   "motivo": "Una sola fuente (es.wikipedia, Partido Conservador Ecuatoriano) dice que fue «renombrado» en 2001 y añade que lo formaban exmilitantes de la DP."
+   "motivo": "Una sola fuente (es.wikipedia, Partido Conservador Ecuatoriano) dice que fue «renombrado» en 2001 y añade que lo formaban exmilitantes de la DP.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1702,7 +1660,8 @@
    ],
    "decision": "Un solo partido pese a la cancelación del registro (2013-07-09) y la reinscripción (2016-08-18).",
    "alternativa": "Separar la ID reinscrita (regla 5), lo que exigiría partir etiquetas por fecha.",
-   "motivo": "Mismo nombre, misma lista 12 y la fuente lo presenta como reinscripción del mismo partido."
+   "motivo": "Mismo nombre, misma lista 12 y la fuente lo presenta como reinscripción del mismo partido.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1711,7 +1670,8 @@
    ],
    "decision": "MIUP va con Unidos por Pastaza y MSC con MSCC (variantes del mismo nombre).",
    "alternativa": "Mantenerlos separados.",
-   "motivo": "MIUP es «Movimiento Independiente Unidos por Pastaza» (2009) y MSC el Movimiento Social Conservador del Carchi (2006-2009, mismo diputado que usa MSCC en las fuentes); no hay fuente que confirme la continuidad legal tras la reinscripción de movimientos de 2011-2012."
+   "motivo": "MIUP es «Movimiento Independiente Unidos por Pastaza» (2009) y MSC el Movimiento Social Conservador del Carchi (2006-2009, mismo diputado que usa MSCC en las fuentes); no hay fuente que confirme la continuidad legal tras la reinscripción de movimientos de 2011-2012.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -1719,7 +1679,8 @@
    ],
    "decision": "AP.",
    "alternativa": "Sin identificar (la etiqueta es una circunscripción, no un partido).",
-   "motivo": "Única diputada: Dora Aguirre, de AP según la tabla de comisiones del periodo 2009-2013."
+   "motivo": "Única diputada: Dora Aguirre, de AP según la tabla de comisiones del periodo 2009-2013.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   }
  ],
  "tipo_propuesto": "por intervencion"

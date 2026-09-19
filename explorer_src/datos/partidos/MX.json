@@ -33,10 +33,11 @@
    "sigla": "PRD",
    "nombre": "Partido de la Revolución Democrática",
    "etiquetas": [
-    "PRD"
+    "PRD",
+    "PMS"
    ],
    "cambios": [],
-   "nota": ""
+   "nota": " El PMS cedió su registro al PRD en 1989 y su grupo pasó a ser el del PRD (19-9-2026)."
   },
   {
    "sigla": "PT",
@@ -110,15 +111,6 @@
    "nota": ""
   },
   {
-   "sigla": "PMS",
-   "nombre": "Partido Mexicano Socialista",
-   "etiquetas": [
-    "PMS"
-   ],
-   "cambios": [],
-   "nota": "Se disolvió el 1989-05-14 cediendo su registro y su grupo parlamentario al PRD, fundado el 1989-05-05 (https://es.wikipedia.org/wiki/Partido_Mexicano_Socialista). Se deja aparte: véase «revisar»."
-  },
-  {
    "sigla": "PFCRN",
    "nombre": "Partido del Frente Cardenista de Reconstrucción Nacional",
    "etiquetas": [
@@ -128,8 +120,8 @@
    "nota": "Surgió en 1987 del cambio de nombre del PST. En 1997 adoptó el nombre Partido Cardenista y perdió el registro ese mismo año (DOF del 1997-09-05, según https://revistas-colaboracion.juridicas.unam.mx/index.php/derecho-estasiologico/article/download/4213/3658); no he encontrado la fecha exacta del cambio, así que se mantiene el nombre del corpus: véase «revisar»."
   },
   {
-   "sigla": "PSD",
-   "nombre": "Partido Socialdemócrata",
+   "sigla": "Alternativa",
+   "nombre": "Alternativa Socialdemócrata y Campesina (Partido Socialdemócrata desde 2008)",
    "etiquetas": [
     "PASC"
    ],
@@ -147,7 +139,7 @@
      "fuente": "https://dof.gob.mx/nota_detalle.php?codigo=5050120&fecha=27/06/2008&print=true"
     }
    ],
-   "nota": "Mismo registro (2005-2009). La asamblea suprimió «y Campesina» el 2007-05-13; el Consejo General del IFE declaró procedente el nombre Partido Socialdemócrata en la resolución CG279/2008 (sesión del 2008-05-23). Perdió el registro en 2009. Sin relación con el PAS."
+   "nota": "Mismo registro (2005-2009). La asamblea suprimió «y Campesina» el 2007-05-13; el Consejo General del IFE declaró procedente el nombre Partido Socialdemócrata en la resolución CG279/2008 (sesión del 2008-05-23). Perdió el registro en 2009. Sin relación con el PAS. Nombre de la LX en el corpus."
   },
   {
    "sigla": "Independientes",
@@ -192,9 +184,9 @@
   "CONVERGENCIA": "MC",
   "PPS": "PPS",
   "PARM": "PARM",
-  "PMS": "PMS",
+  "PMS": "PRD",
   "PFCRN": "PFCRN",
-  "PASC": "PSD",
+  "PASC": "Alternativa",
   "INDEPENDIENTE": "Independientes",
   "": "Sin identificar",
   "PAS": "PAS"
@@ -206,7 +198,8 @@
    ],
    "decision": "Sin identificar.",
    "alternativa": "Independientes (regla 6 por defecto) o, mejor, corregir aguas arriba por legislatura: LVI, los 10 diputados → PT; LVII, los 7 → PT; LVIII → PT (Anaya, Narro, Peredo, Cervantes, Castellanos, Regis Adame, Cota Montaño, García Dávila), PSN (Gustavo y Norma Patricia Riojas Santana, Bertha Alicia Simental), Convergencia (José Manuel del Río Virgen), PRD (Arturo Herviz); LIX → PT (Alejandro González Yáñez, Espinosa Ramos, Padilla Peña, Vázquez González), Convergencia (Moreno Garavilla, Martínez Álvarez, Perdomo Bueno, Maldonado Venegas), PRD (Juan Pérez Medina); dudosos: Herrera y Bruquetas (LVIII) y Guajardo Anzaldúa (LIX). Desde la LX sí son, en general, diputados sin partido.",
-   "motivo": "La etiqueta significa otra cosa en más de la mitad de sus filas: en LVI-LIX (4.260 de 7.753 filas) los propios discursos hablan «a nombre del grupo parlamentario del Partido del Trabajo», de Convergencia o del Partido de la Sociedad Nacionalista, y los 10 diputados de la LVI coinciden con los 10 plurinominales del PT (https://es.wikipedia.org/wiki/LVI_Legislatura_del_Congreso_de_la_Unión_de_México). Llamarlos independientes sería atribuirles un partido falso."
+   "motivo": "La etiqueta significa otra cosa en más de la mitad de sus filas: en LVI-LIX (4.260 de 7.753 filas) los propios discursos hablan «a nombre del grupo parlamentario del Partido del Trabajo», de Convergencia o del Partido de la Sociedad Nacionalista, y los 10 diputados de la LVI coinciden con los 10 plurinominales del PT (https://es.wikipedia.org/wiki/LVI_Legislatura_del_Congreso_de_la_Unión_de_México). Llamarlos independientes sería atribuirles un partido falso.",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -214,7 +207,8 @@
    ],
    "decision": "Partido propio, separado del PRD.",
    "alternativa": "Fundir PMS con PRD (1.422 filas de la LIV pasarían al PRD).",
-   "motivo": "El PMS se disolvió en mayo de 1989 cediendo su registro al PRD: hay continuidad de registro, pero la fuente lo describe como disolución y cesión a un partido nuevo, no como cambio de nombre. Ante la duda, reglas 4 y 5: separados."
+   "motivo": "El PMS se disolvió en mayo de 1989 cediendo su registro al PRD: hay continuidad de registro, pero la fuente lo describe como disolución y cesión a un partido nuevo, no como cambio de nombre. Ante la duda, reglas 4 y 5: separados.",
+   "estado": "Aplicada la alternativa (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -222,7 +216,8 @@
    ],
    "decision": "Un solo partido PES (Encuentro Social) para LXIII y LXIV.",
    "alternativa": "Regla por fecha: filas desde el 2020-09-04 → «Partido Encuentro Solidario», partido nuevo.",
-   "motivo": "Encuentro Social perdió el registro en 2018; en la LXIV su grupo siguió en la Cámara y en 2020 sus dirigentes registraron Encuentro Solidario, sucesor sin continuidad legal (regla 5). La etiqueta PES no distingue ambos momentos."
+   "motivo": "Encuentro Social perdió el registro en 2018; en la LXIV su grupo siguió en la Cámara y en 2020 sus dirigentes registraron Encuentro Solidario, sucesor sin continuidad legal (regla 5). La etiqueta PES no distingue ambos momentos.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -231,7 +226,8 @@
    ],
    "decision": "PASC → PSD (Partido Socialdemócrata, nombre más reciente y fechado); PFCRN se mantiene.",
    "alternativa": "PASC como «Alternativa» (nombre con que se conoció durante la mayor parte de la LX); PFCRN → «Partido Cardenista (PC)», nombre de 1997.",
-   "motivo": "Regla 3 aplicada solo donde la fuente da fecha exacta. El cambio a Partido Cardenista está documentado pero sin día (1997) y ese nombre nunca tuvo diputados en el corpus."
+   "motivo": "Regla 3 aplicada solo donde la fuente da fecha exacta. El cambio a Partido Cardenista está documentado pero sin día (1997) y ese nombre nunca tuvo diputados en el corpus.",
+   "estado": "Aplicada la alternativa (PASC se muestra como «Alternativa»; el PFCRN se mantiene) (19-9-2026)."
   }
  ],
  "tipo_propuesto": "por legislatura"

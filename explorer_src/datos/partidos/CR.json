@@ -254,7 +254,8 @@
    ],
    "decision": "PUSC.",
    "alternativa": "Partido propio «Coalición Unidad» (regla 4: predecesora del PUSC, que nació en 1983 de la fusión de sus partidos).",
-   "motivo": "La etiqueta procede del periodo 1982 de José Roberto Rodríguez Quesada, pero 2.815 de sus 2.816 filas son sus intervenciones de 2010–2014 como diputado del PUSC; con la alternativa, el PUSC de 2010–2014 perdería a uno de sus 6 diputados. Lo correcto sería arreglar la etiqueta aguas arriba."
+   "motivo": "La etiqueta procede del periodo 1982 de José Roberto Rodríguez Quesada, pero 2.815 de sus 2.816 filas son sus intervenciones de 2010–2014 como diputado del PUSC; con la alternativa, el PUSC de 2010–2014 perdería a uno de sus 6 diputados. Lo correcto sería arreglar la etiqueta aguas arriba.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -263,7 +264,8 @@
    ],
    "decision": "Partidos propios, según lo que dice la etiqueta.",
    "alternativa": "Corregir el emparejamiento aguas arriba: 7 filas del presidente Carlos Alvarado Quesada (PAC) y 1 de Mario Redondo Poveda (PUSC).",
-   "motivo": "Son diputados históricos (1949 y 1966) emparejados por error; una tabla de partidos no debe arreglar errores de emparejamiento."
+   "motivo": "Son diputados históricos (1949 y 1966) emparejados por error; una tabla de partidos no debe arreglar errores de emparejamiento.",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -271,7 +273,8 @@
    ],
    "decision": "Independientes.",
    "alternativa": "Fechar la ruptura aguas arriba (p. ej., la salida de diputados de Restauración Nacional hacia Nueva República en 2018).",
-   "motivo": "La etiqueta es la situación final en cada legislatura: esos diputados figuran como independientes desde el primer día."
+   "motivo": "La etiqueta es la situación final en cada legislatura: esos diputados figuran como independientes desde el primer día.",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   }
  ],
  "tipo_propuesto": "ultimo partido por legislatura"

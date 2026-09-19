@@ -163,22 +163,29 @@ Argentina es un caso aparte: su columna no es el bloque de cada intervención si
 diputado en su carrera, igual en todas sus filas. Su tabla es de trayectorias: cada etiqueta lleva la lista de bloques
 con la fecha de ingreso del diputado en cada uno (de los registros de la Cámara, informe especial 103 y datos abiertos
 «Diputados»), y cada intervención va al último bloque en que había entrado en su fecha (acierta en el 99 % de las
-intervenciones con bloque oficial conocido).
+intervenciones con bloque oficial conocido). La misma asignación con fecha sirve en otro país cuando una etiqueta cambia de
+partido en una fecha conocida: en Perú, «UPP» es la bancada Nacionalista Gana Perú en 2011-2016.
 
 Las tablas por país están en `datos/partidos/<CC>.json`: cada partido con su sigla, nombre completo, etiquetas y, si
 cambió de nombre, el cambio con su fecha y su fuente; `revisar` recoge las decisiones discutibles con la alternativa
 (fundir o no una coalición, un sucesor sin continuidad legal…). Criterio: se funden las variantes, las federaciones y
 listas del propio partido y los cambios de nombre con continuidad legal; no se funden las fusiones que crean un partido
-nuevo, las absorciones, las escisiones ni las coaliciones de varios partidos cuyos diputados no se pueden separar.
+nuevo, las absorciones, las escisiones ni las coaliciones de varios partidos cuyos diputados no se pueden separar. Las
+124 decisiones discutibles se resolvieron el 19 de septiembre de 2026 con un criterio de eficacia para el análisis (cada
+una lleva su `estado`): se aplicó la alternativa en 34 (la alianza va al partido que aporta casi todos sus diputados, como
+UNES → Revolución Ciudadana; las coaliciones que formaron el mismo grupo, como CD y CP → PP o las confluencias → Unidas
+Podemos; sucesores de la misma fuerza, como Amaiur → EH Bildu; y el nombre con que el partido aparece en el corpus, como
+PTC en lugar de Agir), se mantuvo la decisión en 70 y 19 dependen de los datos de origen (partido por diputado y fecha) y
+no se resuelven en la tabla.
 `tools/partidos_parlaibero.py` valida las tablas, comprueba con `--csv` que cubren todas las etiquetas de los CSV,
 descarga la fuente de cada cambio de nombre para confirmar su fecha (como con los hitos) y escribe el registro compacto
 `datos/partidos_parlaibero.json`, que `build.py` incorpora a los datos del worker, y su informe
 (`datos/partidos_parlaibero.informe.md`). Para corregir una decisión: editar la tabla del país, volver a ejecutar el
-script y reensamblar; la base recordada se reconstruye sola porque cambia el `build_id`.
+script y reensamblar; la base recordada se reconstruye sola porque el registro forma parte del `build_id`.
 
-Estado del registro (19 de septiembre de 2026): 1.407 etiquetas de los 16 CSV, agrupadas en 773 partidos (Uruguay, de
-73 a 12; España, de 133 a 67; Argentina, de 419 a 210 bloques). De las 302 fechas de cambios de nombre e inicios de
-bloque, 258 aparecen completas en su fuente (el script lee también los PDF de la Cámara argentina) y 28 solo con el año;
+Estado del registro (19 de septiembre de 2026): 1.407 etiquetas de los 16 CSV, agrupadas en 743 partidos (Uruguay, de
+73 a 12; España, de 133 a 53; Argentina, de 419 a 204 bloques). De las 294 fechas de cambios de nombre e inicios de
+bloque, 251 aparecen completas en su fuente (el script lee también los PDF de la Cámara argentina) y 27 solo con el año;
 15 inicios de bloques argentinos de 2017-2023 salen del conjunto de datos abiertos «Diputados» de la HCDN, cuya página no
 muestra las fechas, y un cambio de Colombia no tiene fecha.
 

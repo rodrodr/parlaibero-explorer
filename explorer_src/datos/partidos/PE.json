@@ -15,8 +15,7 @@
    "sigla": "UPP",
    "nombre": "Unión por el Perú",
    "etiquetas": [
-    "UPP",
-    "GPN"
+    "UPP"
    ],
    "cambios": [],
    "nota": "Es UPP en 1995–2006 y 2020–2021. En 2006–2011 la etiqueta es la de la lista de UPP de 2006, en la que salieron elegidos 33 congresistas del Partido Nacionalista Peruano y 12 de UPP (https://es.wikipedia.org/wiki/Unión_por_el_Perú); en 2011–2016 cubre a la bancada Nacionalista Gana Perú (paréntesis NGP en speaker_raw), aunque UPP concurrió ese año en la Alianza Solidaridad Nacional (véase «revisar»). GPN (Grupo Parlamentario Nacionalista: una fila de Martín Rivas Teixeira, 2010-03-04) se une aquí porque el resto de las intervenciones de ese grupo, con el paréntesis (GPN), llevan la etiqueta UPP."
@@ -141,17 +140,9 @@
    "sigla": "Renovación Popular",
    "nombre": "Renovación Popular",
    "etiquetas": [
-    "RENOVACION POPULAR",
-    "SOLIDARIDAD NACIONAL"
+    "RENOVACION POPULAR"
    ],
-   "cambios": [
-    {
-     "de": "Solidaridad Nacional",
-     "a": "Renovación Popular",
-     "fecha": "2020-12-12",
-     "fuente": "https://elcomercio.pe/politica/elecciones/elecciones-2021-jne-aprobo-cambio-de-denominacion-y-simbolo-de-renovacion-popular-ex-solidaridad-nacional-nndc-noticia/"
-    }
-   ],
+   "cambios": [],
    "nota": "El JNE aprobó el cambio de denominación y símbolo del partido «registrado anteriormente como Solidaridad Nacional» (El Comercio, 2020-12-12); el cambio se anunció el 2020-10-08 (https://andina.pe/agencia/noticia-elecciones-2021-solidaridad-nacional-cambia-nombre-a-renovacion-popular-816933.aspx) y Wikipedia da el 2020-10-07 como fin de Solidaridad Nacional, con Renovación Popular como sucesor y la misma inscripción (https://es.wikipedia.org/wiki/Solidaridad_Nacional_(Perú)). SOLIDARIDAD NACIONAL cubre 2000–2016 (partido de Luis Castañeda, también dentro de Unidad Nacional y de Alianza Solidaridad Nacional). Véase «revisar»."
   },
   {
@@ -212,17 +203,9 @@
    "sigla": "JP",
    "nombre": "Juntos por el Perú",
    "etiquetas": [
-    "JP",
-    "PHP"
+    "JP"
    ],
-   "cambios": [
-    {
-     "de": "Partido Humanista Peruano",
-     "a": "Juntos por el Perú",
-     "fecha": "2017-05-20",
-     "fuente": "https://andina.pe/agencia/noticia-nace-nuevo-partido-izquierda-juntos-por-peru-667782.aspx"
-    }
-   ],
+   "cambios": [],
    "nota": "Juntos por el Perú se constituyó en mayo de 2017 sobre la inscripción del Partido Humanista Peruano, que cedió su registro y cambió nombre y logo (https://es.wikipedia.org/wiki/Partido_Humanista_Peruano); la fecha es la de la reunión en que se adoptó el nuevo nombre (19–20 de mayo). PHP son 2.549 filas de Yehude Simon (2011–2014, elegido en la Alianza por el Gran Cambio); JP, 2021–2025. Continuidad legal, no política (véase «revisar»)."
   },
   {
@@ -350,6 +333,33 @@
    ],
    "cambios": [],
    "nota": "Filas con diputado identificado pero sin partido."
+  },
+  {
+   "sigla": "PNP",
+   "nombre": "Partido Nacionalista Peruano (bancada Nacionalista Gana Perú)",
+   "etiquetas": [
+    "GPN"
+   ],
+   "cambios": [],
+   "nota": "La etiqueta UPP de 2011-2016 es la bancada Nacionalista Gana Perú (UPP solo tuvo 2 escaños, en otra alianza) y va aquí por fecha; GPN, el Grupo Parlamentario Nacionalista (19-9-2026)."
+  },
+  {
+   "sigla": "PHP",
+   "nombre": "Partido Humanista Peruano",
+   "etiquetas": [
+    "PHP"
+   ],
+   "cambios": [],
+   "nota": "Separado de Juntos por el Perú: continuidad legal, no política (19-9-2026)."
+  },
+  {
+   "sigla": "SN",
+   "nombre": "Solidaridad Nacional",
+   "etiquetas": [
+    "SOLIDARIDAD NACIONAL"
+   ],
+   "cambios": [],
+   "nota": "Separado de Renovación Popular, que lo refundó en 2020 con otro ideario (19-9-2026)."
   }
  ],
  "asignacion": {
@@ -368,7 +378,7 @@
   "FIM": "FIM",
   "FUERZA 2011": "Fuerza Popular",
   "PODEMOS PERU": "Podemos Perú",
-  "SOLIDARIDAD NACIONAL": "Renovación Popular",
+  "SOLIDARIDAD NACIONAL": "SN",
   "PERU 2000": "Perú 2000",
   "ALIANZA POR EL FUTURO": "Alianza por el Futuro",
   "RN": "RN",
@@ -379,7 +389,7 @@
   "PARTIDO MORADO": "Partido Morado",
   "INDEPENDIENTE": "Independientes",
   "JP": "JP",
-  "PHP": "JP",
+  "PHP": "PHP",
   "RESTAURACION NACIONAL": "Restauración Nacional",
   "IU": "IU",
   "FRENATRACA": "FRENATRACA",
@@ -392,7 +402,7 @@
   "SOLIDARIDAD Y DEMOCRACIA": "SODE",
   "TODOS POR LA VICTORIA": "Todos por la Victoria",
   "RUNA": "RUNA",
-  "GPN": "UPP"
+  "GPN": "PNP"
  },
  "revisar": [
   {
@@ -402,7 +412,8 @@
    ],
    "decision": "UPP.",
    "alternativa": "Corregir aguas arriba por legislatura: en PE38 (2006–2011) y PE39 (2011–2016) la etiqueta UPP cubre a la bancada nacionalista (PNP; lista de UPP en 2006 y Gana Perú en 2011). Los paréntesis de speaker_raw (GPN, N-UPP, NGP, GPDD) permitirían separar un partido «PNP / Gana Perú».",
-   "motivo": "78.333 de las 98.654 filas con etiqueta UPP (79 %) son de 2006–2016; en 2011 UPP concurrió en la Alianza Solidaridad Nacional y obtuvo 2 escaños, así que las 56.792 filas de PE39 son de Gana Perú. Una tabla etiqueta→partido no puede separarlas."
+   "motivo": "78.333 de las 98.654 filas con etiqueta UPP (79 %) son de 2006–2016; en 2011 UPP concurrió en la Alianza Solidaridad Nacional y obtuvo 2 escaños, así que las 56.792 filas de PE39 son de Gana Perú. Una tabla etiqueta→partido no puede separarlas.",
+   "estado": "Aplicada la alternativa (las filas UPP de 2011-2016 van por fecha a la bancada Nacionalista (PNP) y GPN también; 2006-2011 sigue en UPP, porque la lista mezclaba nacionalistas y militantes de UPP) (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -410,7 +421,8 @@
    ],
    "decision": "Perú Posible.",
    "alternativa": "Reasignar aguas arriba a AP (y a SP) los congresistas de esos partidos elegidos en 2011 en la Alianza Perú Posible (Lescano, Merino de Lama, García Belaúnde, Guevara…).",
-   "motivo": "En PE39 la etiqueta es la de la lista de alianza (Perú Posible, AP y Somos Perú), no la del partido: 15.151 filas, 24 congresistas."
+   "motivo": "En PE39 la etiqueta es la de la lista de alianza (Perú Posible, AP y Somos Perú), no la del partido: 15.151 filas, 24 congresistas.",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -419,7 +431,8 @@
    ],
    "decision": "Fundidos en JP (regla 3: el Partido Humanista cedió su inscripción y cambió nombre y logo en 2017).",
    "alternativa": "Separar PHP (Yehude Simon, 2011–2014, 2.549 filas) de JP (2021–2025).",
-   "motivo": "Continuidad legal pero no política: JP nació como frente de izquierdas sobre ese registro."
+   "motivo": "Continuidad legal pero no política: JP nació como frente de izquierdas sobre ese registro.",
+   "estado": "Aplicada la alternativa (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -428,7 +441,8 @@
    ],
    "decision": "Fundidos en Renovación Popular (regla 3; el JNE inscribió el cambio de denominación en 2020).",
    "alternativa": "Separar Solidaridad Nacional (2000–2016) de Renovación Popular (2021–2025).",
-   "motivo": "López Aliaga lo presentó como una refundación con nuevos estatutos e ideario; las 9.007 filas del partido de Castañeda aparecerán como Renovación Popular."
+   "motivo": "López Aliaga lo presentó como una refundación con nuevos estatutos e ideario; las 9.007 filas del partido de Castañeda aparecerán como Renovación Popular.",
+   "estado": "Aplicada la alternativa (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -437,7 +451,8 @@
    ],
    "decision": "Separados.",
    "alternativa": "Fundirlos en Cambio Radical: Wikipedia dice que en 2000 CODE «cambió el nombre a Cambio Radical» (https://es.wikipedia.org/wiki/Cambio_Radical_(Perú)).",
-   "motivo": "Sin fecha exacta ni constancia de continuidad de la inscripción (el mismo artículo habla de firmas falsas en su inscripción de 2005). Son 136 y 120 filas."
+   "motivo": "Sin fecha exacta ni constancia de continuidad de la inscripción (el mismo artículo habla de firmas falsas en su inscripción de 2005). Son 136 y 120 filas.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -449,7 +464,8 @@
    ],
    "decision": "Cuatro partidos: tres alianzas fujimoristas y Fuerza Popular.",
    "alternativa": "Añadir, si interesa, una familia «fujimorismo» como categoría aparte (no como partido).",
-   "motivo": "Alianzas de varios partidos y un partido nuevo de 2010 (reglas 2, 4 y 5)."
+   "motivo": "Alianzas de varios partidos y un partido nuevo de 2010 (reglas 2, 4 y 5).",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -457,7 +473,8 @@
    ],
    "decision": "PPK (Peruanos por el Kambio).",
    "alternativa": "Nombrarlo Contigo, su denominación desde el 2019-03-02.",
-   "motivo": "La etiqueta solo cubre 2016–2020 y la bancada fue siempre PPK; Wikipedia recoge el cambio de nombre pero también una «disolución» con Contigo como sucesor."
+   "motivo": "La etiqueta solo cubre 2016–2020 y la bancada fue siempre PPK; Wikipedia recoge el cambio de nombre pero también una «disolución» con Contigo como sucesor.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -465,7 +482,8 @@
    ],
    "decision": "IU.",
    "alternativa": "Separar aguas arriba al Movimiento Democrático de Izquierda (MDI) en las filas del CCD.",
-   "motivo": "98 filas de 1995 (5 congresistas) llevan el paréntesis MDI; es otra organización."
+   "motivo": "98 filas de 1995 (5 congresistas) llevan el paréntesis MDI; es otra organización.",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -474,8 +492,24 @@
    ],
    "decision": "Partidos propios (Renacimiento Andino y Todos por la Victoria).",
    "alternativa": "Asignarlos a Perú Posible, cuyo grupo integraron después.",
-   "motivo": "Una fila cada uno, del juramento de 2001; son las listas con que fueron elegidos."
+   "motivo": "Una fila cada uno, del juramento de 2001; son las listas con que fueron elegidos.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   }
  ],
- "tipo_propuesto": "por intervencion"
+ "tipo_propuesto": "por intervencion",
+ "asignacion_fechada": {
+  "UPP": [
+   [
+    "UPP"
+   ],
+   [
+    "PNP",
+    "2011-07-27"
+   ],
+   [
+    "UPP",
+    "2016-07-27"
+   ]
+  ]
+ }
 }

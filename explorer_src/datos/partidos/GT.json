@@ -477,7 +477,8 @@
    ],
    "decision": "WINAQ.",
    "alternativa": "Mantener una coalición «Winaq–URNG-MAIZ» como partido propio (o dos, una por elección).",
-   "motivo": "Cada etiqueta tiene un solo diputado y los dos son dirigentes de Winaq, que encabezó las candidaturas presidenciales de las alianzas de 2011 y 2023 (regla 2)."
+   "motivo": "Cada etiqueta tiene un solo diputado y los dos son dirigentes de Winaq, que encabezó las candidaturas presidenciales de las alianzas de 2011 y 2023 (regla 2).",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -485,7 +486,8 @@
    ],
    "decision": "Coalición propia.",
    "alternativa": "UNE, primer partido del nombre de la coalición.",
-   "motivo": "13 diputados (6.212 filas); no se ha comprobado el partido de cada uno."
+   "motivo": "13 diputados (6.212 filas); no se ha comprobado el partido de cada uno.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -494,7 +496,8 @@
    ],
    "decision": "Coaliciones propias.",
    "alternativa": "CREO y VIVA, respectivamente.",
-   "motivo": "Dos diputados cada una (201 y 257 filas); no se ha comprobado su partido."
+   "motivo": "Dos diputados cada una (201 y 257 filas); no se ha comprobado su partido.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -504,7 +507,8 @@
    ],
    "decision": "Tres partidos separados.",
    "alternativa": "Unir la coalición de 1999 con ANN (se llamaba Alianza Nueva Nación) y, como misma línea política, ANN con Convergencia.",
-   "motivo": "No hay continuidad legal: la coalición no es el partido de 2003; ANN fue cancelado y Alternativa Nueva Nación (después Convergencia) es una inscripción de 2010."
+   "motivo": "No hay continuidad legal: la coalición no es el partido de 2003; ANN fue cancelado y Alternativa Nueva Nación (después Convergencia) es una inscripción de 2010.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   }
  ],
  "tipo_propuesto": "ultimo partido"

@@ -192,7 +192,8 @@
    ],
    "decision": "PRM (la tabla no puede corregirlo)",
    "alternativa": "corregir por diputado y legislatura las 2 filas de 2001",
-   "motivo": "Mateo Evangelista Espaillat Tavárez fue diputado en 1998-2002 (figura en las listas de asistencia de 2001) y sus 2 intervenciones de 2001 llevan PRM, partido fundado en 2014: la etiqueta se tomó de su registro de 2020-2024. Su partido en 1998-2002 no está verificado (probablemente el PRD)."
+   "motivo": "Mateo Evangelista Espaillat Tavárez fue diputado en 1998-2002 (figura en las listas de asistencia de 2001) y sus 2 intervenciones de 2001 llevan PRM, partido fundado en 2014: la etiqueta se tomó de su registro de 2020-2024. Su partido en 1998-2002 no está verificado (probablemente el PRD).",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -201,7 +202,8 @@
    ],
    "decision": "mantener PRD y PRSC",
    "alternativa": "revisar la asignación de partido de 2006-2010 diputado por diputado",
-   "motivo": "En 2006 PRD y PRSC concurrieron en la Gran Alianza Nacional. En 2006-2010, 28 diputados tienen PRD/PRSC distinto del de sus legislaturas vecinas y el recuento de la etiqueta (40 diputados PRD, 39 PRSC) no cuadra con los escaños oficiales (60 y 22). Algunos se identifican en sus discursos con el otro partido: Josefa Castillo (PRSC en el CSV) habla «en nombre del Partido Revolucionario Dominicano, como vicevocera»; Leivin Guerrero (PRSC) dice «nuestro Partido Revolucionario Dominicano»; Mario José Fernández Saviñón (PRD) habla por el Partido Reformista."
+   "motivo": "En 2006 PRD y PRSC concurrieron en la Gran Alianza Nacional. En 2006-2010, 28 diputados tienen PRD/PRSC distinto del de sus legislaturas vecinas y el recuento de la etiqueta (40 diputados PRD, 39 PRSC) no cuadra con los escaños oficiales (60 y 22). Algunos se identifican en sus discursos con el otro partido: Josefa Castillo (PRSC en el CSV) habla «en nombre del Partido Revolucionario Dominicano, como vicevocera»; Leivin Guerrero (PRSC) dice «nuestro Partido Revolucionario Dominicano»; Mario José Fernández Saviñón (PRD) habla por el Partido Reformista.",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -211,7 +213,8 @@
    ],
    "decision": "mantener",
    "alternativa": "revisar la asignación de 2020-2024 diputado por diputado",
-   "motivo": "Llevan PRM en 2020-2024 diputados que hablan como PLD (Gustavo Sánchez, «vocero del bloque del Partido de la Liberación Dominicana», 28-8-2020; Víctor Suárez; Magda Rodríguez) o como Fuerza del Pueblo (Rubén Darío Maldonado, Rafael Tobías Crespo, Jesús Martínez Alberti). La etiqueta cuenta 94 diputados PRM y 68 PLD frente a 86 y 75 escaños oficiales. Los casos de FP podrían ser candidaturas en listas aliadas (no verificado); los del PLD son errores."
+   "motivo": "Llevan PRM en 2020-2024 diputados que hablan como PLD (Gustavo Sánchez, «vocero del bloque del Partido de la Liberación Dominicana», 28-8-2020; Víctor Suárez; Magda Rodríguez) o como Fuerza del Pueblo (Rubén Darío Maldonado, Rafael Tobías Crespo, Jesús Martínez Alberti). La etiqueta cuenta 94 diputados PRM y 68 PLD frente a 86 y 75 escaños oficiales. Los casos de FP podrían ser candidaturas en listas aliadas (no verificado); los del PLD son errores.",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   }
  ],
  "tipo_propuesto": "por legislatura"

@@ -122,7 +122,8 @@
    ],
    "decision": "Independientes",
    "alternativa": "ninguna razonable",
-   "motivo": "Candidatura no partidaria (Bonilla y, probablemente, su suplente), no un grupo con programa común; se aplica la convención de la regla 6."
+   "motivo": "Candidatura no partidaria (Bonilla y, probablemente, su suplente), no un grupo con programa común; se aplica la convención de la regla 6.",
+   "estado": "Se mantiene la decisión (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -130,7 +131,8 @@
    ],
    "decision": "ARENA",
    "alternativa": "corregir por diputado y fecha, fuera de esta tabla",
-   "motivo": "Milena Mayorga anunció su renuncia a ARENA el 4-6-2020 y se declaró independiente, pero sus 9 intervenciones posteriores (22-6, 17-9 y 22-10-2020) siguen etiquetadas ARENA: la etiqueta es la del partido de elección y no recoge cambios a mitad de legislatura."
+   "motivo": "Milena Mayorga anunció su renuncia a ARENA el 4-6-2020 y se declaró independiente, pero sus 9 intervenciones posteriores (22-6, 17-9 y 22-10-2020) siguen etiquetadas ARENA: la etiqueta es la del partido de elección y no recoge cambios a mitad de legislatura.",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   },
   {
    "etiquetas": [
@@ -138,7 +140,8 @@
    ],
    "decision": "Sin identificar",
    "alternativa": "identificar a la diputada y asignarle partido",
-   "motivo": "Una sola fila (19-9-2019); el id SV00246 no tiene partido."
+   "motivo": "Una sola fila (19-9-2019); el id SV00246 no tiene partido.",
+   "estado": "Se mantiene: el problema está en los datos de origen (partido por diputado y fecha) y no se resuelve en esta tabla (19-9-2026)."
   }
  ],
  "tipo_propuesto": "por legislatura"
