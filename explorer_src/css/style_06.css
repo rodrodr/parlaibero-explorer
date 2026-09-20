@@ -1,6 +1,6 @@
 
 /* Menciones a personas (pestaña de la biblioteca): red en anillos, tablas y focos de conversación */
-.men { --men-ext: #6e5fc7; --men-heat: 74, 79, 168;
+.men { position:relative; --men-ext: #6e5fc7; --men-heat: 74, 79, 168;
   --men-f1:#4a4fa8; --men-f2:#b5562c; --men-f3:#0d7d6b; --men-f4:#a4781f;
   --men-f5:#8a3f8f; --men-f6:#3f7fae; --men-f7:#6d8a3c; --men-f8:#5b6770 }
 :root[data-theme="dark"] .men { --men-ext: #b3a7f5; --men-heat: 139, 144, 232;
@@ -78,6 +78,9 @@
 #menRed .fuera{display:none}
 #menRed text{font-family:var(--sans);font-weight:600;fill:var(--text);paint-order:stroke;stroke:var(--bg-panel);stroke-width:3px;stroke-linejoin:round;pointer-events:none}
 .men-tip{position:absolute;z-index:2;pointer-events:none;background:var(--text);color:var(--bg);font-size:11.5px;line-height:1.4;padding:6px 9px;border-radius:6px;max-width:260px}
+.men-tip-tabla{z-index:5;max-width:min(380px,90%);box-shadow:var(--shadow)}
+.men-tip-tabla b{font-weight:650}
+.men-tabla .men-bajo{outline:1.5px solid var(--text);outline-offset:-1.5px}
 .men-info{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;padding:8px 12px;border-top:1px solid var(--border-soft);font-size:12px;color:var(--text-soft);min-height:42px}
 .men-info b{color:var(--text)}
 .men-info .men-aviso{flex-basis:100%;color:var(--text-faint)}

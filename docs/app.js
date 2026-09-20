@@ -14468,6 +14468,39 @@ function menPintarPanel() {
 
 /* --------------------------------- quién menciona, diálogos, matrices, focos */
 
+/** Ficha de las casillas de una matriz: el `title` del navegador tarda casi un segundo en salir, así que se pinta una
+ *  propia, pegada al cursor y dentro del panel. La casilla bajo el cursor se marca con un recuadro. */
+function menFichaTabla(tabla) {
+  if (!tabla) return;
+  const raiz = tabla.closest('.men');
+  if (!raiz) return;
+  let tip = raiz.querySelector('.men-tip-tabla');
+  if (!tip) {
+    tip = document.createElement('div');
+    tip.className = 'men-tip men-tip-tabla';
+    tip.hidden = true;
+    raiz.append(tip);
+  }
+  let bajo = null;
+  const esconder = () => { tip.hidden = true; bajo?.classList.remove('men-bajo'); bajo = null; };
+  tabla.addEventListener('pointermove', (e) => {
+    const celda = e.target.closest?.('[data-tip]');
+    if (!celda || !tabla.contains(celda)) { esconder(); return; }
+    if (celda !== bajo) {
+      bajo?.classList.remove('men-bajo');
+      bajo = celda; bajo.classList.add('men-bajo');
+      tip.innerHTML = celda.dataset.tip;
+    }
+    tip.hidden = false;
+    const caja = raiz.getBoundingClientRect();
+    const x = e.clientX - caja.left + 14, y = e.clientY - caja.top + 16;
+    tip.style.left = `${Math.round(Math.max(4, Math.min(caja.width - tip.offsetWidth - 4, x)))}px`;
+    tip.style.top = `${Math.round(y)}px`;
+  });
+  tabla.addEventListener('pointerleave', esconder);
+}
+
+
 function menPintarTablas(D) {
   const maxP = Math.max(1, ...D.mencionan.map((m) => m.personas));
   menEl('menMencionan').innerHTML = '<thead><tr><th>Orador</th><th class="num">Personas</th><th class="num">Menciones</th></tr></thead><tbody>'
@@ -14497,15 +14530,15 @@ function menPintarTablas(D) {
   const palM = M.filas.reduce((s, f) => s + (f.palabras || 0), 0);
   menEl('menMatriz').innerHTML = `<thead><tr><th>De \\ a</th>${M.partidos.map((p) => `<th class="num">${esc(p)}</th>`).join('')}
       <th class="num">Propio</th><th class="num">Todas</th></tr></thead><tbody>`
-    + M.filas.map((f, i) => `<tr><th class="men-fil" scope="row" title="${esc(`${f.p}: ${nf(f.total)} menciones a miembros en ${nf(f.palabras)} palabras`)}">${esc(f.p)}</th>`
+    + M.filas.map((f, i) => `<tr><th class="men-fil" scope="row" data-tip="${esc(`<b>${esc(f.p)}</b>: ${nf(f.total)} menciones a miembros en ${nf(f.palabras)} palabras`)}">${esc(f.p)}</th>`
       + f.celdas.map((n, j) => {
         const t = tasa(n, f.palabras), media = tasa(colM[j], palM);
-        const tit = `${f.p} → ${M.partidos[j]}: ${nf(n)} ${n === 1 ? 'mención' : 'menciones'}`
-          + (t == null ? '' : ` · ${numTasa(t)} por cada ${nf(POR)} palabras de ${f.p}${media ? ` (media ${numTasa(media)})` : ''}${veces(t, media)}`);
-        return `<td class="men-celda${i === j ? ' men-diag' : ''}" style="${tono(n / Math.max(1, f.total))}" title="${esc(tit)}">${numTasa(t)}</td>`;
+        const tit = `<b>${esc(f.p)} → ${esc(M.partidos[j])}</b>: ${nf(n)} ${n === 1 ? 'mención' : 'menciones'}`
+          + (t == null ? '' : ` · ${numTasa(t)} por cada ${nf(POR)} palabras de ${esc(f.p)}${media ? ` (media del cuadro ${numTasa(media)})` : ''}${veces(t, media)}`);
+        return `<td class="men-celda${i === j ? ' men-diag' : ''}" style="${tono(n / Math.max(1, f.total))}" data-tip="${esc(tit)}">${numTasa(t)}</td>`;
       }).join('')
-      + `<td class="num" title="${esc(`Parte de las menciones de ${f.p} que van a su propio partido`)}">${menPct(f.celdas[i] || 0, f.total)} %</td>`
-      + `<td class="num" title="${esc(`${nf(f.total)} menciones a miembros en ${nf(f.palabras)} palabras`)}">${numTasa(tasa(f.total, f.palabras))}</td></tr>`).join('') + '</tbody>';
+      + `<td class="num" data-tip="${esc(`<b>${esc(f.p)}</b>: ${nf(f.celdas[i] || 0)} de sus ${nf(f.total)} menciones van a su propio partido`)}">${menPct(f.celdas[i] || 0, f.total)} %</td>`
+      + `<td class="num" data-tip="${esc(`<b>${esc(f.p)}</b>: ${nf(f.total)} menciones a miembros en ${nf(f.palabras)} palabras`)}">${numTasa(tasa(f.total, f.palabras))}</td></tr>`).join('') + '</tbody>';
 
   const X = D.externas;
   const colX = X.personas.map((_, j) => X.filas.reduce((s, f) => s + (f.celdas[j] || 0), 0));
@@ -14513,14 +14546,17 @@ function menPintarTablas(D) {
   menEl('menExternas').innerHTML = `<thead><tr><th>Partido</th>${X.personas.map((p) => `<th class="num">${esc(p)}</th>`).join('')}</tr></thead><tbody>`
     + X.filas.map((f) => {
       const suma = f.celdas.reduce((a, b) => a + b, 0);
-      return `<tr><th class="men-fil" scope="row" title="${esc(`${f.p}: ${nf(f.palabras)} palabras en la biblioteca`)}">${esc(f.p)}</th>`
+      return `<tr><th class="men-fil" scope="row" data-tip="${esc(`<b>${esc(f.p)}</b>: ${nf(f.palabras)} palabras en la biblioteca`)}">${esc(f.p)}</th>`
         + f.celdas.map((n, j) => {
           const t = tasa(n, f.palabras), media = tasa(colX[j], palX);
-          const tit = `${f.p} → ${X.personas[j]}: ${nf(n)} ${n === 1 ? 'mención' : 'menciones'}`
-            + (t == null ? '' : ` · ${numTasa(t)} por cada ${nf(POR)} palabras de ${f.p}${media ? ` (media ${numTasa(media)})` : ''}${veces(t, media)}`);
-          return `<td class="men-celda" style="${tono(n / Math.max(1, suma))}" title="${esc(tit)}">${numTasa(t)}</td>`;
+          const tit = `<b>${esc(f.p)} → ${esc(X.personas[j])}</b>: ${nf(n)} ${n === 1 ? 'mención' : 'menciones'}`
+            + (t == null ? '' : ` · ${numTasa(t)} por cada ${nf(POR)} palabras de ${esc(f.p)}${media ? ` (media del cuadro ${numTasa(media)})` : ''}${veces(t, media)}`);
+          return `<td class="men-celda" style="${tono(n / Math.max(1, suma))}" data-tip="${esc(tit)}">${numTasa(t)}</td>`;
         }).join('') + '</tr>';
     }).join('') + '</tbody>';
+
+  menFichaTabla(menEl('menMatriz'));
+  menFichaTabla(menEl('menExternas'));
 
   menEl('menFocos').innerHTML = D.focos.map((f) => `<article class="men-foco" style="--c:${f.id <= 8 ? `var(--men-f${f.id})` : 'var(--text-faint)'}">
       <h4>F${f.id} · ${f.centrales.slice(0, 3).map((c) => esc(c.n)).join(' · ')}</h4>

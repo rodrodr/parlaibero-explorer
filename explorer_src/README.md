@@ -384,7 +384,8 @@ Las dos matrices —entre partidos y personas externas por partido— van en fre
 coocurrencias: menciones por cada 10.000 palabras del partido que habla, descontadas sus palabras en turnos de Mesa, de
 los que no salen menciones. Así el partido que más tiempo ocupa no encabeza todas las filas. El tono de cada casilla
 sigue siendo la parte de las menciones de esa fila, y al pasar por encima salen la cifra bruta, la tasa, la media del
-cuadro para esa columna y las veces que la pasa.
+cuadro para esa columna y las veces que la pasa, en una ficha propia como la de los temas: el `title` del navegador
+tardaba casi un segundo en salir.
 
 Precisión medida a mano en tres rondas sobre muestras de los 16 países (siete categorías por país, semilla fija): 87,5 %
 en la última muestra juzgada, la de la versión 6.2 (587 de 671), y alrededor de nueve de cada diez al reevaluarla con la
