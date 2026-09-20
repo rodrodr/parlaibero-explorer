@@ -163,13 +163,35 @@
         if (k !== k0) { d.pila = u.slice(0, k).flat(); d.ap = u.slice(k).flat(); d.toks = d.pila.concat(d.ap); }
       }
     }
+    // Apellido con el que el propio diario le da la palabra («El Sr. VIDARTE»): es la forma con la que de verdad se
+    // le nombra, y vale más que partir el nombre por reglas. Partiendo por reglas, «Juan Simeón Vidarte Franco
+    // Romero» se apellidaba Franco Romero y se llevaba las menciones de los otros dos Franco de la Cámara.
+    // Se toman los tokens de la etiqueta que están en su nombre y se exige que sea una forma más corta que el
+    // nombre completo (una etiqueta que lo repite entero no informa). Del principio solo se descarta su propio
+    // nombre de pila —«MARIA SILVA» es Silva—, nunca cualquier token que además sea nombre de pila: «Alonso» lo
+    // es, y quitarlo dejaba a Elfidio Alonso Rodríguez apellidándose Rodríguez.
+    for (const e of (datos.etiquetas || [])) {
+      const d = dep.get(e.id_dep);
+      if (!d || !e.speaker) continue;
+      const suyos = new Set(d.toks);
+      // El diario y el padrón no siempre escriben igual: «Giménez Fernández» frente a «Jiménez», «Ossorio»
+      // frente a «Osorio». Sin tolerar la variante, el token se caía y el apellido de referencia salía mal.
+      const comoSuyo = (t) => (suyos.has(t) ? t : d.toks.find((x) => x.length >= 5 && Math.abs(x.length - t.length) <= 1 && LEV(x, t) <= 1));
+      let ts = sinParticulas(tokens(String(e.speaker).replace(/\([^)]*\)/g, ' '))).map(comoSuyo).filter(Boolean);
+      while (ts.length > 1 && ts[0] === d.toks[0]) ts = ts.slice(1);
+      if (!ts.length || ts.length >= d.toks.length) continue;
+      const cand = C.nombreParlamentario || C.apellidoUltimo ? ts[ts.length - 1] : ts[0];
+      const n = Number(e.n) || 1;
+      if (!d.etq || n > d.etq.n) d.etq = { ap: cand, n };
+    }
+    for (const d of dep.values()) if (d.etq) d.apEtq = d.etq.ap;
     // Orden de las legislaturas por su primera fecha, para saber quién tenía escaño antes y después
     const inicioLeg = new Map();
     for (const o of oradores) { const l = String(o.legislature); if (o.desde && (!inicioLeg.has(l) || o.desde < inicioLeg.get(l))) inicioLeg.set(l, o.desde); }
     const ordenLeg = new Map([...inicioLeg].sort((a, b) => a[1].localeCompare(b[1])).map(([l], i) => [l, i]));
     const deps = [...dep.values()];
     const conPartidoPais = oradores.filter((o) => o.party && !/identific/i.test(o.party)).length > 0.7 * oradores.length;
-    const apRef = (d) => (C.nombreParlamentario || C.apellidoUltimo ? d.toks[d.toks.length - 1] : d.ap[0]);
+    const apRef = (d) => d.apEtq || (C.nombreParlamentario || C.apellidoUltimo ? d.toks[d.toks.length - 1] : d.ap[0]);
     const porToken = new Map();
     for (const d of deps) for (const t of new Set(d.toks)) { if (!porToken.has(t)) porToken.set(t, []); porToken.get(t).push(d); }
     const subsecuencia = (M, N) => { let j = 0; for (const t of N) if (t === M[j]) j++; return j === M.length; };
@@ -1230,6 +1252,13 @@
   }
 
   /** Oradores del corpus: nombre, partido, sexo, actividad y fechas por legislatura (como la lista del prototipo). */
+  /** Etiquetas con las que el diario da la palabra a cada orador, para deducir su apellido de referencia. */
+  function etiquetasDelCorpus(bd) {
+    return S.filas(bd, `SELECT id_dep, speaker, COUNT(*) AS n
+      FROM speeches WHERE id_dep IS NOT NULL AND id_dep <> '' AND speaker IS NOT NULL
+      GROUP BY id_dep, speaker`);
+  }
+
   function oradoresDelCorpus(bd) {
     return S.filas(bd, `SELECT id_dep, rep_name, party, legislature, sex, MIN(date) desde, MAX(date) hasta, COUNT(*) n,
       SUM(CASE WHEN upper(speaker) LIKE '%MINISTR%' OR upper(speaker) LIKE '%GOBIERNO%' OR upper(speaker) LIKE '%GOVERNO%' THEN 1 ELSE 0 END) gob
@@ -1485,6 +1514,7 @@
     const contexto = contextoDeSesiones(bd, pedidos, filas);
     const oradores = oradoresDelCorpus(bd);
     const det = await detectar({ pais, config: C, pila: nombresPila(), filas, contexto, oradores,
+      etiquetas: etiquetasDelCorpus(bd),
       ceder: () => (ctx && typeof ctx.ceder === 'function' ? ctx.ceder() : Promise.resolve()),
       progreso: (fase, fraccion) => prog(fase, fraccion) });
     prog('red', 0, true);
