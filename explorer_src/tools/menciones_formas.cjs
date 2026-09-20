@@ -309,6 +309,89 @@ const PAISES = {
       ['orsi', 'Yamandú Orsi', '2025-03-01', null]],
     historicos: [['batlle y ordonez', 'José Batlle y Ordóñez'], ['pepe batlle', 'José Batlle y Ordóñez'], ['artigas', 'José Gervasio Artigas']],
     cargosSinNombre: [[/\b(?:el|al|del)\s+(?:señor\s+)?[Pp]residente de la [Rr]epública\b(?!\s+(?:de|del)\s+[A-ZÁÉÍÓÚÑ])/g, 'jefes']] },
+
+  // Cortes de la Segunda República española (1931-1939, más las sesiones del exilio hasta noviembre de 1945). No es un
+  // parlamento de ParlaIbero: es el corpus de 2REP_Explorer, que comparte el detector de menciones. Su registro lo escribe
+  // tools/menciones_2rep.cjs, no el de los dieciséis países, así que esta entrada no toca datos/menciones_parlaibero.json.
+  // Fechas contrastadas el 20 de septiembre de 2026 con Wikidata (P39 con sus cualificadores: Q16020745 presidente del
+  // Consejo de Ministros, Q33753220 presidente de la Segunda República, Q43118787 presidente de las Cortes) y con el propio
+  // Diario: los 630 turnos cuyo orador es «Sr. Presidente del CONSEJO DE MINISTROS» forman trece tramos que coinciden uno a
+  // uno con la tabla. Convención de siempre: «hasta» es la toma de posesión del sucesor (fin exclusivo), así que se cierran
+  // los huecos entre la dimisión de un gobierno y el nombramiento del siguiente.
+  '2REP': { base: ES, camara: 'Cortes de la República', miembro: ['diputado', 'diputada'], parlamentario: true,
+    // La presidencia de la República nace con la Constitución (Alcalá-Zamora, elegido el 10-12-1931). Antes, la jefatura del
+    // Estado la ejerce el presidente del Gobierno provisional, que ya está en jefesGobierno: dejar vacía la tabla hasta esa
+    // fecha es lo que se quiere, porque así «el Jefe del Estado» de los debates constituyentes de 1931, que es genérico, no
+    // se atribuye a nadie.
+    jefes: [['alcala zamora', 'Niceto Alcalá-Zamora', '1931-12-10', '1936-04-07'],
+      ['martinez barrio', 'Diego Martínez Barrio', '1936-04-07', '1936-05-10'],   // interino, como presidente de las Cortes
+      ['azana', 'Manuel Azaña', '1936-05-10', '1939-03-03'],
+      ['martinez barrio', 'Diego Martínez Barrio', '1945-08-17', null]],          // interino en el exilio; el corpus tiene esa sesión
+    jefesGobierno: [['alcala zamora', 'Niceto Alcalá-Zamora', '1931-04-14', '1931-10-14'],
+      ['azana', 'Manuel Azaña', '1931-10-14', '1933-09-12'], ['lerroux', 'Alejandro Lerroux', '1933-09-12', '1933-10-08'],
+      ['martinez barrio', 'Diego Martínez Barrio', '1933-10-08', '1933-12-16'],
+      ['lerroux', 'Alejandro Lerroux', '1933-12-16', '1934-04-28'], ['samper', 'Ricardo Samper', '1934-04-28', '1934-10-04'],
+      ['lerroux', 'Alejandro Lerroux', '1934-10-04', '1935-09-25'],
+      ['chapaprieta', 'Joaquín Chapaprieta', '1935-09-25', '1935-12-14'],
+      ['portela|portela valladares', 'Manuel Portela Valladares', '1935-12-14', '1936-02-19'],
+      ['azana', 'Manuel Azaña', '1936-02-19', '1936-05-10'],
+      ['casares quiroga|casares', 'Santiago Casares Quiroga', '1936-05-10', '1936-07-18'],
+      ['martinez barrio', 'Diego Martínez Barrio', '1936-07-18', '1936-07-19'],   // unas horas, para intentar un gobierno de conciliación
+      ['giral', 'José Giral', '1936-07-19', '1936-09-04'],
+      ['largo caballero', 'Francisco Largo Caballero', '1936-09-04', '1937-05-17'],
+      ['negrin', 'Juan Negrín', '1937-05-17', '1945-08-21'],   // en España hasta el 5-3-1939 y luego en el exilio, hasta dimitir ante las Cortes
+      ['giral', 'José Giral', '1945-08-21', null]],            // gobierno de la República en el exilio (las sesiones de noviembre de 1945)
+    // Presidencia de las Cortes. El detector solo cruza jefes y jefesGobierno, así que las 2.211 menciones de «el presidente
+    // de la Cámara» y «el presidente de las Cortes» quedan de momento sin atribuir: la tabla está hecha para cuando las cruce.
+    presidentesCamara: [['besteiro|julian besteiro', 'Julián Besteiro', '1931-07-14', '1933-12-08'],
+      ['alba|santiago alba', 'Santiago Alba', '1933-12-08', '1936-03-16'],
+      ['martinez barrio', 'Diego Martínez Barrio', '1936-03-16', null]],   // sigue presidiendo las Cortes en el exilio
+    // Personas nombradas en el Diario que no tienen escaño: las del padrón (Azaña, Lerroux, Prieto, Gil Robles, Calvo Sotelo,
+    // Companys, Macià, Unamuno, Ortega y Gasset, Besteiro, Cambó…) se resuelven solas con la lista de oradores y no entran
+    // aquí. Se descartan las formas ambiguas: «Franco» son casi siempre los diputados Ramón y Gabriel; «Primo de Rivera»
+    // alterna entre el dictador y José Antonio, diputado en 1933-1935, y solo se recoge la forma larga; «Dato» y «Costa» son
+    // palabras comunes y van con el nombre de pila. Entre paréntesis, las apariciones en el corpus.
+    historicos: [['antonio maura', 'Antonio Maura'],                 // 288
+      ['pi y margall', 'Francisco Pi y Margall'],                    // 243
+      ['nombela', 'Antonio Nombela'],                                // 224, el asunto Nombela de 1935
+      ['romanones', 'Conde de Romanones'],                           // 215
+      ['galan', 'Fermín Galán'], ['fermin galan', 'Fermín Galán'],   // 194 + 26, el capitán de Jaca
+      ['marx', 'Karl Marx'],                                         // 150
+      ['canalejas', 'José Canalejas'],                               // 141
+      ['canovas', 'Antonio Cánovas del Castillo'],                   // 140
+      ['mussolini', 'Benito Mussolini'],                             // 139
+      ['martinez anido', 'Severiano Martínez Anido'],                // 130
+      ['strauss', 'Daniel Strauss'],                                 // 128, el estraperlo
+      ['garcia hernandez', 'Ángel García Hernández'],                // 128, el otro capitán de Jaca
+      ['joaquin costa', 'Joaquín Costa'],                            // 121
+      ['castelar', 'Emilio Castelar'],                               // 119
+      ['sagasta', 'Práxedes Mateo Sagasta'],                         // 108
+      ['pablo iglesias', 'Pablo Iglesias'],                          // 96
+      ['poincare', 'Raymond Poincaré'],                              // 79
+      ['batet', 'Domingo Batet'],                                    // 75
+      ['lopez ochoa', 'Eduardo López Ochoa'],                        // 71
+      ['alfonso xiii', 'Alfonso XIII'],                              // 69
+      ['hitler', 'Adolf Hitler'],                                    // 62
+      ['lenin', 'Lenin'],                                            // 61
+      ['briand', 'Aristide Briand'],                                 // 59
+      ['roosevelt', 'Franklin D. Roosevelt'],                        // 38
+      ['wilson', 'Woodrow Wilson'],                                  // 21
+      ['stalin', 'Stalin'],                                          // 17
+      ['goded', 'Manuel Goded'],                                     // 16
+      ['mola', 'Emilio Mola'],                                       // 15
+      ['blum', 'Léon Blum'],                                         // 15
+      ['kerensky', 'Aleksandr Kérenski'],                            // 11
+      ['eduardo dato', 'Eduardo Dato'],                              // 8
+      ['miguel primo de rivera', 'Miguel Primo de Rivera'],          // 8
+      ['queipo de llano', 'Gonzalo Queipo de Llano']],               // 6
+    // Cargos sin nombre, probados contra el texto del Diario: el tratamiento va entre el artículo y el cargo («el Sr.
+    // Presidente del Consejo de Ministros», 4.588 casos). La guardia del Consejo deja fuera «Presidente del Consejo de
+    // Administración» y «de Estado»; la de la República, los presidentes extranjeros.
+    cargosSinNombre: [
+      [/\b(?:[Ee]l|[Aa]l|[Dd]el)\s+(?:Sr\.?\s*|[Ss]eñor\s+)?[Pp]residente del [Cc]onsejo(?:\s+de\s+[Mm]inistros|(?!\s+de\s+\S))/g, 'jefesGobierno'],
+      [/\b(?:[Ee]l|[Aa]l|[Dd]el)\s+(?:Sr\.?\s*|[Ss]eñor\s+)?[Pp]residente del [Gg]obierno(?:\s+provisional)?(?:\s+de la Rep[uú]blica)?\b(?!\s+de\s+(?:la\s+)?[A-ZÁÉÍÓÚÑ])/g, 'jefesGobierno'],
+      [/\b(?:[Ee]l|[Aa]l|[Dd]el)\s+(?:Sr\.?\s*|[Ss]eñor\s+)?[Pp]residente de la Rep[uú]blica\b(?!\s+(?:de|del)\s+[A-ZÁÉÍÓÚÑ]|\s+(?:francesa|alemana|argentina|portuguesa|austriaca|checoslovaca|polaca|mexicana|cubana|chilena|italiana|turca|china))/g, 'jefes'],
+      [/\b(?:[Ee]l|[Aa]l|[Dd]el)\s+[Jj]efe del Estado\b(?!\s+(?:espa|de\s+[A-ZÁÉÍÓÚÑ]))/g, 'jefes']] },
 };
 
 /** Configuración de un país: la de su lengua más la suya. */
