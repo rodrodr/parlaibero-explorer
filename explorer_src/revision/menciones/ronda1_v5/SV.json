@@ -1,0 +1,442 @@
+[
+ {
+  "n": 1,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2018,
+  "habla": "OSTORGA DE ESCOBAR, SILVIA ESTELA",
+  "atribuida": "AYALA DE LEÓN, LUCÍA DEL CARMEN [nombre]",
+  "mencion": "colega hermana Diputada Lucía del Carmen Ayala de León",
+  "veredicto": "correcta",
+  "motivo": "Nombre completo; Lucía del Carmen Ayala de León (ARENA, 2018-2021)."
+ },
+ {
+  "n": 2,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2020,
+  "habla": "COREA FUENTES, TOMÁS EMILIO",
+  "atribuida": "VAQUERANO RIVAS, DONATO EUGENIO [actividad]",
+  "mencion": "doctor Vaquerano Rivas",
+  "veredicto": "correcta",
+  "motivo": "Donato Eugenio Vaquerano Rivas (ARENA), autor de la iniciativa según el dictamen leído dos turnos antes. En oradores.json tiene dos id_dep (SV00075 y SV00098); el desempate por actividad elige el principal."
+ },
+ {
+  "n": 3,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2020,
+  "habla": "PONCE LÓPEZ, MARIO ANTONIO",
+  "atribuida": "ZABLAH SAFIE, FRANCISCO JOSÉ [nombre]",
+  "mencion": "Diputado Francisco José Zablah Safie",
+  "veredicto": "correcta",
+  "motivo": "Francisco José Zablah Safie (GANA, 2018-2021), nombre completo, en un llamamiento que lee el presidente de la Asamblea, Ponce López."
+ },
+ {
+  "n": 4,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2022,
+  "habla": "ROSALES RAMÍREZ, ELISA MARCELA",
+  "atribuida": "AMAYA BENÍTEZ, FRANCISCO EDUARDO [nombre]",
+  "mencion": "diputado Eduardo Amaya",
+  "veredicto": "correcta",
+  "motivo": "Francisco Eduardo Amaya Benítez (Nuevas Ideas, 2021-2024), al que sustituye un suplente. La fórmula «en sustitución del» no se descartó por los dobles espacios del texto."
+ },
+ {
+  "n": 5,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2020,
+  "habla": "PONCE LÓPEZ, MARIO ANTONIO",
+  "atribuida": "VAQUERANO RIVAS, DONATO EUGENIO [actividad]",
+  "mencion": "Diputado Vaquerano",
+  "veredicto": "correcta",
+  "motivo": "Donato Vaquerano, que presentó el dictamen; lo dice el presidente Ponce López en su turno."
+ },
+ {
+  "n": 6,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2020,
+  "habla": "PONCE LÓPEZ, MARIO ANTONIO",
+  "atribuida": "DE AYALA, ANA MERCEDES LARRAVE [nombre]",
+  "mencion": "Diputada Mercedes Larrave",
+  "veredicto": "correcta",
+  "motivo": "Ana Mercedes Larrave de Ayala (ARENA), suplente llamada en sustitución de José Andrés Hernández."
+ },
+ {
+  "n": 7,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2020,
+  "habla": "PONCE LÓPEZ, MARIO ANTONIO",
+  "atribuida": "CORNEJO AMAYA, NORMA CRISTINA [nombre]",
+  "mencion": "Diputada Cristina Cornejo",
+  "veredicto": "correcta",
+  "motivo": "Norma Cristina Cornejo Amaya (FMLN), a quien la Presidencia pide leer la pieza de correspondencia."
+ },
+ {
+  "n": 8,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2019,
+  "habla": "MAZARIEGO MAZARIEGO, JORGE URIEL",
+  "atribuida": "CABRERA CANDRAY, MANUEL ORLANDO [nombre]",
+  "mencion": "Diputado Cabrera Candray",
+  "veredicto": "correcta",
+  "motivo": "Manuel Orlando Cabrera Candray (ARENA, 2018-2021), autor de la iniciativa."
+ },
+ {
+  "n": 9,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2018,
+  "habla": "URBINA GONZÁLEZ, YANCI GUADALUPE",
+  "atribuida": "AYALA DE LEÓN, LUCÍA DEL CARMEN [nombre]",
+  "mencion": "Diputada Lucía del Carmen Ayala de León",
+  "veredicto": "correcta",
+  "motivo": "Lucía del Carmen Ayala de León, que leyó el dictamen; el turno es de Yanci Urbina presidiendo."
+ },
+ {
+  "n": 10,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2020,
+  "habla": "CORNEJO AMAYA, NORMA CRISTINA",
+  "atribuida": "GARCÍA CORVERA, MARÍA NOEMY [nombre]",
+  "mencion": "Diputada María Noemy García Corvera",
+  "veredicto": "correcta",
+  "motivo": "María Noemy García Corvera (PCN), suplente en 2018-2021."
+ },
+ {
+  "n": 11,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2018,
+  "habla": "MARROQUÍN MEJÍA, MARIO",
+  "atribuida": "VELÁSQUEZ PARKER, RICARDO ANDRÉS [apellido suelto]",
+  "mencion": "Parker",
+  "veredicto": "correcta",
+  "motivo": "«Ricardo Andrés Velásquez Parker» en la lista de llamamientos."
+ },
+ {
+  "n": 12,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2019,
+  "habla": "MARROQUÍN MEJÍA, MARIO",
+  "atribuida": "PARKER SOTO, RODOLFO ANTONIO [apellido suelto, se dirige]",
+  "mencion": "Parker",
+  "veredicto": "correcta",
+  "motivo": "«la firma del R. Parker» en la pieza que pidió leer Arnoldo Marín (PDC): Rodolfo Parker, del PDC. La marca de vocativo sobra."
+ },
+ {
+  "n": 13,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2018,
+  "habla": "MARROQUÍN MEJÍA, MARIO",
+  "atribuida": "MERINO LÓPEZ, JOSÉ FRANCISCO [apellido suelto]",
+  "mencion": "Merino",
+  "veredicto": "correcta",
+  "motivo": "«Francisco Merino López»; el otro Merino es Nelson Orlando."
+ },
+ {
+  "n": 14,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2019,
+  "habla": "CORNEJO AMAYA, NORMA CRISTINA",
+  "atribuida": "ALMENDÁRIZ RIVAS, JOSÉ ANTONIO [apellido suelto]",
+  "mencion": "Almendáriz",
+  "veredicto": "correcta",
+  "motivo": "«José Antonio Almendáriz Rivas», nombre completo."
+ },
+ {
+  "n": 15,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2021,
+  "habla": "SALINAS BERMÚDEZ, DENNIS FERNANDO",
+  "atribuida": "GARCÍA VILLATORO, FRANCISCO JOSUÉ [apellido suelto]",
+  "mencion": "Villatoro",
+  "veredicto": "correcta",
+  "motivo": "«Francisco Josué García Villatoro» en la lista de firmantes; la palabra anterior descarta a Marcela Villatoro."
+ },
+ {
+  "n": 16,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2018,
+  "habla": "MARROQUÍN MEJÍA, MARIO",
+  "atribuida": "VELÁSQUEZ PARKER, RICARDO ANDRÉS [apellido suelto]",
+  "mencion": "Parker",
+  "veredicto": "correcta",
+  "motivo": "«Karla Roque por Ricardo Velásquez Parker»."
+ },
+ {
+  "n": 17,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2020,
+  "habla": "LÓPEZ CARDOZA, REYNALDO ANTONIO",
+  "atribuida": "PARKER SOTO, RODOLFO ANTONIO [apellido suelto]",
+  "mencion": "Parker",
+  "veredicto": "correcta",
+  "motivo": "«Se hacen presentes los diputados Rodolfo Parker»."
+ },
+ {
+  "n": 18,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2018,
+  "habla": "URBINA GONZÁLEZ, YANCI GUADALUPE",
+  "atribuida": "VELÁSQUEZ PARKER, RICARDO ANDRÉS [apellido suelto]",
+  "mencion": "Parker",
+  "veredicto": "correcta",
+  "motivo": "«Diputado Secretario Ricardo Avilés (Andrés) Velásquez Parker»."
+ },
+ {
+  "n": 19,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2020,
+  "habla": "VELÁSQUEZ PARKER, RICARDO ANDRÉS",
+  "atribuida": "PARKER SOTO, RODOLFO ANTONIO [apellido suelto]",
+  "mencion": "Parker",
+  "veredicto": "correcta",
+  "motivo": "«Rodolfo Antonio Parker Soto», nombre completo."
+ },
+ {
+  "n": 20,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2020,
+  "habla": "REYES RAMOS, CARLOS ARMANDO",
+  "atribuida": "PARKER SOTO, RODOLFO ANTONIO [apellido suelto]",
+  "mencion": "Parker",
+  "veredicto": "correcta",
+  "motivo": "«Rodolfo Antonio Parker Soto», nombre completo."
+ },
+ {
+  "n": 21,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2021,
+  "habla": "DE GONZÁLEZ, REBECA ARACELY SANTOS",
+  "atribuida": "EXT delgado montes",
+  "mencion": "licenciado Delgado Montes",
+  "veredicto": "correcta",
+  "motivo": "Rodolfo Antonio Delgado Montes, fiscal general de la República (el propio texto da nombre y cargo); sin escaño."
+ },
+ {
+  "n": 22,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2020,
+  "habla": "RAMIREZ GARAY, MILTON RICARDO",
+  "atribuida": "EXT nayib bukele",
+  "mencion": "Presidente Nayib Bukele",
+  "veredicto": "correcta",
+  "motivo": "Nayib Bukele, presidente desde el 1 de junio de 2019."
+ },
+ {
+  "n": 23,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2019,
+  "habla": "RAMIREZ GARAY, MILTON RICARDO",
+  "atribuida": "EXT nayib bukele",
+  "mencion": "Presidente Nayib Bukele",
+  "veredicto": "correcta",
+  "motivo": "Nayib Bukele, presidente en julio de 2019."
+ },
+ {
+  "n": 24,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2021,
+  "habla": "MARTÍNEZ RIVAS, SAMUEL ANÍBAL",
+  "atribuida": "EXT vitelio osiris rodriguez castillo",
+  "mencion": "señor Vitelio Osiris Rodríguez Castillo",
+  "veredicto": "correcta",
+  "motivo": "Condenado que solicita un indulto; persona real sin escaño."
+ },
+ {
+  "n": 25,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2020,
+  "habla": "PONCE LÓPEZ, MARIO ANTONIO",
+  "atribuida": "EXT blanca nohemi sanchez rojas",
+  "mencion": "señora Blanca Nohemí Sánchez Rojas",
+  "veredicto": "correcta",
+  "motivo": "Persona fallecida a la que se dedica un minuto de silencio; sin escaño."
+ },
+ {
+  "n": 26,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2024,
+  "habla": "MELÉNDEZ MULATO, EDGARDO ANTONIO",
+  "atribuida": "EXT prendes",
+  "mencion": "Rey Prendes",
+  "veredicto": "incorrecta",
+  "motivo": "«la Casa Rey Prendes»: un inmueble del centro histórico; «Rey» es parte del apellido, no el título."
+ },
+ {
+  "n": 27,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2019,
+  "habla": "PALOMO NIETO, JOSÉ JAVIER",
+  "atribuida": "EXT santa ana",
+  "mencion": "Señora Santa Ana",
+  "veredicto": "incorrecta",
+  "motivo": "«Nuestra Señora Santa Ana»: advocación religiosa, patrona de la ciudad de Santa Ana; el mismo nodo recoge «mi querida Santa Ana» (la ciudad)."
+ },
+ {
+  "n": 28,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2020,
+  "habla": "GODOY CARDOZA, JORGE ADALBERTO JOSUÉ",
+  "atribuida": "EXT muyshondt",
+  "mencion": "alcalde Muyshondt",
+  "veredicto": "correcta",
+  "motivo": "Ernesto Muyshondt, alcalde de San Salvador; sin escaño en 2018-2021."
+ },
+ {
+  "n": 29,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2019,
+  "habla": "QUIJANO GONZÁLEZ, NORMAN NOEL",
+  "atribuida": "EXT david antonio vides",
+  "mencion": "señor David Antonio Vides",
+  "veredicto": "correcta",
+  "motivo": "Persona fallecida (minuto de silencio); sin escaño."
+ },
+ {
+  "n": 30,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2021,
+  "habla": "ORANTES RODRÍGUEZ, JOSÉ SERAFÍN",
+  "atribuida": "EXT mayra ligia gallardo alvarado",
+  "mencion": "doctora Mayra Ligia Gallardo",
+  "veredicto": "correcta",
+  "motivo": "Mayra Ligia Gallardo Alvarado, titular invitada a la comisión; el nodo une esta mención con la del nombre completo."
+ },
+ {
+  "n": 31,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2020,
+  "habla": "PONCE LÓPEZ, MARIO ANTONIO",
+  "atribuida": "EXT carmen milena mayorga valera",
+  "mencion": "Diputada Milena Mayorga",
+  "veredicto": "incorrecta",
+  "motivo": "Carmen Milena Mayorga Valera tenía escaño en 2018-2021 (ARENA, 81 intervenciones hasta octubre de 2020): debió resolverse como miembro. Queda como externa porque dos menciones de 2022 como «embajadora» la meten en «externos por cargo» para todas las fechas."
+ },
+ {
+  "n": 32,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2018,
+  "habla": "GODOY CARDOZA, JORGE ADALBERTO JOSUÉ",
+  "atribuida": "EXT carmen milena mayorga valera",
+  "mencion": "colega Milena Mayorga",
+  "veredicto": "incorrecta",
+  "motivo": "Ídem (2018): «mi colega Milena Mayorga», diputada en ejercicio."
+ },
+ {
+  "n": 33,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2020,
+  "habla": "LÓPEZ CARDOZA, REYNALDO ANTONIO",
+  "atribuida": "EXT carmen milena mayorga valera",
+  "mencion": "Diputada Milena Mayorga",
+  "veredicto": "incorrecta",
+  "motivo": "Ídem (2020): se pide incorporar a la diputada Milena Mayorga, en ejercicio."
+ },
+ {
+  "n": 34,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2018,
+  "habla": "ROMERO RODRÍGUEZ, ALBERTO ARMANDO",
+  "atribuida": "EXT carmen milena mayorga valera",
+  "mencion": "Diputada Milena Mayorga",
+  "veredicto": "incorrecta",
+  "motivo": "Ídem (2018): «Tiene la palabra la Diputada Milena Mayorga», que interviene en el turno siguiente."
+ },
+ {
+  "n": 35,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2019,
+  "habla": "CORNEJO AMAYA, NORMA CRISTINA",
+  "atribuida": "EXT david izzo",
+  "mencion": "Izzo",
+  "veredicto": "correcta",
+  "motivo": "David Izzo, embajador de Francia. La misma aparición ya cuenta como mención con cargo («Embajador de la República Francesa en El Salvador, David Izzo»): doble cuenta."
+ },
+ {
+  "n": 36,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2021,
+  "habla": "GARCÍA VILLATORO, FRANCISCO JOSUÉ",
+  "atribuida": "EXT nayib bukele",
+  "mencion": "Bukele",
+  "veredicto": "incorrecta",
+  "motivo": "«el presidente del Instituto Nacional de Deportes, Yamil Bukele»: es Yamil Bukele, no Nayib."
+ },
+ {
+  "n": 37,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2021,
+  "habla": "DE ORANTES, LORENA JOHANNA FUENTES",
+  "atribuida": "EXT nayib bukele",
+  "mencion": "Bukele",
+  "veredicto": "incorrecta",
+  "motivo": "«presidente ad honórem de INDES, Yamil Bukele»: Yamil Bukele, no Nayib."
+ },
+ {
+  "n": 38,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2022,
+  "habla": "URBINA ALVARENGA, JOSÉ ASUNCIÓN",
+  "atribuida": "EXT nayib bukele",
+  "mencion": "Bukele",
+  "veredicto": "correcta",
+  "motivo": "«el presidente de la República Nayib Bukele»."
+ },
+ {
+  "n": 39,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2019,
+  "habla": "MAZARIEGO MAZARIEGO, JORGE URIEL",
+  "atribuida": "EXT david izzo",
+  "mencion": "Izzo",
+  "veredicto": "correcta",
+  "motivo": "«Embajador de Francia en El Salvador David Izzo»."
+ },
+ {
+  "n": 40,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2024,
+  "habla": "ROSALES RAMÍREZ, ELISA MARCELA",
+  "atribuida": "EXT oscar alberto lopez jerez",
+  "mencion": "Jerez",
+  "veredicto": "correcta",
+  "motivo": "Óscar Alberto López Jerez, elegido magistrado de la Corte Suprema; sin escaño."
+ },
+ {
+  "n": 41,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2021,
+  "habla": "NAVARRO RIVERA, CALEB NEFTALÍ",
+  "atribuida": "EXT nayib bukele",
+  "mencion": "Bukele",
+  "veredicto": "correcta",
+  "motivo": "«presidente de la República, Nayib Bukele»; la misma aparición ya cuenta como mención con cargo (doble cuenta)."
+ },
+ {
+  "n": 42,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2024,
+  "habla": "CASTRO ALDANA, ERNESTO ALFREDO",
+  "atribuida": "EXT jose fernando marroquin galo",
+  "mencion": "Galo",
+  "veredicto": "correcta",
+  "motivo": "José Fernando Marroquín Galo, magistrado electo de la Corte Suprema; sin escaño."
+ },
+ {
+  "n": 43,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2023,
+  "habla": "ALEMÁN HERNÁNDEZ, WALTER AMILCAR",
+  "atribuida": "EXT nayib bukele",
+  "mencion": "Bukele",
+  "veredicto": "incorrecta",
+  "motivo": "«presidente ad honorem del INDES, Yamil Bukele»: Yamil Bukele, no Nayib."
+ },
+ {
+  "n": 44,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2018,
+  "habla": "MINISTRA DE SALUD, DOCTORA ELVIA VIOLETA MENJÍVAR ESCALANTE",
+  "atribuida": "EXT salvador sanchez ceren",
+  "mencion": "Cerén",
+  "veredicto": "correcta",
+  "motivo": "Salvador Sánchez Cerén, presidente en junio de 2018. La misma aparición cuenta tres veces (con cargo, «Sánchez Cerén» y «Cerén»)."
+ }
+]

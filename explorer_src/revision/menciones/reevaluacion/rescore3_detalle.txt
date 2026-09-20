@@ -1,0 +1,142 @@
+AR #15 incorrecta desaparece Aramburu : M:AR00116 → —
+AR #17 correcta   cambia     doctor Klein : E:guillermo walter klein → E:klein
+AR #30 incorrecta desaparece Klein : E:guillermo walter klein → —
+BR #1 incorrecta desaparece Brasil : M:BR219585 → — [no debía contar]
+BR #10 incorrecta cambia     Senador Luis Carlos Heinze : E:luis carlos heinze → M:BR73483
+CL #10 correcta   desaparece Prokurica : M:CL00093 → — [no debía contar]
+CL #12 correcta   desaparece Alessandri : M:CL00003 → — [no debía contar]
+CL #13 correcta   desaparece Forni : M:CL00840 → — [no debía contar]
+CL #16 correcta   desaparece Egaña : M:CL00830 → — [no debía contar]
+CL #18 incorrecta cambia     senador Espina : E:alberto espina otero → M:CL00030
+CL #19 correcta   desaparece don Claudio Hohmann : E:claudio hohmann → — [no debía contar]
+CL #27 correcta   desaparece Pinochet : E:augusto pinochet → — [no debía contar]
+CL #31 correcta   desaparece Pinochet : E:augusto pinochet → — [no debía contar]
+CL #39 correcta   desaparece el Presidente de la República : E:eduardo frei ruiz tagle → — [no debía contar]
+CO #9 correcta   desaparece Wills Ospina : M:CO00495 → — [no debía contar]
+CO #10 correcta   desaparece Cardona León : M:CO00478 → — [no debía contar]
+CO #11 correcta   desaparece Ochoa Zuluaga : M:CO00582 → — [no debía contar]
+CO #12 correcta   desaparece Peñuela : M:CO00496 → — [no debía contar]
+CO #13 correcta   desaparece Chacón : M:CO00017 → — [no debía contar]
+CO #14 correcta   desaparece Cristo : M:CO00251 → — [no debía contar]
+CO #15 correcta   desaparece Uscátegui : M:CO00466 → — [no debía contar]
+CO #16 correcta   desaparece Parrado Durán : M:CO00258 → — [no debía contar]
+CO #18 correcta   desaparece doctor Jaime Luis Lacouture : E:jaime luis lacouture penaloza → — [no debía contar]
+CO #28 correcta   desaparece Lacouture Peñaloza : E:jaime luis lacouture penaloza → — [no debía contar]
+CO #39 correcta   desaparece el señor Presidente de la República : E:ivan duque → — [no debía contar]
+CR #1 correcta   desaparece PRESIDENTE FRANCISCO ANTONIO PACHECO FERNÁNDEZ : M:CR00295 → — [no debía contar]
+CR #3 correcta   desaparece PRESIDENTE FRANCISCO ANTONIO PACHECO FERNÁNDEZ : M:CR00295 → — [no debía contar]
+CR #4 correcta   desaparece DIPUTADO RONALD FRANCISCO SOLÍS BOLAÑOS : M:CR00887 → — [no debía contar]
+CR #7 correcta   desaparece Diputado Luis Fernando Mendoza Jiménez : M:CR00583 → — [no debía contar]
+CR #11 correcta   desaparece Barrantes Rodríguez : M:CR00596 → — [no debía contar]
+CR #19 incorrecta cambia     don Juan Guillermo Hermenegildo de Jesús Brenes Castillo : E:juan guillermo hermenegildo jesus brenes castillo → M:CR00515
+CR #26 correcta   cambia     Diputado Miguel Ángel Rodríguez : E:miguel angel rodriguez → M:CR00698
+CR #43 correcta   desaparece al señor presidente de la República : E:oscar arias → — [no debía contar]
+DO #1 correcta   desaparece doña Yuderka de la Rosa : M:DO0186 → — [no debía contar]
+DO #7 correcta   desaparece diputado Rafael Castillo : M:DO0679 → — [no debía contar]
+DO #8 correcta   desaparece diputado Henry Modesto Merán Gil : M:DO0304 → — [no debía contar]
+DO #31 correcta   desaparece el Presidente de la República : E:leonel fernandez → — [no debía contar]
+EC #3 correcta   desaparece ingeniero Diego Monsalve Vintimilla : M:EC00254 → — [no debía contar]
+EC #21 correcta   cambia     señor Montúfar : E:juan pio montufar → E:montufar
+GT #1 correcta   desaparece señor representante Arístides Crespo : M:GT00053 → — [no debía contar]
+GT #2 correcta   desaparece Diputado José Efraín Ríos Montt : M:GT00364 → — [no debía contar]
+GT #3 correcta   desaparece Flora de Ramos : M:GT00224 → — [no debía contar]
+GT #4 correcta   desaparece Carlos Enrique López Girón : M:GT00084 → — [no debía contar]
+GT #6 correcta   desaparece diputada Nineth Montenegro : M:GT00583 → — [no debía contar]
+GT #7 correcta   desaparece Leonardo Camey Curup : M:GT00433 → — [no debía contar]
+GT #8 correcta   desaparece Roberto Kestler : M:GT00649 → — [no debía contar]
+GT #9 correcta   desaparece Montenegro : M:GT00530 → — [no debía contar]
+GT #10 correcta   desaparece Sinibaldi Aparicio : M:GT00012 → — [no debía contar]
+GT #11 correcta   desaparece Sinibaldi Aparicio : M:GT00012 → — [no debía contar]
+GT #13 correcta   desaparece Rayo Muñoz : M:GT00509 → — [no debía contar]
+GT #14 correcta   desaparece Taracena : M:GT00070 → — [no debía contar]
+GT #18 correcta   desaparece Dr. Félix Javier Serrano Ursúa : E:felix javier serrano ursua → — [no debía contar]
+GT #19 correcta   desaparece Lic. Estuardo Gálvez Presidente : E:estuardo galvez → — [no debía contar]
+GT #20 correcta   desaparece licenciado Raúl Amílcar Falla : E:raul amilcar falla → — [no debía contar]
+GT #21 correcta   desaparece señor Acisclo Valladares Urruela : E:acisclo valladares urruela → — [no debía contar]
+GT #23 correcta   desaparece señor Andrés Cavinal Sajic : E:andres cavinal sajic → — [no debía contar]
+GT #24 incorrecta desaparece Ingeniero Electrónico : E:electronico → —
+GT #25 correcta   desaparece Mendizábal : E:rafael fernando mendizabal riva → — [no debía contar]
+GT #26 correcta   desaparece Berger : E:oscar berger → — [no debía contar]
+GT #27 correcta   desaparece Stalling Dávila : E:blanca aida stalling davila → — [no debía contar]
+GT #28 correcta   desaparece Portillo : E:alfonso portillo → — [no debía contar]
+GT #31 correcta   desaparece Berger : E:oscar berger → — [no debía contar]
+GT #32 correcta   desaparece Mendizábal : E:rafael fernando mendizabal riva → — [no debía contar]
+GT #35 correcta   desaparece el presidente de la República : E:alejandro giammattei → — [no debía contar]
+GT #37 correcta   desaparece del presidente de la República : E:oscar berger → — [no debía contar]
+GT #38 correcta   desaparece del presidente de la República : E:alejandro giammattei → — [no debía contar]
+GT #39 incorrecta desaparece del Presidente de la República : E:alvaro colom → — [no debía contar]
+GT #40 incorrecta desaparece del presidente de la República : E:alejandro giammattei → — [no debía contar]
+MX #1 correcta   desaparece diputado José Antonio Almazán González : M:MX02585 → — [no debía contar]
+MX #2 correcta   desaparece diputada Alicia Guadalupe Gamboa Martínez : M:MX00267 → — [no debía contar]
+MX #3 correcta   desaparece diputada Ruth Zavaleta Salgado : M:MX04936 → — [no debía contar]
+MX #4 correcta   desaparece diputada Carmen Lucía Pérez Camarena : M:MX00811 → — [no debía contar]
+MX #5 correcta   desaparece Diputada Claudia Janeth Ochoa Iñiguez : M:MX06791 → — [no debía contar]
+MX #6 correcta   desaparece Blanca Gámez Gutiérrez : M:MX00653 → — [no debía contar]
+MX #8 correcta   desaparece diputado Mariano González Aguirre : M:MX03898 → — [no debía contar]
+MX #9 correcta   desaparece Ulloa Pérez : M:MX01776 → — [no debía contar]
+MX #11 correcta   desaparece Escudero : M:MX03928 → — [no debía contar]
+MX #12 correcta   desaparece Godoy Rangel : M:MX03220 → — [no debía contar]
+MX #13 correcta   desaparece Zárate Salgado : M:MX01536 → — [no debía contar]
+MX #14 correcta   desaparece Preciado : M:MX03208 → — [no debía contar]
+MX #17 incorrecta desaparece senador José Rosas Aispuro Torres : E:jose rosas aispuro torres → — [no debía contar]
+MX #18 correcta   desaparece Senador Jesús Casillas Romero : E:jesus casillas romero → — [no debía contar]
+MX #19 correcta   desaparece Sen. José Antonio Aguilar Bodegas : E:jose antonio aguilar bodegas → — [no debía contar]
+MX #21 correcta   desaparece ciudadano Antonio Fuentes Cruz : E:antonio fuentes cruz → — [no debía contar]
+MX #22 correcta   desaparece Vicente Fox Quesada : E:vicente fox → — [no debía contar]
+MX #23 incorrecta desaparece Martha Leticia Sosa Govea : E:martha leticia sosa govea → — [no debía contar]
+MX #25 incorrecta desaparece diputada María Bertha Espinoza Segura : E:maria bertha espinoza segura → — [no debía contar]
+MX #27 incorrecta desaparece Diputado Erubiel Lorenzo Alonso Que : E:erubiel lorenzo alonso que → — [no debía contar]
+MX #28 incorrecta desaparece Diputado Erubiel Lorenzo Alonso Que : E:erubiel lorenzo alonso que → — [no debía contar]
+MX #29 correcta   desaparece Roberto Madrazo Pintado : E:roberto madrazo pintado → — [no debía contar]
+MX #32 correcta   desaparece Dip. Onésimo Mariscales Delgadillo : E:onesimo mariscales delgadillo → — [no debía contar]
+MX #38 incorrecta desaparece Emiliano Zapata : E:emiliano zapata → — [no debía contar]
+MX #41 correcta   desaparece el Presidente de la República : E:felipe calderon → — [no debía contar]
+MX #42 correcta   desaparece el Presidente de la República : E:vicente fox → — [no debía contar]
+PA #1 correcta   desaparece Rubén De León : M:PA01158 → — [no debía contar]
+PA #5 incorrecta cambia     licenciado Ricardo Arias : M:PA01101 → E:ricardo arias
+PA #23 incorrecta cambia     colega Tomás Gabriel Altamirano-Duque Mantovani : E:tomas gabriel altamirano duque mantovani → M:PA01209
+PE #25 correcta   cambia     congresista Sagasti : E:francisco sagasti → M:PE00383
+PE #26 correcta   cambia     congresista Balcázar de Perú Libre : E:jose maria balcazar → M:PE00643
+PE #27 correcta   cambia     congresista José María Balcázar : E:jose maria balcazar → M:PE00643
+PE #28 correcta   cambia     congresista presidente Jerí : E:jose jeri → M:PE00621
+PE #29 correcta   cambia     congresista Balcázar : E:jose maria balcazar → M:PE00643
+PE #30 correcta   cambia     congresista José Jerí : E:jose jeri → M:PE00621
+PE #32 correcta   cambia     congresista José Jerí Oré : E:jose jeri → M:PE00621
+PE #42 incorrecta desaparece el Presidente de la República : E:alejandro toledo → —
+PT #20 incorrecta desaparece Secretários de Estado : E:secretarios estados → — [no debía contar]
+PT #35 incorrecta desaparece Estados : E:secretarios estados → —
+PT #38 incorrecta desaparece Estados : E:secretarios estados → —
+PY #5 incorrecta cambia     Coronel Oviedo : M:PY202 → E:oviedo
+PY #14 incorrecta desaparece Chávez : M:PY184 → —
+PY #15 incorrecta desaparece Chávez : M:PY184 → —
+PY #17 incorrecta desaparece Señor Pre- : E:pre → — [no debía contar]
+PY #18 incorrecta cambia     señor Alderete : E:jose alberto alderete → E:alberto alderete
+PY #20 incorrecta desaparece señor Fresidente : E:fresidente → — [no debía contar]
+PY #21 incorrecta desaparece Honorable Cuerpo Legislativo : E:cuerpo → — [no debía contar]
+PY #33 correcta   desaparece al Presidente de la República : E:mario abdo benitez → — [no debía contar]
+SV #2 correcta   desaparece diputado Óscar García : M:SV00281 → — [no debía contar]
+SV #3 correcta   desaparece diputada  suplente  Cenayda  Benítez : M:SV00050 → — [no debía contar]
+SV #4 correcta   desaparece diputado suplente Jhony Ponce : M:SV00146 → — [no debía contar]
+SV #7 correcta   desaparece Diputada Eeileen Auxiliadora Romero Valle : M:SV00087 → — [no debía contar]
+SV #8 correcta   desaparece Diputado Candray : M:SV00222 → — [no debía contar]
+SV #12 correcta   desaparece Mazariego Mazariego : M:SV00159 → — [no debía contar]
+SV #15 correcta   desaparece Parker : M:SV00297 → — [no debía contar]
+SV #16 correcta   desaparece Parker  Soto : M:SV00307 → — [no debía contar]
+SV #18 correcta   desaparece licenciado  Carlos  Mauricio  Rodríguez  Bonilla : E:carlos mauricio rodriguez bonilla → — [no debía contar]
+SV #19 correcta   desaparece licenciada Sandra Luz Chicas de Fuentes : E:sandra luz chicas fuentes → — [no debía contar]
+SV #21 correcta   desaparece doctor Henry Alexander Mejía : E:henry alexander mejia → — [no debía contar]
+SV #25 correcta   desaparece Anzora Quiroz : E:roberto antonio anzora quiroz → — [no debía contar]
+SV #30 incorrecta desaparece Bendek : E:julio guillermo bendek panameno → — [no debía contar]
+SV #33 correcta   desaparece del señor Presidente de la República : E:salvador sanchez ceren → — [no debía contar]
+SV #35 correcta   desaparece del presidente de la República : E:nayib bukele → — [no debía contar]
+SV #36 correcta   desaparece del presidente de la República : E:nayib bukele → — [no debía contar]
+SV #37 correcta   desaparece del presidente de la República : E:nayib bukele → — [no debía contar]
+SV #39 correcta   desaparece del presidente de la República : E:nayib bukele → — [no debía contar]
+UY #4 incorrecta cambia     doctor Macedo : M:UY01149 → E:julio macedo saravia
+UY #9 correcta   desaparece Courtoisie : M:UY00796 → — [no debía contar]
+UY #10 correcta   desaparece Lago : M:UY00359 → — [no debía contar]
+UY #14 correcta   desaparece Palomeque : M:UY00024 → — [no debía contar]
+UY #15 correcta   desaparece Trobo : M:UY01049 → — [no debía contar]
+UY #16 correcta   desaparece Cardoso : M:UY01175 → — [no debía contar]
+UY #20 incorrecta desaparece Servicios Ganaderos : E:servicios ganaderos → —
+UY #24 correcta   cambia     doctor Solari : E:jose alfredo solari → E:solari

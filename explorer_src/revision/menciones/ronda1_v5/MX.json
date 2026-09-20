@@ -1,0 +1,502 @@
+[
+ {
+  "n": 1,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2007,
+  "habla": "MARÍA MERCEDES MACIEL ORTIZ",
+  "atribuida": "DOLORES DE MARÍA MANUELL-GÓMEZ ANGULO [nombre]",
+  "mencion": "diputada Dolores de María Manuell-Gómez Angulo",
+  "veredicto": "correcta",
+  "motivo": "Dolores de María Manuell-Gómez Angulo (PAN, LX), en el orden del día («a cargo de la diputada…»)."
+ },
+ {
+  "n": 2,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2006,
+  "habla": "HELIODORO CARLOS DÍAZ ESCÁRRAGA",
+  "atribuida": "IVÁN GARCÍA SOLÍS [nombre]",
+  "mencion": "diputado Iván García Solís",
+  "veredicto": "correcta",
+  "motivo": "Iván García Solís (PRD, LIX). Es la fórmula de la presidencia «Tiene el uso de la tribuna el diputado…», fundida con el turno del orador; no se descarta como procedimiento."
+ },
+ {
+  "n": 3,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2003,
+  "habla": "NANCY CÁRDENAS SÁNCHEZ",
+  "atribuida": "HORACIO MARTÍNEZ MEZA [nombre]",
+  "mencion": "diputado Horacio Martínez",
+  "veredicto": "correcta",
+  "motivo": "Horacio Martínez Meza (PRD, LIX), único Horacio Martínez de la legislatura; autor del punto de acuerdo."
+ },
+ {
+  "n": 4,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2014,
+  "habla": "XAVIER AZUARA ZÚÑIGA",
+  "atribuida": "SILVANO AUREOLES CONEJO [nombre]",
+  "mencion": "Diputado Silvano Aureoles Conejo",
+  "veredicto": "correcta",
+  "motivo": "Silvano Aureoles Conejo (PRD, LXII), presidente de la Mesa Directiva; firma «(rúbrica)»."
+ },
+ {
+  "n": 5,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2008,
+  "habla": "JESÚS ARREDONDO VELÁZQUEZ",
+  "atribuida": "CARLOS ROJAS GUTIÉRREZ [nombre]",
+  "mencion": "diputado Carlos Rojas",
+  "veredicto": "correcta",
+  "motivo": "Carlos Rojas Gutiérrez (PRI, LX), único Carlos Rojas de la legislatura."
+ },
+ {
+  "n": 6,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2014,
+  "habla": "GRACIELA SALDAÑA FRAIRE",
+  "atribuida": "ABEL OCTAVIO SALGADO PEÑA [nombre]",
+  "mencion": "diputado Abel Octavio Salgado Peña",
+  "veredicto": "correcta",
+  "motivo": "Abel Octavio Salgado Peña (PRI, LXII), en el orden del día."
+ },
+ {
+  "n": 7,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2006,
+  "habla": "HELIODORO CARLOS DÍAZ ESCÁRRAGA",
+  "atribuida": "CRISTINA PORTILLO AYALA [nombre]",
+  "mencion": "Dip. Cristina Portillo Ayala",
+  "veredicto": "correcta",
+  "motivo": "Cristina Portillo Ayala (PRD, LIX), firma de una iniciativa."
+ },
+ {
+  "n": 8,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2006,
+  "habla": "BLANCA GÁMEZ GUTIÉRREZ",
+  "atribuida": "FEDERICO DÖRING CASAR [nombre]",
+  "mencion": "diputado Federico Döring Casar",
+  "veredicto": "correcta",
+  "motivo": "Federico Döring Casar (PAN, LIX), en el orden del día."
+ },
+ {
+  "n": 9,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2018,
+  "habla": "MARÍA EUGENIA OCAMPO BEDOLLA",
+  "atribuida": "MARÍA LUISA BELTRÁN REYES [nombre]",
+  "mencion": "diputada María Luisa Beltrán Reyes",
+  "veredicto": "correcta",
+  "motivo": "María Luisa Beltrán Reyes (PRD, LXIII), en las comunicaciones."
+ },
+ {
+  "n": 10,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2005,
+  "habla": "MARCOS MORALES TORRES",
+  "atribuida": "MANUEL VELASCO COELLO [nombre]",
+  "mencion": "Dip. Manuel Velasco Coello",
+  "veredicto": "correcta",
+  "motivo": "Manuel Velasco Coello, coordinador del PVEM (LIX); firma «(rúbrica)»."
+ },
+ {
+  "n": 11,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2008,
+  "habla": "CÉSAR DUARTE JÁQUEZ",
+  "atribuida": "JOSÉ ANTONIO ALMAZÁN GONZÁLEZ [apellido suelto]",
+  "mencion": "José",
+  "veredicto": "correcta",
+  "motivo": "Votación nominal «Almazán González, José Antonio» (LX): es él, pero por casualidad; el detector busca el nombre de pila «José», no el apellido."
+ },
+ {
+  "n": 12,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2014,
+  "habla": "SILVANO AUREOLES CONEJO",
+  "atribuida": "RICARDO MONREAL ÁVILA [apellido suelto]",
+  "mencion": "Ricardo",
+  "veredicto": "correcta",
+  "motivo": "Lista de oradores «Monreal Ávila, Ricardo (MC)» (LXII); acierto casual: busca «Ricardo»."
+ },
+ {
+  "n": 13,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2008,
+  "habla": "MARGARITA ARENAS GUZMÁN",
+  "atribuida": "JOSÉ MURAT CASAB [apellido suelto]",
+  "mencion": "José",
+  "veredicto": "correcta",
+  "motivo": "Firma «José Murat» (PRI, LX); acierto casual: busca «José»."
+ },
+ {
+  "n": 14,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2013,
+  "habla": "FERNANDO BRIBIESCA SAHAGÚN",
+  "atribuida": "MANUEL HUERTA LADRÓN DE GUEVARA [apellido suelto]",
+  "mencion": "Manuel",
+  "veredicto": "incorrecta",
+  "motivo": "«la tormenta Manuel y el huracán Ingrid»: es el meteoro; el detector busca el nombre de pila «Manuel» de Manuel Huerta."
+ },
+ {
+  "n": 15,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2008,
+  "habla": "CÉSAR DUARTE JÁQUEZ",
+  "atribuida": "SILBESTRE ÁLVAREZ RAMÓN [apellido suelto]",
+  "mencion": "Ramón",
+  "veredicto": "correcta",
+  "motivo": "Votación nominal «Álvarez Ramón, Silbestre» (PRD, LX): «Ramón» se reasigna a él por el apellido que lo precede."
+ },
+ {
+  "n": 16,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2014,
+  "habla": "SILVANO AUREOLES CONEJO",
+  "atribuida": "CLAUDIA ELIZABETH BOJÓRQUEZ JAVIER [apellido suelto]",
+  "mencion": "Claudia",
+  "veredicto": "correcta",
+  "motivo": "Votación nominal «Bojórquez Javier, Claudia Elizabeth» (PRD, LXII); acierto casual: busca «Claudia»."
+ },
+ {
+  "n": 17,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2013,
+  "habla": "FERNANDO RODRÍGUEZ DOVAL",
+  "atribuida": "FRANCISCO ALFONSO DURAZO MONTAÑO [apellido suelto]",
+  "mencion": "Francisco",
+  "veredicto": "incorrecta",
+  "motivo": "«Francisco I. Madero»: figura histórica; toma el nombre de pila «Francisco» por el apellido de Francisco Alfonso Durazo."
+ },
+ {
+  "n": 18,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2008,
+  "habla": "CÉSAR DUARTE JÁQUEZ",
+  "atribuida": "JOSÉ ANTONIO ALMAZÁN GONZÁLEZ [apellido suelto]",
+  "mencion": "José",
+  "veredicto": "incorrecta",
+  "motivo": "Votación nominal «Díaz García, José Antonio»: es José Antonio Díaz García (PAN, LX), no Almazán."
+ },
+ {
+  "n": 19,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2008,
+  "habla": "CÉSAR DUARTE JÁQUEZ",
+  "atribuida": "JOSÉ ANTONIO ALMAZÁN GONZÁLEZ [apellido suelto]",
+  "mencion": "José",
+  "veredicto": "incorrecta",
+  "motivo": "Como la nº 18, en otra votación nominal de la misma fila."
+ },
+ {
+  "n": 20,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2007,
+  "habla": "JORGE ZERMEÑO INFANTE",
+  "atribuida": "JOSÉ MURAT CASAB [apellido suelto]",
+  "mencion": "José",
+  "veredicto": "correcta",
+  "motivo": "Lista de inscritos «Murat , José(PRI)» (LX); acierto casual: busca «José»."
+ },
+ {
+  "n": 21,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1995,
+  "habla": "AUDOMARO ALBA PADILLA",
+  "atribuida": "EXT por",
+  "mencion": "H. Por",
+  "veredicto": "incorrecta",
+  "motivo": "No es una persona: «Artículo 195-H. Por los servicios…»; «H.» se lee como «honorable» y «Por» como nombre."
+ },
+ {
+  "n": 22,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2005,
+  "habla": "ÁLVARO ELÍAS LOREDO",
+  "atribuida": "EXT ruben omar romano",
+  "mencion": "Rubén Omar Romano",
+  "veredicto": "correcta",
+  "motivo": "Rubén Omar Romano, director técnico del Cruz Azul secuestrado en 2005."
+ },
+ {
+  "n": 23,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2006,
+  "habla": "IVONNE ORTEGA PACHECO",
+  "atribuida": "EXT jose carcano sanluis",
+  "mencion": "licenciado José Carcaño Sanluís",
+  "veredicto": "correcta",
+  "motivo": "José Carcaño Sanluís, jefe de Asuntos Agrarios del gobierno de Veracruz; sin escaño."
+ },
+ {
+  "n": 24,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2014,
+  "habla": "XAVIER AZUARA ZÚÑIGA",
+  "atribuida": "EXT delegacional",
+  "mencion": "Jefa Delegacional",
+  "veredicto": "incorrecta",
+  "motivo": "No es una persona: «asesora de la Jefa Delegacional»."
+ },
+ {
+  "n": 25,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2008,
+  "habla": "MARGARITA ARENAS GUZMÁN",
+  "atribuida": "EXT alberto cardenas jimenez",
+  "mencion": "ingeniero Alberto Cárdenas Jiménez",
+  "veredicto": "correcta",
+  "motivo": "Alberto Cárdenas Jiménez, secretario de Agricultura, comparece ante el pleno."
+ },
+ {
+  "n": 26,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2005,
+  "habla": "PATRICIA GARDUÑO MORALES",
+  "atribuida": "EXT carlos chaurand arzate",
+  "mencion": "Sen. Carlos Chaurand Arzate",
+  "veredicto": "correcta",
+  "motivo": "Carlos Chaurand Arzate firma como senador y vicepresidente en 2005; sin escaño en la Cámara en la LIX."
+ },
+ {
+  "n": 27,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2006,
+  "habla": "HELIODORO CARLOS DÍAZ ESCÁRRAGA",
+  "atribuida": "EXT luis carlos ugalde ramirez",
+  "mencion": "doctor Luis Carlos Ugalde Ramírez",
+  "veredicto": "correcta",
+  "motivo": "Luis Carlos Ugalde, consejero presidente del IFE."
+ },
+ {
+  "n": 28,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2021,
+  "habla": "MARÍA MACARENA CHÁVEZ FLORES",
+  "atribuida": "EXT juan zepeda hernandez",
+  "mencion": "senador Juan Zepeda Hernández",
+  "veredicto": "correcta",
+  "motivo": "Juan Zepeda Hernández, senador de Movimiento Ciudadano; no es el diputado Martín Zepeda Hernández (LX)."
+ },
+ {
+  "n": 29,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1998,
+  "habla": "ARACELY ESCALANTE JASSO",
+  "atribuida": "EXT carlos alberto icaza gonzalez",
+  "mencion": "embajador Carlos Alberto de Icaza González",
+  "veredicto": "correcta",
+  "motivo": "Carlos Alberto de Icaza González, embajador; permiso para aceptar una condecoración."
+ },
+ {
+  "n": 30,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1989,
+  "habla": "La misma C. Secretaria",
+  "atribuida": "EXT ernesto jesus luque feregrino",
+  "mencion": "senador Ernesto de Jesús Luque Feregrino",
+  "veredicto": "correcta",
+  "motivo": "Ernesto de Jesús Luque Feregrino, senador en 1989 (en la Cámara, solo en la LVI)."
+ },
+ {
+  "n": 31,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2021,
+  "habla": "SAYONARA VARGAS RODRÍGUEZ",
+  "atribuida": "EXT benjamin saul huerta corona",
+  "mencion": "diputado Saúl Huerta",
+  "veredicto": "correcta",
+  "motivo": "Benjamín Saúl Huerta Corona, diputado en la LXIV («la legislatura pasada»); sin escaño en la LXV."
+ },
+ {
+  "n": 32,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2006,
+  "habla": "IVONNE ORTEGA PACHECO",
+  "atribuida": "EXT roberto madrazo pintado",
+  "mencion": "candidato Roberto Madrazo Pintado''",
+  "veredicto": "correcta",
+  "motivo": "Roberto Madrazo Pintado, candidato del PRI en 2006; diputado en 1991-1993 (https://es.wikipedia.org/wiki/Roberto_Madrazo)."
+ },
+ {
+  "n": 33,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2021,
+  "habla": "BRENDA ESPINOZA LOPEZ",
+  "atribuida": "EXT dulce maria sauri riancho",
+  "mencion": "Diputada Dulce María Sauri Riancho",
+  "veredicto": "correcta",
+  "motivo": "Dulce María Sauri Riancho, presidenta de la Mesa en la LXIV; la sesión es del 1-9-2021 (LXV), cuando ya no tenía escaño."
+ },
+ {
+  "n": 34,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 1996,
+  "habla": "ARMANDO QUINTERO MARTÍNEZ",
+  "atribuida": "EXT antonio lozano gracia",
+  "mencion": "señor Lozano Gracia",
+  "veredicto": "correcta",
+  "motivo": "Antonio Lozano Gracia, procurador general de la República (el texto habla de su actuación como procurador); diputado en la LIV según oradores.json."
+ },
+ {
+  "n": 35,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2001,
+  "habla": "RICARDO GARCÍA CERVANTES",
+  "atribuida": "EXT cesar augusto santiago",
+  "mencion": "amigo César Augusto Santiago",
+  "veredicto": "incorrecta",
+  "motivo": "César Augusto Santiago Ramírez era diputado (PRI) en la LVIII y participaba en ese debate; el corpus le da dos id y el detector elige el de la LV, sin escaño."
+ },
+ {
+  "n": 36,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2021,
+  "habla": "JAIME HUMBERTO PÉREZ BERNABE",
+  "atribuida": "EXT ruben cayetano garcia",
+  "mencion": "Diputado Federal Rubén Cayetano García",
+  "veredicto": "correcta",
+  "motivo": "Rubén Cayetano García, diputado solo en la LXIV (https://es.wikipedia.org/wiki/Rubén_Cayetano_García); la sesión es de la LXV."
+ },
+ {
+  "n": 37,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 1995,
+  "habla": "AUDOMARO ALBA PADILLA",
+  "atribuida": "EXT humberto coss leon zuniga",
+  "mencion": "Doctor Coss",
+  "veredicto": "incorrecta",
+  "motivo": "No es una persona: «Doctor Coss» es un municipio de Nuevo León, en una lista de municipios."
+ },
+ {
+  "n": 38,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2021,
+  "habla": "FELIPE FERNANDO MACÍAS OLVERA",
+  "atribuida": "EXT benjamin saul huerta corona",
+  "mencion": "diputado Saúl Huerta",
+  "veredicto": "correcta",
+  "motivo": "Benjamín Saúl Huerta Corona (véase la nº 31)."
+ },
+ {
+  "n": 39,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2008,
+  "habla": "MARÍA EUGENIA JIMÉNEZ VALENZUELA",
+  "atribuida": "EXT hector larios cordova",
+  "mencion": "Diputado Héctor Larios Córdova",
+  "veredicto": "incorrecta",
+  "motivo": "Héctor Larios Córdova era diputado y coordinador del PAN en la LX (oradores.json: LX, PAN); debió ser miembro. Está en la lista de externos por cargo."
+ },
+ {
+  "n": 40,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2006,
+  "habla": "IVONNE ORTEGA PACHECO",
+  "atribuida": "EXT enrique burgos garcia",
+  "mencion": "Dip. Enrique Burgos García",
+  "veredicto": "incorrecta",
+  "motivo": "Enrique Burgos García era diputado (PRI) en la LIX y firma como «Dip.»; debió ser miembro. Está en la lista de externos por cargo."
+ },
+ {
+  "n": 41,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2006,
+  "habla": "BLANCA GÁMEZ GUTIÉRREZ",
+  "atribuida": "EXT francisco fernandez cevallos urueta",
+  "mencion": "Urueta",
+  "veredicto": "correcta",
+  "motivo": "Francisco Fernández de Cevallos y Urueta, senador; duplica la mención con cargo «Sen. Francisco Fernández de Cevallos y Urueta»."
+ },
+ {
+  "n": 42,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2007,
+  "habla": "JORGE ZERMEÑO INFANTE",
+  "atribuida": "EXT carlos chaurand arzate",
+  "mencion": "Arzate",
+  "veredicto": "incorrecta",
+  "motivo": "Lista de asistencia de la LX: Carlos Chaurand Arzate era diputado (oradores.json: LX, PRI); debió ser miembro."
+ },
+ {
+  "n": 43,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2005,
+  "habla": "IVÁN GARCÍA SOLÍS",
+  "atribuida": "EXT anguiano",
+  "mencion": "Anguiano",
+  "veredicto": "correcta",
+  "motivo": "El pintor Raúl Anguiano, homenajeado en la sesión («el maestro Anguiano»); queda en un nodo distinto del de «José Raúl Anguiano Valadez»."
+ },
+ {
+  "n": 44,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2018,
+  "habla": "EDGAR ROMO GARCÍA",
+  "atribuida": "EXT moises ausente",
+  "mencion": "Ausente",
+  "veredicto": "incorrecta",
+  "motivo": "No es una persona: «Ausente» en una votación nominal; procede de la persona espuria «Moisés Ausente» («Alcalde Virgen, Moisés Ausente»)."
+ },
+ {
+  "n": 45,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2008,
+  "habla": "CÉSAR DUARTE JÁQUEZ",
+  "atribuida": "EXT moises ausente",
+  "mencion": "Ausente",
+  "veredicto": "incorrecta",
+  "motivo": "No es una persona: «Ausente» en una votación nominal."
+ },
+ {
+  "n": 46,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2008,
+  "habla": "CÉSAR DUARTE JÁQUEZ",
+  "atribuida": "EXT carlos chaurand arzate",
+  "mencion": "Arzate",
+  "veredicto": "incorrecta",
+  "motivo": "Votación nominal de la LX: Carlos Chaurand Arzate era diputado; debió ser miembro."
+ },
+ {
+  "n": 47,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2018,
+  "habla": "EDGAR ROMO GARCÍA",
+  "atribuida": "EXT moises ausente",
+  "mencion": "Ausente",
+  "veredicto": "incorrecta",
+  "motivo": "No es una persona: «Ausente» en una votación nominal."
+ },
+ {
+  "n": 48,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2018,
+  "habla": "EDGAR ROMO GARCÍA",
+  "atribuida": "EXT moises ausente",
+  "mencion": "Ausente",
+  "veredicto": "incorrecta",
+  "motivo": "No es una persona: «Ausente» en una votación nominal."
+ },
+ {
+  "n": 49,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2005,
+  "habla": "FRANCISCO ARROYO VIEYRA",
+  "atribuida": "EXT venustiano carranza",
+  "mencion": "Carranza",
+  "veredicto": "incorrecta",
+  "motivo": "Lugar, no persona: «el municipio denominado Venustiano Carranza del estado de Puebla»."
+ },
+ {
+  "n": 50,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2008,
+  "habla": "CÉSAR DUARTE JÁQUEZ",
+  "atribuida": "EXT moises ausente",
+  "mencion": "Ausente",
+  "veredicto": "incorrecta",
+  "motivo": "No es una persona: «Ausente» en una votación nominal."
+ }
+]

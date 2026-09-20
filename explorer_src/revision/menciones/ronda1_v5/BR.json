@@ -1,0 +1,342 @@
+[
+ {
+  "n": 1,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2019,
+  "habla": "CARLOS VERAS",
+  "atribuida": "HEITOR SCHUCH [nombre]",
+  "mencion": "Deputado Heitor Schuch",
+  "veredicto": "correcta",
+  "motivo": "Heitor Schuch (PSB-RS) tenía escaño en la 56.ª y presidía esa sesión (comisión general); no hay homónimos."
+ },
+ {
+  "n": 2,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2013,
+  "habla": "COLBERT MARTINS",
+  "atribuida": "FÁTIMA PELAES [nombre]",
+  "mencion": "Deputada Fátima Pelaes",
+  "veredicto": "correcta",
+  "motivo": "Fátima Pelaes (PMDB-AP), diputada con escaño en la 54.ª; se habla de la bancada de Amapá."
+ },
+ {
+  "n": 3,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2004,
+  "habla": "PAULO AFONSO",
+  "atribuida": "GEDDEL VIEIRA LIMA [nombre]",
+  "mencion": "Deputado Geddel Vieira Lima",
+  "veredicto": "correcta",
+  "motivo": "Geddel Vieira Lima (PMDB-BA), escaño en la 52.ª; da un aparte justo después. Lúcio Vieira Lima solo desde la 54.ª."
+ },
+ {
+  "n": 4,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2004,
+  "habla": "MIGUEL DE SOUZA",
+  "atribuida": "NICIAS RIBEIRO [nombre]",
+  "mencion": "nobre Deputado Nicias Ribeiro",
+  "veredicto": "correcta",
+  "motivo": "Nicias Ribeiro (PSDB-PA), escaño en la 52.ª; acababa de dar un aparte al orador."
+ },
+ {
+  "n": 5,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2015,
+  "habla": "BETO MANSUR",
+  "atribuida": "EDUARDO CUNHA [nombre]",
+  "mencion": "Presidente Eduardo Cunha",
+  "veredicto": "correcta",
+  "motivo": "Eduardo Cunha, diputado y presidente de la Cámara en 2015."
+ },
+ {
+  "n": 6,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2015,
+  "habla": "PAES LANDIM",
+  "atribuida": "LEÔNIDAS CRISTINO [nombre]",
+  "mencion": "General Leônidas",
+  "veredicto": "incorrecta",
+  "motivo": "Es el general Leônidas Pires Gonçalves, ministro del Ejército (nombre completo dos frases antes), no el diputado Leônidas Cristino."
+ },
+ {
+  "n": 7,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2018,
+  "habla": "CRISTIANE BRASIL",
+  "atribuida": "RAQUEL MUNIZ [nombre]",
+  "mencion": "Deputada Raquel Muniz",
+  "veredicto": "correcta",
+  "motivo": "Raquel Muniz (PSD-MG), escaño en la 55.ª; intervino dos turnos antes en la misma sesión."
+ },
+ {
+  "n": 8,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2022,
+  "habla": "SIDNEY LEITE",
+  "atribuida": "ROBERTO JEFFERSON [otra legislatura]",
+  "mencion": "Deputado Roberto Jefferson",
+  "veredicto": "correcta",
+  "motivo": "«ex-Deputado» Roberto Jefferson: escaño en la 52.ª, no en 2022; marcado como antiguo (otra legislatura), es la persona."
+ },
+ {
+  "n": 9,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2003,
+  "habla": "LINCOLN PORTELA",
+  "atribuida": "CARLOS SANTANA [nombre]",
+  "mencion": "Deputado Carlos Santana",
+  "veredicto": "correcta",
+  "motivo": "Carlos Santana (PT-RJ), escaño en la 52.ª; habló antes en esa sesión solemne."
+ },
+ {
+  "n": 10,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2004,
+  "habla": "SEVERINO CAVALCANTI",
+  "atribuida": "NAZARENO FONTELES [nombre, se dirige]",
+  "mencion": "Deputado Nazareno Fonteles",
+  "veredicto": "correcta",
+  "motivo": "Nazareno Fonteles (PT-PI), escaño en la 52.ª; es el orador al que se da el aparte."
+ },
+ {
+  "n": 11,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2013,
+  "habla": "PAULO FEIJÓ",
+  "atribuida": "ANTHONY GAROTINHO [apellido suelto]",
+  "mencion": "Garotinho",
+  "veredicto": "correcta",
+  "motivo": "Anthony Garotinho, diputado del PR-RJ en la 54.ª y precandidato a gobernador; Clarissa Garotinho solo desde la 55.ª."
+ },
+ {
+  "n": 12,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2018,
+  "habla": "JÚLIO CESAR",
+  "atribuida": "EXT toinho caridade",
+  "mencion": "Toinho da Caridade",
+  "veredicto": "correcta",
+  "motivo": "Alcalde de Caridade (PI), citado por su apodo; persona real sin escaño."
+ },
+ {
+  "n": 13,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2013,
+  "habla": "IVAN VALENTE",
+  "atribuida": "EXT eduardo cardoso",
+  "mencion": "Eduardo Cardoso",
+  "veredicto": "correcta",
+  "motivo": "José Eduardo Cardozo, ministro de Justicia en 2013, sin escaño en la 54.ª; la clave conserva la grafía «Cardoso» y no enlaza con su nodo de diputado (52.ª-53.ª)."
+ },
+ {
+  "n": 14,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2019,
+  "habla": "CARLOS VERAS",
+  "atribuida": "EXT aristides",
+  "mencion": "Presidente Aristides",
+  "veredicto": "correcta",
+  "motivo": "Aristides Veras dos Santos, presidente de la CONTAG (elegido para 2017-2021: https://www.fetagrs.org.br/?p=43556); la clave es solo el nombre de pila."
+ },
+ {
+  "n": 15,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2004,
+  "habla": "NICIAS RIBEIRO",
+  "atribuida": "EXT darcy pozza",
+  "mencion": "Darcy Pozza",
+  "veredicto": "correcta",
+  "motivo": "Darcy Pozza, alcalde de Bento Gonçalves; persona externa."
+ },
+ {
+  "n": 16,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2018,
+  "habla": "WADIH DAMOUS",
+  "atribuida": "EXT lula",
+  "mencion": "Presidente Lula",
+  "veredicto": "correcta",
+  "motivo": "Lula, expresidente en 2018, sin escaño."
+ },
+ {
+  "n": 17,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2023,
+  "habla": "MARCEL VAN HATTEM",
+  "atribuida": "EXT alexandre moraes",
+  "mencion": "Ministro Alexandre de Moraes",
+  "veredicto": "correcta",
+  "motivo": "Alexandre de Moraes, ministro del STF."
+ },
+ {
+  "n": 18,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2015,
+  "habla": "RUBENS OTONI",
+  "atribuida": "EXT cyrus",
+  "mencion": "Sr. Cyrus",
+  "veredicto": "correcta",
+  "motivo": "Shahriar Cyrus, artista bahá'í preso en Irán (nombre completo en la misma intervención)."
+ },
+ {
+  "n": 19,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2003,
+  "habla": "JOSÉ DIVINO",
+  "atribuida": "EXT luiz gonzaga mineiro",
+  "mencion": "nobre jornalista Luiz Gonzaga Mineiro",
+  "veredicto": "correcta",
+  "motivo": "Luiz Gonzaga Mineiro, director de periodismo de la Rede Record; persona externa."
+ },
+ {
+  "n": 20,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2013,
+  "habla": "ZOINHO",
+  "atribuida": "EXT waldyr calheiros",
+  "mencion": "Bispo D. Waldyr Calheiros",
+  "veredicto": "correcta",
+  "motivo": "Dom Waldyr Calheiros, obispo de Volta Redonda fallecido en 2013."
+ },
+ {
+  "n": 21,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2023,
+  "habla": "VALMIR ASSUNÇÃO",
+  "atribuida": "EXT lula",
+  "mencion": "Presidente Lula",
+  "veredicto": "correcta",
+  "motivo": "Lula, presidente de la República en 2023."
+ },
+ {
+  "n": 22,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2023,
+  "habla": "MAURICIO MARCON",
+  "atribuida": "EXT rodrigo pacheco",
+  "mencion": "Sr. Pacheco",
+  "veredicto": "correcta",
+  "motivo": "Rodrigo Pacheco, presidente del Senado en 2023; tuvo escaño en la 55.ª."
+ },
+ {
+  "n": 23,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2023,
+  "habla": "GILVAN DA FEDERAL",
+  "atribuida": "EXT rodrigo pacheco",
+  "mencion": "Rodrigo Pacheco",
+  "veredicto": "correcta",
+  "motivo": "Rodrigo Pacheco, presidente del Senado; tuvo escaño en la 55.ª."
+ },
+ {
+  "n": 24,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2018,
+  "habla": "WEVERTON ROCHA",
+  "atribuida": "EXT aecio neves",
+  "mencion": "Sr. Aécio Neves",
+  "veredicto": "correcta",
+  "motivo": "Aécio Neves, senador en 2018; escaño en la Cámara en otras legislaturas (56.ª y 57.ª del corpus)."
+ },
+ {
+  "n": 25,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2022,
+  "habla": "EVAIR VIEIRA DE MELO",
+  "atribuida": "EXT jair bolsonaro",
+  "mencion": "Bolsonaro",
+  "veredicto": "correcta",
+  "motivo": "Jair Bolsonaro, presidente en 2022 («Governo liderado por Jair Bolsonaro»)."
+ },
+ {
+  "n": 26,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2023,
+  "habla": "PASTOR HENRIQUE VIEIRA",
+  "atribuida": "EXT jair bolsonaro",
+  "mencion": "Bolsonaro",
+  "veredicto": "correcta",
+  "motivo": "Jair Bolsonaro, expresidente; el contexto (prisión, milicias) no es Eduardo Bolsonaro."
+ },
+ {
+  "n": 27,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2015,
+  "habla": "JOÃO DANIEL",
+  "atribuida": "EXT dilma rousseff",
+  "mencion": "Dilma",
+  "veredicto": "correcta",
+  "motivo": "Dilma Rousseff («Governo Dilma», Mais Médicos, 2013)."
+ },
+ {
+  "n": 28,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2013,
+  "habla": "BENEDITA DA SILVA",
+  "atribuida": "EXT dilma rousseff",
+  "mencion": "Dilma",
+  "veredicto": "correcta",
+  "motivo": "Dilma Rousseff («Era Lula/Dilma»)."
+ },
+ {
+  "n": 29,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2023,
+  "habla": "CARLOS JORDY",
+  "atribuida": "EXT alexandre moraes",
+  "mencion": "Moraes",
+  "veredicto": "correcta",
+  "motivo": "Alexandre de Moraes, ministro del STF («o Alexandre de Moraes»)."
+ },
+ {
+  "n": 30,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2004,
+  "habla": "GEDDEL VIEIRA LIMA",
+  "atribuida": "EXT lula",
+  "mencion": "Lula",
+  "veredicto": "correcta",
+  "motivo": "Lula, el candidato votado en 2002."
+ },
+ {
+  "n": 31,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2022,
+  "habla": "MARCEL VAN HATTEM",
+  "atribuida": "EXT jair bolsonaro",
+  "mencion": "Bolsonaro",
+  "veredicto": "correcta",
+  "motivo": "Jair Bolsonaro, presidente en 2022 («quem apoia Bolsonaro»)."
+ },
+ {
+  "n": 32,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2018,
+  "habla": "PAULO PIMENTA",
+  "atribuida": "EXT lula",
+  "mencion": "Lula",
+  "veredicto": "correcta",
+  "motivo": "Lula, expresidente («apontam o dedo para o Lula»)."
+ },
+ {
+  "n": 33,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2023,
+  "habla": "DOMINGOS SÁVIO",
+  "atribuida": "EXT alexandre moraes",
+  "mencion": "Moraes",
+  "veredicto": "correcta",
+  "motivo": "Alexandre de Moraes, ministro del STF (vocativo)."
+ },
+ {
+  "n": 34,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2015,
+  "habla": "PAES LANDIM",
+  "atribuida": "EXT lula",
+  "mencion": "Lula",
+  "veredicto": "correcta",
+  "motivo": "Lula («Governo Lula», con Cristovam Buarque de ministro de Educación)."
+ }
+]

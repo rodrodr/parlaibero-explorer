@@ -359,10 +359,13 @@ La vista de la red combina una agrupación (sectores por partido o por foco), un
 o las recibidas), un filtro de conexiones de dos o más menciones y un modo ego que la rehace alrededor de una persona.
 Los anillos son cuantiles de la medida del sentido elegido, sin partir empates.
 
-Precisión medida a mano en tres rondas sobre muestras de los 16 países (siete categorías por país): alrededor de nueve de
-cada diez menciones señalan a la persona correcta. El recuerdo no está medido: faltan las referencias indirectas («su
-señoría», «el relator», «el orador que me ha precedido»). El error que más queda es el cargo usado en abstracto («el
-presidente de la República» en una norma) y las lecturas de la Secretaría atribuidas a un diputado, sobre todo en Guatemala.
+Precisión medida a mano en tres rondas sobre muestras de los 16 países (siete categorías por país, semilla fija): 87,5 %
+en la última muestra juzgada, la de la versión 6.2 (587 de 671), y alrededor de nueve de cada diez al reevaluarla con la
+versión final, cifra optimista porque las últimas reglas se afinaron mirando los errores de esa misma muestra. Los
+informes por país, los veredictos de cada mención y los guiones están en `revision/menciones/`. El recuerdo no está
+medido: faltan las referencias indirectas («su señoría», «el relator», «el orador que me ha precedido»). El error que
+más queda es el cargo usado en abstracto («el presidente de la República» en una norma) y las lecturas de la Secretaría
+atribuidas a un diputado, sobre todo en Guatemala.
 
 Exportaciones: una fila por mención en CSV (quién habla, a quién menciona, cómo, la fecha y las palabras con las que la
 nombra) y la red dirigida en GEXF para Gephi, las dos con los parámetros y la cita del conjunto de datos.

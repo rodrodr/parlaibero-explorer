@@ -1,0 +1,402 @@
+[
+ {
+  "n": 1,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2008,
+  "habla": "JAIME QUINTANA LEAL",
+  "atribuida": "MARIO VENEGAS CÁRDENAS [nombre]",
+  "mencion": "diputado Mario Venegas",
+  "veredicto": "correcta",
+  "motivo": "Mario Venegas Cárdenas (DC), con escaño en la leg. 356; el otro Venegas con escaño, Samuel Venegas Rubio, no se llama Mario."
+ },
+ {
+  "n": 2,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2022,
+  "habla": "RAÚL SOTO MARDONES",
+  "atribuida": "CRISTINA GIRARDI LAVÍN [nombre]",
+  "mencion": "compañera Girardi",
+  "veredicto": "correcta",
+  "motivo": "Cristina Girardi Lavín (PPD), con escaño en la leg. 369; «la diputada» descarta a Guido Girardi."
+ },
+ {
+  "n": 3,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2022,
+  "habla": "PEPE AUTH STEWART",
+  "atribuida": "MARÍA JOSÉ HOFFMANN OPAZO [nombre]",
+  "mencion": "diputada Hoffmann",
+  "veredicto": "correcta",
+  "motivo": "María José Hoffmann Opazo (UDI), única Hoffmann con escaño en la leg. 369."
+ },
+ {
+  "n": 4,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2001,
+  "habla": "JUAN PABLO LETELIER MOREL",
+  "atribuida": "HÉCTOR OLIVARES SOLIS [otra legislatura]",
+  "mencion": "amigo Héctor Olivares",
+  "veredicto": "correcta",
+  "motivo": "Héctor Olivares Solís, diputado en 1990-1994 (legs. 319-327) y dirigente del cobre; el orador lo llama luego «el diputado y presidente de la Confederación de entonces, Héctor Olivares Solís». Bien marcado como antiguo miembro (https://es.wikipedia.org/wiki/Héctor_Olivares_Solís)."
+ },
+ {
+  "n": 5,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1992,
+  "habla": "ANDRÉS CHADWICK PIÑERA",
+  "atribuida": "FELIPE VALENZUELA HERRERA [nombre]",
+  "mencion": "Diputado señor Valenzuela",
+  "veredicto": "correcta",
+  "motivo": "Felipe Valenzuela Herrera (PS), que acaba de intervenir (CL006002100112) y habla por la «bancada socialista»; Luis Leblanc Valenzuela solo lo lleva de segundo apellido."
+ },
+ {
+  "n": 6,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1999,
+  "habla": "SERGIO ELGUETA BARRIENTOS",
+  "atribuida": "NELSON AVILA CONTRERAS [nombre]",
+  "mencion": "Diputado señor Ávila",
+  "veredicto": "correcta",
+  "motivo": "Nelson Ávila Contreras (PPD), que intervino dos turnos antes sobre el vocablo que se discute; único Ávila con escaño en la leg. 339."
+ },
+ {
+  "n": 7,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1991,
+  "habla": "[El señor CORREA (Ministro de Transportes y Telecomunicaciones)]",
+  "atribuida": "ANDRÉS SOTOMAYOR MARDONES [nombre]",
+  "mencion": "Diputado Sotomayor",
+  "veredicto": "correcta",
+  "motivo": "Andrés Sotomayor Mardones (RN), que acababa de intervenir en la acusación; único Sotomayor."
+ },
+ {
+  "n": 8,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1991,
+  "habla": "ANDRÉS SOTOMAYOR MARDONES",
+  "atribuida": "JAIME ORPIS BOUCHON [nombre]",
+  "mencion": "Diputado don Jaime Orpis",
+  "veredicto": "correcta",
+  "motivo": "Jaime Orpis Bouchon (UDI), con escaño en la leg. 322."
+ },
+ {
+  "n": 9,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2020,
+  "habla": "PEDRO PABLO ÁLVAREZ-SALAMANCA RAMÍREZ",
+  "atribuida": "JOSÉ MIGUEL CASTRO BASCUÑÁN [nombre]",
+  "mencion": "diputado señor José Miguel Castro",
+  "veredicto": "correcta",
+  "motivo": "José Miguel Castro Bascuñán (RN); el nombre de pila lo distingue de Juan Luis Castro, también con escaño."
+ },
+ {
+  "n": 10,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1995,
+  "habla": "VICENTE KARELOVIC VRANDECIC",
+  "atribuida": "MAXIMIANO ERRÁZURIZ EGUIGUREN [nombre, se dirige]",
+  "mencion": "don Maximiano",
+  "veredicto": "correcta",
+  "motivo": "Lista de asistentes «Errázuriz, don Maximiano»: Maximiano Errázuriz Eguiguren (RN). La marca de vocativo («se dirige») sobra: la coma es de la lista."
+ },
+ {
+  "n": 11,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2004,
+  "habla": "PEDRO MUÑOZ ABURTO",
+  "atribuida": "JUAN PABLO LETELIER MOREL [apellido suelto]",
+  "mencion": "Juan",
+  "veredicto": "correcta",
+  "motivo": "Juan Pablo Letelier Morel (PS). Acierto casual: la regla buscó el nombre de pila «Juan», aquí seguido de «Pablo Letelier»."
+ },
+ {
+  "n": 12,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2008,
+  "habla": "SERGIO OJEDA URIBE",
+  "atribuida": "JUAN CARLOS LATORRE CARMONA [apellido suelto]",
+  "mencion": "Juan",
+  "veredicto": "incorrecta",
+  "motivo": "«San Juan de la Costa», comuna de la provincia de Osorno; la regla buscó el nombre de pila «Juan» de Latorre."
+ },
+ {
+  "n": 13,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 1995,
+  "habla": "MARÍA ANGÉLICA CRISTI MARFIL",
+  "atribuida": "MARINA PROCHELLE AGUILAR [apellido suelto]",
+  "mencion": "Marina",
+  "veredicto": "correcta",
+  "motivo": "Marina Prochelle Aguilar (RN), con escaño en la leg. 332. Acierto casual: se buscó el nombre de pila «Marina»."
+ },
+ {
+  "n": 14,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2008,
+  "habla": "SERGIO OJEDA URIBE",
+  "atribuida": "JUAN BUSTOS RAMÍREZ [apellido suelto]",
+  "mencion": "Juan",
+  "veredicto": "incorrecta",
+  "motivo": "El mismo «San Juan de la Costa» del n.º 12, atribuido además a Juan Bustos por su nombre de pila."
+ },
+ {
+  "n": 15,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2022,
+  "habla": "CRISTINA GIRARDI LAVÍN",
+  "atribuida": "KARIM BIANCHI RETAMALES [apellido suelto]",
+  "mencion": "Karim",
+  "veredicto": "correcta",
+  "motivo": "Karim Bianchi Retamales, coautor de la moción. Acierto casual: se buscó el nombre de pila «Karim»."
+ },
+ {
+  "n": 16,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2000,
+  "habla": "[El señor ZÚÑIGA (Prosecretario)]",
+  "atribuida": "JUAN CARLOS LATORRE CARMONA [apellido suelto]",
+  "mencion": "Juan",
+  "veredicto": "incorrecta",
+  "motivo": "«las calles de San Juan» (Puerto Rico), en un proyecto de acuerdo sobre Vieques leído por el prosecretario; se buscó el nombre de pila «Juan»."
+ },
+ {
+  "n": 17,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 1991,
+  "habla": "JUAN MASFERRER PELLIZZARI",
+  "atribuida": "JUAN PABLO LETELIER MOREL [apellido suelto]",
+  "mencion": "Juan",
+  "veredicto": "incorrecta",
+  "motivo": "«San Juan de la Sierra», localidad citada junto a Tinguiririca; se buscó el nombre de pila «Juan»."
+ },
+ {
+  "n": 18,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2020,
+  "habla": "PEDRO PABLO ÁLVAREZ-SALAMANCA RAMÍREZ",
+  "atribuida": "GABRIEL ASCENCIO MANSILLA [apellido suelto]",
+  "mencion": "Gabriel",
+  "veredicto": "correcta",
+  "motivo": "Gabriel Ascencio Mansilla (DC), en la lista de votantes. Acierto casual: se buscó el nombre de pila «Gabriel»."
+ },
+ {
+  "n": 19,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2009,
+  "habla": "CLAUDIO ALVARADO ANDRADE",
+  "atribuida": "CARLOS MONTES CISTERNAS [apellido suelto]",
+  "mencion": "Carlos",
+  "veredicto": "correcta",
+  "motivo": "Carlos Montes Cisternas (PS), en la lista de asistentes. Acierto casual: se buscó el nombre de pila «Carlos»."
+ },
+ {
+  "n": 20,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2001,
+  "habla": "CARLOS MONTES CISTERNAS",
+  "atribuida": "JUAN PABLO LETELIER MOREL [apellido suelto]",
+  "mencion": "Juan",
+  "veredicto": "correcta",
+  "motivo": "Juan Pablo Letelier Morel (PS), con escaño en la leg. 343. Acierto casual: se buscó el nombre de pila «Juan»."
+ },
+ {
+  "n": 21,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1991,
+  "habla": "ALBERTO ESPINA OTERO",
+  "atribuida": "EXT enrique correa",
+  "mencion": "Ministro Enrique Correa",
+  "veredicto": "correcta",
+  "motivo": "Persona externa: el ministro Enrique Correa, del Gobierno de 1991; sin escaño y distinto del ministro Germán Correa (n.º 23)."
+ },
+ {
+  "n": 22,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2016,
+  "habla": "[La señora BLANCO, doña Javiera (ministra de Justicia y Derechos Humanos) [de pie]]",
+  "atribuida": "EXT michelle bachelet",
+  "mencion": "Presidenta Bachelet",
+  "veredicto": "correcta",
+  "motivo": "Michelle Bachelet, presidenta de la República en 2016 (mandato 2014-2018)."
+ },
+ {
+  "n": 23,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1991,
+  "habla": "HOSAIN SABAG CASTILLO",
+  "atribuida": "EXT german correa diaz",
+  "mencion": "don Germán Correa Díaz",
+  "veredicto": "correcta",
+  "motivo": "Germán Correa Díaz, ministro de Transportes y Telecomunicaciones acusado en esa sesión; sin escaño."
+ },
+ {
+  "n": 24,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2001,
+  "habla": "JUAN PABLO LETELIER MOREL",
+  "atribuida": "EXT eduardo long",
+  "mencion": "abogado Eduardo Long",
+  "veredicto": "correcta",
+  "motivo": "Eduardo Long, abogado de la comisión que redactó la reforma constitucional del cobre (1971); persona externa."
+ },
+ {
+  "n": 25,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2008,
+  "habla": "ALBERTO ROBLES PANTOJA",
+  "atribuida": "EXT manuel inostroza",
+  "mencion": "señor Manuel Inostroza",
+  "veredicto": "correcta",
+  "motivo": "Manuel Inostroza, superintendente de Salud según el propio texto; sin escaño."
+ },
+ {
+  "n": 26,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2000,
+  "habla": "HAROLDO FOSSA ROJAS",
+  "atribuida": "EXT nelson mery",
+  "mencion": "don Nelson Mery",
+  "veredicto": "correcta",
+  "motivo": "Nelson Mery, director de Investigaciones según el texto; sin escaño."
+ },
+ {
+  "n": 27,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1991,
+  "habla": "BALDEMAR CARRASCO MUÑOZ",
+  "atribuida": "EXT pecci",
+  "mencion": "señor Pecci",
+  "veredicto": "correcta",
+  "motivo": "General de Carabineros Pecci, asesor jurídico de la institución; persona externa identificada por el apellido."
+ },
+ {
+  "n": 28,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1991,
+  "habla": "FRANCISCO BAYO VELOSO",
+  "atribuida": "EXT sergio diez",
+  "mencion": "Senador Diez",
+  "veredicto": "correcta",
+  "motivo": "Sergio Diez, senador de RN; la clave «diez» se unió bien a «sergio diez»."
+ },
+ {
+  "n": 29,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1994,
+  "habla": "FRANCISCO BARTOLUCCI JOHNSTON",
+  "atribuida": "EXT belisario velasco",
+  "mencion": "don Belisario Velasco",
+  "veredicto": "correcta",
+  "motivo": "Belisario Velasco, subsecretario del Interior según el texto; sin escaño (Sergio Velasco de la Cerda no se llama Belisario)."
+ },
+ {
+  "n": 30,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2000,
+  "habla": "ENRIQUE KRAUSS RUSQUE",
+  "atribuida": "EXT patricio aylwin",
+  "mencion": "Presidente Aylwin",
+  "veredicto": "correcta",
+  "motivo": "Patricio Aylwin: «antes de que asumiera en el gobierno el Presidente Aylwin», no el presidente de 2000."
+ },
+ {
+  "n": 31,
+  "categoria": "externa (apellido suelto)",
+  "anio": 1995,
+  "habla": "ISABEL ALLENDE BUSSI",
+  "atribuida": "EXT viera gallo",
+  "mencion": "Gallo",
+  "veredicto": "incorrecta",
+  "motivo": "Viera-Gallo era diputado en 1995 (leg. 332, 169 intervenciones; diputado 1990-1998, https://es.wikipedia.org/wiki/José_Antonio_Viera-Gallo). Duplica la mención de miembro «colega José Antonio Viera-Gallo», ya bien resuelta."
+ },
+ {
+  "n": 32,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2008,
+  "habla": "PATRICIO MELERO ABAROA",
+  "atribuida": "EXT ricardo fabrega",
+  "mencion": "Fábrega",
+  "veredicto": "correcta",
+  "motivo": "Ricardo Fábrega, subsecretario de Redes Asistenciales según el texto; sin escaño."
+ },
+ {
+  "n": 33,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2004,
+  "habla": "CARLOS ABEL JARPA WEVAR",
+  "atribuida": "EXT viera gallo",
+  "mencion": "Gallo",
+  "veredicto": "correcta",
+  "motivo": "Viera-Gallo era senador en 2004 (1998-2006, https://es.wikipedia.org/wiki/José_Antonio_Viera-Gallo); solo se reconoce «Gallo», pero la persona es la correcta."
+ },
+ {
+  "n": 34,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2010,
+  "habla": "IGNACIO URRUTIA BONILLA",
+  "atribuida": "EXT sebastian pinera",
+  "mencion": "Piñera",
+  "veredicto": "correcta",
+  "motivo": "Sebastián Piñera, firma de la carta de campaña (diciembre de 2009) que se cita."
+ },
+ {
+  "n": 35,
+  "categoria": "externa (apellido suelto)",
+  "anio": 1995,
+  "habla": "LUIS VALENTÍN FERRADA VALENZUELA",
+  "atribuida": "EXT viera gallo",
+  "mencion": "Gallo",
+  "veredicto": "incorrecta",
+  "motivo": "«El Diputado señor Viera-Gallo» en 1995: tenía escaño (leg. 332) y la mención ya estaba resuelta como miembro; la pasada de apellidos sueltos la duplica como externa."
+ },
+ {
+  "n": 36,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2017,
+  "habla": "RAMÓN FARÍAS PONCE",
+  "atribuida": "EXT valene georges",
+  "mencion": "Georges",
+  "veredicto": "correcta",
+  "motivo": "Valene Georges, música del Ensamble Bartok a la que se homenajea; persona externa."
+ },
+ {
+  "n": 37,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2010,
+  "habla": "IGNACIO URRUTIA BONILLA",
+  "atribuida": "EXT sebastian pinera",
+  "mencion": "Piñera",
+  "veredicto": "correcta",
+  "motivo": "Sebastián Piñera, presidente desde marzo de 2010."
+ },
+ {
+  "n": 38,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2017,
+  "habla": "RAMÓN FARÍAS PONCE",
+  "atribuida": "EXT valene georges",
+  "mencion": "Georges",
+  "veredicto": "correcta",
+  "motivo": "Valene Georges, la misma del n.º 36."
+ },
+ {
+  "n": 39,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2008,
+  "habla": "JAIME QUINTANA LEAL",
+  "atribuida": "EXT viera gallo",
+  "mencion": "Gallo",
+  "veredicto": "correcta",
+  "motivo": "Viera-Gallo, ministro secretario general de la Presidencia en 2008 (2007-2010, https://es.wikipedia.org/wiki/José_Antonio_Viera-Gallo). La misma mención ya estaba registrada como «ministro Viera-Gallo»: cuenta dos veces."
+ },
+ {
+  "n": 40,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2008,
+  "habla": "FULVIO ROSSI CIOCCA",
+  "atribuida": "EXT augusto pinochet",
+  "mencion": "Pinochet",
+  "veredicto": "correcta",
+  "motivo": "Augusto Pinochet (traslado del Congreso a Valparaíso)."
+ }
+]

@@ -1,0 +1,313 @@
+AR #7 incorrecta desaparece señor Martínez de Hoz : M:AR01382 → —
+AR #9 correcta   desaparece Arabolaza : M:AR00111 → —
+AR #10 correcta   desaparece Alsogaray : M:AR00080 → —
+AR #11 correcta   desaparece Fellner : M:AR00793 → —
+AR #12 correcta   desaparece Fellner : M:AR00793 → —
+AR #13 correcta   desaparece Aramburu : M:AR00116 → —
+AR #14 correcta   desaparece Pinedo : M:AR01731 → —
+AR #15 correcta   desaparece Jaroslavsky : M:AR01158 → —
+AR #16 correcta   desaparece Basualdo : M:AR00795 → —
+AR #17 correcta   cambia     al señor presidente de la Nación : M:AR01331 → E:mauricio macri
+AR #18 correcta   cambia     al presidente de la Nación : M:AR01331 → E:mauricio macri
+AR #19 correcta   cambia     el presidente de la Nación : M:AR01331 → E:mauricio macri
+AR #20 correcta   cambia     el presidente de la Nación : M:AR01331 → E:mauricio macri
+AR #21 correcta   cambia     el presidente de la Nación : M:AR01331 → E:mauricio macri
+AR #22 correcta   cambia     al presidente de la Nación : M:AR01331 → E:mauricio macri
+AR #23 correcta   cambia     del señor presidente de la Nación : M:AR00730 → E:eduardo duhalde
+AR #24 correcta   cambia     el presidente de la Nación : M:AR01331 → E:mauricio macri
+AR #27 correcta   desaparece doctor Fritz Funk : E:fritz funk buenos aires → —
+AR #28 correcta   cambia     doctor Klein : E:guillermo walter klein → E:klein
+AR #29 incorrecta desaparece Juez Pérez : E:eduardo perez → —
+AR #33 incorrecta desaparece doctor Galland : E:gustavo carlos galland → —
+AR #34 incorrecta cambia     contador Galland : E:gustavo carlos galland → E:alfredo galland
+AR #35 incorrecta desaparece señor Galland : E:gustavo carlos galland → —
+AR #36 incorrecta cambia     contador Galland : E:gustavo carlos galland → E:alfredo galland
+AR #37 correcta   cambia     economista Milei : E:javier gerardo milei → E:javier milei
+AR #39 correcta   desaparece Santángelo : E:roberto carlos santangelo → —
+AR #40 incorrecta desaparece Macri : E:mauricio macri → —
+AR #47 incorrecta desaparece el presidente de la República : E:raul alfonsin → —
+AR #49 incorrecta desaparece del presidente de la Nación : E:carlos menem → —
+AR #50 incorrecta desaparece al presidente de la Nación : E:raul alfonsin → —
+AR #52 correcta   desaparece del presidente de la República : E:raul alfonsin → —
+AR #53 incorrecta desaparece el presidente de la República : E:raul alfonsin → —
+BR #5 correcta   cambia     Sr. Temer : M:BR73552 → E:michel temer
+BR #10 correcta   cambia     o Presidente da República : M:BR74847 → E:jair bolsonaro
+BR #11 incorrecta cambia     do Presidente da República : M:BR220669 → E:lula
+BR #12 incorrecta cambia     o Presidente da República : M:BR73552 → E:michel temer
+BR #13 correcta   cambia     o Presidente da República : M:BR74847 → E:jair bolsonaro
+BR #14 correcta   cambia     o Presidente da República : M:BR74847 → E:jair bolsonaro
+BR #15 correcta   cambia     ao Sr. Presidente da República : M:BR73552 → E:michel temer
+BR #16 correcta   cambia     o Presidente da República : M:BR74847 → E:jair bolsonaro
+BR #17 correcta   cambia     o Presidente da República : M:BR74847 → E:jair bolsonaro
+BR #18 correcta   desaparece Sra. Ivânia Ghesti-Galvão : E:ivania ghesti galvao → —
+BR #23 incorrecta cambia     Ballin e Ubirajara Teixeira : E:ballin ubirajara teixeira → E:ballin
+BR #29 incorrecta desaparece Bolsonaro : E:jair bolsonaro → —
+CL #8 incorrecta cambia     don Alfonso : M:CL00824 → M:CL00912
+CL #11 correcta   desaparece Hales : M:CL00849 → —
+CL #14 correcta   desaparece Ojeda : M:CL00877 → —
+CL #17 correcta   cambia     el Presidente de la República : M:CL00972 → E:gabriel boric
+CL #18 correcta   cambia     el Presidente de la República : M:CL00972 → E:gabriel boric
+CL #19 correcta   cambia     al Presidente de la República : M:CL00972 → E:gabriel boric
+CL #25 incorrecta cambia     señor Figueroa : E:jose figueroa → E:figueroa
+CL #39 correcta   desaparece el Presidente de la República : E:ricardo lagos → —
+CL #40 correcta   desaparece del Presidente de la República : E:patricio aylwin → —
+CL #42 incorrecta desaparece al Presidente de la República : E:patricio aylwin → —
+CO #2 correcta   desaparece doctor Jorge Gómez Villamizar : M:CO00419 → —
+CO #3 correcta   desaparece Representante Kelyn Johana González Duarte : M:CO00541 → —
+CO #4 correcta   desaparece doctora Olga Lucía Velásquez : M:CO00690 → —
+CO #7 correcta   desaparece Representante Gildardo Silva : M:CO00279 → —
+CO #8 correcta   desaparece doctor Armando : M:CO00078 → —
+CO #9 correcta   desaparece Navas Talero : M:CO00123 → —
+CO #10 correcta   desaparece Espinal : M:CO00505 → —
+CO #11 correcta   desaparece Navas Talero : M:CO00123 → —
+CO #12 correcta   desaparece Juvinao : M:CO00134 → —
+CO #13 correcta   desaparece Forero Molina : M:CO00056 → —
+CO #14 correcta   desaparece Villamizar : M:CO00712 → —
+CO #15 correcta   desaparece Polo Polo : M:CO00638 → —
+CO #17 correcta   cambia     el Presidente de la República : M:CO00295 → E:gustavo petro
+CO #18 correcta   cambia     el Presidente de la República : M:CO00295 → E:gustavo petro
+CO #19 correcta   cambia     del Presidente de la República : M:CO00295 → E:gustavo petro
+CO #20 correcta   cambia     el Presidente de la República : M:CO00295 → E:gustavo petro
+CO #21 correcta   cambia     el Presidente de la República : M:CO00295 → E:gustavo petro
+CO #22 correcta   cambia     el señor Presidente de la República : M:CO00295 → E:gustavo petro
+CO #23 correcta   cambia     el Presidente de la República : M:CO00295 → E:gustavo petro
+CO #24 correcta   cambia     el Presidente de la República : M:CO00295 → E:gustavo petro
+CO #26 correcta   cambia     doctor Paredes : E:oscar eladio paredes zapata → E:paredes
+CO #27 incorrecta desaparece Director Administrativo : E:administrativo → —
+CO #28 correcta   cambia     doctor Camacho : E:omar andres camacho morales → E:camacho
+CO #29 correcta   desaparece doctor Carlos Ernesto Camargo Assis : E:carlos ernesto camargo assis → —
+CO #31 correcta   desaparece Doctor Jesús Alfonso Rodríguez Camargo : E:jesus alfonso rodriguez camargo → —
+CO #32 incorrecta desaparece ALEJANDRO CARLOS CHACÓN CAMARGO ATILANO ALONSO : E:alejandro carlos chacon camargo atilano alonso → —
+CO #34 correcta   desaparece Lacouture : E:jaime luis lacouture penaloza → —
+CO #36 correcta   desaparece Abiud Ramírez : E:john abiud ramirez barrientos → —
+CO #37 correcta   desaparece DAZA RAMÍREZ : E:flor marina daza ramirez → —
+CO #46 correcta   desaparece al Presidente de la República : E:alvaro uribe → —
+CR #4 correcta   desaparece presidente Luis Fernando Mendoza Jiménez : M:CR00583 → —
+CR #17 incorrecta cambia     el Presidente de la República : M:CR00698 → E:miguel angel rodriguez
+CR #18 incorrecta cambia     al presidente de la República : M:CR00139 → E:carlos alvarado
+CR #19 correcta   cambia     el señor Presidente de la República : M:CR00003 → E:abel pacheco
+CR #20 incorrecta cambia     del Presidente de la República : M:CR00698 → E:miguel angel rodriguez
+CR #21 correcta   cambia     el Presidente de la República : M:CR00003 → E:abel pacheco
+CR #22 correcta   cambia     el señor Presidente de la República : M:CR00003 → E:abel pacheco
+CR #23 incorrecta cambia     del Presidente de la República : M:CR00698 → E:miguel angel rodriguez
+CR #24 incorrecta cambia     del presidente de la República : M:CR00139 → E:carlos alvarado
+CR #29 incorrecta cambia     señor ministro Méndez Mata : E:mendez mata → M:CR00859
+CR #33 incorrecta cambia     señor Chaves : E:jose joaquin chaves zamora → E:rodrigo chaves
+CR #35 incorrecta cambia     señor Chaves : E:jose joaquin chaves zamora → E:rodrigo chaves
+DO #7 correcta   desaparece Reinaldo Pared Pérez : M:DO0741 → —
+DO #11 incorrecta cambia     del Presidente de la República : M:DO0619 → E:leonel fernandez
+DO #12 incorrecta desaparece el Presidente de la República : M:DO0619 → —
+DO #13 incorrecta cambia     el Presidente de la República : M:DO0619 → E:leonel fernandez
+DO #14 incorrecta desaparece el Presidente de la República : M:DO0619 → —
+DO #15 incorrecta desaparece el Presidente de la República : M:DO0619 → —
+DO #16 incorrecta cambia     el Presidente de la República : M:DO0619 → E:leonel fernandez
+DO #17 incorrecta desaparece el Presidente de la República : M:DO0619 → —
+DO #18 incorrecta desaparece el Presidente de la República : M:DO0619 → —
+DO #19 incorrecta cambia     amigo Rafa Gamundi : E:rafa gamundi → M:DO0690
+DO #22 correcta   desaparece señor Santiago Sánchez Taveras : E:santiago sanchez taveras → —
+DO #23 correcta   desaparece señor Gerónimo Martínez Hernández : E:geronimo martinez hernandez → —
+DO #26 correcta   desaparece señor Manuel Enrique Lara : E:manuel enrique lara → —
+EC #1 correcta   desaparece honorable Carlos Kure : M:EC00140 → —
+EC #2 correcta   desaparece Asambleísta Saadin Alfredo Serrano Valladares : M:EC01213 → —
+EC #5 correcta   desaparece Asambleísta María Cristina Acuña Vaca : M:EC00931 → —
+EC #6 correcta   desaparece asambleísta Jaime Patricio Guevara Blaschke : M:EC00572 → —
+EC #9 incorrecta desaparece Santillán : M:EC00277 → —
+EC #13 correcta   desaparece Vallejo : M:EC00682 → —
+EC #14 correcta   desaparece Bustamante : M:EC01250 → —
+EC #17 correcta   cambia     del Presidente de la República : M:EC00334 → E:leon febres cordero
+EC #18 correcta   cambia     el Presidente de la República : M:EC00578 → E:jamil mahuad
+EC #19 incorrecta desaparece el presidente de la República : M:EC05485 → —
+EC #20 incorrecta desaparece del señor presidente de la República : M:EC05485 → —
+EC #21 correcta   desaparece el señor Presidente de la República : M:EC01255 → —
+EC #22 incorrecta desaparece del presidente de la República : M:EC05485 → —
+EC #23 correcta   cambia     el señor Presidente de la República : M:EC01255 → E:sixto duran ballen
+EC #24 correcta   cambia     del Presidente de la República : M:EC01255 → E:sixto duran ballen
+EC #25 correcta   desaparece señor Daniel Noboa Azín : E:daniel noboa → —
+EC #26 incorrecta desaparece Presidente Trabajadores : E:trabajadores → —
+EC #29 correcta   desaparece abogada Denise Aracely Zurita Chávez : E:denise aracely zurita chavez → —
+EC #30 correcta   desaparece compañero Marco Bolaños : E:marco bolanos → —
+EC #32 correcta   desaparece Magíster Alejandro Xavier Muñoz Hidalgo : E:alejandro xavier munoz hidalgo → —
+EC #38 incorrecta cambia     honorable José Llerena : E:jose eduardo llerena → M:EC01097
+EC #40 incorrecta desaparece Arteaga : E:rosalia arteaga → —
+EC #43 correcta   desaparece Pabón : E:paola pabon → —
+EC #45 incorrecta desaparece Roldós Aguilera : E:jaime roldos → —
+EC #48 incorrecta desaparece el Presidente de la República : E:daniel noboa → —
+ES #16 incorrecta desaparece Sevilla : M:ES000677 → —
+ES #22 incorrecta desaparece presidente del Gobierno : M:ES000906 → —
+GT #2 correcta   desaparece diputada Vivian Beatriz Preciado Navarijo : M:GT00722 → —
+GT #4 correcta   desaparece diputado Rubén Darío Morales Véliz : M:GT00668 → —
+GT #5 correcta   desaparece diputado Juan Ramón Lau Quan : M:GT00396 → —
+GT #6 correcta   desaparece representante Camey Curup : M:GT00433 → —
+GT #7 correcta   desaparece representante Pablo Duarte Sáenz de Tejada : M:GT00615 → —
+GT #8 correcta   desaparece diputada Delia Emilda Back Alvarado de Monte : M:GT00139 → —
+GT #10 correcta   desaparece Arévalo : M:GT00125 → —
+GT #11 correcta   cambia     del presidente de la República : M:GT00608 → E:otto perez molina
+GT #12 correcta   desaparece el presidente de la República : M:GT00011 → —
+GT #13 incorrecta desaparece Ganadería y Alimentación : E:ganaderia alimentacion → —
+GT #15 correcta   desaparece Abogada Blanca Aída Stalling Dávila : E:blanca aida stalling davila → —
+GT #19 correcta   desaparece licenciado Rómulo Alfredo Caballeros Otero : E:romulo alfredo caballeros otero → —
+GT #21 correcta   desaparece Berger : E:oscar berger → —
+GT #23 incorrecta desaparece Arzú : E:alvaro arzu → —
+GT #24 correcta   desaparece Berger : E:oscar berger → —
+GT #25 correcta   desaparece Berger : E:oscar berger → —
+GT #26 correcta   desaparece Stalling Dávila : E:blanca aida stalling davila → —
+GT #27 correcta   desaparece Portillo : E:alfonso portillo → —
+GT #28 correcta   desaparece Berger : E:oscar berger → —
+GT #30 correcta   desaparece el presidente de la República : E:alejandro giammattei → —
+GT #31 correcta   desaparece del presidente de la República : E:oscar berger → —
+GT #32 correcta   desaparece el presidente de la República : E:oscar berger → —
+GT #33 correcta   desaparece el presidente de la República : E:alejandro giammattei → —
+GT #36 correcta   desaparece el presidente de la República : E:alejandro giammattei → —
+MX #1 correcta   desaparece diputado Jesús Rafael Méndez Salas : M:MX02379 → —
+MX #2 correcta   desaparece diputada María Guadalupe Moctezuma Oviedo : M:MX03753 → —
+MX #4 correcta   desaparece diputada Aleida Alavez Ruiz : M:MX00139 → —
+MX #5 correcta   desaparece diputada Mónica Fernández Balboa : M:MX04208 → —
+MX #6 correcta   desaparece diputada María Dolores González Sánchez : M:MX03451 → —
+MX #7 correcta   desaparece diputado Rodolfo Escudero : M:MX02868 → —
+MX #8 correcta   desaparece diputada María Victoria Mercado Sánchez : M:MX03468 → —
+MX #9 correcta   desaparece Durazo Montaño : M:MX01576 → —
+MX #10 correcta   desaparece Durazo Montaño : M:MX01576 → —
+MX #11 correcta   desaparece Durazo Montaño : M:MX01576 → —
+MX #12 correcta   desaparece Ovalle Fernández : M:MX02125 → —
+MX #13 correcta   desaparece Ovalle Fernández : M:MX02125 → —
+MX #14 correcta   desaparece Monreal Ávila : M:MX04712 → —
+MX #15 correcta   desaparece Añorve Baños : M:MX03500 → —
+MX #16 correcta   desaparece Cavazos : M:MX03076 → —
+MX #17 correcta   cambia     al presidente de la república : M:MX01442 → E:felipe calderon
+MX #18 incorrecta desaparece el Presidente de la República : M:MX01442 → —
+MX #20 correcta   desaparece del presidente de la república : M:MX01442 → —
+MX #21 correcta   cambia     al Presidente de la República : M:MX01442 → E:felipe calderon
+MX #22 incorrecta cambia     al Presidente de la República : M:MX01442 → E:felipe calderon
+MX #23 correcta   desaparece el Presidente de la República : M:MX01442 → —
+MX #24 correcta   cambia     al Presidente de la República : M:MX01442 → E:felipe calderon
+MX #25 correcta   desaparece Sen. César Jáuregui Robles : E:cesar jauregui robles → —
+MX #26 correcta   desaparece Sen. César Jáuregui Robles : E:cesar jauregui robles → —
+MX #27 correcta   desaparece Sen. Rafael Melgoza Radillo : E:rafael melgoza radillo → —
+MX #28 correcta   desaparece Coronel Médico Cirujano Francisco Javier Andrade Ramiro : E:medico cirujano francisco javier andrade ramiro → —
+MX #29 correcta   desaparece maestro José Raúl Anguiano Valadez : E:jose raul anguiano valadez → —
+MX #30 incorrecta desaparece General Brigadier Médico Cirujano : E:brigadier medico cirujano david huerta hernandez → —
+MX #33 incorrecta desaparece Diputado Erubiel Lorenzo Alonso Que : E:erubiel lorenzo alonso que → —
+MX #34 correcta   desaparece Héctor Barraza Chávez : E:hector elias barraza chavez → —
+MX #35 incorrecta cambia     amigo César Augusto Santiago : E:cesar augusto santiago → M:MX00869
+MX #36 correcta   desaparece Roberto Madrazo Pintado : E:roberto madrazo pintado → —
+MX #37 correcta   desaparece candidato Roberto Madrazo Pintado'' : E:roberto madrazo pintado → —
+MX #39 correcta   desaparece ciudadano Emilio Suárez Licona : E:emilio suarez licona → —
+MX #43 correcta   desaparece López Portillo : E:jose lopez portillo → —
+MX #46 correcta   desaparece Netzahualcóyotl : E:netzahualcoyotl vega garcia → —
+MX #47 incorrecta desaparece Chaurand Arzate : E:carlos chaurand arzate → —
+MX #49 incorrecta desaparece el Presidente de la República : E:ernesto zedillo → —
+MX #53 incorrecta desaparece el Presidente de la República : E:vicente fox → —
+MX #54 incorrecta desaparece al Presidente de la República : E:andres manuel lopez obrador → —
+MX #56 correcta   desaparece del Presidente de la República : E:ernesto zedillo → —
+PA #4 correcta   desaparece honorable diputada María Del Carmen Delgado : M:PA00905 → —
+PA #6 correcta   desaparece Honorable Legislador Carlos Smith : M:PA00241 → —
+PA #7 correcta   desaparece honorable diputado Vidal García : M:PA01231 → —
+PA #9 correcta   desaparece Smith : M:PA00241 → —
+PA #10 correcta   desaparece Barría : M:PA00800 → —
+PA #11 correcta   desaparece Beker : M:PA01288 → —
+PA #12 correcta   desaparece Blandón : M:PA00678 → —
+PA #13 incorrecta desaparece Fanovich : M:PA00939 → —
+PA #14 correcta   desaparece Beker : M:PA01288 → —
+PA #15 correcta   desaparece Barría : M:PA00800 → —
+PA #16 correcta   desaparece Beker : M:PA01288 → —
+PA #17 correcta   cambia     el Presidente de la República : M:PA00766 → E:laurentino cortizo
+PA #18 correcta   cambia     al señor Presidente de la República : M:PA00766 → E:laurentino cortizo
+PA #19 correcta   cambia     el señor Presidente de la República : M:PA00766 → E:laurentino cortizo
+PA #20 correcta   cambia     al señor Presidente de la República : M:PA00766 → E:laurentino cortizo
+PA #21 correcta   cambia     al Presidente de la República : M:PA00766 → E:laurentino cortizo
+PA #22 correcta   cambia     del Presidente de la República : M:PA00766 → E:laurentino cortizo
+PA #23 correcta   desaparece el Presidente de la República : M:PA00766 → —
+PA #24 correcta   cambia     el Presidente de la República : M:PA00766 → E:laurentino cortizo
+PA #25 correcta   desaparece ingeniero Luis Ernesto Díaz García De Paredes : E:luis ernesto diaz garcia paredes → —
+PA #26 correcta   desaparece licenciada Adelina Domingo : E:adelina domingo → —
+PA #27 correcta   desaparece Ing. Eduardo Rodríguez : E:eduardo rodriguez → —
+PA #29 correcta   desaparece licenciada Maribel Barreiro : E:maribel barreiro → —
+PA #30 incorrecta desaparece Ministra Balbina : E:balbina → —
+PA #36 correcta   desaparece Ricaurte Vásquez : E:ricaurte vasquez morales → —
+PA #42 correcta   desaparece el Presidente de la República : E:ernesto perez balladares → —
+PA #44 correcta   desaparece el señor presidente de la República : E:ricardo martinelli → —
+PE #3 correcta   desaparece congresista Javier Mendoza Marquina : M:PE00547 → —
+PE #9 correcta   desaparece Breña Pantoja : M:PE01106 → —
+PE #10 correcta   desaparece Arriola Tueros : M:PE00608 → —
+PE #12 correcta   desaparece Bermejo Rojas : M:PE00441 → —
+PE #13 correcta   desaparece Ochoa : M:PE00138 → —
+PE #14 correcta   desaparece Urrelo Guerra : M:PE01040 → —
+PE #16 correcta   desaparece Ochoa : M:PE00138 → —
+PE #17 correcta   cambia     del Presidente de la República : M:PE01184 → E:valentin paniagua
+PE #18 correcta   cambia     el Presidente de la República : M:PE01184 → E:valentin paniagua
+PE #19 correcta   desaparece Juan Carlos Villena Campana : E:juan carlos villena campana → —
+PE #25 correcta   desaparece señor Juan Manuel Carrasco Millones : E:juan manuel carrasco millones → —
+PE #26 correcta   desaparece Papa Francisco : E:francisco → —
+PE #28 incorrecta cambia     señora Alfaro : E:maria teresa vitor alfaro → M:PE00905
+PE #37 correcta   desaparece del Presidente de la República : E:alberto fujimori → —
+PE #42 correcta   desaparece el señor Presidente de la República : E:pedro castillo → —
+PE #43 correcta   desaparece del Presidente de la República : E:ollanta humala → —
+PT #5 incorrecta desaparece Sr.ª Deputada Paula Santos : M:PT2647 → —
+PT #11 correcta   cambia     ao Presidente da República : M:PT0269 → E:mario soares
+PT #18 correcta   cambia     Ministro José Sócrates : E:jose socrates → M?ambigua
+PT #19 correcta   desaparece coronel João Maria Ferreira Sarmento Pimentel : E:joao maria ferreira sarmento pimentel → —
+PT #20 incorrecta desaparece Sr.ª Directora do CEJ : E:directora cej → —
+PT #23 correcta   cambia     Dr. Luís Filipe Menezes : E:luis filipe menezes → M:PT1325
+PT #31 correcta   desaparece Sr. Deputado João Pedro da Silva Correia : E:joao pedro silva correia → —
+PT #43 incorrecta desaparece do Primeiro-Ministro : E:alfredo nobre costa → —
+PT #46 correcta   cambia     Sr. Primeiro-Ministro : E:antonio costa → M:PT1493
+PY #6 correcta   desaparece Diputado Gustavo Mussi : M:PY62 → —
+PY #8 correcta   desaparece Diputado Justo Pastor Cárdenas : M:PY159 → —
+PY #10 correcta   desaparece Mencia : M:PY100469 → —
+PY #11 correcta   desaparece Acha Mendoza : M:PY64 → —
+PY #14 correcta   desaparece Ibarra : M:PY100472 → —
+PY #15 correcta   desaparece Acha Mendoza : M:PY64 → —
+PY #16 correcta   desaparece Llano : M:PY113 → —
+PY #17 correcta   cambia     del Presidente de la República : M:PY100244 → E:luis gonzalez macchi
+PY #18 incorrecta cambia     el Presidente de la República : M:PY100244 → E:luis gonzalez macchi
+PY #19 correcta   cambia     el Presidente de la República : M:PY100244 → E:luis gonzalez macchi
+PY #20 correcta   cambia     el Presidente de la República : M:PY100244 → E:luis gonzalez macchi
+PY #21 correcta   desaparece el Presidente de la República : M:PY100244 → —
+PY #22 correcta   cambia     al señor Presidente de la República : M:PY100244 → E:luis gonzalez macchi
+PY #23 correcta   cambia     el Presidente de la República : M:PY100244 → E:luis gonzalez macchi
+PY #24 correcta   cambia     del Presidente de la República : M:PY100244 → E:luis gonzalez macchi
+PY #25 incorrecta desaparece Presidente Alternos : E:alternos → —
+PY #27 correcta   desaparece Señor Justo Fernández : E:justo fernandez → —
+PY #29 correcta   desaparece señora Gregoria Méndez Vda : E:gregoria mendez vda → —
+PY #30 incorrecta desaparece GENERAL GENES : E:genes → —
+PY #31 incorrecta desaparece PRESIDENTE HAYES : E:hayes alto paraguay → —
+PY #32 incorrecta cambia     Capitán Vicente A. Matiauda : E:vicente a matiauda antibia matiauda → E:vicente a matiauda
+SV #1 correcta   desaparece Diputado José Francisco Merino López : M:SV00171 → —
+SV #3 correcta   desaparece diputada Rebeca Rodríguez : M:SV00291 → —
+SV #4 correcta   desaparece Diputada  Vilma  Salamanca : M:SV00349 → —
+SV #5 correcta   desaparece Diputado  Reynaldo  Cardoza : M:SV00296 → —
+SV #6 correcta   desaparece diputada Claudia Ortiz : M:SV00059 → —
+SV #7 correcta   desaparece Diputado Marroquín : M:SV00242 → —
+SV #8 correcta   desaparece Diputado  Damián Alegría : M:SV00062 → —
+SV #13 correcta   desaparece Parker : M:SV00307 → —
+SV #14 correcta   desaparece Parker : M:SV00297 → —
+SV #15 correcta   desaparece Parker : M:SV00297 → —
+SV #16 correcta   desaparece Parker  Soto : M:SV00307 → —
+SV #18 incorrecta desaparece Doctor José Molina Martínez : E:jose molina martinez → —
+SV #20 incorrecta desaparece Señora Santa Ana : E:santa ana → —
+SV #23 correcta   desaparece licenciada  Irma  Michelle  Ninette  Sol  de  Castro : E:irma michelle ninette sol castro → —
+SV #24 correcta   desaparece licenciado Rubén Ordoñez : E:ruben ordonez → —
+SV #25 correcta   desaparece Jerez : E:oscar alberto lopez jerez → —
+SV #26 correcta   desaparece Edelmira Antonia : E:edelmira antonia pineda osegueda → —
+SV #27 correcta   cambia     Nayib Bukele : E:nayib armando bukele ortez → E:nayib bukele
+SV #36 correcta   desaparece del presidente de la República : E:nayib bukele → —
+SV #37 correcta   desaparece el presidente de la República : E:nayib bukele → —
+SV #40 correcta   desaparece del Presidente de la República : E:salvador sanchez ceren → —
+UY #3 correcta   desaparece señor Diputado Lacalle Pou : M:UY01451 → —
+UY #7 correcta   desaparece señor Diputado Lacalle Pou : M:UY01451 → —
+UY #9 correcta   desaparece Charlone : M:UY02197 → —
+UY #10 correcta   desaparece Stirling : M:UY00879 → —
+UY #11 correcta   desaparece Cardoso : M:UY01175 → —
+UY #12 correcta   desaparece Barreiro : M:UY02003 → —
+UY #13 correcta   desaparece Bayardi : M:UY01173 → —
+UY #16 correcta   desaparece Abdala : M:UY01533 → —
+UY #17 correcta   cambia     el presidente de la República : M:UY01451 → E:luis lacalle pou
+UY #18 incorrecta cambia     del señor Presidente de la República : M:UY01451 → E:luis alberto lacalle
+UY #19 correcta   cambia     al presidente de la República : M:UY01451 → E:luis lacalle pou
+UY #20 incorrecta cambia     el Presidente de la República : M:UY01451 → E:luis alberto lacalle
+UY #21 incorrecta cambia     del Presidente de la República : M:UY01451 → E:luis alberto lacalle
+UY #22 incorrecta cambia     el señor Presidente de la República : M:UY01451 → E:luis alberto lacalle
+UY #23 incorrecta cambia     el señor Presidente de la República : M:UY01451 → E:luis alberto lacalle
+UY #24 correcta   cambia     el presidente de la República : M:UY01451 → E:luis lacalle pou
+UY #35 incorrecta desaparece Macedo : E:julio macedo saravia → —
+UY #37 correcta   cambia     Paciel : E:paciel → E:hector paciel

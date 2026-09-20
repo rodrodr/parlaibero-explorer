@@ -1,0 +1,302 @@
+[
+ {
+  "n": 1,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2006,
+  "habla": "JORGE LUIS ORTEGA TORRES",
+  "atribuida": "JORGE MENDEZ HERBRUGER [nombre]",
+  "mencion": "presidente Méndez Herbruger",
+  "veredicto": "correcta",
+  "motivo": "Presidente del Congreso que coordinó las juntas directivas de 2005 y 2006 y preside esta sesión; escaño en la legislatura V."
+ },
+ {
+  "n": 2,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2004,
+  "habla": "RUBÉN DARÍO MORALES VÉLIZ",
+  "atribuida": "MANUEL ANTONIO BALDIZON MENDEZ [nombre]",
+  "mencion": "diputado Manuel Baldizón",
+  "veredicto": "correcta",
+  "motivo": "Único Manuel Baldizón con escaño en la V (UNE); Salvador Baldizón Méndez llega en la VI."
+ },
+ {
+  "n": 3,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2021,
+  "habla": "CRISTIAN RODOLFO ÁLVAREZ ÁLVAREZ",
+  "atribuida": "JOSÉ RODOLFO NEUTZE AGUIRRE [nombre]",
+  "mencion": "diputado Neutze",
+  "veredicto": "correcta",
+  "motivo": "Único Neutze en oradores.json; diputado en la IX y firmante de la moción."
+ },
+ {
+  "n": 4,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2017,
+  "habla": "JOSE RODRIGO DE LOS SANTOS VALLADARES GUILLEN",
+  "atribuida": "JUAN MANUEL GIORDANO GRAJEDA [nombre]",
+  "mencion": "diputado Giordano",
+  "veredicto": "correcta",
+  "motivo": "Único Giordano con escaño en la VIII; el homónimo Giordano Estrada estuvo en la V y la VI."
+ },
+ {
+  "n": 5,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2004,
+  "habla": "ADOLFO OTONIEL FERNANDEZ ESCOBAR",
+  "atribuida": "FRANCISCO ROLANDO MORALES CHAVEZ [nombre, se dirige]",
+  "mencion": "Diputado Francisco Morales",
+  "veredicto": "correcta",
+  "motivo": "Saludo de una carta dirigida al «Diputado Francisco Rolando Morales Chávez Presidente Congreso de la República»; escaño en la V."
+ },
+ {
+  "n": 6,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2006,
+  "habla": "BAUDILIO ELINOHET HICHOS LÓPEZ",
+  "atribuida": "CÉSAR LEONEL SOTO ARANGO [nombre]",
+  "mencion": "representante Leonel Soto Arango",
+  "veredicto": "correcta",
+  "motivo": "Nombre y apellidos coinciden; escaño en la V."
+ },
+ {
+  "n": 7,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2004,
+  "habla": "RUBÉN DARÍO MORALES VÉLIZ",
+  "atribuida": "PABLO MANUEL DUARTE SÁENZ DE TEJADA [nombre]",
+  "mencion": "representante Pablo Duarte Sáenz de Tejada",
+  "veredicto": "correcta",
+  "motivo": "Acaba de presentar la moción (GT002001900476); escaño en la V."
+ },
+ {
+  "n": 8,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2008,
+  "habla": "ROSA ELVIRA ZAPETA OSORIO",
+  "atribuida": "OSCAR ARMANDO QUINTANILLA VILLEGAS [nombre]",
+  "mencion": "diputado Oscar Armando Quintanilla Villegas",
+  "veredicto": "correcta",
+  "motivo": "Nombre completo; escaño en la VI."
+ },
+ {
+  "n": 9,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2009,
+  "habla": "ZURY MAYTÉ RÍOS SOSA",
+  "atribuida": "MANUEL ANTONIO BALDIZON MENDEZ [nombre]",
+  "mencion": "diputado Manuel Antonio Baldizón Méndez",
+  "veredicto": "correcta",
+  "motivo": "Nombre completo; escaño en la VI."
+ },
+ {
+  "n": 10,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2004,
+  "habla": "RUBÉN DARÍO MORALES VÉLIZ",
+  "atribuida": "MAYNOR ESTUARDO LOPEZ RODRIGUEZ [nombre]",
+  "mencion": "representante Maynor López Rodríguez",
+  "veredicto": "correcta",
+  "motivo": "Único Maynor López con escaño en la V (UNE)."
+ },
+ {
+  "n": 11,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2004,
+  "habla": "MANUEL ANTONIO BALDIZON MENDEZ",
+  "atribuida": "EXT blanca aida stalling davila",
+  "mencion": "Abogada Blanca Aída Stalling Dávila",
+  "veredicto": "correcta",
+  "motivo": "Candidata elegida ese día directora del Instituto de la Defensa Pública Penal, según la propia sesión; no es diputada."
+ },
+ {
+  "n": 12,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2021,
+  "habla": "ANA LUCRECIA MARROQUÍN GODOY DE PALOMO",
+  "atribuida": "EXT alejandro giammattei",
+  "mencion": "presidente Giammattei",
+  "veredicto": "correcta",
+  "motivo": "Presidente de la República en 2021 («al gobierno del presidente Giammattei»)."
+ },
+ {
+  "n": 13,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2015,
+  "habla": "ÉDGAR ROMEO CRISTIANI CALDERÓN",
+  "atribuida": "EXT ranulfo rafael rojas cetina",
+  "mencion": "magistrado Ranulfo Rafael Rojas Cetina",
+  "veredicto": "correcta",
+  "motivo": "Magistrado elegido presidente del Organismo Judicial para 2015-2016, como dice el acuerdo leído."
+ },
+ {
+  "n": 14,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2015,
+  "habla": "ÉDGAR ROMEO CRISTIANI CALDERÓN",
+  "atribuida": "EXT ranulfo rafael rojas cetina",
+  "mencion": "magistrado Ranulfo Rafael Rojas Cetina",
+  "veredicto": "correcta",
+  "motivo": "Mismo acuerdo: se le convoca a jurar como presidente del Organismo Judicial."
+ },
+ {
+  "n": 15,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2021,
+  "habla": "CARLOS SANTIAGO NÁJERA SAGASTUME",
+  "atribuida": "EXT augusto jordan rodas andrade",
+  "mencion": "Augusto Jordán Rodas Andrade",
+  "veredicto": "correcta",
+  "motivo": "Procurador de los Derechos Humanos que promueve la inconstitucionalidad, según la resolución de la Corte de Constitucionalidad leída en la sesión."
+ },
+ {
+  "n": 16,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2004,
+  "habla": "SERGIO LEONEL CELIS NAVAS",
+  "atribuida": "EXT juan jose arevalo bermejo",
+  "mencion": "doctor Juan José Arévalo Bermejo",
+  "veredicto": "correcta",
+  "motivo": "Expresidente homenajeado en el centenario de su nacimiento; no es diputado."
+ },
+ {
+  "n": 17,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2010,
+  "habla": "MAURA ESTRADA MANSILLA",
+  "atribuida": "EXT jose rafael espada",
+  "mencion": "doctor José Rafael Espada",
+  "veredicto": "correcta",
+  "motivo": "Vicepresidente de la República («Ingreso al hemiciclo parlamentario del señor vicepresidente de la República»)."
+ },
+ {
+  "n": 18,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2019,
+  "habla": "ESTUARDO ERNESTO GALDAMEZ JUAREZ",
+  "atribuida": "EXT jose luis benito ruiz",
+  "mencion": "ingeniero José Luis Benito Ruiz",
+  "veredicto": "correcta",
+  "motivo": "Ministro de Comunicaciones interpelado, según el orden del día; no consta en oradores.json."
+ },
+ {
+  "n": 19,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2004,
+  "habla": "SERGIO LEONEL CELIS NAVAS",
+  "atribuida": "EXT juan jose arevalo bermejo",
+  "mencion": "doctor Juan José Arévalo Bermejo",
+  "veredicto": "correcta",
+  "motivo": "Mismo acuerdo del centenario de Juan José Arévalo."
+ },
+ {
+  "n": 20,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2004,
+  "habla": "SERGIO LEONEL CELIS NAVAS",
+  "atribuida": "EXT juan jose arevalo bermejo",
+  "mencion": "doctor Juan José Arévalo Bermejo",
+  "veredicto": "correcta",
+  "motivo": "Mismo acuerdo del centenario de Juan José Arévalo."
+ },
+ {
+  "n": 21,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2021,
+  "habla": "LUCRECIA MARÍA HERNÁNDEZ MACK",
+  "atribuida": "EXT alejandro giammattei",
+  "mencion": "Giammattei",
+  "veredicto": "correcta",
+  "motivo": "«las declaraciones irresponsables de Giammattei»: el presidente de la República."
+ },
+ {
+  "n": 22,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2009,
+  "habla": "MAURA ESTRADA MANSILLA",
+  "atribuida": "EXT ranulfo rafael rojas cetina",
+  "mencion": "Cetina",
+  "veredicto": "correcta",
+  "motivo": "Lista de candidatos a magistrado: «Rojas Cetina, Ranulfo Rafael»."
+ },
+ {
+  "n": 23,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2004,
+  "habla": "FRANCISCO ROLANDO MORALES CHAVEZ",
+  "atribuida": "EXT rafael fernando mendizabal riva",
+  "mencion": "Riva",
+  "veredicto": "correcta",
+  "motivo": "Final del nombre del candidato «Rafael Fernando Mendizábal de la Riva», que aquí no tiene mención con cargo."
+ },
+ {
+  "n": 24,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2004,
+  "habla": "MANUEL ANTONIO BALDIZON MENDEZ",
+  "atribuida": "EXT rafael fernando mendizabal riva",
+  "mencion": "Riva",
+  "veredicto": "correcta",
+  "motivo": "Designa al candidato, pero duplica la mención con cargo «Abogado Rafael Fernando Mendizábal de la Riva» del mismo sitio."
+ },
+ {
+  "n": 25,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2020,
+  "habla": "FELIPE ALEJOS LORENZANA",
+  "atribuida": "EXT bernardo arevalo",
+  "mencion": "Arévalo",
+  "veredicto": "incorrecta",
+  "motivo": "Lista de diputados ponentes («Bernardo Arévalo, Semilla»): en 2020 era diputado (César Bernardo Arévalo de León, legislatura IX); debió resolverse como miembro."
+ },
+ {
+  "n": 26,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2006,
+  "habla": "JOB RAMIRO GARCIA Y GARCIA",
+  "atribuida": "EXT oscar berger",
+  "mencion": "Berger",
+  "veredicto": "correcta",
+  "motivo": "Firma de la carta de veto: «Oscar Berger Presidente constitucional de la República»."
+ },
+ {
+  "n": 27,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2004,
+  "habla": "ADOLFO OTONIEL FERNANDEZ ESCOBAR",
+  "atribuida": "EXT rafael fernando mendizabal riva",
+  "mencion": "Riva",
+  "veredicto": "correcta",
+  "motivo": "«los abogados Blanca Aída Stalling Dávila y Rafael Fernando Mendizábal de la Riva»: el candidato."
+ },
+ {
+  "n": 28,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2010,
+  "habla": "ALVARO COLOM CABALLEROS (etiqueta, sin id de orador)",
+  "atribuida": "EXT carlos castresana",
+  "mencion": "Castresana",
+  "veredicto": "correcta",
+  "motivo": "Carlos Castresana, comisionado de la CICIG, en el informe del presidente Colom («agradecer a Carlos Castresana, a su equipo»)."
+ },
+ {
+  "n": 29,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2009,
+  "habla": "MAURA ESTRADA MANSILLA",
+  "atribuida": "EXT blanca aida stalling davila",
+  "mencion": "Dávila",
+  "veredicto": "incorrecta",
+  "motivo": "Otra persona: «González Dávila, Jaime Amílcar», candidato de la misma lista; «Dávila» es el segundo apellido de Blanca Stalling."
+ },
+ {
+  "n": 30,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2004,
+  "habla": "ADOLFO OTONIEL FERNANDEZ ESCOBAR",
+  "atribuida": "EXT rafael fernando mendizabal riva",
+  "mencion": "Riva",
+  "veredicto": "correcta",
+  "motivo": "«los abogados Blanca Aída Stalling Dávila y Rafael Fernando Mendizábal de la Riva»: el candidato."
+ }
+]

@@ -1,0 +1,502 @@
+[
+  {
+    "n": 1,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2006,
+    "habla": "ALONSO RAFAEL ACOSTA OSIO",
+    "atribuida": "WILSON ALFONSO BORJA DÍAZ [nombre]",
+    "mencion": "doctor Wilson Borja",
+    "veredicto": "correcta",
+    "motivo": "Wilson Alfonso Borja Díaz, representante 2006-2010; no hay otro Borja en oradores.json."
+  },
+  {
+    "n": 2,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2022,
+    "habla": "NICOLÁS ALBEIRO ECHEVERRY ALVARÁN",
+    "atribuida": "CARLOS EDUARDO ACOSTA LOZANO [otra legislatura, se dirige]",
+    "mencion": "Representantes Carlos Eduardo Acosta Lozano",
+    "veredicto": "correcta",
+    "motivo": "Línea de ponentes de un proyecto de 2021: Carlos Eduardo Acosta Lozano, representante 2018-2022; nombre completo, antiguo miembro bien identificado."
+  },
+  {
+    "n": 3,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2023,
+    "habla": "ANDRÉS DAVID CALLE AGUAS",
+    "atribuida": "DIÓGENES QUINTERO AMAYA [nombre]",
+    "mencion": "compañero Diógenes Quintero",
+    "veredicto": "correcta",
+    "motivo": "Diógenes Quintero Amaya, representante 2022-2026 y único con ese nombre; el contexto (violencia en Ocaña) encaja."
+  },
+  {
+    "n": 4,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2021,
+    "habla": "JOHN JAIRO ROLDÁN AVENDAÑO",
+    "atribuida": "EDGAR ALFONSO GÓMEZ ROMÁN [nombre]",
+    "mencion": "honorable Representante Édgar Alfonso Gómez Román",
+    "veredicto": "correcta",
+    "motivo": "Índice de la gaceta («Intervención honorable Representante…»): Édgar Alfonso Gómez Román, representante 2018-2022."
+  },
+  {
+    "n": 5,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2021,
+    "habla": "JOHN JAIRO ROLDÁN AVENDAÑO",
+    "atribuida": "CARLOS GERMÁN NAVAS TALERO [nombre]",
+    "mencion": "honorable Representante Carlos Germán Navas Talero",
+    "veredicto": "correcta",
+    "motivo": "Índice de la gaceta: Carlos Germán Navas Talero, representante 2018-2022."
+  },
+  {
+    "n": 6,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2024,
+    "habla": null,
+    "atribuida": "SARAY ELENA ROBAYO BECHARA [nombre, se dirige]",
+    "mencion": "Representante Saray Robayo",
+    "veredicto": "correcta",
+    "motivo": "Saray Elena Robayo Bechara, representante 2022-2026; «la Representante» concuerda con el sexo."
+  },
+  {
+    "n": 7,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2019,
+    "habla": "CARLOS ALBERTO CUENCA CHAUX",
+    "atribuida": "GABRIEL JAIME VALLEJO CHUJFI [nombre]",
+    "mencion": "doctor Vallejo",
+    "veredicto": "correcta",
+    "motivo": "Gabriel Jaime Vallejo Chujfi, único Vallejo con escaño en 2018-2022."
+  },
+  {
+    "n": 8,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2024,
+    "habla": null,
+    "atribuida": "LINA MARÍA GARRIDO MARTÍN [nombre, se dirige]",
+    "mencion": "Doctora Lina María Garrido Martín",
+    "veredicto": "correcta",
+    "motivo": "Lina María Garrido Martín, representante 2022-2026, citada como segunda vicepresidenta en la resolución que se lee."
+  },
+  {
+    "n": 9,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2022,
+    "habla": "OLGA LUCIA VELÁSQUEZ NIETO",
+    "atribuida": "JAIRO REINALDO CALA SUÁREZ [nombre, se dirige]",
+    "mencion": "representante Cala",
+    "veredicto": "correcta",
+    "motivo": "Jairo Reinaldo Cala Suárez, único Cala en 2022-2026."
+  },
+  {
+    "n": 10,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2011,
+    "habla": "CARLOS ALBERTO ZULUAGA DÍAZ",
+    "atribuida": "MIGUEL ÁNGEL PINTO HERNÁNDEZ [preside]",
+    "mencion": "doctor Miguel",
+    "veredicto": "incorrecta",
+    "motivo": "Solo nombre de pila; el desempate «preside» se apoya en que Pinto presidió la sesión del 2017-07-20 (otra legislatura). Pinto no figura en la asistencia ni en las votaciones de esta sesión; sí votan Miguel Amín Escaf y Miguel Gómez Martínez."
+  },
+  {
+    "n": 11,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2011,
+    "habla": null,
+    "atribuida": "SIMÓN GAVIRIA MUÑOZ [apellido suelto]",
+    "mencion": "Simón",
+    "veredicto": "correcta",
+    "motivo": "Fila «Gaviria Muñoz Simón» de una votación: es él, aunque lo que se busca es el nombre de pila «Simón», no el apellido."
+  },
+  {
+    "n": 12,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2024,
+    "habla": null,
+    "atribuida": "ANDRÉS EDUARDO FORERO MOLINA [apellido suelto]",
+    "mencion": "Andrés",
+    "veredicto": "correcta",
+    "motivo": "«Andrés Forero» en la lista de votos manuales: Andrés Eduardo Forero Molina; acierta porque tras el nombre de pila buscado va su apellido."
+  },
+  {
+    "n": 13,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2011,
+    "habla": null,
+    "atribuida": "CARLOS ALBERTO CARREÑO MARIN [apellido suelto]",
+    "mencion": "Carlos",
+    "veredicto": "incorrecta",
+    "motivo": "Fila «Zuluaga Díaz Carlos Alberto»: es Carlos Alberto Zuluaga Díaz; se busca el nombre de pila «Carlos», y Carreño no tiene registro en 2010-2014."
+  },
+  {
+    "n": 14,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2024,
+    "habla": "JOHN EDGAR PÉREZ ROJAS",
+    "atribuida": "DAVID RICARDO RACERO MAYORCA [apellido suelto]",
+    "mencion": "David",
+    "veredicto": "correcta",
+    "motivo": "«a Alejandro, a David»: responde a Alejandro Ocampo y a David Racero, que acaban de intervenir; acierto por contexto con solo el nombre de pila."
+  },
+  {
+    "n": 15,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2017,
+    "habla": null,
+    "atribuida": "JUAN CARLOS LOZADA VARGAS [apellido suelto]",
+    "mencion": "Juan",
+    "veredicto": "incorrecta",
+    "motivo": "«Juan Carlos Rivera» (impedimento): Juan Carlos Rivera Peña, representante 2014-2018; se busca el nombre de pila «Juan», no el apellido Lozada."
+  },
+  {
+    "n": 16,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2006,
+    "habla": null,
+    "atribuida": "CARLOS ALBERTO CARREÑO MARIN [apellido suelto]",
+    "mencion": "Carlos",
+    "veredicto": "incorrecta",
+    "motivo": "Lista de votación «Quintero M. Carlos A.»: Carlos Arturo Quintero, representante 2006-2010; se busca el nombre de pila «Carlos», no el apellido Carreño."
+  },
+  {
+    "n": 17,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2019,
+    "habla": null,
+    "atribuida": "ALFREDO RAFAEL DELUQUE ZULETA [apellido suelto]",
+    "mencion": "Alfredo",
+    "veredicto": "correcta",
+    "motivo": "«Alfredo Deluque» entre los firmantes de la proposición: Alfredo Rafael Deluque Zuleta; acierta porque tras el nombre de pila va su apellido."
+  },
+  {
+    "n": 18,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2025,
+    "habla": null,
+    "atribuida": "JUAN CARLOS LOZADA VARGAS [apellido suelto]",
+    "mencion": "Juan",
+    "veredicto": "correcta",
+    "motivo": "«Juan Carlos Losada, vota SÍ»: Juan Carlos Lozada Vargas (variante gráfica); acierto por el nombre de pila."
+  },
+  {
+    "n": 19,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2011,
+    "habla": null,
+    "atribuida": "JUAN CARLOS REINALES AGUDELO [apellido suelto]",
+    "mencion": "Juan",
+    "veredicto": "incorrecta",
+    "motivo": "Fila «Sánchez Franco Juan Carlos»: Juan Carlos Sánchez Franco, representante 2010-2014; se busca «Juan», y Reinales no tiene registro en 2010-2014."
+  },
+  {
+    "n": 20,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2011,
+    "habla": null,
+    "atribuida": "CARLOS ALBERTO ZULUAGA DÍAZ [apellido suelto]",
+    "mencion": "Carlos",
+    "veredicto": "correcta",
+    "motivo": "Fila «Zuluaga Díaz Carlos Alberto»: es él; la misma posición se atribuye además a Carreño (n.º 13)."
+  },
+  {
+    "n": 21,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2017,
+    "habla": "TELÉSFORO PEDRAZA ORTEGA",
+    "atribuida": "EXT enrique gil botero",
+    "mencion": "doctor Enrique Gil Botero",
+    "veredicto": "correcta",
+    "motivo": "«el actual Ministro de Justicia el doctor Enrique Gil Botero» (2017): persona externa bien identificada."
+  },
+  {
+    "n": 22,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2011,
+    "habla": null,
+    "atribuida": "EXT jesus alfonso rodriguez camargo",
+    "mencion": "Jesús Alfonso Rodríguez Camargo",
+    "veredicto": "correcta",
+    "motivo": "Secretario General de la Cámara que firma la resolución; no es miembro."
+  },
+  {
+    "n": 23,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2014,
+    "habla": "RAFAEL EDUARDO PALAU SALAZAR",
+    "atribuida": "EXT rafael escalona",
+    "mencion": "maestro Rafael Escalona",
+    "veredicto": "correcta",
+    "motivo": "Rafael Escalona, compositor homenajeado (museo); persona externa."
+  },
+  {
+    "n": 24,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2025,
+    "habla": null,
+    "atribuida": "EXT rafael nunez",
+    "mencion": "Presidente Rafael Núñez",
+    "veredicto": "correcta",
+    "motivo": "Rafael Núñez, presidente de Colombia en el siglo XIX (proyecto de honores)."
+  },
+  {
+    "n": 25,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2015,
+    "habla": "ALIRIO URIBE MUÑOZ",
+    "atribuida": "EXT olga lucia velazquez",
+    "mencion": "doctora Olga Lucía Velázquez",
+    "veredicto": "incorrecta",
+    "motivo": "Era miembro: Olga Lucía Velásquez Nieto, representante 2014-2018 y ponente; la grafía «Velázquez» impide emparejarla."
+  },
+  {
+    "n": 26,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2011,
+    "habla": "TELÉSFORO PEDRAZA ORTEGA",
+    "atribuida": "EXT nestor osorio",
+    "mencion": "doctor Néstor Osorio",
+    "veredicto": "correcta",
+    "motivo": "Néstor Osorio, diplomático que presidió el Consejo de Seguridad de la ONU según el contexto; externo."
+  },
+  {
+    "n": 27,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2022,
+    "habla": "CARLOS ALBERTO CARREÑO MARIN",
+    "atribuida": "EXT jaime lacouture penaloza",
+    "mencion": "doctor Jaime Lacouture",
+    "veredicto": "correcta",
+    "motivo": "Jaime Luis Lacouture Peñaloza, propuesto para Secretario General de la Cámara; no es miembro."
+  },
+  {
+    "n": 28,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2014,
+    "habla": "JOSÉ LUIS PÉREZ OYUELA",
+    "atribuida": "EXT mariana garces",
+    "mencion": "doctora Mariana Garcés",
+    "veredicto": "correcta",
+    "motivo": "Mariana Garcés, ministra de Cultura (gestión de la ley en debate); externa."
+  },
+  {
+    "n": 29,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2015,
+    "habla": "JORGE ELIÉCER TAMAYO MARULANDA",
+    "atribuida": "EXT juan manuel santos",
+    "mencion": "Presidente Santos",
+    "veredicto": "correcta",
+    "motivo": "«Presidente Santos» en 2015: Juan Manuel Santos."
+  },
+  {
+    "n": 30,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2024,
+    "habla": "BETSY JUDITH PÉREZ ARANGO",
+    "atribuida": "EXT gonzalez cambio radical",
+    "mencion": "compañero González de Cambio Radical",
+    "veredicto": "incorrecta",
+    "motivo": "Era miembro: el «compañero González de Cambio Radical» es Hernando González, representante 2022-2026 por Cambio Radical; el nombre absorbe el partido y la clave no es una persona."
+  },
+  {
+    "n": 31,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2011,
+    "habla": "CARLOS GERMÁN NAVAS TALERO",
+    "atribuida": "EXT juan diego gomez jimenez",
+    "mencion": "doctor Juan Diego Gómez",
+    "veredicto": "incorrecta",
+    "motivo": "Juan Diego Gómez Jiménez era representante en 2010-2014 (50 intervenciones); lo excluye haber sido llamado «Senador» en sesiones posteriores."
+  },
+  {
+    "n": 32,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2017,
+    "habla": "ALEJANDRO CARLOS CHACÓN CAMARGO",
+    "atribuida": "EXT german bernardo carlosama lopez",
+    "mencion": "doctor Carlosama",
+    "veredicto": "incorrecta",
+    "motivo": "Germán Bernardo Carlosama López era representante 2014-2018 (aspirante a la Segunda Vicepresidencia); no se le da escaño porque su registro no tiene partido."
+  },
+  {
+    "n": 33,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2017,
+    "habla": "ALEJANDRO CARLOS CHACÓN CAMARGO",
+    "atribuida": "EXT german bernardo carlosama lopez",
+    "mencion": "doctor Carlosama",
+    "veredicto": "incorrecta",
+    "motivo": "Misma persona y causa que el n.º 32: Carlosama tenía escaño en 2017."
+  },
+  {
+    "n": 34,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2011,
+    "habla": null,
+    "atribuida": "EXT juan diego gomez jimenez",
+    "mencion": "doctor Juan Diego Gómez Jiménez",
+    "veredicto": "incorrecta",
+    "motivo": "Carta de excusa de «Juan Diego Gómez Jiménez, Representante a la Cámara» (2011): era miembro."
+  },
+  {
+    "n": 35,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2011,
+    "habla": "CARLOS GERMÁN NAVAS TALERO",
+    "atribuida": "EXT juan diego gomez jimenez",
+    "mencion": "doctor Juan Diego Gómez",
+    "veredicto": "incorrecta",
+    "motivo": "«Tiene la palabra el doctor Juan Diego Gómez»: representante 2010-2014, era miembro."
+  },
+  {
+    "n": 36,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2022,
+    "habla": "GABRIEL BECERRA YAÑEZ",
+    "atribuida": "EXT erika tatiana sanchez pinto",
+    "mencion": "doctora Erika Tatiana Sánchez",
+    "veredicto": "incorrecta",
+    "motivo": "Erika Tatiana Sánchez Pinto era representante 2022-2026 (825 intervenciones; registro sin partido): era miembro."
+  },
+  {
+    "n": 37,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2022,
+    "habla": "JAIME RAÚL SALAMANCA TORRES",
+    "atribuida": "EXT erika tatiana sanchez pinto",
+    "mencion": "doctora Erika Tatiana Sánchez",
+    "veredicto": "incorrecta",
+    "motivo": "Misma persona y causa que el n.º 36."
+  },
+  {
+    "n": 38,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2000,
+    "habla": "JOAQUÍN JOSÉ VIVES",
+    "atribuida": "EXT dilia estrada gomez",
+    "mencion": "doctora Dilia Estrada",
+    "veredicto": "incorrecta",
+    "motivo": "Dilia Estrada de Gómez era representante (el índice dice «Intervención de la honorable Representante Dilia Estrada de Gómez»); registro sin partido."
+  },
+  {
+    "n": 39,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2011,
+    "habla": null,
+    "atribuida": "EXT juan diego gomez jimenez",
+    "mencion": "doctor Juan Diego Gómez Jiménez",
+    "veredicto": "incorrecta",
+    "motivo": "Firma de su UTL, «doctor Juan Diego Gómez Jiménez», en 2011: era representante."
+  },
+  {
+    "n": 40,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2006,
+    "habla": null,
+    "atribuida": "EXT efren antonio hernandez diaz",
+    "mencion": "doctor Efrén Hernández",
+    "veredicto": "incorrecta",
+    "motivo": "Efrén Hernández era representante: preside como presidente provisional y figura en la asistencia; registro sin partido."
+  },
+  {
+    "n": 41,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2025,
+    "habla": "ANDRÉS EDUARDO FORERO MOLINA",
+    "atribuida": "EXT gustavo petro",
+    "mencion": "Petro",
+    "veredicto": "correcta",
+    "motivo": "Gustavo Petro, presidente de la República en 2025."
+  },
+  {
+    "n": 42,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2024,
+    "habla": "CHRISTIAN MUNIR GARCÉS ALJURE",
+    "atribuida": "EXT gustavo petro",
+    "mencion": "Petro",
+    "veredicto": "correcta",
+    "motivo": "«el gobierno de Gustavo Petro» (2024)."
+  },
+  {
+    "n": 43,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2011,
+    "habla": "OBED DE JESÚS ZULUAGA HENAO",
+    "atribuida": "EXT gustavo petro",
+    "mencion": "Petro",
+    "veredicto": "correcta",
+    "motivo": "Gustavo Petro en 2011, sin escaño en la Cámara (se echa de menos como opositor)."
+  },
+  {
+    "n": 44,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2019,
+    "habla": "OSCAR HERNÁN SÁNCHEZ LEÓN",
+    "atribuida": "EXT presidencial emilio archila",
+    "mencion": "Archila",
+    "veredicto": "incorrecta",
+    "motivo": "Es el segundo apellido del representante Edwin Gilberto Ballesteros Archila (2018-2022), no Emilio Archila; la clave arrastra además «Presidencial»."
+  },
+  {
+    "n": 45,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2006,
+    "habla": null,
+    "atribuida": "EXT enrique gil botero",
+    "mencion": "Botero",
+    "veredicto": "incorrecta",
+    "motivo": "Es el segundo apellido del senador Luis Alfredo Ramos Botero, no Enrique Gil Botero."
+  },
+  {
+    "n": 46,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2022,
+    "habla": null,
+    "atribuida": "EXT jaime luis lacouture penaloza",
+    "mencion": "Peñaloza",
+    "veredicto": "correcta",
+    "motivo": "Nombre completo «Jaime Luis Lacouture Peñaloza» en una lista: es él."
+  },
+  {
+    "n": 47,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2017,
+    "habla": "VÍCTOR JAVIER CORREA VÉLEZ",
+    "atribuida": "EXT enrique penalosa",
+    "mencion": "Peñalosa",
+    "veredicto": "correcta",
+    "motivo": "Enrique Peñalosa, alcalde de Bogotá en 2017 («el futuro de Bogotá»)."
+  },
+  {
+    "n": 48,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2017,
+    "habla": "ÁNGELA MARÍA ROBLEDO GÓMEZ",
+    "atribuida": "EXT enrique penalosa",
+    "mencion": "Peñalosa",
+    "veredicto": "correcta",
+    "motivo": "«la revocatoria a Enrique Peñalosa», alcalde de Bogotá."
+  },
+  {
+    "n": 49,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2006,
+    "habla": null,
+    "atribuida": "EXT jesus alfonso rodriguez camargo",
+    "mencion": "CAMARGO",
+    "veredicto": "correcta",
+    "motivo": "«El Subsecretario General, JESÚS ALFONSO RODRÍGUEZ CAMARGO» en el orden del día: es él."
+  },
+  {
+    "n": 50,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2022,
+    "habla": null,
+    "atribuida": "EXT jaime luis lacouture penaloza",
+    "mencion": "Peñaloza",
+    "veredicto": "correcta",
+    "motivo": "Juramento de Jaime Luis Lacouture Peñaloza como Secretario General: es él."
+  }
+]

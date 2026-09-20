@@ -1,0 +1,502 @@
+[
+  {
+    "n": 1,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2010,
+    "habla": "FEDERICO PINEDO",
+    "atribuida": "EDUARDO ALFREDO FELLNER [nombre]",
+    "mencion": "señor diputado Fellner — «nte se informaría día y hora de reanudación. Esto fue lo que dijo el señor diputado Fellner. De todas maneras en el medio hay un tema reglame»",
+    "veredicto": "correcta",
+    "motivo": "Eduardo Fellner, diputado en 2010 (leg. 128) y presidente de la Cámara; Pinedo resume lo que dijo en la sesión anterior."
+  },
+  {
+    "n": 2,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1985,
+    "habla": "[Sr. Conil Paz, sin identificar]",
+    "atribuida": "MAURICIO RICARDO GOMEZ BULL [tuvo escaño, antiguo]",
+    "mencion": "doctor Gómez — «No puedo asegurarle. Tanto al doctor Gómez como a mí nos perjudicaron.»",
+    "veredicto": "incorrecta",
+    "motivo": "Anexo (audiencias de la comisión Italo): es el brigadier Julio A. Gómez, ministro de Justicia 1976-1978 (filas +1 y +2: «¿Usted se está refiriendo al brigadier Gómez? —Así es»; https://es.wikipedia.org/wiki/Julio_Arnaldo_G%C3%B3mez); Gómez Bull solo tuvo escaño en 2013-2017."
+  },
+  {
+    "n": 3,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1987,
+    "habla": "JUAN CARLOS PUGLIESE",
+    "atribuida": "ANTONIO FRANCISCO CAFIERO [nombre]",
+    "mencion": "señor diputado Cafiero — «un período de bonanza o de unidad en la República. Señaló muy bien el señor diputado Cafiero que se produjo casi una guerra civil que costó cu»",
+    "veredicto": "correcta",
+    "motivo": "Antonio Cafiero, diputado 1985-1987, que había hablado antes en el debate (la guerra civil de 1880); Juan Pablo Cafiero no fue diputado hasta diciembre de 1989 (https://en.wikipedia.org/wiki/Juan_Pablo_Cafiero)."
+  },
+  {
+    "n": 4,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1985,
+    "habla": "[Secretario (Béjar), sin identificar]",
+    "atribuida": "ALBERTO SANTOS MELON [nombre]",
+    "mencion": "señor Santos — «sobre el tema en una conversación que mantuvo la semana pasada con el señor Santos. En esa misma conversación preguntó si para evita»",
+    "veredicto": "incorrecta",
+    "motivo": "Anexo (informe de la comisión Italo): «señor Santos» es un nombre en clave de documentos de 1978 (el propio informe apunta a Rodríguez Varela), no el diputado Alberto Santos Melón."
+  },
+  {
+    "n": 5,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2019,
+    "habla": "MARCO LAVAGNA",
+    "atribuida": "LUCIANO ANDRES LASPINA [nombre]",
+    "mencion": "diputado Laspina — «Señor presidente: en línea con lo que ha manifestado el diputado Laspina hace un instante, propongo que también se incorpo»",
+    "veredicto": "correcta",
+    "motivo": "Luciano Laspina habló dos filas antes y tenía escaño en 2019."
+  },
+  {
+    "n": 6,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1985,
+    "habla": "GUILLERMO ENRIQUE TELLO ROSAS",
+    "atribuida": "ALVARO CARLOS ALSOGARAY [nombre]",
+    "mencion": "diputado Alsogaray — «e aspecto. Para ello debo permitirme realizar algunas reflexiones. El diputado Alsogaray pregunta si vamos a entregar la documentación. ¿A»",
+    "veredicto": "correcta",
+    "motivo": "Álvaro Alsogaray (UCEDE) acaba de intervenir y Tello Rosas le contesta."
+  },
+  {
+    "n": 7,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1984,
+    "habla": "MIGUEL PEDRO MONSERRAT",
+    "atribuida": "OSCAR LUJAN FAPPIANO [nombre]",
+    "mencion": "señor diputado Fappiano — «El bloque intransigente apoya la candidatura del señor diputado Fappiano para el cargo de vicepresidente 2? de este honora»",
+    "veredicto": "correcta",
+    "motivo": "Oscar Fappiano, candidato a vicepresidente 2.º de la Cámara, al que apoyan varios bloques en esa misma votación."
+  },
+  {
+    "n": 8,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1989,
+    "habla": "LORENZO JUAN CORTESE",
+    "atribuida": "EUGENIO ALBERTO LESTELLE [nombre]",
+    "mencion": "señor diputado Lestelle — «Señor presidente: en realidad, el señor diputado Lestelle ha propuesto un nuevo artículo, de modo que deber»",
+    "veredicto": "correcta",
+    "motivo": "Eugenio Lestelle propuso el artículo y responde dos filas después."
+  },
+  {
+    "n": 9,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1989,
+    "habla": "JOSE LUIS MANZANO",
+    "atribuida": "ROBERTO OSVALDO IRIGOYEN [nombre]",
+    "mencion": "señor diputado Irigoyen — «ón alguna respecto de que el proyecto de resolución presentado por el señor diputado Irigoyen se trate junto coa los de los señoresdiputados La»",
+    "veredicto": "correcta",
+    "motivo": "Roberto Irigoyen acaba de pedir que su proyecto se trate con los otros dos (fila -2)."
+  },
+  {
+    "n": 10,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1987,
+    "habla": "TOMAS WALTHER GONZALEZ CABAÑAS",
+    "atribuida": "JORGE REINALDO VANOSSI [nombre]",
+    "mencion": "señor diputado Vanossí — « que nos dan en la implementación de una bella idea? Días pasados el señor diputado Vanossí sei Salaba que existía un ruido del hacer, y en l»",
+    "veredicto": "correcta",
+    "motivo": "Jorge Vanossi, diputado de la UCR en 1987, que presidió parte de esa misma sesión."
+  },
+  {
+    "n": 11,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1985,
+    "habla": "[Sr. Alejandro, sin identificar]",
+    "atribuida": "LORENZO JUAN CORTESE [apellido suelto]",
+    "mencion": "Lorenzo — «Italo Domingo Arturo, director administrativo de Italo, con el señor \"Lorenzo\". Este alias alude, sin hesitación, al as>:sor t»",
+    "veredicto": "incorrecta",
+    "motivo": "Anexo (documentos de la Italo): «señor \"Lorenzo\"» es un alias en clave de un asesor; el detector busca el nombre de pila de Lorenzo J. Cortese, no su apellido."
+  },
+  {
+    "n": 12,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1985,
+    "habla": "[Sr. González, sin identificar]",
+    "atribuida": "ALVARO CARLOS ALSOGARAY [apellido suelto]",
+    "mencion": "Alvaro — «to Alemann fueron: José Alfredo Martínez de Hoz, Luis María Gotelli, Alvaro Alsogaray y su hermano Roberto Teodoro Alemann. P»",
+    "veredicto": "correcta",
+    "motivo": "Anexo (testimonio): «Alvaro Alsogaray», testigo en un juicio de Juan Alemann, es el diputado Álvaro Alsogaray; acierta por casualidad, porque se buscó el nombre de pila."
+  },
+  {
+    "n": 13,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1985,
+    "habla": "[Sr. Alejandro, sin identificar]",
+    "atribuida": "JULIO CESAR CORZO [apellido suelto]",
+    "mencion": "Julio — «uez federal en lo criminal y correccional: Guillermo E. Tello Rosas, Julio César Aráoz, Marcelo Arabolaza, Miguel Srur, Héct»",
+    "veredicto": "incorrecta",
+    "motivo": "Anexo (denuncia penal firmada por la comisión): «Julio César Aráoz» es el diputado Aráoz, no Julio César Corzo; se buscó el nombre de pila «Julio»."
+  },
+  {
+    "n": 14,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1985,
+    "habla": "[Secretario (Béjar), sin identificar]",
+    "atribuida": "MIGUEL JORGE SERRALTA [apellido suelto]",
+    "mencion": "Miguel — «e septiembre de 1985. Guillermo E. Tello Rosas. — Julio C. Aráoz. — Miguel A. Srur. — Marcelo M. Arabolaza. — Miguel H. Medi»",
+    "veredicto": "incorrecta",
+    "motivo": "Anexo (firmas del informe): «Miguel A. Srur» es el diputado Srur, no Miguel J. Serralta; se buscó el nombre de pila «Miguel»."
+  },
+  {
+    "n": 15,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1985,
+    "habla": "[Sr. González, sin identificar]",
+    "atribuida": "JULIO CESAR ARAOZ [apellido suelto]",
+    "mencion": "Julio — «ca Argentina tendría que derogar el Acta de su Independencia del 9 de Julio de 1816 por cuanto quedaría documentado que es un»",
+    "veredicto": "incorrecta",
+    "motivo": "Anexo (testimonio): «9 de Julio de 1816» es una fecha; se buscó el nombre de pila de Julio César Aráoz."
+  },
+  {
+    "n": 16,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2018,
+    "habla": "ALEJANDRO ARIEL GRANDINETTI",
+    "atribuida": "CARLOS DANIEL CASTAGNETO [apellido suelto]",
+    "mencion": "Carlos — «Juan J. Bahillo. – Sergio O. Buil. – Javier Campos. – José M. Cano. – Carlos D. Castagneto. – Jorge R. Enríquez. – Gustavo R.»",
+    "veredicto": "correcta",
+    "motivo": "Dictamen inserto en la intervención (firmas): «Carlos D. Castagneto» es el diputado, con escaño en 2018; acierta por casualidad (nombre de pila seguido de su apellido)."
+  },
+  {
+    "n": 17,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1985,
+    "habla": "[Sr. Alejandro, sin identificar]",
+    "atribuida": "MIGUEL DANTE DOVENA [apellido suelto]",
+    "mencion": "Miguel — «y correccional federal: Guillermo E. Tello Rosas, julio César Aráoz, Miguel H Medina, Marcelo Arabolaza, Miguel Antonio Srur,»",
+    "veredicto": "incorrecta",
+    "motivo": "Anexo (denuncia penal): «Miguel H Medina» es el diputado Medina, no Miguel D. Dovena; se buscó el nombre de pila «Miguel»."
+  },
+  {
+    "n": 18,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2005,
+    "habla": "HORACIO FRANCISCO PERNASETTI",
+    "atribuida": "JORGE REINALDO VANOSSI [apellido suelto]",
+    "mencion": "Jorge — «iones, 15 de diciembre de 2004. Jorge L. Montoya. – Hugo D. Toledo. – Jorge M. A. Argüello. – Aída F. Maldonado. – Federico T»",
+    "veredicto": "incorrecta",
+    "motivo": "Dictamen inserto (firmas, 2004): «Jorge M. A. Argüello» es otro diputado, no Jorge R. Vanossi; se buscó el nombre de pila «Jorge»."
+  },
+  {
+    "n": 19,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1985,
+    "habla": "[Sr. Alejandro, sin identificar]",
+    "atribuida": "JULIO CESAR CORZO [apellido suelto]",
+    "mencion": "Julio — «ELA FUNDA RECURSO Señor juez federal: Guillermo Enrique Tello Rosas, Julio César Aráoz y Miguel Antonio Srur, en nuestro car»",
+    "veredicto": "incorrecta",
+    "motivo": "Anexo (recurso judicial de la comisión): «Julio César Aráoz», no Julio César Corzo; nombre de pila «Julio»."
+  },
+  {
+    "n": 20,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1985,
+    "habla": "[Sr. González, sin identificar]",
+    "atribuida": "JULIO CESAR ARAOZ [apellido suelto]",
+    "mencion": "Julio — «4 de junio de 1976, página 4. Que a raíz de este proceso los doctores Julio César Noaco y Luis Miguel Caballero fallecieron. »",
+    "veredicto": "incorrecta",
+    "motivo": "Anexo (testimonio): «Julio César Noaco», funcionario fallecido en los años setenta, no el diputado Aráoz; nombre de pila «Julio»."
+  },
+  {
+    "n": 21,
+    "categoria": "externa (con cargo o título)",
+    "anio": 1985,
+    "habla": "[Sr. Folcini, sin identificar]",
+    "atribuida": "EXT alejandro caride",
+    "mencion": "doctor Caride — «ás bienes, de acuerdo con algunas informaciones que había recibido el doctor Caride. Mis argumentos como director del Banco Central »",
+    "veredicto": "correcta",
+    "motivo": "Anexo (audiencia): Alejandro R. Caride, «negociador único» de la compra de la Italo; sin escaño."
+  },
+  {
+    "n": 22,
+    "categoria": "externa (con cargo o título)",
+    "anio": 1985,
+    "habla": "[Secretario (Béjar), sin identificar]",
+    "atribuida": "EXT guillermo zubaran",
+    "mencion": "doctor Zubarán — «Al leer la nota me hace recordar (que) al doctor Martínez de Hoz y al doctor Zubarán (se) les hizo presente la inconveniencia de que e»",
+    "veredicto": "correcta",
+    "motivo": "Anexo (informe): Guillermo Zubarán, ex secretario de Energía, como lo nombra el propio informe."
+  },
+  {
+    "n": 23,
+    "categoria": "externa (con cargo o título)",
+    "anio": 1985,
+    "habla": "MIGUEL ANTONIO SRUR",
+    "atribuida": "EXT arganaraz alcorta",
+    "mencion": "Doctor Argañaraz Alcorta — «Doctor Argañaraz Alcorta: ¿ratifica su declaración?»",
+    "veredicto": "correcta",
+    "motivo": "Anexo (audiencia): el testigo Rodolfo Argañaraz Alcorta, que responde en la fila siguiente; sin escaño."
+  },
+  {
+    "n": 24,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2025,
+    "habla": "NANCY VIVIANA PICÓN MARTÍNEZ",
+    "atribuida": "EXT libre",
+    "mencion": "Señora Libre — «ya mi mamá hace cuatro años atrás, cuando gobernaba el partido de la “Señora Libre”, no tenía para los remedios y nosotros, los hijo»",
+    "veredicto": "incorrecta",
+    "motivo": "«Señora Libre» no es un nombre: alusión irónica (el lema «Cristina libre»); la clave «libre» no identifica a ninguna persona."
+  },
+  {
+    "n": 25,
+    "categoria": "externa (con cargo o título)",
+    "anio": 1985,
+    "habla": "GUILLERMO ENRIQUE TELLO ROSAS",
+    "atribuida": "EXT miguel padilla",
+    "mencion": "doctor Padilla — «¿Usted habló de este tema alguna vez con el doctor Padilla?»",
+    "veredicto": "correcta",
+    "motivo": "Anexo (audiencia): Miguel Tobías Padilla, asesor del ministro de Economía (fila +2); la clave «miguel padilla» queda aparte de «miguel tobias padilla»."
+  },
+  {
+    "n": 26,
+    "categoria": "externa (con cargo o título)",
+    "anio": 1985,
+    "habla": "[Sr. Arturo, sin identificar]",
+    "atribuida": "EXT luis maria gotelli",
+    "mencion": "ingeniero Gotelli — « 1977 ó 1976, la presidencia de la compañía le pidió asesoramiento al ingeniero Gotelli, sobre todo en momentos en que se hacía difícil l»",
+    "veredicto": "correcta",
+    "motivo": "Anexo (audiencia): Luis María Gotelli, ex secretario de Energía y ministro de Obras Públicas (fila -2)."
+  },
+  {
+    "n": 27,
+    "categoria": "externa (con cargo o título)",
+    "anio": 1985,
+    "habla": "GUILLERMO ENRIQUE TELLO ROSAS",
+    "atribuida": "EXT sabas gracia nunez",
+    "mencion": "ingeniero Sabas Gracia Núñez — «nvió al señor director de la Dirección Nacional de Energía Eléctrica, ingeniero Sabas Gracia Núñez. Como en otros casos de fallas en equipos de gen»",
+    "veredicto": "correcta",
+    "motivo": "Documento inserto en la intervención: Sabas Gracia Núñez, director nacional de Energía Eléctrica en 1978; sin escaño."
+  },
+  {
+    "n": 28,
+    "categoria": "externa (con cargo o título)",
+    "anio": 1985,
+    "habla": "[Secretario (Béjar), sin identificar]",
+    "atribuida": "EXT martinez hoz zubaran",
+    "mencion": "doctor Martínez de Hoz — «e la nueva situación, punto 1.6., lo que provocó gran preocupación al doctor Martínez de Hoz. Le mencionó que conocía el clima de la comisión »",
+    "veredicto": "incorrecta",
+    "motivo": "Anexo (informe): la persona es José A. Martínez de Hoz, pero el nodo asignado es «Martínez de Hoz y Zubarán», que funde a dos personas (sale de «doctor Martínez de Hoz y Zubarán»)."
+  },
+  {
+    "n": 29,
+    "categoria": "externa (con cargo o título)",
+    "anio": 1985,
+    "habla": "[Sr. González, sin identificar]",
+    "atribuida": "EXT jorge rafael videla",
+    "mencion": "general Videla — «ñor Caride. Debo relatar que un día, el entonces presidente de facto, general Videla, fue un día a un pueblo de Catamarca o de La Rioj»",
+    "veredicto": "correcta",
+    "motivo": "Anexo (testimonio): Jorge Rafael Videla, presidente de facto en 1978."
+  },
+  {
+    "n": 30,
+    "categoria": "externa (con cargo o título)",
+    "anio": 1985,
+    "habla": "[Sr. Caride, sin identificar]",
+    "atribuida": "EXT bayon",
+    "mencion": "general Bayón — «rno y recuerdo que estaban los secretarios de las fuerzas armadas: el general Bayón por el Ejército —que era el segundo o el alterno,»",
+    "veredicto": "correcta",
+    "motivo": "Anexo (testimonio de Caride): el general Bayón, secretario del Ejército en esa reunión (Bayón, Juan Manuel, en la nómina de testigos); clave de apellido, pero la persona es esa."
+  },
+  {
+    "n": 31,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2005,
+    "habla": "[Secretario (Rollano), sin identificar]",
+    "atribuida": "EXT hugo ramon cettour",
+    "mencion": "señor diputado Cettour — « el personal docente (expediente 5.576-D.-2004). Proyecto de ley del señor diputado Cettour y otros sobre Código Internacional para la Protec»",
+    "veredicto": "incorrecta",
+    "motivo": "Lista de preferencias leída por Secretaría: Hugo R. Cettour era diputado en julio de 2005 (figura en la nómina de diputados de la cabecera de esa sesión y firma dictámenes); debió resolverse como miembro."
+  },
+  {
+    "n": 32,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2025,
+    "habla": "CECILIA MOREAU",
+    "atribuida": "EXT gabriel bornoroni",
+    "mencion": "diputado Bornoroni — «ión de fondo. En esta primera discusión y votación, si la moción del diputado Bornoroni sale aprobada, lo que se está haciendo es acompañ»",
+    "veredicto": "incorrecta",
+    "motivo": "Gabriel Bornoroni era diputado en diciembre de 2025 (interviene en esa sesión); sin partido en oradores.json para la leg. 143, el detector no le da escaño."
+  },
+  {
+    "n": 33,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2025,
+    "habla": "[Sr. Rossi, sin identificar]",
+    "atribuida": "EXT gabriel bornoroni",
+    "mencion": "Bornoroni — «l! ¡Tramposos! ¡Tendrías que renunciar vos como presidente de bloque, Bornoroni, por bruto! - Varios señores diputados hablan a »",
+    "veredicto": "incorrecta",
+    "motivo": "Bornoroni, presidente del bloque LLA y diputado en ejercicio (habla tres filas antes); debió ser miembro."
+  },
+  {
+    "n": 34,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 1985,
+    "habla": "[Sr. Arturo, sin identificar]",
+    "atribuida": "EXT enrique roberto castro molina",
+    "mencion": "almirante Castro — «marzo por el almirante Dan. Nos cita en las oficinas de su colega, el almirante Castro. A esa reunión concurrimos el ingeniero Kurlat y »",
+    "veredicto": "incorrecta",
+    "motivo": "Anexo (audiencia): «el almirante Castro» es un oficial de la Armada en 1976, no Enrique R. Castro Molina, diputado por San Juan en 2015-2016."
+  },
+  {
+    "n": 35,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2025,
+    "habla": "ALVARO MARTINEZ",
+    "atribuida": "EXT lisandro almiron",
+    "mencion": "diputado Almirón — «ncorporando una cantidad de iniciativas que son justamente las que el diputado Almirón comunicó para la provincia de Corrientes, pero ha»",
+    "veredicto": "incorrecta",
+    "motivo": "Lisandro Almirón era diputado por Corrientes en diciembre de 2025 (intervenciones en leg. 141-143, sin partido); debió ser miembro."
+  },
+  {
+    "n": 36,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 1985,
+    "habla": "GUILLERMO ENRIQUE TELLO ROSAS",
+    "atribuida": "EXT enrique roberto castro molina",
+    "mencion": "almirante Castro — «ted haber participado de una reunión con el ingeniero Vicien y con el almirante Castro antes del 24 de marzo de 1976?»",
+    "veredicto": "incorrecta",
+    "motivo": "Anexo (audiencia): almirante de la Armada en 1976, no el diputado Castro Molina (2015-2016)."
+  },
+  {
+    "n": 37,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 1985,
+    "habla": "[Sr. Taccone, sin identificar]",
+    "atribuida": "EXT adrian san martin",
+    "mencion": "General San Martín — «Por ejemplo, recuerdo una cooperativa como la Clife, en el partido de General San Martín, en la época de la década infame. ¿Qué hicieron i»",
+    "veredicto": "incorrecta",
+    "motivo": "Anexo (testimonio): «el partido de General San Martín» es un lugar; atribuido al diputado Adrián San Martín (2014)."
+  },
+  {
+    "n": 38,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2025,
+    "habla": "SILVANA MYRIAM GIUDICI",
+    "atribuida": "EXT gabriel bornoroni",
+    "mencion": "diputado Bornoroni — «iscursos políticos! Corresponde que pasemos a votación la moción del diputado Bornoroni, señor presidente. (Aplausos.)»",
+    "veredicto": "incorrecta",
+    "motivo": "Bornoroni, diputado en ejercicio (su moción se vota en esa misma sesión); debió ser miembro."
+  },
+  {
+    "n": 39,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 1985,
+    "habla": "[Secretario (Béjar), sin identificar]",
+    "atribuida": "EXT enrique roberto castro molina",
+    "mencion": "almirante Castro — «punto nos • permitimos añadir que hace unos días nuestro director, el almirante Castro, tuvo ; oportunidad de comentar con el ministro d»",
+    "veredicto": "incorrecta",
+    "motivo": "Anexo (carta de la Italo en el informe): «nuestro director, el almirante Castro» es un marino directivo de la compañía, no Castro Molina."
+  },
+  {
+    "n": 40,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2025,
+    "habla": "VICTORIA TOLOSA PAZ",
+    "atribuida": "EXT julia strada",
+    "mencion": "diputada Strada — «Señor presidente: la diputada Strada ha sido muy contundente en lo que viene a manifes»",
+    "veredicto": "incorrecta",
+    "motivo": "Julia Strada, diputada en ejercicio que habla dos filas antes; debió ser miembro."
+  },
+  {
+    "n": 41,
+    "categoria": "externa (apellido suelto)",
+    "anio": 1985,
+    "habla": "[Sr. Massera, sin identificar]",
+    "atribuida": "EXT cerqueiro",
+    "mencion": "Cerqueiro — «a. Creo que hubo una confusión porque usted me preguntaba por Lépera. Cerqueiro era un delegado de la Armada en esta comisión. Er»",
+    "veredicto": "correcta",
+    "motivo": "Anexo (audiencia a Massera): capitán de navío Cerqueiro, delegado de la Armada en la comisión negociadora."
+  },
+  {
+    "n": 42,
+    "categoria": "externa (apellido suelto)",
+    "anio": 1985,
+    "habla": "[Sr. Santángelo, sin identificar]",
+    "atribuida": "EXT alejandro r caride",
+    "mencion": "Caride — «Comodoro Torea Paz, Caride.»",
+    "veredicto": "correcta",
+    "motivo": "Anexo (audiencia): Caride entre los asistentes a una reunión; es Alejandro R. Caride."
+  },
+  {
+    "n": 43,
+    "categoria": "externa (apellido suelto)",
+    "anio": 1985,
+    "habla": "[Sr. Martínez de Hoz, sin identificar]",
+    "atribuida": "EXT sadi massue",
+    "mencion": "Massué — « invitar a su despacho al ingeniero Bronstein. En el dictamen de Sadi Massué leí que hubo una reunión con el ingeniero Bronste»",
+    "veredicto": "correcta",
+    "motivo": "Anexo (audiencia a Martínez de Hoz): Sadi Massüe, autor del dictamen citado; sin escaño."
+  },
+  {
+    "n": 44,
+    "categoria": "externa (apellido suelto)",
+    "anio": 1985,
+    "habla": "[Secretario (Béjar), sin identificar]",
+    "atribuida": "EXT alejandro r caride",
+    "mencion": "Caride — «e da lugar al decreto 3.835. 22/12/1977, decreto 3.835, designando a Caride. 2/6/78, pre-acuerdo logrado por Caride. 10/6/7»",
+    "veredicto": "correcta",
+    "motivo": "Anexo (informe): cronología del decreto 3.835/77, que designa negociador a Alejandro R. Caride."
+  },
+  {
+    "n": 45,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2025,
+    "habla": "ALVARO MARTINEZ",
+    "atribuida": "EXT cristina fernandez kirchner",
+    "mencion": "Kirchner — «…es la cantidad de veces que le confirmaron la condena a Cristina Kirchner, pero tampoco sé si se refieren a eso. (Aplausos.»",
+    "veredicto": "correcta",
+    "motivo": "«Cristina Kirchner» en 2025: Cristina Fernández de Kirchner; al diputado Máximo Kirchner se le nombra aparte («diputado Kirchner»)."
+  },
+  {
+    "n": 46,
+    "categoria": "externa (apellido suelto)",
+    "anio": 1987,
+    "habla": "ERASMO ALFREDO GOTI",
+    "atribuida": "EXT juan alemann buenos aires",
+    "mencion": "Aires — «ubre de 1880 se enviara al Honorable Senado de la provincia de Buenos Aires, con la firma del presidente Avellaneda y del ent»",
+    "veredicto": "incorrecta",
+    "motivo": "«Buenos Aires» (la provincia): «Aires» se toma como apellido del nodo erróneo «JUAN ALEMANN Buenos Aires», nacido de la cabecera de una carta."
+  },
+  {
+    "n": 47,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2025,
+    "habla": "[Sr. Molina, sin identificar]",
+    "atribuida": "EXT javier milei",
+    "mencion": "Milei — « es de las provincias, no se ejecuta -como pasó en estos dos años con Milei-, es deuda exigible. Le tienen miedo a eso. Si de»",
+    "veredicto": "correcta",
+    "motivo": "Javier Milei, presidente de la Nación en 2025."
+  },
+  {
+    "n": 48,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2018,
+    "habla": "FERNANDO ADOLFO IGLESIAS",
+    "atribuida": "EXT arturo illia",
+    "mencion": "Illia — «os que se dieron contra los presidentes no peronistas, como Frondizi, Illia, Alfonsín y De la Rúa. (Aplausos.) Soy un orgullo»",
+    "veredicto": "correcta",
+    "motivo": "Arturo Illia, en una enumeración de presidentes no peronistas derrocados."
+  },
+  {
+    "n": 49,
+    "categoria": "externa (apellido suelto)",
+    "anio": 1985,
+    "habla": "GUILLERMO ENRIQUE TELLO ROSAS",
+    "atribuida": "EXT jose rogelio villarreal",
+    "mencion": "Villarreal — «¿Villarreal o Gómez?»",
+    "veredicto": "correcta",
+    "motivo": "Anexo (audiencia): el general José Rogelio Villarreal, secretario general de la Presidencia, que envió la nota (fila +1)."
+  },
+  {
+    "n": 50,
+    "categoria": "externa (apellido suelto)",
+    "anio": 1985,
+    "habla": "[Sr. Vercellana, sin identificar]",
+    "atribuida": "EXT juan domingo vercellana",
+    "mencion": "Vercellana — «ndo la hora 10 y 25, comparece a esta comisión el sefior Juan Domingo Vercellana a prestar declaración testimonial.»",
+    "veredicto": "correcta",
+    "motivo": "Anexo (acta de la comisión): el testigo Juan Domingo Vercellana."
+  }
+]

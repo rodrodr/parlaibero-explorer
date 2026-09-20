@@ -1,0 +1,502 @@
+[
+  {
+    "n": 1,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2025,
+    "habla": "ANDRÉS ARIEL ROBLES BARRANTES",
+    "atribuida": "PILAR CISNEROS GALLO [nombre, se dirige]",
+    "mencion": "diputada Cisneros · «ue es que sí lo ha apoyado, pero no, no vota para respaldarlo. Sabe, diputada Cisneros, ni una sola vez he visto al presidente Chaves at»",
+    "veredicto": "correcta",
+    "motivo": "Se dirige a Pilar Cisneros Gallo (PPSD, 2022-2026), que acaba de intervenir; única Cisneros con escaño."
+  },
+  {
+    "n": 2,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1995,
+    "habla": "RAFAEL ÁNGEL VILLALTA FERNÁNDEZ",
+    "atribuida": "ROLANDO GONZÁLEZ ULLOA [nombre]",
+    "mencion": "don Rolando González · «les desconocidos en la historia estadística de este país\", es decir, don Rolando González reconoce oficialmente la debacle en que se mueve »",
+    "veredicto": "correcta",
+    "motivo": "Rolando González Ulloa, diputado del PLN en 1994-1998 y nuevo secretario general del partido; único Rolando con escaño."
+  },
+  {
+    "n": 3,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2004,
+    "habla": "JOSÉ MIGUEL CORRALES BOLAÑOS",
+    "atribuida": "RODOLFO DELGADO VALVERDE [nombre]",
+    "mencion": "Don Rodolfo · «a Rica, son verdaderamente pasmosas. Cuando le digo a don Rodolfo: “Don Rodolfo, ¿cómo es posible que su Cartera se haya pronunci»",
+    "veredicto": "incorrecta",
+    "motivo": "«Don Rodolfo, ¿cómo es posible que su Cartera…?» es el ministro de Transportes Rodolfo Méndez Mata, nombrado completo antes en la misma intervención; no el diputado Rodolfo Delgado Valverde."
+  },
+  {
+    "n": 4,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2013,
+    "habla": "LUIS FERNANDO MENDOZA JIMÉNEZ",
+    "atribuida": "OFELIA TAITELBAUM YOSELEWICH [nombre, se dirige]",
+    "mencion": "doña Ofelia Taitelbaum Yoselewich · « Sotomayor Aguilar acompañar a la señora defensora de los habitantes, doña Ofelia Taitelbaum Yoselewich, y el señor defensor adjunto de los habitantes y »",
+    "veredicto": "incorrecta",
+    "motivo": "En 2013 Ofelia Taitelbaum era defensora de los habitantes (así la presenta el texto) y no tenía escaño; su fila de 2010-2014 en oradores son 2 intervenciones del 2010-05-06, sesión con diputados de 2006-2010. Debió ser antigua miembro."
+  },
+  {
+    "n": 5,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2013,
+    "habla": "CARMEN MARÍA GRANADOS FERNÁNDEZ",
+    "atribuida": "JOSÉ MARÍA VILLALTA FLOREZ ESTRADA [nombre]",
+    "mencion": "don José María Villalta · «ego nosotros enviamos al diputado Gustavo Arias, don Walter Céspedes, don José María Villalta y esta diputada un recordatorio de esta moción po»",
+    "veredicto": "correcta",
+    "motivo": "José María Villalta Flórez-Estrada (FA, 2010-2014), destinatario con la oradora del recordatorio de la moción."
+  },
+  {
+    "n": 6,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2013,
+    "habla": "MIREYA ZAMORA ALVARADO",
+    "atribuida": "LUIS FERNANDO MENDOZA JIMÉNEZ [nombre]",
+    "mencion": "presidente Luis Fernando Mendoza Jiménez · «ndo Mendoza Jiménez: 85 Diputada Rita Gabriela Chaves Casanova: 85 El presidente Luis Fernando Mendoza Jiménez: 86 Diputado Carlos Luis Avendaño Calvo: 86 El pr»",
+    "veredicto": "correcta",
+    "motivo": "Luis Fernando Mendoza Jiménez, presidente de la Asamblea en 2013; es una línea del sumario del acta, no discurso."
+  },
+  {
+    "n": 7,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2019,
+    "habla": "XIOMARA PRISCILLA RODRÍGUEZ HERNÁNDEZ",
+    "atribuida": "LUIS RAMÓN CARRANZA CASCANTE [nombre]",
+    "mencion": "diputado Carranza · « información. Y si quieren saber qué necesitamos, y ahí estoy con el diputado Carranza, no es justo y no se vale, y yo le voy a decir qu»",
+    "veredicto": "correcta",
+    "motivo": "Luis Ramón Carranza Cascante (PAC, 2018-2022), único Carranza con escaño."
+  },
+  {
+    "n": 8,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2017,
+    "habla": "OTTÓN SOLÍS FALLAS",
+    "atribuida": "LAURA CHINCHILLA MIRANDA [otra legislatura]",
+    "mencion": "doña Laura Chinchilla · «gasto se incrementó en quince punto ocho por ciento por año, en el de doña Laura Chinchilla en tres punto nueve por ciento por año y en el de»",
+    "veredicto": "correcta",
+    "motivo": "Laura Chinchilla Miranda, diputada en 2002-2006 y expresidenta; sin escaño en 2017 y marcada como antigua (otra legislatura), que es lo correcto."
+  },
+  {
+    "n": 9,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1995,
+    "habla": "OTTÓN SOLÍS FALLAS",
+    "atribuida": "MARÍA LIDYA SÁNCHEZ VALVERDE [nombre]",
+    "mencion": "Diputada Sánchez Valverde · «Quiero decir que las palabras de la Diputada Sánchez Valverde reflejan mucho el sentir que desearía expresar en»",
+    "veredicto": "correcta",
+    "motivo": "María Lidya Sánchez Valverde (PLN, 1994-1998), que interviene justo antes."
+  },
+  {
+    "n": 10,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2008,
+    "habla": "FRANCISCO ANTONIO PACHECO FERNÁNDEZ",
+    "atribuida": "MAYI ANTILLÓN GUERRERO [nombre]",
+    "mencion": "Dip. Mayi Antillón Guerrero · «spetuosamente. Dip. Jorge Méndez Zamora Dip. Gilberto Jerez Rojas Dip. Mayi Antillón Guerrero Presidenta Comisión Especial Investigadora de la »",
+    "veredicto": "correcta",
+    "motivo": "Firma de Mayi Antillón Guerrero (PLN, 2006-2010), presidenta de la comisión, en una nota leída en el plenario."
+  },
+  {
+    "n": 11,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2007,
+    "habla": "FRANCISCO ANTONIO PACHECO FERNÁNDEZ",
+    "atribuida": "JOSÉ MANUEL ECHANDI MEZA [apellido suelto]",
+    "mencion": "José · «el diputado José Rosales Obando, que a continuación se detalla.) San José, 15 de marzo de 2007 Señor Francisco Antonio Pac»",
+    "veredicto": "incorrecta",
+    "motivo": "«San José, 15 de marzo de 2007»: membrete de una nota. El detector busca «José», nombre de pila de Echandi, en lugar de su apellido."
+  },
+  {
+    "n": 12,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2008,
+    "habla": "JOSÉ MANUEL ECHANDI MEZA",
+    "atribuida": "CARLOS LUIS AVENDAÑO CALVO [apellido suelto]",
+    "mencion": "Carlos · «aldera, esperando ya, creo que treinta años, para tener una vía a San Carlos que, también, no se sabe qué va suceder, si los t»",
+    "veredicto": "incorrecta",
+    "motivo": "«una vía a San Carlos»: el cantón. Se busca «Carlos», nombre de pila de Avendaño."
+  },
+  {
+    "n": 13,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2015,
+    "habla": "ARACELLI SEGURA RETANA",
+    "atribuida": "CARLOS LUIS AVENDAÑO CALVO [apellido suelto]",
+    "mencion": "Carlos · «n Carlos y también viene a ser un problema con lo de la carretera San Carlos-San Ramón. Esto, les voy a decir algo, es un pro»",
+    "veredicto": "incorrecta",
+    "motivo": "«la carretera San Carlos-San Ramón»: lugar. Además, Avendaño no tenía escaño en 2014-2018 (se le supone por tenerlo antes y después)."
+  },
+  {
+    "n": 14,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2008,
+    "habla": "FRANCISCO ANTONIO PACHECO FERNÁNDEZ",
+    "atribuida": "JOSÉ MERINO DEL RIO [apellido suelto]",
+    "mencion": "José · «stitución temporal en la Comisión Permanente Especial de Turismo San José, 16 junio de 2008 Señor Francisco Antonio Pachec»",
+    "veredicto": "incorrecta",
+    "motivo": "«Turismo San José, 16 junio de 2008»: membrete. Se busca «José», nombre de pila de Merino."
+  },
+  {
+    "n": 15,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2008,
+    "habla": "CLARA SILVIA ZOMER REZLER",
+    "atribuida": "CARLOS FEDERICO TINOCO CARMONA [apellido suelto]",
+    "mencion": "Carlos · « También se ha restablecido el ritmo de trabajo en la carretera a San Carlos en la sección Sifón–La Abundancia, la cual ya pre»",
+    "veredicto": "incorrecta",
+    "motivo": "«la carretera a San Carlos»: lugar. Se busca «Carlos», nombre de pila de Tinoco."
+  },
+  {
+    "n": 16,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2012,
+    "habla": "RITA GABRIELA CHAVES CASANOVA",
+    "atribuida": "JOSÉ MERINO DEL RIO [apellido suelto]",
+    "mencion": "José · « a continuación se detalla.) Comisión Especial de Nombramientos San José, 30 de octubre del 2012 ML-CGF-EA-232-10-2012 S»",
+    "veredicto": "incorrecta",
+    "motivo": "«San José, 30 de octubre del 2012»: membrete. Merino tampoco tenía escaño en 2010-2014 (su fila de esa legislatura es de la sesión del 2010-05-06)."
+  },
+  {
+    "n": 17,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2005,
+    "habla": "DAISY SERRANO VARGAS",
+    "atribuida": "JOSÉ MERINO DEL RIO [apellido suelto]",
+    "mencion": "José · « de la Asamblea: Nota SP-208-05 de la Corte Suprema de Justicia “San José, 6 de setiembre del 2005 NºSP-208-05 “Señor Gera»",
+    "veredicto": "incorrecta",
+    "motivo": "«San José, 6 de setiembre del 2005»: membrete de una nota de la Corte. Merino no tenía escaño en 2002-2006 (se le supone por tenerlo antes y después)."
+  },
+  {
+    "n": 18,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2008,
+    "habla": "RAFAEL ELÍAS MADRIGAL BRENES",
+    "atribuida": "CARLOS LUIS AVENDAÑO CALVO [apellido suelto]",
+    "mencion": "Carlos · «ierto, como es el caso de la zona de Cutris, mina Las Crucitas de San Carlos, o como los débiles controles estatales para evit»",
+    "veredicto": "incorrecta",
+    "motivo": "«mina Las Crucitas de San Carlos»: lugar."
+  },
+  {
+    "n": 19,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2008,
+    "habla": "HILDA GONZÁLEZ RAMÍREZ",
+    "atribuida": "JOSÉ MERINO DEL RIO [apellido suelto]",
+    "mencion": "José · «talla.) Comisión Permanente Especial de Ingreso y Gasto Público San José, 02 de septiembre de 2008 PAC-JF-152-08/09 Dip»",
+    "veredicto": "incorrecta",
+    "motivo": "«Ingreso y Gasto Público San José, 02 de septiembre de 2008»: membrete."
+  },
+  {
+    "n": 20,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2013,
+    "habla": "JOSÉ MARÍA VILLALTA FLOREZ ESTRADA",
+    "atribuida": "JOSÉ MANUEL ECHANDI MEZA [apellido suelto]",
+    "mencion": "José · «propiedad en… sobre todo en las provincias de Alajuela, Cartago y San José mucho menos, pero sobre todo Alajuela y Cartago. »",
+    "veredicto": "incorrecta",
+    "motivo": "«las provincias de Alajuela, Cartago y San José»: provincia. Echandi no tenía escaño en 2010-2014 (fila del 2010-05-06)."
+  },
+  {
+    "n": 21,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2002,
+    "habla": "JOSÉ MIGUEL CORRALES BOLAÑOS",
+    "atribuida": "EXT zeledon zeledon",
+    "mencion": "señor magistrado Zeledón Zeledón · «creto hicieron algunos jueces de la República. La denuncia contra el señor magistrado Zeledón Zeledón fue respaldada por un juez superior de lo agrario»",
+    "veredicto": "correcta",
+    "motivo": "Ricardo Zeledón Zeledón, magistrado de la Sala Primera (ponente de una sentencia de 20-11-2002: https://vlex.co.cr/vid/-498503462); sin escaño."
+  },
+  {
+    "n": 22,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2005,
+    "habla": "JUAN JOSÉ VARGAS FALLAS",
+    "atribuida": "EXT estructural",
+    "mencion": "Fiscal Estructural · «cial 208 bis para el expediente 15.516, Ley de Pacto Fiscal y Reforma Fiscal Estructural, se revise la votación recaída sobre la moción de»",
+    "veredicto": "incorrecta",
+    "motivo": "«Ley de Pacto Fiscal y Reforma Fiscal Estructural»: título de una ley; «fiscal» es adjetivo y «Estructural» no es una persona."
+  },
+  {
+    "n": 23,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2005,
+    "habla": "JUAN JOSÉ VARGAS FALLAS",
+    "atribuida": "EXT concepto monto",
+    "mencion": "SR.  CONCEPTO  MONTO · «en la forma que se indica a continuación: // AUMENTAR // C.G.S.S.R.SR. CONCEPTO MONTO // 2 0 0 0 0 00 00 Ingresos de capital 26,239,»",
+    "veredicto": "incorrecta",
+    "motivo": "«C.G.S.S.R.SR. CONCEPTO MONTO»: cabecera de una tabla del presupuesto; no es una persona."
+  },
+  {
+    "n": 24,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2004,
+    "habla": "CARLOS HERRERA CALVO",
+    "atribuida": "EXT jose maria lemus",
+    "mencion": "Coronel José María Lemus · «a cual trasladará prendas personales del Expresidente de El Salvador, Coronel José María Lemus, desde Costa Rica hacia el Museo Militar Salvador»",
+    "veredicto": "correcta",
+    "motivo": "José María Lemus, teniente coronel y presidente de El Salvador en 1956-1960 (https://en.wikipedia.org/wiki/José_María_Lemus)."
+  },
+  {
+    "n": 25,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2013,
+    "habla": "XINIA MARÍA ESPINOZA ESPINOZA",
+    "atribuida": "EXT fernando marin",
+    "mencion": "señor Fernando Marín · «sanitarios. De igual forma, he mantenido comunicación escrita con el señor Fernando Marín, Ministro de Bienestar Social, solicitando que re»",
+    "veredicto": "correcta",
+    "motivo": "Fernando Marín Rojas, ministro de Bienestar Social en 2010-2014 (https://www.teletica.com/nacional/fallece-fernando-marin-rojas-medico-y-exministro-que-impulso-los-ebais_403619)."
+  },
+  {
+    "n": 26,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2007,
+    "habla": "ÓSCAR LÓPEZ",
+    "atribuida": "EXT jorge woodbridge gonzalez",
+    "mencion": "don Jorge Woodbridge · «ñeros diputados, pero a mí me preocupa que ese plan regulador lo hizo don Jorge Woodbridge, siendo... no siendo... siendo un empresario, y a»",
+    "veredicto": "correcta",
+    "motivo": "Jorge Woodbridge González, viceministro de Economía (La Gaceta de 28-3-2007: https://www.imprentanacional.go.cr/pub/2007/03/28/COMP_28_03_2007.html); sin escaño."
+  },
+  {
+    "n": 27,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2013,
+    "habla": "CARLOS LUIS AVENDAÑO CALVO",
+    "atribuida": "EXT omar dengo",
+    "mencion": "don Omar Dengo · «n, por ello hoy como nuca antes cobran enorme validez las palabras de don Omar Dengo, cuando decía (abro comillas): “No hay que volar »",
+    "veredicto": "correcta",
+    "motivo": "Omar Dengo (1888-1928), educador; figura histórica sin escaño (https://en.wikipedia.org/wiki/Omar_Dengo)."
+  },
+  {
+    "n": 28,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2025,
+    "habla": "PAULINA MARÍA RAMÍREZ PORTUGUEZ",
+    "atribuida": "EXT eugenia zamora",
+    "mencion": "señora magistrada doña Eugenia · « Elecciones, estamos los y las costarricenses ante este ataque con la señora magistrada doña Eugenia. Estamos cansados, cansados de la corrupción que»",
+    "veredicto": "correcta",
+    "motivo": "Eugenia Zamora Chavarría, presidenta del TSE desde 2021 (https://es.wikipedia.org/wiki/Eugenia_Zamora_Chavarría); la clave «eugenia» se une bien a «eugenia zamora»."
+  },
+  {
+    "n": 29,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2008,
+    "habla": "ALBERTO LUIS SALOM ECHEVERRÍA",
+    "atribuida": "EXT federico sosto",
+    "mencion": "magistrado Sosto · « estado hablando sobre el tema de la Adjudicatura, y ayer renunció el magistrado Sosto. Yo quería dejar constancia en esta Asamblea Leg»",
+    "veredicto": "correcta",
+    "motivo": "Federico Sosto, magistrado suplente de la Sala IV que renunció el 1-9-2008 (https://www.nacion.com/el-pais/federico-sosto-renuncio-a-magistratura-de-sala-lv/W4HDMGFDSVEP3MBXE4K5SM7T5Y/story/)."
+  },
+  {
+    "n": 30,
+    "categoria": "externa (con cargo o título)",
+    "anio": 1997,
+    "habla": "ALEJANDRO CHAVEZ OVARES",
+    "atribuida": "EXT marcos vargas",
+    "mencion": "don Marcos Vargas · «a de ponerse de acuerdo. No. Le pido, señor Presidente, que llame a don Marcos Vargas o a don José María Figueres, y que, responsableme»",
+    "veredicto": "correcta",
+    "motivo": "Marco Vargas Díaz, ministro de la Presidencia de 1996 a 1998 (https://es.wikipedia.org/wiki/Anexo:Ministros_de_la_Presidencia_de_Costa_Rica); el acta escribe «Marcos»."
+  },
+  {
+    "n": 31,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2007,
+    "habla": "ALEXANDER MORA MORA",
+    "atribuida": "EXT carlos manuel gutierrez gomez",
+    "mencion": "DIPUTADO CARLOS MANUEL GUTIÉRREZ GÓMEZ · «ORALES DÍAZ: 26 EL PRESIDENTE FRANCISCO ANTONIO PACHECO FERNÁNDEZ: 26 DIPUTADO CARLOS MANUEL GUTIÉRREZ GÓMEZ: 26 EL PRESIDENTE FRANCISCO ANTONIO PACHECO FERNÁ»",
+    "veredicto": "incorrecta",
+    "motivo": "Carlos Manuel Gutiérrez Gómez era diputado en 2006-2010 (1317 intervenciones); sale como externa porque su fila de oradores tiene el partido vacío. Es una línea del sumario del acta."
+  },
+  {
+    "n": 32,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2009,
+    "habla": "MAUREEN PATRICIA BALLESTERO VARGAS",
+    "atribuida": "EXT carlos manuel gutierrez gomez",
+    "mencion": "diputado Gutiérrez Gómez · «Diputado Quirós Lara, tiene la palabra en el orden..., en el tiempo diputado Gutiérrez Gómez.»",
+    "veredicto": "incorrecta",
+    "motivo": "El mismo diputado, que acaba de ceder su tiempo en esa sesión; debió resolverse como miembro con escaño."
+  },
+  {
+    "n": 33,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2007,
+    "habla": "ALEXANDER MORA MORA",
+    "atribuida": "EXT carlos manuel gutierrez gomez",
+    "mencion": "DIPUTADO CARLOS MANUEL GUTIÉRREZ GÓMEZ · «ÉRREZ GÓMEZ: 26 EL PRESIDENTE FRANCISCO ANTONIO PACHECO FERNÁNDEZ: 28 DIPUTADO CARLOS MANUEL GUTIÉRREZ GÓMEZ: 28 EL PRESIDENTE FRANCISCO ANTONIO PACHECO FERNÁ»",
+    "veredicto": "incorrecta",
+    "motivo": "Como el 31: diputado en 2006-2010, en el sumario del acta."
+  },
+  {
+    "n": 34,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 1997,
+    "habla": "SAÚL WEISLEDER WEISLEDER",
+    "atribuida": "EXT juan bosco acevedo hurtado",
+    "mencion": "Don Bosco · « renta el monto de su contribución a la Asociación Oratorio Salesiano Don Bosco. En discusión el proyecto Autorización a las ins»",
+    "veredicto": "incorrecta",
+    "motivo": "«Asociación Oratorio Salesiano Don Bosco»: institución con el nombre del santo, no el exdiputado Juan Bosco Acevedo Hurtado."
+  },
+  {
+    "n": 35,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2009,
+    "habla": "ALBERTO LUIS SALOM ECHEVERRÍA",
+    "atribuida": "EXT carlos manuel gutierrez gomez",
+    "mencion": "diputado Carlos Manuel Gutiérrez · «, señora Presidenta, para… quisiera dar fe de lo que está diciendo el diputado Carlos Manuel Gutiérrez y mi compañera diputada Grettel Ortiz que también»",
+    "veredicto": "incorrecta",
+    "motivo": "Carlos Manuel Gutiérrez, diputado en 2009, que habla justo antes en la misma sesión; debió ser miembro."
+  },
+  {
+    "n": 36,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2008,
+    "habla": "ALBERTO LUIS SALOM ECHEVERRÍA",
+    "atribuida": "EXT rodrigo alberto gutierrez saenz",
+    "mencion": "doctor Gutiérrez Sáenz · «ialmente la comunidad del asentamiento de Jerusalén, es como diría el doctor Gutiérrez Sáenz, Rodrigo Gutiérrez Sáenz, parte de la Costa Rica »",
+    "veredicto": "correcta",
+    "motivo": "Rodrigo Gutiérrez Sáenz, médico, diputado de Pueblo Unido en 1990-1994 (https://anep.cr/rodrigo-gutierrez/); sin escaño en 2008."
+  },
+  {
+    "n": 37,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2009,
+    "habla": "ÓSCAR LÓPEZ",
+    "atribuida": "EXT carlos manuel gutierrez gomez",
+    "mencion": "don Carlos Gutiérrez · «Liberación Nacional, doña Ofelia Taitelbaum, gran amiga nuestra, dice don Carlos Gutiérrez, y yo le secundo esa moción, claro que sí, una gr»",
+    "veredicto": "incorrecta",
+    "motivo": "«don Carlos Gutiérrez», diputado en 2009; debió ser miembro."
+  },
+  {
+    "n": 38,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2009,
+    "habla": "MARIO ENRIQUE QUIRÓS LARA",
+    "atribuida": "EXT carlos manuel gutierrez gomez",
+    "mencion": "diputado Gutiérrez Gómez · «Gracias diputado Gutiérrez Gómez. Tenemos, la verdad, en trámite una reforma cons»",
+    "veredicto": "incorrecta",
+    "motivo": "Quirós Lara agradece al diputado Gutiérrez Gómez, que le cedió su tiempo; debió ser miembro."
+  },
+  {
+    "n": 39,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2008,
+    "habla": "ÓSCAR LÓPEZ",
+    "atribuida": "EXT carlos manuel gutierrez gomez",
+    "mencion": "don Carlos Gutiérrez · « y diputados sensibles a estos temas, como el querido “Charlie Guti”, don Carlos Gutiérrez, y otras señoras y otros diputados. Ojalá que pu»",
+    "veredicto": "incorrecta",
+    "motivo": "«el querido “Charlie Guti”, don Carlos Gutiérrez», diputado en 2008; debió ser miembro."
+  },
+  {
+    "n": 40,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2007,
+    "habla": "ALEXANDER MORA MORA",
+    "atribuida": "EXT carlos manuel gutierrez gomez",
+    "mencion": "compañero diputado Carlos Gutiérrez · «cipar en el espacio de Control Político y para eso le había pedido al compañero diputado Carlos Gutiérrez que me cediera parte de su tiempo; sin embargo, c»",
+    "veredicto": "incorrecta",
+    "motivo": "«compañero diputado Carlos Gutiérrez» en 2007; debió ser miembro."
+  },
+  {
+    "n": 41,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2025,
+    "habla": "KATTIA CAMBRONERO AGUILUZ",
+    "atribuida": "EXT rodrigo chaves",
+    "mencion": "Chaves · «e quince denuncias beligerancia. ¿Qué es el miedo que tiene Rodrigo Chaves? No que muy valiente, no que muy hombre, no que m»",
+    "veredicto": "correcta",
+    "motivo": "Rodrigo Chaves, presidente de la República en 2025."
+  },
+  {
+    "n": 42,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2025,
+    "habla": "LESLYE RUBÉN BOJORGES LEÓN",
+    "atribuida": "EXT rodrigo chaves",
+    "mencion": "Chaves · «ón. Le dicen pachuco porque no le pueden decir sinvergüenza. Rodrigo Chaves Robles es el hombre que le abrió los ojos al pueb»",
+    "veredicto": "correcta",
+    "motivo": "Rodrigo Chaves Robles, presidente de la República."
+  },
+  {
+    "n": 43,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2025,
+    "habla": "GERARDO FABRICIO ALVARADO MUÑOZ",
+    "atribuida": "EXT ana lorena brenes esquivel",
+    "mencion": "Esquivel · «e han creído el cuento de que Pueblo Soberano es conservador. Marta Esquivel no siempre fue la presidenta de la Caja. Marta Es»",
+    "veredicto": "incorrecta",
+    "motivo": "«Marta Esquivel», expresidenta de la CCSS y candidata de Pueblo Soberano; no la procuradora Ana Lorena Brenes Esquivel, a la que además se busca por su segundo apellido."
+  },
+  {
+    "n": 44,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2025,
+    "habla": "GERARDO FABRICIO ALVARADO MUÑOZ",
+    "atribuida": "EXT jose maria figueres",
+    "mencion": "Figueres · «ocó eligiendo a Rodrigo Chaves, cuando el contrincante era José María Figueres; bueno, es que ahí sí estaba complicado el tema, »",
+    "veredicto": "correcta",
+    "motivo": "José María Figueres Olsen, expresidente y rival de Chaves en 2022."
+  },
+  {
+    "n": 45,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2025,
+    "habla": "JOSE FRANCISCO NICOLÁS ALVARADO",
+    "atribuida": "EXT rodrigo chaves",
+    "mencion": "Chaves · «ionales que les prometió el presidente Chaves a la familia de Calixto Chaves y compañía para que pudieran lucrar más del pobre»",
+    "veredicto": "incorrecta",
+    "motivo": "«la familia de Calixto Chaves»: el empresario Calixto Chaves, no el presidente; el nombre de pila delante no lo impide."
+  },
+  {
+    "n": 46,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2007,
+    "habla": "PATRICIA QUIRÓS QUIRÓS",
+    "atribuida": "EXT ad hoc clara silvia zomer rezler",
+    "mencion": "REZLER · «38 LA PRESIDENTA AD HOC CLARA SILVIA ZOMER REZLER: 39»",
+    "veredicto": "incorrecta",
+    "motivo": "«LA PRESIDENTA AD HOC CLARA SILVIA ZOMER REZLER» (sumario): diputada en 2006-2010; la persona externa «ad hoc clara silvia zomer rezler» es espuria."
+  },
+  {
+    "n": 47,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2024,
+    "habla": "GILBERTO ARNOLDO CAMPOS CRUZ",
+    "atribuida": "EXT rodrigo chaves",
+    "mencion": "Chaves · «identa. Dos mil veintidós muertos lleva Costa Rica desde que Rodrigo Chaves Robles es presidente de este país. Le sigo llevan»",
+    "veredicto": "correcta",
+    "motivo": "Rodrigo Chaves Robles, presidente de la República."
+  },
+  {
+    "n": 48,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2025,
+    "habla": "GERARDO FABRICIO ALVARADO MUÑOZ",
+    "atribuida": "EXT rodrigo chaves",
+    "mencion": "Chaves · «í coincidimos, en eso sí coincidimos, no queremos que la candidata de Chaves gane las elecciones, porque eso significaría darl»",
+    "veredicto": "correcta",
+    "motivo": "«la candidata de Chaves»: Rodrigo Chaves."
+  },
+  {
+    "n": 49,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2025,
+    "habla": "LESLYE RUBÉN BOJORGES LEÓN",
+    "atribuida": "EXT rodrigo chaves",
+    "mencion": "Chaves · «ustedes. A mí tampoco me gusta la forma, pero yo prefiero a Rodrigo Chaves Robles de presidente que a un corrupto, un sinver»",
+    "veredicto": "correcta",
+    "motivo": "Rodrigo Chaves Robles, presidente de la República."
+  },
+  {
+    "n": 50,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2025,
+    "habla": "JOHANA OBANDO BONILLA",
+    "atribuida": "EXT rodrigo chaves",
+    "mencion": "Chaves · «democracia se está perdiendo y se está perdiendo por manos de Rodrigo Chaves.»",
+    "veredicto": "correcta",
+    "motivo": "Rodrigo Chaves, presidente de la República."
+  }
+]

@@ -1,0 +1,502 @@
+[
+  {
+    "n": 1,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1999,
+    "habla": "ÁLVAREZ IRIARTE, GUILLERMO",
+    "atribuida": "ABELENDA DISESSA, MARCOS [nombre]",
+    "mencion": "señor Diputado Abelenda — «ver problemas que el Encuentro Progresista tiene entre sus filas. El señor Diputado Abelenda se ha desempeñado como coordinador de la bancada »",
+    "veredicto": "correcta",
+    "motivo": "Marcos Abelenda (FA), votado para la tercera vicepresidencia en esa sesión."
+  },
+  {
+    "n": 2,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1997,
+    "habla": "COURTOISIE, GABRIEL",
+    "atribuida": "FALERO, RICARDO [nombre]",
+    "mencion": "señor Diputado Ricardo Falero — «e hiciera presente en el Parlamento, nuestro compañero de bancada, el señor Diputado Ricardo Falero, planteó la necesidad de que la Cartera por él re»",
+    "veredicto": "correcta",
+    "motivo": "Ricardo Falero (Nuevo Espacio), compañero de bancada de Courtoisie, con escaño en 1997."
+  },
+  {
+    "n": 3,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2021,
+    "habla": "PASQUET IRIBARNE, OPE",
+    "atribuida": "VALDOMIR MUSLERA, SEBASTIÁN [nombre]",
+    "mencion": "señor diputado Valdomir — «Gracias, señor presidente. Me considero aludido por las palabras del señor diputado Valdomir, y voy a explicar por qué. En el año 1996, yo fu»",
+    "veredicto": "correcta",
+    "motivo": "Sebastián Valdomir habló tres filas antes y Pasquet contesta la alusión."
+  },
+  {
+    "n": 4,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2011,
+    "habla": "MARTÍNEZ HUELMO, RUBÉN WALDEMAR",
+    "atribuida": "LACALLE POU, LUIS ALBERTO [nombre]",
+    "mencion": "señor Diputado Lacalle Pou — «daria que se hace en este Cuerpo, la Cámara lleva a su Presidencia al señor Diputado Lacalle Pou. Sin duda es una excelente elección del Partido N»",
+    "veredicto": "correcta",
+    "motivo": "Luis Lacalle Pou, elegido presidente de la Cámara ese día."
+  },
+  {
+    "n": 5,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2011,
+    "habla": "[SEÑOR SECRETARIO REDACTOR, sin identificar]",
+    "atribuida": "CARDOSO SILVA, JOSÉ CARLOS [nombre]",
+    "mencion": "señor Representante José Carlos Cardoso — «iete lo han hecho por el señor Representante Lacalle Pou y uno por el señor Representante José Carlos Cardoso. De conformidad con el resultado de la votación,»",
+    "veredicto": "correcta",
+    "motivo": "José Carlos Cardoso (PN), representante en la XLVII, recibió un voto en la elección de presidente."
+  },
+  {
+    "n": 6,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1992,
+    "habla": "PITA ALVARIZA, JUAN CARLOS",
+    "atribuida": "GARCÍA SOSA, ALEM [preside]",
+    "mencion": "señor Diputado García — «necemos, la Corriente Popular, donde estamos muchos viejos amigos del señor Diputado García— esta doble satisficción: le de conocer a un legi»",
+    "veredicto": "correcta",
+    "motivo": "Alem García, proclamado presidente de la Cámara ese día."
+  },
+  {
+    "n": 7,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2011,
+    "habla": "SANDER DARIN, RICHARD SAÚL",
+    "atribuida": "LACALLE POU, LUIS ALBERTO [nombre]",
+    "mencion": "señor Diputado Luis Lacalle Pou — «Por el señor Diputado Luis Lacalle Pou, y voy a fundar el voto. En primer lugar, quiero»",
+    "veredicto": "correcta",
+    "motivo": "Luis Lacalle Pou, votado para presidente de la Cámara."
+  },
+  {
+    "n": 8,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1986,
+    "habla": "CANTÓN SPINA, MARIO MATEO",
+    "atribuida": "GARCÍA RIJO, WASHINGTON [actividad]",
+    "mencion": "señor Diputado García — «antengo mis fundamentos en favor del proceso. De manera que pido al señor Diputado García ya permite continuar el desarrollo de mi exposici»",
+    "veredicto": "incorrecta",
+    "motivo": "Es Alem García (PN), que se opone al proyecto: el «SEÑOR GARCÍA» sin identificar sigue interviniendo desde las bancas mientras García Rijo preside, y Nión lo llama «Alem García»; el desempate por actividad eligió a García Rijo."
+  },
+  {
+    "n": 9,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1999,
+    "habla": "DÍAZ BURCI, RUBEN HUGO",
+    "atribuida": "ABELENDA DISESSA, MARCOS [nombre]",
+    "mencion": "señor Diputado Abelenda — «Por el señor Diputado Abelenda.»",
+    "veredicto": "correcta",
+    "motivo": "Voto por Marcos Abelenda para la vicepresidencia."
+  },
+  {
+    "n": 10,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2011,
+    "habla": "ESPINOSA MÁRMOL, GUSTAVO ADRIÁN",
+    "atribuida": "LACALLE POU, LUIS ALBERTO [nombre]",
+    "mencion": "señor Diputado Lacalle Pou — «Por el señor Diputado Lacalle Pou, y voy a fundar el voto. Tengo el honor de habla»",
+    "veredicto": "correcta",
+    "motivo": "Voto por Luis Lacalle Pou para la presidencia."
+  },
+  {
+    "n": 11,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1995,
+    "habla": "BERTOLINI SAN MARTÍN, LUIS BATLLE",
+    "atribuida": "CARDOSO SILVA, JOSÉ CARLOS [apellido suelto]",
+    "mencion": "Cardoso — «, Luis Alberto Bolla, Gustavo Borsari Brenna, Brum Canet, José Carlos Cardoso, Jorge Coll, Daniel Corbo, Gabriel Courtoisie, Jo»",
+    "veredicto": "correcta",
+    "motivo": "Lista de asistencia (atribuida a Bertolini por una cabecera mal etiquetada): José Carlos Cardoso, representante en la XLIV."
+  },
+  {
+    "n": 12,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1999,
+    "habla": "BERTOLINI SAN MARTÍN, LUIS BATLLE",
+    "atribuida": "CARDOSO SILVA, JOSÉ CARLOS [apellido suelto]",
+    "mencion": "Cardoso — « Jorge Boerr, Luis Alberto Boila, Gustavo Borsari Brenna, José Carlos Cardoso, Omar Castro Riera, Jorge Coll, Daniel Corbo, Gab»",
+    "veredicto": "correcta",
+    "motivo": "Lista de asistencia de 1999: José Carlos Cardoso, representante en la XLIV."
+  },
+  {
+    "n": 13,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1999,
+    "habla": "ORRICO MIRALDI, JORGE OMAR",
+    "atribuida": "SARALEGUI, FERNANDO [apellido suelto]",
+    "mencion": "Saralegui — « uno va recorriendo. Fernando sabe que en muchos lugares he dicho que Saralegui trabaja mucho. Creo que lo hace bien, aunque a ve»",
+    "veredicto": "correcta",
+    "motivo": "Fernando Saralegui, votado para la segunda vicepresidencia («Fernando sabe…»)."
+  },
+  {
+    "n": 14,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1999,
+    "habla": "BERTOLINI SAN MARTÍN, LUIS BATLLE",
+    "atribuida": "ABELENDA DISESSA, MARCOS [apellido suelto]",
+    "mencion": "Abelenda — «e sensible como son los derechos humanos. Sin embargo, encontramos en Abelenda a un legislador muy amplio, muy consciente de sus»",
+    "veredicto": "correcta",
+    "motivo": "Marcos Abelenda, de quien habla Bertolini al fundar su voto."
+  },
+  {
+    "n": 15,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1999,
+    "habla": "BERTOLINI SAN MARTÍN, LUIS BATLLE",
+    "atribuida": "NICOLINI OTTATI, LEONARDO [apellido suelto]",
+    "mencion": "Nicolini — «cardo Molinelli, Martha Montaner, León Morelli, José Mujica, Leonardo Nicolini, Silvio Núñez Guerra, Ruben Obispo, Julio Olivar »",
+    "veredicto": "correcta",
+    "motivo": "Lista de asistencia de 1999: Leonardo Nicolini."
+  },
+  {
+    "n": 16,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1991,
+    "habla": "PALOMEQUE CARABALLO, AGAPO LUIS",
+    "atribuida": "GANDINI ASTESIANO, JORGE OSVALDO [apellido suelto]",
+    "mencion": "Gandini — « entre los que recuerdo a la señora Machioli, a la señora Poyleaud de Gandini, a la señora Alberti de Ochoteco, a la señor Auro»",
+    "veredicto": "incorrecta",
+    "motivo": "«la señora Poyleaud de Gandini», maestra nombrada por su apellido de casada, no el diputado Jorge Gandini."
+  },
+  {
+    "n": 17,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1999,
+    "habla": "BERTOLINI SAN MARTÍN, LUIS BATLLE",
+    "atribuida": "TOURNÉ VALDEZ, DAISY LILIÁN [apellido suelto]",
+    "mencion": "Tourné — «r Semproni, Carlos Soria, Pedro Suárez Lorenzo, Carlos Testoni, Daisy Tourné, Jaime Mario Trobo y Walter Vener Carboni. Con l»",
+    "veredicto": "correcta",
+    "motivo": "Lista de asistencia de 1999: Daisy Tourné."
+  },
+  {
+    "n": 18,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1995,
+    "habla": "LEGNANI RODRÍGUEZ, RAMÓN",
+    "atribuida": "COLL CUNILLERA, JORGE J. [apellido suelto]",
+    "mencion": "Coll — «de Montevideo al Chuy', fechado en 1953.- En dicho trabajo, Píriz Mac Coll hace referencia al vaciamento de arenas radiactiv»",
+    "veredicto": "incorrecta",
+    "motivo": "«Píriz Mac Coll», autor de un trabajo de 1953 sobre arenas radiactivas, no el diputado Jorge Coll."
+  },
+  {
+    "n": 19,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1995,
+    "habla": "BERTOLINI SAN MARTÍN, LUIS BATLLE",
+    "atribuida": "BARREIRO, RAQUEL [apellido suelto]",
+    "mencion": "Barreiro — «rdino Ayala, Pedro Baibi, Carlos Barábir, Gabriel Barandiarán, Raquel Barreiro, José Bayardi, Ricardo Berois Quinteros, Luis Bat»",
+    "veredicto": "correcta",
+    "motivo": "Lista de asistencia de 1995: Raquel Barreiro."
+  },
+  {
+    "n": 20,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1995,
+    "habla": "BERTOLINI SAN MARTÍN, LUIS BATLLE",
+    "atribuida": "TROBO CABRERA, JAIME MARIO [apellido suelto]",
+    "mencion": "Trobo — «Singer, Carlos Soria, Guillermo Stirling, Carlos Testoni, Jaime Mario Trobo, Carlos Vargas, Walter Vener Carboni, Luis Viscon»",
+    "veredicto": "correcta",
+    "motivo": "Lista de asistencia de 1995: Jaime Mario Trobo."
+  },
+  {
+    "n": 21,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2017,
+    "habla": "ABDALA SCHWARZ, PABLO DANIEL",
+    "atribuida": "EXT astori",
+    "mencion": "ministro Astori — «n de Seguridad Social integrada con la de Hacienda, le pregunté si el ministro Astori sabía lo que costaba, si el Ministerio había anal»",
+    "veredicto": "correcta",
+    "motivo": "Danilo Astori, ministro de Economía en 2017; sin escaño."
+  },
+  {
+    "n": 22,
+    "categoria": "externa (con cargo o título)",
+    "anio": 1991,
+    "habla": "MORELL BORDOLI, ANTONIO RICARDO",
+    "atribuida": "EXT delpiazzo",
+    "mencion": "señor Ministro Delpiazzo — «meritara un llamado a Sala, pero me pregunto qué le hubiera pasado al señor Ministro Delpiazzo si ese hecho hubiera sucedido durante su mandato.»",
+    "veredicto": "correcta",
+    "motivo": "Carlos Delpiazzo, ministro de Salud Pública desde el 10-7-1991 e interpelado ese día (https://es.wikipedia.org/wiki/Carlos_Delpiazzo)."
+  },
+  {
+    "n": 23,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2015,
+    "habla": "PEREZ, CARLOS",
+    "atribuida": "EXT lopez mena",
+    "mencion": "señor López Mena — «elo que aparentemente también se autorizaron al dueño de El Talar, el señor López Mena, ¿se pidió opinión al Ministerio, tal como prevé »",
+    "veredicto": "correcta",
+    "motivo": "López Mena, presentado como dueño de El Talar; persona externa bien nombrada."
+  },
+  {
+    "n": 24,
+    "categoria": "externa (con cargo o título)",
+    "anio": 1991,
+    "habla": "SUAREZ LERENA, CARLOS ENRIQUE",
+    "atribuida": "EXT somma",
+    "mencion": "doctor Somma — «ue asisten los técnicos, luego de analizar el sistema de análisis, el doctor Somma manifiesta a modo de resumen: “Creemos que más al»",
+    "veredicto": "correcta",
+    "motivo": "El doctor Somma, director del Laboratorio Central de referencia del MSP (así lo presenta Bayardi en la misma sesión)."
+  },
+  {
+    "n": 25,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2015,
+    "habla": "CARDOSO FERREIRA, GERMÁN",
+    "atribuida": "EXT jose mujica",
+    "mencion": "Presidente Mujica- — «le, de acuerdo con el Decreto había se N° 375/2011 -firmado por el ex Presidente Mujica-, que se ha incumplido. No se ha cumplido con lo q»",
+    "veredicto": "correcta",
+    "motivo": "«ex Presidente Mujica», firmante del decreto 375/2011: José Mujica."
+  },
+  {
+    "n": 26,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2006,
+    "habla": "GAMOU FASADELLO, ADOLFO CARLOS",
+    "atribuida": "EXT carlos caballero",
+    "mencion": "señor Carlos Caballero — «es radiales del departamento de Paysandú señora Alma Rolla Pizzorno y señor Carlos Caballero.»",
+    "veredicto": "correcta",
+    "motivo": "Carlos Caballero, comunicador radial de Paysandú (título de la media hora final)."
+  },
+  {
+    "n": 27,
+    "categoria": "externa (con cargo o título)",
+    "anio": 1997,
+    "habla": "CARDOSO SILVA, JOSÉ CARLOS",
+    "atribuida": "EXT clinton",
+    "mencion": "Presidente Clinton — « 24 de agosto, el \"Washington Post\" criticó severamente la medida del Presidente Clinton y dijo al respecto que \"la perspectiva de que Arg»",
+    "veredicto": "correcta",
+    "motivo": "Bill Clinton, presidente de Estados Unidos en 1997."
+  },
+  {
+    "n": 28,
+    "categoria": "externa (con cargo o título)",
+    "anio": 1988,
+    "habla": "GARCÍA RIJO, WASHINGTON",
+    "atribuida": "EXT norberto sanguinetti",
+    "mencion": "señor Norberto Sanguinetti — «nstitución. Si esta Cámara hubiera tenido la facultad de destituir al señor Norberto Sanguinetti, seguramente este jerarca no continuaría en sus f»",
+    "veredicto": "correcta",
+    "motivo": "Norberto Sanguinetti, vicepresidente del BPS cuyos actos motivan la interpelación; no el presidente Julio María Sanguinetti."
+  },
+  {
+    "n": 29,
+    "categoria": "externa (con cargo o título)",
+    "anio": 1991,
+    "habla": "CAPUTI RODRIGUEZ, TABARE ANGEL",
+    "atribuida": "EXT carlos delpizzo",
+    "mencion": "doctor Delpizzo — «s tenemos es que no fue así, y lo confirma la respuesta que hoy da el doctor Delpizzo; o sea, que influyeron distintos factores vincula»",
+    "veredicto": "correcta",
+    "motivo": "«doctor Delpizzo» es el ministro Carlos Delpiazzo con errata; la clave «carlos delpizzo» lo identifica, pero queda separada de «delpiazzo»."
+  },
+  {
+    "n": 30,
+    "categoria": "externa (con cargo o título)",
+    "anio": 1988,
+    "habla": "GARCÍA RIJO, WASHINGTON",
+    "atribuida": "EXT norberto sanginetti",
+    "mencion": "señor Sanginetti — «aquel el ofrecimiento había sido a título absolutamente honorario. El señor Sanginetti en el acto, el mismo 26 de agosto -no esperó ni u»",
+    "veredicto": "correcta",
+    "motivo": "Norberto Sanguinetti escrito «Sanginetti»; la clave lo identifica, pero duplica el nodo de «norberto sanguinetti»."
+  },
+  {
+    "n": 31,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 1991,
+    "habla": "[SEÑOR MINISTRO DE SALUD PUBLICA, sin identificar]",
+    "atribuida": "EXT humberto julio ruocco cambon",
+    "mencion": "doctora Ruocco — «tido, puedo exhibir innumerables esquelas del doctor Lasalvia y de la doctora Ruocco, advertiéndonos en forma permanente de la situaci»",
+    "veredicto": "incorrecta",
+    "motivo": "«la doctora Ruocco», directora de Epidemiología del MSP en 1991, no Humberto J. Ruocco Cambón (hombre, representante en 2002)."
+  },
+  {
+    "n": 32,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 1991,
+    "habla": "BAYARDI LOZANO, JOSÉ ARTURO",
+    "atribuida": "EXT humberto julio ruocco cambon",
+    "mencion": "doctora Ruocco — «a participación de la Directora del Departamento de Epidemiología, la doctora Ruocco, del Director del Departamento del Laboratorio Ce»",
+    "veredicto": "incorrecta",
+    "motivo": "La misma directora de Epidemiología; no se respeta el género de la forma («la doctora»)."
+  },
+  {
+    "n": 33,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 1986,
+    "habla": "MARTINEZ ROUX, OROSMAN",
+    "atribuida": "EXT federico jeronimo bouza rio",
+    "mencion": "señor Diputado Bouza — «Antes de finalizar voy a conodrer con gusto el señor Diputado Bouza la Inturopción que se solicita.»",
+    "veredicto": "incorrecta",
+    "motivo": "Federico Bouza era representante en 1986 (pide la interrupción en la fila anterior); sin partido en oradores.json para la XLII, no se le da escaño."
+  },
+  {
+    "n": 34,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 1988,
+    "habla": "JOSE MARTINEZ, LUIS",
+    "atribuida": "EXT eduardo humberto jaurena basaistegue",
+    "mencion": "señor Diputado Jaurena — «duda pintoresco el señor Norberto Sanguinetti. Lo acaba de señalar el señor Diputado Jaurena al recordar aquel episodio del que 1985 cuando, e»",
+    "veredicto": "incorrecta",
+    "motivo": "Eduardo Jaurena, representante en 1988 que acaba de hablar (fila -2); debió ser miembro."
+  },
+  {
+    "n": 35,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 1991,
+    "habla": "BARRIOS ANZA, JAVIER",
+    "atribuida": "EXT federico jeronimo bouza rio",
+    "mencion": "Diputado Bouza — «n el Diputado Fau, el entonces Senator Rodríguez Camusso, el entonces Diputado Bouza, el Senator Ricaldoni, el ex Diputado Daverere, e»",
+    "veredicto": "correcta",
+    "motivo": "«el entonces Diputado Bouza» (delegación de 1985): Federico Bouza, sin escaño en 1991."
+  },
+  {
+    "n": 36,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 1995,
+    "habla": "ADOLFO SINGER, JUAN",
+    "atribuida": "EXT jorge manuel pacheco klein",
+    "mencion": "querido amigo Jorge Pacheco Klein — «r a los demás compañeros de mi partido a Pacheco, en la persona de mi querido amigo Jorge Pacheco Klein; a los compañeros de mi sector, por su solidarida»",
+    "veredicto": "incorrecta",
+    "motivo": "Jorge Pacheco Klein era representante en diciembre de 1995 (figura en la lista de asistencia de esa misma sesión); debió ser miembro."
+  },
+  {
+    "n": 37,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 1988,
+    "habla": "JOSE MARTINEZ, LUIS",
+    "atribuida": "EXT eduardo humberto jaurena basaistegue",
+    "mencion": "señor Diputado Jaurena — «del señor Sanguinetti eran ya por entonces demostrativos de lo que el señor Diputado Jaurena decía hace un momento: que estábamos ante una per»",
+    "veredicto": "incorrecta",
+    "motivo": "Jaurena, representante en ejercicio en 1988; debió ser miembro."
+  },
+  {
+    "n": 38,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 1991,
+    "habla": "CAPUTI RODRIGUEZ, TABARE ANGEL",
+    "atribuida": "EXT humberto julio ruocco cambon",
+    "mencion": "doctora Ruocco — «n de los 'spots' publicitarios'. El doctor Rostkir responde: \"No\". La doctora Ruocco dice: \"En este momento, frente a la falta de soli»",
+    "veredicto": "incorrecta",
+    "motivo": "«La doctora Ruocco dice…»: la directora de Epidemiología, no Ruocco Cambón."
+  },
+  {
+    "n": 39,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 1986,
+    "habla": "JOSE MARTINEZ, LUIS",
+    "atribuida": "EXT federico jeronimo bouza rio",
+    "mencion": "señor Diputado Bouza — «La muy acerta de intervención del señor Diputado Bouza me mueve a señalar que, precisamente inspirados e»",
+    "veredicto": "incorrecta",
+    "motivo": "Bouza, representante en ejercicio (intervino dos filas antes); debió ser miembro."
+  },
+  {
+    "n": 40,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2021,
+    "habla": "[SEÑOR RODRÍGUEZ presidente, sin identificar]",
+    "atribuida": "EXT federico mariano preve cocco",
+    "mencion": "periodista Preve — «l periodista Ignacio Álvarez dijo públicamente que se comunicó con el periodista Preve y que él le negó enfáticamente que hubiera existi»",
+    "veredicto": "incorrecta",
+    "motivo": "El «periodista Preve» de 2021 es Eduardo Preve, despedido de Canal 10 en abril de 2021 (https://www.elobservador.com.uy/nota/apu-sugiere-que-canal-10-despidio-a-un-periodista-por-presiones-del-gobierno-y-la-empresa-lo-desmiente-202153203756), no Federico Preve Cocco, representante desde 2025."
+  },
+  {
+    "n": 41,
+    "categoria": "externa (apellido suelto)",
+    "anio": 1999,
+    "habla": "BERTOLINI SAN MARTÍN, LUIS BATLLE",
+    "atribuida": "EXT jose mujica",
+    "mencion": "Mujica — «Legnani, Edén Melo Santa Marina, Felipe Michelini, León Morelli, José Mujica, Leonardo Nicolini, Silvio Núñez Guerra, Julio Ol»",
+    "veredicto": "incorrecta",
+    "motivo": "Lista de asistencia de mayo de 1999: José Mujica era representante (XLIV); se fuerza a persona externa por estar en la lista de jefes de Estado."
+  },
+  {
+    "n": 42,
+    "categoria": "externa (apellido suelto)",
+    "anio": 1995,
+    "habla": "ADOLFO SINGER, JUAN",
+    "atribuida": "EXT luis alberto lacalle",
+    "mencion": "Lacalle — «ambién la solidaridad de todo el Partido Nacional, de sus líderes -de Lacalle, de Volonte, de Carlos Julio Pereyra, de Gonzalo »",
+    "veredicto": "correcta",
+    "motivo": "Luis Alberto Lacalle, líder del Partido Nacional y expresidente, en 1995."
+  },
+  {
+    "n": 43,
+    "categoria": "externa (apellido suelto)",
+    "anio": 1991,
+    "habla": "LESCANO FRASCHINI, HÉCTOR CARLOS",
+    "atribuida": "EXT somma",
+    "mencion": "Somma — «tro. Así, desde un lado se ha hablado de que los doctores Rostskier y Somma, por ejemplo, habrían mentido en el seno de la Co»",
+    "veredicto": "correcta",
+    "motivo": "El doctor Somma, técnico del MSP citado en la comisión."
+  },
+  {
+    "n": 44,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2017,
+    "habla": "ASTI CARLI, ALFREDO ANGEL",
+    "atribuida": "EXT astori",
+    "mencion": "Astori — «de Previsión Social. Se ha hablado de que el siempre cartón ligador, Astori, ha dicho que tenemos que encarar una reforma de »",
+    "veredicto": "correcta",
+    "motivo": "Danilo Astori, ministro de Economía."
+  },
+  {
+    "n": 45,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2017,
+    "habla": "GROBA ARRIONDO, OSCAR",
+    "atribuida": "EXT jorge batlle",
+    "mencion": "Batlle — «es no teníamos esta realidad, aunque reconozco todo lo que hizo 'Pepe Batlle' ¿cómo no nos vamos a acordar de don 'Pepe Batlle»",
+    "veredicto": "incorrecta",
+    "motivo": "«don \"Pepe Batlle\"» es José Batlle y Ordóñez (https://en.wikipedia.org/wiki/Don_Pepe), no Jorge Batlle."
+  },
+  {
+    "n": 46,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2001,
+    "habla": "LEGLISE APEZTEGUÍA, LUIS MARÍA",
+    "atribuida": "EXT luis alberto lacalle",
+    "mencion": "Lacalle — «a el doctor Sturla no conociera. Terminaba monopolizando Luis Alberto Lacalle. En la Lista 904, que lo llevó la palabra frente »",
+    "veredicto": "correcta",
+    "motivo": "Luis Alberto Lacalle, que encabezaba la lista 904 en 1984 (texto a dos columnas mezclado); no Lacalle Pou."
+  },
+  {
+    "n": 47,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2017,
+    "habla": "TROBO CABRERA, JAIME MARIO",
+    "atribuida": "EXT astori",
+    "mencion": "Astori — « mismo desastre que el actual ministro de Economía y Finanzas, Danilo Astori, advierte que va a ocurrir si dentro de muy poco »",
+    "veredicto": "correcta",
+    "motivo": "«Danilo Astori», ministro de Economía."
+  },
+  {
+    "n": 48,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2015,
+    "habla": "SOSA ACOSTA, HERIBERTO",
+    "atribuida": "EXT ricardo alcorta",
+    "mencion": "Alcorta — « presidente de OSE, Milton Machado, el senador frenteamplista Ricardo Alcorta, exdirector de la UGD, explicó que la exoneración»",
+    "veredicto": "correcta",
+    "motivo": "«el senador frenteamplista Ricardo Alcorta» (cita de prensa); persona externa bien nombrada."
+  },
+  {
+    "n": 49,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2017,
+    "habla": "VASQUEZ VARELA VIVIANI, PATRICIA MÓNICA",
+    "atribuida": "EXT astori",
+    "mencion": "Astori — «ovisada, que promete a los cincuentones una solución que ni el propio Astori respaldaba. Quiere decir que no es unánime en el »",
+    "veredicto": "correcta",
+    "motivo": "Danilo Astori, ministro de Economía."
+  },
+  {
+    "n": 50,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2017,
+    "habla": "TROBO CABRERA, JAIME MARIO",
+    "atribuida": "EXT astori",
+    "mencion": "Astori — «i para advertir que coinciden plenamente. Ahora, es muy probable que Astori diga una cosa adentro y otra afuera, porque habit»",
+    "veredicto": "correcta",
+    "motivo": "Danilo Astori, ministro de Economía."
+  }
+]

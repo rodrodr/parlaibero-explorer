@@ -1,0 +1,502 @@
+[
+  {
+    "n": 1,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1994,
+    "habla": "RAFAEL CUESTA CAPUTTI",
+    "atribuida": "SIXTO DURÁN BALLEN CORDOVEZ [nombre]",
+    "mencion": "Presidente Durán Ballén",
+    "veredicto": "incorrecta",
+    "motivo": "Es el presidente de la República (1992-1996), no un diputado; queda como miembro porque oradores.json le da un registro con partido en 1994-1996. Fuente: https://es.wikipedia.org/wiki/Sixto_Durán-Ballén"
+  },
+  {
+    "n": 2,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1986,
+    "habla": "ANDRÉS VALLEJO ARCOS",
+    "atribuida": "EDELBERTO GONZALO BONILLA OLEAS [nombre]",
+    "mencion": "señor Diputado Bonilla",
+    "veredicto": "correcta",
+    "motivo": "Edelberto Bonilla Oleas, único Bonilla en 1984-1986; acaba de intervenir."
+  },
+  {
+    "n": 3,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2025,
+    "habla": "REBECA VIVIANA VELOZ RAMÍREZ",
+    "atribuida": "LILIANA ELIZABETH DURÁN AGUILAR [nombre]",
+    "mencion": "compañera Liliana Durán",
+    "veredicto": "correcta",
+    "motivo": "Liliana Durán Aguilar, asambleísta 2025-2029 de la misma bancada (RC) que quien habla."
+  },
+  {
+    "n": 4,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2005,
+    "habla": null,
+    "atribuida": "VÍCTOR MANUEL GRANDA AGUILAR [nombre]",
+    "mencion": "diputado Víctor Granda",
+    "veredicto": "correcta",
+    "motivo": "Víctor Granda Aguilar, diputado 2003-2006."
+  },
+  {
+    "n": 5,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2011,
+    "habla": "MARÍA PAULA ROMO RODRÍGUEZ",
+    "atribuida": "BETTY ELIZABETH CARRILLO GALLEGOS [nombre, se dirige]",
+    "mencion": "Asambleísta Betty Carrillo",
+    "veredicto": "correcta",
+    "motivo": "Betty Carrillo Gallegos, asambleísta 2009-2013, citada en una recopilación de posiciones."
+  },
+  {
+    "n": 6,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2025,
+    "habla": "NATHALY ESTEFANÍA FARINANGO DELGADO",
+    "atribuida": "NIELS ANTHONEZ OLSEN PEET [nombre]",
+    "mencion": "ASAMBLEÍSTA NIELS ANTHONEZ OLSEN PEET",
+    "veredicto": "correcta",
+    "motivo": "Niels Olsen Peet, presidente de la Asamblea 2025-2029 (acotación en mayúsculas dentro del turno)."
+  },
+  {
+    "n": 7,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2001,
+    "habla": null,
+    "atribuida": "BLASCO ALVARADO VINTIMILLA [nombre, se dirige]",
+    "mencion": "Honorable Blasco Alvarado",
+    "veredicto": "correcta",
+    "motivo": "Blasco Alvarado Vintimilla, diputado 1998-2003, vocal que firma el informe de comisión."
+  },
+  {
+    "n": 8,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2019,
+    "habla": null,
+    "atribuida": "MARIA SOLEDAD BUENDIA HERDOIZA [nombre, se dirige]",
+    "mencion": "Asambleísta Soledad Buendía",
+    "veredicto": "correcta",
+    "motivo": "Soledad Buendía Herdoíza, asambleísta 2017-2021 que comparece ante la comisión."
+  },
+  {
+    "n": 9,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1981,
+    "habla": "PÍO OSWALDO CUEVA PUERTAS",
+    "atribuida": "LUIS MEJÍA MONTESDEOCA [actividad]",
+    "mencion": "señor Diputado Mejía",
+    "veredicto": "correcta",
+    "motivo": "Luis Mejía Montesdeoca acaba de intervenir; los otros Mejía de 1979-1984 apenas tienen intervenciones."
+  },
+  {
+    "n": 10,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2025,
+    "habla": null,
+    "atribuida": "LENIN ALEJANDRO LARA PÉREZ [nombre]",
+    "mencion": "Asambleísta Lenin Alejandro Lara Pérez",
+    "veredicto": "correcta",
+    "motivo": "Lenin Alejandro Lara Pérez, asambleísta 2025-2029 (remitente de un memorando)."
+  },
+  {
+    "n": 11,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2000,
+    "habla": null,
+    "atribuida": "JUAN JOSÉ PONS ARÍZAGA [apellido suelto]",
+    "mencion": "Juan",
+    "veredicto": "incorrecta",
+    "motivo": "Lista de asistencia «Palma Ordóñez Juan»: Juan Palma Ordóñez; se busca el nombre de pila «Juan», no el apellido Pons."
+  },
+  {
+    "n": 12,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2005,
+    "habla": null,
+    "atribuida": "PATRICIO DONOSO CHIRIBOGA [apellido suelto]",
+    "mencion": "Patricio",
+    "veredicto": "incorrecta",
+    "motivo": "Lista «Dávila Patricio»: Patricio Dávila Molina, diputado 2003-2006; Donoso no tiene registro en 2003-2006."
+  },
+  {
+    "n": 13,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1994,
+    "habla": null,
+    "atribuida": "JUAN JOSÉ CASTELLÓ LEÓN [apellido suelto]",
+    "mencion": "Juan",
+    "veredicto": "incorrecta",
+    "motivo": "Lista «Tama Márquez Juan, ausente»: Juan Tama Márquez, no Castelló; la misma posición se atribuye también a Tama y a Pons."
+  },
+  {
+    "n": 14,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2000,
+    "habla": null,
+    "atribuida": "SIMÓN BUSTAMANTE VERA [apellido suelto]",
+    "mencion": "Simón",
+    "veredicto": "correcta",
+    "motivo": "Lista «Bustamante Vera Simón, presente»: es él; acierto porque la fila es la suya."
+  },
+  {
+    "n": 15,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2000,
+    "habla": "JOSÉ MARCELO DOTTI ALMEIDA",
+    "atribuida": "JAIME JOSÉ NEBOT SAADI [apellido suelto]",
+    "mencion": "Jaime",
+    "veredicto": "correcta",
+    "motivo": "Jaime Nebot, diputado nacional en 1998-2000 (https://www.ecured.cu/Jaime_Nebot); acierta porque tras el nombre de pila va su apellido."
+  },
+  {
+    "n": 16,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2005,
+    "habla": null,
+    "atribuida": "CÉSAR EDUARDO ROHON HERVAS [apellido suelto]",
+    "mencion": "César",
+    "veredicto": "incorrecta",
+    "motivo": "Lista «Carmigniani César, presente»: Julio César Carmigniani Garcés, diputado 2003-2006, no Rohon."
+  },
+  {
+    "n": 17,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2001,
+    "habla": null,
+    "atribuida": "JUAN JOSÉ PONS ARÍZAGA [apellido suelto]",
+    "mencion": "Juan",
+    "veredicto": "incorrecta",
+    "motivo": "Lista «Cantos Hernández Juan, presente»: Juan Cantos Hernández, no Pons."
+  },
+  {
+    "n": 18,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2001,
+    "habla": null,
+    "atribuida": "JAVIER NEIRA MENÉNDEZ [apellido suelto]",
+    "mencion": "Javier",
+    "veredicto": "incorrecta",
+    "motivo": "Lista «Vivas Javier, presente»: Javier Vivas Wualner, no Neira (que en el mismo texto es «Xavier Neira»)."
+  },
+  {
+    "n": 19,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1985,
+    "habla": null,
+    "atribuida": "ANDRÉS VALLEJO ARCOS [apellido suelto]",
+    "mencion": "Andrés",
+    "veredicto": "correcta",
+    "motivo": "Firma «Andrés Vallejo Arcos, Presidente de la Comisión»: es él."
+  },
+  {
+    "n": 20,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2000,
+    "habla": null,
+    "atribuida": "JUAN JOSÉ PONS ARÍZAGA [apellido suelto]",
+    "mencion": "Juan",
+    "veredicto": "incorrecta",
+    "motivo": "Lista con texto dañado «Juan Juan Cordero Cueva»: un Juan Cordero (Juan Cordero Íñiguez era diputado en 1998-2003), no Pons."
+  },
+  {
+    "n": 21,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2025,
+    "habla": "LENIN ALEJANDRO LARA PÉREZ",
+    "atribuida": "EXT daniel noboa",
+    "mencion": "presidente Daniel Noboa",
+    "veredicto": "correcta",
+    "motivo": "Daniel Noboa, presidente de la República en 2025."
+  },
+  {
+    "n": 22,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2022,
+    "habla": null,
+    "atribuida": "EXT juan ernesto zapata silva",
+    "mencion": "ingeniero Juan Ernesto Zapata Silva",
+    "veredicto": "correcta",
+    "motivo": "Director General del ECU911, funcionario externo."
+  },
+  {
+    "n": 23,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2001,
+    "habla": null,
+    "atribuida": "EXT moreira mario efren",
+    "mencion": "Honorable Moreira Mario Efrén",
+    "veredicto": "incorrecta",
+    "motivo": "Era miembro: «Honorable Moreira Mario Efrén, presente» es Mario Efrén Moreira Reina, diputado 1998-2003; el orden apellido-nombre impide emparejarlo."
+  },
+  {
+    "n": 24,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2019,
+    "habla": null,
+    "atribuida": "EXT inocencio tucumbi",
+    "mencion": "compañero Inocencio Tucumbi",
+    "veredicto": "correcta",
+    "motivo": "Inocencio Tucumbi, dirigente indígena muerto en las protestas de octubre de 2019; externo."
+  },
+  {
+    "n": 25,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2019,
+    "habla": null,
+    "atribuida": "EXT pablo celi",
+    "mencion": "Doctor Pablo Celi",
+    "veredicto": "correcta",
+    "motivo": "Pablo Celi, contralor general del Estado; externo."
+  },
+  {
+    "n": 26,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2001,
+    "habla": null,
+    "atribuida": "EXT moreno ruth aurora",
+    "mencion": "Honorable Moreno Ruth Aurora",
+    "veredicto": "incorrecta",
+    "motivo": "Era miembro: «Honorable Moreno Ruth Aurora» es Ruth Aurora Moreno Agui, diputada 1998-2003 (orden apellido-nombre)."
+  },
+  {
+    "n": 27,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2005,
+    "habla": "JOSÉ MARCELO DOTTI ALMEIDA",
+    "atribuida": "EXT lucio gutierrez",
+    "mencion": "presidente Gutiérrez",
+    "veredicto": "correcta",
+    "motivo": "«ex presidente Gutiérrez» en 2005: Lucio Gutiérrez."
+  },
+  {
+    "n": 28,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2025,
+    "habla": "ANDREA YALU RIVADENEIRA CALDERÓN",
+    "atribuida": "EXT amazonica",
+    "mencion": "Ciudadana Amazónica",
+    "veredicto": "incorrecta",
+    "motivo": "No es una persona: «Plan Local de Seguridad Ciudadana Amazónica» («Ciudadana» tomada como tratamiento)."
+  },
+  {
+    "n": 29,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2022,
+    "habla": null,
+    "atribuida": "EXT maria carmen maldonado",
+    "mencion": "doctora María del Carmen Maldonado",
+    "veredicto": "correcta",
+    "motivo": "María del Carmen Maldonado, entonces presidenta del Consejo de la Judicatura; externa."
+  },
+  {
+    "n": 30,
+    "categoria": "externa (con cargo o título)",
+    "anio": 1994,
+    "habla": "CÉSAR ANTONIO LEÓN",
+    "atribuida": "EXT edison condo",
+    "mencion": "profesor Edison Condo",
+    "veredicto": "correcta",
+    "motivo": "Edison Condo, maestro en las protestas de 1994; externo."
+  },
+  {
+    "n": 31,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2000,
+    "habla": null,
+    "atribuida": "EXT luis gongora zambrano",
+    "mencion": "señor Líder Góngora",
+    "veredicto": "incorrecta",
+    "motivo": "Es Líder Góngora Farías, de la Coordinadora del manglar (https://www.ccondem.org.ec/encuentro-por-el-dia-internacional-en-la-defensas-del-ecosistema-manglar/), no Luis Góngora Zambrano: «Líder» es su nombre, no un cargo."
+  },
+  {
+    "n": 32,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2001,
+    "habla": null,
+    "atribuida": "EXT elsa mariana obando cadena",
+    "mencion": "honorable Mariana Obando",
+    "veredicto": "incorrecta",
+    "motivo": "Elsa Mariana Obando Cadena era diputada 1998-2003 (257 intervenciones; registro sin partido): debió resolverse como miembro."
+  },
+  {
+    "n": 33,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2025,
+    "habla": "MISHEL ANDREA MANCHENO DÁVILA",
+    "atribuida": "EXT juan pablo aguilar andrade",
+    "mencion": "ingeniero Juan Aguilar",
+    "veredicto": "incorrecta",
+    "motivo": "Homónimo: un ingeniero que representa al fondo de cesantía de la ESPOCH en 2025; el atribuido es abogado y profesor de Derecho (https://www.usfq.edu.ec/en/profiles/juan-pablo-aguilar-andrade)."
+  },
+  {
+    "n": 34,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2011,
+    "habla": "LUIS ULPIANO MORALES SOLÍS",
+    "atribuida": "EXT milton araujo robayo",
+    "mencion": "señor Araujo",
+    "veredicto": "incorrecta",
+    "motivo": "Es Fidel Araujo, preso por el 30-S y acusado de hablar por celular en el Regimiento Quito (https://www.eluniverso.com/2010/10/16/1/1355/testigo-protegido-contradice-version-sobre-fidel-araujo.html), no Milton Araujo Robayo."
+  },
+  {
+    "n": 35,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2001,
+    "habla": null,
+    "atribuida": "EXT elsa mariana obando cadena",
+    "mencion": "diputada Mariana Obando",
+    "veredicto": "incorrecta",
+    "motivo": "Mariana Obando, diputada en 2001: era miembro."
+  },
+  {
+    "n": 36,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2005,
+    "habla": "VÍCTOR MANUEL GRANDA AGUILAR",
+    "atribuida": "EXT antonio aguilar chamba",
+    "mencion": "diputado Antonio Aguilar",
+    "veredicto": "incorrecta",
+    "motivo": "Antonio Aguilar Chamba era diputado 2003-2006 (256 intervenciones; registro sin partido): era miembro."
+  },
+  {
+    "n": 37,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2009,
+    "habla": "JORGE ELIAS ESCALA ZAMBRANO",
+    "atribuida": "EXT edgar paul jacome segovia",
+    "mencion": "compañero Paúl Jácome",
+    "veredicto": "incorrecta",
+    "motivo": "Paúl Jácome, asambleísta alterno en 2009-2013 (en oradores.json para esa legislatura, sin partido): no es antiguo miembro."
+  },
+  {
+    "n": 38,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2001,
+    "habla": null,
+    "atribuida": "EXT elsa mariana obando cadena",
+    "mencion": "diputada Mariana Obando",
+    "veredicto": "incorrecta",
+    "motivo": "Mariana Obando, diputada en 2001: era miembro."
+  },
+  {
+    "n": 39,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2005,
+    "habla": "VÍCTOR MANUEL GRANDA AGUILAR",
+    "atribuida": "EXT antonio aguilar chamba",
+    "mencion": "diputado Antonio Aguilar",
+    "veredicto": "incorrecta",
+    "motivo": "Antonio Aguilar Chamba, diputado en 2005: era miembro."
+  },
+  {
+    "n": 40,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2000,
+    "habla": "JAVIER NEIRA MENÉNDEZ",
+    "atribuida": "EXT vicente estrada velasquez",
+    "mencion": "diputado Vicente Estrada",
+    "veredicto": "incorrecta",
+    "motivo": "Vicente Estrada Velásquez era diputado 1998-2003 (518 intervenciones; registro sin partido): era miembro."
+  },
+  {
+    "n": 41,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2009,
+    "habla": "EDUARDO ALFONSO ISIDRO ZAMBRANO CABANILLA",
+    "atribuida": "EXT jamil mahuad",
+    "mencion": "Mahuad",
+    "veredicto": "correcta",
+    "motivo": "Jamil Mahuad, presidente de la República en 1999."
+  },
+  {
+    "n": 42,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2000,
+    "habla": null,
+    "atribuida": "EXT jamil mahuad",
+    "mencion": "Mahuad",
+    "veredicto": "correcta",
+    "motivo": "«Ministro de Defensa de Mahuad»: Jamil Mahuad."
+  },
+  {
+    "n": 43,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2019,
+    "habla": null,
+    "atribuida": "EXT paola pabon",
+    "mencion": "Pabón",
+    "veredicto": "correcta",
+    "motivo": "Paola Pabón, prefecta de Pichincha en 2019 (el informe recoge su comparecencia); sin escaño entonces."
+  },
+  {
+    "n": 44,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2009,
+    "habla": "EDUARDO ALFONSO ISIDRO ZAMBRANO CABANILLA",
+    "atribuida": "EXT jamil mahuad",
+    "mencion": "Mahuad",
+    "veredicto": "correcta",
+    "motivo": "Jamil Mahuad (acuerdo firmado en 1999)."
+  },
+  {
+    "n": 45,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2009,
+    "habla": "EDUARDO ALFONSO ISIDRO ZAMBRANO CABANILLA",
+    "atribuida": "EXT jamil mahuad",
+    "mencion": "Mahuad",
+    "veredicto": "correcta",
+    "motivo": "Jamil Mahuad («hace diez años», en 2009)."
+  },
+  {
+    "n": 46,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2025,
+    "habla": "JANETH PAOLA CABEZAS CASTILLO",
+    "atribuida": "EXT gustavo noboa",
+    "mencion": "Noboa",
+    "veredicto": "incorrecta",
+    "motivo": "En 2025 «Noboa» es Daniel Noboa, no Gustavo Noboa (presidente 2000-2003)."
+  },
+  {
+    "n": 47,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2025,
+    "habla": "JANETH PAOLA CABEZAS CASTILLO",
+    "atribuida": "EXT gustavo noboa",
+    "mencion": "Noboa",
+    "veredicto": "incorrecta",
+    "motivo": "«Fuera Noboa» en 2025: Daniel Noboa, no Gustavo Noboa."
+  },
+  {
+    "n": 48,
+    "categoria": "externa (apellido suelto)",
+    "anio": 1981,
+    "habla": null,
+    "atribuida": "EXT fander falconi",
+    "mencion": "Falconí",
+    "veredicto": "incorrecta",
+    "motivo": "«Alba Aguirre de Falconí» (1980): apellido de casada de otra persona, no Fander Falconí."
+  },
+  {
+    "n": 49,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2018,
+    "habla": "SILVIA BETZABETH SALGADO ANDRADE",
+    "atribuida": "EXT fander falconi",
+    "mencion": "Falconí",
+    "veredicto": "correcta",
+    "motivo": "Fander Falconí, ministro de Educación; externo."
+  },
+  {
+    "n": 50,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2019,
+    "habla": "CHRISTIAN PABEL MUÑOZ LÓPEZ",
+    "atribuida": "EXT paola pabon",
+    "mencion": "Pabón",
+    "veredicto": "correcta",
+    "motivo": "Paola Pabón (detenidos de octubre de 2019)."
+  }
+]

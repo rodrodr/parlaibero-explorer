@@ -1,0 +1,562 @@
+[
+ {
+  "n": 1,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1983,
+  "habla": "HERRERO Y RODRÍGUEZ DE MIÑÓN, MIGUEL",
+  "atribuida": "MARTÍN VILLA, RODOLFO [nombre]",
+  "mencion": "señor Martín Villa",
+  "veredicto": "correcta",
+  "motivo": "Rodolfo Martín Villa (UCD), diputado en la II; acababa de intervenir en el mismo debate."
+ },
+ {
+  "n": 2,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2021,
+  "habla": "FERNÁNDEZ CASTAÑÓN, SOFÍA",
+  "atribuida": "BELARRA URTEAGA, IONE [nombre, se dirige]",
+  "mencion": "Ione Belarra",
+  "veredicto": "correcta",
+  "motivo": "Ione Belarra, ministra de Derechos Sociales y diputada (UP) en la XIV. El «se dirige» es falso: es una aposición."
+ },
+ {
+  "n": 3,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2012,
+  "habla": "GARCÍA ÁLVAREZ, MARÍA CARIDAD",
+  "atribuida": "MARTÍNEZ GORRIARÁN, CARLOS [nombre, se dirige]",
+  "mencion": "señor Martínez Gorriarán",
+  "veredicto": "correcta",
+  "motivo": "Carlos Martínez Gorriarán (UPyD, X), autor de la moción que se debate; único con ese nombre en la legislatura."
+ },
+ {
+  "n": 4,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2020,
+  "habla": "La señora VICEPRESIDENTA TERCERA DEL GOBIERNO Y MINISTRA DE ASUNTOS ECONÓMICOS Y TRANSFORMACIÓN DIGITAL (Calviño Santamaría)",
+  "atribuida": "MARRA DOMÍNGUEZ, MARÍA ÁNGELES [nombre, se dirige]",
+  "mencion": "señora Marra",
+  "veredicto": "correcta",
+  "motivo": "María Ángeles Marra (PSdeG-PSOE, XIV) formula la pregunta a la que responde la vicepresidenta."
+ },
+ {
+  "n": 5,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2021,
+  "habla": "CALVO GÓMEZ, PILAR",
+  "atribuida": "BOLAÑOS GARCÍA, FÉLIX [tuvo escaño, se dirige]",
+  "mencion": "Bolaños",
+  "veredicto": "correcta",
+  "motivo": "Félix Bolaños, ministro de la Presidencia; sin escaño en 2021 (diputado desde el 17-8-2023, https://es.wikipedia.org/wiki/Félix_Bolaños) y así lo marca el detector (antiguo). El «se dirige» es falso."
+ },
+ {
+  "n": 6,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2006,
+  "habla": "GARRE LÓPEZ, ALBERTO",
+  "atribuida": "RAMÓN-LLIN I MARTÍNEZ, Mª ANGELS [nombre]",
+  "mencion": "señora Ramón- Llin",
+  "veredicto": "correcta",
+  "motivo": "Mª Àngels Ramón-Llin (PP, VIII) había preguntado a la ministra Narbona en la misma sesión; el guion partido no impide resolverla."
+ },
+ {
+  "n": 7,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2002,
+  "habla": "OLLERO TASSARA, ANDRÉS",
+  "atribuida": "MICHAVILA NÚÑEZ, JOSÉ MARÍA [nombre]",
+  "mencion": "señor Michavila",
+  "veredicto": "correcta",
+  "motivo": "José María Michavila, ministro de Justicia: nodo correcto, pero sin escaño en la VII desde mayo de 2000 (https://es.wikipedia.org/wiki/José_María_Michavila) y el detector lo da por sentado."
+ },
+ {
+  "n": 8,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1991,
+  "habla": "El señor MINISTRO PARA LAS ADMINISTRACIONES PUBLICAS (Eguiagaray Ucelay)",
+  "atribuida": "REBOLLO ÁLVAREZ-AMANDI, ALEJANDRO [nombre, se dirige]",
+  "mencion": "señor Rebollo",
+  "veredicto": "correcta",
+  "motivo": "Alejandro Rebollo (CDS, IV), único con ese apellido. El ministro confunde al interpelante (Martínez-Campillo) y se disculpa después; la resolución es fiel al texto."
+ },
+ {
+  "n": 9,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1998,
+  "habla": "HERNÁNDEZ MOLTÓ, JUAN PEDRO",
+  "atribuida": "MONTORO ROMERO, CRISTÓBAL RICARDO [nombre, se dirige]",
+  "mencion": "señor Montoro",
+  "veredicto": "correcta",
+  "motivo": "Cristóbal Montoro, secretario de Estado de Economía: nodo correcto, pero sin escaño en la VI (https://es.wikipedia.org/wiki/Cristóbal_Montoro); se le supone sentado por tenerlo antes y después. «Se dirige» falso."
+ },
+ {
+  "n": 10,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1997,
+  "habla": "RIERA I BEN, MARÍA ZOILA",
+  "atribuida": "VILLALÓN RICO, CÉSAR [nombre, se dirige]",
+  "mencion": "señor Villalón",
+  "veredicto": "correcta",
+  "motivo": "César Villalón (PP, VI), que intervino en ese debate por el Grupo Popular; vocativo real junto a «señora Amador»."
+ },
+ {
+  "n": 11,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2021,
+  "habla": "FERNÁNDEZ CASTAÑÓN, SOFÍA",
+  "atribuida": "BELARRA URTEAGA, IONE [apellido suelto]",
+  "mencion": "Belarra",
+  "veredicto": "correcta",
+  "motivo": "Ione Belarra; duplica la mención nº 2: el apellido suelto se busca dentro de «Ione Belarra», ya detectado con su cargo."
+ },
+ {
+  "n": 12,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2025,
+  "habla": "OLANO VELA, JAIME EDUARDO DE",
+  "atribuida": "ÁBALOS MECO, JOSÉ LUIS [apellido suelto, se dirige]",
+  "mencion": "Ábalos",
+  "veredicto": "correcta",
+  "motivo": "José Luis Ábalos, diputado en la XV según oradores.json (el texto lo sitúa ya en prisión). El «se dirige» es falso: enumeración «Ábalos, Koldo y Cerdán»."
+ },
+ {
+  "n": 13,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2024,
+  "habla": "SÁNCHEZ PÉREZ-CASTEJÓN, PEDRO",
+  "atribuida": "ABASCAL CONDE, SANTIAGO [apellido suelto]",
+  "mencion": "Abascal",
+  "veredicto": "correcta",
+  "motivo": "Santiago Abascal (VOX, XV); Sánchez habla de las tres «ultraderechas»."
+ },
+ {
+  "n": 14,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2025,
+  "habla": "LAGO PEÑAS, MANUEL",
+  "atribuida": "REGO CANDAMIL, NÉSTOR [apellido suelto]",
+  "mencion": "Rego",
+  "veredicto": "correcta",
+  "motivo": "Néstor Rego (BNG, XV), autor de la moción; «o deputado Rego» en gallego."
+ },
+ {
+  "n": 15,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2024,
+  "habla": "SERRANO MARTÍNEZ, JUAN FRANCISCO",
+  "atribuida": "ABASCAL CONDE, SANTIAGO [apellido suelto]",
+  "mencion": "Abascal",
+  "veredicto": "correcta",
+  "motivo": "Santiago Abascal (VOX, XV)."
+ },
+ {
+  "n": 16,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2018,
+  "habla": "OLÒRIZ SERRA, JOAN",
+  "atribuida": "MONTORO ROMERO, CRISTÓBAL RICARDO [apellido suelto]",
+  "mencion": "Montoro",
+  "veredicto": "correcta",
+  "motivo": "Cristóbal Montoro, ministro de Hacienda y diputado (PP) en la XII."
+ },
+ {
+  "n": 17,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2018,
+  "habla": "LARA CARBÓ, MARÍA TERESA DE",
+  "atribuida": "RAJOY BREY, MARIANO [apellido suelto]",
+  "mencion": "Rajoy",
+  "veredicto": "correcta",
+  "motivo": "Mariano Rajoy, presidente del Gobierno y diputado en la XII; duplica la mención «Mariano Rajoy» detectada con el cargo."
+ },
+ {
+  "n": 18,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2025,
+  "habla": "MUÑOZ DE LA IGLESIA, ESTER",
+  "atribuida": "ÁBALOS MECO, JOSÉ LUIS [apellido suelto]",
+  "mencion": "Ábalos",
+  "veredicto": "correcta",
+  "motivo": "José Luis Ábalos (XV)."
+ },
+ {
+  "n": 19,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 1997,
+  "habla": "MARTÍNEZ CASAÑ, GUILLERMO",
+  "atribuida": "URÍA ETXEBARRÍA, MARGARITA [apellido suelto]",
+  "mencion": "Uría",
+  "veredicto": "correcta",
+  "motivo": "Margarita Uría, portavoz del PNV (VI)."
+ },
+ {
+  "n": 20,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2025,
+  "habla": "GAMARRA RUIZ-CLAVIJO, CONCEPCIÓN",
+  "atribuida": "ÁBALOS MECO, JOSÉ LUIS [apellido suelto]",
+  "mencion": "Ábalos",
+  "veredicto": "correcta",
+  "motivo": "José Luis Ábalos (XV)."
+ },
+ {
+  "n": 21,
+  "categoria": "miembro (cargo sin nombre, por fecha)",
+  "anio": 1990,
+  "habla": "BAÓN RAMÍREZ, ROGELIO",
+  "atribuida": "GONZÁLEZ MÁRQUEZ, FELIPE [nombre]",
+  "mencion": "Presidente del Gobierno",
+  "veredicto": "correcta",
+  "motivo": "Felipe González, presidente del Gobierno en diciembre de 1990 (XXXII Congreso del PSOE)."
+ },
+ {
+  "n": 22,
+  "categoria": "miembro (cargo sin nombre, por fecha)",
+  "anio": 2025,
+  "habla": "BOLAÑOS GARCÍA, FÉLIX",
+  "atribuida": "SÁNCHEZ PÉREZ-CASTEJÓN, PEDRO [nombre]",
+  "mencion": "presidente del Gobierno",
+  "veredicto": "correcta",
+  "motivo": "Pedro Sánchez, presidente del Gobierno en diciembre de 2025."
+ },
+ {
+  "n": 23,
+  "categoria": "miembro (cargo sin nombre, por fecha)",
+  "anio": 1998,
+  "habla": "CONDE GUTIÉRREZ DEL ALAMO, ROSA",
+  "atribuida": "AZNAR LÓPEZ, JOSÉ MARÍA [nombre]",
+  "mencion": "presidente del Gobierno",
+  "veredicto": "correcta",
+  "motivo": "José María Aznar, presidente del Gobierno en 1998."
+ },
+ {
+  "n": 24,
+  "categoria": "miembro (cargo sin nombre, por fecha)",
+  "anio": 2006,
+  "habla": "BARKOS BERRUEZO, UXUE",
+  "atribuida": "RODRÍGUEZ ZAPATERO, JOSÉ LUIS [nombre]",
+  "mencion": "presidente del Gobierno",
+  "veredicto": "incorrecta",
+  "motivo": "«el presidente del Gobierno de Navarra, el señor Sanz»: es Miguel Sanz, no Rodríguez Zapatero."
+ },
+ {
+  "n": 25,
+  "categoria": "miembro (cargo sin nombre, por fecha)",
+  "anio": 2018,
+  "habla": "SAHUQUILLO GARCÍA, LUIS CARLOS",
+  "atribuida": "RAJOY BREY, MARIANO [nombre]",
+  "mencion": "presidente del Gobierno",
+  "veredicto": "correcta",
+  "motivo": "Rajoy era el presidente; uso genérico («un presidente del Gobierno no puede…»), pero la frase apunta a él («como hace el actual presidente»)."
+ },
+ {
+  "n": 26,
+  "categoria": "miembro (cargo sin nombre, por fecha)",
+  "anio": 2025,
+  "habla": "MARTÍNEZ SALMERÓN, JOAQUÍN",
+  "atribuida": "SÁNCHEZ PÉREZ-CASTEJÓN, PEDRO [nombre]",
+  "mencion": "presidente del Gobierno",
+  "veredicto": "correcta",
+  "motivo": "Pedro Sánchez: referencia institucional (quien convoca las elecciones) al presidente en ejercicio."
+ },
+ {
+  "n": 27,
+  "categoria": "miembro (cargo sin nombre, por fecha)",
+  "anio": 1978,
+  "habla": "CAVERO LATAILLADE, IÑIGO",
+  "atribuida": "SUÁREZ GONZÁLEZ, ADOLFO [nombre]",
+  "mencion": "Presidente del Gobierno",
+  "veredicto": "correcta",
+  "motivo": "Adolfo Suárez, presidente del Gobierno en mayo de 1978."
+ },
+ {
+  "n": 28,
+  "categoria": "miembro (cargo sin nombre, por fecha)",
+  "anio": 2003,
+  "habla": "TRILLO-FIGUEROA MARTÍNEZ-CONDE, FEDERICO",
+  "atribuida": "AZNAR LÓPEZ, JOSÉ MARÍA [nombre]",
+  "mencion": "presidente del Gobierno",
+  "veredicto": "correcta",
+  "motivo": "José María Aznar, presidente del Gobierno en febrero de 2003."
+ },
+ {
+  "n": 29,
+  "categoria": "miembro (cargo sin nombre, por fecha)",
+  "anio": 1991,
+  "habla": "CASTELLANO CARDALLIAGUET, PABLO",
+  "atribuida": "GONZÁLEZ MÁRQUEZ, FELIPE [nombre]",
+  "mencion": "Presidente del Gobierno",
+  "veredicto": "correcta",
+  "motivo": "Felipe González, presidente del Gobierno en abril de 1991."
+ },
+ {
+  "n": 30,
+  "categoria": "miembro (cargo sin nombre, por fecha)",
+  "anio": 2024,
+  "habla": "IÑARRITU GARCÍA, JON",
+  "atribuida": "SÁNCHEZ PÉREZ-CASTEJÓN, PEDRO [nombre]",
+  "mencion": "presidente del Gobierno",
+  "veredicto": "correcta",
+  "motivo": "Pedro Sánchez, presidente del Gobierno en mayo de 2024."
+ },
+ {
+  "n": 31,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2006,
+  "habla": "ALONSO SUÁREZ, JOSÉ ANTONIO",
+  "atribuida": "EXT que entran dentro normalidad",
+  "mencion": "SEÑORA VICEPRESIDENTA QUE ENTRAN DENTRO DE LA NORMALIDAD",
+  "veredicto": "incorrecta",
+  "motivo": "No es una persona: encabezado de pregunta en mayúsculas («¿CONSIDERA LA SEÑORA VICEPRESIDENTA QUE ENTRAN DENTRO DE LA NORMALIDAD…»)."
+ },
+ {
+  "n": 32,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2020,
+  "habla": "CAMBRONERO PIQUERAS, PABLO",
+  "atribuida": "EXT junqueras",
+  "mencion": "señor Junqueras",
+  "veredicto": "correcta",
+  "motivo": "Oriol Junqueras, sin escaño en 2020 (no figura en oradores.json)."
+ },
+ {
+  "n": 33,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1997,
+  "habla": "PEDRET I GRENZNER, JORDI",
+  "atribuida": "EXT casa casas",
+  "mencion": "senador Casa Casas",
+  "veredicto": "correcta",
+  "motivo": "«senador Casa Casas» es Juan Vicente Casas Casas, senador en la V y VI legislaturas (http://www.asociacionescritorescastillalamancha.es/casas-casas-juan-vicente/); la clave arrastra la errata del Diario."
+ },
+ {
+  "n": 34,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2024,
+  "habla": "OTERO RODRÍGUEZ, PATRICIA",
+  "atribuida": "EXT meloni",
+  "mencion": "señora Meloni",
+  "veredicto": "correcta",
+  "motivo": "Giorgia Meloni, presidenta del Consejo de Ministros de Italia."
+ },
+ {
+  "n": 35,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2025,
+  "habla": "VAQUERO MONTERO, MARIBEL",
+  "atribuida": "EXT trump",
+  "mencion": "señor Trump",
+  "veredicto": "correcta",
+  "motivo": "Donald Trump («en su primer mandato»)."
+ },
+ {
+  "n": 36,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2006,
+  "habla": "La señora MINISTRA DE SANIDAD Y CONSUMO (Salgado Méndez)",
+  "atribuida": "EXT que entran dentro normalidad",
+  "mencion": "MINISTRA QUE EL PROGRAMA AGUA HA FRACASADO",
+  "veredicto": "incorrecta",
+  "motivo": "No es una persona: encabezado de pregunta en mayúsculas («¿CONSIDERA LA MINISTRA QUE EL PROGRAMA AGUA HA FRACASADO?»), fundido además con la persona espuria de la nº 31."
+ },
+ {
+  "n": 37,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2020,
+  "habla": "La señora VICEPRESIDENTA TERCERA DEL GOBIERNO Y MINISTRA DE ASUNTOS ECONÓMICOS Y TRANSFORMACIÓN DIGITAL (Calviño Santamaría)",
+  "atribuida": "EXT cuarta",
+  "mencion": "SEÑORA VICEPRESIDENTA CUARTA Y MINISTRA PARA LA TRANSICIÓN",
+  "veredicto": "incorrecta",
+  "motivo": "No es una persona: «VICEPRESIDENTA CUARTA Y MINISTRA…» en un encabezado en mayúsculas; toma «Cuarta» por nombre."
+ },
+ {
+  "n": 38,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2024,
+  "habla": "SANTANA PERERA, NOEMÍ",
+  "atribuida": "EXT hereu",
+  "mencion": "Señor Hereu",
+  "veredicto": "correcta",
+  "motivo": "Jordi Hereu, ministro de Industria y Turismo, sin escaño (no figura en oradores.json)."
+ },
+ {
+  "n": 39,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2025,
+  "habla": "PAGÈS I MASSÓ, JOSEP",
+  "atribuida": "EXT manuel moix",
+  "mencion": "señor Manuel Moix",
+  "veredicto": "correcta",
+  "motivo": "Manuel Moix, nombrado fiscal Anticorrupción en 2017 por el fiscal general Maza."
+ },
+ {
+  "n": 40,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1997,
+  "habla": "ZABALIA LEZAMIZ, JON",
+  "atribuida": "EXT tributaria",
+  "mencion": "General Tributaria",
+  "veredicto": "incorrecta",
+  "motivo": "No es una persona: «Ley General Tributaria»; «General» se toma por el rango militar."
+ },
+ {
+  "n": 41,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 1990,
+  "habla": "MÚGICA HERZOG, ENRIQUE",
+  "atribuida": "EXT antoni asuncion hernandez",
+  "mencion": "señor Asunción",
+  "veredicto": "correcta",
+  "motivo": "Antoni Asunción, director general de Instituciones Penitenciarias en 1990; diputado en la V (https://es.wikipedia.org/wiki/Antoni_Asunción)."
+ },
+ {
+  "n": 42,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 1990,
+  "habla": "RAJOY BREY, MARIANO",
+  "atribuida": "EXT antoni asuncion hernandez",
+  "mencion": "señor Asunción",
+  "veredicto": "correcta",
+  "motivo": "Antoni Asunción (véase la nº 41)."
+ },
+ {
+  "n": 43,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2020,
+  "habla": "CAMBRONERO PIQUERAS, PABLO",
+  "atribuida": "EXT jose manuel franco pardo",
+  "mencion": "José Manuel Franco",
+  "veredicto": "correcta",
+  "motivo": "José Manuel Franco, delegado del Gobierno en Madrid desde febrero de 2020; diputado de mayo de 2019 a febrero de 2020 (https://es.wikipedia.org/wiki/José_Manuel_Franco)."
+ },
+ {
+  "n": 44,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2012,
+  "habla": "FERNÁNDEZ ÁLVAREZ, ALEJANDRO",
+  "atribuida": "EXT jose ignacio wert ortega",
+  "mencion": "José Ignacio Wert",
+  "veredicto": "correcta",
+  "motivo": "José Ignacio Wert, ministro de Educación sin escaño en la X; diputado en la III (CP) según oradores.json."
+ },
+ {
+  "n": 45,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2025,
+  "habla": "FLORIANO CORRALES, CARLOS JAVIER",
+  "atribuida": "EXT julio francisco espana moya",
+  "mencion": "España",
+  "veredicto": "incorrecta",
+  "motivo": "«de manos del presidente Sánchez, España no debió perder»: «España» es el país, no el exdiputado Julio Francisco de España Moya."
+ },
+ {
+  "n": 46,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2012,
+  "habla": "GARCÍA ÁLVAREZ, MARÍA CARIDAD",
+  "atribuida": "EXT jose ignacio wert ortega",
+  "mencion": "señor Wert",
+  "veredicto": "correcta",
+  "motivo": "José Ignacio Wert, ministro de Educación (véase la nº 44)."
+ },
+ {
+  "n": 47,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2020,
+  "habla": "NOGUERAS I CAMERO, MÍRIAM",
+  "atribuida": "EXT diego perez cobos",
+  "mencion": "Cobos",
+  "veredicto": "correcta",
+  "motivo": "Diego Pérez de los Cobos, coronel de la Guardia Civil."
+ },
+ {
+  "n": 48,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2025,
+  "habla": "PAGÈS I MASSÓ, JOSEP",
+  "atribuida": "EXT carles puigdemont",
+  "mencion": "Puigdemont",
+  "veredicto": "correcta",
+  "motivo": "Carles Puigdemont (cita en catalán; la nº 52 es la misma frase en la versión castellana)."
+ },
+ {
+  "n": 49,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2025,
+  "habla": "SANTOS MARAVER, AGUSTÍN",
+  "atribuida": "EXT trump",
+  "mencion": "Trump",
+  "veredicto": "correcta",
+  "motivo": "Donald Trump («el plan Trump» para Gaza)."
+ },
+ {
+  "n": 50,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2020,
+  "habla": "MAZÓN RAMOS, JOSÉ MARÍA",
+  "atribuida": "EXT francisco franco",
+  "mencion": "Franco",
+  "veredicto": "correcta",
+  "motivo": "Francisco Franco (inauguración de las obras en los años cuarenta)."
+ },
+ {
+  "n": 51,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2021,
+  "habla": "ESTEBAN CALONJE, CRISTINA ALICIA",
+  "atribuida": "EXT arnaldo otegi",
+  "mencion": "Otegi",
+  "veredicto": "correcta",
+  "motivo": "Arnaldo Otegi («el partido de Otegi»)."
+ },
+ {
+  "n": 52,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2025,
+  "habla": "PAGÈS I MASSÓ, JOSEP",
+  "atribuida": "EXT carles puigdemont",
+  "mencion": "Puigdemont",
+  "veredicto": "correcta",
+  "motivo": "Carles Puigdemont; misma frase que la nº 48 en la versión castellana del discurso."
+ },
+ {
+  "n": 53,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2025,
+  "habla": "VAQUERO MONTERO, MARIBEL",
+  "atribuida": "EXT trump",
+  "mencion": "Trump",
+  "veredicto": "correcta",
+  "motivo": "Donald Trump."
+ },
+ {
+  "n": 54,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2025,
+  "habla": "RODRÍGUEZ DE MILLÁN PARRO, MARÍA JOSÉ",
+  "atribuida": "EXT carles puigdemont",
+  "mencion": "Puigdemont",
+  "veredicto": "correcta",
+  "motivo": "Carles Puigdemont."
+ },
+ {
+  "n": 55,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2025,
+  "habla": "POSE MESURA, MODESTO",
+  "atribuida": "EXT trump",
+  "mencion": "Trump",
+  "veredicto": "correcta",
+  "motivo": "Donald Trump («Elon Musk y Trump»)."
+ },
+ {
+  "n": 56,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2020,
+  "habla": "SANTIAGO ROMERO, ENRIQUE FERNANDO",
+  "atribuida": "EXT diego perez cobos",
+  "mencion": "Cobos",
+  "veredicto": "correcta",
+  "motivo": "Diego Pérez de los Cobos («el informe de Pérez de los Cobos»)."
+ }
+]

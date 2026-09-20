@@ -1,0 +1,422 @@
+[
+ {
+  "n": 1,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2025,
+  "habla": "ALFREDO PACHECO OSORIA",
+  "atribuida": "CHARLES NOEL MARIOTTI PAZ [nombre]",
+  "mencion": "colega Charles Mariotti",
+  "veredicto": "correcta",
+  "motivo": "Diputado del PLD en 2024-2028 (oradores.json); intervino antes en la misma sesión sobre la Ley 340-06 (DO007008400047)."
+ },
+ {
+  "n": 2,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2011,
+  "habla": "JUAN SUAZO MARTE",
+  "atribuida": "OMAR LEONEL FERNÁNDEZ DOMÍNGUEZ [otra legislatura]",
+  "mencion": "doctor Leonel Fernández",
+  "veredicto": "incorrecta",
+  "motivo": "«el gobierno del doctor Leonel Fernández» en 2011 es el presidente Leonel Fernández Reyna (2004-2012), no su hijo Omar, diputado solo en 2020-2024 (https://es.wikipedia.org/wiki/Leonel_Fern%C3%A1ndez)."
+ },
+ {
+  "n": 3,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2025,
+  "habla": "ALFREDO PACHECO OSORIA",
+  "atribuida": "GUSTAVO ANTONIO SÁNCHEZ GARCÍA [nombre]",
+  "mencion": "colega Gustavo Sánchez",
+  "veredicto": "correcta",
+  "motivo": "«su vocero, el colega Gustavo Sánchez» (PLD); único Gustavo Sánchez con escaño en 2024-2028."
+ },
+ {
+  "n": 4,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2009,
+  "habla": "JOSÉ ULISES RODRÍGUEZ GUZMÁN",
+  "atribuida": "CARMEN MIRELYS UCETA VÉLEZ [nombre]",
+  "mencion": "colega Mirelys Uceta",
+  "veredicto": "correcta",
+  "motivo": "Única Mirelys Uceta en oradores.json; diputada en 2006-2010 con intervenciones hasta el día de esta sesión."
+ },
+ {
+  "n": 5,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2018,
+  "habla": "JOSEFA AQUILINA CASTILLO RODRÍGUEZ",
+  "atribuida": "CARLOS DE PÉREZ JUAN [otra legislatura]",
+  "mencion": "honorable Juan Julio Campos",
+  "veredicto": "incorrecta",
+  "motivo": "Es Juan Julio Campos Ventura (PLD, escaño en 2016-2020), el proponente que acaba de hablar (DO005013200093); «Julio» se tomó por mes y «Juan» casó con el segundo apellido de Carlos de Pérez Juan (2024-2028)."
+ },
+ {
+  "n": 6,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2022,
+  "habla": "ALFREDO PACHECO OSORIA",
+  "atribuida": "HAMLET AMADO SÁNCHEZ MELO [nombre]",
+  "mencion": "diputado Hamlet Melo",
+  "veredicto": "correcta",
+  "motivo": "El mismo párrafo lo nombra entero («Hamlet Amado Sánchez Melo»); escaño en 2020-2024."
+ },
+ {
+  "n": 7,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2021,
+  "habla": "ALFREDO PACHECO OSORIA",
+  "atribuida": "NORBERTO RODRÍGUEZ VÁSQUEZ [nombre]",
+  "mencion": "diputado Norberto Rodríguez",
+  "veredicto": "correcta",
+  "motivo": "Único Norberto en oradores.json; diputado del PRM en 2020-2024, como dice el texto."
+ },
+ {
+  "n": 8,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2011,
+  "habla": "VÍCTOR VALDEMAR SUÁREZ DÍAZ",
+  "atribuida": "PEDRO CARRERAS SANTANA [nombre]",
+  "mencion": "Honorable Diputado Pedro Carreras",
+  "veredicto": "correcta",
+  "motivo": "Proponente de la iniciativa (PRD, 2010-2016), que intervino poco antes en la misma sesión (DO004009300067)."
+ },
+ {
+  "n": 9,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2022,
+  "habla": "ALFREDO PACHECO OSORIA",
+  "atribuida": "AGUSTÍN BURGOS TEJADA [nombre]",
+  "mencion": "licenciado Agustín Burgos",
+  "veredicto": "correcta",
+  "motivo": "Diputado en 2020-2024 y secretario del bufete directivo desde 2020 (https://www.diariolibre.com/actualidad/camara-de-diputados-y-el-senado-juramentan-bufete-directivo-NL20819114); figura con el resto del bufete al frente de la lista de asistencia."
+ },
+ {
+  "n": 10,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2003,
+  "habla": "JULIO CÉSAR VALENTÍN JIMINIÁN",
+  "atribuida": "MÁXIMO CASTRO SILVERIO [nombre]",
+  "mencion": "colega Máximo Castro",
+  "veredicto": "correcta",
+  "motivo": "Máximo Castro Silverio, vicepresidente que dirigía esa sesión (PRSC, 2002-2006); no hay otro Máximo Castro."
+ },
+ {
+  "n": 11,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2011,
+  "habla": "DAVID HERRERA DÍAZ",
+  "atribuida": "JUAN SUAZO MARTE [apellido suelto]",
+  "mencion": "Juan",
+  "veredicto": "incorrecta",
+  "motivo": "Topónimo: «la provincia de San Juan». Se buscó el nombre de pila «Juan» en lugar del apellido «Suazo»."
+ },
+ {
+  "n": 12,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2009,
+  "habla": "SERGIO ANTONIO CEDEÑO DE JESÚS",
+  "atribuida": "JOSÉ ANTONIO FABIÁN BERTRÉ [apellido suelto]",
+  "mencion": "José",
+  "veredicto": "incorrecta",
+  "motivo": "Topónimo: «San José de las Matas». Se buscó el nombre de pila «José» en lugar del apellido «Fabián»."
+ },
+ {
+  "n": 13,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2006,
+  "habla": "MIGUEL ÁNGEL DE JESÚS VÁSQUEZ ESCOTO",
+  "atribuida": "JOSÉ ANTONIO FABIÁN BERTRÉ [apellido suelto]",
+  "mencion": "José",
+  "veredicto": "incorrecta",
+  "motivo": "Otra persona: José Antonio Salcedo, prócer que da nombre a la provincia («la provincia de Salcedo, José Antonio Salcedo»)."
+ },
+ {
+  "n": 14,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2011,
+  "habla": "FRANCISCO ANTONIO SANTOS SOSA",
+  "atribuida": "JUAN SUAZO MARTE [apellido suelto]",
+  "mencion": "Juan",
+  "veredicto": "incorrecta",
+  "motivo": "Topónimo: «San Juan de la Maguana»."
+ },
+ {
+  "n": 15,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2006,
+  "habla": "MARCOS NÉSTOR JULIO CRUZ PICHARDO",
+  "atribuida": "JUAN SUAZO MARTE [apellido suelto]",
+  "mencion": "Juan",
+  "veredicto": "incorrecta",
+  "motivo": "Otra persona: «al Síndico Juan de los Santos», alcalde del municipio del que se habla (Santo Domingo Este)."
+ },
+ {
+  "n": 16,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2011,
+  "habla": "DAVID HERRERA DÍAZ",
+  "atribuida": "JUAN SUAZO MARTE [apellido suelto]",
+  "mencion": "Juan",
+  "veredicto": "incorrecta",
+  "motivo": "Topónimo: «San Juan de la Maguana»."
+ },
+ {
+  "n": 17,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2022,
+  "habla": "NIDIO ENCARNACIÓN SANTIAGO",
+  "atribuida": "JUAN SUAZO MARTE [apellido suelto]",
+  "mencion": "Juan",
+  "veredicto": "incorrecta",
+  "motivo": "Topónimo: «la provincia de San Juan»."
+ },
+ {
+  "n": 18,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2011,
+  "habla": "DAVID HERRERA DÍAZ",
+  "atribuida": "JUAN SUAZO MARTE [apellido suelto]",
+  "mencion": "Juan",
+  "veredicto": "incorrecta",
+  "motivo": "Topónimo: «de San Juan vengan a registrar muertes» (la provincia)."
+ },
+ {
+  "n": 19,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2006,
+  "habla": "VÍCTOR VALDEMAR SUÁREZ DÍAZ",
+  "atribuida": "JOSÉ ANTONIO FABIÁN BERTRÉ [apellido suelto]",
+  "mencion": "José",
+  "veredicto": "incorrecta",
+  "motivo": "Otra persona: el general José Antonio Salcedo, héroe de la Restauración («otros me hablan de José Antonio»)."
+ },
+ {
+  "n": 20,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2006,
+  "habla": "MARCOS NÉSTOR JULIO CRUZ PICHARDO",
+  "atribuida": "JUAN SUAZO MARTE [apellido suelto]",
+  "mencion": "Juan",
+  "veredicto": "incorrecta",
+  "motivo": "Otra persona: «al Síndico Juan de los Santos»."
+ },
+ {
+  "n": 21,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2007,
+  "habla": "CÉSAR ENRIQUE GÓMEZ SEGURA",
+  "atribuida": "EXT leonel fernandez",
+  "mencion": "señor Presidente Leonel Fernández",
+  "veredicto": "correcta",
+  "motivo": "Presidente de la República en 2007 (2004-2012; https://es.wikipedia.org/wiki/Leonel_Fern%C3%A1ndez)."
+ },
+ {
+  "n": 22,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2011,
+  "habla": "DAVID HERRERA DÍAZ",
+  "atribuida": "EXT leonel fernandez",
+  "mencion": "Presidente Leonel Fernández",
+  "veredicto": "correcta",
+  "motivo": "Presidente de la República en 2011 (2004-2012; https://es.wikipedia.org/wiki/Leonel_Fern%C3%A1ndez)."
+ },
+ {
+  "n": 23,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2007,
+  "habla": "Taquígrafa Parlamentaria (etiqueta, sin id de orador)",
+  "atribuida": "EXT leonel fernandez",
+  "mencion": "DOCTOR LEONEL FERNÁNDEZ REYNA",
+  "veredicto": "correcta",
+  "motivo": "Título de un informe: «SOLICITA AL SEÑOR PRESIDENTE DE LA REPÚBLICA, DOCTOR LEONEL FERNÁNDEZ REYNA»; unida a la clave del jefe de Estado."
+ },
+ {
+  "n": 24,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2017,
+  "habla": "RUBÉN DARÍO JUAN MALDONADO CASTRO",
+  "atribuida": "EXT francisco pagan rodriguez",
+  "mencion": "ingeniero Pagán",
+  "veredicto": "correcta",
+  "motivo": "La misma intervención lo presenta: «ingeniero Francisco Pagán Rodríguez, director de la Oficina de Ingenieros Supervisores de Obras del Estado (OISOE)»; no consta en oradores.json."
+ },
+ {
+  "n": 25,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2011,
+  "habla": "JOSÉ GEOVANNY TEJADA REYNOSO",
+  "atribuida": "EXT juan bosch",
+  "mencion": "profesor Juan Bosch",
+  "veredicto": "correcta",
+  "motivo": "Juan Bosch, presidente derrocado en 1963 («dar el golpe de estado al profesor Juan Bosch»)."
+ },
+ {
+  "n": 26,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2004,
+  "habla": "CRISTIAN PAREDES APONTE",
+  "atribuida": "EXT franklin almeyda",
+  "mencion": "Franklin Almeyda",
+  "veredicto": "correcta",
+  "motivo": "Secretario de Interior y Policía desde el 16-8-2004 (https://es.wikipedia.org/wiki/Franklin_Almeyda); no consta en oradores.json."
+ },
+ {
+  "n": 27,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2011,
+  "habla": "RELATORA (etiqueta, sin id de orador)",
+  "atribuida": "EXT preparado",
+  "mencion": "General Preparado",
+  "veredicto": "incorrecta",
+  "motivo": "No es persona: encabezado de formulario «Vía : Secretaría General Preparado por : Comisión Permanente de Contratos»."
+ },
+ {
+  "n": 28,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2011,
+  "habla": "RELATORA (etiqueta, sin id de orador)",
+  "atribuida": "EXT jose crecencio cuevas joaquin",
+  "mencion": "señor José Crecencio Cuevas Joaquín",
+  "veredicto": "correcta",
+  "motivo": "Particular que compra un apartamento al Estado en el contrato que se aprueba; no es diputado."
+ },
+ {
+  "n": 29,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2011,
+  "habla": "RELATORA (etiqueta, sin id de orador)",
+  "atribuida": "EXT pedro leonardo melo baez",
+  "mencion": "señor Pedro Leonardo Meló Báez",
+  "veredicto": "correcta",
+  "motivo": "Particular, parte de un contrato de venta con el Estado que se aprueba; no es diputado."
+ },
+ {
+  "n": 30,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2011,
+  "habla": "MANUEL DE JESÚS JIMÉNEZ ORTEGA",
+  "atribuida": "EXT losada",
+  "mencion": "señor Losada",
+  "veredicto": "correcta",
+  "motivo": "Embajador de México que decidió restaurar el monumento; el diario escribe «Losada», el embajador hasta 2011 era Enrique Loaeza Tovar (https://es.wikipedia.org/wiki/Anexo:Embajadores_de_M%C3%A9xico_en_Rep%C3%BAblica_Dominicana; https://www.cronica.com.mx/cultura/cuarenta-anos-monumento-mexicano-tierra-dominicana-todavia-espera-rescate-definitivo.html)."
+ },
+ {
+  "n": 31,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2011,
+  "habla": "MARCOS NÉSTOR JULIO CRUZ PICHARDO",
+  "atribuida": "EXT manuel jesus jimenez ortega",
+  "mencion": "colega Manuel Jiménez",
+  "veredicto": "incorrecta",
+  "motivo": "Era diputado en ejercicio (2010-2016, presidente de la Comisión de Cultura; habla en la misma sesión): debió resolverse como miembro. Quedó externo por las menciones de 2022 como «alcalde Manuel Jiménez»."
+ },
+ {
+  "n": 32,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2017,
+  "habla": "VÍCTOR VALDEMAR SUÁREZ DÍAZ",
+  "atribuida": "EXT manuel jesus jimenez ortega",
+  "mencion": "exdiputado Manuel Jiménez",
+  "veredicto": "correcta",
+  "motivo": "El cantautor de «Derroche», diputado de 2002 a 2016 (oradores.json; https://es.wikipedia.org/wiki/Manuel_Jim%C3%A9nez_(cantante)); en 2017 ya no tenía escaño."
+ },
+ {
+  "n": 33,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2017,
+  "habla": "MILADYS F DEL ROSARIO NÚÑEZ PANTALEÓN",
+  "atribuida": "EXT juan pablo duarte",
+  "mencion": "Duarte",
+  "veredicto": "incorrecta",
+  "motivo": "Topónimo: «la provincia Duarte»."
+ },
+ {
+  "n": 34,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2017,
+  "habla": "RUBÉN DARÍO JUAN MALDONADO CASTRO",
+  "atribuida": "EXT antonio musa",
+  "mencion": "Musa",
+  "veredicto": "incorrecta",
+  "motivo": "Institución: «el problema del Musa», el Hospital Regional Dr. Antonio Musa; la persona «Antonio Musa» sale solo de ese nombre de hospital."
+ },
+ {
+  "n": 35,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2006,
+  "habla": "AFIF NAZARIO RIZEK CAMILO",
+  "atribuida": "EXT juan pablo duarte",
+  "mencion": "Duarte",
+  "veredicto": "incorrecta",
+  "motivo": "Topónimo: «Diputado por la provincia Duarte»."
+ },
+ {
+  "n": 36,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2009,
+  "habla": "LIDIO CADET JIMÉNEZ",
+  "atribuida": "EXT juan pablo duarte",
+  "mencion": "Duarte",
+  "veredicto": "incorrecta",
+  "motivo": "Vía: «la autopista Duarte»."
+ },
+ {
+  "n": 37,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2011,
+  "habla": "PEDRO TOMÁS BOTELLO SOLIMÁN",
+  "atribuida": "EXT juan pablo duarte",
+  "mencion": "Duarte",
+  "veredicto": "incorrecta",
+  "motivo": "Topónimo: «el club de Villa Duarte»."
+ },
+ {
+  "n": 38,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2006,
+  "habla": "AFIF NAZARIO RIZEK CAMILO",
+  "atribuida": "EXT juan pablo duarte",
+  "mencion": "Duarte",
+  "veredicto": "correcta",
+  "motivo": "La persona: «Dijo Duarte: ‘Ser justo es lo primero…’» (Juan Pablo Duarte)."
+ },
+ {
+  "n": 39,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2017,
+  "habla": "NAPOLEÓN LÓPEZ RODRÍGUEZ",
+  "atribuida": "EXT antonio musa",
+  "mencion": "Musa",
+  "veredicto": "incorrecta",
+  "motivo": "Institución: «el hospital Musa, de San Pedro de Macorís»."
+ },
+ {
+  "n": 40,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2017,
+  "habla": "MIGUEL ÁNGEL JAZMÍN DE LA CRUZ",
+  "atribuida": "EXT juan pablo duarte",
+  "mencion": "Duarte",
+  "veredicto": "incorrecta",
+  "motivo": "Lugar: «el muelle Juan Pablo Duarte» de Arroyo Barril."
+ },
+ {
+  "n": 41,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2017,
+  "habla": "JOSÉ LUIS RODRÍGUEZ HICIANO",
+  "atribuida": "EXT juan pablo duarte",
+  "mencion": "Duarte",
+  "veredicto": "incorrecta",
+  "motivo": "Topónimo: «la provincia Duarte»."
+ },
+ {
+  "n": 42,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2022,
+  "habla": "RAFAEL AUGUSTO CASTILLO CASADO",
+  "atribuida": "EXT juan pablo duarte",
+  "mencion": "Duarte",
+  "veredicto": "incorrecta",
+  "motivo": "Lugar: «la plazoleta Juan Pablo Duarte» de Santo Domingo Este."
+ }
+]

@@ -1,0 +1,452 @@
+[
+ {
+  "n": 1,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1997,
+  "habla": "ESQUIVEL BADO, MARIO JOSE",
+  "atribuida": "MENDOZA CORREA, LUIS ALBERTO [nombre]",
+  "mencion": "Diputado Mendoza Correa",
+  "veredicto": "correcta",
+  "motivo": "Luis Alberto Mendoza Correa, con escaño en 1993-1998; la Presidencia contesta a continuación «Le di la palabra al Diputado Mendoza»."
+ },
+ {
+  "n": 2,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1992,
+  "habla": "SEÑOR DIPUTADO: JOSE PAPPALARDO ZALDN AR",
+  "atribuida": "VASCONSELLOS, JULIO CÉSAR [nombre]",
+  "mencion": "Dr. Vasconsellos",
+  "veredicto": "correcta",
+  "motivo": "Julio César Vasconsellos, diputado en 1989-1993, interviene en el mismo debate justo después."
+ },
+ {
+  "n": 3,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2009,
+  "habla": "GARCETE MOLINARI, CESAR MARCELINO",
+  "atribuida": "ESCOBAR PEDOTTI, OSCAR EPIFANIO [nombre]",
+  "mencion": "General Escobar",
+  "veredicto": "incorrecta",
+  "motivo": "«el General Escobar, Comandante de las huestes revolucionarias» en el relato de la revolución de 1873: figura histórica, no el diputado Oscar Escobar Pedotti (2008-2013)."
+ },
+ {
+  "n": 4,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1997,
+  "habla": "GUGGIARI ZAVALA, MODESTO LUIS",
+  "atribuida": "VILLAMAYOR, JUAN ERNESTO [actividad]",
+  "mencion": "Diputado Villamayor",
+  "veredicto": "correcta",
+  "motivo": "Juan Ernesto Villamayor (1993-1998) acaba de intervenir sobre la postergación; el otro Villamayor (Luis Felipe) solo habla desde mayo de 1998."
+ },
+ {
+  "n": 5,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2000,
+  "habla": "CASTIGLIONI SORIA, LUIS ALBERTO",
+  "atribuida": "ALSINA NOTARIO, ROBERTO [nombre]",
+  "mencion": "Diputado Alsina",
+  "veredicto": "correcta",
+  "motivo": "Roberto Alsina Notario (1998-2003), autor de la moción; la Presidencia le da la palabra dos turnos después para aclararla."
+ },
+ {
+  "n": 6,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1999,
+  "habla": "SECRETARIO (Administrativo)",
+  "atribuida": "MONGES ESPÍNOLA, JUAN DARÍO [preside]",
+  "mencion": "DIPUTADO DARIO",
+  "veredicto": "incorrecta",
+  "motivo": "Votación nominal: «DIPUTADO DARIO ]J. URQUHART No.» es Darío J. Urquhart, que no está en oradores.json; el nombre de pila solo se resolvió por «preside» a Juan Darío Monges, que en la misma votación figura aparte («DIPUTADO JUAN D. MONGES ESPINOLA Sí»)."
+ },
+ {
+  "n": 7,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1996,
+  "habla": "MENDOZA CORREA, LUIS ALBERTO",
+  "atribuida": "GUGGIARI ZAVALA, MODESTO LUIS [nombre]",
+  "mencion": "Diputado Guggiari",
+  "veredicto": "correcta",
+  "motivo": "Modesto Luis Guggiari Zavala, único Guggiari (1993-1998), interviene en la misma sesión."
+ },
+ {
+  "n": 8,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2020,
+  "habla": "SÁNCHEZ DE DA SILVA, ESMERITA",
+  "atribuida": "DENIS SÁNCHEZ, AMANCIO OSCAR [otra legislatura] (antiguo miembro)",
+  "mencion": "Don Oscar Denis Sánchez",
+  "veredicto": "correcta",
+  "motivo": "Amancio Óscar Denis Sánchez, exvicepresidente secuestrado en septiembre de 2020, fue diputado en 1998-2003; el detector lo marca bien como antiguo miembro (sin escaño en 2018-2023). Fuente: https://es.wikipedia.org/wiki/Óscar_Denis"
+ },
+ {
+  "n": 9,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2020,
+  "habla": "SAMANIEGO GONZÁLEZ, ARNALDO",
+  "atribuida": "SOROKA BENÍTEZ, COLYM GREGORIO [nombre]",
+  "mencion": "compañero Colym",
+  "veredicto": "correcta",
+  "motivo": "Colym Soroka (2018-2023) habló dos turnos antes sobre la interpelación al presidente de la ESSAP."
+ },
+ {
+  "n": 10,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2004,
+  "habla": "SECRETARIO (Administrativo)",
+  "atribuida": "SALOMÓN FERNÁNDEZ, OSCAR RUBÉN [nombre]",
+  "mencion": "Diputado Oscar Rubén Salomón Fernández",
+  "veredicto": "correcta",
+  "motivo": "Nombre completo; Oscar Rubén Salomón Fernández, diputado en 2003-2008."
+ },
+ {
+  "n": 11,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 1999,
+  "habla": "BOCCIA, FRANKLIN",
+  "atribuida": "PAPPALARDO SALDIVAR, CONRADO TEOFILO [apellido suelto]",
+  "mencion": "Pappalardo",
+  "veredicto": "correcta",
+  "motivo": "Conrado Pappalardo Saldívar, con escaño en 1998-2003 y ausente (última intervención en abril de 1999): se discute si puede reasumir su banca; el otro Pappalardo (José) solo estuvo en 1989-1993."
+ },
+ {
+  "n": 12,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 1996,
+  "habla": "SECRETARIO (Administrativo)",
+  "atribuida": "SAGUIER, HERMES RAFAEL [apellido suelto]",
+  "mencion": "Saguier",
+  "veredicto": "correcta",
+  "motivo": "«el Diputado Hermes: Rafael Saguier» (los dos puntos del OCR separan el tratamiento): Hermes Rafael Saguier, 1993-1998."
+ },
+ {
+  "n": 13,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 1996,
+  "habla": "SECRETARIO (Administrativo)",
+  "atribuida": "IBARRA DE BARROS, EDUARDO MARIA [apellido suelto]",
+  "mencion": "Ibarra",
+  "veredicto": "correcta",
+  "motivo": "«Eduardo Ibarra» en la lista de miembros de la Comisión Delegada: Eduardo María Ibarra de Barros, único Ibarra en 1993-1998."
+ },
+ {
+  "n": 14,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 1997,
+  "habla": "SECRETARIO (Administrativo)",
+  "atribuida": "LLANO RAMOS, BLAS ANTONIO [apellido suelto, se dirige]",
+  "mencion": "Llano",
+  "veredicto": "correcta",
+  "motivo": "«Blas A. Llano»: Blas Antonio Llano Ramos (1993-1998). La marca de vocativo sobra: es el final de un punto del orden del día."
+ },
+ {
+  "n": 15,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2000,
+  "habla": "SECRETARIO (Administrativo)",
+  "atribuida": "CABAÑAS BAZAN, NESTOR [apellido suelto]",
+  "mencion": "Cabañas",
+  "veredicto": "correcta",
+  "motivo": "«Néstor Cabañas Bazán», nombre completo en una lista de proyectistas (1998-2003)."
+ },
+ {
+  "n": 16,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2004,
+  "habla": "SECRETARIO (Administrativo)",
+  "atribuida": "NEUMAN IRALA, LUIS CARLOS [apellido suelto]",
+  "mencion": "Neuman",
+  "veredicto": "correcta",
+  "motivo": "«Luis Carlos Neuman Irala», nombre completo (2003-2008)."
+ },
+ {
+  "n": 17,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2019,
+  "habla": "AMARILLA VDA. DE BOCCIA, CELESTE JOSEFINA",
+  "atribuida": "IBARRA SANTACRUZ, HUGO MANUEL [apellido suelto]",
+  "mencion": "Ibarra",
+  "veredicto": "correcta",
+  "motivo": "«nuestro presidente, Hugo Ibarra, el Diputado» (Comisión de Obras): Hugo Manuel Ibarra Santacruz (2018-2023), diputado por Caaguazú que presidía esa comisión; el otro Hugo es Ramírez Ibarra. Fuente: https://www.lanacion.com.py/politica/2020/10/30/un-diputado-de-anetete-seria-el-sucesor-de-durand/"
+ },
+ {
+  "n": 18,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2004,
+  "habla": "SECRETARIO (Administrativo)",
+  "atribuida": "MUSSI MELGAREJO, GUSTAVO FRANCISCO [apellido suelto]",
+  "mencion": "Mussi",
+  "veredicto": "correcta",
+  "motivo": "«Gustavo Mussi Melgarejo», nombre completo (2003-2008)."
+ },
+ {
+  "n": 19,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 1992,
+  "habla": "MORENO RUFFINELLI, JOSÉ ANTONIO",
+  "atribuida": "VASCONSELLOS, JULIO CÉSAR [apellido suelto, se dirige]",
+  "mencion": "Vasconsellos",
+  "veredicto": "correcta",
+  "motivo": "Julio César Vasconsellos, que habla a continuación. El turno es de la Presidencia («SEÑOR. — PRESIDENTE», etiqueta que el detector no reconoce) y debió descartarse; la marca de vocativo sobra."
+ },
+ {
+  "n": 20,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 1997,
+  "habla": "ALVAREZ ALVARENGA, ANTONIO R.",
+  "atribuida": "DELORME FLECHA, LUIS WILFRIDO [apellido suelto]",
+  "mencion": "Delorme",
+  "veredicto": "correcta",
+  "motivo": "«los Diputados Nacionales Luis Delorme Flecha y Ricardo Jara Rojas»: Luis Wilfrido Delorme Flecha (1993-1998)."
+ },
+ {
+  "n": 21,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1993,
+  "habla": "RIVEROS DE SANCHEZ, LUDMILA",
+  "atribuida": "EXT preszdente",
+  "mencion": "señor Preszdente",
+  "veredicto": "incorrecta",
+  "motivo": "«Eso es todo, señor Preszdente»: error de OCR de «Presidente» (se dirige a quien preside); no es un nombre."
+ },
+ {
+  "n": 22,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1989,
+  "habla": "SECRETARIO (Administrativo)",
+  "atribuida": "EXT vicente a matiauda antibia matiauda",
+  "mencion": "Capitán Vicente A. Matiauda y Antibia Matiauda",
+  "veredicto": "incorrecta",
+  "motivo": "Ley que cambia nombres de distritos: «Capitán Vicente A. Matiauda» y «Antibia Matiauda» son dos distritos de Itapúa (lugares), y la clave une además dos nombres distintos."
+ },
+ {
+  "n": 23,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2009,
+  "habla": "BARRIOS CRISTALDO, JUAN ARTEMIO",
+  "atribuida": "EXT claudio gimenez",
+  "mencion": "Monseñor Claudio Gimenez",
+  "veredicto": "correcta",
+  "motivo": "Mons. Claudio Giménez, obispo; persona real sin escaño."
+ },
+ {
+  "n": 24,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1990,
+  "habla": "LUGO RODRIGUEZ, RICARDO",
+  "atribuida": "EXT tecnica cultural",
+  "mencion": "Técnica y Cultural",
+  "veredicto": "incorrecta",
+  "motivo": "«Convenio General Básico de Cooperación Científica, Técnica y Cultural»: no es una persona (la regla de cargo + institución + coma toma «Técnica y Cultural» por nombre)."
+ },
+ {
+  "n": 25,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2009,
+  "habla": "LÓPEZ CHÁVEZ, JOSÉ GREGORIO",
+  "atribuida": "EXT lino cesar oviedo",
+  "mencion": "General Lino César Oviedo",
+  "veredicto": "correcta",
+  "motivo": "Lino César Oviedo, fundador de UNACE, sin escaño en 2008-2013."
+ },
+ {
+  "n": 26,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1989,
+  "habla": "FACUNDO INSFRÁN, OSCAR",
+  "atribuida": "EXT vicente matiauda",
+  "mencion": "Capitán Vicente Matiauda",
+  "veredicto": "correcta",
+  "motivo": "Se discute el homenaje al Capitán Vicente Matiauda (el nombre del distrito): persona histórica sin escaño y la clave la identifica; el mismo personaje tiene además otro nodo (n.º 22 y 39)."
+ },
+ {
+  "n": 27,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2009,
+  "habla": "DA ROSA, JUAN ARISTÍDES",
+  "atribuida": "EXT fernando lugo",
+  "mencion": "Presidente Lugo",
+  "veredicto": "correcta",
+  "motivo": "Fernando Lugo, presidente de la República en octubre de 2009."
+ },
+ {
+  "n": 28,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2000,
+  "habla": "SECRETARIO (Administrativo)",
+  "atribuida": "EXT salvadora ortiz resquin",
+  "mencion": "SEÑORA SALVADORA ORTIZ RESQUIN",
+  "veredicto": "correcta",
+  "motivo": "Destinataria de un proyecto de pensión graciable; persona real sin escaño."
+ },
+ {
+  "n": 29,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2020,
+  "habla": "NÚÑEZ GIMÉNEZ, BASILIO GUSTAVO",
+  "atribuida": "EXT durand",
+  "mencion": "Ministro Durand",
+  "veredicto": "correcta",
+  "motivo": "Dany Durand, ministro de Urbanismo, Vivienda y Hábitat que dimitió en octubre de 2020; sin escaño en 2018-2023. Fue diputado en 2013-2018 (DURAND ESPÍNOLA en oradores.json) y no se enlaza con ese nodo. Fuente: https://www.lanacion.com.py/politica/2020/10/30/un-diputado-de-anetete-seria-el-sucesor-de-durand/"
+ },
+ {
+  "n": 30,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1996,
+  "habla": "SECRETARIO (Administrativo)",
+  "atribuida": "EXT para estudio consideracion",
+  "mencion": "DELEGADA PARA EL ESTUDIO Y",
+  "veredicto": "incorrecta",
+  "motivo": "«COMISION DELEGADA PARA EL ESTUDIO Y CONSIDERACION»: título en mayúsculas; no es una persona."
+ },
+ {
+  "n": 31,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 1994,
+  "habla": "PAPPALARDO SALDIVAR, CONRADO TEOFILO",
+  "atribuida": "EXT hugo joel meza",
+  "mencion": "Capitán Meza",
+  "veredicto": "incorrecta",
+  "motivo": "«Capitán Meza» es un distrito de Itapúa en una lista de localidades; además Hugo Joel Meza tiene escaño desde 2023, no antes."
+ },
+ {
+  "n": 32,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 1999,
+  "habla": "SECRETARIO (Administrativo)",
+  "atribuida": "EXT hugo joel meza",
+  "mencion": "CAPITÁN MEZA",
+  "veredicto": "incorrecta",
+  "motivo": "«DEL DISTRITO DE CAPITÁN MEZA, DEPARTAMENTO DE ITAPÚA»: lugar."
+ },
+ {
+  "n": 33,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2000,
+  "habla": "SECRETARIO (Administrativo)",
+  "atribuida": "EXT hugo joel meza",
+  "mencion": "Capitán Meza",
+  "veredicto": "incorrecta",
+  "motivo": "«Distrito de Capitán Meza»: lugar."
+ },
+ {
+  "n": 34,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 1989,
+  "habla": "ARGUETA, NELSON",
+  "atribuida": "EXT derlis manuel rodriguez baez",
+  "mencion": "Capitán Báez",
+  "veredicto": "incorrecta",
+  "motivo": "«el Capitán Báez... único oficial paraguayo muerto en... Yataity Corá», contra las tropas aliadas: oficial de la Guerra Grande, no Derlis Manuel Rodríguez Báez (diputado desde 2023)."
+ },
+ {
+  "n": 35,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 1994,
+  "habla": "PAPPALARDO SALDIVAR, CONRADO TEOFILO",
+  "atribuida": "EXT hugo joel meza",
+  "mencion": "Capitán Meza",
+  "veredicto": "incorrecta",
+  "motivo": "Misma lista de localidades del n.º 31 (otra aparición de «Capitán Meza»): lugar."
+ },
+ {
+  "n": 36,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2009,
+  "habla": "BARRIOS CRISTALDO, JUAN ARTEMIO",
+  "atribuida": "EXT fernando lugo",
+  "mencion": "Lugo",
+  "veredicto": "correcta",
+  "motivo": "«todos los alumnos de Fernando Lugo»: Fernando Lugo."
+ },
+ {
+  "n": 37,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2009,
+  "habla": "LÓPEZ CHÁVEZ, JOSÉ GREGORIO",
+  "atribuida": "EXT zavala",
+  "mencion": "Zavala",
+  "veredicto": "correcta",
+  "motivo": "Fidel Zavala, ganadero secuestrado por el EPP en octubre de 2009; el nodo «zavala» reúne las menciones de esa sesión sobre él."
+ },
+ {
+  "n": 38,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2019,
+  "habla": "ACOSTA ALCARAZ, EDGAR",
+  "atribuida": "EXT alderete",
+  "mencion": "Alderete",
+  "veredicto": "incorrecta",
+  "motivo": "En 2019 y a propósito de Itaipú, «Alderete» es José Alberto Alderete, director paraguayo de Itaipú (2018-2019); el nodo «alderete» se formó con menciones de 2009 a Alberto Alderete, presidente del INDERT, que es otra persona. Fuentes: https://es.wikipedia.org/wiki/José_Alberto_Alderete ; https://www.lanueva.com/nota/2009-10-23-18-35-0-pese-a-ofensiva-opositora-lugo-prometio-reforma-agraria"
+ },
+ {
+  "n": 39,
+  "categoria": "externa (apellido suelto)",
+  "anio": 1989,
+  "habla": "FRUTOS, JULIO CÉSAR",
+  "atribuida": "EXT vicente a matiauda antibia matiauda",
+  "mencion": "Matiauda",
+  "veredicto": "incorrecta",
+  "motivo": "El referente es el Capitán Vicente A. Matiauda (época del Dr. Francia), pero el nodo al que se asigna tiene la clave «vicente a matiauda antibia matiauda», que une dos nombres de una lista de distritos (n.º 22); debió ir a «vicente matiauda»."
+ },
+ {
+  "n": 40,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2009,
+  "habla": "SEÑOR DIPUTADO OSCAR LUIS TUMA GONZALEZ",
+  "atribuida": "EXT fernando lugo",
+  "mencion": "Lugo",
+  "veredicto": "correcta",
+  "motivo": "«del primer anillo de Fernando Lugo... Lugo»: Fernando Lugo."
+ },
+ {
+  "n": 41,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2009,
+  "habla": "LÓPEZ CHÁVEZ, JOSÉ GREGORIO",
+  "atribuida": "EXT fernando lugo",
+  "mencion": "Lugo",
+  "veredicto": "correcta",
+  "motivo": "«el Ministro alhaja de Lugo»: Fernando Lugo."
+ },
+ {
+  "n": 42,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2009,
+  "habla": "NEUMAN IRALA, LUIS CARLOS",
+  "atribuida": "EXT fernando lugo",
+  "mencion": "Lugo",
+  "veredicto": "correcta",
+  "motivo": "«el Presidente Lugo... que Lugo es el culpable»: Fernando Lugo."
+ },
+ {
+  "n": 43,
+  "categoria": "externa (apellido suelto)",
+  "anio": 1999,
+  "habla": "CHILAVERT, DIONICIO",
+  "atribuida": "EXT juan carlos wasmosy",
+  "mencion": "Wasmosy",
+  "veredicto": "correcta",
+  "motivo": "«Wasmosy tiempope» (en tiempos de Wasmosy): Juan Carlos Wasmosy."
+ },
+ {
+  "n": 44,
+  "categoria": "externa (apellido suelto)",
+  "anio": 1989,
+  "habla": "SECRETARIO (Administrativo)",
+  "atribuida": "EXT vicente a matiauda antibia matiauda",
+  "mencion": "Matiauda",
+  "veredicto": "incorrecta",
+  "motivo": "«Antibia Matiauda» en la lista de distritos: lugar; y va al nodo mal unido del n.º 22."
+ },
+ {
+  "n": 45,
+  "categoria": "externa (apellido suelto)",
+  "anio": 1999,
+  "habla": "MONGES ESPÍNOLA, JUAN DARÍO",
+  "atribuida": "EXT raul cubas",
+  "mencion": "Cubas",
+  "veredicto": "correcta",
+  "motivo": "«en épocas de Cubas», «de la mano de Cubas y del Líder del Movimiento UNACE, Oviedo»: Raúl Cubas, presidente en 1998-1999."
+ }
+]

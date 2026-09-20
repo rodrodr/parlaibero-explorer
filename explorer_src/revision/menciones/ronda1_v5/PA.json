@@ -1,0 +1,412 @@
+[
+  {
+    "n": 1,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2004,
+    "habla": "(etiqueta) RAM6N RAMÍREZ",
+    "atribuida": "BALBINA HERRERA ARAÚZ [nombre]",
+    "mencion": "ingeniera Balbina Herrera · «citar a la nueva Ministra de Vivienda, que procede de mi circuito, la ingeniera Balbina Herrera, a la cual guardo una gran estima y aprecio, a pe»",
+    "veredicto": "correcta",
+    "motivo": "Balbina Herrera Araúz, legisladora del PRD con escaño en 1999-2004 (legislatura que acababa el 31-8-2004), designada ministra de Vivienda; el orador es de su circuito."
+  },
+  {
+    "n": 2,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2004,
+    "habla": "(etiqueta) RELATOR",
+    "atribuida": "MARUJA OTILIA MORENO PERÉZ [nombre, se dirige]",
+    "mencion": "legisladora Maruja Moreno · «ENCARGADO Protocolo, por favor, haga pasar a los invitados. Continúe, legisladora Maruja Moreno.»",
+    "veredicto": "correcta",
+    "motivo": "Maruja Moreno (PRD), que interviene a continuación; el turno está mal segmentado (palabras del presidente en la fila del relator)."
+  },
+  {
+    "n": 3,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2020,
+    "habla": "(etiqueta) QUIBIAN T. PANAY G., SECRETARIO GENERAL",
+    "atribuida": "JUSTO MEDINA CHU [otra legislatura]",
+    "mencion": "Doctor Justo Medina · «lanificación • Doctor Jorge Medrano, Asesor del Despacho Superior • Doctor Justo Medina, Enlace del Ministerio de Salud con la Asamblea N»",
+    "veredicto": "dudosa",
+    "motivo": "«Doctor Justo Medina, Enlace del Ministerio de Salud con la Asamblea» en 2020; no he podido confirmar en fuentes que sea el exlegislador Justo Medina Chu (PRD, 1994-1999)."
+  },
+  {
+    "n": 4,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2020,
+    "habla": "ARIEL ALBA PEÑALBA",
+    "atribuida": "MIGDALIA FUENTES DE PINEDA [otra legislatura]",
+    "mencion": "Director Fuentes · «el tercer lugar con más problemas a nivel nacional, confirmado por el Director Fuentes, con quien sostuve una reunión el día 22 de septi»",
+    "veredicto": "incorrecta",
+    "motivo": "«el Director Fuentes» es Armando Fuentes, administrador de la ASEP (así lo nombra otra diputada en la misma sesión; https://ensegundos.com.pa/2020/09/22/asep-multa-a-naturgy-por-1-millon-250-mil-dolares-csj-avala-sancion/), no la exlegisladora Migdalia Fuentes de Pineda."
+  },
+  {
+    "n": 5,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2004,
+    "habla": "JOSÉ ISMAEL HERRERA",
+    "atribuida": "JERRY V WILSON NAVARRO [nombre]",
+    "mencion": "honorable legislador Jerry Wilson Navarro · « Proponer a la Directiva de la Asamblea Legislativa, presidida por el honorable legislador Jerry Wilson Navarro, la creación del mencionado centro, que estamos s»",
+    "veredicto": "correcta",
+    "motivo": "Jerry Wilson Navarro (PRD), presidente de la Asamblea en 2004-2005."
+  },
+  {
+    "n": 6,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1997,
+    "habla": "(etiqueta) VOLANNY DE PINZON",
+    "atribuida": "VÍCTOR MÉNDEZ FÁBREGA [nombre]",
+    "mencion": "Legislador Méndez Fábrega · « que es realmente la más importante; y en esto apoyo las palabras del Legislador Méndez Fábrega, en cuanto a que lo que tenemos que hacer en real»",
+    "veredicto": "correcta",
+    "motivo": "Víctor Méndez Fábrega (MPE, 1994-1999), que habló antes sobre el mismo proyecto."
+  },
+  {
+    "n": 7,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2013,
+    "habla": "VIDAL GARCÍA UREÑA",
+    "atribuida": "SERGIO RAFAEL GÁLVEZ EVERS [nombre]",
+    "mencion": "honorable Sergio Gálvez · « Admiro sí a muchos políticos, como el Presidente de la Asamblea, el honorable Sergio Gálvez, lo admiro porque para aprender política, usted n»",
+    "veredicto": "correcta",
+    "motivo": "Sergio Gálvez Evers (CD), presidente de la Asamblea en 2013."
+  },
+  {
+    "n": 8,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 1997,
+    "habla": "PABLO QUINTERO LUNA",
+    "atribuida": "VÍCTOR MÉNDEZ FÁBREGA [nombre]",
+    "mencion": "colega Méndez Fábrega · «o dividirlo, que nuestro interés es hacer un Panamá mejor. Así que al colega Méndez Fábrega, como Presidente de la bancada Papa Egoró y a tod»",
+    "veredicto": "correcta",
+    "motivo": "Víctor Méndez Fábrega, jefe de la bancada Papa Egoró."
+  },
+  {
+    "n": 9,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2004,
+    "habla": "YASSIR ABOOBEKER PURCAIT SABORIO",
+    "atribuida": "RUBÉN DE LEÓN SÁNCHEZ [nombre, se dirige]",
+    "mencion": "Rubén de León · «ñan en esta iniciativa, señor Presidente los honorables legisladores, Rubén de León, José Blandón Figueroa, Jorge Hernán Rubio y Juan»",
+    "veredicto": "correcta",
+    "motivo": "Rubén de León Sánchez (PRD, 2004-2009), coproponente del anteproyecto; el cargo «presidente» y el vocativo que registra el detector vienen de «señor Presidente», no de él."
+  },
+  {
+    "n": 10,
+    "categoria": "miembro (con tratamiento o cargo)",
+    "anio": 2020,
+    "habla": "HÉCTOR HUGO BRANDS CÓRDOBA",
+    "atribuida": "MARITZA ROYO DE BERMÚDEZ [otra legislatura, se dirige]",
+    "mencion": "doctor Royo · «l pueblo, y yo no creo que eso era lo que quería el general Torrijos, doctor Royo, yo no creo que era eso. Incluso, en la admini»",
+    "veredicto": "incorrecta",
+    "motivo": "«doctor Royo» es Aristides Royo, ministro para Asuntos del Canal presente en la sesión (el acta le da la palabra); no la exlegisladora Maritza Royo de Bermúdez."
+  },
+  {
+    "n": 11,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2004,
+    "habla": "(etiqueta) FERNANDO GRACIA, MINISTRO DE SALUD",
+    "atribuida": "CARLOS JOSÉ SMITH S [apellido suelto]",
+    "mencion": "Carlos · « sesiones ordinarias. Yo creo que los legisladores Aníbal Culiolis, Carlos Smith y Elpidio González han sido una fuerza moto»",
+    "veredicto": "correcta",
+    "motivo": "Carlos Smith (PRD, 1999-2004), citado con Culiolis y Elpidio González."
+  },
+  {
+    "n": 12,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2001,
+    "habla": "CARLOS AGUSTÍN AFÚ DECEREGA",
+    "atribuida": "ALBERTO CIGARRUISTA CORTÉZ [apellido suelto]",
+    "mencion": "Alberto · « compañeros aquí a los legisladores Osman Gómez y a Tito Cigarruista, Alberto Cigarruista, para que tuvieran en esa comisión pa»",
+    "veredicto": "correcta",
+    "motivo": "Alberto «Tito» Cigarruista (1999-2004), nombrado a la comisión."
+  },
+  {
+    "n": 13,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2001,
+    "habla": "(etiqueta) SUBSECRETARIO GENERAL, LICENCIADO JORGE RICARDO FÁBREGA",
+    "atribuida": "ALBERTO CIGARRUISTA CORTÉZ [apellido suelto]",
+    "mencion": "Alberto · «Los HH.LL. Freidi Torres, Tomás Altamirano, Alberto Cigarruista, Carlos Afú Decerega, Osman Gómez y C»",
+    "veredicto": "correcta",
+    "motivo": "Alberto Cigarruista, proponente de la cortesía de sala."
+  },
+  {
+    "n": 14,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2001,
+    "habla": "CARLOS AGUSTÍN AFÚ DECEREGA",
+    "atribuida": "CARLOS JOSÉ SMITH S [apellido suelto]",
+    "mencion": "Carlos · « legisladora Balbina Herrera, el jefe de nuestra bancada, Altamirano, Carlos Smith, el amigo Hirisnel Sucre. Allí, en ese sen»",
+    "veredicto": "correcta",
+    "motivo": "Carlos Smith, legislador del PRD en 2001."
+  },
+  {
+    "n": 15,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2020,
+    "habla": "(etiqueta) QUIBIAN T. PANAY G., SECRETARIO GENERAL",
+    "atribuida": "ABEL BEKER ÁBREGO [apellido suelto]",
+    "mencion": "Abel · «onorables diputados Zulay Rodríguez, Eugenio Bernal, Francisco Nieto, Abel Beker y otros honorables diputados, proponen: Qu»",
+    "veredicto": "correcta",
+    "motivo": "Abel Beker Ábrego (PRD, 2019-2024), proponente."
+  },
+  {
+    "n": 16,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1997,
+    "habla": "(etiqueta) MARIO DOMÍNGUEZ, ASISTENTE DEL SECRETARIO GENERAL A.I.",
+    "atribuida": "CARLOS JOSÉ SMITH S [apellido suelto]",
+    "mencion": "Carlos · «norables Legisladores Rubén Arosemena, Mariela Jiménez, Gloria Young, Carlos Smith, Bolívar Pariente, Lenín Sucre, Bernabé Pér»",
+    "veredicto": "correcta",
+    "motivo": "Carlos Smith (PRD, 1994-1999), proponente."
+  },
+  {
+    "n": 17,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2020,
+    "habla": "(etiqueta) QUIBIAN T. PANAY G., SECRETARIO GENERAL",
+    "atribuida": "ABEL BEKER ÁBREGO [apellido suelto]",
+    "mencion": "Abel · «de Seguro Social y el Ministerio de Salud. Los honorables diputados Abel Beker, Kayra Harding y otros, proponen: Que se m»",
+    "veredicto": "correcta",
+    "motivo": "Abel Beker, proponente."
+  },
+  {
+    "n": 18,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 1997,
+    "habla": "(etiqueta) ENCIADO MARIO DOMINGUEZ-ASISTENTE DEL SECRETARIO GENERAL A.I.",
+    "atribuida": "CARLOS JOSÉ SMITH S [apellido suelto]",
+    "mencion": "Carlos · «la Jiménez, Denis Arce, Gloria Young, Yadira González, César Sanjur y Carlos Smith proponen: Suspéndase lo que se discute y a»",
+    "veredicto": "correcta",
+    "motivo": "Carlos Smith, proponente."
+  },
+  {
+    "n": 19,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2020,
+    "habla": "(etiqueta) QUIBIAN T. PANAY G., SECRETARIO GENERAL",
+    "atribuida": "ABEL BEKER ÁBREGO [apellido suelto]",
+    "mencion": "Abel · «ia financiera de la Red Pública de Salud. Los honorables diputados Abel Beker, Kayra Harding y otros, proponen: Que se a»",
+    "veredicto": "correcta",
+    "motivo": "Abel Beker, proponente."
+  },
+  {
+    "n": 20,
+    "categoria": "miembro (apellido suelto)",
+    "anio": 2020,
+    "habla": "(etiqueta) QUIBIAN T. PANAY G., SECRETARIO GENERAL",
+    "atribuida": "ABEL BEKER ÁBREGO [apellido suelto]",
+    "mencion": "Abel · «n calidad, costos, eficacia y eficiencia. Los honorables diputados Abel Beker, Kayra Harding y otros, proponen: Que se m»",
+    "veredicto": "correcta",
+    "motivo": "Abel Beker, proponente."
+  },
+  {
+    "n": 21,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2004,
+    "habla": "(etiqueta) JOSÉ DIDIMO ESCOBAR, SUBSECRETARIO GENERAL DE LA",
+    "atribuida": "EXT alvin weeden gamboa",
+    "mencion": "licenciado Alvin Weeden Gamboa · «Siguiente punto del Orden del día: Comparecencia del licenciado Alvin Weeden Gamboa, Contralor General de la República.»",
+    "veredicto": "correcta",
+    "motivo": "Alvin Weeden Gamboa, contralor general (así lo presenta el acta); sin escaño."
+  },
+  {
+    "n": 22,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2004,
+    "habla": "OSMÁN CAMILO GÓMEZ",
+    "atribuida": "EXT fernando gracia",
+    "mencion": "Ministro Gracia · « política dentro de la gestión real, yo no conozco a los que, solo al Ministro Gracia, a los otros no los conozco, ni me interesa conoc»",
+    "veredicto": "correcta",
+    "motivo": "Fernando Gracia, ministro de Salud del gobierno anterior (el corpus lo registra como «FERNANDO GRACIA, MINISTRO DE SALUD» en junio de 2004)."
+  },
+  {
+    "n": 23,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2025,
+    "habla": "SHIRLEY DE LA ROSA CASTAÑEDAS VALENTÍN",
+    "atribuida": "EXT andres aurelio farrugia gonzalez",
+    "mencion": "licenciado Andrés Aurelio Farrugia González · «ncia de Sujetos No Financieros. • Consideración del nombramiento del licenciado Andrés Aurelio Farrugia González como miembro principal en representación del Órga»",
+    "veredicto": "correcta",
+    "motivo": "Andrés Aurelio Farrugia González, propuesto para la junta directiva de ENA; persona externa."
+  },
+  {
+    "n": 24,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2004,
+    "habla": "ELIZABETH HERNÁNDEZ DE QUIROS",
+    "atribuida": "EXT miercoles",
+    "mencion": "H. MIÉRCOLES · «MBLEA LEGISLATIVA 5q DIARIO DE DEBATE ‘J Y TIEMPO No 2 ELIA MENDOZA H. MIÉRCOLES 06 DE OCT. DE 2004 DE: IVONNE HORA DE INICIO: 4:2»",
+    "veredicto": "incorrecta",
+    "motivo": "Cabecera de página del diario («ELIA MENDOZA H. MIÉRCOLES 06 DE OCT. DE 2004»): «H.» es una inicial y «Miércoles» no es una persona."
+  },
+  {
+    "n": 25,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2020,
+    "habla": "CRISPIANO ADAMES NAVARRO",
+    "atribuida": "EXT aristides royo sanchez",
+    "mencion": "licenciado Aristides Royo · «ciado Ricaurte “Catín” Vásquez, con el Ministro de Asuntos del Canal, licenciado Aristides Royo, y su personal. Lo hacíamos apoyados en una de»",
+    "veredicto": "correcta",
+    "motivo": "Aristides Royo Sánchez, ministro para Asuntos del Canal (así lo presenta el acta de la misma sesión); sin escaño."
+  },
+  {
+    "n": 26,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2001,
+    "habla": "(etiqueta) SUBSECRETARIO GENERAL, LICENCIADO JORGE RICARDO FÁBREGA",
+    "atribuida": "EXT gumercinda taboada",
+    "mencion": "Lic. Gumercinda Taboada · «onseca, Carlos Samaniego, Nicolás Ortiz, Lucas Gómez, Julio Bermúdez, Lic. Gumercinda Taboada, Lic. Matilda Polo, Lic, Víctor Valdés, Lic. Víct»",
+    "veredicto": "correcta",
+    "motivo": "Gumercinda Taboada, invitada en una cortesía de sala."
+  },
+  {
+    "n": 27,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2008,
+    "habla": "MARUJA OTILIA MORENO PERÉZ",
+    "atribuida": "EXT zappi",
+    "mencion": "licenciado Zappi · «nciado SOlórzano, que la Asociación Panamet'a de Derecho Marítimo, el licenciado Zappi, que la Asociación Panameña de Oficiales de Marin»",
+    "veredicto": "correcta",
+    "motivo": "El licenciado Zappi, de la Asociación Panameña de Derecho Marítimo; persona externa, con el solo apellido que da el texto."
+  },
+  {
+    "n": 28,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2004,
+    "habla": "(etiqueta) ROGELIO SANCHEZ TACK, RELATOR DE LA ASAMBLEA",
+    "atribuida": "EXT simon hafeitz",
+    "mencion": "Ing. Simón Hafeitz · «la Cámara Panameña de la Construcción, CAPAC: Ing. Octavio Vallarino, Ing. Simón Hafeitz, Ing. Eduardo Rodríguez, Ing. Manuel González Rui»",
+    "veredicto": "correcta",
+    "motivo": "Simón Hafeitz, de la Cámara Panameña de la Construcción, en una cortesía de sala."
+  },
+  {
+    "n": 29,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2025,
+    "habla": "SHIRLEY DE LA ROSA CASTAÑEDAS VALENTÍN",
+    "atribuida": "EXT leonardo antonio flores ramos",
+    "mencion": "licenciado Leonardo Antonio Flores Ramos · «bro de la Junta Directiva de la Caja de Ahorros. • Consideración del licenciado Leonardo Antonio Flores Ramos como subdirector de Radio del Sistema Estatal de »",
+    "veredicto": "correcta",
+    "motivo": "Leonardo Antonio Flores Ramos, propuesto como subdirector de radio de SERTV."
+  },
+  {
+    "n": 30,
+    "categoria": "externa (con cargo o título)",
+    "anio": 2004,
+    "habla": "(etiqueta) JOSÉ DIDIMO ESCOBAR, SUBSECRETARIO GENERAL",
+    "atribuida": "EXT edgardo bracho",
+    "mencion": "licenciado Edgardo Bracho · «nes vocera, Rafael Santamaría, Donnellis Mcintosh, Militza Moses y el licenciado Edgardo Bracho.»",
+    "veredicto": "correcta",
+    "motivo": "Edgardo Bracho, de una delegación de vecinos de Prados del Este."
+  },
+  {
+    "n": 31,
+    "categoria": "externa (antiguo miembro)",
+    "anio": 2016,
+    "habla": "(etiqueta) ANELIS BERNAL C., SUBSECRETARIA GENERAL",
+    "atribuida": "EXT ana tilsia frias o herrera",
+    "mencion": "honorable diputada suplente Ana Tilsia Frías · «, en la que informa que actuará en la sesión del 6 de octubre, con la honorable diputada suplente Ana Tilsia Frías. • Nota de la honorable diputada María Del Carme»",
+    "veredicto": "incorrecta",
+    "motivo": "Ana Tilsia Frías era diputada suplente en 2014-2019 (miembro); sale como externa y antigua porque su fila de oradores tiene el partido vacío."
+  },
+  {
+    "n": 32,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2011,
+    "habla": "IRACEMA AYARZA PARRA DE DALE",
+    "atribuida": "EXT mario miller bocas toro",
+    "mencion": "Toro · «ué mentalidad! Por otro lado, para finalizar, señor presidente, el \"Toro\", cuando tuvo la administración de este país, sí »",
+    "veredicto": "incorrecta",
+    "motivo": "«el \"Toro\", cuando tuvo la administración de este país» es Ernesto Pérez Balladares (https://www.prensa.com/politica/ernesto-toro-perez-balladares-confirma-que-recobro-su-visa-a-estados-unidos-si-la-tengo/); la persona «mario miller bocas toro» es espuria."
+  },
+  {
+    "n": 33,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2004,
+    "habla": "RAUL CORTIZO",
+    "atribuida": "EXT laurentino cortizo",
+    "mencion": "Cortizo · «dos aquellos que le permitieron a mi legislador principal, Laurentino Cortizo, ser el Presidente del primer Órgano del Estado e»",
+    "veredicto": "incorrecta",
+    "motivo": "Laurentino Cortizo era legislador en 1999-2004 (habla su suplente); debió resolverse como miembro y no como el jefe de Estado externo."
+  },
+  {
+    "n": 34,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2019,
+    "habla": "IVÁN NICANOR PICOTA BENITEZ",
+    "atribuida": "EXT laurentino cortizo",
+    "mencion": "Cortizo · « país que se necesitan y, por favor, déjense de estar atacando a Nito Cortizo y dedíquense a proponer, ese es \"el cuco\" de uste»",
+    "veredicto": "correcta",
+    "motivo": "«Nito Cortizo», candidato presidencial en 2019, sin escaño en 2014-2019."
+  },
+  {
+    "n": 35,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2004,
+    "habla": "ARCELIO BATISTA RIVERA",
+    "atribuida": "EXT mario miller bocas toro",
+    "mencion": "Toro · «uipo de trabajo por el arduo trabajo que han desempeñado en Bocas del Toro porque se está por finalizar la construcción de l»",
+    "veredicto": "incorrecta",
+    "motivo": "«Bocas del Toro»: provincia."
+  },
+  {
+    "n": 36,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2019,
+    "habla": "IVÁN NICANOR PICOTA BENITEZ",
+    "atribuida": "EXT laurentino cortizo",
+    "mencion": "Cortizo · «aís, se la pasaron atacando a “Nito\" Cortizo, Nito Cortizo esto, Nito Cortizo lo otro. Entendemos perfectamente que Nito Cortiz»",
+    "veredicto": "correcta",
+    "motivo": "«Nito» Cortizo, candidato presidencial en 2019."
+  },
+  {
+    "n": 37,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2004,
+    "habla": "RAUL CORTIZO",
+    "atribuida": "EXT laurentino cortizo",
+    "mencion": "Cortizo · «migo, don Julio Hassán, legislador suplente de mi hermano, Laurentino Cortizo, en el periodo 94-99, y mi compañero homólogo en »",
+    "veredicto": "incorrecta",
+    "motivo": "Laurentino Cortizo, legislador principal en 1999-2004 según su propio suplente; debió ser miembro."
+  },
+  {
+    "n": 38,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2004,
+    "habla": "SAMUEL BINNS VILLAGRA",
+    "atribuida": "EXT mario miller bocas toro",
+    "mencion": "Toro · «omento difícil para el país y para esos obreros del área de Bocas del Toro y de Puerto Armuelles. También, pertenecí a la Co»",
+    "veredicto": "incorrecta",
+    "motivo": "«Bocas del Toro»: provincia."
+  },
+  {
+    "n": 39,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2019,
+    "habla": "IVÁN NICANOR PICOTA BENITEZ",
+    "atribuida": "EXT laurentino cortizo",
+    "mencion": "Cortizo · «Cortizo esto, Nito Cortizo lo otro. Entendemos perfectamente que Nito Cortizo es \"el cuco\" de los candidatos a presidentes y se»",
+    "veredicto": "correcta",
+    "motivo": "Nito Cortizo, candidato presidencial en 2019."
+  },
+  {
+    "n": 40,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2022,
+    "habla": "LEANDRO ÁVILA",
+    "atribuida": "EXT laurentino cortizo",
+    "mencion": "Cortizo · «través de la Ley 241, el señor Presidente de la República, Laurentino Cortizo, firma y sanciona una nueva ley que modifica la L»",
+    "veredicto": "correcta",
+    "motivo": "Laurentino Cortizo, presidente de la República cuando sancionó la Ley 241."
+  },
+  {
+    "n": 41,
+    "categoria": "externa (apellido suelto)",
+    "anio": 2019,
+    "habla": "ZULAY LEYSETH RODRÍGUEZ LU",
+    "atribuida": "EXT martin torrijos",
+    "mencion": "Torrijos · «os magistrados de la Corte Suprema de Justicia, y nombrado por Martín Torrijos. Todos comieron de este gobierno, todos comieron »",
+    "veredicto": "correcta",
+    "motivo": "Martín Torrijos, presidente en 2004-2009."
+  }
+]

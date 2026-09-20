@@ -1,0 +1,472 @@
+[
+ {
+  "n": 1,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2006,
+  "habla": "JOSE CARLOS CARRASCO TAVARA",
+  "atribuida": "YONHY LESCANO ANCIETA [nombre]",
+  "mencion": "congresista Lescano Ancieta",
+  "veredicto": "correcta",
+  "motivo": "Yonhy Lescano Ancieta (AP), que acaba de pedir la interrupción (PE005002100195)."
+ },
+ {
+  "n": 2,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1999,
+  "habla": "ALEJANDRO AGUSTIN SANTA MARIA SILVA",
+  "atribuida": "FREDDY ALBERTO GHILARDI ALVAREZ [nombre]",
+  "mencion": "colega Ghilardi",
+  "veredicto": "correcta",
+  "motivo": "Freddy Ghilardi Álvarez (PAP), con escaño en PE35; único Ghilardi."
+ },
+ {
+  "n": 3,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2011,
+  "habla": "HILARIA SUPA HUAMAN",
+  "atribuida": "MARTHA CAROLINA ACOSTA ZARATE [nombre]",
+  "mencion": "congresista Martha Acosta",
+  "veredicto": "correcta",
+  "motivo": "Martha Acosta Zárate, autora de la propuesta; interviene poco después (PE005047400008)."
+ },
+ {
+  "n": 4,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1996,
+  "habla": "[El RELATOR da lectura]",
+  "atribuida": "HAROLD WINSTON FORSYTH MEJIA [nombre]",
+  "mencion": "señor Forsyth Mejía",
+  "veredicto": "correcta",
+  "motivo": "Harold Forsyth Mejía (UPP), con escaño en PE35; oficio leído por el relator."
+ },
+ {
+  "n": 5,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2003,
+  "habla": "[El señor ABOGADO DEFENSOR, doctor Rafael Castillo Ísmodes]",
+  "atribuida": "LUIS MARIA SANTIAGO EDUARDO SOLARI DE LA FUENTE [nombre]",
+  "mencion": "señor Luis Solari",
+  "veredicto": "correcta",
+  "motivo": "Luis Solari de la Fuente, presidente del Consejo de Ministros y congresista de Perú Posible con escaño en PE37 (796 intervenciones)."
+ },
+ {
+  "n": 6,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1999,
+  "habla": "MARTHA BEATRIZ MERINO LUCERO",
+  "atribuida": "MARTHA GLADYS CHAVEZ COSSIO [nombre]",
+  "mencion": "doctora Martha Chávez",
+  "veredicto": "correcta",
+  "motivo": "Martha Chávez Cossío (C90-NM); «doctora» y «Martha» descartan a Víctor Chávez Serrano, también con escaño."
+ },
+ {
+  "n": 7,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2011,
+  "habla": "ALEJANDRO ARTURO REBAZA MARTELL",
+  "atribuida": "LUIS ALBERTO NEGREIROS CRIADO [nombre]",
+  "mencion": "congresista Negreiros",
+  "veredicto": "correcta",
+  "motivo": "Luis Negreiros Criado (PAP), que usa la interrupción dos turnos después."
+ },
+ {
+  "n": 8,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1999,
+  "habla": "JUAN BOSCO HERMOZA RIOS",
+  "atribuida": "GENARO ARTURO COLCHADO ARELLANO [nombre]",
+  "mencion": "señor Genaro Colchado",
+  "veredicto": "correcta",
+  "motivo": "Genaro Colchado Arellano (C90-NM), miembro de la comisión, con escaño en PE35."
+ },
+ {
+  "n": 9,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1999,
+  "habla": "HILDA GRACIELA FERNANDEZ BACA CALDERON DE VALDEZ",
+  "atribuida": "MARIA DEL CARMEN LOZADA RENDON DE GAMBOA [nombre]",
+  "mencion": "congresista Lozada de Gamboa",
+  "veredicto": "correcta",
+  "motivo": "María del Carmen Lozada de Gamboa (C90-NM), con escaño en PE35."
+ },
+ {
+  "n": 10,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2007,
+  "habla": "VICTOR RICARDO MAYORGA MIRANDA",
+  "atribuida": "ELSA VICTORIA CANCHAYA SANCHEZ [nombre]",
+  "mencion": "congresista Elsa Victoria Canchaya Sánchez",
+  "veredicto": "correcta",
+  "motivo": "Elsa Canchaya Sánchez, congresista acusada en esa sesión; con escaño en PE38."
+ },
+ {
+  "n": 11,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2025,
+  "habla": "ALEJANDRO SOTO REYES",
+  "atribuida": "GUIDO BELLIDO UGARTE [apellido suelto]",
+  "mencion": "Guido",
+  "veredicto": "correcta",
+  "motivo": "Guido Bellido Ugarte, congresista con escaño en PE42. Acierto casual: la regla buscó el nombre de pila «Guido»."
+ },
+ {
+  "n": 12,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 1996,
+  "habla": "ANA ELENA LUISA CRISTINA TOWNSEND DIEZ CANSECO",
+  "atribuida": "ANGEL JAVIER VELASQUEZ QUESQUEN [apellido suelto]",
+  "mencion": "Angel",
+  "veredicto": "incorrecta",
+  "motivo": "«Cementerio El Ángel» (Lima): la regla buscó el nombre de pila «Angel» de Velásquez Quesquén."
+ },
+ {
+  "n": 13,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2014,
+  "habla": "[EL RELATOR da lectura]",
+  "atribuida": "DANIEL FERNANDO ABUGATTAS MAJLUF [apellido suelto]",
+  "mencion": "Daniel",
+  "veredicto": "correcta",
+  "motivo": "Daniel Abugattás Majluf, congresista en PE39, en la lista de denunciados. Acierto casual: se buscó el nombre de pila «Daniel»."
+ },
+ {
+  "n": 14,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2021,
+  "habla": "ALFREDO AZURIN LOAYZA",
+  "atribuida": "GUIDO BELLIDO UGARTE [apellido suelto]",
+  "mencion": "Guido",
+  "veredicto": "correcta",
+  "motivo": "Guido Bellido, presidente del Consejo de Ministros y congresista con escaño en PE42 («que lo tengo acá al frente»). Acierto casual por «Guido»."
+ },
+ {
+  "n": 15,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2007,
+  "habla": "ANGEL JAVIER VELASQUEZ QUESQUEN",
+  "atribuida": "YONHY LESCANO ANCIETA [apellido suelto]",
+  "mencion": "Yonhy",
+  "veredicto": "correcta",
+  "motivo": "Yonhy Lescano Ancieta (AP), con escaño en PE38. Acierto casual por el nombre de pila."
+ },
+ {
+  "n": 16,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2007,
+  "habla": "MARTHA LUPE MOYANO DELGADO",
+  "atribuida": "DANIEL FERNANDO ABUGATTAS MAJLUF [apellido suelto]",
+  "mencion": "Daniel",
+  "veredicto": "correcta",
+  "motivo": "Daniel Abugattás Majluf (UPP), con escaño en PE38. Acierto casual por «Daniel»."
+ },
+ {
+  "n": 17,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 2025,
+  "habla": "KAROL IVETT PAREDES FONSECA",
+  "atribuida": "GUIDO BELLIDO UGARTE [apellido suelto]",
+  "mencion": "Guido",
+  "veredicto": "correcta",
+  "motivo": "Guido Bellido, coautor del proyecto, con escaño en PE42. Acierto casual por «Guido»."
+ },
+ {
+  "n": 18,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2025,
+  "habla": "LADY MERCEDES CAMONES SORIANO",
+  "atribuida": "EXT dina ercilia boluarte zegarra",
+  "mencion": "señora Dina Ercilia Boluarte Zegarra",
+  "veredicto": "correcta",
+  "motivo": "Dina Boluarte, presidenta de la República en septiembre de 2025; queda como nodo aparte de «dina boluarte» y «boluarte»."
+ },
+ {
+  "n": 19,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2003,
+  "habla": "[El señor ABOGADO DEFENSOR, doctor Rafael Castillo Ísmodes]",
+  "atribuida": "EXT joy way rojas",
+  "mencion": "señor Joy Way",
+  "veredicto": "correcta",
+  "motivo": "Víctor Joy Way Rojas, sin escaño en 2003 (el último, PE36). No se enlaza con su nodo de miembro porque «Dionicio» se toma como primer apellido."
+ },
+ {
+  "n": 20,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1996,
+  "habla": "MANUEL MARIA CONSTANTINO LAJO LAZO",
+  "atribuida": "EXT luz salgado rubianes paredes",
+  "mencion": "señora Luz Salgado Rubianes de Paredes",
+  "veredicto": "incorrecta",
+  "motivo": "Luz Salgado Rubianes tenía escaño en PE35 (1.170 intervenciones): el apellido de casada «de Paredes» impide el emparejamiento. Es además una acotación («—Asume la Presidencia…»)."
+ },
+ {
+  "n": 21,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2025,
+  "habla": "[La RELATORA da lectura]",
+  "atribuida": "EXT juan carlos villena campana",
+  "mencion": "Juan Carlos Villena Campana",
+  "veredicto": "correcta",
+  "motivo": "Juan Carlos Villena Campana, fiscal de la Nación según el texto; sin escaño."
+ },
+ {
+  "n": 22,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2023,
+  "habla": "JANET MILAGROS RIVAS CHACARA",
+  "atribuida": "EXT leon romero",
+  "mencion": "señora León Romero",
+  "veredicto": "correcta",
+  "motivo": "Luciana León Romero, excongresista (PE38-PE40) cuya denuncia constitucional se debate en esa sesión; sin escaño en 2023. No se enlaza con su nodo de miembro («Milagros» se toma como primer apellido), al que sí van otras 11 menciones."
+ },
+ {
+  "n": 23,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2025,
+  "habla": "EDGARD CORNELIO REYMUNDO MERCADO",
+  "atribuida": "EXT perez reyes",
+  "mencion": "ministro Pérez Reyes",
+  "veredicto": "correcta",
+  "motivo": "Raúl Pérez Reyes Espejo, ministro de Transportes y Comunicaciones (así lo nombra la moción de interpelación de esa sesión); sin escaño."
+ },
+ {
+  "n": 24,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2003,
+  "habla": "[La señora MINISTRA DE LA MUJER Y DESARROLLO SOCIAL, doctora Ana María Romero-Lozada Lauezzari]",
+  "atribuida": "EXT mercedes cabanillas bustamante llanos",
+  "mencion": "señora Mercedes Cabanillas Bustamante de Llanos",
+  "veredicto": "incorrecta",
+  "motivo": "Mercedes Cabanillas Bustamante tenía escaño en PE37 (1.895 intervenciones): «de Llanos» impide el emparejamiento. Es una acotación («—Asume la Presidencia…»)."
+ },
+ {
+  "n": 25,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2007,
+  "habla": "[El RELATOR da lectura]",
+  "atribuida": "EXT magdiel igdalias gonzales ojeda",
+  "mencion": "magistrado Magdiel Igdalías Gonzales Ojeda",
+  "veredicto": "correcta",
+  "motivo": "Magdiel Gonzales Ojeda, magistrado del Tribunal Constitucional; sin escaño."
+ },
+ {
+  "n": 26,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2023,
+  "habla": "RUTH LUQUE IBARRA",
+  "atribuida": "EXT cesar hinostroza pariachi",
+  "mencion": "señor Hinostroza",
+  "veredicto": "correcta",
+  "motivo": "César Hinostroza Pariachi: el presidente aclara en esa sesión que el caso citado es «el del subvocal supremo César Hinostroza» (PE009018100071)."
+ },
+ {
+  "n": 27,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2007,
+  "habla": "VICTOR RICARDO MAYORGA MIRANDA",
+  "atribuida": "EXT jacqueline simon",
+  "mencion": "señorita Jacqueline Simón",
+  "veredicto": "correcta",
+  "motivo": "Jacqueline Simón Vicente, trabajadora del hogar contratada como asesora por la congresista Canchaya; persona externa."
+ },
+ {
+  "n": 28,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2003,
+  "habla": "RAFAEL REY REY",
+  "atribuida": "EXT teofilo mario ochoa vargas",
+  "mencion": "señor Ochoa",
+  "veredicto": "incorrecta",
+  "motivo": "Mario Ochoa Vargas era congresista: se incorporó en abril de 2003 como accesitario (https://es.wikipedia.org/wiki/Mario_Ochoa_Vargas); 282 intervenciones en PE37, etiqueta «(UPD)». Se le tiene por sin escaño porque en oradores.json no consta su partido."
+ },
+ {
+  "n": 29,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2011,
+  "habla": "FABIOLA MARIA MORALES CASTILLO",
+  "atribuida": "EXT luis guillermo bedoya vivanco",
+  "mencion": "congresista Bedoya",
+  "veredicto": "incorrecta",
+  "motivo": "El «congresista Bedoya» de julio de 2011 es Javier Bedoya de Vivanco (PE38; habló en esa sesión, PE005047400108), no Luis Guillermo Bedoya de Vivanco (solo PE99)."
+ },
+ {
+  "n": 30,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2003,
+  "habla": "RAFAEL REY REY",
+  "atribuida": "EXT teofilo mario ochoa vargas",
+  "mencion": "señor Ochoa",
+  "veredicto": "incorrecta",
+  "motivo": "Ochoa Vargas tenía escaño en PE37 (véase el n.º 28)."
+ },
+ {
+  "n": 31,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2011,
+  "habla": "HILDA ELIZABETH GUEVARA GOMEZ",
+  "atribuida": "EXT luis guillermo bedoya vivanco",
+  "mencion": "congresista Bedoya",
+  "veredicto": "incorrecta",
+  "motivo": "Remite a la intervención de Javier Bedoya de Vivanco en esa sesión (PE005047400010), con escaño; atribuida a Luis Guillermo Bedoya de Vivanco."
+ },
+ {
+  "n": 32,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2003,
+  "habla": "SANTOS JUAN JAIMES SERKOVIC",
+  "atribuida": "EXT teofilo mario ochoa vargas",
+  "mencion": "congresista Mario Ochoa",
+  "veredicto": "incorrecta",
+  "motivo": "«el congresista Mario Ochoa»: tenía escaño en PE37 (n.º 28)."
+ },
+ {
+  "n": 33,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2003,
+  "habla": "RAFAEL REY REY",
+  "atribuida": "EXT teofilo mario ochoa vargas",
+  "mencion": "señor Ochoa",
+  "veredicto": "incorrecta",
+  "motivo": "Ochoa Vargas tenía escaño en PE37 (n.º 28)."
+ },
+ {
+  "n": 34,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2025,
+  "habla": "EDUARDO ENRIQUE CASTILLO RIVAS",
+  "atribuida": "EXT jose bernardo pazo nunura",
+  "mencion": "congresista Pazo",
+  "veredicto": "incorrecta",
+  "motivo": "José Pazo Nunura era congresista: juró el 26-1-2023 en reemplazo de Wilmar Elera (https://es.wikipedia.org/wiki/José_Pazo_Nunura); 159 intervenciones en PE42, etiqueta «(SP)». En oradores.json no consta su partido."
+ },
+ {
+  "n": 35,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2003,
+  "habla": "SANTOS JUAN JAIMES SERKOVIC",
+  "atribuida": "EXT teofilo mario ochoa vargas",
+  "mencion": "congresista Mario Ochoa",
+  "veredicto": "incorrecta",
+  "motivo": "Ochoa Vargas tenía escaño en PE37 (n.º 28)."
+ },
+ {
+  "n": 36,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2003,
+  "habla": "RAFAEL REY REY",
+  "atribuida": "EXT teofilo mario ochoa vargas",
+  "mencion": "señor Ochoa",
+  "veredicto": "incorrecta",
+  "motivo": "Ochoa Vargas tenía escaño en PE37 (n.º 28)."
+ },
+ {
+  "n": 37,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2003,
+  "habla": "RAFAEL REY REY",
+  "atribuida": "EXT teofilo mario ochoa vargas",
+  "mencion": "señor Ochoa",
+  "veredicto": "incorrecta",
+  "motivo": "Ochoa Vargas tenía escaño en PE37 (n.º 28)."
+ },
+ {
+  "n": 38,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2003,
+  "habla": "[El señor EX MINISTRO DE ECONOMÍA Y FINANZAS, Jorge Camet Dickmann]",
+  "atribuida": "EXT montesinos",
+  "mencion": "Montesinos",
+  "veredicto": "correcta",
+  "motivo": "Vladimiro Montesinos, en el relato de declaraciones sobre Camet."
+ },
+ {
+  "n": 39,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2003,
+  "habla": "HERIBERTO MANUEL BENITEZ RIVAS",
+  "atribuida": "EXT alberto fujimori",
+  "mencion": "Fujimori",
+  "veredicto": "correcta",
+  "motivo": "Alberto Fujimori («encubrir a Fujimori y compañía»)."
+ },
+ {
+  "n": 40,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2003,
+  "habla": "TEÓFILO MARIO OCHOA VARGAS",
+  "atribuida": "EXT alberto fujimori",
+  "mencion": "Fujimori",
+  "veredicto": "correcta",
+  "motivo": "Alberto Fujimori Fujimori, acusado en el informe de la subcomisión."
+ },
+ {
+  "n": 41,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2003,
+  "habla": "[El señor EX MINISTRO DE ECONOMÍA Y FINANZAS, Jorge Camet Dickmann]",
+  "atribuida": "EXT duthurburu",
+  "mencion": "Duthurburu",
+  "veredicto": "correcta",
+  "motivo": "Luis Duthurburu Cubas, colaborador en la compra de armamento (así lo nombra el abogado en esa sesión, PE004031300053)."
+ },
+ {
+  "n": 42,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2003,
+  "habla": "JUAN DE DIOS RAMIREZ CANCHARI",
+  "atribuida": "EXT mantilla",
+  "mencion": "Mantilla",
+  "veredicto": "correcta",
+  "motivo": "«el caso Mantilla»: Agustín Mantilla, investigado por la comisión que presidía Ernesto Herrera (https://es.wikipedia.org/wiki/Ernesto_Herrera_Becerra)."
+ },
+ {
+  "n": 43,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2003,
+  "habla": "GUSTAVO ADOLFO PACHECO VILLAR",
+  "atribuida": "EXT montesinos",
+  "mencion": "Montesinos",
+  "veredicto": "correcta",
+  "motivo": "Vladimiro Montesinos («los temas de Montesinos, Fujimori y Mantilla»)."
+ },
+ {
+  "n": 44,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2003,
+  "habla": "SANTOS JUAN JAIMES SERKOVIC",
+  "atribuida": "EXT montesinos",
+  "mencion": "Montesinos",
+  "veredicto": "correcta",
+  "motivo": "Vladimiro Montesinos («al acusado Montesinos»)."
+ },
+ {
+  "n": 45,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2003,
+  "habla": "CARLOS ALBERTO ALMERI VERAMENDI",
+  "atribuida": "EXT alberto fujimori",
+  "mencion": "Fujimori",
+  "veredicto": "correcta",
+  "motivo": "Alberto Fujimori, «ex presidente de la República»."
+ },
+ {
+  "n": 46,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2003,
+  "habla": "JOSE LUIS RISCO MONTALVAN",
+  "atribuida": "EXT alberto fujimori",
+  "mencion": "Fujimori",
+  "veredicto": "correcta",
+  "motivo": "Alberto Fujimori, denunciado."
+ },
+ {
+  "n": 47,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2003,
+  "habla": "ROSA GRACIELA YANARICO HUANCA",
+  "atribuida": "EXT montesinos",
+  "mencion": "Montesinos",
+  "veredicto": "correcta",
+  "motivo": "Vladimiro Montesinos, «el ex asesor»."
+ }
+]

@@ -1,0 +1,412 @@
+[
+ {
+  "n": 1,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1996,
+  "habla": "ARTUR RODRIGUES PEREIRA  PENEDOS",
+  "atribuida": "NUNO KRUS ABECASIS [nombre]",
+  "mencion": "Sr. Deputado Nuno Abecasis",
+  "veredicto": "correcta",
+  "motivo": "Nuno Abecasis (CDS-PP), escaño en la VII; lo dice el propio parecer de la comisión."
+ },
+ {
+  "n": 2,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1978,
+  "habla": "MANUEL ALEGRE MELO DUARTE",
+  "atribuida": "AUGUSTO MARTINS FERREIRA DO AMARAL [nombre]",
+  "mencion": "Dr. Ferreira de Amaral",
+  "veredicto": "correcta",
+  "motivo": "Augusto Ferreira do Amaral (PPM), secretario de Estado de la Estruturação Agrária en 1978 (https://pt.wikipedia.org/wiki/Augusto_Ferreira_do_Amaral); diputado desde 1980, dentro de la I del corpus."
+ },
+ {
+  "n": 3,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1978,
+  "habla": "ÁLVARO AUGUSTO VEIGA DE OLIVEIRA",
+  "atribuida": "DIOGO PINTO DE FREITAS DO AMARAL [nombre]",
+  "mencion": "Sr. Deputado Freitas do Amaral",
+  "veredicto": "correcta",
+  "motivo": "Diogo Freitas do Amaral (CDS), escaño en la I; responde en la intervención siguiente."
+ },
+ {
+  "n": 4,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1984,
+  "habla": "CARLOS ALFREDO DE BRITO",
+  "atribuida": "JOAQUIM JORGE DE MAGALHÃES SARAIVA DA MOTA [nombre]",
+  "mencion": "Sr. Deputado Magalhães Mota",
+  "veredicto": "correcta",
+  "motivo": "Magalhães Mota, escaño en la III; único orador con ese nombre."
+ },
+ {
+  "n": 5,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1984,
+  "habla": "ANTONIO POPPE LOPES CARDOSO",
+  "atribuida": "JOÃO CERVEIRA CORREGEDOR FONSECA [nombre]",
+  "mencion": "Sr. Deputado João Corregedor da Fonseca",
+  "veredicto": "correcta",
+  "motivo": "João Corregedor da Fonseca (MDP/CDE), escaño en la III; había hablado poco antes."
+ },
+ {
+  "n": 6,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2008,
+  "habla": "MARIANA ROSA AIVECA",
+  "atribuida": "ARTUR JORGE DA SILVA MACHADO [nombre, se dirige]",
+  "mencion": "Sr. Deputado Jorge Machado",
+  "veredicto": "correcta",
+  "motivo": "Jorge Machado (PCP), escaño en la X; acababa de preguntar a la oradora."
+ },
+ {
+  "n": 7,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 2020,
+  "habla": "JOÃO GUILHERME RAMOS ROSA DE OLIVEIRA",
+  "atribuida": "RICARDO JORGE COLAÇO LEÃO [nombre]",
+  "mencion": "Sr. Deputado Ricardo Leão",
+  "veredicto": "correcta",
+  "motivo": "Ricardo Leão (PS), escaño en la XIV."
+ },
+ {
+  "n": 8,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1982,
+  "habla": "O Sr. Cardoso da Fonseca (PSD)",
+  "atribuida": "JOSE ANTONIO MARTINS GOULART [otra legislatura]",
+  "mencion": "Sr. Deputado Goulart",
+  "veredicto": "incorrecta",
+  "motivo": "Es Herberto Goulart (MDP/CDE; HERBERTO DE CASTRO GOULART DA SILVA, escaño en la II), nombrado así en el turno anterior; José António Martins Goulart solo en la VI."
+ },
+ {
+  "n": 9,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1996,
+  "habla": "JOSÉ ADELMO GOUVEIA BORDALO JUNQUEIRO",
+  "atribuida": "JOSÉ BERNARDO VELOSO FALCÃO E CUNHA [nombre]",
+  "mencion": "Sr. Deputado Falcão e Cunha",
+  "veredicto": "correcta",
+  "motivo": "José Falcão e Cunha (PSD), exministro y diputado en la VII («na altura membro do Governo»)."
+ },
+ {
+  "n": 10,
+  "categoria": "miembro (con tratamiento o cargo)",
+  "anio": 1990,
+  "habla": "RUI NASCIMENTO RABAÇA VIEIRA",
+  "atribuida": "MÁRIO JÚLIO MONTALVÃO MACHADO [nombre, se dirige]",
+  "mencion": "Sr. Deputado Montalvão Machado",
+  "veredicto": "correcta",
+  "motivo": "Mário Montalvão Machado (PSD), escaño en la V; António Montalvão Machado solo desde la VII."
+ },
+ {
+  "n": 11,
+  "categoria": "miembro (apellido suelto)",
+  "anio": 1984,
+  "habla": "JOSÉ LUÍS DO AMARAL NUNES",
+  "atribuida": "FERNANDO DOS REIS CONDESSO [apellido suelto]",
+  "mencion": "Condesso",
+  "veredicto": "correcta",
+  "motivo": "Fernando Condesso (PSD), escaño en la III; interviene en ese mismo debate."
+ },
+ {
+  "n": 12,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2009,
+  "habla": "JOSÉ DUARTE DE ALMEIDA RIBEIRO E CASTRO",
+  "atribuida": "EXT aminetu haidar",
+  "mencion": "Sr.ª Haidar",
+  "veredicto": "correcta",
+  "motivo": "Aminetu Haidar, activista saharaui (nombre completo en la misma intervención)."
+ },
+ {
+  "n": 13,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1988,
+  "habla": "JOSÉ JÚLIO VIEIRA MESQUITA",
+  "atribuida": "EXT cadilhe",
+  "mencion": "Sr. Ministro Cadilhe",
+  "veredicto": "correcta",
+  "motivo": "Miguel Cadilhe, ministro de Finanzas de 1985 a 1990, sin escaño (https://pt.wikipedia.org/wiki/Miguel_Cadilhe); no figura entre los oradores."
+ },
+ {
+  "n": 14,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1984,
+  "habla": "MARIA ODETE SANTOS",
+  "atribuida": "EXT antunes varela",
+  "mencion": "Prof. Antunes Varela",
+  "veredicto": "correcta",
+  "motivo": "João Antunes Varela, catedrático de Derecho civil; sin escaño."
+ },
+ {
+  "n": 15,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1990,
+  "habla": "JERÓNIMO CARVALHO DE SOUSA",
+  "atribuida": "EXT manuela silva",
+  "mencion": "Professora Manuela Silva",
+  "veredicto": "correcta",
+  "motivo": "Manuela Silva, economista y profesora; sin escaño en la V."
+ },
+ {
+  "n": 16,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1977,
+  "habla": "LINO CARVALHO DE LIMA",
+  "atribuida": "EXT armando castro",
+  "mencion": "Sr. Dr. Armando de Castro",
+  "veredicto": "correcta",
+  "motivo": "Sin escaño: se le llama «Sr. Dr.», no «Deputado», y no hay ningún Armando de Castro entre los oradores; el economista del PCP no consta como diputado (https://pt.wikipedia.org/wiki/Armando_de_Castro)."
+ },
+ {
+  "n": 17,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1980,
+  "habla": "FRANCISCO DE ALMEIDA SALGADO ZENHA",
+  "atribuida": "EXT soares carneiro",
+  "mencion": "Sr. General Soares Carneiro",
+  "veredicto": "correcta",
+  "motivo": "General António Soares Carneiro, candidato presidencial de la AD en 1980; sin escaño."
+ },
+ {
+  "n": 18,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1977,
+  "habla": "ANTÓNIO JORGE MOREIRA PORTUGAL",
+  "atribuida": "EXT eladio alvarez",
+  "mencion": "Sr. Eládio",
+  "veredicto": "correcta",
+  "motivo": "Eládio Alvarez, administrador de Mondorel y Santix (nombre completo en el turno anterior de Jorge Leite)."
+ },
+ {
+  "n": 19,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2014,
+  "habla": "PAULA ALEXANDRA SOBRAL GUERREIRO SANTOS BARBOSA",
+  "atribuida": "EXT leonor",
+  "mencion": "Rainha D. Leonor",
+  "veredicto": "incorrecta",
+  "motivo": "Es el nombre de un museo («Museu Regional Rainha D. Leonor», en Beja), no una mención a una persona."
+ },
+ {
+  "n": 20,
+  "categoria": "externa (con cargo o título)",
+  "anio": 1982,
+  "habla": "ANTÓNIO CARDOSO MONIZ",
+  "atribuida": "EXT joao paulo ii",
+  "mencion": "Papa João Paulo II",
+  "veredicto": "correcta",
+  "motivo": "Papa Juan Pablo II."
+ },
+ {
+  "n": 21,
+  "categoria": "externa (con cargo o título)",
+  "anio": 2020,
+  "habla": "PEDRO FILIPE GOMES SOARES",
+  "atribuida": "EXT neeleman",
+  "mencion": "Sr. Neeleman",
+  "veredicto": "correcta",
+  "motivo": "David Neeleman, accionista de TAP en 2020."
+ },
+ {
+  "n": 22,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 1996,
+  "habla": "JORGE ALEXANDRE SILVA FERREIRA",
+  "atribuida": "EXT joao manuel amaral esteves",
+  "mencion": "Sr. Deputado João Amaral",
+  "veredicto": "incorrecta",
+  "motivo": "Es João Amaral (PCP; JOÃO ANTONIO GONÇALVES AMARAL), con escaño en la VII y turno en esa sesión; João Manuel do Amaral Esteves solo aparece en 2025."
+ },
+ {
+  "n": 23,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2019,
+  "habla": "MARGARIDA ISABEL MANO TAVARES SIMÕES LOPES",
+  "atribuida": "EXT jose luis monteiro pereira seixas",
+  "mencion": "Sr. Deputado Luís Monteiro",
+  "veredicto": "incorrecta",
+  "motivo": "Es Luís Monteiro (BE; LUÍS VALENTIM PEREIRA MONTEIRO), escaño en la XIII y habló justo antes; no José Luís Monteiro Pereira Seixas (IV)."
+ },
+ {
+  "n": 24,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 1996,
+  "habla": "CARLOS MANUEL SOUSA ENCARNAÇAO",
+  "atribuida": "EXT joao manuel amaral esteves",
+  "mencion": "Sr. Deputado João Amaral",
+  "veredicto": "incorrecta",
+  "motivo": "Es João Amaral (PCP), escaño en la VII; le responde poco después (turno 170)."
+ },
+ {
+  "n": 25,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 1988,
+  "habla": "FERNANDO JOSE RUSSO ROQUE CORREIA AFONSO",
+  "atribuida": "EXT joao manuel amaral esteves",
+  "mencion": "Sr. Deputado João Amaral",
+  "veredicto": "incorrecta",
+  "motivo": "Es João Amaral (PCP), escaño en la V; acababa de intervenir."
+ },
+ {
+  "n": 26,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2008,
+  "habla": "AGOSTINHO NUNO DE AZEVEDO FERREIRA LOPES",
+  "atribuida": "EXT ivo jorge almeida santos pinho",
+  "mencion": "Sr. Deputado Jorge Almeida",
+  "veredicto": "incorrecta",
+  "motivo": "Es Jorge Almeida (PS; JORGE MANUEL MONTEIRO ALMEIDA), escaño en la X y turno en esa sesión; no Ivo Jorge de Almeida dos Santos Pinho (IV)."
+ },
+ {
+  "n": 27,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 1977,
+  "habla": "VASCO DA GAMA LOPES FERNANDES",
+  "atribuida": "EXT abilio jorge leite almeida costa",
+  "mencion": "Sr. Deputado Jorge Leite",
+  "veredicto": "incorrecta",
+  "motivo": "Es Jorge Leite (PCP; JORGE DO CARMO DA SILVA LEITE), escaño en la I, que habla a continuación; es además la fórmula «Tem a palavra» de la Presidencia."
+ },
+ {
+  "n": 28,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 2008,
+  "habla": "ABEL LIMA BAPTISTA",
+  "atribuida": "EXT ivo jorge almeida santos pinho",
+  "mencion": "Sr. Deputado Jorge Almeida",
+  "veredicto": "incorrecta",
+  "motivo": "Es Jorge Almeida (PS), escaño en la X; el orador le contesta sus preguntas."
+ },
+ {
+  "n": 29,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 1995,
+  "habla": "ARTUR RODRIGUES PEREIRA  PENEDOS",
+  "atribuida": "EXT joao pedro silva correia",
+  "mencion": "Sr. Deputado João Pedro da Silva Correia",
+  "veredicto": "correcta",
+  "motivo": "João Pedro da Silva Correia (PS), suplente que cesó el 11-12-1995 (lo dice el texto); sin escaño el 20-12; lo tuvo en la VIII."
+ },
+ {
+  "n": 30,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 1995,
+  "habla": "ANTÓNIO BERNARDO ARANHA DA GAMA LOBO XAVIER",
+  "atribuida": "EXT joao manuel amaral esteves",
+  "mencion": "camarada João Amaral",
+  "veredicto": "incorrecta",
+  "motivo": "Es João Amaral (PCP), escaño en la VII («meu camarada»)."
+ },
+ {
+  "n": 31,
+  "categoria": "externa (antiguo miembro)",
+  "anio": 1996,
+  "habla": "CARLOS MANUEL SOUSA ENCARNAÇAO",
+  "atribuida": "EXT joao manuel amaral esteves",
+  "mencion": "Sr. Deputado João Amaral",
+  "veredicto": "incorrecta",
+  "motivo": "Es João Amaral (PCP), escaño en la VII; responde en el turno 170."
+ },
+ {
+  "n": 32,
+  "categoria": "externa (apellido suelto)",
+  "anio": 1980,
+  "habla": "MÁRIO ANTÓNIO BAPTISTA TOMÉ",
+  "atribuida": "EXT soares carneiro",
+  "mencion": "Carneiro",
+  "veredicto": "correcta",
+  "motivo": "General Soares Carneiro («A AD e Soares Carneiro»)."
+ },
+ {
+  "n": 33,
+  "categoria": "externa (apellido suelto)",
+  "anio": 1978,
+  "habla": "ACÁCIO MANUEL FRIAS BARREIROS",
+  "atribuida": "EXT antonio ramalho eanes",
+  "mencion": "Eanes",
+  "veredicto": "correcta",
+  "motivo": "António Ramalho Eanes, presidente de la República en 1978."
+ },
+ {
+  "n": 34,
+  "categoria": "externa (apellido suelto)",
+  "anio": 1980,
+  "habla": "MÁRIO ANTÓNIO BAPTISTA TOMÉ",
+  "atribuida": "EXT antonio ramalho eanes",
+  "mencion": "Eanes",
+  "veredicto": "correcta",
+  "motivo": "Ramalho Eanes, reelegido en diciembre de 1980."
+ },
+ {
+  "n": 35,
+  "categoria": "externa (apellido suelto)",
+  "anio": 1980,
+  "habla": "ANTÓNIO CÉSAR GOUVEIA DE OLIVEIRA",
+  "atribuida": "EXT antonio ramalho eanes",
+  "mencion": "Eanes",
+  "veredicto": "correcta",
+  "motivo": "Ramalho Eanes («general Ramalho: Eanes», dos puntos del OCR)."
+ },
+ {
+  "n": 36,
+  "categoria": "externa (apellido suelto)",
+  "anio": 1980,
+  "habla": "MÁRIO ANTÓNIO BAPTISTA TOMÉ",
+  "atribuida": "EXT antonio ramalho eanes",
+  "mencion": "Eanes",
+  "veredicto": "correcta",
+  "motivo": "Ramalho Eanes."
+ },
+ {
+  "n": 37,
+  "categoria": "externa (apellido suelto)",
+  "anio": 1980,
+  "habla": "ANTÓNIO CÉSAR GOUVEIA DE OLIVEIRA",
+  "atribuida": "EXT soares carneiro",
+  "mencion": "Carneiro",
+  "veredicto": "correcta",
+  "motivo": "General Soares Carneiro («Soares 'Carneiro», apóstrofo del OCR)."
+ },
+ {
+  "n": 38,
+  "categoria": "externa (apellido suelto)",
+  "anio": 2023,
+  "habla": "JOANA RODRIGUES MORTÁGUA",
+  "atribuida": "EXT antonio ramalho eanes",
+  "mencion": "Eanes",
+  "veredicto": "incorrecta",
+  "motivo": "Es Manuela Eanes, otra persona (nombre de pila femenino y «à»), no el expresidente Ramalho Eanes."
+ },
+ {
+  "n": 39,
+  "categoria": "externa (apellido suelto)",
+  "anio": 1980,
+  "habla": "HERBERTO DE CASTRO GOULART DA SILVA",
+  "atribuida": "EXT antonio ramalho eanes",
+  "mencion": "Eanes",
+  "veredicto": "correcta",
+  "motivo": "Ramalho Eanes («votação em Ramalho Eanes»)."
+ },
+ {
+  "n": 40,
+  "categoria": "externa (apellido suelto)",
+  "anio": 1980,
+  "habla": "NARANA SINAI COISSORO",
+  "atribuida": "EXT soares carneiro",
+  "mencion": "Carneiro",
+  "veredicto": "correcta",
+  "motivo": "Soares Carneiro («não votasse Soares Carneiro»)."
+ },
+ {
+  "n": 41,
+  "categoria": "externa (apellido suelto)",
+  "anio": 1980,
+  "habla": "PEDRO MANUEL CRUZ ROSETA",
+  "atribuida": "EXT antonio ramalho eanes",
+  "mencion": "Eanes",
+  "veredicto": "correcta",
+  "motivo": "Ramalho Eanes («o voto a Eanes»)."
+ }
+]

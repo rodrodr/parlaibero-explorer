@@ -1,0 +1,387 @@
+AR #2 incorrecta cambia     doctor Gómez : M:AR00996 → E:gomez
+AR #4 incorrecta desaparece [Mesa] señor Santos : M:AR01444 → —
+AR #11 incorrecta desaparece Lorenzo : M:AR00576 → —
+AR #13 incorrecta desaparece Julio : M:AR00580 → —
+AR #14 incorrecta desaparece [Mesa] Miguel : M:AR02030 → —
+AR #15 incorrecta desaparece Julio : M:AR00119 → —
+AR #17 incorrecta desaparece Miguel : M:AR00722 → —
+AR #18 incorrecta desaparece Jorge : M:AR02192 → —
+AR #19 incorrecta desaparece Julio : M:AR00580 → —
+AR #20 incorrecta cambia     Julio : M:AR00119 → E:julio cesar noaco
+AR #22 correcta   desaparece [Mesa] doctor Zubarán : E:guillermo zubaran → —
+AR #28 incorrecta desaparece [Mesa] doctor Martínez de Hoz : E:martinez hoz zubaran → —
+AR #31 incorrecta desaparece [Mesa] señor diputado Cettour : E:hugo ramon cettour → —
+AR #32 incorrecta cambia     diputado Bornoroni : E:gabriel bornoroni → M:AR02322
+AR #33 incorrecta cambia     Bornoroni : E:gabriel bornoroni → M:AR02322
+AR #34 incorrecta cambia     almirante Castro : E:enrique roberto castro molina → E:dan
+AR #35 incorrecta cambia     diputado Almirón : E:lisandro almiron → M:AR02347
+AR #36 incorrecta cambia     almirante Castro : E:enrique roberto castro molina → E:castro
+AR #37 incorrecta desaparece General San Martín : E:adrian san martin → —
+AR #38 incorrecta cambia     diputado Bornoroni : E:gabriel bornoroni → M:AR02322
+AR #39 incorrecta desaparece [Mesa] almirante Castro : E:enrique roberto castro molina → —
+AR #40 incorrecta cambia     diputada Strada : E:julia strada → M:AR02373
+AR #42 correcta   cambia     Caride : E:alejandro r caride → E:alejandro roberto caride
+AR #43 correcta   desaparece Massué : E:sadi massue → —
+AR #44 correcta   desaparece [Mesa] Caride : E:alejandro r caride → —
+AR #46 incorrecta desaparece Aires : E:juan alemann buenos aires → —
+BR #6 incorrecta desaparece General Leônidas : M:BR74299 → —
+BR #14 correcta   cambia     Presidente Aristides : E:aristides → E:aristides santos
+BR #22 correcta   cambia     Sr. Pacheco : E:rodrigo pacheco → M:BR178897
+BR #23 correcta   cambia     Rodrigo Pacheco : E:rodrigo pacheco → M:BR178897
+BR #24 correcta   cambia     Sr. Aécio Neves : E:aecio neves → M:BR74646
+CL #12 incorrecta desaparece Juan : M:CL00858 → —
+CL #14 incorrecta desaparece Juan : M:CL00817 → —
+CL #16 incorrecta desaparece [Mesa] Juan : M:CL00858 → —
+CL #17 incorrecta desaparece Juan : M:CL00176 → —
+CL #18 correcta   desaparece Gabriel : M:CL00810 → —
+CL #29 correcta   cambia     don Belisario Velasco : E:belisario velasco → E:belisario velasco baraona
+CL #31 incorrecta cambia     Gallo : E:viera gallo → M:CL00514
+CL #33 correcta   cambia     Gallo : E:viera gallo → M:CL00514
+CL #35 incorrecta cambia     Gallo : E:viera gallo → M:CL00514
+CL #36 correcta   cambia     Georges : E:valene georges → E:valene leah georges larsen
+CL #38 correcta   cambia     Georges : E:valene georges → E:valene leah georges larsen
+CL #39 correcta   cambia     Gallo : E:viera gallo → M:CL00514
+CO #3 correcta   desaparece [Mesa] compañero Diógenes Quintero : M:CO00179 → —
+CO #4 correcta   desaparece honorable Representante Édgar Alfonso Gómez Román : M:CO00186 → —
+CO #5 correcta   desaparece honorable Representante Carlos Germán Navas Talero : M:CO00123 → —
+CO #6 correcta   desaparece [Mesa] Representante Saray Robayo : M:CO00787 → —
+CO #10 incorrecta desaparece [Mesa] doctor Miguel : M:CO00644 → —
+CO #11 correcta   desaparece [Mesa] Simón : M:CO00792 → —
+CO #12 correcta   desaparece [Mesa] Andrés : M:CO00056 → —
+CO #13 incorrecta desaparece [Mesa] Carlos : M:CO00102 → —
+CO #14 correcta   desaparece David : M:CO00170 → —
+CO #15 incorrecta desaparece [Mesa] Juan : M:CO00487 → —
+CO #16 incorrecta desaparece [Mesa] Carlos : M:CO00102 → —
+CO #17 correcta   desaparece [Mesa] Alfredo : M:CO00033 → —
+CO #18 correcta   desaparece [Mesa] Juan : M:CO00487 → —
+CO #19 incorrecta desaparece [Mesa] Juan : M:CO00489 → —
+CO #20 correcta   desaparece [Mesa] Carlos : M:CO00106 → —
+CO #22 correcta   desaparece [Mesa] Jesús Alfonso Rodríguez Camargo : E:jesus alfonso rodriguez camargo → —
+CO #24 correcta   desaparece [Mesa] Presidente Rafael Núñez : E:rafael nunez → —
+CO #31 incorrecta cambia     doctor Juan Diego Gómez : E:juan diego gomez jimenez → M:CO00153
+CO #32 incorrecta cambia     doctor Carlosama : E:german bernardo carlosama lopez → M:CO00850
+CO #33 incorrecta cambia     doctor Carlosama : E:german bernardo carlosama lopez → M:CO00850
+CO #34 incorrecta desaparece [Mesa] doctor Juan Diego Gómez Jiménez : E:juan diego gomez jimenez → —
+CO #35 incorrecta cambia     doctor Juan Diego Gómez : E:juan diego gomez jimenez → M:CO00078
+CO #36 incorrecta cambia     doctora Erika Tatiana Sánchez : E:erika tatiana sanchez pinto → M:CO00222
+CO #37 incorrecta cambia     doctora Erika Tatiana Sánchez : E:erika tatiana sanchez pinto → M:CO00690
+CO #38 incorrecta cambia     doctora Dilia Estrada : E:dilia estrada gomez → M:CO00844
+CO #39 incorrecta desaparece [Mesa] doctor Juan Diego Gómez Jiménez : E:juan diego gomez jimenez → —
+CO #40 incorrecta desaparece [Mesa] doctor Efrén Hernández : E:efren antonio hernandez diaz → —
+CO #44 incorrecta cambia     Archila : E:presidencial emilio archila → M:CO00204
+CO #45 incorrecta desaparece [Mesa] Botero : E:enrique gil botero → —
+CO #46 correcta   desaparece [Mesa] Peñaloza : E:jaime luis lacouture penaloza → —
+CO #49 correcta   desaparece [Mesa] CAMARGO : E:jesus alfonso rodriguez camargo → —
+CO #50 correcta   desaparece [Mesa] Peñaloza : E:jaime luis lacouture penaloza → —
+CR #3 incorrecta cambia     Don Rodolfo : M:CR00855 → M?ambigua
+CR #4 incorrecta desaparece [Mesa] doña Ofelia Taitelbaum Yoselewich : M:CR00726 → —
+CR #6 correcta   desaparece [Mesa] presidente Luis Fernando Mendoza Jiménez : M:CR00583 → —
+CR #8 correcta   cambia     doña Laura Chinchilla : M:CR00542 → E:laura chinchilla
+CR #10 correcta   desaparece [Mesa] Dip. Mayi Antillón Guerrero : M:CR00690 → —
+CR #11 incorrecta desaparece José : M:CR00492 → —
+CR #12 incorrecta desaparece Carlos : M:CR00130 → —
+CR #13 incorrecta desaparece Carlos : M:CR00130 → —
+CR #14 incorrecta desaparece [Mesa] José : M:CR00498 → —
+CR #15 incorrecta desaparece Carlos : M:CR00124 → —
+CR #16 incorrecta desaparece [Mesa] José : M:CR00498 → —
+CR #17 incorrecta desaparece José : M:CR00498 → —
+CR #18 incorrecta desaparece Carlos : M:CR00130 → —
+CR #19 incorrecta desaparece José : M:CR00498 → —
+CR #20 incorrecta desaparece José : M:CR00492 → —
+CR #21 correcta   cambia     señor magistrado Zeledón Zeledón : E:zeledon zeledon → E:ricardo zeledon zeledon
+CR #22 incorrecta desaparece [Mesa] Fiscal Estructural : E:estructural → —
+CR #23 incorrecta desaparece [Mesa] SR.  CONCEPTO  MONTO : E:concepto monto → —
+CR #28 correcta   cambia     señora magistrada doña Eugenia : E:eugenia zamora → M?ambigua
+CR #31 incorrecta desaparece [Mesa] DIPUTADO CARLOS MANUEL GUTIÉRREZ GÓMEZ : E:carlos manuel gutierrez gomez → —
+CR #32 incorrecta cambia     diputado Gutiérrez Gómez : E:carlos manuel gutierrez gomez → M:CR00662
+CR #33 incorrecta desaparece [Mesa] DIPUTADO CARLOS MANUEL GUTIÉRREZ GÓMEZ : E:carlos manuel gutierrez gomez → —
+CR #34 incorrecta desaparece [Mesa] Don Bosco : E:juan bosco acevedo hurtado → —
+CR #35 incorrecta cambia     diputado Carlos Manuel Gutiérrez : E:carlos manuel gutierrez gomez → M:CR00142
+CR #37 incorrecta cambia     don Carlos Gutiérrez : E:carlos manuel gutierrez gomez → M:CR00142
+CR #38 incorrecta cambia     diputado Gutiérrez Gómez : E:carlos manuel gutierrez gomez → M:CR00142
+CR #39 incorrecta cambia     don Carlos Gutiérrez : E:carlos manuel gutierrez gomez → M:CR00142
+CR #40 incorrecta cambia     compañero diputado Carlos Gutiérrez : E:carlos manuel gutierrez gomez → M:CR00142
+CR #43 incorrecta desaparece Esquivel : E:ana lorena brenes esquivel → —
+CR #46 incorrecta desaparece REZLER : E:ad hoc clara silvia zomer rezler → —
+DO #1 correcta   desaparece [Mesa] colega Charles Mariotti : M:DO0129 → —
+DO #2 incorrecta cambia     doctor Leonel Fernández : M:DO0619 → E:leonel fernandez
+DO #3 correcta   desaparece [Mesa] colega Gustavo Sánchez : M:DO0287 → —
+DO #5 incorrecta cambia     honorable Juan Julio Campos : M:DO0102 → M:DO0426
+DO #6 correcta   desaparece [Mesa] diputado Hamlet Melo : M:DO0289 → —
+DO #7 correcta   desaparece [Mesa] diputado Norberto Rodríguez : M:DO0603 → —
+DO #9 correcta   desaparece [Mesa] licenciado Agustín Burgos : M:DO0012 → —
+DO #11 incorrecta desaparece Juan : M:DO0431 → —
+DO #12 incorrecta desaparece José : M:DO0353 → —
+DO #13 incorrecta desaparece José : M:DO0353 → —
+DO #14 incorrecta desaparece Juan : M:DO0431 → —
+DO #15 incorrecta desaparece Juan : M:DO0431 → —
+DO #16 incorrecta desaparece Juan : M:DO0431 → —
+DO #17 incorrecta desaparece Juan : M:DO0431 → —
+DO #18 incorrecta desaparece Juan : M:DO0431 → —
+DO #19 incorrecta desaparece José : M:DO0353 → —
+DO #20 incorrecta desaparece Juan : M:DO0431 → —
+DO #23 correcta   desaparece [Mesa] DOCTOR LEONEL FERNÁNDEZ REYNA : E:leonel fernandez → —
+DO #27 incorrecta desaparece [Mesa] General Preparado : E:preparado → —
+DO #28 correcta   desaparece [Mesa] señor José Crecencio Cuevas Joaquín : E:jose crecencio cuevas joaquin → —
+DO #29 correcta   desaparece [Mesa] señor Pedro Leonardo Meló Báez : E:pedro leonardo melo baez → —
+DO #31 incorrecta cambia     colega Manuel Jiménez : E:manuel jesus jimenez ortega → M:DO0505
+DO #32 correcta   cambia     exdiputado Manuel Jiménez : E:manuel jesus jimenez ortega → M:DO0505
+DO #33 incorrecta desaparece Duarte : E:juan pablo duarte → —
+DO #34 incorrecta desaparece Musa : E:antonio musa → —
+DO #35 incorrecta desaparece Duarte : E:juan pablo duarte → —
+DO #36 incorrecta desaparece Duarte : E:juan pablo duarte → —
+DO #37 incorrecta desaparece Duarte : E:juan pablo duarte → —
+DO #39 incorrecta desaparece Musa : E:antonio musa → —
+DO #40 incorrecta desaparece Duarte : E:juan pablo duarte → —
+DO #41 incorrecta desaparece Duarte : E:juan pablo duarte → —
+DO #42 incorrecta desaparece Duarte : E:juan pablo duarte → —
+EC #1 incorrecta cambia     Presidente Durán Ballén : M:EC01255 → E:sixto duran ballen
+EC #4 correcta   desaparece [Mesa] diputado Víctor Granda : M:EC01303 → —
+EC #6 correcta   desaparece ASAMBLEÍSTA NIELS ANTHONEZ OLSEN PEET : M:EC01033 → —
+EC #7 correcta   desaparece [Mesa] Honorable Blasco Alvarado : M:EC00119 → —
+EC #8 correcta   desaparece [Mesa] Asambleísta Soledad Buendía : M:EC00896 → —
+EC #10 correcta   desaparece [Mesa] Asambleísta Lenin Alejandro Lara Pérez : M:EC00758 → —
+EC #11 incorrecta desaparece [Mesa] Juan : M:EC00712 → —
+EC #12 incorrecta desaparece [Mesa] Patricio : M:EC01081 → —
+EC #13 incorrecta desaparece [Mesa] Juan : M:EC00711 → —
+EC #14 correcta   desaparece [Mesa] Simón : M:EC01250 → —
+EC #16 incorrecta desaparece [Mesa] César : M:EC00214 → —
+EC #17 incorrecta desaparece [Mesa] Juan : M:EC00712 → —
+EC #18 incorrecta desaparece [Mesa] Javier : M:EC00586 → —
+EC #19 correcta   desaparece [Mesa] Andrés : M:EC00065 → —
+EC #20 incorrecta desaparece [Mesa] Juan : M:EC00712 → —
+EC #22 correcta   desaparece [Mesa] ingeniero Juan Ernesto Zapata Silva : E:juan ernesto zapata silva → —
+EC #23 incorrecta desaparece [Mesa] Honorable Moreira Mario Efrén : E:moreira mario efren → —
+EC #24 correcta   desaparece [Mesa] compañero Inocencio Tucumbi : E:inocencio tucumbi → —
+EC #25 correcta   desaparece [Mesa] Doctor Pablo Celi : E:pablo celi → —
+EC #26 incorrecta desaparece [Mesa] Honorable Moreno Ruth Aurora : E:moreno ruth aurora → —
+EC #27 correcta   cambia     presidente Gutiérrez : E:lucio gutierrez → M:EC00353
+EC #28 incorrecta desaparece Ciudadana Amazónica : E:amazonica → —
+EC #29 correcta   desaparece [Mesa] doctora María del Carmen Maldonado : E:maria carmen maldonado → —
+EC #31 incorrecta desaparece [Mesa] señor Líder Góngora : E:luis gongora zambrano → —
+EC #32 incorrecta desaparece [Mesa] honorable Mariana Obando : E:elsa mariana obando cadena → —
+EC #34 incorrecta cambia     señor Araujo : E:milton araujo robayo → E:araujo
+EC #35 incorrecta desaparece [Mesa] diputada Mariana Obando : E:elsa mariana obando cadena → —
+EC #36 incorrecta cambia     diputado Antonio Aguilar : E:antonio aguilar chamba → M:EC02053
+EC #37 incorrecta cambia     compañero Paúl Jácome : E:edgar paul jacome segovia → M:EC03653
+EC #38 incorrecta cambia     diputada Mariana Obando : E:elsa mariana obando cadena → M:EC04266
+EC #39 incorrecta cambia     diputado Antonio Aguilar : E:antonio aguilar chamba → M:EC02053
+EC #40 incorrecta cambia     diputado Vicente Estrada : E:vicente estrada velasquez → M:EC02070
+EC #43 correcta   desaparece [Mesa] Pabón : E:paola pabon → —
+EC #46 incorrecta cambia     Noboa : E:gustavo noboa → E:daniel noboa
+EC #47 incorrecta cambia     Noboa : E:gustavo noboa → E:daniel noboa
+EC #48 incorrecta desaparece [Mesa] Falconí : E:fander falconi → —
+EC #50 correcta   desaparece Pabón : E:paola pabon → —
+ES #5 correcta   desaparece Bolaños : M:ES002862 → —
+ES #24 incorrecta desaparece presidente del Gobierno : M:ES000919 → —
+ES #25 correcta   desaparece presidente del Gobierno : M:ES000906 → —
+ES #31 incorrecta desaparece SEÑORA VICEPRESIDENTA QUE ENTRAN DENTRO DE LA NORMALIDAD : E:que entran dentro normalidad → —
+ES #36 incorrecta desaparece MINISTRA QUE EL PROGRAMA AGUA HA FRACASADO : E:que entran dentro normalidad → —
+ES #37 incorrecta desaparece SEÑORA VICEPRESIDENTA CUARTA Y MINISTRA PARA LA TRANSICIÓN : E:cuarta → —
+ES #40 incorrecta desaparece General Tributaria : E:tributaria → —
+ES #45 incorrecta desaparece España : E:julio francisco espana moya → —
+GT #2 correcta   desaparece [Mesa] diputado Manuel Baldizón : M:GT00482 → —
+GT #4 correcta   desaparece [Mesa] diputado Giordano : M:GT00393 → —
+GT #5 correcta   desaparece [Mesa] Diputado Francisco Morales : M:GT00231 → —
+GT #7 correcta   desaparece [Mesa] representante Pablo Duarte Sáenz de Tejada : M:GT00615 → —
+GT #8 correcta   desaparece [Mesa] diputado Oscar Armando Quintanilla Villegas : M:GT00596 → —
+GT #9 correcta   desaparece [Mesa] diputado Manuel Antonio Baldizón Méndez : M:GT00482 → —
+GT #10 correcta   desaparece [Mesa] representante Maynor López Rodríguez : M:GT00552 → —
+GT #13 correcta   desaparece [Mesa] magistrado Ranulfo Rafael Rojas Cetina : E:ranulfo rafael rojas cetina → —
+GT #14 correcta   desaparece [Mesa] magistrado Ranulfo Rafael Rojas Cetina : E:ranulfo rafael rojas cetina → —
+GT #16 correcta   desaparece [Mesa] doctor Juan José Arévalo Bermejo : E:juan jose arevalo bermejo → —
+GT #17 correcta   desaparece [Mesa] doctor José Rafael Espada : E:jose rafael espada → —
+GT #18 correcta   desaparece [Mesa] ingeniero José Luis Benito Ruiz : E:jose luis benito ruiz → —
+GT #19 correcta   desaparece [Mesa] doctor Juan José Arévalo Bermejo : E:juan jose arevalo bermejo → —
+GT #20 correcta   desaparece [Mesa] doctor Juan José Arévalo Bermejo : E:juan jose arevalo bermejo → —
+GT #22 correcta   desaparece [Mesa] Cetina : E:ranulfo rafael rojas cetina → —
+GT #23 correcta   desaparece [Mesa] Riva : E:rafael fernando mendizabal riva → —
+GT #25 incorrecta cambia     Arévalo : E:bernardo arevalo → M:GT00125
+GT #26 correcta   desaparece [Mesa] Berger : E:oscar berger → —
+GT #27 correcta   desaparece [Mesa] Riva : E:rafael fernando mendizabal riva → —
+GT #29 incorrecta desaparece [Mesa] Dávila : E:blanca aida stalling davila → —
+GT #30 correcta   desaparece [Mesa] Riva : E:rafael fernando mendizabal riva → —
+MX #1 correcta   desaparece [Mesa] diputada Dolores de María Manuell-Gómez Angulo : M:MX01079 → —
+MX #2 correcta   desaparece [Mesa] diputado Iván García Solís : M:MX02192 → —
+MX #4 correcta   desaparece [Mesa] Diputado Silvano Aureoles Conejo : M:MX05953 → —
+MX #6 correcta   desaparece [Mesa] diputado Abel Octavio Salgado Peña : M:MX00012 → —
+MX #7 correcta   desaparece [Mesa] Dip. Cristina Portillo Ayala : M:MX00959 → —
+MX #8 correcta   desaparece [Mesa] diputado Federico Döring Casar : M:MX01429 → —
+MX #9 correcta   desaparece [Mesa] diputada María Luisa Beltrán Reyes : M:MX03783 → —
+MX #10 correcta   desaparece [Mesa] Dip. Manuel Velasco Coello : M:MX03562 → —
+MX #11 correcta   desaparece [Mesa] José : M:MX02585 → —
+MX #12 correcta   desaparece [Mesa] Ricardo : M:MX04712 → —
+MX #13 correcta   desaparece [Mesa] José : M:MX02835 → —
+MX #14 incorrecta desaparece [Mesa] Manuel : M:MX03529 → —
+MX #15 correcta   desaparece [Mesa] Ramón : M:MX05090 → —
+MX #16 correcta   desaparece [Mesa] Claudia : M:MX00914 → —
+MX #17 incorrecta desaparece Francisco : M:MX01576 → —
+MX #18 incorrecta desaparece [Mesa] José : M:MX02585 → —
+MX #19 incorrecta desaparece [Mesa] José : M:MX02585 → —
+MX #20 correcta   desaparece [Mesa] José : M:MX02835 → —
+MX #21 incorrecta desaparece [Mesa] H. Por : E:por → —
+MX #23 correcta   desaparece [Mesa] licenciado José Carcaño Sanluís : E:jose carcano sanluis → —
+MX #24 incorrecta desaparece [Mesa] Jefa Delegacional : E:delegacional → —
+MX #25 correcta   desaparece [Mesa] ingeniero Alberto Cárdenas Jiménez : E:alberto cardenas jimenez → —
+MX #26 correcta   desaparece [Mesa] Sen. Carlos Chaurand Arzate : E:carlos chaurand arzate → —
+MX #27 correcta   desaparece [Mesa] doctor Luis Carlos Ugalde Ramírez : E:luis carlos ugalde ramirez → —
+MX #28 correcta   desaparece [Mesa] senador Juan Zepeda Hernández : E:juan zepeda hernandez → —
+MX #29 correcta   desaparece [Mesa] embajador Carlos Alberto de Icaza González : E:carlos alberto icaza gonzalez → —
+MX #30 correcta   cambia     senador Ernesto de Jesús Luque Feregrino : E:ernesto jesus luque feregrino → E:alfonso martinez dominguez
+MX #32 correcta   desaparece [Mesa] candidato Roberto Madrazo Pintado'' : E:roberto madrazo pintado → —
+MX #33 correcta   desaparece [Mesa] Diputada Dulce María Sauri Riancho : E:dulce maria sauri riancho → —
+MX #34 correcta   cambia     señor Lozano Gracia : E:antonio lozano gracia → E:carlos salinas gortari
+MX #35 incorrecta cambia     amigo César Augusto Santiago : E:cesar augusto santiago → M:MX00869
+MX #37 incorrecta desaparece [Mesa] Doctor Coss : E:humberto coss leon zuniga → —
+MX #39 incorrecta desaparece [Mesa] Diputado Héctor Larios Córdova : E:hector larios cordova → —
+MX #40 incorrecta desaparece [Mesa] Dip. Enrique Burgos García : E:enrique burgos garcia → —
+MX #41 correcta   desaparece [Mesa] Urueta : E:francisco fernandez cevallos urueta → —
+MX #42 incorrecta desaparece [Mesa] Arzate : E:carlos chaurand arzate → —
+MX #43 correcta   cambia     Anguiano : E:anguiano → E:jose raul anguiano valadez
+MX #44 incorrecta desaparece [Mesa] Ausente : E:moises ausente → —
+MX #45 incorrecta desaparece [Mesa] Ausente : E:moises ausente → —
+MX #46 incorrecta desaparece [Mesa] Arzate : E:carlos chaurand arzate → —
+MX #47 incorrecta desaparece [Mesa] Ausente : E:moises ausente → —
+MX #48 incorrecta desaparece [Mesa] Ausente : E:moises ausente → —
+MX #49 incorrecta desaparece [Mesa] Carranza : E:venustiano carranza → —
+MX #50 incorrecta desaparece [Mesa] Ausente : E:moises ausente → —
+PA #1 correcta   cambia     ingeniera Balbina Herrera : M:PA00177 → E:balbina herrera
+PA #2 correcta   desaparece [Mesa] legisladora Maruja Moreno : M:PA00902 → —
+PA #4 incorrecta cambia     Director Fuentes : M:PA00926 → E:armando fuentes
+PA #5 correcta   desaparece [Mesa] honorable legislador Jerry Wilson Navarro : M:PA00618 → —
+PA #10 incorrecta cambia     doctor Royo : M:PA00895 → E:aristides royo sanchez
+PA #13 correcta   desaparece [Mesa] Alberto : M:PA00051 → —
+PA #15 correcta   desaparece [Mesa] Abel : M:PA01288 → —
+PA #16 correcta   desaparece [Mesa] Carlos : M:PA00241 → —
+PA #17 correcta   desaparece [Mesa] Abel : M:PA01288 → —
+PA #18 correcta   desaparece [Mesa] Carlos : M:PA00241 → —
+PA #19 correcta   desaparece [Mesa] Abel : M:PA01288 → —
+PA #20 correcta   desaparece [Mesa] Abel : M:PA01288 → —
+PA #21 correcta   desaparece [Mesa] licenciado Alvin Weeden Gamboa : E:alvin weeden gamboa → —
+PA #24 incorrecta desaparece H. MIÉRCOLES : E:miercoles → —
+PA #26 correcta   desaparece [Mesa] Lic. Gumercinda Taboada : E:gumercinda taboada → —
+PA #28 correcta   desaparece [Mesa] Ing. Simón Hafeitz : E:simon hafeitz → —
+PA #30 correcta   desaparece [Mesa] licenciado Edgardo Bracho : E:edgardo bracho → —
+PA #31 incorrecta desaparece [Mesa] honorable diputada suplente Ana Tilsia Frías : E:ana tilsia frias o herrera → —
+PA #32 incorrecta desaparece Toro : E:mario miller bocas toro → —
+PA #33 incorrecta desaparece Cortizo : E:laurentino cortizo → —
+PA #35 incorrecta desaparece Toro : E:mario miller bocas toro → —
+PA #37 incorrecta desaparece Cortizo : E:laurentino cortizo → —
+PA #38 incorrecta desaparece Toro : E:mario miller bocas toro → —
+PE #4 correcta   desaparece [Mesa] señor Forsyth Mejía : M:PE00460 → —
+PE #12 incorrecta desaparece Angel : M:PE00080 → —
+PE #13 correcta   desaparece [Mesa] Daniel : M:PE00233 → —
+PE #18 correcta   cambia     señora Dina Ercilia Boluarte Zegarra : E:dina ercilia boluarte zegarra → E:dina boluarte
+PE #19 correcta   cambia     señor Joy Way : E:joy way rojas → M:PE01196
+PE #20 incorrecta desaparece señora Luz Salgado Rubianes de Paredes : E:luz salgado rubianes paredes → —
+PE #21 correcta   desaparece [Mesa] Juan Carlos Villena Campana : E:juan carlos villena campana → —
+PE #22 correcta   cambia     señora León Romero : E:leon romero → M:PE00749
+PE #24 incorrecta desaparece señora Mercedes Cabanillas Bustamante de Llanos : E:mercedes cabanillas bustamante llanos → —
+PE #25 correcta   desaparece [Mesa] magistrado Magdiel Igdalías Gonzales Ojeda : E:magdiel igdalias gonzales ojeda → —
+PE #28 incorrecta cambia     señor Ochoa : E:teofilo mario ochoa vargas → M:PE01141
+PE #29 incorrecta cambia     congresista Bedoya : E:luis guillermo bedoya vivanco → M:PE00086
+PE #30 incorrecta cambia     señor Ochoa : E:teofilo mario ochoa vargas → M:PE01300
+PE #31 incorrecta cambia     congresista Bedoya : E:luis guillermo bedoya vivanco → M:PE00539
+PE #32 incorrecta cambia     congresista Mario Ochoa : E:teofilo mario ochoa vargas → M:PE01300
+PE #33 incorrecta cambia     señor Ochoa : E:teofilo mario ochoa vargas → M:PE01300
+PE #34 incorrecta cambia     congresista Pazo : E:jose bernardo pazo nunura → M:PE01297
+PE #35 incorrecta cambia     congresista Mario Ochoa : E:teofilo mario ochoa vargas → M:PE01300
+PE #36 incorrecta cambia     señor Ochoa : E:teofilo mario ochoa vargas → M:PE01300
+PE #37 incorrecta cambia     señor Ochoa : E:teofilo mario ochoa vargas → M:PE01141
+PE #42 correcta   desaparece Mantilla : E:mantilla → —
+PT #1 correcta   desaparece [Mesa] Sr. Deputado Nuno Abecasis : M:PT0386 → —
+PT #8 incorrecta cambia     Sr. Deputado Goulart : M:PT1521 → E:goulart
+PT #19 incorrecta desaparece Rainha D. Leonor : E:leonor → —
+PT #22 incorrecta cambia     Sr. Deputado João Amaral : E:joao manuel amaral esteves → M:PT0517
+PT #23 incorrecta cambia     Sr. Deputado Luís Monteiro : E:jose luis monteiro pereira seixas → M:PT3291
+PT #24 incorrecta cambia     Sr. Deputado João Amaral : E:joao manuel amaral esteves → M:PT0517
+PT #25 incorrecta cambia     Sr. Deputado João Amaral : E:joao manuel amaral esteves → M:PT0517
+PT #26 incorrecta cambia     Sr. Deputado Jorge Almeida : E:ivo jorge almeida santos pinho → M:PT2648
+PT #27 incorrecta desaparece [Mesa] Sr. Deputado Jorge Leite : E:abilio jorge leite almeida costa → —
+PT #28 incorrecta cambia     Sr. Deputado Jorge Almeida : E:ivo jorge almeida santos pinho → M:PT2648
+PT #29 correcta   desaparece [Mesa] Sr. Deputado João Pedro da Silva Correia : E:joao pedro silva correia → —
+PT #30 incorrecta cambia     camarada João Amaral : E:joao manuel amaral esteves → M:PT0517
+PT #31 incorrecta cambia     Sr. Deputado João Amaral : E:joao manuel amaral esteves → M:PT0517
+PT #37 correcta   desaparece Carneiro : E:soares carneiro → —
+PT #38 incorrecta desaparece Eanes : E:antonio ramalho eanes → —
+PY #3 incorrecta cambia     General Escobar : M:PY168 → E:escobar
+PY #6 incorrecta desaparece [Mesa] DIPUTADO DARIO : M:PY102 → —
+PY #10 correcta   desaparece [Mesa] Diputado Oscar Rubén Salomón Fernández : M:PY60 → —
+PY #12 correcta   desaparece [Mesa] Saguier : M:PY100433 → —
+PY #13 correcta   desaparece [Mesa] Ibarra : M:PY100472 → —
+PY #14 correcta   desaparece [Mesa] Llano : M:PY113 → —
+PY #15 correcta   desaparece [Mesa] Cabañas : M:PY100582 → —
+PY #16 correcta   desaparece [Mesa] Neuman : M:PY72 → —
+PY #18 correcta   desaparece [Mesa] Mussi : M:PY62 → —
+PY #19 correcta   desaparece [Mesa] Vasconsellos : M:PY101513 → —
+PY #20 correcta   cambia     Delorme : M:PY100509 → M?sin resolver
+PY #21 incorrecta desaparece señor Preszdente : E:preszdente → —
+PY #22 incorrecta desaparece [Mesa] Capitán Vicente A. Matiauda y Antibia Matiauda : E:vicente a matiauda antibia matiauda → —
+PY #24 incorrecta desaparece Técnica y Cultural : E:tecnica cultural → —
+PY #28 correcta   desaparece [Mesa] SEÑORA SALVADORA ORTIZ RESQUIN : E:salvadora ortiz resquin → —
+PY #29 correcta   cambia     Ministro Durand : E:durand → M:PY100069
+PY #30 incorrecta desaparece [Mesa] DELEGADA PARA EL ESTUDIO Y : E:para estudio consideracion → —
+PY #31 incorrecta cambia     Capitán Meza : E:hugo joel meza → E:meza
+PY #32 incorrecta desaparece [Mesa] CAPITÁN MEZA : E:hugo joel meza → —
+PY #33 incorrecta desaparece [Mesa] Capitán Meza : E:hugo joel meza → —
+PY #34 incorrecta cambia     Capitán Báez : E:derlis manuel rodriguez baez → E:cecilio baez
+PY #35 incorrecta cambia     Capitán Meza : E:hugo joel meza → E:meza
+PY #37 correcta   cambia     Zavala : E:zavala → E:fidel zavala
+PY #38 incorrecta desaparece Alderete : E:alderete → —
+PY #39 incorrecta cambia     Matiauda : E:vicente a matiauda antibia matiauda → E:vicente a matiauda
+PY #44 incorrecta desaparece [Mesa] Matiauda : E:vicente a matiauda antibia matiauda → —
+SV #3 correcta   desaparece [Mesa] Diputado Francisco José Zablah Safie : M:SV00109 → —
+SV #4 correcta   desaparece [Mesa] diputado  Eduardo  Amaya : M:SV00107 → —
+SV #5 correcta   desaparece [Mesa] Diputado Vaquerano : M:SV00075 → —
+SV #6 correcta   desaparece [Mesa] Diputada Mercedes  Larrave : M:SV00014 → —
+SV #7 correcta   desaparece [Mesa] Diputada Cristina Cornejo : M:SV00269 → —
+SV #9 correcta   desaparece [Mesa] Diputada Lucía del Carmen Ayala de León : M:SV00216 → —
+SV #10 correcta   desaparece [Mesa] Diputada María Noemy García Corvera : M:SV00232 → —
+SV #12 correcta   desaparece [Mesa] Parker : M:SV00307 → —
+SV #14 correcta   desaparece [Mesa] Almendáriz : M:SV00162 → —
+SV #18 correcta   desaparece [Mesa] Parker : M:SV00297 → —
+SV #19 correcta   desaparece [Mesa] Parker : M:SV00307 → —
+SV #20 correcta   desaparece [Mesa] Parker : M:SV00307 → —
+SV #21 correcta   desaparece [Mesa] licenciado Delgado Montes : E:delgado montes → —
+SV #24 correcta   desaparece [Mesa] señor  Vitelio  Osiris Rodríguez Castillo : E:vitelio osiris rodriguez castillo → —
+SV #25 correcta   desaparece [Mesa] señora  Blanca  Nohemí  Sánchez  Rojas : E:blanca nohemi sanchez rojas → —
+SV #26 incorrecta desaparece Rey Prendes : E:prendes → —
+SV #27 incorrecta desaparece Señora  Santa  Ana : E:santa ana → —
+SV #30 correcta   desaparece [Mesa] doctora Mayra Ligia Gallardo : E:mayra ligia gallardo alvarado → —
+SV #31 incorrecta desaparece [Mesa] Diputada  Milena  Mayorga : E:carmen milena mayorga valera → —
+SV #32 incorrecta cambia     colega  Milena Mayorga : E:carmen milena mayorga valera → M:SV00047
+SV #33 incorrecta cambia     Diputada Milena Mayorga : E:carmen milena mayorga valera → M:SV00047
+SV #34 incorrecta desaparece [Mesa] Diputada Milena Mayorga : E:carmen milena mayorga valera → —
+SV #35 correcta   desaparece [Mesa] Izzo : E:david izzo → —
+SV #36 incorrecta cambia     Bukele : E:nayib bukele → E:yamil bukele
+SV #37 incorrecta desaparece [Mesa] Bukele : E:nayib bukele → —
+SV #40 correcta   desaparece [Mesa] Jerez : E:oscar alberto lopez jerez → —
+SV #43 incorrecta cambia     Bukele : E:nayib bukele → E:yamil bukele
+UY #5 correcta   desaparece [Mesa] señor Representante José Carlos Cardoso : M:UY01175 → —
+UY #7 correcta   desaparece señor Diputado Luis Lacalle Pou : M:UY01451 → —
+UY #9 correcta   desaparece señor Diputado Abelenda : M:UY01552 → —
+UY #11 correcta   desaparece [Mesa] Cardoso : M:UY01175 → —
+UY #12 correcta   desaparece [Mesa] Cardoso : M:UY01175 → —
+UY #15 correcta   desaparece [Mesa] Nicolini : M:UY01391 → —
+UY #16 incorrecta cambia     Gandini : M:UY01119 → E:poyleaud gandini
+UY #17 correcta   desaparece [Mesa] Tourné : M:UY00465 → —
+UY #18 incorrecta desaparece Coll : M:UY01110 → —
+UY #19 correcta   desaparece [Mesa] Barreiro : M:UY02003 → —
+UY #20 correcta   desaparece [Mesa] Trobo : M:UY01049 → —
+UY #21 correcta   cambia     ministro Astori : E:astori → E:danilo astori
+UY #31 incorrecta cambia     doctora Ruocco : E:humberto julio ruocco cambon → E:gloria ruocco
+UY #32 incorrecta cambia     doctora Ruocco : E:humberto julio ruocco cambon → E:gloria ruocco
+UY #33 incorrecta cambia     señor Diputado Bouza : E:federico jeronimo bouza rio → M:UY00702
+UY #34 incorrecta cambia     señor Diputado Jaurena : E:eduardo humberto jaurena basaistegue → E:norberto sanguinetti
+UY #35 correcta   cambia     Diputado Bouza : E:federico jeronimo bouza rio → M:UY02354
+UY #36 incorrecta cambia     querido amigo Jorge Pacheco Klein : E:jorge manuel pacheco klein → M:UY01116
+UY #37 incorrecta cambia     señor Diputado Jaurena : E:eduardo humberto jaurena basaistegue → E:sanguinetti
+UY #38 incorrecta cambia     doctora Ruocco : E:humberto julio ruocco cambon → E:gloria ruocco
+UY #39 incorrecta cambia     señor Diputado Bouza : E:federico jeronimo bouza rio → M:UY00702
+UY #40 incorrecta cambia     periodista Preve : E:federico mariano preve cocco → E:ignacio alvarez
+UY #41 incorrecta desaparece [Mesa] Mujica : E:jose mujica → —
+UY #44 correcta   cambia     Astori : E:astori → E:danilo astori
+UY #45 incorrecta desaparece Batlle : E:jorge batlle → —
+UY #47 correcta   cambia     Astori : E:astori → E:danilo astori
+UY #49 correcta   cambia     Astori : E:astori → E:danilo astori
+UY #50 correcta   cambia     Astori : E:astori → E:danilo astori
