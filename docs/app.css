@@ -1698,6 +1698,8 @@ html:not(.r2-app) body { overflow: hidden; }
   --men-f5:#c98ad0; --men-f6:#7fb3dd; --men-f7:#a6c56d; --men-f8:#b3bcc6 }
 .men .men-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:0 0 12px}
 .men .men-ctl .men-hueco{flex:1}
+.men .men-min{display:inline-flex;align-items:center;gap:5px}
+.men .men-min input{width:4.6em;padding:4px 6px;border:1px solid var(--border);border-radius:6px;background:var(--bg-panel);color:var(--text);font:inherit;font-size:12.5px;font-variant-numeric:tabular-nums}
 .men section{margin:22px 0 0}
 .men section h3{margin:0 0 3px;font-size:14px;font-weight:650}
 .men .men-sub{margin:0 0 9px;font-size:11.5px;line-height:1.55;color:var(--text-soft);max-width:110ch}

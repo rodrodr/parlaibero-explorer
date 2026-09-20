@@ -12,7 +12,7 @@
 
 const MEN = {
   cache: new Map(), data: null, cid: null, seq: 0, ctrl: null, limpiarRed: null,
-  filtro: 'todas', elegida: null, agrupar: 'partido', sentido: 'todas', fuertes: false, resolucion: 1,
+  filtro: 'todas', elegida: null, agrupar: 'partido', sentido: 'todas', minimo: 1, resolucion: 1,
 };
 const MEN_RESOL = [[0.6, 'menos', 'Menos focos y más amplios (resolución 0,6)'], [1, 'normal', 'Resolución 1: la modularidad clásica'],
   [1.6, 'más', 'Más focos y más finos (resolución 1,6)']];
@@ -217,7 +217,8 @@ function menRender() {
             <button type="button" data-mens="recibidas" aria-pressed="${MEN.sentido === 'recibidas'}">Recibidas</button>
           </div>
           <button type="button" class="btn sm" id="menEgo" aria-pressed="false" disabled>Modo ego</button>
-          <label class="chk tchk" for="menFuertes" title="Deja solo las conexiones con dos o más menciones"><input type="checkbox" id="menFuertes"${MEN.fuertes ? ' checked' : ''}><span>2 o más menciones</span></label>
+          <label class="tsel men-min" for="menMinimo" title="Deja solo las conexiones con al menos tantas menciones; con 1 se ve la red entera">Mínimo de menciones
+            <input type="number" id="menMinimo" min="1" step="1" value="${MEN.minimo}" inputmode="numeric" autocomplete="off"></label>
           <div class="tseg" role="group" aria-label="Zoom">
             <button type="button" id="menZmas" aria-label="Acercar">+</button>
             <button type="button" id="menZmenos" aria-label="Alejar">−</button>

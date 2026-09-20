@@ -3565,7 +3565,8 @@ function cooRender() {
     ${metodo}
     <p class="coo-exp"><button class="btn sm" data-cooexp="csv" title="Una fila por término, con su tema y sus medidas">Exportar temas (CSV)</button>
       <button class="btn sm" data-cooexp="gexf" title="La red podada, con los temas como atributo, para abrirla en Gephi">Exportar red (GEXF)</button>
-      <button class="btn sm" data-cooexp="lectura" title="Las intervenciones jerarquizadas, global, variada y por tema, con su puntuación y los términos que la sostienen">Exportar jerarquía de lectura (CSV)</button></p>
+      <button class="btn sm" data-cooexp="lectura" title="Las intervenciones jerarquizadas, global, variada y por tema, con su puntuación y los términos que la sostienen">Exportar jerarquía de lectura (CSV)</button>
+      ${r.partidos?.con_partido ? '<button class="btn sm" data-cooexp="partidos" title="Una fila por tema y partido, con sus intervenciones, su parte del tema, su peso en la biblioteca y cuánto lo pasa">Exportar partidos por tema (CSV)</button>' : ''}</p>
     ${fuentePieHTML('panel-fuente')}
   </div>`;
   sc.scrollTop = top;
@@ -3631,7 +3632,10 @@ function cooClick(e) {
   if ((el = b('[data-cooopen]'))) { openSpeech(+el.dataset.cooopen, { mode: 'speech' }); return true; }
   if ((el = b('[data-cooexp]'))) {
     const tipo = el.dataset.cooexp;
-    if (tipo === 'gexf') cooExportGEXF(); else if (tipo === 'lectura') cooExportLectura(); else cooExportCSV();
+    if (tipo === 'gexf') cooExportGEXF();
+    else if (tipo === 'lectura') cooExportLectura();
+    else if (tipo === 'partidos') cooExportPartidos();
+    else cooExportCSV();
     return true;
   }
   if ((el = b('[data-coolect]'))) { X.lectModo = el.dataset.coolect; X.lectN = 10; cooRender(); return true; }
@@ -3675,6 +3679,41 @@ function cooExportCSV() {
     }
   });
   downloadText(csvConFuente(cooMeta(r), cols, filas), `temas_${cooSlug()}.csv`, 'text/csv;charset=utf-8');
+}
+
+/** Una fila por tema y partido: sus intervenciones, su parte del tema, su peso en la biblioteca y cuánto lo pasa. */
+function cooExportPartidos() {
+  const r = S.coo.data;
+  if (!r || r.error || !r.partidos?.con_partido) return toast('Esta biblioteca no trae partidos que exportar.', true);
+  const lib = r.partidos, pesoLib = new Map(lib.lista.map(x => [x.p, x.n / lib.con_partido]));
+  const cols = ['tema', 'etiqueta_tema', 'tema_intervenciones', 'tema_intervenciones_con_partido', 'partido',
+                'intervenciones', 'porcentaje_del_tema', 'partido_en_biblioteca', 'porcentaje_en_biblioteca',
+                'esperadas', 'veces_su_peso', 'exceso_en_errores_tipicos'];
+  const dec = (x, d) => (Number.isFinite(x) ? x.toFixed(d) : '');
+  const filas = [];
+  for (const [k, c] of (r.comunidades || []).entries()) {
+    const rep = c.partidos;
+    if (!rep?.con_partido) continue;
+    for (const x of rep.lista) {
+      const peso = pesoLib.get(x.p) ?? 0, esperado = peso * rep.con_partido;
+      filas.push([k + 1, c.etiqueta, c.intervenciones, rep.con_partido, x.p, x.n,
+        dec(100 * x.n / rep.con_partido, 2), lib.lista.find(y => y.p === x.p)?.n ?? 0, dec(100 * peso, 2),
+        dec(esperado, 1), esperado > 0 ? dec(x.n / esperado, 3) : '', esperado > 0 ? dec((x.n - esperado) / Math.sqrt(esperado), 2) : '']);
+    }
+    if (rep.otros) {
+      filas.push([k + 1, c.etiqueta, c.intervenciones, rep.con_partido, `(otros ${rep.otros.partidos} partidos)`,
+        rep.otros.n, dec(100 * rep.otros.n / rep.con_partido, 2), '', '', '', '', '']);
+    }
+  }
+  if (!filas.length) return toast('Ningún tema tiene intervenciones con partido.', true);
+  const meta = cooMeta(r).concat([
+    `partidos: ${nf(lib.con_partido)} de ${nf(lib.intervenciones)} intervenciones traen partido (el canónico de la ingesta)`,
+    'una intervención cuenta en todos los temas que toca, así que las columnas no suman las intervenciones de la biblioteca',
+    'esperadas = peso del partido en la biblioteca × intervenciones del tema con partido; veces_su_peso = intervenciones / esperadas;'
+      + ' exceso_en_errores_tipicos = (intervenciones − esperadas) / √esperadas, una guía para descartar cifras pequeñas, no una prueba'
+      + ' (las intervenciones de un mismo orador no son independientes)',
+  ]);
+  downloadText(csvConFuente(meta, cols, filas), `partidos_por_tema_${cooSlug()}.csv`, 'text/csv;charset=utf-8');
 }
 
 function cooExportLectura() {

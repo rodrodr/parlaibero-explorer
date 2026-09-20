@@ -1769,6 +1769,8 @@ html:not(.r2-app) body { overflow: hidden; }
   --men-f5:#c98ad0; --men-f6:#7fb3dd; --men-f7:#a6c56d; --men-f8:#b3bcc6 }
 .men .men-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:0 0 12px}
 .men .men-ctl .men-hueco{flex:1}
+.men .men-min{display:inline-flex;align-items:center;gap:5px}
+.men .men-min input{width:4.6em;padding:4px 6px;border:1px solid var(--border);border-radius:6px;background:var(--bg-panel);color:var(--text);font:inherit;font-size:12.5px;font-variant-numeric:tabular-nums}
 .men section{margin:22px 0 0}
 .men section h3{margin:0 0 3px;font-size:14px;font-weight:650}
 .men .men-sub{margin:0 0 9px;font-size:11.5px;line-height:1.55;color:var(--text-soft);max-width:110ch}
@@ -13195,7 +13197,8 @@ function cooRender() {
     ${metodo}
     <p class="coo-exp"><button class="btn sm" data-cooexp="csv" title="Una fila por término, con su tema y sus medidas">Exportar temas (CSV)</button>
       <button class="btn sm" data-cooexp="gexf" title="La red podada, con los temas como atributo, para abrirla en Gephi">Exportar red (GEXF)</button>
-      <button class="btn sm" data-cooexp="lectura" title="Las intervenciones jerarquizadas, global, variada y por tema, con su puntuación y los términos que la sostienen">Exportar jerarquía de lectura (CSV)</button></p>
+      <button class="btn sm" data-cooexp="lectura" title="Las intervenciones jerarquizadas, global, variada y por tema, con su puntuación y los términos que la sostienen">Exportar jerarquía de lectura (CSV)</button>
+      ${r.partidos?.con_partido ? '<button class="btn sm" data-cooexp="partidos" title="Una fila por tema y partido, con sus intervenciones, su parte del tema, su peso en la biblioteca y cuánto lo pasa">Exportar partidos por tema (CSV)</button>' : ''}</p>
     ${fuentePieHTML('panel-fuente')}
   </div>`;
   sc.scrollTop = top;
@@ -13261,7 +13264,10 @@ function cooClick(e) {
   if ((el = b('[data-cooopen]'))) { openSpeech(+el.dataset.cooopen, { mode: 'speech' }); return true; }
   if ((el = b('[data-cooexp]'))) {
     const tipo = el.dataset.cooexp;
-    if (tipo === 'gexf') cooExportGEXF(); else if (tipo === 'lectura') cooExportLectura(); else cooExportCSV();
+    if (tipo === 'gexf') cooExportGEXF();
+    else if (tipo === 'lectura') cooExportLectura();
+    else if (tipo === 'partidos') cooExportPartidos();
+    else cooExportCSV();
     return true;
   }
   if ((el = b('[data-coolect]'))) { X.lectModo = el.dataset.coolect; X.lectN = 10; cooRender(); return true; }
@@ -13305,6 +13311,41 @@ function cooExportCSV() {
     }
   });
   downloadText(csvConFuente(cooMeta(r), cols, filas), `temas_${cooSlug()}.csv`, 'text/csv;charset=utf-8');
+}
+
+/** Una fila por tema y partido: sus intervenciones, su parte del tema, su peso en la biblioteca y cuánto lo pasa. */
+function cooExportPartidos() {
+  const r = S.coo.data;
+  if (!r || r.error || !r.partidos?.con_partido) return toast('Esta biblioteca no trae partidos que exportar.', true);
+  const lib = r.partidos, pesoLib = new Map(lib.lista.map(x => [x.p, x.n / lib.con_partido]));
+  const cols = ['tema', 'etiqueta_tema', 'tema_intervenciones', 'tema_intervenciones_con_partido', 'partido',
+                'intervenciones', 'porcentaje_del_tema', 'partido_en_biblioteca', 'porcentaje_en_biblioteca',
+                'esperadas', 'veces_su_peso', 'exceso_en_errores_tipicos'];
+  const dec = (x, d) => (Number.isFinite(x) ? x.toFixed(d) : '');
+  const filas = [];
+  for (const [k, c] of (r.comunidades || []).entries()) {
+    const rep = c.partidos;
+    if (!rep?.con_partido) continue;
+    for (const x of rep.lista) {
+      const peso = pesoLib.get(x.p) ?? 0, esperado = peso * rep.con_partido;
+      filas.push([k + 1, c.etiqueta, c.intervenciones, rep.con_partido, x.p, x.n,
+        dec(100 * x.n / rep.con_partido, 2), lib.lista.find(y => y.p === x.p)?.n ?? 0, dec(100 * peso, 2),
+        dec(esperado, 1), esperado > 0 ? dec(x.n / esperado, 3) : '', esperado > 0 ? dec((x.n - esperado) / Math.sqrt(esperado), 2) : '']);
+    }
+    if (rep.otros) {
+      filas.push([k + 1, c.etiqueta, c.intervenciones, rep.con_partido, `(otros ${rep.otros.partidos} partidos)`,
+        rep.otros.n, dec(100 * rep.otros.n / rep.con_partido, 2), '', '', '', '', '']);
+    }
+  }
+  if (!filas.length) return toast('Ningún tema tiene intervenciones con partido.', true);
+  const meta = cooMeta(r).concat([
+    `partidos: ${nf(lib.con_partido)} de ${nf(lib.intervenciones)} intervenciones traen partido (el canónico de la ingesta)`,
+    'una intervención cuenta en todos los temas que toca, así que las columnas no suman las intervenciones de la biblioteca',
+    'esperadas = peso del partido en la biblioteca × intervenciones del tema con partido; veces_su_peso = intervenciones / esperadas;'
+      + ' exceso_en_errores_tipicos = (intervenciones − esperadas) / √esperadas, una guía para descartar cifras pequeñas, no una prueba'
+      + ' (las intervenciones de un mismo orador no son independientes)',
+  ]);
+  downloadText(csvConFuente(meta, cols, filas), `partidos_por_tema_${cooSlug()}.csv`, 'text/csv;charset=utf-8');
 }
 
 function cooExportLectura() {
@@ -16578,7 +16619,7 @@ boot();
 
 const MEN = {
   cache: new Map(), data: null, cid: null, seq: 0, ctrl: null, limpiarRed: null,
-  filtro: 'todas', elegida: null, agrupar: 'partido', sentido: 'todas', fuertes: false, resolucion: 1,
+  filtro: 'todas', elegida: null, agrupar: 'partido', sentido: 'todas', minimo: 1, resolucion: 1,
 };
 const MEN_RESOL = [[0.6, 'menos', 'Menos focos y más amplios (resolución 0,6)'], [1, 'normal', 'Resolución 1: la modularidad clásica'],
   [1.6, 'más', 'Más focos y más finos (resolución 1,6)']];
@@ -16783,7 +16824,8 @@ function menRender() {
             <button type="button" data-mens="recibidas" aria-pressed="${MEN.sentido === 'recibidas'}">Recibidas</button>
           </div>
           <button type="button" class="btn sm" id="menEgo" aria-pressed="false" disabled>Modo ego</button>
-          <label class="chk tchk" for="menFuertes" title="Deja solo las conexiones con dos o más menciones"><input type="checkbox" id="menFuertes"${MEN.fuertes ? ' checked' : ''}><span>2 o más menciones</span></label>
+          <label class="tsel men-min" for="menMinimo" title="Deja solo las conexiones con al menos tantas menciones; con 1 se ve la red entera">Mínimo de menciones
+            <input type="number" id="menMinimo" min="1" step="1" value="${MEN.minimo}" inputmode="numeric" autocomplete="off"></label>
           <div class="tseg" role="group" aria-label="Zoom">
             <button type="button" id="menZmas" aria-label="Acercar">+</button>
             <button type="button" id="menZmenos" aria-label="Alejar">−</button>
@@ -17053,9 +17095,9 @@ ${aristas.join('\n')}
  * y ella. Las aristas se dibujan entre personas de la vista (en el modo ego, también las que hay entre sus conexiones);
  * los tamaños son los de la red entera. Los sectores van de más a menos peso desde las 12 en el sentido de las agujas del
  * reloj y, dentro de cada uno, de la persona más a la menos central.
- * Con el filtro de conexiones de 2 o más menciones, cada vista se calcula solo con ellas: en «Todas», los pares con 2 o más
- * menciones sumando los dos sentidos; en «Hechas» y «Recibidas», las menciones repetidas (una persona menciona a otra dos
- * o más veces). Quien se queda sin ninguna sale de la vista y los anillos cuentan solo esas conexiones.
+ * El mínimo de menciones (1 por defecto) deja fuera las conexiones que no llegan a él y cada vista se calcula solo con las
+ * que quedan: en «Todas», los pares que suman ese mínimo entre los dos sentidos; en «Hechas» y «Recibidas», las menciones
+ * repetidas en un solo sentido. Quien se queda sin ninguna sale de la vista y los anillos cuentan solo esas conexiones.
  */
 
 function menRedIniciar(D) {
@@ -17070,22 +17112,31 @@ function menRedIniciar(D) {
   const centralidad = vecinos.map((s) => s.size);
   const hechas = new Float64Array(NN);                              // menciones que hace cada persona
   RED.aristas.forEach(([a, b, ab, ba]) => { hechas[a] += ab; hechas[b] += ba; });
-  // Con el filtro: con cuántas personas suma 2 o más menciones, a cuántas menciona dos o más veces y cuántas la mencionan así
-  const vecF = new Int32Array(NN), salF = new Int32Array(NN), entF = new Int32Array(NN);
-  RED.aristas.forEach(([a, b, ab, ba]) => {
-    if (ab + ba >= 2) { vecF[a]++; vecF[b]++; }
-    if (ab >= 2) { salF[a]++; entF[b]++; }
-    if (ba >= 2) { salF[b]++; entF[a]++; }
-  });
-  /** Si la arista q es una conexión de 2 o más menciones en el sentido `sen`. */
-  const fuerte = (sen, q) => { const [, , ab, ba] = RED.aristas[q]; return sen === 'todas' ? ab + ba >= 2 : Math.max(ab, ba) >= 2; };
+  // Con un mínimo m: con cuántas personas suma m o más menciones, a cuántas menciona m o más veces y cuántas la
+  // mencionan así. Se calcula la primera vez que se usa cada mínimo y se guarda.
+  const CUENTAS = new Map();
+  function cuentasDe(m) {
+    if (CUENTAS.has(m)) return CUENTAS.get(m);
+    const vec = new Int32Array(NN), sal = new Int32Array(NN), ent = new Int32Array(NN);
+    RED.aristas.forEach(([a, b, ab, ba]) => {
+      if (ab + ba >= m) { vec[a]++; vec[b]++; }
+      if (ab >= m) { sal[a]++; ent[b]++; }
+      if (ba >= m) { sal[b]++; ent[a]++; }
+    });
+    const c = { vec, sal, ent };
+    CUENTAS.set(m, c);
+    return c;
+  }
+  const MAX_MINIMO = Math.max(1, ...RED.aristas.map(([, , ab, ba]) => ab + ba));   // más allá no queda ninguna conexión
+  /** Si la arista q llega al mínimo m de menciones en el sentido `sen`. */
+  const llega = (sen, q, m) => { const [, , ab, ba] = RED.aristas[q]; return sen === 'todas' ? ab + ba >= m : Math.max(ab, ba) >= m; };
   const SENTIDOS = {
     todas: { entra: () => true, medida: (i) => centralidad[i], tam: (i) => RED.nodos[i].or, peso: (i) => RED.nodos[i].men, titulo: 'conexiones distintas',
-      fuertes: { medida: (i) => vecF[i], titulo: 'conexiones distintas de 2 o más menciones' } },
+      filtro: (m) => ({ medida: (i) => cuentasDe(m).vec[i], titulo: `conexiones distintas de ${m} o más menciones` }) },
     hechas: { entra: (i) => RED.nodos[i].emite > 0, medida: (i) => RED.nodos[i].emite, tam: (i) => RED.nodos[i].emite, peso: (i) => hechas[i], titulo: 'personas distintas a las que menciona',
-      fuertes: { medida: (i) => salF[i], titulo: 'personas distintas a las que menciona dos o más veces' } },
+      filtro: (m) => ({ medida: (i) => cuentasDe(m).sal[i], titulo: `personas distintas a las que menciona ${m} o más veces` }) },
     recibidas: { entra: (i) => RED.nodos[i].or > 0, medida: (i) => RED.nodos[i].or, tam: (i) => RED.nodos[i].or, peso: (i) => RED.nodos[i].men, titulo: 'oradores distintos que la mencionan',
-      fuertes: { medida: (i) => entF[i], titulo: 'oradores distintos que la mencionan dos o más veces' } },
+      filtro: (m) => ({ medida: (i) => cuentasDe(m).ent[i], titulo: `oradores distintos que la mencionan ${m} o más veces` }) },
   };
 
   // Agrupaciones: sectores, nombres y colores (los colores de partido, fijos: los ocho partidos más mencionados)
@@ -17132,33 +17183,34 @@ function menRedIniciar(D) {
     fronteras.push(n);
     return fronteras;
   }
-  /** Menciones entre la persona e y cada una de sus conexiones en el sentido `sen` (persona → menciones); con `fuertes`,
-   *  solo las de 2 o más. */
-  function lazos(e, sen, fuertes) {
+  /** Menciones entre la persona e y cada una de sus conexiones en el sentido `sen` (persona → menciones); solo las que
+   *  llegan al mínimo m. */
+  function lazos(e, sen, m0) {
     const m = new Map();
     for (const q of ady[e]) {
       const [a, b, ab, ba] = RED.aristas[q];
       const hace = a === e ? ab : ba, recibe = a === e ? ba : ab;
       const f = sen === 'hechas' ? hace : sen === 'recibidas' ? recibe : hace + recibe;
-      if (f >= (fuertes ? 2 : 1)) m.set(a === e ? b : a, f);
+      if (f >= m0) m.set(a === e ? b : a, f);
     }
     return m;
   }
   const VISTAS = new Map();
-  function disponer(agr, sen, ego = -1, fuertes = false) {
-    const clave = `${agr}|${sen}|${ego}|${fuertes}`;
+  function disponer(agr, sen, ego = -1, minimo = 1) {
+    const clave = `${agr}|${sen}|${ego}|${minimo}`;
     if (VISTAS.has(clave)) return VISTAS.get(clave);
-    const A = AGRUPA[agr], S0 = SENTIDOS[sen], fuerza = ego >= 0 ? lazos(ego, sen, fuertes) : null;
-    const SS = fuertes ? { ...S0, entra: (i) => S0.fuertes.medida(i) > 0, medida: S0.fuertes.medida, titulo: S0.fuertes.titulo } : S0;
+    const A = AGRUPA[agr], S0 = SENTIDOS[sen], fuerza = ego >= 0 ? lazos(ego, sen, minimo) : null;
+    const F = minimo > 1 ? S0.filtro(minimo) : null;
+    const SS = F ? { ...S0, entra: (i) => F.medida(i) > 0, medida: F.medida, titulo: F.titulo } : S0;
     const medida = fuerza ? (i) => fuerza.get(i) : SS.medida, peso = fuerza ? medida : SS.peso;
     const orden = (fuerza ? [...fuerza.keys()] : [...Array(NN).keys()].filter(SS.entra)).sort((a, b) => medida(b) - medida(a) || SS.tam(b) - SS.tam(a) || a - b);
     const n = orden.length, fronteras = fronterasDe(orden.map(medida));
-    const anillo = new Int8Array(NN).fill(-1), minimo = RADIOS.map(() => null);
-    orden.forEach((i, r) => { const k = fronteras.findIndex((f) => r < f); anillo[i] = k; minimo[k] = medida(i); });
+    const anillo = new Int8Array(NN).fill(-1), minimoAnillo = RADIOS.map(() => null);
+    orden.forEach((i, r) => { const k = fronteras.findIndex((f) => r < f); anillo[i] = k; minimoAnillo[k] = medida(i); });
     // Radios: los cinco de siempre; en el modo ego, solo los de los anillos con alguien, repartidos entre 110 y 318
     let radios = RADIOS.slice();
     if (fuerza) {
-      const usados = RADIOS.map((_, k) => k).filter((k) => minimo[k] !== null);
+      const usados = RADIOS.map((_, k) => k).filter((k) => minimoAnillo[k] !== null);
       radios = RADIOS.map(() => null);
       usados.forEach((k, u) => { radios[k] = usados.length === 1 ? 200 : 110 + (318 - 110) * u / (usados.length - 1); });
     }
@@ -17182,7 +17234,7 @@ function menRedIniciar(D) {
     for (let i = 0; i < NN; i++) if (!pos[i]) pos[i] = { x: CX, y: CY };
     const e = ego >= 0 ? RED.nodos[ego].n : '', usados = radios.filter((r) => r !== null);
     const v = {
-      ego, sen, fuertes, n, pos, sectores, minimo, radios, curva: fuerza ? 0.3 : 0.75, firma: `${sen}|${ego}|${fuertes}`,
+      ego, sen, minimo, n, pos, sectores, corte: minimoAnillo, radios, curva: fuerza ? 0.3 : 0.75, firma: `${sen}|${ego}|${minimo}`,
       rInterior: usados.length ? Math.min(...usados) : RADIOS[0], rExterior: usados.length ? Math.max(...usados) : RADIOS[RADIOS.length - 1],
       titulo: !fuerza ? SS.titulo : sen === 'hechas' ? `veces que ${e} la menciona` : sen === 'recibidas' ? `veces que menciona a ${e}` : `menciones entre cada persona y ${e}`,
       visible: (i) => visibles[i] === 1, tam: SS.tam,
@@ -17192,11 +17244,12 @@ function menRedIniciar(D) {
     return v;
   }
   let agrupar = MEN.agrupar, sentido = MEN.sentido;
-  let V = disponer(agrupar, sentido, -1, MEN.fuertes);
+  MEN.minimo = Math.max(1, Math.min(MAX_MINIMO, Math.round(MEN.minimo) || 1));   // la red nueva puede no llegar al mínimo anterior
+  let V = disponer(agrupar, sentido, -1, MEN.minimo);
   let anima = null, acabar = null, moviendo = false, curvaActual = V.curva;
   const pos = V.pos.map((p) => ({ x: p.x, y: p.y }));
   const radioActual = RED.nodos.map((_, i) => radioDe(V.tam(i)));
-  const aristaEn = (vista, q) => vista.visible(RED.aristas[q][0]) && vista.visible(RED.aristas[q][1]) && (!vista.fuertes || fuerte(vista.sen, q));
+  const aristaEn = (vista, q) => vista.visible(RED.aristas[q][0]) && vista.visible(RED.aristas[q][1]) && (vista.minimo <= 1 || llega(vista.sen, q, vista.minimo));
 
   // Tamaño: la red cabe en la parte visible del panel de la lista junto con sus controles, la ficha y la leyenda. El dibujo
   // (viewBox 1000 × 720) se escala dentro y los textos crecen hasta 1,4 veces para seguir legibles cuando la red se encoge;
@@ -17211,9 +17264,9 @@ function menRedIniciar(D) {
     V.radios.forEach((r, k) => {
       if (r === null) return;
       gRT.append(mk('circle', { class: 'men-anillo', cx: CX, cy: CY, r: r.toFixed(1) }));
-      if (V.minimo[k] === null) return;
+      if (V.corte[k] === null) return;
       const t = mk('text', { class: 'men-guia', x: CX, y: (CY - r + 3.5 * fTexto).toFixed(1), 'text-anchor': 'middle', 'font-size': (10 * fTexto).toFixed(1) });
-      t.textContent = `${k === 0 && V.ego < 0 ? 'núcleo · ' : ''}≥ ${nf(V.minimo[k])}`;
+      t.textContent = `${k === 0 && V.ego < 0 ? 'núcleo · ' : ''}≥ ${nf(V.corte[k])}`;
       gRT.append(t);
     });
     if (V.ego >= 0 && !V.n) return;                                 // modo ego sin nadie alrededor
@@ -17327,7 +17380,7 @@ function menRedIniciar(D) {
   /** Clase de la arista q vista desde la persona i: a quién menciona (continua), quién la menciona (discontinua) o ambas.
    *  Con el filtro, en «Hechas» y «Recibidas» solo cuentan las menciones repetidas. */
   function claseDesde(i, q) {
-    const [a, , ab, ba] = RED.aristas[q], umbral = V.fuertes && sentido !== 'todas' ? 2 : 1;
+    const [a, , ab, ba] = RED.aristas[q], umbral = sentido !== 'todas' ? V.minimo : 1;
     const hace = (a === i ? ab : ba) >= umbral, recibe = (a === i ? ba : ab) >= umbral;
     return sentido === 'hechas' ? (hace ? 'sale' : '') : sentido === 'recibidas' ? (recibe ? 'entra' : '')
       : hace && recibe ? 'ambos' : hace ? 'sale' : 'entra';
@@ -17373,45 +17426,47 @@ function menRedIniciar(D) {
     }
     return partes.length ? ` · ${partes.join(' · ')}` : '';
   }
-  /** Ficha de la persona en toda la biblioteca; con el filtro (fuera del modo ego), también la cifra que le da el anillo. */
+  /** Ficha de la persona en toda la biblioteca; con un mínimo (fuera del modo ego), también la cifra que le da el anillo. */
   const describir = (nd, i) => {
-    const f = V.fuertes && V.ego < 0 ? sentido : '';
-    return `${nd.ext ? 'persona externa' : esc(nd.p)}${nd.f ? ` · foco F${nd.f}` : ''} · la mencionan ${nf(nd.or)} oradores (${nf(nd.men)} menciones${f === 'recibidas' ? `; ${nf(entF[i])} de ellos, dos o más veces` : ''})`
-      + `${nd.emite ? ` · menciona a ${nf(nd.emite)} personas${f === 'hechas' ? ` (a ${nf(salF[i])} dos o más veces)` : ''}` : ''}`
-      + ` · conectada con ${nf(centralidad[i])}${f === 'todas' ? ` (con ${nf(vecF[i])} por 2 o más menciones)` : ''}${conEgo(i)}`;
+    const m = V.minimo, f = m > 1 && V.ego < 0 ? sentido : '', C = f ? cuentasDe(m) : null;
+    return `${nd.ext ? 'persona externa' : esc(nd.p)}${nd.f ? ` · foco F${nd.f}` : ''} · la mencionan ${nf(nd.or)} oradores (${nf(nd.men)} menciones${f === 'recibidas' ? `; ${nf(C.ent[i])} de ellos, ${m} o más veces` : ''})`
+      + `${nd.emite ? ` · menciona a ${nf(nd.emite)} personas${f === 'hechas' ? ` (a ${nf(C.sal[i])}, ${m} o más veces)` : ''}` : ''}`
+      + ` · conectada con ${nf(centralidad[i])}${f === 'todas' ? ` (con ${nf(C.vec[i])} por ${m} o más menciones)` : ''}${conEgo(i)}`;
   };
   const CUANTAS = {
     todas: (n) => `sus ${nf(n)} conexiones`,
     hechas: (n) => `las ${nf(n)} personas a las que menciona`,
     recibidas: (n) => `los ${nf(n)} oradores que la mencionan`,
   };
-  /** En «Hechas» o «Recibidas» (fuera del modo ego), cuántas de sus conexiones en ese sentido se ven en la vista (con el
-   *  filtro, de las de dos o más menciones). En el modo ego con el filtro, cuántas conexiones de la persona del centro faltan. */
+  /** En «Hechas» o «Recibidas» (fuera del modo ego), cuántas de sus conexiones en ese sentido se ven en la vista (con un
+   *  mínimo, de las que llegan a él). En el modo ego con un mínimo, cuántas conexiones de la persona del centro faltan. */
   function nota(i) {
+    const m = V.minimo;
     if (V.ego >= 0) {
-      if (i !== V.ego || !V.fuertes || !V.n) return '';
-      const faltan = lazos(i, sentido, false).size - V.n;
-      return faltan > 0 ? `Se ven ${nf(V.n)} de ${CUANTAS[sentido](V.n + faltan)}; ${faltan === 1 ? 'falta 1' : `faltan ${nf(faltan)}`} con una sola mención.` : '';
+      if (i !== V.ego || m <= 1 || !V.n) return '';
+      const faltan = lazos(i, sentido, 1).size - V.n;
+      return faltan > 0 ? `Se ven ${nf(V.n)} de ${CUANTAS[sentido](V.n + faltan)}; ${faltan === 1 ? 'falta 1' : `faltan ${nf(faltan)}`} con menos de ${m} menciones.` : '';
     }
     if (sentido === 'todas') return '';
     let n = 0, total = 0;
     for (const q of ady[i]) {
       const [a, b, ab, ba] = RED.aristas[q];
       const cuenta = sentido === 'hechas' ? (a === i ? ab : ba) : (a === i ? ba : ab);
-      if (cuenta < (V.fuertes ? 2 : 1)) continue;
+      if (cuenta < m) continue;
       total++;
       if (V.visible(a === i ? b : a)) n++;
     }
     if (n >= total) return '';
-    const vv = V.fuertes ? ' dos o más veces' : '', mas = V.fuertes ? ' más de una vez' : '', una = total - n === 1;
+    const vv = m > 1 ? ` ${m} o más veces` : '', mas = m > 1 ? ` ${m} o más veces` : ' más de una vez', una = total - n === 1;
     return sentido === 'hechas' ? `En esta vista se ven ${nf(n)} de las ${nf(total)} personas a las que menciona${vv}; ${una ? 'la otra no menciona' : 'las demás no mencionan'} a nadie${mas}.`
       : `En esta vista se ven ${nf(n)} de los ${nf(total)} oradores que la mencionan${vv}; ${una ? 'al otro no lo' : 'a los demás no los'} menciona nadie${mas}.`;
   }
   function resumenEgo() {
     const e = esc(RED.nodos[V.ego].n);
     if (V.n) return 'en el centro';
-    const mas = V.fuertes && lazos(V.ego, sentido, false).size ? ' más de una vez' : ' en esta biblioteca';
-    return `en el centro · ${sentido === 'hechas' ? `${e} no menciona a nadie${mas}` : sentido === 'recibidas' ? `nadie menciona a ${e}${mas}` : 'ninguna de sus conexiones tiene 2 o más menciones'}`;
+    const m = V.minimo;
+    const mas = m > 1 && lazos(V.ego, sentido, 1).size ? ` ${m} o más veces` : ' en esta biblioteca';
+    return `en el centro · ${sentido === 'hechas' ? `${e} no menciona a nadie${mas}` : sentido === 'recibidas' ? `nadie menciona a ${e}${mas}` : `ninguna de sus conexiones llega a ${m} menciones`}`;
   }
   function pintarInfo() {
     const boton = menEl('menEgo');
@@ -17419,7 +17474,11 @@ function menRedIniciar(D) {
     boton.disabled = V.ego < 0 && fijado < 0;
     boton.title = V.ego >= 0 ? 'Volver a toda la red' : fijado >= 0 ? `Rehacer la red solo con ${RED.nodos[fijado].n} y sus conexiones` : 'Fije antes una persona pulsándola';
     const quien = fijado >= 0 ? fijado : V.ego, info = menEl('menInfo');
-    if (quien < 0) { info.innerHTML = 'Pulse una persona para fijarla y ver sus conexiones; pulse el fondo para soltarla.'; return; }
+    if (quien < 0) {
+      info.innerHTML = V.n ? 'Pulse una persona para fijarla y ver sus conexiones; pulse el fondo para soltarla.'
+        : `Con un mínimo de ${V.minimo} menciones no queda ninguna conexión: baje el mínimo.`;
+      return;
+    }
     const nd = RED.nodos[quien], n = nota(quien);
     info.innerHTML = `<b>${esc(nd.n)}</b>${quien === V.ego ? `<span>${resumenEgo()}</span>` : ''}<span>${describir(nd, quien)}</span>`
       + (nd.lista >= 0 ? '<button type="button" class="btn sm" id="menLeer">Leer sus menciones</button>'
@@ -17464,18 +17523,19 @@ function menRedIniciar(D) {
     recibidas: ' Pase por encima o pulse una persona para ver quién la menciona.',
   };
   const FILTRO = {
-    todas: 'Con el filtro, solo cuentan las conexiones de 2 o más menciones, sumando los dos sentidos: quien no tiene ninguna sale de la red y los anillos cuentan solo esas conexiones; el tamaño sigue siendo el de toda la biblioteca. ',
-    hechas: 'Con el filtro, solo cuentan las menciones repetidas: queda quien menciona a alguien dos o más veces y el anillo cuenta a cuántas personas menciona así; el tamaño sigue siendo el de toda la biblioteca. ',
-    recibidas: 'Con el filtro, solo cuentan las menciones repetidas: queda quien es mencionada dos o más veces por un mismo orador y el anillo cuenta cuántos oradores la mencionan así; el tamaño sigue siendo el de toda la biblioteca. ',
+    todas: (m) => `Con el mínimo en ${m}, solo cuentan las conexiones de ${m} o más menciones, sumando los dos sentidos: quien no tiene ninguna sale de la red y los anillos cuentan solo esas conexiones; el tamaño sigue siendo el de toda la biblioteca. `,
+    hechas: (m) => `Con el mínimo en ${m}, queda quien menciona a alguien ${m} o más veces y el anillo cuenta a cuántas personas menciona así; el tamaño sigue siendo el de toda la biblioteca. `,
+    recibidas: (m) => `Con el mínimo en ${m}, queda quien es mencionada ${m} o más veces por un mismo orador y el anillo cuenta cuántos oradores la mencionan así; el tamaño sigue siendo el de toda la biblioteca. `,
   };
   const FILTRO_EGO = {
-    todas: (e) => `Con el filtro, solo las personas con 2 o más menciones con ${e}, sumando los dos sentidos, y entre ellas, las conexiones de 2 o más menciones. `,
-    hechas: (e) => `Con el filtro, solo las personas a las que ${e} menciona dos o más veces, y entre ellas, las menciones repetidas. `,
-    recibidas: (e) => `Con el filtro, solo las personas que mencionan a ${e} dos o más veces, y entre ellas, las menciones repetidas. `,
+    todas: (e, m) => `Con el mínimo en ${m}, solo las personas con ${m} o más menciones con ${e}, sumando los dos sentidos, y entre ellas, las conexiones de ${m} o más menciones. `,
+    hechas: (e, m) => `Con el mínimo en ${m}, solo las personas a las que ${e} menciona ${m} o más veces, y entre ellas, las conexiones de ${m} o más menciones. `,
+    recibidas: (e, m) => `Con el mínimo en ${m}, solo las personas que mencionan a ${e} ${m} o más veces, y entre ellas, las conexiones de ${m} o más menciones. `,
   };
   const explicar = () => {
     const e = V.ego >= 0 ? RED.nodos[V.ego].n : '';
-    menEl('menExplica').textContent = (e ? TEXTO_EGO[sentido](e) : TEXTO[sentido]) + (V.fuertes ? (e ? FILTRO_EGO[sentido](e) : FILTRO[sentido]) : '') + AGRUPA[agrupar].explica(sentido, e)
+    const m = V.minimo;
+    menEl('menExplica').textContent = (e ? TEXTO_EGO[sentido](e) : TEXTO[sentido]) + (m > 1 ? (e ? FILTRO_EGO[sentido](e, m) : FILTRO[sentido](m)) : '') + AGRUPA[agrupar].explica(sentido, e)
       + (e ? ' Pase por encima o pulse una persona para ver sus conexiones dentro de esta red; «Ver su red ego» la pone en el centro y «Modo ego» vuelve a toda la red.'
         : `${PASAR[sentido]} Con una persona fijada, «Modo ego» rehace la red solo con ella y sus conexiones.`)
       + ' Para acercar: los botones, o Ctrl y la rueda (en el trackpad, pellizcar); arrastre para moverse.';
@@ -17491,16 +17551,16 @@ function menRedIniciar(D) {
   const rgb = (c) => (c.match(/[\d.]+/g) || [128, 128, 128]).slice(0, 3).map(Number);
   const colorear = (i, col) => { circulos[i].style.fill = col; };
   const fundir = (g, de, a, ms, fill) => g.animate([{ opacity: de }, { opacity: a }], { duration: ms, easing: 'ease-out', fill });
-  function irA(agr, sen, ego, fuertes = V.fuertes) {
-    if (agr === agrupar && sen === sentido && ego === V.ego && fuertes === V.fuertes) return;
+  function irA(agr, sen, ego, minimo = V.minimo) {
+    if (agr === agrupar && sen === sentido && ego === V.ego && minimo === V.minimo) return;
     if (acabar) acabar();                                          // una transición a medias salta a su final
     const antes = V, cambiaGrupo = agr !== agrupar;
     const colorDesde = circulos.map((c) => rgb(getComputedStyle(c).fill));
     const salen = [], entran = [], aSalen = [], aEntran = [];
     const opacidad = (el) => (el.classList.contains('apagado') ? 0.1 : 1);
-    agrupar = agr; sentido = sen; V = disponer(agr, sen, ego, fuertes); moviendo = true;
-    MEN.agrupar = agrupar; MEN.sentido = sentido; MEN.fuertes = V.fuertes;
-    menEl('menFuertes').checked = V.fuertes;
+    agrupar = agr; sentido = sen; V = disponer(agr, sen, ego, minimo); moviendo = true;
+    MEN.agrupar = agrupar; MEN.sentido = sentido; MEN.minimo = V.minimo;
+    menEl('menMinimo').value = String(V.minimo);
     const cambiaAnillos = antes.firma !== V.firma;
     if (V.ego !== antes.ego) fijado = V.ego >= 0 ? -1 : antes.ego;   // al entrar en el modo ego se suelta; al salir, queda fijada quien estaba en el centro
     if (fijado >= 0 && !V.visible(fijado)) fijado = -1;
@@ -17626,7 +17686,21 @@ function menRedIniciar(D) {
   menEl('menAgrupar').addEventListener('click', (e) => { const b = e.target.closest('[data-meng]'); if (b) irA(b.dataset.meng, sentido, V.ego); });
   menEl('menSentido').addEventListener('click', (e) => { const b = e.target.closest('[data-mens]'); if (b) irA(agrupar, b.dataset.mens, V.ego); });
   menEl('menEgo').addEventListener('click', () => { if (V.ego >= 0) irA(agrupar, sentido, -1); else if (fijado >= 0) irA(agrupar, sentido, fijado); });
-  menEl('menFuertes').addEventListener('change', (e) => irA(agrupar, sentido, V.ego, e.target.checked));
+  const entrada = menEl('menMinimo');
+  entrada.max = String(MAX_MINIMO);
+  entrada.title = `Deja solo las conexiones con al menos tantas menciones; con 1 se ve la red entera y con ${MAX_MINIMO} solo la más repetida.`;
+  const aplicarMinimo = () => {
+    const m = Math.max(1, Math.min(MAX_MINIMO, Math.round(Number(entrada.value) || 1)));
+    entrada.value = String(m);                                     // fuera de rango, se ajusta a la vista
+    irA(agrupar, sentido, V.ego, m);
+  };
+  entrada.addEventListener('change', aplicarMinimo);
+  entrada.addEventListener('blur', aplicarMinimo);                 // por si el navegador no da «change» al salir
+  entrada.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    e.preventDefault(); e.stopPropagation();
+    aplicarMinimo();
+  });
 
   function contenedorDesplazable(el) {
     for (let p = el.parentElement; p && p !== document.body && p !== document.documentElement; p = p.parentElement) {

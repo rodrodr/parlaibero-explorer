@@ -316,8 +316,9 @@ detecta en ella temas con el algoritmo de Leiden. Motor en `worker/35b_engine__c
    variada que toma por turnos la mejor de cada tema. Sirve para priorizar la lectura y, más adelante, para elegir las
    intervenciones más informativas que enviar a un modelo de lenguaje.
 
-Exportaciones: los temas en CSV, la red en GEXF para Gephi y la jerarquía de lectura en CSV, todas con los parámetros y
-la cita del conjunto de datos. Mismos parámetros, mismo resultado: el cálculo en el navegador coincide exactamente con el
+Exportaciones: los temas en CSV, la red en GEXF para Gephi, la jerarquía de lectura en CSV y los partidos por tema en CSV
+(una fila por tema y partido, con sus intervenciones, su parte del tema, su peso en la biblioteca, las esperadas y cuánto
+las pasa), todas con los parámetros y la cita del conjunto de datos. Mismos parámetros, mismo resultado: el cálculo en el navegador coincide exactamente con el
 de Node.
 
 | biblioteca | intervenciones | primera vez | con el léxico ya calculado |
@@ -361,8 +362,9 @@ para identificar y desempatar.
    partidos. No son coaliciones: un foco reúne a quienes hablan de las mismas personas, a favor o en contra.
 
 La vista de la red combina una agrupación (sectores por partido o por foco), un sentido (todas las menciones, las hechas
-o las recibidas), un filtro de conexiones de dos o más menciones y un modo ego que la rehace alrededor de una persona.
-Los anillos son cuantiles de la medida del sentido elegido, sin partir empates.
+o las recibidas), un mínimo de menciones por conexión (1 por defecto, hasta la conexión más repetida de la biblioteca) y
+un modo ego que la rehace alrededor de una persona. Los anillos son cuantiles de la medida del sentido elegido, sin
+partir empates.
 
 Precisión medida a mano en tres rondas sobre muestras de los 16 países (siete categorías por país, semilla fija): 87,5 %
 en la última muestra juzgada, la de la versión 6.2 (587 de 671), y alrededor de nueve de cada diez al reevaluarla con la
