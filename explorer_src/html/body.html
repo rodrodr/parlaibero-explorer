@@ -237,6 +237,27 @@
   </div>
 </dialog>
 
+<!-- Editor de los textos de la biblioteca: el nombre y la nota de una biblioteca, la nota
+     de una intervención y el nombre de una búsqueda. Sustituye a window.prompt, que es de
+     una sola línea —inservible para una nota larga— y que, como window.confirm, puede no
+     mostrarse en la ventana de pywebview; es el mismo motivo por el que #dlgDelLib existe.
+     El campo de nombre y el de texto se muestran o se ocultan según lo que se edite.
+     Ctrl/Cmd+Intro guarda; Esc cancela (evento cancel nativo). -->
+<dialog id="dlgEdit" aria-labelledby="editTitle">
+  <div class="dhead"><h3 id="editTitle"></h3><p class="dsub" id="editSub"></p></div>
+  <div class="dbody">
+    <label class="dedit" id="editNombreCampo"><span id="editNombreLbl">Nombre</span>
+      <input type="text" id="editNombre" autocomplete="off" spellcheck="false"></label>
+    <label class="dedit" id="editTextoCampo"><span id="editTextoLbl">Nota</span>
+      <textarea id="editTexto" rows="9" spellcheck="true"></textarea></label>
+  </div>
+  <div class="dfoot">
+    <span class="dedit-pista" id="editPista"></span>
+    <button class="btn ghost" data-close>Cancelar</button>
+    <button class="btn primary fill" id="editGuardar">Guardar</button>
+  </div>
+</dialog>
+
 
 
 

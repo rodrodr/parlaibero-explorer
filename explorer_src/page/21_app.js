@@ -2567,7 +2567,7 @@ function renderLibList() {
           ${c.description ? `<p style="margin-top:3px">${esc(c.description)}</p>` : ''}
         </div>
         <button type="button" class="btn ghost icon lib-ren" data-renlib="${c.id}"
-          aria-label="Cambiar el nombre de la biblioteca «${esc(c.name)}»" title="Cambiar el nombre de la biblioteca «${esc(c.name)}»">✎</button>
+          aria-label="Editar el nombre y la nota de la biblioteca «${esc(c.name)}»" title="Editar el nombre y la nota de la biblioteca «${esc(c.name)}»">✎</button>
         <button type="button" class="btn ghost icon lib-del" data-dellib="${c.id}"
           aria-label="Borrar la biblioteca «${esc(c.name)}»" title="Borrar la biblioteca «${esc(c.name)}» (pide confirmación)">🗑</button>
       </div>`).join('')
@@ -2705,7 +2705,8 @@ function renderLibItems({ keepScroll = false } = {}) {
           ${(it.tags || []).map(t => `<span class="tag sem">${esc(t)}</span>`).join('')}
           ${it.party && it.party !== 'Sin identificar' ? `<span class="tag">${esc(it.party)}</span>` : ''}
           <span class="tag words">${nf(it.nwords)} pal.</span>
-          <button class="btn ghost sm" data-note="${it.id}" style="margin-left:auto">Nota</button>
+          <button class="btn ghost sm" data-note="${it.id}" style="margin-left:auto"
+            title="${it.note ? 'Editar o borrar la nota de esta intervención' : 'Escribir una nota para esta intervención'}">${it.note ? 'Editar nota' : 'Añadir nota'}</button>
           <button class="btn danger sm" data-rm="${it.id}">Quitar</button>
         </div>
       </article>`).join('')
@@ -6592,11 +6593,74 @@ function wire() {
   });
 }
 
+/* Editor de los textos de la biblioteca (#dlgEdit): un nombre, una nota o las dos cosas.
+   Sustituye a window.prompt, que da una sola línea —inservible para la nota de una biblioteca, que
+   puede ser larga— y que, como window.confirm, puede no mostrarse en la ventana de pywebview: es el
+   mismo motivo por el que borrar una biblioteca ya tiene su propio <dialog> (#dlgDelLib).
+   Devuelve una promesa con {nombre, texto} o null si se cancela. Ctrl/Cmd+Intro guarda; Esc cancela.
+   `nombre` y `texto` valen null cuando ese campo no se pide, y así se distingue «no se tocó» de «se
+   dejó vacío»: vaciar la nota de una intervención es borrarla, y tiene que poder hacerse. */
+function abrirEditor({ titulo, sub = '', nombre = null, nombreEtiqueta = 'Nombre', texto = null,
+                       textoEtiqueta = 'Nota', guardar = 'Guardar', exigeNombre = false }) {
+  const dlg = $('#dlgEdit');
+  if (dlg.open) return Promise.resolve(null);
+  const inNombre = $('#editNombre'), inTexto = $('#editTexto'), btn = $('#editGuardar');
+  $('#editTitle').textContent = titulo;
+  $('#editSub').textContent = sub;
+  $('#editSub').hidden = !sub;
+  $('#editNombreCampo').hidden = nombre === null;
+  $('#editTextoCampo').hidden = texto === null;
+  $('#editNombreLbl').textContent = nombreEtiqueta;
+  $('#editTextoLbl').textContent = textoEtiqueta;
+  inNombre.value = nombre || '';
+  inTexto.value = texto || '';
+  btn.textContent = guardar;
+  $('#editPista').textContent = texto === null ? '' : 'Ctrl+Intro guarda';
+  const valido = () => !exigeNombre || !!inNombre.value.trim();
+  const revisar = () => { btn.disabled = !valido(); };
+  revisar();
+  const opener = document.activeElement;
+  return new Promise((resolve) => {
+    let hecho = false;
+    const cerrar = (valor) => {
+      if (hecho) return;
+      hecho = true;
+      inNombre.removeEventListener('input', revisar);
+      dlg.removeEventListener('close', alCerrar);
+      btn.removeEventListener('click', alGuardar);
+      dlg.removeEventListener('keydown', alTeclado);
+      if (dlg.open) dlg.close();
+      if (opener && opener.isConnected) { try { opener.focus(); } catch { /* el botón ya no está */ } }
+      resolve(valor);
+    };
+    const alGuardar = () => {
+      if (!valido()) return;
+      cerrar({ nombre: nombre === null ? null : inNombre.value.trim(),
+               texto: texto === null ? null : inTexto.value });
+    };
+    const alCerrar = () => cerrar(null);            // Esc y el botón Cancelar
+    const alTeclado = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); alGuardar(); }
+      // en el campo de una sola línea, Intro guarda; en el área de texto hace falta el modificador
+      else if (e.key === 'Enter' && e.target === inNombre) { e.preventDefault(); alGuardar(); }
+    };
+    inNombre.addEventListener('input', revisar);
+    dlg.addEventListener('close', alCerrar);
+    btn.addEventListener('click', alGuardar);
+    dlg.addEventListener('keydown', alTeclado);
+    dlg.showModal();
+    (nombre !== null ? inNombre : inTexto).focus();
+    if (nombre !== null) inNombre.select();
+  });
+}
+
 async function newLibrary() {
-  const name = prompt('Nombre de la nueva biblioteca:');
-  if (!name?.trim()) return;
+  const r = await abrirEditor({ titulo: 'Nueva biblioteca', nombre: '', texto: '',
+    textoEtiqueta: 'Nota (opcional)', guardar: 'Crear', exigeNombre: true,
+    sub: 'La nota describe para qué es la biblioteca; se guarda con ella al exportarla.' });
+  if (!r) return;
   try {
-    const c = await api('/collections', { method: 'POST', body: { name: name.trim() } });
+    const c = await api('/collections', { method: 'POST', body: { name: r.nombre, description: r.texto } });
     await refreshCollections(); S.libSel = c.id; renderLibraryView();
     toast(`Biblioteca «${c.name}» creada`);
   } catch (e) { toast(e.message, true); }
@@ -6606,19 +6670,25 @@ async function newLibrary() {
 
 
 
+/* Editar el nombre y la nota de una biblioteca (PATCH /api/collections/{cid}), con los valores actuales puestos.
+   El nombre sale en la ficha, en la cabecera de la biblioteca abierta, en el selector «Restringir a una biblioteca»
+   y en sus píldoras, así que después se repinta lo que toque. Las búsquedas guardadas guardan el id, no el nombre:
+   siguen valiendo. */
 async function renameLibrary(cid) {
   const c = S.collections.find(x => x.id === cid);
   if (!c) return;
-  const name = prompt('Nombre de la biblioteca:', c.name);
-  if (name === null) return;
-  const limpio = name.trim();
-  if (!limpio || limpio === c.name) return;
+  const ed = await abrirEditor({ titulo: 'Editar la biblioteca', nombre: c.name, texto: c.description || '',
+    textoEtiqueta: 'Nota', exigeNombre: true,
+    sub: 'La nota se ve en la ficha de la biblioteca y viaja con ella al exportarla.' });
+  if (!ed) return;
+  const limpio = ed.nombre;
+  if (limpio === c.name && ed.texto === (c.description || '')) return;   // nada que guardar
   try {
-    const r = await api(`/collections/${cid}`, { method: 'PATCH', body: { name: limpio } });
+    const r = await api(`/collections/${cid}`, { method: 'PATCH', body: { name: limpio, description: ed.texto } });
     await refreshCollections();
     if (S.view === 'library') { renderLibList(); listHead(); if (S.libSel === cid) loadLibraryItems(cid); }
     else renderFilters();
-    toast(`La biblioteca se llama ahora «${r.name}»`);
+    toast(limpio === c.name ? 'Nota de la biblioteca guardada' : `La biblioteca se llama ahora «${r.name}»`);
   } catch (e) { toast(e.message, true); }
 }
 
@@ -7034,11 +7104,12 @@ function expandFilters(F) {
 }
 
 async function saveSearch() {
-  const name = prompt('Nombre para esta búsqueda:', S.query || 'Búsqueda');
-  if (!name?.trim()) return;
+  const r = await abrirEditor({ titulo: 'Guardar la búsqueda', nombre: S.query || 'Búsqueda',
+    exigeNombre: true, guardar: 'Guardar' });
+  if (!r) return;
   try {
     await api('/searches', { method: 'POST',
-      body: { name: name.trim(), mode: S.mode, query: S.query,
+      body: { name: r.nombre, mode: S.mode, query: S.query,
               filters: compactFilters(S.filters), variants: S.variants,
                 } });
     loadSaved(); toast('Búsqueda guardada');
@@ -7047,11 +7118,14 @@ async function saveSearch() {
 
 async function editNote(sid) {
   const it = S.results.find(r => r.id === sid);
-  const note = prompt('Nota para esta intervención:', it?.note || '');
-  if (note === null) return;
+  const previa = it?.note || '';
+  const quien = it ? `${it.rep_name || it.speaker || ''} · ${it.date || ''}`.trim() : '';
+  const r = await abrirEditor({ titulo: previa ? 'Editar la nota' : 'Nota de la intervención',
+    sub: quien, texto: previa, textoEtiqueta: 'Nota' });
+  if (!r || r.texto === previa) return;
   try {
-    await api(`/collections/${S.libSel}/items/${sid}`, { method: 'PATCH', body: { note } });
-    loadLibraryItems(S.libSel); toast('Nota guardada');
+    await api(`/collections/${S.libSel}/items/${sid}`, { method: 'PATCH', body: { note: r.texto } });
+    loadLibraryItems(S.libSel); toast(r.texto.trim() ? 'Nota guardada' : 'Nota borrada');
   } catch (e) { toast(e.message, true); }
 }
 

@@ -839,6 +839,15 @@ dialog .dconfirm { margin: 0 18px 13px; padding: 9px 12px 8px; border: 1px solid
 dialog .dconfirm p { margin: 0 0 7px; line-height: 1.5; color: var(--text); }
 dialog .dconfirm .chk { padding: 3px 0; }
 dialog .dconfirm .chk .lbl { white-space: normal; font-weight: 600; }
+dialog .dedit { display: block; margin: 0 0 12px; }
+dialog .dedit:last-child { margin-bottom: 0; }
+dialog .dedit[hidden] { display: none; }
+dialog .dedit > span { display: block; margin: 0 0 4px; font-size: 12px; font-weight: 600; color: var(--text-soft); }
+dialog .dedit input, dialog .dedit textarea { width: 100%; box-sizing: border-box; padding: 8px 10px; border: 1px solid var(--border);
+  border-radius: 7px; background: var(--bg); color: var(--text); font: inherit; font-size: 13.5px; line-height: 1.55; }
+dialog .dedit textarea { min-height: 7em; resize: vertical; }
+dialog .dedit input:focus-visible, dialog .dedit textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: -1px; border-color: var(--accent); }
+dialog .dedit-pista { margin-right: auto; align-self: center; font-size: 11.5px; color: var(--text-faint); }
 dialog .dsize { margin: 6px 0 0; font-variant-numeric: tabular-nums; }
 dialog .dsize:empty { display: none; }
 .btn[aria-busy="true"] { cursor: progress; font-variant-numeric: tabular-nums; }
