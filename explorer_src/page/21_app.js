@@ -3384,44 +3384,42 @@ function cooVecinos(r) {
 /** Cómo se leen las barras de partido de los temas; vacío si la biblioteca no trae partidos. */
 function cooNotaPartidos(r) {
   const lib = r.partidos;
-  if (!lib?.con_partido || !(r.comunidades || []).some(c => c.partidos?.con_partido)) return '';
-  const falta = (lib.intervenciones || 0) - lib.con_partido;
-  return `<p class="lex-note">En cada tema, la barra es la parte de sus intervenciones que pone cada partido, de más a
-    menos, y la marca vertical es el peso de ese partido en toda la biblioteca: la barra que la pasa señala un tema del
-    que ese partido habla más de lo que le tocaría por su tamaño.
-    ${falta > 0 ? `Cuentan las ${nf(lib.con_partido)} intervenciones con partido; ${nf(falta)} no lo traen.` : ''}</p>`;
+  if (!lib?.palabras || !(r.comunidades || []).some(c => c.partidos?.palabras)) return '';
+  const falta = (lib.palabras_totales || 0) - lib.palabras;
+  return `<p class="lex-note">En cada tema, la barra dice con qué frecuencia usa cada partido su vocabulario: palabras del
+    tema por cada mil suyas, así que no depende de cuánto hable el partido. La marca vertical es la media de la biblioteca
+    para ese tema y el número, las veces que la pasa. Se ven los cuatro partidos de tasa más alta entre los que dicen al
+    menos el 1 % de las palabras de la biblioteca; por debajo de eso la tasa es ruido.
+    ${falta > 0 ? `Cuentan las ${nf(lib.palabras)} palabras con partido; ${nf(falta)} no lo traen.` : ''}</p>`;
 }
 
-/** Reparto del tema entre partidos: la barra es la parte de sus intervenciones que pone cada partido y la marca
- *  vertical, el peso de ese partido en la biblioteca entera (lo que le tocaría si el tema no fuera de nadie). */
+/** Peso de cada partido en el tema como frecuencia relativa: palabras del vocabulario del tema por cada mil palabras
+ *  suyas, con la media de la biblioteca como referencia. Así un partido que habla mucho no domina todos los temas: lo
+ *  que se compara es cuánto dedica cada uno a ese vocabulario, no cuánto ocupa. */
 function cooPartidosHTML(r, c, cuantos = 4) {
   const lib = r.partidos, rep = c.partidos;
-  if (!lib?.con_partido || !rep?.con_partido) return '';
-  const pesoLib = new Map(lib.lista.map(x => [x.p, x.n / lib.con_partido]));
-  const filas = rep.lista.slice(0, cuantos).map(x => {
-    const parte = x.n / rep.con_partido, esperado = pesoLib.get(x.p) ?? 0;
-    return { p: x.p, n: x.n, parte, esperado, lift: esperado > 0 ? parte / esperado : null };
-  });
+  if (!lib?.palabras || !rep?.palabras) return '';
+  const palLib = new Map(lib.lista.map(x => [x.p, x.pal]));
+  const minimo = 0.01 * lib.palabras;                              // menos del 1 % de las palabras: la tasa no dice nada
+  const tasaLib = 1000 * rep.palabras / lib.palabras;              // media de la biblioteca para este tema
+  const filas = rep.lista.map(x => {
+    const pal = palLib.get(x.p) || 0;
+    return { p: x.p, n: x.n, tok: x.pal, pal, tasa: pal > 0 ? 1000 * x.pal / pal : 0 };
+  }).filter(x => x.pal >= minimo).sort((a, b) => b.tasa - a.tasa).slice(0, cuantos);
   if (!filas.length) return '';
-  const escala = Math.max(...filas.map(f => Math.max(f.parte, f.esperado))) || 1;
-  const pct = x => `${(100 * x).toFixed(100 * x < 10 ? 1 : 0).replace('.', ',')} %`;
-  const restantes = rep.lista.length - filas.length + (rep.otros?.partidos || 0);
-  // Partidos que hablan del tema claramente más de lo que les tocaría: el exceso sobre lo esperado, en errores típicos
-  // de Poisson, deja fuera las cifras pequeñas (un partido con cinco intervenciones no destaca por nada).
-  const destacan = rep.lista.map(x => {
-    const esperado = (pesoLib.get(x.p) ?? 0) * rep.con_partido;
-    return { p: x.p, n: x.n, esperado, lift: esperado > 0 ? x.n / esperado : 0, z: esperado > 0 ? (x.n - esperado) / Math.sqrt(esperado) : 0 };
-  }).filter(x => x.n >= 5 && x.z >= 2 && x.lift >= 1.25).sort((a, b) => b.lift - a.lift).slice(0, 3);
+  const escala = Math.max(tasaLib, ...filas.map(f => f.tasa)) || 1;
+  const dec = (x, d = 1) => x.toFixed(d).replace('.', ',');
+  const restantes = rep.lista.filter(x => (palLib.get(x.p) || 0) >= minimo).length - filas.length;
   return `<div class="coo-part">${filas.map(f => {
-    const tit = `${f.p}: ${nf(f.n)} de las ${nf(rep.con_partido)} intervenciones del tema con partido (${pct(f.parte)});`
-      + ` en toda la biblioteca es el ${pct(f.esperado)}${f.lift ? ` · ${f.lift.toFixed(1).replace('.', ',')} veces su peso` : ''}`;
+    const veces = tasaLib > 0 ? f.tasa / tasaLib : 0;
+    const tit = `${f.p}: ${dec(f.tasa)} palabras del tema por cada mil suyas, ${dec(veces, 2)} veces la media de la biblioteca`
+      + ` (${dec(tasaLib)}). Dice ${nf(f.tok)} de las ${nf(rep.palabras)} palabras del tema, en ${nf(f.n)} intervenciones,`
+      + ` y ${nf(f.pal)} palabras en toda la biblioteca.`;
     return `<div class="coo-pf" title="${esc(tit)}">
       <span class="coo-pn">${esc(f.p)}</span>
-      <span class="coo-pb"><i style="width:${(100 * f.parte / escala).toFixed(1)}%"></i><b style="left:${(100 * f.esperado / escala).toFixed(1)}%"></b></span>
-      <span class="coo-pp">${pct(f.parte)}</span></div>`;
-  }).join('')}${destacan.length ? `<div class="coo-pdest" title="Partidos que hablan de este tema bastante más de lo que les tocaría por su peso en la biblioteca. Quedan fuera las cifras demasiado pequeñas para decir nada.">Por encima de su peso: ${destacan.map(x =>
-      `<b title="${esc(`${x.p}: ${nf(x.n)} intervenciones del tema; por su peso en la biblioteca le tocarían ${nf(Math.round(x.esperado))}`)}">${esc(x.p)} ${x.lift.toFixed(1).replace('.', ',')}×</b>`).join(' · ')}</div>` : ''}${restantes > 0
-      ? `<div class="coo-pmas">y ${nf(restantes)} ${restantes === 1 ? 'partido más' : 'partidos más'}</div>` : ''}</div>`;
+      <span class="coo-pb"><i style="width:${(100 * f.tasa / escala).toFixed(1)}%"></i><b style="left:${(100 * tasaLib / escala).toFixed(1)}%"></b></span>
+      <span class="coo-pp">${dec(veces)}×</span></div>`;
+  }).join('')}${restantes > 0 ? `<div class="coo-pmas">y ${nf(restantes)} ${restantes === 1 ? 'partido más' : 'partidos más'}</div>` : ''}</div>`;
 }
 
 /** Una intervención jerarquizada: orador, fecha, partido, longitud, barra de puntuación y términos que la sostienen. */
@@ -3681,37 +3679,40 @@ function cooExportCSV() {
   downloadText(csvConFuente(cooMeta(r), cols, filas), `temas_${cooSlug()}.csv`, 'text/csv;charset=utf-8');
 }
 
-/** Una fila por tema y partido: sus intervenciones, su parte del tema, su peso en la biblioteca y cuánto lo pasa. */
+/** Una fila por tema y partido: sus palabras del tema, su tasa por mil palabras propias y cuánto pasa la media. */
 function cooExportPartidos() {
   const r = S.coo.data;
-  if (!r || r.error || !r.partidos?.con_partido) return toast('Esta biblioteca no trae partidos que exportar.', true);
-  const lib = r.partidos, pesoLib = new Map(lib.lista.map(x => [x.p, x.n / lib.con_partido]));
-  const cols = ['tema', 'etiqueta_tema', 'tema_intervenciones', 'tema_intervenciones_con_partido', 'partido',
-                'intervenciones', 'porcentaje_del_tema', 'partido_en_biblioteca', 'porcentaje_en_biblioteca',
-                'esperadas', 'veces_su_peso', 'exceso_en_errores_tipicos'];
+  if (!r || r.error || !r.partidos?.palabras) return toast('Esta biblioteca no trae partidos que exportar.', true);
+  const lib = r.partidos, palLib = new Map(lib.lista.map(x => [x.p, x.pal]));
+  const cols = ['tema', 'etiqueta_tema', 'tema_intervenciones', 'tema_palabras', 'partido', 'intervenciones',
+                'palabras_del_tema', 'palabras_del_partido', 'tasa_por_mil', 'tasa_biblioteca_por_mil', 'veces_la_media',
+                'parte_de_las_palabras_del_tema', 'parte_de_las_intervenciones_del_tema'];
   const dec = (x, d) => (Number.isFinite(x) ? x.toFixed(d) : '');
   const filas = [];
   for (const [k, c] of (r.comunidades || []).entries()) {
     const rep = c.partidos;
-    if (!rep?.con_partido) continue;
+    if (!rep?.palabras) continue;
+    const tasaLib = 1000 * rep.palabras / lib.palabras;
     for (const x of rep.lista) {
-      const peso = pesoLib.get(x.p) ?? 0, esperado = peso * rep.con_partido;
-      filas.push([k + 1, c.etiqueta, c.intervenciones, rep.con_partido, x.p, x.n,
-        dec(100 * x.n / rep.con_partido, 2), lib.lista.find(y => y.p === x.p)?.n ?? 0, dec(100 * peso, 2),
-        dec(esperado, 1), esperado > 0 ? dec(x.n / esperado, 3) : '', esperado > 0 ? dec((x.n - esperado) / Math.sqrt(esperado), 2) : '']);
+      const pal = palLib.get(x.p) || 0, tasa = pal > 0 ? 1000 * x.pal / pal : null;
+      filas.push([k + 1, c.etiqueta, c.intervenciones, rep.palabras, x.p, x.n, x.pal, pal,
+        tasa == null ? '' : dec(tasa, 4), dec(tasaLib, 4), tasa == null ? '' : dec(tasa / tasaLib, 3),
+        dec(100 * x.pal / rep.palabras, 2), rep.con_partido ? dec(100 * x.n / rep.con_partido, 2) : '']);
     }
     if (rep.otros) {
-      filas.push([k + 1, c.etiqueta, c.intervenciones, rep.con_partido, `(otros ${rep.otros.partidos} partidos)`,
-        rep.otros.n, dec(100 * rep.otros.n / rep.con_partido, 2), '', '', '', '', '']);
+      filas.push([k + 1, c.etiqueta, c.intervenciones, rep.palabras, `(otros ${rep.otros.partidos} partidos)`,
+        rep.otros.n, rep.otros.pal, '', '', dec(tasaLib, 4), '', dec(100 * rep.otros.pal / rep.palabras, 2),
+        rep.con_partido ? dec(100 * rep.otros.n / rep.con_partido, 2) : '']);
     }
   }
-  if (!filas.length) return toast('Ningún tema tiene intervenciones con partido.', true);
+  if (!filas.length) return toast('Ningún tema tiene palabras con partido.', true);
   const meta = cooMeta(r).concat([
-    `partidos: ${nf(lib.con_partido)} de ${nf(lib.intervenciones)} intervenciones traen partido (el canónico de la ingesta)`,
-    'una intervención cuenta en todos los temas que toca, así que las columnas no suman las intervenciones de la biblioteca',
-    'esperadas = peso del partido en la biblioteca × intervenciones del tema con partido; veces_su_peso = intervenciones / esperadas;'
-      + ' exceso_en_errores_tipicos = (intervenciones − esperadas) / √esperadas, una guía para descartar cifras pequeñas, no una prueba'
-      + ' (las intervenciones de un mismo orador no son independientes)',
+    `partidos: ${nf(lib.con_partido)} de ${nf(lib.intervenciones)} intervenciones y ${nf(lib.palabras)} de ${nf(lib.palabras_totales)}`
+      + ' palabras traen partido (el canónico de la ingesta)',
+    'palabras_del_tema = veces que el partido usa el vocabulario del tema; palabras_del_partido = todas las suyas en la biblioteca',
+    'tasa_por_mil = 1000 × palabras_del_tema / palabras_del_partido, una frecuencia relativa que no depende de cuánto hable'
+      + ' el partido; tasa_biblioteca_por_mil es la misma tasa para el conjunto de la biblioteca y veces_la_media, su cociente',
+    'una intervención cuenta en todos los temas que toca, así que las filas no suman las intervenciones de la biblioteca',
   ]);
   downloadText(csvConFuente(meta, cols, filas), `partidos_por_tema_${cooSlug()}.csv`, 'text/csv;charset=utf-8');
 }

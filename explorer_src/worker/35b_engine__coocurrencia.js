@@ -22,8 +22,9 @@
  *     asociación: el G² decide qué aristas existen y la fuerza cuánto pesan.
  *  7. Comunidades: Leiden (R2.leiden) con resolución γ y semilla fija; cada comunidad es un tema candidato.
  *  8. Por tema: sus términos ordenados por fuerza interna, cuántas intervenciones de la biblioteca contienen alguno y
- *     cómo se reparten esas intervenciones entre los partidos; con el reparto de la biblioteca entera (`partidos`) se ve
- *     si un tema es de un partido más de lo que le tocaría por su tamaño.
+ *     cuántas palabras de su vocabulario dice cada partido. Con las palabras que dice cada partido en toda la biblioteca
+ *     (`partidos`), el peso de un partido en un tema es una frecuencia relativa —palabras del tema por cada mil suyas—,
+ *     comparable entre partidos de tamaño distinto.
  *  9. Jerarquía de lectura: cada intervención se puntúa con BM25 (k1 = 1,2, b = 0,75, los de FTS5), pero con el peso de
  *     cada término dado por su G² en el léxico, en escala logarítmica, en lugar del IDF: puntúa alto la intervención que
  *     concentra el vocabulario característico de la biblioteca, con saturación por repetición y corrección por longitud.
@@ -316,8 +317,9 @@
       lista[k] = [punt, d];
       if (lista.length > tope) lista.pop();
     };
-    // Partido de cada intervención (la ingesta guarda ya el canónico): da el reparto de cada tema entre partidos y, con
-    // el peso de cada uno en la biblioteca, si un tema es suyo más de lo que le tocaría.
+    // Partido de cada intervención (la ingesta guarda ya el canónico). Con él se cuenta, por tema y partido, cuántas
+    // palabras del tema dice cada uno y cuántas dice en total: así el peso de un partido en un tema es una frecuencia
+    // relativa (palabras del tema por cada mil suyas) y no depende de cuánto hable en la biblioteca.
     const partidos = [], idPartido = new Map(), docPartido = new Int32Array(docIds.length).fill(-1);
     {
       const pos = new Map();
@@ -336,14 +338,17 @@
       }
     }
     const nPart = partidos.length;
-    const porTema = Array.from({ length: nc }, () => new Int32Array(nPart));
-    const totalPartido = new Int32Array(nPart);
-    let conPartido = 0;
+    const porTema = Array.from({ length: nc }, () => new Int32Array(nPart));        // intervenciones que tocan el tema
+    const palabrasTema = Array.from({ length: nc }, () => new Float64Array(nPart)); // palabras del vocabulario del tema
+    const totalPartido = new Int32Array(nPart);                                     // intervenciones de cada partido
+    const palabrasPartido = new Float64Array(nPart);                                // palabras de cada partido
+    let conPartido = 0, palabrasConPartido = 0, palabrasTotales = 0;
 
     const puntTema = new Float64Array(nc), tocadas = [];
     for (let d = 0; d < docIds.length; d++) {
       const pq = docPartido[d];
-      if (pq >= 0) { totalPartido[pq]++; conPartido++; }
+      palabrasTotales += docTokens[d];
+      if (pq >= 0) { totalPartido[pq]++; conPartido++; palabrasPartido[pq] += docTokens[d]; palabrasConPartido += docTokens[d]; }
       const norma = BM25_K1 * (1 - BM25_B + BM25_B * docTokens[d] / longMedia);
       let global = 0;
       for (let q = docOff[d]; q < docOff[d + 1]; q++) {
@@ -353,6 +358,7 @@
         const c = com[i];
         if (puntTema[c] === 0) tocadas.push(c);
         puntTema[c] += parte;
+        if (pq >= 0) palabrasTema[c][pq] += tf;
       }
       for (const c of tocadas) {
         cobertura[c]++;
@@ -377,15 +383,21 @@
     };
     const fila = ([punt, d], tema = null) => ({ id: docIds[d], puntuacion: redondea(punt, 3), palabras: docTokens[d],
       terminos: terminosDe(d, tema) });
-    /** Reparto entre partidos de un recuento por partido: los más presentes primero, el resto agregado. */
-    const repartoDe = (cuenta, tope) => {
+    /** Reparto entre partidos: intervenciones (`n`) y palabras (`pal`) de cada uno, los más presentes primero y el resto
+     *  agregado. En un tema, `pal` son las palabras de su vocabulario; en la biblioteca, todas las del partido. */
+    const repartoDe = (cuenta, palabras, tope) => {
       const lista = [];
-      let total = 0;
-      for (let q = 0; q < nPart; q++) if (cuenta[q]) { lista.push({ p: partidos[q], n: cuenta[q] }); total += cuenta[q]; }
-      lista.sort((a, b) => b.n - a.n || (a.p < b.p ? -1 : a.p > b.p ? 1 : 0));
+      let total = 0, totalPal = 0;
+      for (let q = 0; q < nPart; q++) {
+        const pal = palabras ? palabras[q] : 0;
+        if (!cuenta[q] && !pal) continue;
+        lista.push({ p: partidos[q], n: cuenta[q], pal: Math.round(pal) });
+        total += cuenta[q]; totalPal += pal;
+      }
+      lista.sort((a, b) => b.pal - a.pal || b.n - a.n || (a.p < b.p ? -1 : a.p > b.p ? 1 : 0));
       const resto = lista.slice(tope);
-      return { con_partido: total, lista: lista.slice(0, tope),
-        otros: resto.length ? { n: resto.reduce((s, x) => s + x.n, 0), partidos: resto.length } : null };
+      return { con_partido: total, palabras: Math.round(totalPal), lista: lista.slice(0, tope),
+        otros: resto.length ? { n: resto.reduce((s, x) => s + x.n, 0), pal: resto.reduce((s, x) => s + x.pal, 0), partidos: resto.length } : null };
     };
     let pesoTotal = 0;
     const pesoInterno = new Float64Array(nc);
@@ -403,7 +415,7 @@
       intervenciones: cobertura[c],
       porcentaje: nDocs ? redondea(100 * cobertura[c] / nDocs, 1) : 0,
       peso_interno: redondea(pesoInterno[c], 3),
-      partidos: repartoDe(porTema[c], 25),
+      partidos: repartoDe(porTema[c], palabrasTema[c], 25),
       lectura: topTema[c].map((x) => fila(x, c)),
     }))
       .sort((a, b) => b.g2_medio - a.g2_medio || b.intervenciones - a.intervenciones || a.id - b.id);
@@ -448,7 +460,8 @@
 
     return Object.assign(base, {
       nodos, aristas: salidaAristas, comunidades: temas, sueltos,
-      partidos: Object.assign({ intervenciones: nDocs }, repartoDe(totalPartido, 60)),
+      partidos: Object.assign({ intervenciones: nDocs, palabras_totales: Math.round(palabrasTotales),
+        palabras_con_partido: Math.round(palabrasConPartido) }, repartoDe(totalPartido, palabrasPartido, 60)),
       lectura: { global, variada, metadatos, longitud_media: redondea(longMedia, 1),
         metodo: { formula: 'BM25', k1: BM25_K1, b: BM25_B, peso_termino: 'ln(1 + G² del término en el léxico)' } },
       estadisticas: {
