@@ -747,6 +747,7 @@
 
     let enAposicion = false;
     let soloEvidencia = false;
+    const idsMesa = [];                                             // filas de la Mesa: no dan menciones, así que tampoco cuentan como palabras dichas
     let sinGenero = false;
     let enLista = false;         // la forma está en plural: «Montes y Hales» son dos personas       // lista tras un plural masculino («los diputados María Pérez y Juan García»): el género no descarta   // turno de la Mesa: la mención no cuenta, pero es prueba de cómo se nombra a cada uno   // la mención viene de «cargo de Institución, Nombre» (RX_INST): una aposición, no un vocativo
 
@@ -760,6 +761,7 @@
       if ((++nFila & 31) === 0) { await ceder(); progreso('menciones', nFila / filas.length); }
       const texto = f.text || '';
       const pres = esPresidencia(f);
+      if (pres) idsMesa.push(f.id);
       soloEvidencia = pres; fechaMencion = String(f.date || '').slice(0, 10) || null;
       const vistos = new Set();
       const procesar = (i, largo, cadena, nombreCrudo) => {
@@ -1177,7 +1179,7 @@
     const fuera = menciones.filter((m) => !m.mesa);
     const via = {};
     for (const m of fuera) if (m.tipo === 'diputado' && m.estado === 'resuelta') via[m.por] = (via[m.por] || 0) + 1;
-    return { pais: PAIS, menciones: fuera, cont, nombresExt, via, de_la_mesa: deLaMesa, a_externa: aExterna,
+    return { pais: PAIS, menciones: fuera, cont, nombresExt, via, de_la_mesa: deLaMesa, a_externa: aExterna, mesa_ids: idsMesa,
       oradores: deps.length, con_partido: conPartidoPais,
       externos_por_cargo: [...externos].map((id) => dep.get(id).nombre),
       apellidos_miembros: Object.fromEntries([...apMiembro].map(([ap, d]) => [ap, d.nombre])),
@@ -1363,20 +1365,33 @@
     for (const m of validas) { const e = emit.get(m.fuente) || { n: 0, a: new Set() }; e.n++; e.a.add(clave(m)); emit.set(m.fuente, e); }
     const mencionan = [...emit.entries()].sort((a, b) => b[1].a.size - a[1].a.size).slice(0, 15)
       .map(([k, e]) => ({ n: nombre(k), p: partido.get(k) || '?', personas: e.a.size, menciones: e.n }));
+    // Palabras de cada partido en la biblioteca, sin los turnos de la Mesa (de los que no salen menciones): son el
+    // denominador de las matrices, para que el partido que más habla no encabece todas las filas.
+    const enMesa = new Set(det.mesa_ids || []);
+    const palabrasPartido = new Map();
+    for (const f of filas) {
+      if (enMesa.has(f.id)) continue;
+      const p = validoPartido(f.party) ? f.party : '?';
+      palabrasPartido.set(p, (palabrasPartido.get(p) || 0) + (Number(f.nwords) || 0));
+    }
+    const palabrasDe = (p) => Math.round(palabrasPartido.get(p) || 0);
+
     const dm = validas.filter((m) => m.tipo === 'diputado');
     const cuentaP = new Map();
     for (const m of dm) cuentaP.set(partidoFuente(m), (cuentaP.get(partidoFuente(m)) || 0) + 1);
     const P8 = [...cuentaP.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8).map(([p]) => p);
     const matriz = P8.map((a) => {
       const fila = dm.filter((m) => partidoFuente(m) === a);
-      return { p: a, total: fila.length, celdas: P8.map((b) => fila.filter((m) => (partido.get(m.d.id) || '?') === b).length) };
+      return { p: a, total: fila.length, palabras: palabrasDe(a),
+        celdas: P8.map((b) => fila.filter((m) => (partido.get(m.d.id) || '?') === b).length) };
     });
     const extM = validas.filter((m) => m.tipo === 'externa');
     const cuentaE = new Map();
     for (const m of extM) cuentaE.set(m.persona, (cuentaE.get(m.persona) || 0) + 1);
     const E6 = [...cuentaE.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6).map(([p]) => p);
     const externas = { personas: E6.map((p) => nombre('ext:' + p)),
-      filas: P8.map((a) => ({ p: a, celdas: E6.map((e) => extM.filter((m) => partidoFuente(m) === a && m.persona === e).length) })) };
+      filas: P8.map((a) => ({ p: a, palabras: palabrasDe(a),
+        celdas: E6.map((e) => extM.filter((m) => partidoFuente(m) === a && m.persona === e).length) })) };
     const par = new Map();
     for (const m of dm) { const k = `${m.fuente}>${m.d.id}`; par.set(k, (par.get(k) || 0) + 1); }
     const dialogos = [...par.entries()].filter(([k]) => { const [a, b] = k.split('>'); return a < b && par.has(`${b}>${a}`); })

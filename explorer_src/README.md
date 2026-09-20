@@ -367,6 +367,12 @@ o las recibidas), un mínimo de menciones por conexión (1 por defecto, hasta la
 un modo ego que la rehace alrededor de una persona. Los anillos son cuantiles de la medida del sentido elegido, sin
 partir empates.
 
+Las dos matrices —entre partidos y personas externas por partido— van en frecuencia relativa, como los temas de las
+coocurrencias: menciones por cada 10.000 palabras del partido que habla, descontadas sus palabras en turnos de Mesa, de
+los que no salen menciones. Así el partido que más tiempo ocupa no encabeza todas las filas. El tono de cada casilla
+sigue siendo la parte de las menciones de esa fila, y al pasar por encima salen la cifra bruta, la tasa, la media del
+cuadro para esa columna y las veces que la pasa.
+
 Precisión medida a mano en tres rondas sobre muestras de los 16 países (siete categorías por país, semilla fija): 87,5 %
 en la última muestra juzgada, la de la versión 6.2 (587 de 671), y alrededor de nueve de cada diez al reevaluarla con la
 versión final, cifra optimista porque las últimas reglas se afinaron mirando los errores de esa misma muestra. Los

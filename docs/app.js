@@ -14276,14 +14276,17 @@ function menRender() {
 
     <section aria-label="Menciones entre partidos">
       <h3>Entre partidos</h3>
-      <p class="men-sub">Menciones a miembros de la Cámara. Filas: partido de quien habla; columnas: partido del mencionado. El tono
-        de cada casilla es la parte de la fila; el recuadro marca el propio partido.</p>
+      <p class="men-sub">Menciones a miembros de la Cámara <b>por cada 10.000 palabras</b> del partido que habla, sin contar sus
+        turnos de Mesa: así un partido que ocupa más tiempo no encabeza todas las filas. Filas: partido de quien habla; columnas:
+        partido del mencionado. El tono es la parte de las menciones de la fila y el recuadro marca el propio partido; pase por
+        encima de una casilla para ver las menciones, la tasa y las veces que pasa la media del cuadro.</p>
       <div class="men-envoltura"><table class="men-tabla men-matriz" id="menMatriz"></table></div>
     </section>
 
     <section aria-label="Personas externas por partido">
       <h3>Personas externas según el partido de quien habla</h3>
-      <p class="men-sub">Menciones a las seis personas externas más citadas. Muestra quién habla de quién, no si lo hace a favor o en contra.</p>
+      <p class="men-sub">Menciones a las seis personas externas más citadas, también por cada 10.000 palabras del partido que habla.
+        Muestra quién habla de quién, no si lo hace a favor o en contra.</p>
       <div class="men-envoltura"><table class="men-tabla men-matriz" id="menExternas"></table></div>
     </section>
 
@@ -14396,18 +14399,44 @@ function menPintarTablas(D) {
     ? D.comenciones.map((c) => `<li><span>${esc(c.a)} + ${esc(c.b)}</span><span class="num">${nf(c.n)} intervenciones</span></li>`).join('')
     : '<li><span class="men-pp">Ninguna intervención menciona a dos personas.</span></li>';
 
+  // Matrices en frecuencia relativa: menciones por cada diez mil palabras del partido que habla (sin sus turnos de
+  // Mesa), para que el partido que más tiempo ocupa no encabece todas las filas. El tono sigue siendo la parte de la
+  // fila y el detalle de cada casilla, con la cifra bruta y la media del cuadro, va en su título.
   const tono = (x) => `background:rgba(var(--men-heat),${(0.05 + 0.55 * (x || 0)).toFixed(3)})`;
+  const POR = 10000;
+  const tasa = (n, pal) => (pal > 0 ? POR * n / pal : null);
+  const numTasa = (t) => (t == null ? '·' : t === 0 ? '0' : t.toFixed(t < 10 ? 1 : 0).replace('.', ','));
+  const veces = (t, media) => (t == null || !media ? '' : ` · ${(t / media).toFixed(1).replace('.', ',')} veces la media del cuadro`);
+
   const M = D.matriz;
+  const colM = M.partidos.map((_, j) => M.filas.reduce((s, f) => s + (f.celdas[j] || 0), 0));
+  const palM = M.filas.reduce((s, f) => s + (f.palabras || 0), 0);
   menEl('menMatriz').innerHTML = `<thead><tr><th>De \\ a</th>${M.partidos.map((p) => `<th class="num">${esc(p)}</th>`).join('')}
-      <th class="num">Propio</th><th class="num">Total</th></tr></thead><tbody>`
-    + M.filas.map((f, i) => `<tr><th class="men-fil" scope="row">${esc(f.p)}</th>${f.celdas.map((n, j) =>
-        `<td class="men-celda${i === j ? ' men-diag' : ''}" style="${tono(n / Math.max(1, f.total))}">${nf(n)}</td>`).join('')}
-      <td class="num">${menPct(f.celdas[i] || 0, f.total)} %</td><td class="num">${nf(f.total)}</td></tr>`).join('') + '</tbody>';
+      <th class="num">Propio</th><th class="num">Todas</th></tr></thead><tbody>`
+    + M.filas.map((f, i) => `<tr><th class="men-fil" scope="row" title="${esc(`${f.p}: ${nf(f.total)} menciones a miembros en ${nf(f.palabras)} palabras`)}">${esc(f.p)}</th>`
+      + f.celdas.map((n, j) => {
+        const t = tasa(n, f.palabras), media = tasa(colM[j], palM);
+        const tit = `${f.p} → ${M.partidos[j]}: ${nf(n)} ${n === 1 ? 'mención' : 'menciones'}`
+          + (t == null ? '' : ` · ${numTasa(t)} por cada ${nf(POR)} palabras de ${f.p}${media ? ` (media ${numTasa(media)})` : ''}${veces(t, media)}`);
+        return `<td class="men-celda${i === j ? ' men-diag' : ''}" style="${tono(n / Math.max(1, f.total))}" title="${esc(tit)}">${numTasa(t)}</td>`;
+      }).join('')
+      + `<td class="num" title="${esc(`Parte de las menciones de ${f.p} que van a su propio partido`)}">${menPct(f.celdas[i] || 0, f.total)} %</td>`
+      + `<td class="num" title="${esc(`${nf(f.total)} menciones a miembros en ${nf(f.palabras)} palabras`)}">${numTasa(tasa(f.total, f.palabras))}</td></tr>`).join('') + '</tbody>';
+
   const X = D.externas;
+  const colX = X.personas.map((_, j) => X.filas.reduce((s, f) => s + (f.celdas[j] || 0), 0));
+  const palX = X.filas.reduce((s, f) => s + (f.palabras || 0), 0);
   menEl('menExternas').innerHTML = `<thead><tr><th>Partido</th>${X.personas.map((p) => `<th class="num">${esc(p)}</th>`).join('')}</tr></thead><tbody>`
-    + X.filas.map((f) => { const t = f.celdas.reduce((a, b) => a + b, 0);
-      return `<tr><th class="men-fil" scope="row">${esc(f.p)}</th>${f.celdas.map((n) =>
-        `<td class="men-celda" style="${tono(n / Math.max(1, t))}">${nf(n)}</td>`).join('')}</tr>`; }).join('') + '</tbody>';
+    + X.filas.map((f) => {
+      const suma = f.celdas.reduce((a, b) => a + b, 0);
+      return `<tr><th class="men-fil" scope="row" title="${esc(`${f.p}: ${nf(f.palabras)} palabras en la biblioteca`)}">${esc(f.p)}</th>`
+        + f.celdas.map((n, j) => {
+          const t = tasa(n, f.palabras), media = tasa(colX[j], palX);
+          const tit = `${f.p} → ${X.personas[j]}: ${nf(n)} ${n === 1 ? 'mención' : 'menciones'}`
+            + (t == null ? '' : ` · ${numTasa(t)} por cada ${nf(POR)} palabras de ${f.p}${media ? ` (media ${numTasa(media)})` : ''}${veces(t, media)}`);
+          return `<td class="men-celda" style="${tono(n / Math.max(1, suma))}" title="${esc(tit)}">${numTasa(t)}</td>`;
+        }).join('') + '</tr>';
+    }).join('') + '</tbody>';
 
   menEl('menFocos').innerHTML = D.focos.map((f) => `<article class="men-foco" style="--c:${f.id <= 8 ? `var(--men-f${f.id})` : 'var(--text-faint)'}">
       <h4>F${f.id} · ${f.centrales.slice(0, 3).map((c) => esc(c.n)).join(' · ')}</h4>
