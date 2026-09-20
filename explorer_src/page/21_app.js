@@ -3386,16 +3386,16 @@ function cooNotaPartidos(r) {
   const lib = r.partidos;
   if (!lib?.palabras || !(r.comunidades || []).some(c => c.partidos?.palabras)) return '';
   const falta = (lib.palabras_totales || 0) - lib.palabras;
-  return `<p class="lex-note">En cada tema, la barra dice con qué frecuencia usa cada partido su vocabulario: palabras del
-    tema por cada mil suyas, así que no depende de cuánto hable el partido. La marca vertical es la media de la biblioteca
-    para ese tema y el número, las veces que la pasa. Se ven los cuatro partidos de tasa más alta entre los que dicen al
-    menos el 1 % de las palabras de la biblioteca; por debajo de eso la tasa es ruido.
+  return `<p class="lex-note">En cada tema, el eje sitúa a los partidos por la frecuencia con la que usan su vocabulario:
+    palabras del tema por cada mil suyas, en veces la media de la biblioteca (la marca del eje), así que no depende de
+    cuánto hable el partido. Se ven los cuatro de tasa más alta entre los que dicen al menos el 1 % de las palabras de la
+    biblioteca; por debajo de eso la tasa es ruido.
     ${falta > 0 ? `Cuentan las ${nf(lib.palabras)} palabras con partido; ${nf(falta)} no lo traen.` : ''}</p>`;
 }
 
 /** Peso de cada partido en el tema como frecuencia relativa: palabras del vocabulario del tema por cada mil palabras
- *  suyas, con la media de la biblioteca como referencia. Así un partido que habla mucho no domina todos los temas: lo
- *  que se compara es cuánto dedica cada uno a ese vocabulario, no cuánto ocupa. */
+ *  suyas, en veces la media de la biblioteca. Un punto por partido sobre un eje común: la posición es el cociente y la
+ *  marca de la media, el 1×. Así un partido que habla mucho no encabeza todos los temas. */
 function cooPartidosHTML(r, c, cuantos = 4) {
   const lib = r.partidos, rep = c.partidos;
   if (!lib?.palabras || !rep?.palabras) return '';
@@ -3403,23 +3403,50 @@ function cooPartidosHTML(r, c, cuantos = 4) {
   const minimo = 0.01 * lib.palabras;                              // menos del 1 % de las palabras: la tasa no dice nada
   const tasaLib = 1000 * rep.palabras / lib.palabras;              // media de la biblioteca para este tema
   const filas = rep.lista.map(x => {
-    const pal = palLib.get(x.p) || 0;
-    return { p: x.p, n: x.n, tok: x.pal, pal, tasa: pal > 0 ? 1000 * x.pal / pal : 0 };
-  }).filter(x => x.pal >= minimo).sort((a, b) => b.tasa - a.tasa).slice(0, cuantos);
+    const pal = palLib.get(x.p) || 0, tasa = pal > 0 ? 1000 * x.pal / pal : 0;
+    return { p: x.p, n: x.n, tok: x.pal, pal, tasa, veces: tasaLib > 0 ? tasa / tasaLib : 0 };
+  }).filter(x => x.pal >= minimo).sort((a, b) => b.veces - a.veces).slice(0, cuantos);
   if (!filas.length) return '';
-  const escala = Math.max(tasaLib, ...filas.map(f => f.tasa)) || 1;
   const dec = (x, d = 1) => x.toFixed(d).replace('.', ',');
-  const restantes = rep.lista.filter(x => (palLib.get(x.p) || 0) >= minimo).length - filas.length;
-  return `<div class="coo-part">${filas.map(f => {
-    const veces = tasaLib > 0 ? f.tasa / tasaLib : 0;
-    const tit = `${f.p}: ${dec(f.tasa)} palabras del tema por cada mil suyas, ${dec(veces, 2)} veces la media de la biblioteca`
+  const escala = Math.max(2, Math.ceil(Math.max(...filas.map(f => f.veces))));
+  const x = (v) => `${(100 * v / escala).toFixed(2)}%`;
+  const ticks = Array.from({ length: escala + 1 }, (_, k) => `<span class="coo-eje-t" style="left:${x(k)}"></span>`).join('');
+  const restantes = rep.lista.filter(f => (palLib.get(f.p) || 0) >= minimo).length - filas.length;
+  const puntos = filas.slice().sort((a, b) => a.veces - b.veces).map(f => {
+    const tit = `${f.p}: ${dec(f.tasa)} palabras del tema por cada mil suyas, ${dec(f.veces, 2)} veces la media de la biblioteca`
       + ` (${dec(tasaLib)}). Dice ${nf(f.tok)} de las ${nf(rep.palabras)} palabras del tema, en ${nf(f.n)} intervenciones,`
       + ` y ${nf(f.pal)} palabras en toda la biblioteca.`;
-    return `<div class="coo-pf" title="${esc(tit)}">
-      <span class="coo-pn">${esc(f.p)}</span>
-      <span class="coo-pb"><i style="width:${(100 * f.tasa / escala).toFixed(1)}%"></i><b style="left:${(100 * tasaLib / escala).toFixed(1)}%"></b></span>
-      <span class="coo-pp">${dec(veces)}×</span></div>`;
-  }).join('')}${restantes > 0 ? `<div class="coo-pmas">y ${nf(restantes)} ${restantes === 1 ? 'partido más' : 'partidos más'}</div>` : ''}</div>`;
+    return `<span class="coo-eje-p" style="left:${x(f.veces)}" title="${esc(tit)}"><b class="coo-eje-n">${esc(f.p)}</b>`
+      + `<i class="coo-eje-d"></i><b class="coo-eje-v">${dec(f.veces)}×</b></span>`;
+  }).join('');
+  const leyenda = filas.map(f => `${f.p} ${dec(f.veces)} veces la media`).join('; ');
+  return `<div class="coo-eje" role="img" aria-label="${esc(`Partidos que más usan el vocabulario del tema, en veces la media de la biblioteca: ${leyenda}`)}">
+      <span class="coo-eje-linea"></span>${ticks}
+      <span class="coo-eje-media" style="left:${x(1)}" title="Media de la biblioteca para este tema: ${esc(dec(tasaLib))} palabras por mil"><b>media</b></span>
+      ${puntos}
+    </div>${restantes > 0 ? `<div class="coo-pmas">y ${nf(restantes)} ${restantes === 1 ? 'partido más' : 'partidos más'}</div>` : ''}`;
+}
+
+/** Coloca los nombres del eje sin que se pisen (hay que medirlos ya pintados): el que choca sube a una segunda altura
+ *  y, si ahí tampoco cabe, se queda sin etiqueta; su punto conserva el título con todas las cifras. */
+function cooEjesAjustar(box) {
+  for (const eje of box.querySelectorAll('.coo-eje')) {
+    const ps = [...eje.querySelectorAll('.coo-eje-p')];
+    const marca = eje.querySelector('.coo-eje-media'), rot = marca && marca.firstElementChild;
+    // el rótulo «media» ocupa la misma banda que los nombres: cuenta como obstáculo
+    const obst = rot ? { a: marca.offsetLeft + rot.offsetLeft, b: marca.offsetLeft + rot.offsetLeft + rot.offsetWidth } : null;
+    const fin = [-Infinity, -Infinity];
+    let doble = false;
+    for (const p of ps) {
+      p.classList.remove('alto', 'muda');
+      const w = p.offsetWidth, cx = p.offsetLeft, ini = cx - w / 2, der = cx + w / 2;
+      const nivel = ini < fin[0] || (obst && ini < obst.b && der > obst.a) ? 1 : 0;
+      if (nivel === 1 && ini < fin[1]) { p.classList.add('muda'); continue; }   // sin sitio: solo el punto, con su título
+      if (nivel === 1) { p.classList.add('alto'); doble = true; }
+      fin[nivel] = der;
+    }
+    eje.classList.toggle('doble', doble);
+  }
 }
 
 /** Una intervención jerarquizada: orador, fecha, partido, longitud, barra de puntuación y términos que la sostienen. */
@@ -3567,6 +3594,7 @@ function cooRender() {
       ${r.partidos?.con_partido ? '<button class="btn sm" data-cooexp="partidos" title="Una fila por tema y partido, con sus intervenciones, su parte del tema, su peso en la biblioteca y cuánto lo pasa">Exportar partidos por tema (CSV)</button>' : ''}</p>
     ${fuentePieHTML('panel-fuente')}
   </div>`;
+  cooEjesAjustar(box);
   sc.scrollTop = top;
 }
 
