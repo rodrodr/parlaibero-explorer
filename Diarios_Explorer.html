@@ -13497,15 +13497,24 @@ function cooEjeFicha(eje, ps) {
   tip.className = 'coo-tip';
   tip.hidden = true;
   eje.append(tip);
-  const puntos = ps.map(p => ({ p, x: p.offsetLeft, tip: p.dataset.tip || '' }));
+  // Las posiciones se miden al entrar, no una sola vez: los puntos van en %, asi
+  // que al plegar un panel o cambiar el ancho el eje se reajusta y un offsetLeft
+  // guardado al construirlo deja de corresponder con lo que se ve. El sintoma es
+  // que la ficha describe a otro partido, o no sale.
+  const puntos = ps.map(p => ({ p, x: 0, tip: p.dataset.tip || '' }));
   let caja = null, ultima = null;
+  const medir = () => {
+    caja = eje.getBoundingClientRect();
+    for (const q of puntos) q.x = q.p.offsetLeft;
+    ultima = null;
+  };
   const esconder = () => {
     tip.hidden = true;
     ultima = null;
     for (const q of puntos) q.p.classList.remove('bajo');
   };
   const mover = (e) => {
-    if (!caja) caja = eje.getBoundingClientRect();
+    if (!caja) medir();
     const px = e.clientX - caja.left;
     let cerca = Infinity;
     for (const q of puntos) cerca = Math.min(cerca, Math.abs(q.x - px));
@@ -13521,7 +13530,7 @@ function cooEjeFicha(eje, ps) {
     const w = tip.offsetWidth;
     tip.style.left = `${Math.round(Math.max(0, Math.min(caja.width - w, px - w / 2)))}px`;
   };
-  eje.addEventListener('pointerenter', () => { caja = eje.getBoundingClientRect(); });
+  eje.addEventListener('pointerenter', medir);
   eje.addEventListener('pointermove', mover);
   eje.addEventListener('pointerdown', mover);                      // en pantalla táctil, al tocar
   eje.addEventListener('pointerleave', esconder);
