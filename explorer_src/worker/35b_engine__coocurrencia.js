@@ -344,6 +344,13 @@
     const palabrasPartido = new Float64Array(nPart);                                // palabras de cada partido
     let conPartido = 0, palabrasConPartido = 0, palabrasTotales = 0;
 
+    // Peso de cada tema: palabras de las intervenciones que domina. Domina el tema del que está
+    // presente la mayor FRACCIÓN de su propio vocabulario; con el recuento bruto de aciertos ganaría
+    // siempre la comunidad más grande (108 términos frente a 4) y el peso no repartiría nada.
+    const tamTema = new Uint32Array(nc);
+    for (let i = 0; i < V; i++) if (com[i] >= 0) tamTema[com[i]]++;
+    const nTema = new Uint32Array(nc), palabrasDominadas = new Float64Array(nc);
+    let palabrasSinTema = 0;
     const puntTema = new Float64Array(nc), tocadas = [];
     for (let d = 0; d < docIds.length; d++) {
       const pq = docPartido[d];
@@ -356,14 +363,22 @@
         const parte = pesoTermino[i] * tf * (BM25_K1 + 1) / (tf + norma);
         global += parte;
         const c = com[i];
-        if (puntTema[c] === 0) tocadas.push(c);
+        if (puntTema[c] === 0 && nTema[c] === 0) tocadas.push(c);
         puntTema[c] += parte;
+        nTema[c]++;
         if (pq >= 0) palabrasTema[c][pq] += tf;
       }
+      let domC = -1, domF = 0, domEmpate = false;
+      for (const c of tocadas) {
+        if (nTema[c] < 2 || tamTema[c] < MIN_TEMA) continue;   // los sueltos no son tema: no pueden llevarse peso
+        const f = nTema[c] / tamTema[c];
+        if (f > domF) { domC = c; domF = f; domEmpate = false; } else if (f === domF) domEmpate = true;
+      }
+      if (domC >= 0 && !domEmpate) palabrasDominadas[domC] += docTokens[d]; else palabrasSinTema += docTokens[d];
       for (const c of tocadas) {
         cobertura[c]++;
         if (pq >= 0) porTema[c][pq]++;
-        meter(topTema[c], LECTURA_TEMA, puntTema[c], d); puntTema[c] = 0;
+        meter(topTema[c], LECTURA_TEMA, puntTema[c], d); puntTema[c] = 0; nTema[c] = 0;
       }
       tocadas.length = 0;
       if (global > 0) meter(topGlobal, LECTURA_GLOBAL, global, d);
@@ -414,6 +429,8 @@
       terminos: m.map((i) => ({ i, term: vocab[i].term, display: vocab[i].display, expresion: vocab[i].expresion, fuerza_interna: redondea(interna[i], 3) })),
       intervenciones: cobertura[c],
       porcentaje: nDocs ? redondea(100 * cobertura[c] / nDocs, 1) : 0,
+      palabras_dominadas: Math.round(palabrasDominadas[c]),
+      peso: palabrasTotales ? redondea(100 * palabrasDominadas[c] / palabrasTotales, 1) : 0,
       peso_interno: redondea(pesoInterno[c], 3),
       partidos: repartoDe(porTema[c], palabrasTema[c], 60),   // los mismos que la biblioteca: así el que no aparece es un cero de verdad
       lectura: topTema[c].map((x) => fila(x, c)),
@@ -465,6 +482,8 @@
       lectura: { global, variada, metadatos, longitud_media: redondea(longMedia, 1),
         metodo: { formula: 'BM25', k1: BM25_K1, b: BM25_B, peso_termino: 'ln(1 + G² del término en el léxico)' } },
       estadisticas: {
+        palabras_sin_tema: Math.round(palabrasSinTema),
+        pct_sin_tema: palabrasTotales ? redondea(100 * palabrasSinTema / palabrasTotales, 1) : 0,
         n_intervenciones: nDocs, n_unidades: N, tokens: nTokens, pares_posibles: nPares, pares_observados: observados,
         densidad: nPares ? redondea(observados / nPares, 4) : 0, aristas_significativas: positivos,
         aristas_conservadas: aristas.length, n_comunidades: temas.length, n_comunidades_leiden: nc, n_sueltos: sueltos.length,

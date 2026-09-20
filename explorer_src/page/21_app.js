@@ -30,7 +30,7 @@ const S = {
 
   lex: { cache: new Map(), data: null, cid: null, seq: 0, ctrl: null, showAll: false, solo: lexSoloGuardado() },
   coo: { cache: new Map(), data: null, cid: null, seq: 0, ctrl: null, unidad: 'intervencion', vocabulario: 250, vecinos: 10,
-         resolucion: 1, expresiones: true, excl: { cid: null, aplicados: new Set(), marcados: new Set() }, lectModo: 'variada', lectN: 10 },
+         resolucion: 1, expresiones: true, excl: { cid: null, aplicados: new Set(), marcados: new Set() }, lectModo: 'variada', lectN: 10, orden: 'g2' },
   careo: null,
 };
 
@@ -3306,6 +3306,7 @@ const COO_UNIDADES = [
 const COO_RESOLUCION = [[0.6, 'menos', 'Menos temas y más amplios (resolución 0,6)'], [1, 'normal', 'Resolución 1: la modularidad clásica'],
   [1.6, 'más', 'Más temas y más finos (resolución 1,6)']];
 const COO_VOCAB = [100, 250, 500], COO_VECINOS = [5, 10, 20];
+const COO_ORDEN = [['g2', 'más característico'], ['peso', 'mayor peso'], ['alcance', 'mayor alcance']];
 
 function cooExcl() {
   const X = S.coo, L = S.libInfo;
@@ -3584,6 +3585,7 @@ function cooRender() {
       ${metric('Términos', nf(voc.usados), `de ${nf(voc.disponibles)} del léxico`, 'Términos de sobreuso del léxico, de más a menos característicos, sin palabras vacías ni cifras')}
       ${metric('Conexiones', nf(st.aristas_conservadas), `de ${nf(st.aristas_significativas)} significativas`, `Pares con asociación positiva y G² ≥ ${String(p.g2_min).replace('.', ',')} (p < 0,001); se conservan los ${nf(p.vecinos)} vecinos de mayor G² de cada término`)}
       ${metric('Modularidad', String(st.modularidad).replace('.', ','), unidades, 'Modularidad de la partición final (resolución 1). Por encima de 0,3 suele indicar una estructura de comunidades clara')}
+      ${st.pct_sin_tema == null ? '' : metric('Sin tema', `${String(st.pct_sin_tema).replace('.', ',')} %`, 'del texto', 'Palabras de las intervenciones que ningún tema domina: las que no alcanzan dos términos de un mismo tema o empatan entre varios. Los pesos de los temas suman el resto.')}
     </div>`;
   const vac = p.vacias || {};
   const descart = [voc.descartados?.vacias ? `${nf(voc.descartados.vacias)} palabras vacías (${esc(vac.fuente || '')}, ${vac.lengua === 'pt' ? 'portugués' : 'español'})` : '',
@@ -3617,7 +3619,12 @@ function cooRender() {
         <button class="btn sm ghost" data-coodesmarcar>Desmarcar</button>` : ''}
         ${E.aplicados.size ? `<span class="dsub">${nf(E.aplicados.size)} ${E.aplicados.size === 1 ? 'término excluido' : 'términos excluidos'} en este cálculo.</span>
         <button class="btn sm ghost" data-cooreponer>Reponerlos</button>` : ''}</div>` : '';
-  const temas = r.comunidades.map((c, k) => {
+  // La negrita sigue al criterio elegido: se destaca la medida por la que está ordenada la lista.
+  const dest = (k, html) => (X.orden === k ? `<b>${html}</b>` : html);
+  const ordenados = r.comunidades.map((c, k) => [c, k]);
+  if (X.orden === 'peso') ordenados.sort((x, y) => (y[0].peso || 0) - (x[0].peso || 0) || x[1] - y[1]);
+  else if (X.orden === 'alcance') ordenados.sort((x, y) => (y[0].porcentaje || 0) - (x[0].porcentaje || 0) || x[1] - y[1]);
+  const temas = ordenados.map(([c, k]) => {
     const col = pal[k % pal.length];
     const chips = c.terminos.map((t, q) => {
       const peso = q < Math.ceil(c.terminos.length / 3) ? ' w1' : q < Math.ceil(2 * c.terminos.length / 3) ? ' w2' : ' w3';
@@ -3634,7 +3641,7 @@ function cooRender() {
       <ol class="coo-lista">${lec.map((x, q) => cooLectFila(r, x, q, maxP)).join('')}</ol></details>` : '';
     return `<section class="coo-tema" style="--c:${col}">
       <div class="coo-cab"><span class="coo-n">${k + 1}</span><h4>${esc(c.etiqueta)}</h4>
-        <span class="coo-st">${nf(c.n_terminos)} términos · ${nf(c.intervenciones)} intervenciones (${String(c.porcentaje).replace('.', ',')} %) · G² medio ${nf(Math.round(c.g2_medio))}</span></div>
+        <span class="coo-st">${nf(c.n_terminos)} términos · ${dest('alcance', `<span title="Intervenciones donde asoma alguno de sus términos, aunque sea de paso">${nf(c.intervenciones)} intervenciones (${String(c.porcentaje).replace('.', ',')} %)</span>`)}${c.peso == null ? '' : ` · ${dest('peso', `<span title="Palabras de las intervenciones que este tema domina: aquellas en las que está presente la mayor parte de su propio vocabulario. Un tema puede asomar en muchas intervenciones y dominar pocas.">${String(c.peso).replace('.', ',')} % del texto</span>`)}`} · ${dest('g2', `<span title="Media del G² de sus términos en el léxico: cuán característico es el tema de esta biblioteca frente al resto del corpus">G² medio ${nf(Math.round(c.g2_medio))}</span>`)}</span></div>
       <div class="coo-terms">${chips}</div>
       ${cooPartidosHTML(r, c)}
       <div class="coo-acc"><button type="button" class="btn sm" data-coobuscar="${k}" title="Busca en la biblioteca las intervenciones con cualquiera de sus términos, resaltados, para revisar el tema">Revisar en la lista</button>
@@ -3648,7 +3655,10 @@ function cooRender() {
   box.innerHTML = `<div class="lex coo">
     ${controles}${metricas}${nota}${barraExcl}
     ${cooLecturaHTML(r)}
-    <h4 class="coo-h">Temas</h4>
+    <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><h4 class="coo-h">Temas</h4>
+      <label class="tsel" title="Solo cambia el orden en que se presentan los temas; no recalcula la red y la numeración de cada tema no cambia">Orden
+        <select data-cooorden>${COO_ORDEN.map(([v, lab]) =>
+          `<option value="${v}"${v === X.orden ? ' selected' : ''}>${lab}</option>`).join('')}</select></label></div>
     ${cooNotaPartidos(r)}
     <div class="coo-temas">${temas}</div>
     ${sueltos}
@@ -3675,6 +3685,7 @@ function cooChange(e) {
   const t = e.target;
   if (S.view !== 'library' || S.libTab !== 'coocurrencias') return;
   if (t.matches?.('[data-cooexpr]')) { S.coo.expresiones = t.checked; cooLoad(); return; }
+  if (t.matches?.('[data-cooorden]')) { S.coo.orden = t.value; cooRender(); return; }
   if (!t.matches?.('[data-coo]')) return;
   S.coo[t.dataset.coo] = Number(t.value);
   cooLoad();
