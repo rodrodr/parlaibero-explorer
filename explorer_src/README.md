@@ -309,20 +309,24 @@ detecta en ella temas con el algoritmo de Leiden. Motor en `worker/35b_engine__c
 8. **Quién habla de cada tema**: para cada partido (el canónico que guarda la ingesta), cuántas palabras del vocabulario
    del tema dice por cada mil suyas. Es una frecuencia relativa, no un reparto: así un partido que ocupa mucho tiempo no
    domina todos los temas; lo que se compara es cuánto dedica cada uno a ese vocabulario. La ficha del tema los sitúa
-   como puntos sobre un eje en veces la media de la biblioteca para ese tema, con la media marcada: un punto por partido,
-   con su nombre encima y el cociente debajo. Los nombres se colocan midiéndolos ya pintados: el que choca sube a una
-   segunda altura y, si ahí tampoco cabe —un tema del que todos hablan por igual—, se queda sin etiqueta y sus cifras
-   siguen en el título del punto.
-   Solo entran los partidos que dicen al menos el 1 % de las palabras de la biblioteca: por debajo la tasa es ruido. Las
-   palabras sin partido quedan fuera (se dice cuántas son).
+   como puntos sobre un eje **logarítmico** centrado en la media de la biblioteca para ese tema, con la media marcada, de
+   modo que la mitad y el doble quedan a la misma distancia del centro. Se muestran los cuatro partidos que más se
+   apartan de la media **en cualquiera de los dos sentidos**: un tema del que un partido no habla informa tanto como uno
+   del que habla el triple, y eligiendo por tasa más alta las ausencias no salían nunca. Un partido sin ninguna palabra
+   del tema se sitúa con media palabra, que es lo más que puede afirmarse de una ausencia en escala logarítmica, y su
+   cifra se escribe como 0. Solo entran los partidos que dicen al menos el 1 % de las palabras de la biblioteca y de los
+   que cabría esperar cinco palabras del tema o más: por debajo de eso ni el exceso ni la falta dicen nada. Los nombres
+   se colocan midiéndolos ya pintados: el que choca sube a una segunda altura y, si ahí tampoco cabe, se queda sin
+   etiqueta y sus cifras siguen en el título del punto. Las palabras sin partido quedan fuera (se dice cuántas son).
 9. **Jerarquía de lectura**: cada intervención se puntúa con BM25 (k1 = 1,2, b = 0,75, los de FTS5), con el peso de cada
    término dado por ln(1 + G² en el léxico) en lugar del IDF. Hay una puntuación por tema y otra global, y una selección
    variada que toma por turnos la mejor de cada tema. Sirve para priorizar la lectura y, más adelante, para elegir las
    intervenciones más informativas que enviar a un modelo de lenguaje.
 
 Exportaciones: los temas en CSV, la red en GEXF para Gephi, la jerarquía de lectura en CSV y los partidos por tema en CSV
-(una fila por tema y partido, con sus intervenciones, sus palabras del tema, las suyas en la biblioteca, la tasa por mil,
-la media de la biblioteca y el cociente), todas con los parámetros y la cita del conjunto de datos. Mismos parámetros, mismo resultado: el cálculo en el navegador coincide exactamente con el
+(una fila por tema y partido —también por los que no dicen ninguna palabra del tema—, con sus intervenciones, sus
+palabras del tema, las suyas en la biblioteca, las esperadas, la tasa por mil, la media de la biblioteca y el cociente),
+todas con los parámetros y la cita del conjunto de datos. Mismos parámetros, mismo resultado: el cálculo en el navegador coincide exactamente con el
 de Node.
 
 | biblioteca | intervenciones | primera vez | con el léxico ya calculado |

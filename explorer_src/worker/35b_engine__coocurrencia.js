@@ -415,7 +415,7 @@
       intervenciones: cobertura[c],
       porcentaje: nDocs ? redondea(100 * cobertura[c] / nDocs, 1) : 0,
       peso_interno: redondea(pesoInterno[c], 3),
-      partidos: repartoDe(porTema[c], palabrasTema[c], 25),
+      partidos: repartoDe(porTema[c], palabrasTema[c], 60),   // los mismos que la biblioteca: así el que no aparece es un cero de verdad
       lectura: topTema[c].map((x) => fila(x, c)),
     }))
       .sort((a, b) => b.g2_medio - a.g2_medio || b.intervenciones - a.intervenciones || a.id - b.id);

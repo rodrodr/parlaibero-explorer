@@ -3387,44 +3387,53 @@ function cooNotaPartidos(r) {
   if (!lib?.palabras || !(r.comunidades || []).some(c => c.partidos?.palabras)) return '';
   const falta = (lib.palabras_totales || 0) - lib.palabras;
   return `<p class="lex-note">En cada tema, el eje sitúa a los partidos por la frecuencia con la que usan su vocabulario:
-    palabras del tema por cada mil suyas, en veces la media de la biblioteca (la marca del eje), así que no depende de
-    cuánto hable el partido. Se ven los cuatro de tasa más alta entre los que dicen al menos el 1 % de las palabras de la
-    biblioteca; por debajo de eso la tasa es ruido.
+    palabras del tema por cada mil suyas, en veces la media de la biblioteca, que es el centro del eje. Como es una tasa,
+    no depende de cuánto hable el partido. Se ven los cuatro que más se apartan de la media <b>en cualquiera de los dos
+    sentidos</b>: un tema del que un partido no habla dice tanto como uno del que habla el doble. La escala es
+    logarítmica, así que la mitad y el doble quedan a la misma distancia del centro. Solo entran los partidos que dicen
+    al menos el 1 % de las palabras de la biblioteca y de los que cabría esperar cinco palabras del tema o más; por
+    debajo de eso no se puede decir si sobran o faltan.
     ${falta > 0 ? `Cuentan las ${nf(lib.palabras)} palabras con partido; ${nf(falta)} no lo traen.` : ''}</p>`;
 }
 
 /** Peso de cada partido en el tema como frecuencia relativa: palabras del vocabulario del tema por cada mil palabras
- *  suyas, en veces la media de la biblioteca. Un punto por partido sobre un eje común: la posición es el cociente y la
- *  marca de la media, el 1×. Así un partido que habla mucho no encabeza todos los temas. */
+ *  suyas, en veces la media de la biblioteca. Un punto por partido sobre un eje logarítmico centrado en la media, con
+ *  los cuatro que más se apartan de ella por arriba o por abajo: la ausencia marcada informa tanto como el exceso. */
 function cooPartidosHTML(r, c, cuantos = 4) {
   const lib = r.partidos, rep = c.partidos;
   if (!lib?.palabras || !rep?.palabras) return '';
-  const palLib = new Map(lib.lista.map(x => [x.p, x.pal]));
-  const minimo = 0.01 * lib.palabras;                              // menos del 1 % de las palabras: la tasa no dice nada
   const tasaLib = 1000 * rep.palabras / lib.palabras;              // media de la biblioteca para este tema
-  const filas = rep.lista.map(x => {
-    const pal = palLib.get(x.p) || 0, tasa = pal > 0 ? 1000 * x.pal / pal : 0;
-    return { p: x.p, n: x.n, tok: x.pal, pal, tasa, veces: tasaLib > 0 ? tasa / tasaLib : 0 };
-  }).filter(x => x.pal >= minimo).sort((a, b) => b.veces - a.veces).slice(0, cuantos);
-  if (!filas.length) return '';
+  const enTema = new Map(rep.lista.map(x => [x.p, x]));
+  const minPal = 0.01 * lib.palabras;                              // menos del 1 % de las palabras: la tasa no dice nada
+  const cand = lib.lista.filter(x => x.pal >= minPal).map(x => {
+    const t = enTema.get(x.p), tok = t ? t.pal : 0, esperado = tasaLib * x.pal / 1000;
+    // el cero no tiene logaritmo: se sitúa con media palabra, que es lo más que se puede afirmar de una ausencia
+    return { p: x.p, n: t ? t.n : 0, tok, pal: x.pal, esperado, tasa: 1000 * tok / x.pal,
+      veces: esperado > 0 ? (tok || 0.5) / esperado : 1 };
+  }).filter(x => x.esperado >= 5);                                 // con menos no se distingue el exceso de la falta
+  if (!cand.length) return '';
+  const lejos = (f) => Math.abs(Math.log(f.veces));
+  const filas = cand.slice().sort((a, b) => lejos(b) - lejos(a)).slice(0, cuantos);
   const dec = (x, d = 1) => x.toFixed(d).replace('.', ',');
-  const escala = Math.max(2, Math.ceil(Math.max(...filas.map(f => f.veces))));
-  const x = (v) => `${(100 * v / escala).toFixed(2)}%`;
-  const ticks = Array.from({ length: escala + 1 }, (_, k) => `<span class="coo-eje-t" style="left:${x(k)}"></span>`).join('');
-  const restantes = rep.lista.filter(f => (palLib.get(f.p) || 0) >= minimo).length - filas.length;
+  const K = Math.max(2, Math.ceil(Math.max(...filas.map(f => Math.max(f.veces, 1 / f.veces)))));
+  const x = (v) => `${Math.max(0, Math.min(100, 50 + 50 * Math.log(v) / Math.log(K))).toFixed(2)}%`;
+  const ticks = [];
+  for (let k = 2; k <= K; k++) ticks.push(`<span class="coo-eje-t" style="left:${x(k)}"></span>`, `<span class="coo-eje-t" style="left:${x(1 / k)}"></span>`);
+  const restantes = cand.length - filas.length;
   const puntos = filas.slice().sort((a, b) => a.veces - b.veces).map(f => {
-    const tit = `${f.p}: ${dec(f.tasa)} palabras del tema por cada mil suyas, ${dec(f.veces, 2)} veces la media de la biblioteca`
-      + ` (${dec(tasaLib)}). Dice ${nf(f.tok)} de las ${nf(rep.palabras)} palabras del tema, en ${nf(f.n)} intervenciones,`
-      + ` y ${nf(f.pal)} palabras en toda la biblioteca.`;
+    const tit = `${f.p}: ${f.tok ? `${dec(f.tasa)} palabras del tema por cada mil suyas, ${dec(f.veces, 2)} veces la media`
+      : 'ninguna palabra del tema'} (la media de la biblioteca es ${dec(tasaLib)} por mil). Dice ${nf(f.tok)} de las`
+      + ` ${nf(rep.palabras)} palabras del tema —cabría esperar ${nf(Math.round(f.esperado))}—, en ${nf(f.n)}`
+      + ` ${f.n === 1 ? 'intervención' : 'intervenciones'}, y ${nf(f.pal)} palabras en toda la biblioteca.`;
     return `<span class="coo-eje-p" style="left:${x(f.veces)}" title="${esc(tit)}"><b class="coo-eje-n">${esc(f.p)}</b>`
-      + `<i class="coo-eje-d"></i><b class="coo-eje-v">${dec(f.veces)}×</b></span>`;
+      + `<i class="coo-eje-d"></i><b class="coo-eje-v">${f.tok ? `${dec(f.veces)}×` : '0'}</b></span>`;
   }).join('');
-  const leyenda = filas.map(f => `${f.p} ${dec(f.veces)} veces la media`).join('; ');
-  return `<div class="coo-eje" role="img" aria-label="${esc(`Partidos que más usan el vocabulario del tema, en veces la media de la biblioteca: ${leyenda}`)}">
-      <span class="coo-eje-linea"></span>${ticks}
-      <span class="coo-eje-media" style="left:${x(1)}" title="Media de la biblioteca para este tema: ${esc(dec(tasaLib))} palabras por mil"><b>media</b></span>
+  const leyenda = filas.map(f => `${f.p} ${f.tok ? `${dec(f.veces)} veces la media` : 'ninguna palabra del tema'}`).join('; ');
+  return `<div class="coo-eje" role="img" aria-label="${esc(`Partidos que más se apartan de la media en el vocabulario del tema: ${leyenda}`)}">
+      <span class="coo-eje-linea"></span>${ticks.join('')}
+      <span class="coo-eje-media" style="left:50%" title="Media de la biblioteca para este tema: ${esc(dec(tasaLib))} palabras por mil"><b>media</b></span>
       ${puntos}
-    </div>${restantes > 0 ? `<div class="coo-pmas">y ${nf(restantes)} ${restantes === 1 ? 'partido más' : 'partidos más'}</div>` : ''}`;
+    </div>${restantes > 0 ? `<div class="coo-pmas">y ${nf(restantes)} ${restantes === 1 ? 'partido más' : 'partidos más'}, más cerca de la media</div>` : ''}`;
 }
 
 /** Coloca los nombres del eje sin que se pisen (hay que medirlos ya pintados): el que choca sube a una segunda altura
@@ -3707,39 +3716,44 @@ function cooExportCSV() {
   downloadText(csvConFuente(cooMeta(r), cols, filas), `temas_${cooSlug()}.csv`, 'text/csv;charset=utf-8');
 }
 
-/** Una fila por tema y partido: sus palabras del tema, su tasa por mil palabras propias y cuánto pasa la media. */
+/** Una fila por tema y partido, también los que no dicen ninguna palabra del tema: sus palabras, su tasa por mil
+ *  palabras propias, las que cabría esperar y cuánto pasa (o no llega a) la media. */
 function cooExportPartidos() {
   const r = S.coo.data;
   if (!r || r.error || !r.partidos?.palabras) return toast('Esta biblioteca no trae partidos que exportar.', true);
-  const lib = r.partidos, palLib = new Map(lib.lista.map(x => [x.p, x.pal]));
+  const lib = r.partidos;
   const cols = ['tema', 'etiqueta_tema', 'tema_intervenciones', 'tema_palabras', 'partido', 'intervenciones',
-                'palabras_del_tema', 'palabras_del_partido', 'tasa_por_mil', 'tasa_biblioteca_por_mil', 'veces_la_media',
-                'parte_de_las_palabras_del_tema', 'parte_de_las_intervenciones_del_tema'];
+                'palabras_del_tema', 'palabras_del_partido', 'esperadas', 'tasa_por_mil', 'tasa_biblioteca_por_mil',
+                'veces_la_media', 'parte_de_las_palabras_del_tema'];
   const dec = (x, d) => (Number.isFinite(x) ? x.toFixed(d) : '');
   const filas = [];
   for (const [k, c] of (r.comunidades || []).entries()) {
     const rep = c.partidos;
     if (!rep?.palabras) continue;
     const tasaLib = 1000 * rep.palabras / lib.palabras;
-    for (const x of rep.lista) {
-      const pal = palLib.get(x.p) || 0, tasa = pal > 0 ? 1000 * x.pal / pal : null;
-      filas.push([k + 1, c.etiqueta, c.intervenciones, rep.palabras, x.p, x.n, x.pal, pal,
+    const enTema = new Map(rep.lista.map(x => [x.p, x]));
+    const fila = (p, pal, tok, n) => {
+      const esperado = tasaLib * pal / 1000, tasa = pal > 0 ? 1000 * tok / pal : null;
+      filas.push([k + 1, c.etiqueta, c.intervenciones, rep.palabras, p, n, tok, pal, dec(esperado, 1),
         tasa == null ? '' : dec(tasa, 4), dec(tasaLib, 4), tasa == null ? '' : dec(tasa / tasaLib, 3),
-        dec(100 * x.pal / rep.palabras, 2), rep.con_partido ? dec(100 * x.n / rep.con_partido, 2) : '']);
-    }
+        dec(100 * tok / rep.palabras, 2)]);
+    };
+    for (const x of rep.lista) fila(x.p, lib.lista.find(y => y.p === x.p)?.pal ?? 0, x.pal, x.n);
+    for (const y of lib.lista) if (!enTema.has(y.p)) fila(y.p, y.pal, 0, 0);       // ninguna palabra del tema
     if (rep.otros) {
       filas.push([k + 1, c.etiqueta, c.intervenciones, rep.palabras, `(otros ${rep.otros.partidos} partidos)`,
-        rep.otros.n, rep.otros.pal, '', '', dec(tasaLib, 4), '', dec(100 * rep.otros.pal / rep.palabras, 2),
-        rep.con_partido ? dec(100 * rep.otros.n / rep.con_partido, 2) : '']);
+        rep.otros.n, rep.otros.pal, '', '', '', dec(tasaLib, 4), '', dec(100 * rep.otros.pal / rep.palabras, 2)]);
     }
   }
   if (!filas.length) return toast('Ningún tema tiene palabras con partido.', true);
   const meta = cooMeta(r).concat([
     `partidos: ${nf(lib.con_partido)} de ${nf(lib.intervenciones)} intervenciones y ${nf(lib.palabras)} de ${nf(lib.palabras_totales)}`
       + ' palabras traen partido (el canónico de la ingesta)',
-    'palabras_del_tema = veces que el partido usa el vocabulario del tema; palabras_del_partido = todas las suyas en la biblioteca',
+    'palabras_del_tema = veces que el partido usa el vocabulario del tema; palabras_del_partido = todas las suyas en la biblioteca;'
+      + ' hay fila también para los partidos que no dicen ninguna palabra del tema',
     'tasa_por_mil = 1000 × palabras_del_tema / palabras_del_partido, una frecuencia relativa que no depende de cuánto hable'
       + ' el partido; tasa_biblioteca_por_mil es la misma tasa para el conjunto de la biblioteca y veces_la_media, su cociente',
+    'esperadas = tasa_biblioteca_por_mil × palabras_del_partido / 1000: con menos de cinco esperadas, el exceso o la falta no dicen nada',
     'una intervención cuenta en todos los temas que toca, así que las filas no suman las intervenciones de la biblioteca',
   ]);
   downloadText(csvConFuente(meta, cols, filas), `partidos_por_tema_${cooSlug()}.csv`, 'text/csv;charset=utf-8');
