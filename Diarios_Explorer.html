@@ -7040,13 +7040,42 @@ $Id: LICENSE 2133 2007-11-28 02:46:28Z lechimp $</pre></details>
   }
 
 
+  // Lo que delata que la página está a media faena: un diálogo abierto (puede llevar una nota a medio escribir), un
+  // botón en mitad de su operación, la barra de progreso del léxico y las coocurrencias, o un giro de espera. El giro
+  // del centinela del desplazamiento infinito no cuenta: está siempre puesto al final de la lista de resultados.
+  function ocupada() {
+    const d = S.doc;
+    if (!d || !d.querySelector) return false;
+    if (d.querySelector('dialog[open], [aria-busy="true"], .lex-prog')) return true;
+    return Array.prototype.some.call(d.querySelectorAll('.spin'), (e) => !(e.closest && e.closest('#sentinel')));
+  }
+
+  /** ¿Se puede recargar ahora sin tirar nada? Ni construyendo la base —la propia página pide no recargar— ni con algo
+   *  en marcha. Lo que se pierde al recargar en reposo es la vista: la búsqueda que hay en pantalla y por dónde se iba
+   *  leyendo. Lo escrito no, porque las bibliotecas, las notas y las etiquetas se guardan en la base al momento. */
+  function recargaSegura() {
+    if (S.operacion) return false;
+    const f = fase();
+    if (f !== 'abrir' && f !== 'fallo' && f !== 'app') return false;
+    return !ocupada();
+  }
+
   function nuevaVersion() {
-    if (S.sw.nueva || !S.doc || !S.doc.body) return;
+    if (S.sw.nueva) return;
     S.sw.nueva = true;
+    // Se activa siempre, aunque no se recargue: así la siguiente carga ya es la nueva sin que nadie pulse nada. No
+    // afecta a la página en marcha, porque este service worker solo sirve el index.html y el manifiesto.
+    const reg = S.sw.registro;
+    if (reg && reg.waiting) {
+      S.sw.pedida = recargaSegura();          // con esto, controllerchange recarga (o no)
+      reg.waiting.postMessage({ tipo: 'saltar_espera' });
+      if (S.sw.pedida) return;                // recarga sola: no hace falta avisar de nada
+    }
+    if (!S.doc || !S.doc.body) return;
     const d = S.doc.createElement('div');
     d.id = 'r2-web-version';
     d.setAttribute('role', 'status');
-    d.innerHTML = '<span>Nueva versión disponible.</span><button type="button" class="btn primary sm" data-r2-web="actualizar">Recargar con la nueva versión</button>';
+    d.innerHTML = '<span>Nueva versión disponible.</span><button type="button" class="btn primary sm" data-r2-web="actualizar">Recargar ahora</button>';
     S.doc.body.appendChild(d);
   }
 
@@ -7082,11 +7111,11 @@ $Id: LICENSE 2133 2007-11-28 02:46:28Z lechimp $</pre></details>
     }
   }
 
+  /** El botón del aviso: la versión nueva ya está activa (nuevaVersion la activó), así que basta recargar. */
   function actualizar() {
     const reg = S.sw.registro;
-    if (!reg || !reg.waiting) { S.g.location.reload(); return; }
-    S.sw.pedida = true;
-    reg.waiting.postMessage({ tipo: 'saltar_espera' });
+    if (reg && reg.waiting) { S.sw.pedida = true; reg.waiting.postMessage({ tipo: 'saltar_espera' }); return; }
+    S.g.location.reload();
   }
 
 
