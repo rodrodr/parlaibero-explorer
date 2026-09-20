@@ -839,6 +839,20 @@ dialog .dconfirm { margin: 0 18px 13px; padding: 9px 12px 8px; border: 1px solid
 dialog .dconfirm p { margin: 0 0 7px; line-height: 1.5; color: var(--text); }
 dialog .dconfirm .chk { padding: 3px 0; }
 dialog .dconfirm .chk .lbl { white-space: normal; font-weight: 600; }
+/* Notas de la biblioteca y de cada intervención: las largas van plegadas (notaHTML en app.js). */
+.hit-nota { margin: 6px 0 0; font-size: 12px; border-left: 2px solid var(--sem); padding-left: 8px; }
+.lib-nota { margin-top: 3px; }
+.nota-pliega > summary { cursor: pointer; list-style: none; display: flex; gap: 6px; align-items: baseline; }
+.nota-pliega > summary::-webkit-details-marker { display: none; }
+.nota-pliega > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.nota-ojo { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nota-ver { margin-left: auto; flex: none; color: var(--accent); font-weight: 600; white-space: nowrap; font-size: 11px; }
+.nota-ver::after { content: 'Ver nota ▾'; }
+.nota-pliega[open] > summary .nota-ojo { display: none; }
+.nota-pliega[open] > summary .nota-ver { margin-left: 0; }
+.nota-pliega[open] > summary .nota-ver::after { content: 'Ocultar ▴'; }
+.nota-todo { margin: 4px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+
 dialog .dedit { display: block; margin: 0 0 12px; }
 dialog .dedit:last-child { margin-bottom: 0; }
 dialog .dedit[hidden] { display: none; }

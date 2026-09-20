@@ -2564,7 +2564,7 @@ function renderLibList() {
           <h4>${esc(c.name)}</h4>
           <p>${nf(c.n_items)} ${c.n_items === 1 ? 'intervención' : 'intervenciones'} ·
              ${esc((c.updated_at || '').slice(0, 10))}</p>
-          ${c.description ? `<p style="margin-top:3px">${esc(c.description)}</p>` : ''}
+          ${notaHTML(c.description, 'lib-nota')}
         </div>
         <button type="button" class="btn ghost icon lib-ren" data-renlib="${c.id}"
           aria-label="Editar el nombre y la nota de la biblioteca «${esc(c.name)}»" title="Editar el nombre y la nota de la biblioteca «${esc(c.name)}»">✎</button>
@@ -2681,6 +2681,20 @@ async function loadMoreLibItems() {
   }
 }
 
+/* Una nota puede ser larga y empujar hacia abajo todo lo demás, así que a partir de cierto tamaño se pliega en un
+   <details> y solo se despliega si se pide: el resumen enseña el principio en una línea y, al abrirlo, se esconde para
+   no repetirlo. Una nota corta se muestra entera; plegarla molestaría más de lo que ayuda. */
+const NOTA_PLIEGUE = 110;   // caracteres a partir de los cuales se pliega
+
+function notaHTML(txt, clase) {
+  const nota = String(txt == null ? '' : txt);
+  if (!nota.trim()) return '';
+  const unaLinea = nota.replace(/\s+/g, ' ').trim();
+  if (unaLinea.length <= NOTA_PLIEGUE && !nota.includes('\n')) return `<p class="${clase}">${esc(nota)}</p>`;
+  return `<details class="${clase} nota-pliega"><summary><span class="nota-ojo">${esc(unaLinea.slice(0, NOTA_PLIEGUE))}…</span>`
+    + `<span class="nota-ver"></span></summary><p class="nota-todo">${esc(nota)}</p></details>`;
+}
+
 function renderLibItems({ keepScroll = false } = {}) {
   const r = { items: S.results || [] };
   const sc = listScroller(), top = sc.scrollTop;
@@ -2699,8 +2713,7 @@ function renderLibItems({ keepScroll = false } = {}) {
           <span class="hit-date">${esc(it.date)}</span>
         </div>
         <div class="hit-snip">${esc(it.snippet)}</div>
-        ${it.note ? `<p class="dsub" style="margin:6px 0 0;font-size:12px;
-           border-left:2px solid var(--sem);padding-left:8px">${esc(it.note)}</p>` : ''}
+        ${notaHTML(it.note, 'dsub hit-nota')}
         <div class="hit-foot">
           ${(it.tags || []).map(t => `<span class="tag sem">${esc(t)}</span>`).join('')}
           ${it.party && it.party !== 'Sin identificar' ? `<span class="tag">${esc(it.party)}</span>` : ''}
