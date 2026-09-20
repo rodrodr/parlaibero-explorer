@@ -21,7 +21,9 @@
  *     que están entre los k vecinos de mayor G² de alguno de sus extremos. El peso de la arista es la fuerza de
  *     asociación: el G² decide qué aristas existen y la fuerza cuánto pesan.
  *  7. Comunidades: Leiden (R2.leiden) con resolución γ y semilla fija; cada comunidad es un tema candidato.
- *  8. Por tema: sus términos ordenados por fuerza interna y cuántas intervenciones de la biblioteca contienen alguno.
+ *  8. Por tema: sus términos ordenados por fuerza interna, cuántas intervenciones de la biblioteca contienen alguno y
+ *     cómo se reparten esas intervenciones entre los partidos; con el reparto de la biblioteca entera (`partidos`) se ve
+ *     si un tema es de un partido más de lo que le tocaría por su tamaño.
  *  9. Jerarquía de lectura: cada intervención se puntúa con BM25 (k1 = 1,2, b = 0,75, los de FTS5), pero con el peso de
  *     cada término dado por su G² en el léxico, en escala logarítmica, en lugar del IDF: puntúa alto la intervención que
  *     concentra el vocabulario característico de la biblioteca, con saturación por repetición y corrección por longitud.
@@ -314,8 +316,34 @@
       lista[k] = [punt, d];
       if (lista.length > tope) lista.pop();
     };
+    // Partido de cada intervención (la ingesta guarda ya el canónico): da el reparto de cada tema entre partidos y, con
+    // el peso de cada uno en la biblioteca, si un tema es suyo más de lo que le tocaría.
+    const partidos = [], idPartido = new Map(), docPartido = new Int32Array(docIds.length).fill(-1);
+    {
+      const pos = new Map();
+      docIds.forEach((id, d) => { if (id >= 0) pos.set(Number(id), d); });
+      const ids = [...pos.keys()];
+      for (let k = 0; k < ids.length; k += 900) {
+        const lote = ids.slice(k, k + 900);
+        for (const f of R2.sql.filas(bd, `SELECT id, party FROM speeches WHERE id IN (${lote.map(() => '?').join(',')})`, lote)) {
+          const bruto = String(f.party == null ? '' : f.party).trim();
+          if (!bruto || /^(\?|sin identificar)$/i.test(bruto)) continue;
+          let q = idPartido.get(bruto);
+          if (q === undefined) { q = partidos.length; idPartido.set(bruto, q); partidos.push(bruto); }
+          docPartido[pos.get(f.id)] = q;
+        }
+        await ceder(ctx);
+      }
+    }
+    const nPart = partidos.length;
+    const porTema = Array.from({ length: nc }, () => new Int32Array(nPart));
+    const totalPartido = new Int32Array(nPart);
+    let conPartido = 0;
+
     const puntTema = new Float64Array(nc), tocadas = [];
     for (let d = 0; d < docIds.length; d++) {
+      const pq = docPartido[d];
+      if (pq >= 0) { totalPartido[pq]++; conPartido++; }
       const norma = BM25_K1 * (1 - BM25_B + BM25_B * docTokens[d] / longMedia);
       let global = 0;
       for (let q = docOff[d]; q < docOff[d + 1]; q++) {
@@ -326,7 +354,11 @@
         if (puntTema[c] === 0) tocadas.push(c);
         puntTema[c] += parte;
       }
-      for (const c of tocadas) { cobertura[c]++; meter(topTema[c], LECTURA_TEMA, puntTema[c], d); puntTema[c] = 0; }
+      for (const c of tocadas) {
+        cobertura[c]++;
+        if (pq >= 0) porTema[c][pq]++;
+        meter(topTema[c], LECTURA_TEMA, puntTema[c], d); puntTema[c] = 0;
+      }
       tocadas.length = 0;
       if (global > 0) meter(topGlobal, LECTURA_GLOBAL, global, d);
       if (d % 5000 === 4999) await ceder(ctx);
@@ -345,6 +377,16 @@
     };
     const fila = ([punt, d], tema = null) => ({ id: docIds[d], puntuacion: redondea(punt, 3), palabras: docTokens[d],
       terminos: terminosDe(d, tema) });
+    /** Reparto entre partidos de un recuento por partido: los más presentes primero, el resto agregado. */
+    const repartoDe = (cuenta, tope) => {
+      const lista = [];
+      let total = 0;
+      for (let q = 0; q < nPart; q++) if (cuenta[q]) { lista.push({ p: partidos[q], n: cuenta[q] }); total += cuenta[q]; }
+      lista.sort((a, b) => b.n - a.n || (a.p < b.p ? -1 : a.p > b.p ? 1 : 0));
+      const resto = lista.slice(tope);
+      return { con_partido: total, lista: lista.slice(0, tope),
+        otros: resto.length ? { n: resto.reduce((s, x) => s + x.n, 0), partidos: resto.length } : null };
+    };
     let pesoTotal = 0;
     const pesoInterno = new Float64Array(nc);
     for (const [i, j, , , , w] of aristas) { pesoTotal += w; if (com[i] === com[j]) pesoInterno[com[i]] += w; }
@@ -361,6 +403,7 @@
       intervenciones: cobertura[c],
       porcentaje: nDocs ? redondea(100 * cobertura[c] / nDocs, 1) : 0,
       peso_interno: redondea(pesoInterno[c], 3),
+      partidos: repartoDe(porTema[c], 25),
       lectura: topTema[c].map((x) => fila(x, c)),
     }))
       .sort((a, b) => b.g2_medio - a.g2_medio || b.intervenciones - a.intervenciones || a.id - b.id);
@@ -405,6 +448,7 @@
 
     return Object.assign(base, {
       nodos, aristas: salidaAristas, comunidades: temas, sueltos,
+      partidos: Object.assign({ intervenciones: nDocs }, repartoDe(totalPartido, 60)),
       lectura: { global, variada, metadatos, longitud_media: redondea(longMedia, 1),
         metodo: { formula: 'BM25', k1: BM25_K1, b: BM25_B, peso_termino: 'ln(1 + G² del término en el léxico)' } },
       estadisticas: {

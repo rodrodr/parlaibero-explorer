@@ -594,9 +594,10 @@ function menRedIniciar(D) {
   }
   function medir() {
     const cont = contenedorDesplazable(svg), visible = cont ? cont.clientHeight : window.innerHeight;
-    const reservado = (menEl('menAgrupar').closest('.men-ctl')?.offsetHeight || 0) + Math.max(menEl('menInfo').offsetHeight, 56)
-      + (menEl('menLeyenda').offsetHeight || 0) + 36;
-    svg.style.maxHeight = `${Math.max(320, Math.round(visible - reservado))}px`;
+    // El dibujo se lleva casi toda la altura visible del panel: solo se guarda sitio para la ficha de la persona y la
+    // leyenda, que van pegadas debajo. Los controles quedan justo encima, a un golpe de rueda.
+    const reservado = Math.max(menEl('menInfo').offsetHeight, 42) + (menEl('menLeyenda').offsetHeight || 0) + 14;
+    svg.style.maxHeight = `${Math.max(360, Math.round(visible - reservado))}px`;
     const r = svg.getBoundingClientRect();
     escala = Math.min(r.width / 1000, r.height / 720) || 1;
     const w = r.width / escala, h = r.height / escala;

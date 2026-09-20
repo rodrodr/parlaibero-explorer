@@ -1635,6 +1635,16 @@ html:not(.r2-app) body { overflow: hidden; }
 .coo-t.w3{color:var(--text-soft);font-size:11.5px}
 .coo-t:hover{border-color:var(--c)}
 .coo-t.marcado{text-decoration:line-through;opacity:.55;background:transparent;border-style:dashed}
+.coo-part{display:grid;gap:3px;margin:0 0 9px}
+.coo-pf{display:grid;grid-template-columns:minmax(4.5em,8em) minmax(60px,1fr) auto;align-items:center;gap:8px;font-size:11.5px}
+.coo-pn{color:var(--text-soft);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.coo-pb{position:relative;height:8px;border-radius:4px;background:var(--bg-sunken)}
+.coo-pb i{display:block;height:100%;min-width:2px;border-radius:4px;background:var(--c);opacity:.75}
+.coo-pb b{position:absolute;top:-2px;bottom:-2px;width:1.5px;margin-left:-.75px;background:var(--text-faint);border-radius:1px}
+.coo-pp{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--text-soft);min-width:3.4em;text-align:right}
+.coo-pmas{font-size:11px;color:var(--text-faint)}
+.coo-pdest{font-size:11.5px;color:var(--text-soft);margin-top:2px}
+.coo-pdest b{color:var(--text);font-weight:600}
 .coo-acc{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .coo-tl{margin-top:8px;font-size:12px}
 .coo-tl>summary{cursor:pointer;color:var(--text-soft)}

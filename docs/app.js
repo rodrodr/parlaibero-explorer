@@ -10414,6 +10414,49 @@ function cooVecinos(r) {
   return r._vecinos;
 }
 
+/** Cómo se leen las barras de partido de los temas; vacío si la biblioteca no trae partidos. */
+function cooNotaPartidos(r) {
+  const lib = r.partidos;
+  if (!lib?.con_partido || !(r.comunidades || []).some(c => c.partidos?.con_partido)) return '';
+  const falta = (lib.intervenciones || 0) - lib.con_partido;
+  return `<p class="lex-note">En cada tema, la barra es la parte de sus intervenciones que pone cada partido, de más a
+    menos, y la marca vertical es el peso de ese partido en toda la biblioteca: la barra que la pasa señala un tema del
+    que ese partido habla más de lo que le tocaría por su tamaño.
+    ${falta > 0 ? `Cuentan las ${nf(lib.con_partido)} intervenciones con partido; ${nf(falta)} no lo traen.` : ''}</p>`;
+}
+
+/** Reparto del tema entre partidos: la barra es la parte de sus intervenciones que pone cada partido y la marca
+ *  vertical, el peso de ese partido en la biblioteca entera (lo que le tocaría si el tema no fuera de nadie). */
+function cooPartidosHTML(r, c, cuantos = 4) {
+  const lib = r.partidos, rep = c.partidos;
+  if (!lib?.con_partido || !rep?.con_partido) return '';
+  const pesoLib = new Map(lib.lista.map(x => [x.p, x.n / lib.con_partido]));
+  const filas = rep.lista.slice(0, cuantos).map(x => {
+    const parte = x.n / rep.con_partido, esperado = pesoLib.get(x.p) ?? 0;
+    return { p: x.p, n: x.n, parte, esperado, lift: esperado > 0 ? parte / esperado : null };
+  });
+  if (!filas.length) return '';
+  const escala = Math.max(...filas.map(f => Math.max(f.parte, f.esperado))) || 1;
+  const pct = x => `${(100 * x).toFixed(100 * x < 10 ? 1 : 0).replace('.', ',')} %`;
+  const restantes = rep.lista.length - filas.length + (rep.otros?.partidos || 0);
+  // Partidos que hablan del tema claramente más de lo que les tocaría: el exceso sobre lo esperado, en errores típicos
+  // de Poisson, deja fuera las cifras pequeñas (un partido con cinco intervenciones no destaca por nada).
+  const destacan = rep.lista.map(x => {
+    const esperado = (pesoLib.get(x.p) ?? 0) * rep.con_partido;
+    return { p: x.p, n: x.n, esperado, lift: esperado > 0 ? x.n / esperado : 0, z: esperado > 0 ? (x.n - esperado) / Math.sqrt(esperado) : 0 };
+  }).filter(x => x.n >= 5 && x.z >= 2 && x.lift >= 1.25).sort((a, b) => b.lift - a.lift).slice(0, 3);
+  return `<div class="coo-part">${filas.map(f => {
+    const tit = `${f.p}: ${nf(f.n)} de las ${nf(rep.con_partido)} intervenciones del tema con partido (${pct(f.parte)});`
+      + ` en toda la biblioteca es el ${pct(f.esperado)}${f.lift ? ` · ${f.lift.toFixed(1).replace('.', ',')} veces su peso` : ''}`;
+    return `<div class="coo-pf" title="${esc(tit)}">
+      <span class="coo-pn">${esc(f.p)}</span>
+      <span class="coo-pb"><i style="width:${(100 * f.parte / escala).toFixed(1)}%"></i><b style="left:${(100 * f.esperado / escala).toFixed(1)}%"></b></span>
+      <span class="coo-pp">${pct(f.parte)}</span></div>`;
+  }).join('')}${destacan.length ? `<div class="coo-pdest" title="Partidos que hablan de este tema bastante más de lo que les tocaría por su peso en la biblioteca. Quedan fuera las cifras demasiado pequeñas para decir nada.">Por encima de su peso: ${destacan.map(x =>
+      `<b title="${esc(`${x.p}: ${nf(x.n)} intervenciones del tema; por su peso en la biblioteca le tocarían ${nf(Math.round(x.esperado))}`)}">${esc(x.p)} ${x.lift.toFixed(1).replace('.', ',')}×</b>`).join(' · ')}</div>` : ''}${restantes > 0
+      ? `<div class="coo-pmas">y ${nf(restantes)} ${restantes === 1 ? 'partido más' : 'partidos más'}</div>` : ''}</div>`;
+}
+
 /** Una intervención jerarquizada: orador, fecha, partido, longitud, barra de puntuación y términos que la sostienen. */
 function cooLectFila(r, x, k, maxP, col = null) {
   const m = (r.lectura && r.lectura.metadatos && r.lectura.metadatos[x.id]) || {};
@@ -10536,6 +10579,7 @@ function cooRender() {
       <div class="coo-cab"><span class="coo-n">${k + 1}</span><h4>${esc(c.etiqueta)}</h4>
         <span class="coo-st">${nf(c.n_terminos)} términos · ${nf(c.intervenciones)} intervenciones (${String(c.porcentaje).replace('.', ',')} %) · G² medio ${nf(Math.round(c.g2_medio))}</span></div>
       <div class="coo-terms">${chips}</div>
+      ${cooPartidosHTML(r, c)}
       <div class="coo-acc"><button type="button" class="btn sm" data-coobuscar="${k}" title="Busca en la biblioteca las intervenciones con cualquiera de sus términos, resaltados, para revisar el tema">Revisar en la lista</button>
         <button type="button" class="btn sm ghost" data-coomarcartema="${k}" title="Marca todos los términos del tema para excluirlos">Marcar el tema</button>
         </div>${leer}
@@ -10548,6 +10592,7 @@ function cooRender() {
     ${controles}${metricas}${nota}${barraExcl}
     ${cooLecturaHTML(r)}
     <h4 class="coo-h">Temas</h4>
+    ${cooNotaPartidos(r)}
     <div class="coo-temas">${temas}</div>
     ${sueltos}
     ${metodo}
@@ -14995,9 +15040,10 @@ function menRedIniciar(D) {
   }
   function medir() {
     const cont = contenedorDesplazable(svg), visible = cont ? cont.clientHeight : window.innerHeight;
-    const reservado = (menEl('menAgrupar').closest('.men-ctl')?.offsetHeight || 0) + Math.max(menEl('menInfo').offsetHeight, 56)
-      + (menEl('menLeyenda').offsetHeight || 0) + 36;
-    svg.style.maxHeight = `${Math.max(320, Math.round(visible - reservado))}px`;
+    // El dibujo se lleva casi toda la altura visible del panel: solo se guarda sitio para la ficha de la persona y la
+    // leyenda, que van pegadas debajo. Los controles quedan justo encima, a un golpe de rueda.
+    const reservado = Math.max(menEl('menInfo').offsetHeight, 42) + (menEl('menLeyenda').offsetHeight || 0) + 14;
+    svg.style.maxHeight = `${Math.max(360, Math.round(visible - reservado))}px`;
     const r = svg.getBoundingClientRect();
     escala = Math.min(r.width / 1000, r.height / 720) || 1;
     const w = r.width / escala, h = r.height / escala;

@@ -306,7 +306,12 @@ detecta en ella temas con el algoritmo de Leiden. Motor en `worker/35b_engine__c
 7. **Temas**: ordenados por el G² medio de sus términos en el léxico, con su cobertura en intervenciones. Son candidatos:
    se revisan en la lista (búsqueda de sus términos dentro de la biblioteca, por relevancia, con las coincidencias
    resaltadas) y se pueden marcar términos para excluirlos y recalcular.
-8. **Jerarquía de lectura**: cada intervención se puntúa con BM25 (k1 = 1,2, b = 0,75, los de FTS5), con el peso de cada
+8. **Quién habla de cada tema**: el reparto de las intervenciones del tema entre los partidos (el canónico que guarda la
+   ingesta), con el peso de cada partido en la biblioteca entera como término de comparación. En la ficha del tema son
+   cuatro barras, una por partido, con una marca vertical en ese peso: la barra que la pasa señala un tema del que el
+   partido habla más de lo que le tocaría por su tamaño. Una intervención cuenta en todos los temas que toca, y las que
+   no traen partido quedan fuera del reparto (se dice cuántas son).
+9. **Jerarquía de lectura**: cada intervención se puntúa con BM25 (k1 = 1,2, b = 0,75, los de FTS5), con el peso de cada
    término dado por ln(1 + G² en el léxico) en lugar del IDF. Hay una puntuación por tema y otra global, y una selección
    variada que toma por turnos la mejor de cada tema. Sirve para priorizar la lectura y, más adelante, para elegir las
    intervenciones más informativas que enviar a un modelo de lenguaje.
