@@ -10421,24 +10421,26 @@ function cooNotaPartidos(r) {
   const falta = (lib.palabras_totales || 0) - lib.palabras;
   return `<p class="lex-note">En cada tema, el eje sitúa a los partidos por la frecuencia con la que usan su vocabulario:
     palabras del tema por cada mil suyas, en veces la media de la biblioteca, que es el centro del eje. Como es una tasa,
-    no depende de cuánto hable el partido. Se ven los cuatro que más se apartan de la media <b>en cualquiera de los dos
-    sentidos</b>: un tema del que un partido no habla dice tanto como uno del que habla el doble. La escala es
-    logarítmica, así que la mitad y el doble quedan a la misma distancia del centro. Solo entran los partidos que dicen
-    al menos el 1 % de las palabras de la biblioteca y de los que cabría esperar cinco palabras del tema o más; por
-    debajo de eso no se puede decir si sobran o faltan.
+    no depende de cuánto hable el partido. Están todos los que dicen al menos el 1 % de las palabras de la biblioteca y
+    de los que cabría esperar cinco palabras del tema o más —por debajo de eso ni el exceso ni la falta dicen nada—, y
+    llevan nombre los que más se apartan de la media <b>en cualquiera de los dos sentidos</b>: un tema del que un partido
+    no habla dice tanto como uno del que habla el doble. Los demás puntos guardan sus cifras en el título. La escala es
+    logarítmica, así que la mitad y el doble quedan a la misma distancia del centro.
     ${falta > 0 ? `Cuentan las ${nf(lib.palabras)} palabras con partido; ${nf(falta)} no lo traen.` : ''}</p>`;
 }
 
 /** Peso de cada partido en el tema como frecuencia relativa: palabras del vocabulario del tema por cada mil palabras
  *  suyas, en veces la media de la biblioteca. Un punto por partido sobre un eje logarítmico centrado en la media, con
- *  los cuatro que más se apartan de ella por arriba o por abajo: la ausencia marcada informa tanto como el exceso. */
-function cooPartidosHTML(r, c, cuantos = 4) {
+ *  todos los que se pueden comparar; el nombre va a los que más se apartan, por arriba o por abajo, porque la ausencia
+ *  marcada informa tanto como el exceso. */
+function cooPartidosHTML(r, c) {
   const lib = r.partidos, rep = c.partidos;
   if (!lib?.palabras || !rep?.palabras) return '';
   const tasaLib = 1000 * rep.palabras / lib.palabras;              // media de la biblioteca para este tema
   const enTema = new Map(rep.lista.map(x => [x.p, x]));
   const minPal = 0.01 * lib.palabras;                              // menos del 1 % de las palabras: la tasa no dice nada
-  const cand = lib.lista.filter(x => x.pal >= minPal).map(x => {
+  const conPeso = lib.lista.filter(x => x.pal >= minPal);
+  const cand = conPeso.map(x => {
     const t = enTema.get(x.p), tok = t ? t.pal : 0, esperado = tasaLib * x.pal / 1000;
     // el cero no tiene logaritmo: se sitúa con media palabra, que es lo más que se puede afirmar de una ausencia
     return { p: x.p, n: t ? t.n : 0, tok, pal: x.pal, esperado, tasa: 1000 * tok / x.pal,
@@ -10446,48 +10448,49 @@ function cooPartidosHTML(r, c, cuantos = 4) {
   }).filter(x => x.esperado >= 5);                                 // con menos no se distingue el exceso de la falta
   if (!cand.length) return '';
   const lejos = (f) => Math.abs(Math.log(f.veces));
-  const filas = cand.slice().sort((a, b) => lejos(b) - lejos(a)).slice(0, cuantos);
+  const orden = new Map(cand.slice().sort((a, b) => lejos(b) - lejos(a)).map((f, k) => [f.p, k]));   // a quién etiquetar antes
   const dec = (x, d = 1) => x.toFixed(d).replace('.', ',');
-  const K = Math.max(2, Math.ceil(Math.max(...filas.map(f => Math.max(f.veces, 1 / f.veces)))));
+  const K = Math.max(2, Math.ceil(Math.max(...cand.map(f => Math.max(f.veces, 1 / f.veces)))));
   const x = (v) => `${Math.max(0, Math.min(100, 50 + 50 * Math.log(v) / Math.log(K))).toFixed(2)}%`;
   const ticks = [];
   for (let k = 2; k <= K; k++) ticks.push(`<span class="coo-eje-t" style="left:${x(k)}"></span>`, `<span class="coo-eje-t" style="left:${x(1 / k)}"></span>`);
-  const restantes = cand.length - filas.length;
-  const puntos = filas.slice().sort((a, b) => a.veces - b.veces).map(f => {
+  const puntos = cand.slice().sort((a, b) => a.veces - b.veces).map(f => {
     const tit = `${f.p}: ${f.tok ? `${dec(f.tasa)} palabras del tema por cada mil suyas, ${dec(f.veces, 2)} veces la media`
       : 'ninguna palabra del tema'} (la media de la biblioteca es ${dec(tasaLib)} por mil). Dice ${nf(f.tok)} de las`
       + ` ${nf(rep.palabras)} palabras del tema —cabría esperar ${nf(Math.round(f.esperado))}—, en ${nf(f.n)}`
       + ` ${f.n === 1 ? 'intervención' : 'intervenciones'}, y ${nf(f.pal)} palabras en toda la biblioteca.`;
-    return `<span class="coo-eje-p" style="left:${x(f.veces)}" title="${esc(tit)}"><b class="coo-eje-n">${esc(f.p)}</b>`
-      + `<i class="coo-eje-d"></i><b class="coo-eje-v">${f.tok ? `${dec(f.veces)}×` : '0'}</b></span>`;
+    return `<span class="coo-eje-p" data-prio="${orden.get(f.p)}" style="left:${x(f.veces)}" title="${esc(tit)}">`
+      + `<b class="coo-eje-n">${esc(f.p)} <em>${f.tok ? `${dec(f.veces)}×` : '0'}</em></b><i class="coo-eje-d"></i></span>`;
   }).join('');
-  const leyenda = filas.map(f => `${f.p} ${f.tok ? `${dec(f.veces)} veces la media` : 'ninguna palabra del tema'}`).join('; ');
-  return `<div class="coo-eje" role="img" aria-label="${esc(`Partidos que más se apartan de la media en el vocabulario del tema: ${leyenda}`)}">
+  const fuera = conPeso.length - cand.length;
+  const leyenda = cand.slice().sort((a, b) => lejos(b) - lejos(a)).slice(0, 4)
+    .map(f => `${f.p} ${f.tok ? `${dec(f.veces)} veces la media` : 'ninguna palabra del tema'}`).join('; ');
+  return `<div class="coo-eje" role="img" aria-label="${esc(`${cand.length} partidos por su uso del vocabulario del tema; los que más se apartan de la media: ${leyenda}`)}">
       <span class="coo-eje-linea"></span>${ticks.join('')}
       <span class="coo-eje-media" style="left:50%" title="Media de la biblioteca para este tema: ${esc(dec(tasaLib))} palabras por mil"><b>media</b></span>
       ${puntos}
-    </div>${restantes > 0 ? `<div class="coo-pmas">y ${nf(restantes)} ${restantes === 1 ? 'partido más' : 'partidos más'}, más cerca de la media</div>` : ''}`;
+    </div>${fuera > 0 ? `<div class="coo-pmas">fuera del eje, ${nf(fuera)} ${fuera === 1 ? 'partido' : 'partidos'} de los que cabría esperar menos de cinco palabras del tema</div>` : ''}`;
 }
 
-/** Coloca los nombres del eje sin que se pisen (hay que medirlos ya pintados): el que choca sube a una segunda altura
- *  y, si ahí tampoco cabe, se queda sin etiqueta; su punto conserva el título con todas las cifras. */
+/** Coloca las etiquetas del eje sin que se pisen (hay que medirlas ya pintadas), empezando por los partidos que más se
+ *  apartan de la media: la que choca sube a una segunda altura y, si ahí tampoco cabe, el punto se queda sin etiqueta y
+ *  sus cifras siguen en su título. */
 function cooEjesAjustar(box) {
   for (const eje of box.querySelectorAll('.coo-eje')) {
     const ps = [...eje.querySelectorAll('.coo-eje-p')];
-    const marca = eje.querySelector('.coo-eje-media'), rot = marca && marca.firstElementChild;
-    // el rótulo «media» ocupa la misma banda que los nombres: cuenta como obstáculo
-    const obst = rot ? { a: marca.offsetLeft + rot.offsetLeft, b: marca.offsetLeft + rot.offsetLeft + rot.offsetWidth } : null;
-    const fin = [-Infinity, -Infinity];
+    const puestos = [[], []];
+    const libre = (nivel, a, b) => puestos[nivel].every(([c, d]) => b <= c || a >= d);
     let doble = false;
-    for (const p of ps) {
+    for (const p of ps.slice().sort((a, b) => (+a.dataset.prio || 0) - (+b.dataset.prio || 0))) {
       p.classList.remove('alto', 'muda');
-      const w = p.offsetWidth, cx = p.offsetLeft, ini = cx - w / 2, der = cx + w / 2;
-      const nivel = ini < fin[0] || (obst && ini < obst.b && der > obst.a) ? 1 : 0;
-      if (nivel === 1 && ini < fin[1]) { p.classList.add('muda'); continue; }   // sin sitio: solo el punto, con su título
+      const w = p.offsetWidth, cx = p.offsetLeft, a = cx - w / 2, b = cx + w / 2;
+      const nivel = libre(0, a, b) ? 0 : (libre(1, a, b) ? 1 : -1);
+      if (nivel < 0) { p.classList.add('muda'); continue; }
       if (nivel === 1) { p.classList.add('alto'); doble = true; }
-      fin[nivel] = der;
+      puestos[nivel].push([a, b]);
     }
     eje.classList.toggle('doble', doble);
+    eje.classList.toggle('muchos', ps.length > 8);
   }
 }
 

@@ -310,14 +310,17 @@ detecta en ella temas con el algoritmo de Leiden. Motor en `worker/35b_engine__c
    del tema dice por cada mil suyas. Es una frecuencia relativa, no un reparto: así un partido que ocupa mucho tiempo no
    domina todos los temas; lo que se compara es cuánto dedica cada uno a ese vocabulario. La ficha del tema los sitúa
    como puntos sobre un eje **logarítmico** centrado en la media de la biblioteca para ese tema, con la media marcada, de
-   modo que la mitad y el doble quedan a la misma distancia del centro. Se muestran los cuatro partidos que más se
-   apartan de la media **en cualquiera de los dos sentidos**: un tema del que un partido no habla informa tanto como uno
-   del que habla el triple, y eligiendo por tasa más alta las ausencias no salían nunca. Un partido sin ninguna palabra
+   modo que la mitad y el doble quedan a la misma distancia del centro. Están **todos** los partidos que se pueden
+   comparar —un punto no cuesta una fila, como costaba una barra—, así que se ve la distribución entera y no solo sus
+   extremos; el nombre va a los que más se apartan de la media **en cualquiera de los dos sentidos**, porque un tema del
+   que un partido no habla informa tanto como uno del que habla el triple. Un partido sin ninguna palabra
    del tema se sitúa con media palabra, que es lo más que puede afirmarse de una ausencia en escala logarítmica, y su
    cifra se escribe como 0. Solo entran los partidos que dicen al menos el 1 % de las palabras de la biblioteca y de los
-   que cabría esperar cinco palabras del tema o más: por debajo de eso ni el exceso ni la falta dicen nada. Los nombres
-   se colocan midiéndolos ya pintados: el que choca sube a una segunda altura y, si ahí tampoco cabe, se queda sin
-   etiqueta y sus cifras siguen en el título del punto. Las palabras sin partido quedan fuera (se dice cuántas son).
+   que cabría esperar cinco palabras del tema o más: por debajo de eso ni el exceso ni la falta dicen nada (se dice
+   cuántos quedan fuera por ahí). Cada etiqueta —nombre y cociente juntos, en una sola línea sobre el punto— se coloca
+   midiéndola ya pintada, empezando por los partidos que más se apartan: la que choca sube a una segunda altura y, si
+   ahí tampoco cabe, el punto se queda sin etiqueta y sus cifras siguen en su título. El rótulo de la media va debajo
+   del eje, donde no estorba. Las palabras sin partido quedan fuera (se dice cuántas son).
 9. **Jerarquía de lectura**: cada intervención se puntúa con BM25 (k1 = 1,2, b = 0,75, los de FTS5), con el peso de cada
    término dado por ln(1 + G² en el léxico) en lugar del IDF. Hay una puntuación por tema y otra global, y una selección
    variada que toma por turnos la mejor de cada tema. Sirve para priorizar la lectura y, más adelante, para elegir las
