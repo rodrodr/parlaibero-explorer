@@ -437,6 +437,27 @@ kbd {
 }
 .rmodes button:hover { color: var(--text); }
 .rmodes button[aria-pressed="true"] { background: var(--bg-panel); color: var(--accent-text); box-shadow: var(--shadow); font-weight: 600; }
+
+/* Teñido por tema. Dos grupos en un mismo control —encendido y forma de la marca—
+   separados por un filete. Los de la forma se apagan si el teñido está apagado. */
+.rmodes.temas .tsep { width: 1px; background: var(--border-soft); margin: 2px 3px; align-self: stretch; }
+.rmodes.temas button[disabled] { opacity: .4; cursor: default; }
+.rmodes.temas button[disabled]:hover { color: var(--text-soft); }
+
+/* La marca del tema no puede mover ni un píxel del pliego: encenderla y apagarla
+   tiene que dar la misma caja de texto. Nada de relleno, borde ni radio; el
+   subrayado va por text-decoration, que se dibuja encima sin entrar en la métrica.
+   El tinte sale del color sólido del tema (--c), como los chips de Coocurrencias. */
+.th { background: color-mix(in srgb, var(--c) 17%, transparent); padding: 0; border: 0; border-radius: 0; }
+:root[data-theme="dark"] .th { background: color-mix(in srgb, var(--c) 30%, transparent); }
+:root[data-tema-marca="subrayado"] .th {
+  background: none;
+  text-decoration: underline; text-decoration-color: var(--c);
+  text-decoration-thickness: 2px; text-underline-offset: 3px;
+}
+/* Una marca de búsqueda dentro de un tema manda: es lo que se ha buscado. */
+.th mark { background: var(--mark); color: var(--mark-text); }
+
 .sess-tools { display: flex; gap: 6px; align-items: center; min-width: 0; }
 #sessJump { max-width: 230px; min-width: 0; padding: 4px 6px; }
 .careo-slot:empty { display: none; }
@@ -731,6 +752,12 @@ dialog .ddel-exp .dsub { margin: 0; font-size: 12px; line-height: 1.45; }
 .trend-tip .tt-r i { width: 7px; height: 7px; border-radius: 50%; background: var(--c); flex-shrink: 0; transform: translateY(-1px); }
 .trend-tip .tt-dim { color: var(--text-faint); }
 .trend-tip .tt-go { color: var(--accent-text); margin-top: 2px; }
+/* La etiqueta de una marca de tema: misma hoja que la de Tendencia, pero fija a la
+   ventana, porque el pliego se desplaza dentro de su propio contenedor. */
+.tema-tip { position: fixed; z-index: 40; min-width: 0; max-width: 320px; }
+.tema-tip .tt-h { margin-bottom: 2px; }
+.tema-tip .tt-dim { font-variant-numeric: tabular-nums; }
+
 .tfoot { font-size: 10.5px; color: var(--text-faint); line-height: 1.45; }
 .ticon { width: 11px; height: 10px; vertical-align: -1px; overflow: hidden; }
 .tms-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 2px 12px; font-size: 11px; color: var(--text-soft); }

@@ -25,6 +25,10 @@ const S = {
 
   cursor: null, current: null, readMode: 'speech', readSeq: 0,
   speechScroll: null, session: null,
+  // Teñido por tema en el lector: encendido y forma de la marca. Solo se usa en
+  // standalone (los temas son de Coocurrencias) y se recuerda en este navegador.
+  readTema: readTemaGuardado(), readTemaMarca: readTemaMarcaGuardada(),
+
 
   libTab: 'items', libSeq: 0, libInfo: null,
 
@@ -200,30 +204,39 @@ function proyecta(a, b, fixes, ra, rb) {
 
 function paint(t, ranges, from = 0, to = t.length) {
   const ev = new Map();
-  const bump = (p, k, d) => {
-    const e = ev.get(p) || { c: 0, m: 0 };
-    e[k] += d; ev.set(p, e);
-  };
-  for (const [a, b, k] of ranges || []) {
+  const en = (p) => { const e = ev.get(p) || { c: 0, m: 0, t: null, te: 0 }; ev.set(p, e); return e; };
+  const bump = (p, k, d) => { en(p)[k] += d; };
+  for (const r of ranges || []) {
+    const [a, b, k] = r;
     const lo = Math.max(a, from), hi = Math.min(b, to);
-    if (lo < hi) { bump(lo, k, 1); bump(hi, k, -1); }
+    if (lo >= hi) continue;
+    if (k === 't') { en(lo).t = r; en(hi).te++; } else { bump(lo, k, 1); bump(hi, k, -1); }
   }
   if (!ev.size) return esc(t.slice(from, to));
   const pts = [...new Set([from, to, ...ev.keys()])].sort((x, y) => x - y);
-  let html = '', c = 0, m = 0, inC = false, inM = false;
+  let html = '', c = 0, m = 0, cur = null, inC = false, inM = false, inT = null;
   for (let i = 0; i < pts.length - 1; i++) {
     const e = ev.get(pts[i]);
-    if (e) { c += e.c; m += e.m; }
+    // El cierre antes que la apertura: un tema puede empezar donde acaba el anterior.
+    if (e) { c += e.c; m += e.m; if (e.te) cur = null; if (e.t) cur = e.t; }
     const wantC = c > 0, wantM = m > 0;
     if (wantC !== inC) {
       if (inM) { html += '</mark>'; inM = false; }
-      html += wantC ?   '<span>'  : '</span>';
+      if (inT) { html += '</span>'; inT = null; }
+      html += wantC ? '<span>' : '</span>';
       inC = wantC;
+    }
+    if (cur !== inT) {
+      if (inM) { html += '</mark>'; inM = false; }
+      if (inT) html += '</span>';
+      if (cur) html += `<span class="th" data-th="${cur[3]}" style="--c:${esc(cur[4])}">`;
+      inT = cur;
     }
     if (wantM !== inM) { html += wantM ? '<mark>' : '</mark>'; inM = wantM; }
     html += esc(t.slice(pts[i], pts[i + 1]));
   }
   if (inM) html += '</mark>';
+  if (inT) html += '</span>';
   if (inC) html += '</span>';
   return html;
 }
@@ -254,20 +267,27 @@ const ident = v => !!v && v !== 'Sin identificar';
 
 function hlContext(doc, { terms = [], raw = null, span = null } = {}) {
   const fix = (doc.fix || []).slice().sort((x, y) => x[0] - y[0]);
+  // Los temas solo existen en la compilacion standalone y solo cuando la
+  // biblioteca abierta tiene su red calculada: fuera de ahi no hay rangos y
+  // todo lo demas sigue igual que antes.
+  const temas = (t) => (typeof cooTemaRangos === 'function' ? cooTemaRangos(t) : []);
   if (raw != null) {
     const H = termRanges(raw, terms).map(([a, b]) => [a, b, 'm']);
     if (span && span[1] > span[0]) H.push([span[0], span[1], 'c']);
+    for (const r of temas(raw)) H.push(r);
     H.sort((x, y) => x[0] - y[0]);
     return {
       fix,
       rangesFor(t, a, b) {
         if (a == null || b == null || !H.length) return [];
         const out = [];
-        for (const [ra, rb, k] of H) {
+        for (const r of H) {
+          const [ra, rb, k] = r;
           if (ra >= b) break;
           if (rb <= a) continue;
           const p = proyecta(a, b, fix, ra, rb);
-          if (p) out.push([p[0], p[1], k]);
+          // Un rango de tema arrastra ademas su indice y su color: se conservan.
+          if (p) out.push(k === 't' ? [p[0], p[1], k, r[3], r[4]] : [p[0], p[1], k]);
         }
         return out;
       },
@@ -275,7 +295,9 @@ function hlContext(doc, { terms = [], raw = null, span = null } = {}) {
   }
   return {
     fix,
-    rangesFor: t => (terms.length ? termRanges(t, terms).map(([x, y]) => [x, y, 'm']) : []),
+    // Sesion corrida: sin texto original, se busca en el mostrado de cada hoja.
+    rangesFor: t => (terms.length ? termRanges(t, terms).map(([x, y]) => [x, y, 'm']) : [])
+      .concat(temas(t)).sort((x, y) => x[0] - y[0]),
   };
 }
 
@@ -1993,10 +2015,116 @@ async function sessGoTo(s, idx) {
 }
 
 
+/* Los controles de tema solo salen cuando pueden hacer algo: compilacion
+   standalone, una biblioteca seleccionada y su red de coocurrencias calculada.
+   Un control que no puede hacer nada estorba mas de lo que ayuda. */
+
+function temaDisponible() {
+  // Solo dentro de la biblioteca cuyos temas se han calculado. En Explorar no:
+  // un mismo termino cae en temas distintos segun la biblioteca, asi que pintar
+  // una intervencion cualquiera con la particion de la ultima abierta seria falso.
+  return S.view === 'library' && S.libSel != null
+    && typeof cooIndice === 'function' && !!cooIndice();
+}
+
+
+function temaHead() {
+  const caja = $('#temaTools');
+  if (!caja) return;
+  const hay = temaDisponible();
+  caja.hidden = !hay || S.readMode === 'careo';
+  if (caja.hidden) return;
+  $$('#temaTools [data-tema]').forEach(b =>
+    b.setAttribute('aria-pressed', String((b.dataset.tema === '1') === !!S.readTema)));
+  $$('#temaTools [data-tmarca]').forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset.tmarca === S.readTemaMarca)));
+  $$('#temaTools [data-tmarca]').forEach(b => { b.disabled = !S.readTema; });
+}
+
+/* Repinta lo que haya abierto. Se llama al tocar los controles y tambien cuando
+   cambian los temas en Coocurrencias: las marcas son contextuales a la
+   biblioteca y tienen que seguir a lo que alli se vea. */
+
+function temaRepinta() {
+  document.documentElement.dataset.temaMarca = S.readTemaMarca;
+  temaHead();
+  if (S.readMode === 'session' && S.session?.active && S.session.outline) {
+    sessRefreshTerms(S.session);
+  } else if (S.readMode === 'speech' && S.current) {
+    // `restore: true` conserva la posicion de lectura: repintar no debe mover el pliego.
+    renderReader(S.current, { restore: true });
+  }
+}
+
+// Lo que ensena la etiqueta de una marca: lo mismo que la cabecera del tema en
+// Coocurrencias —peso, alcance, intervenciones, terminos y G2 medio— mas sus tres
+// terminos principales, para no obligar a cambiar de pestana con la marca delante.
+// Se devuelven las piezas sueltas y las maqueta temaTip: el `title` nativo tarda
+// casi un segundo en salir y lo dibuja el sistema, que aqui desentona.
+function temaRotulo(k) {
+  const r = S.coo && S.coo.data, c = r && (r.comunidades || [])[k];
+  if (!c) return null;
+  const dec = v => (v == null ? null : String(v).replace('.', ','));
+  const m = [];
+  if (c.peso != null) m.push(`peso ${dec(c.peso)} %`);
+  if (c.porcentaje != null) m.push(`alcance ${dec(c.porcentaje)} %`);
+  if (c.intervenciones != null) m.push(`${nf(c.intervenciones)} intervenciones`);
+  if (c.n_terminos != null) m.push(`${nf(c.n_terminos)} términos`);
+  if (c.g2_medio != null) m.push(`G² medio ${nf(Math.round(c.g2_medio))}`);
+  return { n: k + 1, etq: c.etiqueta, med: m.join(' · '),
+           cabeza: (c.terminos || []).slice(0, 3).map(t => t.display).join(', ') };
+}
+
+// Etiqueta propia, con la misma hoja que la de Tendencia (.trend-tip) para que no
+// parezca de otra aplicacion. Sale al momento y sigue al raton.
+let TEMA_TIP = null;
+function temaTip(e) {
+  const m = e.target.closest && e.target.closest('.th[data-th]');
+  if (!m) { if (TEMA_TIP) TEMA_TIP.hidden = true; return; }
+  const I = typeof cooIndice === 'function' ? cooIndice() : null;
+  const d = I && I.rot && I.rot[+m.dataset.th];
+  if (!d) { if (TEMA_TIP) TEMA_TIP.hidden = true; return; }
+  if (!TEMA_TIP) {
+    TEMA_TIP = document.createElement('div');
+    TEMA_TIP.className = 'trend-tip tema-tip';
+    TEMA_TIP.hidden = true;
+    document.body.appendChild(TEMA_TIP);
+  }
+  TEMA_TIP.style.setProperty('--c', m.style.getPropertyValue('--c'));
+  TEMA_TIP.innerHTML = `<div class="tt-r tt-h"><i></i>${esc(d.etq)}</div>`
+    + (d.med ? `<div class="tt-dim">${esc(d.med)}</div>` : '')
+    + (d.cabeza ? `<div class="tt-go">${esc(d.cabeza)}</div>` : '');
+  TEMA_TIP.hidden = false;
+  const r = m.getBoundingClientRect(), t = TEMA_TIP.getBoundingClientRect();
+  const x = Math.max(8, Math.min(r.left, innerWidth - t.width - 8));
+  const y = r.top > t.height + 10 ? r.top - t.height - 6 : r.bottom + 6;
+  TEMA_TIP.style.left = `${Math.round(x)}px`;
+  TEMA_TIP.style.top = `${Math.round(y)}px`;
+}
+
+function temaClick(e) {
+  const t = e.target.closest('#temaTools [data-tema]');
+  if (t) {
+    S.readTema = t.dataset.tema === '1';
+    try { localStorage.setItem('readTema', S.readTema ? '1' : '0'); } catch { /* sin almacenamiento */ }
+    temaRepinta();
+    return true;
+  }
+  const m = e.target.closest('#temaTools [data-tmarca]');
+  if (m && !m.disabled) {
+    S.readTemaMarca = m.dataset.tmarca;
+    try { localStorage.setItem('readTemaMarca', S.readTemaMarca); } catch { /* sin almacenamiento */ }
+    temaRepinta();
+    return true;
+  }
+  return false;
+}
+
 function updateReadHead() {
   careoHead();
   const enSesion = S.readMode === 'session';
   $$('#readModes button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.rmode === S.readMode)));
+  temaHead();
   const s = S.session;
   const ok = enSesion && s && s.outline;
   $('#sessTools').hidden = !ok;
@@ -2433,8 +2561,11 @@ function setView(v, { refresh = true } = {}) {
 
   const conBiblioteca = S.lastMeta?.mode === 'library' || (v === 'search' && S.searchStale);
   if (v === 'search') S.searchStale = false;
+  const vAntes = S.view;
   S.view = v;
   $$('.tabs button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === v)));
+  // El tenido vive dentro de la biblioteca: al entrar o salir hay que repintar.
+  if (vAntes !== v && S.readTema) temaRepinta(); else temaHead();
 
 
   $('#clearFilters').hidden = v !== 'search';
@@ -2632,6 +2763,15 @@ function renderLibHead() {
 
 function lexSoloGuardado() {
   try { return localStorage.getItem('lexSoloDiscurso') !== '0'; } catch { return true; }
+}
+
+function readTemaGuardado() {
+  try { return localStorage.getItem('readTema') === '1'; } catch { return false; }
+}
+
+function readTemaMarcaGuardada() {
+  try { return localStorage.getItem('readTemaMarca') === 'subrayado' ? 'subrayado' : 'fondo'; }
+  catch { return 'fondo'; }
 }
 
 function lexSoloChange(e) {
@@ -3308,6 +3448,118 @@ const COO_RESOLUCION = [[0.6, 'menos', 'Menos temas y más amplios (resolución 
 const COO_VOCAB = [100, 250, 500], COO_VECINOS = [5, 10, 20];
 const COO_ORDEN = [['g2', 'más característico'], ['peso', 'mayor peso'], ['alcance', 'mayor alcance']];
 
+// ------------------------------------------------ colores de los temas --
+// CARTOColors, de cartografia tematica, donde el problema es el mismo que aqui:
+// muchas categorias cualitativas a la vez y ninguna es «mas» que otra. «Bold» en
+// claro, por tener los tonos mas separados; «Safe» —derivada de los esquemas de
+// Paul Tol— en oscuro, porque resiste el daltonismo y no se apaga sobre fondo
+// oscuro. El claro/oscuro lo gobierna la app, como en trendPal().
+// Antes se usaba TREND_PAL.series con `pal[k % 8]`, que repetia color a partir
+// del noveno tema: la rejilla de parametros llega a 21, asi que se repetia a
+// menudo y en silencio.
+const COO_PAL = {
+  light: ['#7F3C8D', '#11A579', '#3969AC', '#F2B701', '#E73F74', '#80BA5A',
+          '#E68310', '#008695', '#CF1C90', '#F97B72', '#4B4B8F', '#A5AA99'],
+  dark:  ['#88CCEE', '#CC6677', '#DDCC77', '#117733', '#332288', '#AA4499',
+          '#44AA99', '#999933', '#882255', '#661100', '#6699CC', '#888888'],
+};
+
+// Tono OKLCH de un hex: hace falta para saber que parte de la rueda ocupan ya
+// los doce de la paleta antes de anadir el decimotercero.
+
+function cooTono(hex) {
+  const [r, g, b] = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255)
+    .map(v => (v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)));
+  const l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b);
+  const m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b);
+  const s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+  const A = 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s;
+  const B = 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s;
+  return ((Math.atan2(B, A) * 180 / Math.PI) + 360) % 360;
+}
+
+// n colores para n temas. Los doce primeros son los de la paleta; del trece en
+// adelante se anade cada tono en el hueco mas ancho que quede, asi ninguno cae
+// cerca de otro ya usado. Sin repeticiones, sea cual sea el numero de temas.
+
+function cooPaleta(n) {
+  const oscuro = document.documentElement.dataset.theme === 'dark';
+  const base = COO_PAL[oscuro ? 'dark' : 'light'];
+  const out = base.slice(0, Math.min(n, base.length));
+  const tonos = out.map(cooTono);
+  const sep = (a, b) => { const d = Math.abs(a - b) % 360; return d > 180 ? 360 - d : d; };
+  while (out.length < n) {
+    let mejor = 0, mejorD = -1;
+    for (let h = 0; h < 360; h += 2) {
+      const d = Math.min(...tonos.map(x => sep(h, x)));
+      if (d > mejorD) { mejorD = d; mejor = h; }
+    }
+    tonos.push(mejor);
+    out.push(`oklch(${oscuro ? '0.72 0.13' : '0.48 0.16'} ${mejor})`);
+  }
+  return out;
+}
+
+// --------------------------------------- terminos de los temas en el texto --
+// Indice termino -> tema de la biblioteca abierta. Se rehace en cuanto cambian
+// los temas —resolucion, vocabulario, vecinos o terminos excluidos— porque la
+// clave es la misma que usa la cache de la pestana: las marcas del lector son
+// contextuales a la biblioteca y siguen a lo que se vea en Coocurrencias.
+
+let COO_IDX = { clave: null, ts: null, tema: null, col: null, n: 0 };
+
+
+function cooIndice() {
+  const X = S.coo, r = X.data;
+  if (!r || !(r.comunidades || []).length) return null;
+  const clave = X.cid + '|' + cooClave();
+  if (COO_IDX.clave === clave) return COO_IDX;
+  const tema = new Map();
+  for (const nd of (r.nodos || [])) if (nd.comunidad >= 0) tema.set(nd.term, nd.comunidad);
+  if (!tema.size) return null;
+  COO_IDX = { clave, ts: [...tema.keys()], tema, col: cooPaleta(r.comunidades.length),
+              rot: r.comunidades.map((c, k) => temaRotulo(k)), n: r.comunidades.length };
+  return COO_IDX;
+}
+
+// Rangos [a, b, 't', tema, color] sobre el texto ORIGINAL: se busca en el texto
+// plegado y se devuelven los indices del original, igual que termRanges.
+// Los terminos se solapan y caen en temas distintos —«casas viejas» en uno y
+// «casas» suelto en otro— asi que despues de recogerlos todos se resuelve por
+// GANA EL MAS LARGO QUE EMPIECE ANTES. Sin esa regla «Guardia civil» se pinta
+// con el color de «civil», que vive en el tema del concordato porque aparece en
+// «matrimonio civil» y «registro civil»: una marca que dice algo falso.
+
+function cooTemaRangos(raw) {
+  if (!S.readTema || !raw || !temaDisponible()) return [];
+  const I = cooIndice();
+  if (!I) return [];
+  const { folded, map } = foldMap(raw);
+  const letra = (c) => /[\p{L}\p{N}]/u.test(c || '');
+  const cand = [];
+  for (const t of I.ts) {
+    if (!t) continue;
+    let i = 0;
+    while ((i = folded.indexOf(t, i)) !== -1) {
+      const fin = i + t.length;
+      if (!letra(folded[i - 1]) && !letra(folded[fin])) cand.push([i, fin, t]);
+      i += t.length;
+    }
+  }
+  if (!cand.length) return [];
+  cand.sort((a, b) => a[0] - b[0] || b[1] - a[1]);
+  const out = [];
+  let hasta = -1;
+  for (const [a, b, t] of cand) {
+    if (a < hasta) continue;
+    const k = I.tema.get(t);
+    if (k == null) continue;
+    out.push([map[a], (map[b - 1] ?? map[a]) + 1, 't', k, I.col[k] || 'currentColor']);
+    hasta = b;
+  }
+  return out;
+}
+
 function cooExcl() {
   const X = S.coo, L = S.libInfo;
   if (L && X.excl.cid !== L.id) X.excl = { cid: L.id, aplicados: new Set(), marcados: new Set() };
@@ -3532,6 +3784,7 @@ function cooLectFila(r, x, k, maxP, col = null) {
 function cooLecturaHTML(r) {
   const X = S.coo, lec = r.lectura || {};
   const pal = trendPal().series;
+  const paleta = cooPaleta((r.comunidades || []).length);
   const variada = X.lectModo === 'variada';
   const lista = (variada ? lec.variada : lec.global) || [];
   if (!lista.length) return '';
@@ -3545,7 +3798,7 @@ function cooLecturaHTML(r) {
     <p class="lex-note">Intervenciones de la biblioteca ordenadas por lo que concentran de su vocabulario característico
       (BM25 con cada término pesado por su G² en el léxico, con saturación por repetición y corrección por longitud).
       ${variada ? 'El punto de color indica el tema del que sale cada una.' : ''}</p>
-    <ol class="coo-lista">${vistos.map((x, k) => cooLectFila(r, x, k, maxP, variada ? pal[x.tema % pal.length] : null)).join('')}</ol>
+    <ol class="coo-lista">${vistos.map((x, k) => cooLectFila(r, x, k, maxP, variada ? (paleta[x.tema] || pal[x.tema % pal.length]) : null)).join('')}</ol>
     ${lista.length > vistos.length ? `<p class="lex-more"><button class="btn sm" data-coomas>Mostrar ${nf(Math.min(lista.length - vistos.length, 20))} más de ${nf(lista.length)}</button></p>` : ''}
   </section>`;
 }
@@ -3554,6 +3807,10 @@ function cooRender() {
   const r = S.coo.data, L = S.libInfo, box = $('#hits'), sc = listScroller();
   if (!r || !L || S.view !== 'library' || S.libTab !== 'coocurrencias') return;
   listHead();
+  // Las marcas del lector son contextuales a la biblioteca: si aqui cambian los
+  // temas —resolucion, vocabulario, vecinos o terminos excluidos— el texto
+  // pintado tiene que cambiar con ellos, no quedarse con la particion anterior.
+  if (S.readTema) temaRepinta(); else temaHead();
   const top = sc.scrollTop;
   if (r.error) {
     box.innerHTML = `<div class="empty"><div class="big">⚠</div><h3>No se pudo construir la red</h3><p>${esc(r.message || r.error)}</p>
@@ -3611,6 +3868,7 @@ function cooRender() {
       <b>Orden de los temas:</b> por el G² medio de sus términos en el léxico, es decir, de más a menos característico de la biblioteca.
       ${p.modo_texto === 'completo' ? '' : '<br><b>Revisión en la lista:</b> busca en el texto completo de las intervenciones, así que puede encontrar algunas más que la cobertura del tema, que se calcula solo sobre el discurso de los oradores.'}</div></details>`;
   const pal = trendPal().series;
+  const paleta = cooPaleta((r.comunidades || []).length);
   const vecinos = cooVecinos(r);
   const marcadosN = E.marcados.size;
   const barraExcl = marcadosN || E.aplicados.size
@@ -3625,7 +3883,9 @@ function cooRender() {
   if (X.orden === 'peso') ordenados.sort((x, y) => (y[0].peso || 0) - (x[0].peso || 0) || x[1] - y[1]);
   else if (X.orden === 'alcance') ordenados.sort((x, y) => (y[0].porcentaje || 0) - (x[0].porcentaje || 0) || x[1] - y[1]);
   const temas = ordenados.map(([c, k]) => {
-    const col = pal[k % pal.length];
+    // La misma paleta que tine el texto en el lector: el tema 3 de aqui y el
+    // tema 3 de alli son el mismo color, y ya no se repite a partir del noveno.
+    const col = paleta[k] || pal[k % pal.length];
     const chips = c.terminos.map((t, q) => {
       const peso = q < Math.ceil(c.terminos.length / 3) ? ' w1' : q < Math.ceil(2 * c.terminos.length / 3) ? ' w2' : ' w3';
       const marc = E.marcados.has(t.term) ? ' marcado' : '';
@@ -6351,6 +6611,12 @@ function wire() {
     const b = e.target.closest('[data-rmode]');
     if (b) setReadMode(b.dataset.rmode);
   });
+  // #temaTools es hermano de #readModes, no hijo: necesita su propio escuchador.
+  $('#temaTools')?.addEventListener('click', temaClick);
+  // La etiqueta se dibuja aparte, no con `title`: sale al momento y se ve como el resto.
+  $('#read')?.addEventListener('mouseover', temaTip);
+  $('#read')?.addEventListener('mouseleave', () => { if (TEMA_TIP) TEMA_TIP.hidden = true; });
+  document.addEventListener('scroll', () => { if (TEMA_TIP) TEMA_TIP.hidden = true; }, true);
   $('#sessRef').onclick = () => {
     const s = S.session;
     if (s?.outline && s.active) sessGoTo(s, s.byId.get(s.refId));

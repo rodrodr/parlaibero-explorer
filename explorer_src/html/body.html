@@ -132,6 +132,15 @@
         <button data-rmode="speech" aria-pressed="true" aria-label="Discurso" title="La intervención sola, como pliego del Diario (tecla s)">📄<span class="bt"> Discurso</span></button>
         <button data-rmode="session" aria-pressed="false" aria-label="Sesión corrida" title="Toda la sesión seguida, con esta intervención marcada (tecla s)">📖<span class="bt"> Sesión corrida</span></button>
       </div>
+      <!-- Teñido por tema: sale solo cuando la intervención abierta pertenece a la
+           biblioteca seleccionada y esa biblioteca tiene temas calculados. -->
+      <div class="rmodes temas" id="temaTools" role="group" aria-label="Teñido por tema" hidden>
+        <button data-tema="0" aria-pressed="true" title="Sin teñir: el texto tal cual">Tema: no</button>
+        <button data-tema="1" aria-pressed="false" title="Tiñe cada término con el color del tema de la red de coocurrencias al que pertenece">Sí</button>
+        <span class="tsep" aria-hidden="true"></span>
+        <button data-tmarca="fondo" aria-pressed="true" title="La marca, como fondo del término">Fondo</button>
+        <button data-tmarca="subrayado" aria-pressed="false" title="La marca, como subrayado: más sobria sobre texto corrido">Subrayado</button>
+      </div>
       
       <div class="rmodes" id="careoModes" role="group" aria-label="Tipo de careo" hidden>
         <button data-cmode="synchronic" aria-pressed="true" title="Réplicas en la misma sesión: alusiones, interrupciones y turnos cercanos">Misma sesión</button>
