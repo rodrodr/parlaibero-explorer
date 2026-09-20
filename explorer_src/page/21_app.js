@@ -3422,11 +3422,11 @@ function cooPartidosHTML(r, c) {
   const ticks = [];
   for (let k = 2; k <= K; k++) ticks.push(`<span class="coo-eje-t" style="left:${x(k)}"></span>`, `<span class="coo-eje-t" style="left:${x(1 / k)}"></span>`);
   const puntos = cand.slice().sort((a, b) => a.veces - b.veces).map(f => {
-    const tit = `${f.p}: ${f.tok ? `${dec(f.tasa)} palabras del tema por cada mil suyas, ${dec(f.veces, 2)} veces la media`
-      : 'ninguna palabra del tema'} (la media de la biblioteca es ${dec(tasaLib)} por mil). Dice ${nf(f.tok)} de las`
-      + ` ${nf(rep.palabras)} palabras del tema —cabría esperar ${nf(Math.round(f.esperado))}—, en ${nf(f.n)}`
-      + ` ${f.n === 1 ? 'intervención' : 'intervenciones'}, y ${nf(f.pal)} palabras en toda la biblioteca.`;
-    return `<span class="coo-eje-p" data-prio="${orden.get(f.p)}" style="left:${x(f.veces)}" title="${esc(tit)}">`
+    const ficha = `<div><b>${esc(f.p)}</b> <em>${f.tok ? `${dec(f.veces, 2)}×` : 'ninguna palabra del tema'}</em>`
+      + `${f.tok ? ` la media (${dec(f.tasa)} por mil frente a ${dec(tasaLib)})` : ''} · ${nf(f.tok)} de las ${nf(rep.palabras)}`
+      + ` palabras del tema, cabría esperar ${nf(Math.round(f.esperado))} · ${nf(f.n)} ${f.n === 1 ? 'intervención' : 'intervenciones'}`
+      + ` · ${nf(f.pal)} palabras en la biblioteca</div>`;
+    return `<span class="coo-eje-p" data-prio="${orden.get(f.p)}" style="left:${x(f.veces)}" data-tip="${esc(ficha)}">`
       + `<b class="coo-eje-n">${esc(f.p)} <em>${f.tok ? `${dec(f.veces)}×` : '0'}</em></b><i class="coo-eje-d"></i></span>`;
   }).join('');
   const fuera = conPeso.length - cand.length;
@@ -3434,7 +3434,7 @@ function cooPartidosHTML(r, c) {
     .map(f => `${f.p} ${f.tok ? `${dec(f.veces)} veces la media` : 'ninguna palabra del tema'}`).join('; ');
   return `<div class="coo-eje" role="img" aria-label="${esc(`${cand.length} partidos por su uso del vocabulario del tema; los que más se apartan de la media: ${leyenda}`)}">
       <span class="coo-eje-linea"></span>${ticks.join('')}
-      <span class="coo-eje-media" style="left:50%" title="Media de la biblioteca para este tema: ${esc(dec(tasaLib))} palabras por mil"><b>media</b></span>
+      <span class="coo-eje-media" style="left:50%"><b>media</b></span>
       ${puntos}
     </div>${fuera > 0 ? `<div class="coo-pmas">fuera del eje, ${nf(fuera)} ${fuera === 1 ? 'partido' : 'partidos'} de los que cabría esperar menos de cinco palabras del tema</div>` : ''}`;
 }
@@ -3458,7 +3458,46 @@ function cooEjesAjustar(box) {
     }
     eje.classList.toggle('doble', doble);
     eje.classList.toggle('muchos', ps.length > 8);
+    cooEjeFicha(eje, ps);
   }
+}
+
+/** Ficha del eje: el `title` del navegador tarda casi un segundo y solo alcanza al punto de encima cuando se solapan.
+ *  Esta sigue al cursor sin espera y describe el punto más cercano y los que estén pegados a él, así que ninguno queda
+ *  inalcanzable por muy juntos que caigan. */
+function cooEjeFicha(eje, ps) {
+  const tip = document.createElement('div');
+  tip.className = 'coo-tip';
+  tip.hidden = true;
+  eje.append(tip);
+  const puntos = ps.map(p => ({ p, x: p.offsetLeft, tip: p.dataset.tip || '' }));
+  let caja = null, ultima = null;
+  const esconder = () => {
+    tip.hidden = true;
+    ultima = null;
+    for (const q of puntos) q.p.classList.remove('bajo');
+  };
+  const mover = (e) => {
+    if (!caja) caja = eje.getBoundingClientRect();
+    const px = e.clientX - caja.left;
+    let cerca = Infinity;
+    for (const q of puntos) cerca = Math.min(cerca, Math.abs(q.x - px));
+    if (cerca > 24) { esconder(); return; }                        // lejos de todos: sin ficha
+    const juntos = puntos.filter(q => Math.abs(q.x - px) <= cerca + 6);
+    const clave = juntos.map(q => q.x).join(' ');
+    if (clave !== ultima) {                                        // solo se rehace cuando cambia a quién describe
+      ultima = clave;
+      tip.innerHTML = juntos.map(q => q.tip).join('');
+      for (const q of puntos) q.p.classList.toggle('bajo', juntos.includes(q));
+    }
+    tip.hidden = false;
+    const w = tip.offsetWidth;
+    tip.style.left = `${Math.round(Math.max(0, Math.min(caja.width - w, px - w / 2)))}px`;
+  };
+  eje.addEventListener('pointerenter', () => { caja = eje.getBoundingClientRect(); });
+  eje.addEventListener('pointermove', mover);
+  eje.addEventListener('pointerdown', mover);                      // en pantalla táctil, al tocar
+  eje.addEventListener('pointerleave', esconder);
 }
 
 /** Una intervención jerarquizada: orador, fecha, partido, longitud, barra de puntuación y términos que la sostienen. */

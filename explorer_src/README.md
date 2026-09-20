@@ -319,8 +319,11 @@ detecta en ella temas con el algoritmo de Leiden. Motor en `worker/35b_engine__c
    que cabría esperar cinco palabras del tema o más: por debajo de eso ni el exceso ni la falta dicen nada (se dice
    cuántos quedan fuera por ahí). Cada etiqueta —nombre y cociente juntos, en una sola línea sobre el punto— se coloca
    midiéndola ya pintada, empezando por los partidos que más se apartan: la que choca sube a una segunda altura y, si
-   ahí tampoco cabe, el punto se queda sin etiqueta y sus cifras siguen en su título. El rótulo de la media va debajo
-   del eje, donde no estorba. Las palabras sin partido quedan fuera (se dice cuántas son).
+   ahí tampoco cabe, el punto se queda sin etiqueta. El rótulo de la media va debajo del eje, donde no estorba. La ficha
+   de cada punto no es un `title` del navegador —tarda casi un segundo y solo alcanza al punto de encima cuando se
+   solapan—, sino propia: sigue al cursor sin espera y describe el punto **más cercano** y los que estén pegados a él,
+   una línea por partido, de modo que ninguno queda inalcanzable por muy juntos que caigan. Las palabras sin partido
+   quedan fuera (se dice cuántas son).
 9. **Jerarquía de lectura**: cada intervención se puntúa con BM25 (k1 = 1,2, b = 0,75, los de FTS5), con el peso de cada
    término dado por ln(1 + G² en el léxico) en lugar del IDF. Hay una puntuación por tema y otra global, y una selección
    variada que toma por turnos la mejor de cada tema. Sirve para priorizar la lectura y, más adelante, para elegir las

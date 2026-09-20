@@ -1654,6 +1654,12 @@ html:not(.r2-app) body { overflow: hidden; }
 .coo-eje-p.muda .coo-eje-n{visibility:hidden}
 .coo-eje.muchos .coo-eje-d{width:9px;height:9px;margin-top:1.5px}
 .coo-eje.muchos .coo-eje-n{font-size:10.5px}
+.coo-eje-p.bajo .coo-eje-d{box-shadow:0 0 0 2px var(--bg-panel),0 0 0 3.5px var(--text)}
+.coo-eje-p.bajo .coo-eje-n{color:var(--text)}
+.coo-tip{position:absolute;z-index:3;top:calc(100% + 3px);pointer-events:none;background:var(--text);color:var(--bg);font-size:11px;line-height:1.5;padding:5px 9px;border-radius:6px;max-width:100%;box-shadow:var(--shadow)}
+.coo-tip div+div{margin-top:3px;padding-top:3px;border-top:1px solid color-mix(in srgb,var(--bg) 30%,transparent)}
+.coo-tip b{font-weight:650}
+.coo-tip em{font-style:normal;font-family:var(--mono);font-variant-numeric:tabular-nums}
 .coo-pmas{font-size:11px;color:var(--text-faint);margin:0 0 8px}
 .coo-acc{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .coo-tl{margin-top:8px;font-size:12px}
