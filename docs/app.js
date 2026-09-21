@@ -10794,7 +10794,30 @@ function cooEjesAjustar(box) {
 /** Ficha del eje: el `title` del navegador tarda casi un segundo y solo alcanza al punto de encima cuando se solapan.
  *  Esta sigue al cursor sin espera y describe el punto más cercano y los que estén pegados a él, así que ninguno queda
  *  inalcanzable por muy juntos que caigan. */
+// La colocacion mide las etiquetas ya pintadas, asi que depende del ancho: al
+// plegar un panel o cambiar la ventana hay que rehacerla, o el eje se queda con
+// las etiquetas que cabian en el ancho anterior —ocultando algunas que ya caben—.
+// Mismo patron que la red de menciones: ResizeObserver con un cuadro de espera.
+let COO_RO = null;
+function cooEjesVigilar(box) {
+  if (COO_RO) { COO_RO.disconnect(); COO_RO = null; }
+  if (!window.ResizeObserver || !box.querySelector('.coo-eje')) return;
+  let ancho = box.clientWidth;
+  // Sin requestAnimationFrame: el navegador lo congela con la pestana oculta y el
+  // reajuste no llegaba nunca. ResizeObserver ya agrupa por fotograma, y el guardia
+  // del ancho impide que los cambios de clase se realimenten.
+  COO_RO = new ResizeObserver(() => {
+    if (!box.isConnected || box.clientWidth === ancho) return;
+    ancho = box.clientWidth;
+    cooEjesAjustar(box);
+  });
+  COO_RO.observe(box);
+}
+
 function cooEjeFicha(eje, ps) {
+  // La colocacion se rehace en cada cambio de ancho, pero el cableado no: sin este
+  // guardia cada reajuste dejaba otra ficha y otros cuatro escuchadores en el eje.
+  if (eje.querySelector('.coo-tip')) return;
   const tip = document.createElement('div');
   tip.className = 'coo-tip';
   tip.hidden = true;
@@ -11001,6 +11024,7 @@ function cooRender() {
     ${fuentePieHTML('panel-fuente')}
   </div>`;
   cooEjesAjustar(box);
+  cooEjesVigilar(box);
   sc.scrollTop = top;
 }
 
