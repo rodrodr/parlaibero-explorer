@@ -1686,6 +1686,18 @@ html:not(.r2-app) body { overflow: hidden; }
 .coo-t:hover{border-color:var(--c)}
 .coo-t.marcado{text-decoration:line-through;opacity:.55;background:transparent;border-style:dashed}
 /* Partidos del tema: un punto por partido sobre un eje logarítmico en veces la media de la biblioteca */
+.tema-acc{float:right;display:flex;gap:5px}
+.tema-terms{display:flex;flex-wrap:wrap;gap:5px;max-height:232px;overflow-y:auto;
+  padding:8px;border:1px solid var(--border-soft);border-radius:6px;background:var(--bg-sunken)}
+.tema-t{display:inline-flex;align-items:baseline;gap:5px;border:1px solid var(--border);
+  background:var(--bg-panel);color:var(--text);border-radius:12px;padding:2px 9px;font-size:12px;
+  line-height:1.35;cursor:pointer}
+.tema-t i{font:500 10.5px/1 var(--mono);font-style:normal;color:var(--text-soft);
+  font-variant-numeric:tabular-nums}
+.tema-t.fuera{opacity:.45;text-decoration:line-through}
+.tema-t.fuera i{text-decoration:none}
+.tema-t:hover{border-color:var(--accent)}
+
 .coo-eje{position:relative;height:42px;margin:2px 6px 8px}
 .coo-eje-linea{position:absolute;left:0;right:0;top:22px;height:1px;background:var(--border)}
 .coo-eje-t{position:absolute;top:19px;width:1px;height:7px;background:var(--border)}

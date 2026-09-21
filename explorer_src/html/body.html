@@ -198,6 +198,34 @@
   </div>
 </dialog>
 
+<dialog id="dlgTema" aria-labelledby="temaDlgH">
+  <div class="dhead"><h3 id="temaDlgH">Nueva biblioteca a partir de un tema</h3>
+    <p class="dsub" id="temaDlgSub"></p></div>
+  <div class="dbody">
+    <div class="field">
+      <label>Términos de la búsqueda <span class="dsub" id="temaDlgN"></span>
+        <span class="tema-acc"><button type="button" class="btn sm ghost" id="temaDlgNada">Quitar todos</button>
+        <button type="button" class="btn sm ghost" id="temaDlgTodo">Poner todos</button></span></label>
+      <p class="dsub" style="margin:0 0 7px">La cifra de cada término es lo que trae <b>él solo</b> de todo el
+        corpus, no lo que añade al total: como se solapan, quitar uno común baja el total mucho menos que su
+        cifra. La de arriba es la que manda y se actualiza sola.</p>
+      <div id="temaDlgTerms" class="tema-terms"></div>
+    </div>
+    <div class="field"><label>Nombre de la biblioteca</label>
+      <input id="temaDlgName" placeholder="p. ej. concordato, Santa Sede, Sagasta"></div>
+    <div class="field"><label>Nota (opcional)</label>
+      <textarea id="temaDlgNota" class="note-edit"></textarea></div>
+  </div>
+  <div class="dconfirm" id="temaDlgBig" role="alert" hidden>
+    <p id="temaDlgBigTxt"></p>
+    <label class="chk"><input type="checkbox" id="temaDlgBigOk"><span class="lbl" id="temaDlgBigLbl"></span></label>
+  </div>
+  <div class="dfoot">
+    <button class="btn ghost" data-close>Cancelar</button>
+    <button class="btn primary" id="temaDlgOk">Crear biblioteca</button>
+  </div>
+</dialog>
+
 <dialog id="dlgExport">
   <div class="dhead"><h3>Exportar</h3><p class="dsub" id="expSub"></p></div>
   <div class="dbody">

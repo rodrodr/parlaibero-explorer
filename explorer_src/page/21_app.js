@@ -3951,6 +3951,7 @@ function cooRender() {
       ${cooPartidosHTML(r, c)}
       <div class="coo-acc"><button type="button" class="btn sm" data-coobuscar="${k}" title="Busca en la biblioteca las intervenciones con cualquiera de sus términos, resaltados, para revisar el tema">Revisar en la lista</button>
         <button type="button" class="btn sm ghost" data-coomarcartema="${k}" title="Marca todos los términos del tema para excluirlos">Marcar el tema</button>
+        <button type="button" class="btn sm ghost" data-coonueva="${k}" title="Busca estos términos en TODO el corpus, no solo en esta biblioteca, y guarda el resultado en una biblioteca nueva">Buscar en todo el corpus…</button>
         </div>${leer}
     </section>`;
   }).join('');
@@ -3997,6 +3998,148 @@ function cooChange(e) {
   cooLoad();
 }
 
+// ---------------------- una biblioteca nueva a partir de un tema ----------------
+// El tema se persigue por TODO el corpus, no solo por la biblioteca de la que
+// salio. Cuantos termine trayendo depende del tema: los de vocabulario propio
+// («concordato», «Santa Sede») devuelven poco; los de palabras corrientes
+// («gobierno», «orden») lo arrastran casi todo. Por eso no se decide aqui que
+// terminos valen: se ensena lo que trae cada uno y se quitan los que sobren.
+const TEMA_DLG = { terminos: [], base: '', n: 0, total: 0, seq: 0, contando: 0 };
+const TEMA_DLG_POOL = 8;   // recuentos a la vez: el motor los resuelve en milisegundos
+
+const temaTermQ = (t) => (/^[\p{L}\p{N}]+$/u.test(t) ? t : `"${t.replace(/"/g, '')}"`);
+const temaConsulta = (ts) => ts.map(temaTermQ).join(' | ');
+
+async function temaCuenta(q, signal) {
+  if (!q) return 0;
+  const r = await api('/search', { method: 'POST', signal,
+    body: { query: q, mode: 'keyword', variants: false, order: 'relevance', filters: {}, limit: 1, offset: 0 } });
+  return r && !r.error ? (r.total || 0) : 0;
+}
+
+function temaDlgPinta() {
+  const caja = $('#temaDlgTerms');
+  if (!caja) return;
+  caja.innerHTML = TEMA_DLG.terminos.map((t, i) =>
+    `<button type="button" class="tema-t${t.on ? '' : ' fuera'}" data-temat="${i}"
+       aria-pressed="${t.on}" title="${t.on ? 'Quitar de la búsqueda' : 'Volver a incluir'}">${esc(t.display)}`
+    + `<i>${t.n == null ? '…' : nf(t.n)}</i></button>`).join('');
+  const dentro = TEMA_DLG.terminos.filter(t => t.on).length;
+  $('#temaDlgN').textContent = `· ${nf(dentro)} de ${nf(TEMA_DLG.terminos.length)}`
+    + (TEMA_DLG.contando ? ' · contando…' : '');
+  const tot = TEMA_DLG.total;
+  const sub = $('#temaDlgSub');
+  if (sub) sub.innerHTML = `${esc(TEMA_DLG.base)} · <b>${tot == null ? '…' : nf(tot)}</b> `
+    + `${tot === 1 ? 'intervención' : 'intervenciones'} en todo el corpus`;
+  const grande = (tot || 0) > CONFIRMAR_DESDE;
+  $('#temaDlgBig').hidden = !grande;
+  if (grande) {
+    $('#temaDlgBigTxt').textContent = `Son ${nf(tot)} intervenciones. Guardarlas lleva unos segundos, y el `
+      + 'Léxico y las Coocurrencias de una biblioteca tan grande pueden tardar minutos la primera vez.';
+    $('#temaDlgBigLbl').textContent = `Sí, crearla con ${nf(tot)}`;
+  } else { $('#temaDlgBigOk').checked = false; }
+  const ok = $('#temaDlgOk');
+  ok.disabled = !dentro || !(tot > 0) || (grande && !$('#temaDlgBigOk').checked);
+}
+
+async function temaDlgTotal() {
+  const mio = ++TEMA_DLG.seq;
+  const q = temaConsulta(TEMA_DLG.terminos.filter(t => t.on).map(t => t.term));
+  TEMA_DLG.total = null; temaDlgPinta();
+  try {
+    const n = await temaCuenta(q);
+    if (mio !== TEMA_DLG.seq) return;
+    TEMA_DLG.total = n;
+  } catch (e) { if (mio === TEMA_DLG.seq) TEMA_DLG.total = 0; }
+  temaDlgPinta();
+}
+
+// Los recuentos por termino van en paralelo y se pintan segun llegan: con 108
+// terminos, en serie se notaria la espera.
+async function temaDlgCuentas(mio) {
+  const cola = TEMA_DLG.terminos.map((t, i) => [t, i]);
+  TEMA_DLG.contando = cola.length;
+  let sig = 0;
+  const obrero = async () => {
+    for (;;) {
+      const j = sig++;
+      if (j >= cola.length || mio !== TEMA_DLG.seqCuentas) return;
+      const [t] = cola[j];
+      try { t.n = await temaCuenta(temaTermQ(t.term)); } catch (e) { t.n = 0; }
+      TEMA_DLG.contando--;
+      if (mio === TEMA_DLG.seqCuentas && (TEMA_DLG.contando % 6 === 0 || !TEMA_DLG.contando)) temaDlgPinta();
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(TEMA_DLG_POOL, cola.length) }, obrero));
+  if (mio !== TEMA_DLG.seqCuentas) return;
+  // De mas a menos: el que arrastra el bulto se ve el primero, que es de lo que se trata.
+  TEMA_DLG.terminos.sort((a, b) => (b.n || 0) - (a.n || 0));
+  TEMA_DLG.contando = 0;
+  temaDlgPinta();
+}
+
+function temaDlgNota() {
+  const L = S.libInfo, puestos = TEMA_DLG.terminos.filter(t => t.on);
+  const todos = puestos.length === TEMA_DLG.terminos.length;
+  return `Nuevo tema ${TEMA_DLG.n} a partir de la biblioteca «${L ? L.name : ''}», buscado en todo el corpus.\n`
+    + `Términos (${nf(puestos.length)}${todos ? '' : ` de ${nf(TEMA_DLG.terminos.length)}`}): `
+    + `${puestos.map(t => t.display).join(', ')}.`;
+}
+
+function cooNuevaBiblioteca(k) {
+  const r = S.coo.data, L = S.libInfo, c = r && r.comunidades && r.comunidades[k];
+  const dlg = $('#dlgTema');
+  if (!c || !dlg) return;
+  const E = cooExcl();
+  const ts = c.terminos.filter(t => !E.marcados.has(t.term));
+  if (!ts.length) return toast('Todos los términos del tema están marcados para excluir.', true);
+  TEMA_DLG.terminos = ts.map(t => ({ term: t.term, display: t.display, on: true, n: null }));
+  TEMA_DLG.n = k + 1;
+  TEMA_DLG.base = `Tema ${k + 1} de «${L ? L.name : ''}»`;
+  TEMA_DLG.total = null;
+  // La etiqueta que ya lleva el tema en su ficha, para reconocerlo de un vistazo.
+  $('#temaDlgName').value = (c.etiqueta || ts.slice(0, 3).map(t => t.display).join(' · ')).replace(/ · /g, ', ');
+  // La nota deja constancia de con que se busco. Se rehace al crear con los
+  // terminos que queden puestos, salvo que el usuario la haya escrito el.
+  TEMA_DLG.nota = temaDlgNota();
+  $('#temaDlgNota').value = TEMA_DLG.nota;
+  $('#temaDlgBigOk').checked = false;
+  temaDlgPinta();
+  dlg.showModal();
+  TEMA_DLG.seqCuentas = (TEMA_DLG.seqCuentas || 0) + 1;
+  temaDlgCuentas(TEMA_DLG.seqCuentas);
+  temaDlgTotal();
+}
+
+async function temaDlgCrear() {
+  const dlg = $('#dlgTema'), btn = $('#temaDlgOk');
+  if (dlg._busy || btn.disabled) return;
+  const nombre = $('#temaDlgName').value.trim();
+  if (!nombre) return toast('Escriba un nombre para la biblioteca.', true);
+  const dentro = TEMA_DLG.terminos.filter(t => t.on);
+  const q = temaConsulta(dentro.map(t => t.term));
+  const n = TEMA_DLG.total || 0;
+  const busy = busyStart(dlg, btn, `Creando con ${nf(n)}…`);
+  try {
+    const cid = (await api('/collections', { method: 'POST', body: { name: nombre } })).id;
+    // Si la nota sigue siendo la que se puso al abrir, se rehace con los terminos
+    // que han quedado; si el usuario la ha cambiado, manda la suya.
+    const escrita = $('#temaDlgNota').value;
+    const nota = escrita.trim() === (TEMA_DLG.nota || '').trim() ? temaDlgNota() : escrita;
+    await api(`/collections/${cid}/items`, { method: 'POST', body: {
+      note: nota.trim(), tags: [],
+      add_all_results: true,
+      query: q, mode: 'keyword', variants: false, order: 'relevance', filters: {} } });
+    S.ultimaBiblioteca = +cid;
+    S.statsCache = null;
+    await refreshCollections();
+    dlg.close();
+    toast(`Biblioteca «${nombre}» creada con ${nf(n)} ${n === 1 ? 'intervención' : 'intervenciones'}`);
+    if (S.view === 'library') renderLibraryView();
+  } catch (e) { toast(e.message, true); }
+  finally { busy.end(); temaDlgPinta(); }
+}
+
 function cooBuscar(k) {
   const r = S.coo.data, cid = S.libSel;
   const c = r && r.comunidades && r.comunidades[k];
@@ -4037,6 +4180,7 @@ function cooClick(e) {
   if ((el = b('[data-coounidad]'))) { if (X.unidad !== el.dataset.coounidad) { X.unidad = el.dataset.coounidad; cooLoad(); } return true; }
   if ((el = b('[data-cooresol]'))) { const v = Number(el.dataset.cooresol); if (X.resolucion !== v) { X.resolucion = v; cooLoad(); } return true; }
   if ((el = b('[data-coobuscar]'))) { cooBuscar(+el.dataset.coobuscar); return true; }
+  if ((el = b('[data-coonueva]'))) { cooNuevaBiblioteca(+el.dataset.coonueva); return true; }
   if ((el = b('[data-cooopen]'))) { openSpeech(+el.dataset.cooopen, { mode: 'speech' }); return true; }
   if ((el = b('[data-cooexp]'))) {
     const tipo = el.dataset.cooexp;
@@ -6715,6 +6859,20 @@ function wire() {
     openAdd([S.selected], hit?.char_start != null ? [hit.char_start, hit.char_end] : null);
   };
   $('#addConfirm').onclick = doAdd;
+  $('#temaDlgOk').onclick = temaDlgCrear;
+  $('#temaDlgBigOk').onchange = temaDlgPinta;
+  $('#temaDlgNada').onclick = () => { for (const t of TEMA_DLG.terminos) t.on = false; temaDlgPinta(); temaDlgTotal(); };
+  $('#temaDlgTodo').onclick = () => { for (const t of TEMA_DLG.terminos) t.on = true; temaDlgPinta(); temaDlgTotal(); };
+  $('#temaDlgTerms').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-temat]');
+    if (!b) return;
+    const t = TEMA_DLG.terminos[+b.dataset.temat];
+    if (!t) return;
+    t.on = !t.on;
+    temaDlgPinta();
+    temaDlgTotal();
+  });
+
   $('#expConfirm').onclick = doExport;
 
   $('#delLibBtn').onclick = () => { if (S.view === 'library' && S.libSel != null) openDelLib(S.libSel); };
