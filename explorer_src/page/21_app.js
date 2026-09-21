@@ -3715,9 +3715,22 @@ function cooEjesAjustar(box) {
     const puestos = [[], []];
     const libre = (nivel, a, b) => puestos[nivel].every(([c, d]) => b <= c || a >= d);
     let doble = false;
+    const W = eje.clientWidth;
     for (const p of ps.slice().sort((a, b) => (+a.dataset.prio || 0) - (+b.dataset.prio || 0))) {
       p.classList.remove('alto', 'muda');
-      const w = p.offsetWidth, cx = p.offsetLeft, a = cx - w / 2, b = cx + w / 2;
+      const n = p.querySelector('.coo-eje-n');
+      // Se mide el rotulo, no el punto: en la rejilla el ancho del grupo es el del
+      // mayor de los dos. Las transformaciones no entran en offsetLeft/offsetWidth,
+      // asi que medir despues de haber desplazado sigue dando la posicion real.
+      const w = (n ? n.offsetWidth : p.offsetWidth), cx = p.offsetLeft;
+      // Los de los extremos se salian de la caja del eje: en vez de ocultarlos, el
+      // rotulo se corre hacia dentro lo justo. El punto se queda donde le toca, que
+      // es lo que codifica el dato; el rotulo solo lo nombra.
+      let dx = 0;
+      if (cx - w / 2 < 0) dx = w / 2 - cx;
+      else if (cx + w / 2 > W) dx = W - cx - w / 2;
+      if (n) n.style.transform = dx ? `translateX(${Math.round(dx)}px)` : '';
+      const a = cx - w / 2 + dx, b = cx + w / 2 + dx;
       const nivel = libre(0, a, b) ? 0 : (libre(1, a, b) ? 1 : -1);
       if (nivel < 0) { p.classList.add('muda'); continue; }
       if (nivel === 1) { p.classList.add('alto'); doble = true; }
