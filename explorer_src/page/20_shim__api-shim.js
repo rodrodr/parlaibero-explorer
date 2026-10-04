@@ -25,8 +25,8 @@
 (function (R2) {
   'use strict';
 
-  const MSG_PROXIMA = 'Esta función llega en una próxima versión de Diarios Explorer.';
-  const MSG_MOTOR = 'El motor de la página no está disponible.';
+  const MSG_PROXIMA = __('Esta función llega en una próxima versión de Diarios Explorer.');
+  const MSG_MOTOR = __('El motor de la página no está disponible.');
   const OP_API = 'api';
 
   const TEXTO_ESTADO = { 200: 'OK', 400: 'Bad Request', 404: 'Not Found', 405: 'Method Not Allowed', 422: 'Unprocessable Entity',
@@ -34,8 +34,8 @@
 
   function errorAbortado(signal) {
     if (signal && signal.reason !== undefined) return signal.reason;
-    if (typeof DOMException === 'function') return new DOMException('Se canceló la petición.', 'AbortError');
-    const e = new Error('Se canceló la petición.');
+    if (typeof DOMException === 'function') return new DOMException(__('Se canceló la petición.'), 'AbortError');
+    const e = new Error(__('Se canceló la petición.'));
     e.name = 'AbortError';
     return e;
   }

@@ -353,11 +353,12 @@
     return { nombre: nom, cargo: car, interrupciones: inter, acotaciones: acot };
   }
 
-  const al = (etiqueta) => (RX_AL.match(etiqueta) ? 'al ' : 'a ') + etiqueta;
-  const por = (etiqueta) => (RX_POR.match(etiqueta) ? 'el ' : '') + etiqueta;
+  // «al Presidente» / «a Azaña», «por el Ministro» / «por Azaña»: cada caso es una clave completa
+  const conAl = (etiqueta) => !!RX_AL.match(etiqueta);
+  const conEl = (etiqueta) => !!RX_POR.match(etiqueta);
   const veces = (n) => (n > 1 ? ` (×${n})` : '');
   const extra = (n) => Math.min(TOPE_MENCION_EXTRA, PESO_MENCION_EXTRA * (n - 1));
-  const numEs = (x, nd = 1) => C.pyFormat(x, `.${nd}f`).replace('.', ',');
+  const numEs = (x, nd = 1) => __.dec(C.pyFormat(x, `.${nd}f`));
 
   // ------------------------------------------------------------------------------------------ filas
   function filaRef(bd, sid, conTexto = false) {
@@ -392,14 +393,13 @@
       + 'WHERE date = ? AND COALESCE(num_session, -1) <> COALESCE(?, -1) ORDER BY num_session',
       [ref.date, ref.num_session]);
     if (!otras.length) return [];
-    const lista = otras.map((x) => (x === null ? 's/n' : `n.º ${x}`)).join(', ');
-    const propia = ref.num_session === null ? 's/n' : `n.º ${ref.num_session}`;
+    const lista = otras.map((x) => (x === null ? __('s/n') : __('n.º {0}', x))).join(', ');
+    const propia = ref.num_session === null ? __('s/n') : __('n.º {0}', ref.num_session);
     return [{
       code: 'same_date_sessions',
       other_sessions: otras,
-      message: `El ${ref.date} consta también la sesión ${lista}. El careo solo compara `
-        + `dentro de la sesión ${propia}: si es una doble sesión real, la otra no se `
-        + 'mira; si es la misma sesión catalogada dos veces, falta la otra mitad.',
+      message: __('El {0} consta también la sesión {1}. El careo solo compara dentro de la sesión {2}: si es una doble sesión real, la otra no se mira; si es la misma sesión catalogada dos veces, falta la otra mitad.',
+        ref.date, lista, propia),
     }];
   }
 
@@ -451,8 +451,10 @@
       const aRef = contarAlusiones(c._texto, plegar(c._texto), refInfo.patrones);
 
       for (const [a, txtAlusion, txtInterrupcion] of [
-        [aRef, `Alude ${al(refInfo.etiqueta)}`, `Interrumpido por ${por(refInfo.etiqueta)}`],
-        [deRef, `${refInfo.etiqueta} alude ${al(info.etiqueta)}`, `Interrumpe ${al(refInfo.etiqueta)}`],
+        [aRef, conAl(refInfo.etiqueta) ? __('Alude al {0}', refInfo.etiqueta) : __('Alude a {0}', refInfo.etiqueta),
+          conEl(refInfo.etiqueta) ? __('Interrumpido por el {0}', refInfo.etiqueta) : __('Interrumpido por {0}', refInfo.etiqueta)],
+        [deRef, conAl(info.etiqueta) ? __('{0} alude al {1}', refInfo.etiqueta, info.etiqueta) : __('{0} alude a {1}', refInfo.etiqueta, info.etiqueta),
+          conAl(refInfo.etiqueta) ? __('Interrumpe al {0}', refInfo.etiqueta) : __('Interrumpe a {0}', refInfo.etiqueta)],
       ]) {
         const n = a.nombre + a.cargo;
         if (n) {
@@ -471,15 +473,18 @@
         const lo = Math.min(c.ord, ref.ord), hi = Math.max(c.ord, ref.ord);
         k = Math.max(0, bisectLeft(ords, hi) - bisectRight(ords, lo));
         score += PESO_TURNO * (DECAIMIENTO_TURNO ** k);
-        if (k === 0) motivos.push(`Turno contiguo (orden ${c.ord + 1})`);
-        else if (k <= 3) motivos.push(`Turno cercano (orden ${c.ord + 1}, ${k} ${k === 1 ? 'turno' : 'turnos'} en medio)`);
+        if (k === 0) motivos.push(__('Turno contiguo (orden {0})', c.ord + 1));
+        else if (k <= 3) {
+          motivos.push(k === 1 ? __('Turno cercano (orden {0}, {1} turno en medio)', c.ord + 1, k)
+            : __('Turno cercano (orden {0}, {1} turnos en medio)', c.ord + 1, k));
+        }
       }
 
       // --- afinidad política: otro partido (este corpus no trae familia ni ideología) ---
       const otroPartido = !sinDato(ref.party) && !sinDato(c.party) && c.party !== ref.party;
       if (otroPartido) {
         score += PESO_OTRA_FAMILIA;
-        motivos.push(`Otro partido (${c.party})`);
+        motivos.push(__('Otro partido ({0})', c.party));
       }
 
       const item = publica(c, info);
@@ -509,7 +514,7 @@
     return {
       mode: 'synchronic',
       heuristic: true,
-      note: NOTA_SYNC,
+      note: __(NOTA_SYNC),
       target: publica(ref, refInfo),
       results: ordenados.slice(0, Math.max(1, Math.trunc(top))),
       n_candidates: cands.length,
@@ -646,7 +651,7 @@
       top_similar: RANGO_DIAC,
     };
     if (ref.rep_id === null || ref.rep_id === undefined) {
-      out.note = 'La intervención no tiene diputado identificado: no hay con quién compararla.';
+      out.note = __('La intervención no tiene diputado identificado: no hay con quién compararla.');
       out.ms = ms(t0);
       return out;
     }
@@ -669,7 +674,7 @@
     }
     out.n_candidates = cands.size;
     if (!cands.size) {
-      out.note = 'No hay otras intervenciones de este diputado con 150 palabras o más.';
+      out.note = __('No hay otras intervenciones de este diputado con 150 palabras o más.');
       out.ms = ms(t0);
       return out;
     }
@@ -677,7 +682,7 @@
     // Sin vectores en esta edición: coincidencia léxica.
     const terminos = terminosFrecuentes(ref.speech);
     out.method = 'fts';
-    out.note = NOTA_DIAC_FTS;
+    out.note = __(NOTA_DIAC_FTS);
     out.terms = terminos;
     const [relevancia, via] = relevanciasFts(bd, terminos, new Set(cands.keys()), ref.rep_id, ref.id);
     out.fts_scoring = via;
@@ -704,11 +709,11 @@
       const score = rel * Math.log1p(años);
       const enRango = puesto.get(sid) < RANGO_DIAC;
       const motivos = [];
-      motivos.push(`Coincidencia léxica ${numEs(rel, 2)} (relativa)`);
-      if (enRango) motivos.push(`Entre las ${RANGO_DIAC} más parecidas (puesto ${puesto.get(sid) + 1} de ${nRel})`);
-      else motivos.push(`Puesto ${puesto.get(sid) + 1} de ${nRel} por parecido`);
-      motivos.push(`A ${numEs(años)} años (${c.date})`);
-      if (c.legislature && c.legislature !== ref.legislature) motivos.push(`Otra legislatura (${c.legislature})`);
+      motivos.push(__('Coincidencia léxica {0} (relativa)', numEs(rel, 2)));
+      if (enRango) motivos.push(__('Entre las {0} más parecidas (puesto {1} de {2})', RANGO_DIAC, puesto.get(sid) + 1, nRel));
+      else motivos.push(__('Puesto {0} de {1} por parecido', puesto.get(sid) + 1, nRel));
+      motivos.push(__('A {0} años ({1})', numEs(años), c.date));
+      if (c.legislature && c.legislature !== ref.legislature) motivos.push(__('Otra legislatura ({0})', c.legislature));
       const item = publica(c, c._info);
       Object.assign(item, {
         score: C.pyRound(score, 4),
@@ -747,7 +752,7 @@
     let res;
     if (mode === 'synchronic') res = synchronic(bd, sid, top);
     else if (mode === 'diachronic') res = diachronic(bd, sid, top);
-    else throw RT.solicitud('Modo de careo no válido: use synchronic o diachronic.');
+    else throw RT.solicitud(__('Modo de careo no válido: use synchronic o diachronic.'));
     return res === null ? null : etiquetar(res);
   }
 
@@ -761,12 +766,12 @@
     const modo = valorQuery(pet.query, 'mode');
     const mode = modo === undefined || modo === null ? 'synchronic' : String(modo);
     if (mode !== 'synchronic' && mode !== 'diachronic') {
-      throw RT.noValido(`mode debe ser synchronic o diachronic (recibido: ${C.pyRepr(mode)}).`);
+      throw RT.noValido(__('mode debe ser synchronic o diachronic (recibido: {0}).', C.pyRepr(mode)));
     }
     const t = valorQuery(pet.query, 'top');
     const top = t === undefined || t === null ? 5 : V.entero(t, 'top', 1, 20);
     const res = careo({ db: ctx.db, sqlite3: ctx.sqlite3 }, sid, mode, top);
-    if (res === null) throw new RT.ErrorHttp(404, 'No existe esa intervencion.');
+    if (res === null) throw new RT.ErrorHttp(404, __('No existe esa intervencion.'));
     return res;
   }, { prioridad: 'interactiva' });
 

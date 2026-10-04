@@ -18,7 +18,7 @@
 (function (R2) {
   'use strict';
 
-  const SIN_IDENTIFICAR = 'Sin identificar';
+  const SIN_IDENTIFICAR = N_('Sin identificar');
 
   /** Columnas del CSV, en orden (cabecera exacta). */
   const COLUMNAS_CSV = Object.freeze(['id_session', 'id_int', 'legislature', 'legislative_session', 'session_number', 'date',

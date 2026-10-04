@@ -20,18 +20,18 @@
 
 
   const ESENCIALES = [
-    ['procesos en segundo plano (Worker)', (g) => typeof g.Worker === 'function'],
-    ['Blob y URL.createObjectURL', (g) => typeof g.Blob === 'function' && !!g.URL && typeof g.URL.createObjectURL === 'function'],
+    [__('procesos en segundo plano (Worker)'), (g) => typeof g.Worker === 'function'],
+    [__('Blob y URL.createObjectURL'), (g) => typeof g.Blob === 'function' && !!g.URL && typeof g.URL.createObjectURL === 'function'],
     ['WebAssembly', (g) => typeof g.WebAssembly === 'object' && g.WebAssembly !== null && typeof g.WebAssembly.instantiate === 'function'],
-    ['enteros de 64 bits (BigInt64Array)', (g) => typeof g.BigInt64Array === 'function'],
-    ['TextEncoder y TextDecoder', (g) => typeof g.TextEncoder === 'function' && typeof g.TextDecoder === 'function'],
-    ['lectura de archivos (Blob.arrayBuffer)', (g) => typeof g.Blob === 'function' && typeof g.Blob.prototype.arrayBuffer === 'function'],
+    [__('enteros de 64 bits (BigInt64Array)'), (g) => typeof g.BigInt64Array === 'function'],
+    [__('TextEncoder y TextDecoder'), (g) => typeof g.TextEncoder === 'function' && typeof g.TextDecoder === 'function'],
+    [__('lectura de archivos (Blob.arrayBuffer)'), (g) => typeof g.Blob === 'function' && typeof g.Blob.prototype.arrayBuffer === 'function'],
     ['MessageChannel', (g) => typeof g.MessageChannel === 'function'],
     ['AbortController', (g) => typeof g.AbortController === 'function'],
-    ['expresiones regulares con el indicador «v»', (g) => {
+    [__('expresiones regulares con el indicador «v»'), (g) => {
       try { return new (g.RegExp || RegExp)('[\\p{L}--[a-z]]', 'v').test('ñ'); } catch (e) { return false; }
     }],
-    ['diálogos (<dialog>)', (g) => typeof g.HTMLDialogElement === 'function' && typeof g.HTMLDialogElement.prototype.showModal === 'function'],
+    [__('diálogos (<dialog>)'), (g) => typeof g.HTMLDialogElement === 'function' && typeof g.HTMLDialogElement.prototype.showModal === 'function'],
   ];
 
   function motorDe(userAgent, marcas) {
@@ -134,18 +134,18 @@
     const s = sondeo || {};
     let a;
     if (!almacen) {
-      a = { tipo: 'comprobando', texto: 'Comprobando si este navegador puede guardar sus bibliotecas…' };
+      a = { tipo: 'comprobando', texto: __('Comprobando si este navegador puede guardar sus bibliotecas…') };
     } else if (almacen.persistente) {
-      a = { tipo: 'navegador', texto: 'Sus bibliotecas se guardan en este navegador y se pueden exportar como .2replib.' };
+      a = { tipo: 'navegador', texto: __('Sus bibliotecas se guardan en este navegador y se pueden exportar como .2replib.') };
       if (s.motor === 'gecko' && s.archivoLocal) {
-        a.texto += ' En Firefox dependen de dónde esté este archivo: si lo mueve o le cambia el nombre, no las encontrará.';
+        a.texto += ' ' + __('En Firefox dependen de dónde esté este archivo: si lo mueve o le cambia el nombre, no las encontrará.');
       }
     } else {
-      a = { tipo: 'memoria', texto: 'Este navegador no permite guardar datos en una página abierta como archivo: sus bibliotecas solo durarán mientras la tenga abierta. Expórtelas como .2replib antes de cerrarla.' };
+      a = { tipo: 'memoria', texto: __('Este navegador no permite guardar datos en una página abierta como archivo: sus bibliotecas solo durarán mientras la tenga abierta. Expórtelas como .2replib antes de cerrarla.') };
     }
     const gb = s.opcionales && s.opcionales.memoriaEquipoGb;
     const memoria = typeof gb === 'number' && gb <= 4
-      ? `Este equipo tiene unos ${String(gb).replace('.', ',')} GB de memoria y la construcción de un CSV grande puede necesitar más de 1 GB: cierre otras pestañas antes de empezar.`
+      ? __('Este equipo tiene unos {0} GB de memoria y la construcción de un CSV grande puede necesitar más de 1 GB: cierre otras pestañas antes de empezar.', __.dec(gb))
       : null;
     return { almacen: a, memoria };
   }

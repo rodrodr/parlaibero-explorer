@@ -175,7 +175,7 @@
 
   /** Cita completa. Usa la cadena oficial del repositorio si está en el manifest. */
   function cita(f) {
-    if (!verdad(f)) return K.SIN_FUENTE;
+    if (!verdad(f)) return __(K.SIN_FUENTE);
     if (verdad(dget(f, 'cita'))) return dget(f, 'cita');
     const partes = [unir('; ', _autores(f)), pyStr(o(dget(f, 'anio'), '')), `"${pyStr(dget(f, 'titulo', ''))}"`,
       url(f), dget(f, 'editor', ''), dget(f, 'version_cita', '')];
@@ -184,15 +184,18 @@
 
   /** Forma breve para columnas y pies: «<primer autor> et al. (<año>), <título>, doi:…». */
   function cita_corta(f) {
-    if (!verdad(f)) return K.SIN_FUENTE;
+    if (!verdad(f)) return __(K.SIN_FUENTE);
     const aut = _autores(f);
     const primero = aut.length ? aut[0].split(',')[0] : o(dget(f, 'editor'), '');
     let quien;
     if (aut.length > 2) quien = `${pyStr(primero)} et al.`;
-    else quien = o(unir(' y ', aut.map((a) => a.split(',')[0])), primero);
+    else {
+      const ap = aut.map((a) => a.split(',')[0]);
+      quien = o(ap.length === 2 ? __('{0} y {1}', ap[0], ap[1]) : unir(' y ', ap), primero);
+    }
     const titulo = comoStr(o(dget(f, 'titulo'), ''), 'split').split(':')[0];
     const doi = verdad(dget(f, 'doi')) ? `doi:${pyStr(dget(f, 'doi'))}` : url(f);
-    return unir(', ', [`${pyStr(quien)} (${pyStr(dget(f, 'anio', 's. f.'))})`, titulo, doi].filter(verdad));
+    return unir(', ', [`${pyStr(quien)} (${pyStr(dget(f, 'anio', __('s. f.')))})`, titulo, doi].filter(verdad));
   }
 
   function licencia(f) {
@@ -206,7 +209,7 @@
 
   /** Bloque de metadatos de la fuente para JSON, .2replib y manifiestos de exportación. */
   function metadatos(f) {
-    if (!verdad(f)) return { declarada: false, cita: K.SIN_FUENTE };
+    if (!verdad(f)) return { declarada: false, cita: __(K.SIN_FUENTE) };
     const pares = [
       ['declarada', true],
       ['cita', cita(f)],
@@ -223,7 +226,7 @@
       ['licencia_url', dget(f, 'licencia_url')],
     ];
     if (verdad(dget(f, 'publicacion_relacionada'))) pares.push(['publicacion_relacionada', dget(f, 'publicacion_relacionada')]);
-    if (verdad(dget(f, 'origen'))) pares.push(['origen', dget(f, 'origen')]);
+    if (verdad(dget(f, 'origen'))) pares.push(['origen', __(dget(f, 'origen'))]);
     const out = {};
     for (const [k, v] of pares) if (!vacioMetadatos(v)) out[k] = v;
     return out;
@@ -233,21 +236,21 @@
   function lineas(f, prefijo = '# ') {
     let ls;
     if (!verdad(f)) {
-      ls = [`Fuente: ${K.SIN_FUENTE}`, 'DOI: no declarado', 'Licencia de los datos: no declarada',
-        'Publicación relacionada: no declarada'];
+      ls = [__('Fuente: {0}', __(K.SIN_FUENTE)), __('DOI: no declarado'), __('Licencia de los datos: no declarada'),
+        __('Publicación relacionada: no declarada')];
     } else {
       const rel = o(dget(f, 'publicacion_relacionada'), {});
-      const l1 = `Fuente (cite siempre): ${pyStr(cita(f))}`;
+      const l1 = __('Fuente (cite siempre): {0}', pyStr(cita(f)));
       let l2;
       if (verdad(dget(f, 'doi'))) l2 = `DOI: ${pyStr(dget(f, 'doi'))} · ${pyStr(url(f))}`;
-      else l2 = verdad(url(f)) ? `DOI: no declarado · ${pyStr(url(f))}` : 'DOI: no declarado';
-      const l3 = `Licencia de los datos: ${pyStr(o(licencia(f), 'no declarada'))}`;
+      else l2 = verdad(url(f)) ? __('DOI: no declarado · {0}', pyStr(url(f))) : __('DOI: no declarado');
+      const l3 = verdad(licencia(f)) ? __('Licencia de los datos: {0}', pyStr(licencia(f))) : __('Licencia de los datos: no declarada');
       let l4;
       if (verdad(dget(rel, 'titulo'))) {
-        l4 = `Publicación relacionada: ${pyStr(dget(rel, 'titulo'))}` +
+        l4 = __('Publicación relacionada: {0}', pyStr(dget(rel, 'titulo'))) +
           (verdad(dget(rel, 'doi')) ? ` (doi:${pyStr(dget(rel, 'doi'))})` : '');
       } else {
-        l4 = 'Publicación relacionada: ninguna declarada';
+        l4 = __('Publicación relacionada: ninguna declarada');
       }
       ls = [l1, l2, l3, l4];
     }
@@ -263,18 +266,18 @@
   function columnas(f) {
     return {
       fuente_cita: _celda(_una_linea(cita_corta(f))),
-      fuente_doi: _celda(_una_linea(o(url(f), K.SIN_FUENTE))),
+      fuente_doi: _celda(_una_linea(o(url(f), __(K.SIN_FUENTE)))),
     };
   }
 
   /** Sección «Fuente» para documentos Markdown. */
   function markdown(f) {
-    if (!verdad(f)) return `**Fuente:** ${K.SIN_FUENTE}\n`;
-    const ls = [`**Fuente (cite siempre):** ${pyStr(cita(f))}`];
-    if (verdad(licencia(f))) ls.push(`**Licencia de los datos:** ${pyStr(licencia(f))}`);
+    if (!verdad(f)) return __('**Fuente:** {0}', __(K.SIN_FUENTE)) + '\n';
+    const ls = [__('**Fuente (cite siempre):** {0}', pyStr(cita(f)))];
+    if (verdad(licencia(f))) ls.push(__('**Licencia de los datos:** {0}', pyStr(licencia(f))));
     const rel = o(dget(f, 'publicacion_relacionada'), {});
     if (verdad(dget(rel, 'titulo'))) {
-      const cabeza = `**Publicación relacionada:** ${pyStr(dget(rel, 'titulo'))}`;
+      const cabeza = __('**Publicación relacionada:** {0}', pyStr(dget(rel, 'titulo')));
       let cola = '';
       if (verdad(dget(rel, 'doi')) || verdad(dget(rel, 'url'))) {
         let enlace = dget(rel, 'url');
@@ -340,7 +343,7 @@
   }
 
   function bibtex(f, clave = null) {
-    if (!verdad(f)) return `% ${K.SIN_FUENTE}\n`;
+    if (!verdad(f)) return `% ${__(K.SIN_FUENTE)}\n`;
     const campos = [
       ['author', unir(' and ', _autores(f))],
       ['title', dget(f, 'titulo')],
@@ -349,19 +352,19 @@
       ['version', o(C.lstrip(comoStr(o(dget(f, 'version_cita'), ''), 'lstrip'), 'V'), null)],
       ['doi', dget(f, 'doi')],
       ['url', url(f)],
-      ['note', verdad(dget(f, 'licencia')) ? `Licencia ${pyStr(dget(f, 'licencia'))}` : null],
+      ['note', verdad(dget(f, 'licencia')) ? __('Licencia {0}', pyStr(dget(f, 'licencia'))) : null],
     ];
     const cuerpo = campos.filter(([, v]) => verdad(v)).map(([k, v]) => `  ${k} = {${pyStr(v)}}`).join(',\n');
     return `@dataset{${pyStr(verdad(clave) ? clave : clave_bibtex(f))},\n${cuerpo}\n}\n`;
   }
 
   function ris(f) {
-    if (!verdad(f)) return `TY  - DATA\nN1  - ${K.SIN_FUENTE}\nER  - \n`;
+    if (!verdad(f)) return `TY  - DATA\nN1  - ${__(K.SIN_FUENTE)}\nER  - \n`;
     const ls = ['TY  - DATA', ..._autores(f).map((a) => `AU  - ${a}`)];
     const pares = [
       ['TI', dget(f, 'titulo')], ['PY', dget(f, 'anio')], ['PB', dget(f, 'editor')], ['DO', dget(f, 'doi')],
       ['UR', url(f)], ['ET', dget(f, 'version_cita')],
-      ['N1', verdad(dget(f, 'licencia')) ? `Licencia ${pyStr(dget(f, 'licencia'))}` : null],
+      ['N1', verdad(dget(f, 'licencia')) ? __('Licencia {0}', pyStr(dget(f, 'licencia'))) : null],
     ];
     for (const [tag, v] of pares) if (verdad(v)) ls.push(`${tag}  - ${pyStr(v)}`);
     return ls.concat(['ER  - ']).join('\n') + '\n';
@@ -417,7 +420,7 @@
   }
 
   function csl_json(f) {
-    if (!verdad(f)) return { type: 'dataset', note: K.SIN_FUENTE };
+    if (!verdad(f)) return { type: 'dataset', note: __(K.SIN_FUENTE) };
     const persona = (n) => {
       const i = n.indexOf(',');
       return { family: C.strip(i < 0 ? n : n.slice(0, i)), given: C.strip(i < 0 ? '' : n.slice(i + 1)) };

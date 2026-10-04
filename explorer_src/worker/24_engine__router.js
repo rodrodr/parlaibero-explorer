@@ -34,11 +34,11 @@
 (function (R2) {
   'use strict';
 
-  const MSG_PROXIMA = 'Esta función llega en una próxima versión de 2REP_Standalone.';
-  const MSG_NO_LISTO = 'El corpus todavía no está listo.';
-  const MSG_MODO_NO_DISPONIBLE = 'La búsqueda por significado no está disponible en esta versión.';
-  const MSG_JSON = 'Parametros no validos. JSON decode error';
-  const TEXTO_HTTP = Object.freeze({ 404: 'No existe ese recurso.', 405: 'Método no permitido en esta ruta.' });
+  const MSG_PROXIMA = N_('Esta función llega en una próxima versión de 2REP_Standalone.');
+  const MSG_NO_LISTO = N_('El corpus todavía no está listo.');
+  const MSG_MODO_NO_DISPONIBLE = N_('La búsqueda por significado no está disponible en esta versión.');
+  const MSG_JSON = N_('Parametros no validos. JSON decode error');
+  const TEXTO_HTTP = Object.freeze({ 404: N_('No existe ese recurso.'), 405: N_('Método no permitido en esta ruta.') });
   const ENTERO_MAX = 9223372036854775807n;
   const MAX_SEGURO = 9007199254740991n;
   const ORDENES = Object.freeze(['relevance', 'date_asc', 'date_desc', 'length_desc', 'length_asc']);
@@ -97,8 +97,8 @@
   /** search._entero: entero de un valor JSON (número o texto con cifras) o 422. */
   function entero(v, campo, lo = -ENTERO_MAX, hi = ENTERO_MAX) {
     const n = aEntero(v);
-    if (n === null) throw noValido(`${campo} debe ser un número entero (recibido: ${repr(v)}).`);
-    if (n < BigInt(lo) || n > BigInt(hi)) throw noValido(`${campo} está fuera de rango (${lo}–${hi}).`);
+    if (n === null) throw noValido(__('{0} debe ser un número entero (recibido: {1}).', campo, repr(v)));
+    if (n < BigInt(lo) || n > BigInt(hi)) throw noValido(__('{0} está fuera de rango ({1}–{2}).', campo, lo, hi));
     return aNumero(n);
   }
 
@@ -106,7 +106,7 @@
   function texto(cuerpo, clave, defecto = '') {
     const v = get(cuerpo, clave);
     if (v === undefined || v === null) return defecto;
-    if (typeof v !== 'string') throw noValido(`${clave} debe ser un texto.`);
+    if (typeof v !== 'string') throw noValido(__('{0} debe ser un texto.', clave));
     return v;
   }
 
@@ -123,13 +123,13 @@
   /** server._body: None → {}; lo que no es un objeto JSON → 422. */
   function cuerpo(b) {
     if (b === undefined || b === null) return {};
-    if (!esDict(b)) throw new ErrorHttp(422, 'El cuerpo de la petición debe ser un objeto JSON.');
+    if (!esDict(b)) throw new ErrorHttp(422, __('El cuerpo de la petición debe ser un objeto JSON.'));
     return b;
   }
 
   /** server._ids: lista de enteros ≥ 0. */
   function ids(v, campo) {
-    if (!Array.isArray(v)) throw noValido(`${campo} debe ser una lista de ids.`);
+    if (!Array.isArray(v)) throw noValido(__('{0} debe ser una lista de ids.', campo));
     return v.map((x) => entero(x, campo, 0));
   }
 
@@ -144,7 +144,7 @@
   function orden(v) {
     if (v === undefined || v === null || v === '') return 'relevance';
     if (typeof v !== 'string' || !ORDENES.includes(v)) {
-      throw noValido(`order debe ser relevance, date_asc, date_desc, length_desc o length_asc (recibido: ${repr(v)}).`);
+      throw noValido(__('order debe ser relevance, date_asc, date_desc, length_desc o length_asc (recibido: {0}).', repr(v)));
     }
     return v;
   }
@@ -217,12 +217,12 @@
   async function despachar(pet, ctx = {}) {
     const metodo = String((pet && pet.metodo) || 'GET').toUpperCase();
     const r = buscar(metodo, pet && pet.ruta);
-    if (!r.def) return { status: r.status, cuerpo: { error: TEXTO_HTTP[r.status] }, tipo: 'json', cabeceras: {} };
+    if (!r.def) return { status: r.status, cuerpo: { error: __(TEXTO_HTTP[r.status]) }, tipo: 'json', cabeceras: {} };
     try {
-      if (r.def.corpus && ctx.corpusListo === false) throw new ErrorHttp(503, MSG_NO_LISTO);
+      if (r.def.corpus && ctx.corpusListo === false) throw new ErrorHttp(503, __(MSG_NO_LISTO));
       let c = pet.cuerpo;
       if (c === undefined && typeof pet.cuerpoTexto === 'string' && pet.cuerpoTexto !== '') {
-        try { c = JSON.parse(pet.cuerpoTexto); } catch (e) { throw new ErrorHttp(422, MSG_JSON); }
+        try { c = JSON.parse(pet.cuerpoTexto); } catch (e) { throw new ErrorHttp(422, __(MSG_JSON)); }
       }
       const res = await r.def.manejador({
         metodo, ruta: r.ruta, params: r.params, query: pet.query || {}, queryLista: pet.queryLista || [],
@@ -236,7 +236,7 @@
     }
   }
 
-  const proxima = () => { throw new ErrorHttp(501, MSG_PROXIMA); };
+  const proxima = () => { throw new ErrorHttp(501, __(MSG_PROXIMA)); };
 
   // Rutas del escritorio que Standalone atenderá (en el orden de server.py). Las que ya existen en esta versión las
   // sustituyen info.js, search.js y el módulo de bibliotecas; las demás responden 501. Las exclusivas del escritorio

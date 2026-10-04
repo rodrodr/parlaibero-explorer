@@ -42,6 +42,7 @@ def blob(nombre, datos, atributos=''):
 
 
 BUILD_ID = None  # se fija en main() a partir del contenido del worker y del registro de partidos
+LENGUAS_I18N = ('en', 'pt')  # el español es el texto fuente
 VERSION_WEB = None  # se fija en main(): huella de todas las fuentes (código, estilos, datos); versiona la caché de la edición web
 
 
@@ -110,8 +111,20 @@ def json_compacto(rel, web=None):
     return json.dumps(datos_json(rel, web), ensure_ascii=False, separators=(',', ':')).encode('utf-8')
 
 
+def i18n_json():
+    """Diccionarios de la interfaz ({lengua: {español: traducción}}, i18n/<lengua>.json) para <script id="r2-i18n">."""
+    d = {}
+    for lengua in LENGUAS_I18N:
+        ruta = os.path.join(ROOT, 'i18n', f'{lengua}.json')
+        if os.path.exists(ruta):
+            with open(ruta, encoding='utf-8') as f:
+                d[lengua] = {k: v for k, v in json.load(f).items() if v}
+    return b'<script type="application/json" id="r2-i18n">' + json.dumps(d, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/').encode('utf-8') + b'</script>\n'
+
+
 def worker():
-    partes = [leer('vendor/sqlite3.js')]
+    # i18n.js va justo detrás de SQLite: define __() y N_() antes de cualquier módulo del motor
+    partes = [leer('vendor/sqlite3.js'), leer('i18n/i18n.js')]
     for rel in archivos('worker', '.js'):
         if 'principal' in os.path.basename(rel):
             partes.append(b'/* ===== R2.datos ===== */\nglobalThis.R2 = globalThis.R2 || {};\nglobalThis.R2.datos = ' + json_compacto('datos/worker_datos.json') + b';\n')
@@ -137,7 +150,7 @@ def construir_web(destino):
     # Página: navegador.js en línea (debe correr antes que nada), CSS y JS en archivos con el build_id en la URL.
     css = b''.join(leer(c) for c in archivos('css', '.css'))
     escribir(os.path.join(destino, 'app.css'), css)
-    modulos = []
+    modulos = [leer('i18n/i18n.js')]  # primero: los demás módulos ya traducen al cargarse
     for rel in pagina[1:]:
         if os.path.basename(rel).startswith('03_cargas__cargas'):
             modulos.append(leer('web/cargas_web.js'))  # los recursos se descargan en vez de leerse embebidos
@@ -151,6 +164,7 @@ def construir_web(destino):
     out.append(b'</head>\n')
     out.append(leer('html/body.html'))
     out.append(b'<script type="application/json" id="r2-datos">' + json_compacto('datos/page_datos.json', recursos) + b'</script>\n')
+    out.append(i18n_json())
     out.append(f'<script src="app.js?v={v}"></script>\n'.encode())
     out.append(b'</body>\n</html>\n')
     escribir(os.path.join(destino, 'index.html'), b''.join(out))
@@ -182,12 +196,12 @@ def construir_web(destino):
 
 def main():
     global BUILD_ID
-    partes_worker = [leer('vendor/sqlite3.js')] + [leer(rel) for rel in archivos('worker', '.js')]
+    partes_worker = [leer('vendor/sqlite3.js'), leer('i18n/i18n.js')] + [leer(rel) for rel in archivos('worker', '.js')]
     # el registro de partidos cambia lo que la ingesta guarda: con otro registro, la base se reconstruye
     registro = [leer('datos/partidos_parlaibero.json')] if os.path.isfile(os.path.join(ROOT, 'datos', 'partidos_parlaibero.json')) else []
     BUILD_ID = hashlib.sha256(b''.join(partes_worker + registro)).hexdigest()[:16]
     global VERSION_WEB
-    fuentes = [leer(rel) for sub, ext in (('html', '.html'), ('css', '.css'), ('page', '.js'), ('web', '.js'), ('datos', '.json'))
+    fuentes = [leer(rel) for sub, ext in (('html', '.html'), ('css', '.css'), ('page', '.js'), ('web', '.js'), ('datos', '.json'), ('i18n', '.json'))
                for rel in archivos(sub, ext)] + [leer('assets/capitales.json')] + partes_worker
     if os.path.isfile(os.path.join(ROOT, 'datos', 'expresiones', 'indice.json')):
         fuentes.append(leer('datos/expresiones/indice.json'))  # lleva la huella de cada tabla de expresiones
@@ -213,6 +227,8 @@ def main():
         with open(ruta, 'rb') as f:
             out.append(blob(nombre, f.read(), atributos))
     out.append(blob('capitales', leer('assets/capitales.json')))
+    out.append(i18n_json())
+    out.append(b'<script>' + leer('i18n/i18n.js') + b'</script>\n')  # antes que los módulos de la página
     for rel in pagina[1:]:
         out.append(b'<script>' + leer(rel) + b'</script>\n')
     out.append(b'</body>\n</html>\n')

@@ -1267,10 +1267,10 @@
 
   // ------------------------------------------------------------------------------------------------ progreso
   const FASES = Object.freeze([
-    { id: 'lectura', etiqueta: 'Leyendo las intervenciones', peso: 0.3 },
-    { id: 'menciones', etiqueta: 'Buscando las menciones', peso: 0.45 },
-    { id: 'sueltos', etiqueta: 'Apellidos sueltos', peso: 0.15 },
-    { id: 'red', etiqueta: 'Red y focos', peso: 0.1 },
+    { id: 'lectura', etiqueta: N_('Leyendo las intervenciones'), peso: 0.3 },
+    { id: 'menciones', etiqueta: N_('Buscando las menciones'), peso: 0.45 },
+    { id: 'sueltos', etiqueta: N_('Apellidos sueltos'), peso: 0.15 },
+    { id: 'red', etiqueta: N_('Red y focos'), peso: 0.1 },
   ]);
 
   function crearProgreso(ctx, nTextos) {
@@ -1386,7 +1386,7 @@
         porPartido: [...r.porPartido.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3).map(([p, n]) => [p, Math.round(100 * n / Math.max(1, tot))]),
         contextos: ctxs.map((m) => ({ id: m.id, o: nombre(m.fuente), op: validoPartido(m.fuentePartido) ? m.fuentePartido : '',
           f: fechaDe.get(m.id) || m.date,
-          t: m.tipo === 'externa' ? (m.suelta ? 'nombre solo' : 'con cargo') : (m.vocativo ? 'se dirige' : 'habla de'), x: partes(m) })) };
+          t: m.tipo === 'externa' ? (m.suelta ? N_('nombre solo') : N_('con cargo')) : (m.vocativo ? N_('se dirige') : N_('habla de')), x: partes(m) })) };
     });
 
     // Quién menciona, matriz entre partidos, personas externas por partido, diálogos y co-menciones
@@ -1493,7 +1493,7 @@
       const k = clave(m), ext = esExt(k);
       return { id: m.id, f: fechaDe.get(m.id) || m.date || '', o: nombre(m.fuente),
         op: validoPartido(m.fuentePartido) ? m.fuentePartido : '', n: nombre(k), p: ext ? '' : partido.get(k) || '',
-        e: ext ? 1 : 0, t: m.tipo === 'externa' ? (m.suelta ? 'nombre solo' : 'con cargo') : (m.vocativo ? 'se dirige' : 'habla de'),
+        e: ext ? 1 : 0, t: m.tipo === 'externa' ? (m.suelta ? N_('nombre solo') : N_('con cargo')) : (m.vocativo ? N_('se dirige') : N_('habla de')),
         x: m.texto || '' };
     });
     return { resumen, personas, mencionan, matriz: { partidos: P8, filas: matriz }, externas, focos, dialogos, comenciones, red, detalle };
@@ -1506,7 +1506,7 @@
     const bd = { db: ctx.db, sqlite3: ctx.sqlite3 };
     const pais = (ctx.nucleo && ctx.nucleo.pais) || '';
     const C = formasDe(pais);
-    if (!C) return { disponible: false, pais, motivo: 'Este corpus no tiene formas de tratamiento en el registro de menciones.' };
+    if (!C) return { disponible: false, pais, motivo: N_('Este corpus no tiene formas de tratamiento en el registro de menciones.') };
     const pedidos = Array.from(new Set(Array.from(ids, (i) => Number(i)))).sort((a, b) => a - b);
     const prog = crearProgreso(ctx, pedidos.length);
     prog('lectura', 0, true);

@@ -60,9 +60,9 @@
   // La lectura y el recuento van por trozos alternos, así que forman una sola fase: si fueran dos, la barra de
   // progreso saltaría adelante y atrás.
   const FASES = Object.freeze([
-    { id: 'lexico', etiqueta: 'Obteniendo el vocabulario del léxico', peso: 0.45 },
-    { id: 'coocurrencias', etiqueta: 'Leyendo las intervenciones y contando coocurrencias', peso: 0.50 },
-    { id: 'red', etiqueta: 'Podando la red y detectando comunidades', peso: 0.05 },
+    { id: 'lexico', etiqueta: N_('Obteniendo el vocabulario del léxico'), peso: 0.45 },
+    { id: 'coocurrencias', etiqueta: N_('Leyendo las intervenciones y contando coocurrencias'), peso: 0.50 },
+    { id: 'red', etiqueta: N_('Podando la red y detectando comunidades'), peso: 0.05 },
   ]);
 
   const ahora = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
@@ -108,7 +108,7 @@
       for (let k = 0; k < i; k++) acumulado += FASES[k].peso;
       const parte = Math.max(0, Math.min(1, fraccionFase));
       try {
-        fn({ fase: id, etiqueta: FASES[i].etiqueta, indice: i + 1, n_fases: FASES.length, hecho, total,
+        fn({ fase: id, etiqueta: __(FASES[i].etiqueta), indice: i + 1, n_fases: FASES.length, hecho, total,
           fraccion: acumulado + FASES[i].peso * parte, ms: Math.round(t - t0), n_textos: nTextos });
       } catch (e) { /* el progreso nunca interrumpe el cálculo */ }
     };
@@ -140,7 +140,7 @@
     ctxLexico.progreso = (ev) => prog.emitir('lexico', ev && ev.fraccion ? ev.fraccion : 0, ev && ev.hecho, ev && ev.total);
     const lex = await P.keynessColeccion(ctxLexico, pedidos, Object.assign({ solo_discurso: !!o.solo_discurso }, LEXICO));
     tiempos.lexico = ahora() - t;
-    if (lex.error) return { error: lex.error, message: lex.message || 'No se pudo calcular el léxico de la biblioteca.' };
+    if (lex.error) return { error: lex.error, message: lex.message || __('No se pudo calcular el léxico de la biblioteca.') };
     // Términos que el investigador excluye a mano tras revisar los temas (se comparan ya plegados).
     const excluir = new Set((o.excluir || []).map((w) => K.fold(String(w))).filter(Boolean));
     const descartadas = { vacias: 0, cifras: 0, excluidos: 0 };
@@ -163,7 +163,7 @@
     };
     if (V < 3) {
       return Object.assign(base, { nodos: [], aristas: [], comunidades: [], estadisticas: { n_intervenciones: pedidos.length },
-        aviso: 'La biblioteca no tiene términos característicos suficientes para construir una red de coocurrencias.' });
+        aviso: __('La biblioteca no tiene términos característicos suficientes para construir una red de coocurrencias.') });
     }
     const id = new Map(vocab.map((v, i) => [v.term, i]));
 
@@ -480,7 +480,7 @@
       partidos: Object.assign({ intervenciones: nDocs, palabras_totales: Math.round(palabrasTotales),
         palabras_con_partido: Math.round(palabrasConPartido) }, repartoDe(totalPartido, palabrasPartido, 60)),
       lectura: { global, variada, metadatos, longitud_media: redondea(longMedia, 1),
-        metodo: { formula: 'BM25', k1: BM25_K1, b: BM25_B, peso_termino: 'ln(1 + G² del término en el léxico)' } },
+        metodo: { formula: 'BM25', k1: BM25_K1, b: BM25_B, peso_termino: __('ln(1 + G² del término en el léxico)') } },
       estadisticas: {
         palabras_sin_tema: Math.round(palabrasSinTema),
         pct_sin_tema: palabrasTotales ? redondea(100 * palabrasSinTema / palabrasTotales, 1) : 0,

@@ -252,7 +252,7 @@
     let v = RT.get(b, 'ids');
     if (falso(v)) v = [];
     const ids = V.ids(v, 'ids');
-    if (ids.length > 200) throw RT.noValido('ids admite como mucho 200 intervenciones por petición.');
+    if (ids.length > 200) throw RT.noValido(__('ids admite como mucho 200 intervenciones por petición.'));
     return { climate: climateFor(ctx, ids) };
   }
 

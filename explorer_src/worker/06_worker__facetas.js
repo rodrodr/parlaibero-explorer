@@ -10,7 +10,7 @@
   'use strict';
 
   const E = R2.errores;
-  const ETIQUETAS_SEXO = Object.freeze({ M: 'Hombre', F: 'Mujer', 'Sin identificar': 'Sin identificar' });
+  const ETIQUETAS_SEXO = Object.freeze({ M: N_('Hombre'), F: N_('Mujer'), 'Sin identificar': N_('Sin identificar') });
 
   function calcularSinComprobar(db, { pais = null, partidos = null } = {}) {
     const sel = (sql, bind) => db.selectArrays(sql, bind || []);

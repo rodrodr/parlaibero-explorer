@@ -55,19 +55,20 @@
   const COMILLAS = /[«»“”„]/g;
 
   const MENSAJES = Object.freeze({
-    ASTERISCO: 'El asterisco (*) no se admite en esta búsqueda: escriba la palabra completa o varias formas unidas con | (p. ej. agrario | agraria).',
-    OPERADOR_TEXTO: (w) => `«${w}» no es un operador en esta búsqueda. Use + para exigir varias palabras y | para admitir cualquiera de ellas; NOT no está disponible. Si quiere buscar la palabra, escríbala en minúsculas.`,
-    COMILLAS_VACIAS: 'Hay unas comillas vacías: escriba la frase entre ellas o quítelas.',
-    COMILLAS_ABIERTAS: 'Faltan unas comillas de cierre: cada frase exacta va entre dos comillas (p. ej. "voto femenino").',
-    PARENTESIS_VACIOS: 'Hay unos paréntesis vacíos: escriba algo dentro o quítelos.',
-    FALTA_CIERRE: 'Falta cerrar un paréntesis: añada «)».',
-    SOBRA_CIERRE: 'Sobra un paréntesis de cierre «)» (o falta el de apertura).',
-    OP_INICIO: (op) => `Falta una palabra o frase antes de «${op}».`,
-    OP_FINAL: (op) => `Falta una palabra o frase después de «${op}».`,
-    OP_SEGUIDOS: (a, b) => `Hay dos operadores seguidos («${a} ${b}»): escriba una palabra o frase entre ellos.`,
-    NADA: 'La consulta no contiene nada que buscar: escriba al menos una palabra con letras o cifras.',
-    AVISO_OMITIDAS: (lista) => `Se han omitido palabras muy frecuentes (${lista}): casi todas las intervenciones las contienen. Si las necesita, póngalas entre comillas.`,
-    AVISO_IGNORADAS: (lista, n) => `Se ${n === 1 ? 'ha ignorado un término' : 'han ignorado términos'} sin letras ni cifras (${lista}).`,
+    get ASTERISCO() { return __('El asterisco (*) no se admite en esta búsqueda: escriba la palabra completa o varias formas unidas con | (p. ej. agrario | agraria).'); },
+    OPERADOR_TEXTO: (w) => __('«{0}» no es un operador en esta búsqueda. Use + para exigir varias palabras y | para admitir cualquiera de ellas; NOT no está disponible. Si quiere buscar la palabra, escríbala en minúsculas.', w),
+    get COMILLAS_VACIAS() { return __('Hay unas comillas vacías: escriba la frase entre ellas o quítelas.'); },
+    get COMILLAS_ABIERTAS() { return __('Faltan unas comillas de cierre: cada frase exacta va entre dos comillas (p. ej. "voto femenino").'); },
+    get PARENTESIS_VACIOS() { return __('Hay unos paréntesis vacíos: escriba algo dentro o quítelos.'); },
+    get FALTA_CIERRE() { return __('Falta cerrar un paréntesis: añada «)».'); },
+    get SOBRA_CIERRE() { return __('Sobra un paréntesis de cierre «)» (o falta el de apertura).'); },
+    OP_INICIO: (op) => __('Falta una palabra o frase antes de «{0}».', op),
+    OP_FINAL: (op) => __('Falta una palabra o frase después de «{0}».', op),
+    OP_SEGUIDOS: (a, b) => __('Hay dos operadores seguidos («{0} {1}»): escriba una palabra o frase entre ellos.', a, b),
+    get NADA() { return __('La consulta no contiene nada que buscar: escriba al menos una palabra con letras o cifras.'); },
+    AVISO_OMITIDAS: (lista) => __('Se han omitido palabras muy frecuentes ({0}): casi todas las intervenciones las contienen. Si las necesita, póngalas entre comillas.', lista),
+    AVISO_IGNORADAS: (lista, n) => (n === 1 ? __('Se ha ignorado un término sin letras ni cifras ({0}).', lista)
+      : __('Se han ignorado términos sin letras ni cifras ({0}).', lista)),
   });
 
   class ErrorConsulta extends Error {
@@ -248,7 +249,7 @@
     if (nodo.tipo === 'palabra' || nodo.tipo === 'frase') {
       return nodo.tipo === 'palabra' && nodo.tokens.length === 1 ? originales(s, nodo) : `«${originales(s, nodo)}»`;
     }
-    return nodo.hijos.map((h) => (h.tipo === 'y' || h.tipo === 'o' ? `(${interpretacion(s, h)})` : interpretacion(s, h))).join(nodo.tipo === 'y' ? ' Y ' : ' O ');
+    return nodo.hijos.map((h) => (h.tipo === 'y' || h.tipo === 'o' ? `(${interpretacion(s, h)})` : interpretacion(s, h))).join(nodo.tipo === 'y' ? ` ${__('Y')} ` : ` ${__('O')} `);
   }
 
   function hojas(nodo, out = []) {

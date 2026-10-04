@@ -69,7 +69,7 @@
 
   async function gunzip(u8, w) {
     if (R2.inflate && typeof R2.inflate.gunzip === 'function') return R2.inflate.gunzip(u8);
-    if (typeof w.DecompressionStream !== 'function') throw new Error('no hay descompresor gzip (R2.inflate o DecompressionStream)');
+    if (typeof w.DecompressionStream !== 'function') throw new Error(__('no hay descompresor gzip (R2.inflate o DecompressionStream)'));
     const flujo = new w.Blob([u8]).stream().pipeThrough(new w.DecompressionStream('gzip'));
     return new Uint8Array(await new w.Response(flujo).arrayBuffer());
   }
@@ -88,24 +88,24 @@
     const w = ventana || g || globalThis;
     const d = w.document;
     const el = d.getElementById(`r2-carga-${nombre}`) || d.querySelector(`script[type="application/octet-stream"][data-recurso="${nombre}"]`);
-    if (!el) throw new (ErrorRpc())('RECURSO_DANADO', { causa: `falta el recurso «${nombre}»` });
+    if (!el) throw new (ErrorRpc())('RECURSO_DANADO', { causa: __('falta el recurso «{0}»', nombre) });
     const enc = el.getAttribute('data-enc') || 'base64';
     let u8;
     try {
       u8 = base64(el.textContent, w);
       if (enc === 'gzip+base64') u8 = await gunzip(u8, w);
-      else if (enc !== 'base64') throw new Error(`codificación desconocida «${enc}»`);
+      else if (enc !== 'base64') throw new Error(__('codificación desconocida «{0}»', enc));
     } catch (e) {
       throw new (ErrorRpc())('RECURSO_DANADO', { causa: `${nombre}: ${textoDe(e)}` });
     }
     const bytes = el.getAttribute('data-bytes');
     if (bytes != null && Number(bytes) !== u8.length) {
-      throw new (ErrorRpc())('RECURSO_DANADO', { causa: `${nombre}: ${u8.length} bytes en lugar de ${bytes}` });
+      throw new (ErrorRpc())('RECURSO_DANADO', { causa: __('{0}: {1} bytes en lugar de {2}', nombre, u8.length, bytes) });
     }
     const esperado = el.getAttribute('data-sha256');
     if (esperado) {
       const real = await sha256Hex(u8, w);
-      if (real !== null && real !== esperado.toLowerCase()) throw new (ErrorRpc())('RECURSO_DANADO', { causa: `${nombre}: la huella SHA-256 no coincide` });
+      if (real !== null && real !== esperado.toLowerCase()) throw new (ErrorRpc())('RECURSO_DANADO', { causa: __('{0}: la huella SHA-256 no coincide', nombre) });
     }
     el.textContent = '';
     el.remove();
@@ -251,8 +251,10 @@
         S.errorHuella = datos && typeof datos.aObjeto === 'function' ? datos.aObjeto() : datos;
         if (sobre) sobre.actualizar();
         if (S.reemplazo && S.fase === 'construyendo') {
-          const nombre = S.archivo && S.archivo.name ? `«${S.archivo.name}»` : 'el archivo nuevo';
-          volverAnterior(`No se pudo comprobar la huella de ${nombre} (${datos && (datos.message || datos.mensaje)}): no se ha reemplazado la base recordada.`);
+          const causa = datos && (datos.message || datos.mensaje);
+          volverAnterior(S.archivo && S.archivo.name
+            ? __('No se pudo comprobar la huella de «{0}» ({1}): no se ha reemplazado la base recordada.', S.archivo.name, causa)
+            : __('No se pudo comprobar la huella del archivo nuevo ({0}): no se ha reemplazado la base recordada.', causa));
         }
         break;
       case 'progreso_base':
@@ -279,8 +281,9 @@
       return;
     }
     if (S.reemplazo && (S.fase === 'construyendo' || S.fase === 'confirmar')) {
-      const nombre = S.archivo && S.archivo.name ? `«${S.archivo.name}»` : 'el archivo nuevo';
-      volverAnterior(`No se pudo construir la base con ${nombre}: ${e.message}`);
+      volverAnterior(S.archivo && S.archivo.name
+        ? __('No se pudo construir la base con «{0}»: {1}', S.archivo.name, e.message)
+        : __('No se pudo construir la base con el archivo nuevo: {0}', e.message));
       return;
     }
     mostrarFallo(e, { precalentar: S.fase === 'construyendo' });
@@ -302,11 +305,11 @@
     S.seguimiento = R2.progreso.crearSeguimiento();
     marcar('elegido');
 
-    if (S.silencioso) vista.mostrarEspera({ titulo: 'Preparando el corpus…' });
+    if (S.silencioso) vista.mostrarEspera({ titulo: __('Preparando el corpus…') });
     else {
       vista.mostrarConstruir({ archivo, sqlite: S.hola && S.hola.sqlite,
         entrada: R2.web ? R2.web.textoConstruir(!!S.reemplazo) : null,
-        textoCancelar: S.reemplazo ? 'Cancelar y volver a la base recordada' : null });
+        textoCancelar: S.reemplazo ? __('Cancelar y volver a la base recordada') : null });
     }
     pararRefresco();
 
@@ -342,7 +345,7 @@
 
     if (S.reemplazo && S.huella !== 'comprobada') {
       S.esperandoHuella = true;
-      if (vista) vista.notaConstruir('Comprobando la huella del archivo antes de sustituir la base recordada…');
+      if (vista) vista.notaConstruir(__('Comprobando la huella del archivo antes de sustituir la base recordada…'));
       return;
     }
     continuarTrasListo();
@@ -352,7 +355,7 @@
     if (S.fase !== 'construyendo') return;
     if ((S.informe.avisos || []).some((a) => a.codigo === 'FILAS_DISTINTAS')) {
       S.fase = 'confirmar';
-      vista.mostrarConfirmar(S.informe, S.archivo, { textoOtro: S.reemplazo ? 'Volver a la base recordada' : null });
+      vista.mostrarConfirmar(S.informe, S.archivo, { textoOtro: S.reemplazo ? __('Volver a la base recordada') : null });
       return;
     }
     revelar();
@@ -405,7 +408,7 @@
   function motorBibliotecas(cliente) {
     const api = (metodo, ruta, cuerpo) => cliente.pedir('api', { metodo, ruta, query: {}, queryLista: [], cuerpo }).then((r) => {
       if (r.status >= 400) {
-        const e = new Error(r.cuerpo && r.cuerpo.error ? r.cuerpo.error : `Error ${r.status}`);
+        const e = new Error(r.cuerpo && r.cuerpo.error ? r.cuerpo.error : __('Error {0}', r.status));
         e.status = r.status;
         throw e;
       }
@@ -517,7 +520,7 @@
     if (S.fase !== 'construyendo') return;
     if (S.reemplazo) {
       marcar('cancelado');
-      volverAnterior('Se canceló el reemplazo: la base recordada sigue igual.');
+      volverAnterior(__('Se canceló el reemplazo: la base recordada sigue igual.'));
       return;
     }
     marcar('cancelado');
@@ -527,7 +530,8 @@
     const archivo = S.archivo;
     if (S.recursos) nuevoCliente();
     vista.mostrarAbrir({
-      nota: `Se canceló la construcción${archivo && archivo.name ? ` de ${archivo.name}` : ''}. Puede reintentarlo o elegir otro archivo.`,
+      nota: archivo && archivo.name ? __('Se canceló la construcción de {0}. Puede reintentarlo o elegir otro archivo.', archivo.name)
+        : __('Se canceló la construcción. Puede reintentarlo o elegir otro archivo.'),
       reintentar: archivo, enfocar: 'reintentar',
     });
   }
@@ -541,7 +545,7 @@
     S.fase = 'abrir';
     vista.mostrarAbrir({ enfocar: 'elegir' });
     if (S.recursos) {
-      vista.estadoMotor('Preparando el motor de la página…');
+      vista.estadoMotor(__('Preparando el motor de la página…'));
       nuevoCliente();
     }
   }
@@ -553,7 +557,7 @@
 
   function otroArchivo() {
     if (S.fase === 'confirmar' && S.reemplazo) {
-      volverAnterior('Se canceló el reemplazo: la base recordada sigue igual.');
+      volverAnterior(__('Se canceló el reemplazo: la base recordada sigue igual.'));
       return;
     }
     if (S.fase === 'confirmar' || S.fase === 'fallo') {
@@ -588,7 +592,7 @@
     vista.mostrarFallo(err, {
       archivo: S.archivo,
       otro: !sinMotor,
-      textoOtro: ilegible ? 'Volver a elegir el archivo' : null,
+      textoOtro: ilegible ? __('Volver a elegir el archivo') : null,
       reintentar: !sinMotor && !ilegible && (arranque || (!!S.archivo && R2.rpc.REINTENTABLES.has(err.codigo))),
 
       recargar: (sinMotor && !navegador) || arranque,
@@ -600,19 +604,19 @@
 
 
   function fichaRecordado(r) {
-    if (!r) return 'Base recordada';
+    if (!r) return __('Base recordada');
     const partes = [r.nombre_csv || 'CSV'];
     if (r.version && r.version.corto) partes.push(r.version.corto);
     if (r.bytes) partes.push(R2.progreso.tamano(r.bytes));
     return partes.join(' · ');
   }
 
-  const ENTRADA_CON_DATOS = 'El corpus viaja con esta aplicación y se abre solo; nada sale de su equipo. Si quiere explorar otro CSV, puede elegirlo aquí.';
+  const ENTRADA_CON_DATOS = __('El corpus viaja con esta aplicación y se abre solo; nada sale de su equipo. Si quiere explorar otro CSV, puede elegirlo aquí.');
 
 
   function fichaServido(s) {
-    const partes = [`«${(s.csv_origen && s.csv_origen.nombre) || 'corpus'}»`];
-    if (s.bytes_gz) partes.push(`${R2.progreso.tamano(s.bytes_gz)} de descarga`);
+    const partes = [`«${(s.csv_origen && s.csv_origen.nombre) || __('corpus')}»`];
+    if (s.bytes_gz) partes.push(__('{0} de descarga', R2.progreso.tamano(s.bytes_gz)));
     return partes.join(' · ');
   }
 
@@ -635,14 +639,14 @@
     if (!p || !(S.fase === 'abrir' || S.fase === 'fallo') || !S.recursos) return false;
     if (p.tipo === 'servido') { abrirServido(p.datos).catch(() => {}); return true; }
     marcar('corpus_embebido');
-    vista.mostrarEspera({ titulo: 'Preparando el corpus…' });
+    vista.mostrarEspera({ titulo: __('Preparando el corpus…') });
     R2.cargas.archivoCorpus().then((archivo) => {
       if (!archivo || S.fase !== 'abrir') return;
       elegir(archivo, { silencioso: true });
     }, (e) => {
       if (S.fase !== 'abrir') return;
       S.silencioso = false;
-      vista.mostrarAbrir({ nota: `No se pudo leer el corpus que acompaña a esta aplicación (${textoDe(e)}). Elija el CSV.`,
+      vista.mostrarAbrir({ nota: __('No se pudo leer el corpus que acompaña a esta aplicación ({0}). Elija el CSV.', textoDe(e)),
         entrada: ENTRADA_CON_DATOS, enfocar: 'elegir' });
     });
     return true;
@@ -657,11 +661,11 @@
       marca: 'abrir_servido',
       origen: 'servido',
       silencioso: true,
-      tituloEspera: 'Abriendo el corpus…',
+      tituloEspera: __('Abriendo el corpus…'),
       ficha: fichaServido(s || (R2.datos && R2.datos.corpus_servido) || {}),
-      titulo: 'Abriendo el corpus que acompaña a la página…',
-      entrada: 'Este corpus se publica junto a la página: se descarga una vez, se comprueba y se guarda en este navegador para abrirlo solo la próxima vez.',
-      textoCancelar: 'Cancelar y elegir el CSV',
+      titulo: __('Abriendo el corpus que acompaña a la página…'),
+      entrada: __('Este corpus se publica junto a la página: se descarga una vez, se comprueba y se guarda en este navegador para abrirlo solo la próxima vez.'),
+      textoCancelar: __('Cancelar y elegir el CSV'),
       abrir: (cliente, o) => R2.web.abrirServidoEn(cliente, o),
     });
   }
@@ -679,7 +683,7 @@
       origen: 'recordado',
 
       silencioso: !!datosPropios(),
-      tituloEspera: 'Abriendo el corpus…',
+      tituloEspera: __('Abriendo el corpus…'),
       ficha: fichaRecordado(rec),
       titulo: o.titulo,
       entrada: o.entrada,
@@ -692,7 +696,7 @@
 
   async function abrirSinCsv(o) {
     if (!(S.fase === 'abrir' || S.fase === 'fallo') || !S.recursos || !R2.web) {
-      throw Object.assign(new Error('El motor de la página todavía no está listo.'), { codigo: 'ESTADO' });
+      throw Object.assign(new Error(__('El motor de la página todavía no está listo.')), { codigo: 'ESTADO' });
     }
     pararRefresco();
     S.fase = 'recordado';
@@ -701,7 +705,7 @@
     const apertura = { ctrl: new g.AbortController(), mensaje: o.mensajeTrasAbrir || null };
     S.apertura = apertura;
     if (!vista) vista = crearVista();
-    if (S.silencioso) vista.mostrarEspera({ titulo: o.tituloEspera || 'Abriendo el corpus…', nota: o.entrada || '' });
+    if (S.silencioso) vista.mostrarEspera({ titulo: o.tituloEspera || __('Abriendo el corpus…'), nota: o.entrada || '' });
     else vista.mostrarRecordado({ ficha: o.ficha, titulo: o.titulo, entrada: o.entrada, textoCancelar: o.textoCancelar });
     let cliente = S.cliente;
     if (!cliente || cliente.__r2ConBase || !(cliente.estado === 'iniciando' || cliente.estado === 'preparado')) cliente = nuevoCliente();
@@ -754,8 +758,8 @@
     if (S.recursos) nuevoCliente();
     if (R2.web) R2.web.alCancelarApertura();
     vista.mostrarAbrir({ nota: S.marcas.abrir_servido && !S.marcas.abrir_recordado
-      ? 'Se canceló la descarga del corpus que acompaña a la página. Elija el CSV o recargue para volver a intentarlo.'
-      : 'Se canceló la apertura de la base recordada: sigue guardada en este navegador. Elija otro CSV o vuelva a abrirla.', enfocar: 'elegir' });
+      ? __('Se canceló la descarga del corpus que acompaña a la página. Elija el CSV o recargue para volver a intentarlo.')
+      : __('Se canceló la apertura de la base recordada: sigue guardada en este navegador. Elija otro CSV o vuelva a abrirla.'), enfocar: 'elegir' });
     vista.abrirSelector();
   }
 
@@ -798,9 +802,9 @@
     if (R2.web) R2.web.alFinReemplazo({ mensaje });
     if (!vista) vista = crearVista();
     if (rem && !rem.anteriorBorrada && hay) {
-      abrirRecordado({ recordado: hay, titulo: 'Volviendo a la base recordada…', entrada: mensaje, mensajeTrasAbrir: mensaje }).catch(() => {});
+      abrirRecordado({ recordado: hay, titulo: __('Volviendo a la base recordada…'), entrada: mensaje, mensajeTrasAbrir: mensaje }).catch(() => {});
     } else {
-      vista.mostrarAbrir({ nota: `${mensaje} Elija un CSV para continuar.`, enfocar: 'elegir' });
+      vista.mostrarAbrir({ nota: __('{0} Elija un CSV para continuar.', mensaje), enfocar: 'elegir' });
     }
   }
 
@@ -809,7 +813,7 @@
     if (shim) shim.fallar(err);
     doc.documentElement.classList.remove('r2-app');
     if (!vista) vista = crearVista();
-    vista.mostrarFallo(err, { archivo: S.archivo, recargar: true, titulo: 'El motor se ha detenido' });
+    vista.mostrarFallo(err, { archivo: S.archivo, recargar: true, titulo: __('El motor se ha detenido') });
   }
 
 
@@ -838,9 +842,9 @@
     }
 
 
-    if (datosPropios()) vista.mostrarEspera({ titulo: 'Preparando el corpus…' });
+    if (datosPropios()) vista.mostrarEspera({ titulo: __('Preparando el corpus…') });
     else vista.mostrarAbrir({ enfocar: 'elegir' });
-    vista.estadoMotor('Preparando el motor de la página…');
+    vista.estadoMotor(__('Preparando el motor de la página…'));
     R2.capacidades.sondearAlmacen(g).then((alm) => {
       S.almacen = alm;
       if (vista) vista.ponerAvisos(R2.capacidades.avisos(S.sondeo, alm));
@@ -908,7 +912,7 @@
         const p = document.createElement('p');
         p.setAttribute('role', 'alert');
         p.style.cssText = 'position:fixed;inset:auto 16px 16px 16px;padding:12px 14px;background:#fff;color:#1d1b18;border:1px solid #c21d1d;border-radius:7px;font:14px/1.5 system-ui,sans-serif;z-index:100';
-        p.textContent = `No se pudo iniciar Diarios Explorer: ${textoDe(e)}. Recargue la página o use Chrome, Edge, Firefox o Safari en una versión reciente.`;
+        p.textContent = __('No se pudo iniciar Diarios Explorer: {0}. Recargue la página o use Chrome, Edge, Firefox o Safari en una versión reciente.', textoDe(e));
         document.body.appendChild(p);
       } catch (e2) {   }
     });

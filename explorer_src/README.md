@@ -431,3 +431,23 @@ En GitHub: Settings → Pages → Source «Deploy from a branch», rama `main`, 
 Cada cambio posterior: editar `explorer_src/`, ejecutar `python3 explorer_src/build.py`, hacer commit y push; el HTML
 autónomo y la web salen del mismo ensamblado. (Alternativa: un flujo de GitHub Actions que ejecute `build.py` en cada
 push y despliegue `docs/`; no hace falta ninguna dependencia, solo Python 3.)
+
+## Lenguas de la interfaz
+
+La interfaz está en español (por defecto), inglés y portugués de Brasil. El texto en español del código es la clave:
+`__('Buscar')` devuelve `Search` en inglés; los diccionarios son `i18n/en.json` e `i18n/pt.json`, y `i18n/i18n.js`
+(que `build.py` pone delante de los módulos de la página y del worker) define `__()`, `N_()` y los formatos de cifras y
+fechas. Se cambia en Ajustes → Lengua o con ES · EN · PT en la pantalla de inicio (la página se recarga y reabre la base
+recordada); `?lang=en` en la URL fuerza una lengua. El corpus no se traduce: textos, nombres, partidos y columnas de
+las exportaciones siguen como en el CSV. Los hitos históricos sí, porque sus `label`/`desc` son claves más.
+
+Al añadir o cambiar textos de la interfaz, envolverlos según `i18n/CONVENCIONES.md` y completar los diccionarios:
+
+```bash
+python3 explorer_src/tools/i18n.py            # cuántas claves faltan en cada lengua
+python3 explorer_src/tools/i18n.py --faltan   # i18n/trabajo/faltan_en.json y faltan_pt.json para traducir
+python3 explorer_src/tools/i18n.py --podar    # quita traducciones de claves que ya no existen
+```
+
+Lo que falte sale en español. Un aviso del worker que se guarda en la base (por ejemplo, los avisos de la ingesta) queda
+en la lengua en que se construyó.

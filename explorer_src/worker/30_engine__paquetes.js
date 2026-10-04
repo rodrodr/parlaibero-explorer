@@ -10,6 +10,10 @@
  *     bibliotecas nuevas (ids reasignados) en una sola transacción y las búsquedas restringidas a una biblioteca de la copia
  *     pasan a apuntar a la nueva. Formato en ARQUITECTURA.md §9.4.
  *   - _slug de server.py (nombre del archivo).
+ *   - Comprobación del PAÍS al importar (solo aquí, no en server.py: el escritorio abre un único corpus). Los speech_id
+ *     son números de fila del CSV de un país; importarlos sobre el corpus de otro creaba en silencio una biblioteca de
+ *     intervenciones ajenas. Si el archivo dice de qué país es («corpus» Diarios_XX o, si no, el DOI de su «fuente»
+ *     contra R2.datos.fuentes) y no es el del corpus abierto, se rechaza con ValueError (400) antes de escribir nada.
  *
  * Caracteres fuera del BMP (decisión de M4, «como separadores antes de aplicar regex»): en la importación no hace falta
  * cambiarlos. Las validaciones de speech_id usan las tablas de R2.py.core (isdigit, strip), no expresiones regulares;
@@ -28,7 +32,8 @@
   const J = R2.py.json;
   const F = R2.fuente;
   const L = R2.library;
-  if (!L || !F) throw new Error('paquetes.js necesita R2.library y R2.fuente (src/orden.json)');
+  const I = R2.info;
+  if (!L || !F || !I) throw new Error('paquetes.js necesita R2.library, R2.fuente y R2.info (src/orden.json)');
 
   const FORMATO = '2replib/1';
   const FORMATO_COPIA = '2replib-copia/1';
@@ -124,25 +129,80 @@
     return { valor: L.pyIntExacto(s) };
   }
 
+  // ------------------------------------------------------------------------------------------------ país del archivo
+  /** País de un nombre de corpus de bibliotecas («Diarios_SV» → «SV»); '' si no lo lleva o es el comodín «Diarios_XX». */
+  function paisDeNombre(nombre) {
+    const p = typeof nombre === 'string' ? I.paisDeCorpus(nombre) : '';
+    return p === 'XX' ? '' : p;
+  }
+
+  /** «https://doi.org/10.7910/DVN/X», «doi:10.7910/dvn/x» y «10.7910/DVN/X» → «10.7910/dvn/x» (el DOI no distingue caja). */
+  const doiCanonico = (d) => C.lower(C.strip(d)).replace(/^(?:https?:\/\/(?:dx\.)?doi\.org\/|doi:\s*)/, '');
+
+  /** País de ParlaIbero cuyo conjunto de datos tiene ese DOI (R2.datos.fuentes[país].doi), o ''. */
+  function paisDeDoi(doi) {
+    const fuentes = R2.datos && R2.datos.fuentes;
+    if (typeof doi !== 'string' || !doiCanonico(doi) || !fuentes) return '';
+    const buscado = doiCanonico(doi);
+    for (const p of Object.keys(fuentes)) {
+      const d = fuentes[p] && fuentes[p].doi;
+      if (typeof d === 'string' && doiCanonico(d) === buscado) return p;
+    }
+    return '';
+  }
+
+  /**
+   * De qué país dice ser un archivo: su «corpus» si es un Diarios_XX reconocible y, si no, el DOI de su «fuente» (o de la
+   * «fuente_importada», en el orden de fuenteDePaquete). → {pais, prueba} o null si el archivo no lo dice.
+   */
+  function paisDeArchivo(payload) {
+    const corpus = dget(payload, 'corpus');
+    const p = paisDeNombre(corpus);
+    if (p) return { pais: p, prueba: __('su «corpus» es {0}', corpus) };
+    for (const campo of ['fuente', 'fuente_importada']) {
+      const f = dget(payload, campo);
+      const doi = esDict(f) ? dget(f, 'doi') : null;
+      const q = paisDeDoi(doi);
+      if (q) return { pais: q, prueba: __('el DOI de su fuente, {0}, es el de ParlaIbero-{1}', C.strip(doi), q) };
+    }
+    return null;
+  }
+
+  /**
+   * Rechaza (ValueError → 400) lo que se guardaría en el corpus abierto siendo de otro país. `que` es el sujeto del mensaje
+   * («Este archivo», «Esta copia») y `extra`, una frase que se añade tras la primera. Un archivo que no dice su país pasa
+   * como antes: no hay con qué compararlo.
+   */
+  function comprobarPais(origen, nombreCorpus, que, extra = '') {
+    if (!origen) return;
+    const abierto = paisDeNombre(nombreCorpus);
+    if (origen.pais === abierto) return;
+    const suyo = I.nombrePais(origen.pais);
+    const aqui = abierto ? __('el de {0} ({1})', I.nombrePais(abierto), nombreCorpus) : __('{0}, que no es de ningún país de ParlaIbero', C.pyStr(nombreCorpus));
+    throw new ErrorPy('ValueError', __('{0} es de {1} ({2}) y el corpus abierto es {3}.', __(que), suyo, origen.prueba, aqui) + ` ${__(extra)}`
+      + __('Sus speech_id son números de fila del CSV de {0}: aquí apuntarían a intervenciones de otro corpus que no tienen nada que ver. Abra el CSV de {0} y vuelva a importar el archivo.', suyo));
+  }
+
   /** import_library_bundle(lib, payload, corpus_name) → {collection, n_items, fuente}. ValueError → 400. */
   function importarBiblioteca(lib, payload, nombreCorpus) {
-    if (dget(payload, 'format') !== FORMATO) throw new ErrorPy('ValueError', 'El archivo no tiene el formato 2replib/1');
+    if (dget(payload, 'format') !== FORMATO) throw new ErrorPy('ValueError', __('El archivo no tiene el formato 2replib/1'));
+    comprobarPais(paisDeArchivo(payload), nombreCorpus, N_('Este archivo'));
     const colMeta = o(dget(payload, 'collection'), {});
-    if (!esDict(colMeta)) throw new ErrorPy('ValueError', '«collection» debe ser un objeto.');
+    if (!esDict(colMeta)) throw new ErrorPy('ValueError', __('«collection» debe ser un objeto.'));
     const items = o(dget(payload, 'items'), []);
-    if (!Array.isArray(items)) throw new ErrorPy('ValueError', '«items» debe ser una lista.');
+    if (!Array.isArray(items)) throw new ErrorPy('ValueError', __('«items» debe ser una lista.'));
     // Se valida todo ANTES de crear la biblioteca: un archivo roto no deja una biblioteca vacía a medias.
     const filas = [];
     items.forEach((it, i) => {
       const sid = speechIdDe(it);
-      if (sid === null) throw new ErrorPy('ValueError', `El item ${i + 1} no tiene un speech_id válido.`);
+      if (sid === null) throw new ErrorPy('ValueError', __('El item {0} no tiene un speech_id válido.', i + 1));
       const note = dget(it, 'note');
       const tags = dget(it, 'tags');
       filas.push([sid.valor, typeof note === 'string' ? note : '', Array.isArray(tags) ? tags.filter((t) => typeof t === 'string') : []]);
     });
     const f = fuenteDePaquete(payload);
-    const nombre = o(dget(colMeta, 'name'), 'Biblioteca importada');
-    const col = lib.create_collection(`${C.pyStr(nombre)} (importada)`, dget(colMeta, 'description', ''), dget(colMeta, 'color', 'indigo'));
+    const nombre = o(dget(colMeta, 'name'), __('Biblioteca importada'));
+    const col = lib.create_collection(__('{0} (importada)', C.pyStr(nombre)), dget(colMeta, 'description', ''), dget(colMeta, 'color', 'indigo'));
     if (f) lib.set_collection_fuente(col.id, F.metadatos(f));
     lib.add_items_bulk(col.id, nombreCorpus, filas);
     return { collection: lib.get_collection(col.id), n_items: items.length, fuente: F.metadatos(f) };
@@ -209,7 +269,7 @@
 
   function enteroCopia(v, defecto, campo, donde) {
     const x = enteroO(v, defecto);
-    if (x !== defecto && fueraDe64(x)) throw new ErrorPy('ValueError', `«${campo}» ${donde} no cabe en 64 bits.`);
+    if (x !== defecto && fueraDe64(x)) throw new ErrorPy('ValueError', __('«{0}» {1} no cabe en 64 bits.', campo, donde));
     return x;
   }
 
@@ -219,7 +279,7 @@
     while (pila.length) {
       const x = pila.pop();
       if (typeof x === 'string') {
-        if (L.sustitutosSueltos(x)) throw new ErrorPy('ValueError', `«${campo}» ${donde} tiene un carácter que no se puede guardar (un sustituto UTF-16 suelto).`);
+        if (L.sustitutosSueltos(x)) throw new ErrorPy('ValueError', __('«{0}» {1} tiene un carácter que no se puede guardar (un sustituto UTF-16 suelto).', campo, donde));
       } else if (Array.isArray(x)) {
         for (const y of x) pila.push(y);
       } else if (x instanceof Map) {
@@ -237,31 +297,31 @@
    * la interfaz (TypeError en .map) y [{…}] salía como «[object Object]» en la píldora.
    */
   function validarFiltros(filtros, k) {
-    const donde = `de la búsqueda guardada ${k} de la copia`;
-    const mal = (campo, como) => new ErrorPy('ValueError', `«filters.${campo}» ${donde} debe ser ${como}.`);
+    const donde = __('de la búsqueda guardada {0} de la copia', k);
+    const mal = (campo, como) => new ErrorPy('ValueError', __('«filters.{0}» {1} debe ser {2}.', campo, donde, como));
     const escalar = (x) => typeof x === 'string' || (typeof x === 'number' && Number.isFinite(x)) || typeof x === 'bigint';
     for (const campo of LISTAS_FILTRO) {
       if (!tiene(filtros, campo)) continue;
       const v = dget(filtros, campo);
       if (v === null) continue;
-      if (!Array.isArray(v) || !v.every(escalar)) throw mal(campo, 'una lista de textos o números');
+      if (!Array.isArray(v) || !v.every(escalar)) throw mal(campo, __('una lista de textos o números'));
     }
     for (const campo of ESCALARES_FILTRO) {
       if (!tiene(filtros, campo)) continue;
       const v = dget(filtros, campo);
-      if (v !== null && !escalar(v)) throw mal(campo, 'un texto o un número');
+      if (v !== null && !escalar(v)) throw mal(campo, __('un texto o un número'));
     }
     if (tiene(filtros, 'period')) {
       const p = dget(filtros, 'period');
       if (p !== null) {
-        if (!esDict(p)) throw mal('period', 'un objeto');
+        if (!esDict(p)) throw mal('period', __('un objeto'));
         const r = dget(p, 'ranges');
         if (r !== null && !(Array.isArray(r) && r.every((x) => Array.isArray(x) && x.length === 2 && x.every((y) => escalar(y) && Number.isFinite(Number(y)))))) {
-          throw mal('period.ranges', 'una lista de pares [desde, hasta]');
+          throw mal('period.ranges', __('una lista de pares [desde, hasta]'));
         }
         for (const campo of ['label', 'key', 'kind']) {
           const x = dget(p, campo);
-          if (x !== null && !escalar(x)) throw mal(`period.${campo}`, 'un texto');
+          if (x !== null && !escalar(x)) throw mal(`period.${campo}`, __('un texto'));
         }
       }
     }
@@ -275,23 +335,32 @@
    * Devuelve {format, collections, n_collections, n_items, n_searches, ids: {antiguo: nuevo}}.
    */
   function importarCopia(lib, payload, nombreCorpus) {
-    if (dget(payload, 'format') !== FORMATO_COPIA) throw new ErrorPy('ValueError', 'El archivo no tiene el formato 2replib-copia/1');
+    if (dget(payload, 'format') !== FORMATO_COPIA) throw new ErrorPy('ValueError', __('El archivo no tiene el formato 2replib-copia/1'));
     const cols = dget(payload, 'collections', []);
-    if (!Array.isArray(cols)) throw new ErrorPy('ValueError', '«collections» debe ser una lista.');
+    if (!Array.isArray(cols)) throw new ErrorPy('ValueError', __('«collections» debe ser una lista.'));
     const busq = o(dget(payload, 'searches'), []);
-    if (!Array.isArray(busq)) throw new ErrorPy('ValueError', '«searches» debe ser una lista.');
+    if (!Array.isArray(busq)) throw new ErrorPy('ValueError', __('«searches» debe ser una lista.'));
+    // Cada item y cada búsqueda guardada llevan su propio «corpus» y se guardan en él (una copia puede tener bibliotecas
+    // de varios países, y eso es legítimo). Solo lo que NO lo lleva cae en el corpus abierto: eso sí se comprueba, con el
+    // país que declara la copia.
+    const sinCorpus = (x) => esDict(x) && typeof dget(x, 'corpus') !== 'string';
+    const huerfanos = cols.some((c) => esDict(c) && Array.isArray(dget(c, 'items')) && dget(c, 'items').some(sinCorpus)) || busq.some(sinCorpus);
+    if (huerfanos) {
+      comprobarPais(paisDeArchivo(payload), nombreCorpus, N_('Esta copia'),
+        N_('Tiene items o búsquedas guardadas sin «corpus» propio, que se guardarían en el corpus abierto. '));
+    }
     const ahora = L.now();
     const preparadas = cols.map((c, i) => {
       const k = i + 1;
-      if (!esDict(c)) throw new ErrorPy('ValueError', `La biblioteca ${k} de la copia no es un objeto.`);
+      if (!esDict(c)) throw new ErrorPy('ValueError', __('La biblioteca {0} de la copia no es un objeto.', k));
       const items = o(dget(c, 'items'), []);
-      if (!Array.isArray(items)) throw new ErrorPy('ValueError', `«items» de la biblioteca ${k} debe ser una lista.`);
+      if (!Array.isArray(items)) throw new ErrorPy('ValueError', __('«items» de la biblioteca {0} debe ser una lista.', k));
       const filas = items.map((it, j) => {
         const sid = speechIdDe(it);
-        const donde = `del item ${j + 1} de la biblioteca ${k} de la copia`;
-        if (sid === null) throw new ErrorPy('ValueError', `El item ${j + 1} de la biblioteca ${k} no tiene un speech_id válido.`);
+        const donde = __('del item {0} de la biblioteca {1} de la copia', j + 1, k);
+        if (sid === null) throw new ErrorPy('ValueError', __('El item {0} de la biblioteca {1} no tiene un speech_id válido.', j + 1, k));
         const v = sid.valor;
-        if (typeof v === 'bigint' && (v > L.INT64_MAX || v < L.INT64_MIN)) throw new ErrorPy('ValueError', `El item ${j + 1} de la biblioteca ${k} tiene un speech_id que no cabe en 64 bits.`);
+        if (typeof v === 'bigint' && (v > L.INT64_MAX || v < L.INT64_MIN)) throw new ErrorPy('ValueError', __('El item {0} de la biblioteca {1} tiene un speech_id que no cabe en 64 bits.', j + 1, k));
         const tags = dget(it, 'tags');
         const fila = {
           corpus: textoO(dget(it, 'corpus'), nombreCorpus), speech_id: v, note: textoO(dget(it, 'note'), ''),
@@ -307,31 +376,31 @@
       const idAntiguo = dget(c, 'id');
       const col = {
         idAntiguo: esEntero(idAntiguo) || typeof idAntiguo === 'string' ? C.strip(C.pyStr(idAntiguo)) : null,
-        name: C.strip(textoO(dget(c, 'name'), '')) || 'Biblioteca sin titulo',
+        name: C.strip(textoO(dget(c, 'name'), '')) || __('Biblioteca sin titulo'),
         description: textoO(dget(c, 'description'), ''), color: textoO(dget(c, 'color'), 'indigo') || 'indigo',
         created_at: textoO(dget(c, 'created_at'), ahora), updated_at: textoO(dget(c, 'updated_at'), ahora),
         fuente: f ? F.metadatos(f) : null, filas,
       };
-      for (const campo of ['name', 'description', 'color', 'created_at', 'updated_at', 'fuente']) sinSustitutos(col[campo], campo, `de la biblioteca ${k} de la copia`);
+      for (const campo of ['name', 'description', 'color', 'created_at', 'updated_at', 'fuente']) sinSustitutos(col[campo], campo, __('de la biblioteca {0} de la copia', k));
       return col;
     });
     const busquedas = busq.map((s, i) => {
-      if (!esDict(s)) throw new ErrorPy('ValueError', `La búsqueda guardada ${i + 1} de la copia no es un objeto.`);
+      if (!esDict(s)) throw new ErrorPy('ValueError', __('La búsqueda guardada {0} de la copia no es un objeto.', i + 1));
       const filtros = dget(s, 'filters', {});
-      if (!esDict(filtros)) throw new ErrorPy('ValueError', `«filters» de la búsqueda guardada ${i + 1} debe ser un objeto.`);
+      if (!esDict(filtros)) throw new ErrorPy('ValueError', __('«filters» de la búsqueda guardada {0} debe ser un objeto.', i + 1));
       validarFiltros(filtros, i + 1);
       const query = textoO(dget(s, 'query'), '');
       const modo = dget(s, 'mode');
       const mode = modo === null || modo === '' ? 'keyword' : modo;
       if (typeof mode !== 'string' || !MODOS_COPIA.includes(mode)) {
-        throw new ErrorPy('ValueError', `La búsqueda guardada ${i + 1} de la copia usa un modo de búsqueda que esta versión no admite (${C.pyRepr(mode)}).`);
+        throw new ErrorPy('ValueError', __('La búsqueda guardada {0} de la copia usa un modo de búsqueda que esta versión no admite ({1}).', i + 1, C.pyRepr(mode)));
       }
       const b = {
-        name: C.strip(textoO(dget(s, 'name'), '')) || L.cortar(query, 40) || 'Busqueda', corpus: textoO(dget(s, 'corpus'), nombreCorpus),
+        name: C.strip(textoO(dget(s, 'name'), '')) || L.cortar(query, 40) || __('Busqueda'), corpus: textoO(dget(s, 'corpus'), nombreCorpus),
         mode, query, filters: plano(filtros),
         variants: verdad(dget(s, 'variants')) ? 1 : 0, created_at: textoO(dget(s, 'created_at'), ahora),
       };
-      for (const campo of ['name', 'corpus', 'query', 'created_at']) sinSustitutos(b[campo], campo, `de la búsqueda guardada ${i + 1} de la copia`);
+      for (const campo of ['name', 'corpus', 'query', 'created_at']) sinSustitutos(b[campo], campo, __('de la búsqueda guardada {0} de la copia', i + 1));
       return b;
     });
 

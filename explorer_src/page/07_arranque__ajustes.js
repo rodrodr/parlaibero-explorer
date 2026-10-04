@@ -51,31 +51,52 @@
     dlg = doc.createElement('dialog');
     dlg.id = 'dlgAjustes';
     dlg.setAttribute('aria-labelledby', 'ajustesTitulo');
-    dlg.innerHTML = `<div class="dhead"><h3 id="ajustesTitulo">Ajustes</h3>
-    <p class="dsub">Se recuerdan en este navegador.</p></div>
+    const lenguas = __.LENGUAS.map((l) => opcion('lengua', l.codigo, l.nombre, '')).join('');
+    dlg.innerHTML = `<div class="dhead"><h3 id="ajustesTitulo">${__('Ajustes')}</h3>
+    <p class="dsub">${__('Se recuerdan en este navegador.')}</p></div>
   <div class="dbody">
-    <fieldset><legend>Estilo</legend><div class="opciones">
-      ${opcion('estilo', 'editorial', 'Editorial', 'Granate y pliego de lectura: nombre del orador en grande, texto mayor y capital inicial.')}
-      ${opcion('estilo', 'iluminado', 'Iluminado', 'Como el editorial, con iniciales de manuscrito iluminado en las intervenciones largas.')}
-      ${opcion('estilo', 'clasico', 'Clásico', 'El aspecto original de la aplicación.')}
+    <fieldset><legend>${__('Lengua')}${__.lengua === 'en' ? '' : ' · <span lang="en">Language</span>'}</legend><div class="opciones">
+      ${lenguas}
+    </div><p class="dsub" data-r2="lengua-nota">${__('Al cambiarla, la página se recarga y vuelve a abrir la base recordada.')}</p></fieldset>
+    <fieldset><legend>${__('Estilo')}</legend><div class="opciones">
+      ${opcion('estilo', 'editorial', __('Editorial'), __('Granate y pliego de lectura: nombre del orador en grande, texto mayor y capital inicial.'))}
+      ${opcion('estilo', 'iluminado', __('Iluminado'), __('Como el editorial, con iniciales de manuscrito iluminado en las intervenciones largas.'))}
+      ${opcion('estilo', 'clasico', __('Clásico'), __('El aspecto original de la aplicación.'))}
     </div></fieldset>
-    <fieldset><legend>Tema</legend><div class="opciones">
-      ${opcion('tema', 'light', 'Claro', 'Papel claro.')}
-      ${opcion('tema', 'dark', 'Oscuro', 'Fondo oscuro; la misma paleta, adaptada.')}
+    <fieldset><legend>${__('Tema')}</legend><div class="opciones">
+      ${opcion('tema', 'light', __('Claro'), __('Papel claro.'))}
+      ${opcion('tema', 'dark', __('Oscuro'), __('Fondo oscuro; la misma paleta, adaptada.'))}
     </div></fieldset>
   </div>
-  <div class="dfoot"><button type="button" class="btn primary" data-close>Cerrar</button></div>`;
+  <div class="dfoot"><button type="button" class="btn primary" data-close>${__('Cerrar')}</button></div>`;
     dlg.addEventListener('change', (ev) => {
       const t = ev.target;
       if (!t || t.type !== 'radio' || !t.checked) return;
+      if (t.name === 'lengua') { cambiarLengua(t.value); return; }
       poner(t.name === 'tema' ? { tema: t.value } : { estilo: t.value });
     });
     dlg.querySelector('[data-close]').addEventListener('click', () => dlg.close());
     doc.body.appendChild(dlg);
   }
 
+  /** Cambia la lengua de la interfaz: recarga la página, salvo mientras se construye la base (se perdería). */
+  function cambiarLengua(codigo) {
+    if (codigo === __.lengua) return;
+    const A = R2.arranque;
+    const fase = A && typeof A.estado === 'function' ? (A.estado() || {}).fase : null;
+    if (fase === 'construyendo' || fase === 'construir') {
+      try { g.localStorage.setItem('diarios-explorer:v1:lengua', codigo); } catch (e) { /* sin almacenamiento */ }
+      const nota = dlg && dlg.querySelector('[data-r2="lengua-nota"]');
+      if (nota) nota.textContent = __('Se aplicará al recargar la página: ahora se está construyendo la base y recargar la interrumpiría.');
+      return;
+    }
+    __.cambiar(codigo);
+  }
+
   function pintar() {
-    for (const r of dlg.querySelectorAll('input[type="radio"]')) r.checked = r.value === (r.name === 'tema' ? tema() : estilo());
+    for (const r of dlg.querySelectorAll('input[type="radio"]')) {
+      r.checked = r.value === (r.name === 'tema' ? tema() : r.name === 'lengua' ? __.lengua : estilo());
+    }
   }
 
   function abrir() {
@@ -84,6 +105,6 @@
     if (!dlg.open) dlg.showModal();
   }
 
-  R2.ajustes = { aplicar, estilo, tema, poner, abrir, COLOR_TEMA };
+  R2.ajustes = { aplicar, estilo, tema, poner, abrir, cambiarLengua, COLOR_TEMA };
 }(globalThis.R2 = globalThis.R2 || {}));
 //# sourceURL=2rep-standalone/src/arranque/ajustes.js

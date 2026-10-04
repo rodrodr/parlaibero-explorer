@@ -47,13 +47,13 @@
   const V = RT.validar;
   const ErrorHttp = RT.ErrorHttp;
 
-  const MSG_OVERFLOW = 'Parametros no validos. Número fuera de rango: los ids y demás enteros deben caber en 64 bits.';
-  const MSG_SOLO_LECTURA = 'Sus bibliotecas están abiertas en otra pestaña de 2REP_Standalone: en esta solo se pueden consultar. Pulse «Usar aquí» para editarlas en esta pestaña.';
+  const MSG_OVERFLOW = N_('Parametros no validos. Número fuera de rango: los ids y demás enteros deben caber en 64 bits.');
+  const MSG_SOLO_LECTURA = N_('Sus bibliotecas están abiertas en otra pestaña de 2REP_Standalone: en esta solo se pueden consultar. Pulse «Usar aquí» para editarlas en esta pestaña.');
   /** 409 según el motivo del modo de solo lectura (POST /_biblioteca/modo {solo_lectura, motivo}). */
   const MSG_MOTIVO = Object.freeze({
     otra_pestana: MSG_SOLO_LECTURA,
-    relevo: 'Sus bibliotecas están pasando a otra pestaña de 2REP_Standalone, que ha pulsado «Usar aquí»: en esta ya no se pueden cambiar.',
-    copia_danada: 'La copia de sus bibliotecas guardada en este navegador está dañada. Hasta que decida en «Mis bibliotecas» si la descarga o la descarta, no se pueden cambiar.',
+    relevo: N_('Sus bibliotecas están pasando a otra pestaña de 2REP_Standalone, que ha pulsado «Usar aquí»: en esta ya no se pueden cambiar.'),
+    copia_danada: N_('La copia de sus bibliotecas guardada en este navegador está dañada. Hasta que decida en «Mis bibliotecas» si la descarga o la descarta, no se pueden cambiar.'),
   });
   const CAB_VERSION = 'x-r2-biblioteca';
   const CAB_EXPORTADAS = 'x-r2-exportadas';
@@ -157,20 +157,21 @@
       if (reglas.le !== undefined && r.valor > reglas.le) { errores.push(`${nombre}: Input should be less than or equal to ${reglas.le}`); continue; }
       out[nombre] = r.valor;
     }
-    if (errores.length) throw new ErrorHttp(422, `Parametros no validos. ${errores.join('; ')}`);
+    if (errores.length) throw new ErrorHttp(422, __('Parametros no validos. {0}', errores.join('; ')));
     return out;
   }
 
   /** server._tags. */
   function tagsDe(v) {
     if (nada(v)) return null;
-    if (!Array.isArray(v) || !v.every((t) => typeof t === 'string')) throw RT.noValido('tags debe ser una lista de textos.');
+    if (!Array.isArray(v) || !v.every((t) => typeof t === 'string')) throw RT.noValido(__('tags debe ser una lista de textos.'));
     return v;
   }
 
   function sinBiblioteca(lib, cid) {
     const existio = lib.collection_existio(cid);
-    return `No existe la biblioteca ${C.pyStr(cid)}` + (existio ? ' (se ha borrado).' : existio === false ? '.' : ' (quizá se ha borrado).');
+    return existio ? __('No existe la biblioteca {0} (se ha borrado).', C.pyStr(cid))
+      : existio === false ? __('No existe la biblioteca {0}.', C.pyStr(cid)) : __('No existe la biblioteca {0} (quizá se ha borrado).', C.pyStr(cid));
   }
 
   function nombreCorpus(ctx) {
@@ -193,7 +194,7 @@
   async function listaBusqueda(b, ctx) {
     const S = R2.search;
     const fn = S && (S.listaBusqueda || S.lista_busqueda);
-    if (typeof fn !== 'function') throw new ErrorHttp(501, RT.MSG_PROXIMA);
+    if (typeof fn !== 'function') throw new ErrorHttp(501, __(RT.MSG_PROXIMA));
     return fn(b, ctx);
   }
 
@@ -218,26 +219,31 @@
         date_real: nada(get(x, 'date_real')) ? null : x.date_real, date_corrected: verdad(get(x, 'date_corrected')),
         franja: nada(get(doble, 'franja')) ? null : doble.franja };
     });
-    const lista = listaY(detalle.map((x) => `núm. ${C.pyStr(x.num_session)}`));
-    const la = detalle.length === 1 ? 'la sesión' : 'las sesiones';
+    const lista = listaY(detalle.map((x) => __('núm. {0}', C.pyStr(x.num_session))));
+    const una = detalle.length === 1;
     const ns = C.pyStr(numSession);
     let tipo, dudosa, titulo, mensaje;
     if (verdad(get(own, 'has_meta')) && verdad(get(own, 'date_corrected'))) {
-      [tipo, dudosa, titulo] = ['date_error', false, 'Fecha errónea en el corpus de origen'];
-      mensaje = `El corpus de origen fecha esta sesión (núm. ${ns}) el ${fechaLarga(fecha)}, pero se celebró el ${fechaLarga(get(own, 'date_real'))}. `
-        + `Por ese error comparte fecha con ${la} ${lista}. El número de sesión es correcto.`;
+      [tipo, dudosa, titulo] = ['date_error', false, __('Fecha errónea en el corpus de origen')];
+      const [f1, f2] = [fechaLarga(fecha), fechaLarga(get(own, 'date_real'))];
+      mensaje = una
+        ? __('El corpus de origen fecha esta sesión (núm. {0}) el {1}, pero se celebró el {2}. Por ese error comparte fecha con la sesión {3}. El número de sesión es correcto.', ns, f1, f2, lista)
+        : __('El corpus de origen fecha esta sesión (núm. {0}) el {1}, pero se celebró el {2}. Por ese error comparte fecha con las sesiones {3}. El número de sesión es correcto.', ns, f1, f2, lista);
     } else if (verdad(get(own, 'has_meta')) && verdad(get(own, 'double_sitting')) && detalle.every((x) => verdad(x.franja))) {
-      [tipo, dudosa, titulo] = ['double_sitting', false, 'Doble sesión real'];
+      [tipo, dudosa, titulo] = ['double_sitting', false, __('Doble sesión real')];
       const franja = get(own.double_sitting, 'franja');
-      const otrasTxt = listaY(detalle.map((x) => `la núm. ${C.pyStr(x.num_session)} fue la de la ${C.pyStr(x.franja)}`));
-      mensaje = `El ${fechaLarga(fecha)} hubo más de una sesión: esta (núm. ${ns}) fue la de la ${C.pyStr(nada(franja) ? null : franja)} y ${otrasTxt}. El número de sesión es correcto.`;
+      const otrasTxt = listaY(detalle.map((x) => __('la núm. {0} fue la de la {1}', C.pyStr(x.num_session), C.pyStr(x.franja))));
+      mensaje = __('El {0} hubo más de una sesión: esta (núm. {1}) fue la de la {2} y {3}. El número de sesión es correcto.',
+        fechaLarga(fecha), ns, C.pyStr(nada(franja) ? null : franja), otrasTxt);
     } else if (verdad(get(own, 'has_meta')) && detalle.every((x) => x.date_corrected)) {
-      [tipo, dudosa, titulo] = ['other_date_error', false, 'Otra sesión mal fechada en esta fecha'];
-      const fechas = listaY(detalle.map((x) => `la núm. ${C.pyStr(x.num_session)} se celebró el ${fechaLarga(x.date_real)}`));
-      mensaje = `En el corpus de origen esta fecha aparece también con ${la} ${lista}, mal fechada: ${fechas}. El número y la fecha de esta sesión son correctos.`;
+      [tipo, dudosa, titulo] = ['other_date_error', false, __('Otra sesión mal fechada en esta fecha')];
+      const fechas = listaY(detalle.map((x) => __('la núm. {0} se celebró el {1}', C.pyStr(x.num_session), fechaLarga(x.date_real))));
+      mensaje = una
+        ? __('En el corpus de origen esta fecha aparece también con la sesión {0}, mal fechada: {1}. El número y la fecha de esta sesión son correctos.', lista, fechas)
+        : __('En el corpus de origen esta fecha aparece también con las sesiones {0}, mal fechada: {1}. El número y la fecha de esta sesión son correctos.', lista, fechas);
     } else {
-      [tipo, dudosa, titulo] = ['unverified', true, 'Número de sesión dudoso'];
-      mensaje = 'En el corpus de origen esta fecha aparece con más de un número de sesión. Verifique el número antes de citarlo.';
+      [tipo, dudosa, titulo] = ['unverified', true, __('Número de sesión dudoso')];
+      mensaje = __('En el corpus de origen esta fecha aparece con más de un número de sesión. Verifique el número antes de citarlo.');
     }
     return { num_session: numSession, otros: otras, tipo, dudosa, titulo, mensaje, detalle };
   }
@@ -291,7 +297,7 @@
   function ruta(fn, opciones = {}) {
     return async (pet, ctx) => {
       const lib = biblioteca(ctx);
-      if (opciones.muta && E.soloLectura) throw new ErrorHttp(409, MSG_MOTIVO[E.motivo] || MSG_SOLO_LECTURA);
+      if (opciones.muta && E.soloLectura) throw new ErrorHttp(409, __(MSG_MOTIVO[E.motivo] || MSG_SOLO_LECTURA));
       const v0 = lib.version;
       try {
         let r = await fn(pet, ctx, lib);
@@ -301,7 +307,7 @@
         }
         return r;
       } catch (e) {
-        if (e && e.name === 'OverflowError') throw new ErrorHttp(422, MSG_OVERFLOW);
+        if (e && e.name === 'OverflowError') throw new ErrorHttp(422, __(MSG_OVERFLOW));
         throw e;
       }
     };
@@ -323,14 +329,14 @@
       const campos = {};
       for (const k of ['name', 'description', 'color']) if (tiene(b, k)) campos[k] = V.texto(b, k);
       const out = lib.update_collection(cid, campos);
-      if (out === null) throw new ErrorHttp(404, 'No existe esa biblioteca.');
+      if (out === null) throw new ErrorHttp(404, __('No existe esa biblioteca.'));
       return out;
     }, { muta: true })],
 
     ['DELETE', '/collections/{cid}', ruta((pet, ctx, lib) => {
       const { cid } = parametros(pet, CID);
       const out = lib.delete_collection(cid);
-      if (out === null) throw new ErrorHttp(404, 'No existe esa biblioteca (quizá ya se borró).');
+      if (out === null) throw new ErrorHttp(404, __('No existe esa biblioteca (quizá ya se borró).'));
       return Object.assign({ ok: true }, out);
     }, { muta: true })],
 
@@ -338,7 +344,7 @@
       const { cid, limit, offset } = parametros(pet, [['ruta', 'cid'], ['consulta', 'limit', { defecto: 500, ge: 1, le: 5000 }],
         ['consulta', 'offset', { defecto: 0, ge: 0 }]]);
       const nombre = nombreCorpus(ctx);
-      if (lib.get_collection(cid) === null) throw new ErrorHttp(404, 'No existe esa biblioteca.');
+      if (lib.get_collection(cid) === null) throw new ErrorHttp(404, __('No existe esa biblioteca.'));
       const ids = lib.item_ids(cid, nombre);
       const huella = R2.py.sha1.hex(ids.slice().sort(compararIds).map((x) => C.pyStr(x)).join(',')).slice(0, 16);
       const metas = lib.items_meta(cid, nombre);
@@ -363,13 +369,13 @@
       if (todos) {
         lista = await listaBusqueda(b, ctx);
         ids = lista.ids;
-        if (!ids.length) throw new ErrorHttp(400, 'La búsqueda actual no lista ninguna intervención.');
+        if (!ids.length) throw new ErrorHttp(400, __('La búsqueda actual no lista ninguna intervención.'));
         // La búsqueda cedió el hilo: la biblioteca de destino tiene que seguir existiendo.
         if (lib.get_collection(cid) === null) throw new ErrorHttp(404, sinBiblioteca(lib, cid));
       } else {
         ids = V.ids(o(get(b, 'speech_ids'), []), 'speech_ids');
       }
-      if (!ids.length) throw new ErrorHttp(400, 'No se indicaron intervenciones.');
+      if (!ids.length) throw new ErrorHttp(400, __('No se indicaron intervenciones.'));
       let span = null;
       if (!nada(get(b, 'char_start')) && !nada(get(b, 'char_end'))) {
         span = [V.entero(b.char_start, 'char_start', 0), V.entero(b.char_end, 'char_end', 0)];
@@ -397,8 +403,8 @@
       const { cid } = parametros(pet, CID);
       const b = V.cuerpo(pet.cuerpo);
       const ids = V.ids(o(get(b, 'speech_ids'), []), 'speech_ids');
-      if (!ids.length) throw new ErrorHttp(400, 'No se indicaron intervenciones.');
-      if (lib.get_collection(cid) === null) throw new ErrorHttp(404, 'No existe esa biblioteca.');
+      if (!ids.length) throw new ErrorHttp(400, __('No se indicaron intervenciones.'));
+      if (lib.get_collection(cid) === null) throw new ErrorHttp(404, __('No existe esa biblioteca.'));
       return lib.remove_items(cid, ids, nombreCorpus(ctx));
     }, { muta: true })],
 
@@ -407,7 +413,7 @@
       const b = V.cuerpo(pet.cuerpo);
       const nota = !nada(get(b, 'note')) ? V.texto(b, 'note') : null;
       const ok = lib.update_item(cid, nombreCorpus(ctx), sid, nota, tagsDe(get(b, 'tags')));
-      if (!ok) throw new ErrorHttp(404, 'La intervencion no esta en esa biblioteca.');
+      if (!ok) throw new ErrorHttp(404, __('La intervencion no esta en esa biblioteca.'));
       return { ok: true };
     }, { muta: true })],
 
@@ -416,21 +422,21 @@
     ['POST', '/searches', ruta((pet, ctx, lib) => {
       const b = V.cuerpo(pet.cuerpo);
       const filtros = o(get(b, 'filters'), {});
-      if (!RT.esDict(filtros)) throw RT.noValido('filters debe ser un objeto JSON.');
+      if (!RT.esDict(filtros)) throw RT.noValido(__('filters debe ser un objeto JSON.'));
       return lib.save_search(V.texto(b, 'name'), nombreCorpus(ctx), V.texto(b, 'mode') || 'hybrid', V.texto(b, 'query'),
         filtros, verdad(get(b, 'variants')));
     }, { muta: true })],
 
     ['DELETE', '/searches/{sid}', ruta((pet, ctx, lib) => {
       const { sid } = parametros(pet, [['ruta', 'sid']]);
-      if (!lib.delete_search(sid)) throw new ErrorHttp(404, 'No existe esa busqueda guardada.');
+      if (!lib.delete_search(sid)) throw new ErrorHttp(404, __('No existe esa busqueda guardada.'));
       return { ok: true };
     }, { muta: true })],
 
     ['POST', '/import', ruta((pet, ctx, lib) => {
       const b = V.cuerpo(pet.cuerpo);
       const payload = o(get(b, 'payload'), {});
-      if (!RT.esDict(payload)) throw RT.noValido('payload debe ser el objeto JSON de un archivo .2replib.');
+      if (!RT.esDict(payload)) throw RT.noValido(__('payload debe ser el objeto JSON de un archivo .2replib.'));
       try {
         if (get(payload, 'format') === P.FORMATO_COPIA) return P.importarCopia(lib, payload, nombreCorpus(ctx));
         return P.importarBiblioteca(lib, payload, nombreCorpus(ctx));
@@ -439,7 +445,7 @@
         // también responde 400 con su texto.
         if (e && L.esValueError(e)) throw new ErrorHttp(400, e.message);
         if (e && e.name === 'KeyError') {
-          throw new ErrorHttp(409, 'La biblioteca que se estaba importando se borró antes de terminar. Vuelva a importar el archivo.');
+          throw new ErrorHttp(409, __('La biblioteca que se estaba importando se borró antes de terminar. Vuelva a importar el archivo.'));
         }
         throw e;
       }
@@ -448,17 +454,17 @@
     ['POST', '/export', ruta(async (pet, ctx, lib) => {
       const b = V.cuerpo(pet.cuerpo);
       const fmt = C.lower(V.texto(b, 'format') || 'csv');
-      if (!FORMATOS_EXPORT.includes(fmt)) throw new ErrorHttp(400, `Formato no soportado: ${fmt}`);
-      if (fmt !== 'bundle') throw new ErrorHttp(501, RT.MSG_PROXIMA); // CSV, JSON, Markdown y Referencias: M6
+      if (!FORMATOS_EXPORT.includes(fmt)) throw new ErrorHttp(400, __('Formato no soportado: {0}', fmt));
+      if (fmt !== 'bundle') throw new ErrorHttp(501, __(RT.MSG_PROXIMA)); // CSV, JSON, Markdown y Referencias: M6
       const nombre = nombreCorpus(ctx);
       const cid0 = get(b, 'collection_id');
       const cid = vacio(cid0) ? null : V.entero(cid0, 'collection_id', 1);
       if (!cid) {
         await listaBusqueda(b, ctx); // _seleccion_export valida la búsqueda antes del 400
-        throw new ErrorHttp(400, 'El formato .2replib requiere una biblioteca.');
+        throw new ErrorHttp(400, __('El formato .2replib requiere una biblioteca.'));
       }
       const col = lib.get_collection(cid);
-      if (col === null) throw new ErrorHttp(404, 'No existe esa biblioteca.');
+      if (col === null) throw new ErrorHttp(404, __('No existe esa biblioteca.'));
       const cap = V.cap(b, ctx.corpus && ctx.corpus.n_speeches);
       const todos = lib.item_ids(cid, nombre);
       const ids = cap === null ? todos : todos.slice(0, Number(cap));
@@ -513,13 +519,13 @@
       }
       if (!nada(bytes) && !(bytes instanceof Uint8Array)) {
         if (bytes instanceof ArrayBuffer || ArrayBuffer.isView(bytes)) bytes = new Uint8Array(bytes.buffer || bytes, bytes.byteOffset || 0, bytes.byteLength);
-        else throw RT.noValido('bytes debe ser la base serializada (Uint8Array) o null.');
+        else throw RT.noValido(__('bytes debe ser la base serializada (Uint8Array) o null.'));
       }
       let nueva;
       try {
         nueva = L.abrir(E.sqlite3, { bytes: nada(bytes) ? null : bytes });
       } catch (e) {
-        throw new ErrorHttp(422, `No se pudo abrir la copia de las bibliotecas: ${e && e.message ? e.message : e}`);
+        throw new ErrorHttp(422, __('No se pudo abrir la copia de las bibliotecas: {0}', e && e.message ? e.message : e));
       }
       if (E.lib) E.lib.cerrar();
       E.lib = nueva;

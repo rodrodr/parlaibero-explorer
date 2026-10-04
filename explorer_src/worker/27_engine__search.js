@@ -53,7 +53,7 @@
   const resumenConsulta = (an) => ({ interpretacion: an.interpretacion, avisos: an.avisos.slice(), omitidas: an.omitidas.slice(),
     ignoradas: an.ignoradas.slice(), error: an.error ? Object.assign({}, an.error) : null });
 
-  const mensajeSinTerminos = (an) => (an.error ? an.error.mensaje : Q.MENSAJES.NADA);
+  const mensajeSinTerminos = (an) => (an.error ? __(an.error.mensaje) : __(Q.MENSAJES.NADA));
 
   // ------------------------------------------------------------------------------------------------ búsqueda
   function navegar(bd, f, limit, offset, order, t0 = ahora()) {
@@ -94,7 +94,7 @@
         rows = ids.map((i) => porId.get(String(i))).filter(Boolean);
       } else rows = [];
     } catch (e) {
-      return { error: `Consulta no valida: ${S.errorSqlite(bd, e)}`, query_fts: an.fts, results: [], total: 0, ms: 0, consulta: resumenConsulta(an) };
+      return { error: __('Consulta no valida: {0}', S.errorSqlite(bd, e)), query_fts: an.fts, results: [], total: 0, ms: 0, consulta: resumenConsulta(an) };
     }
     let best = -1.0;
     if (rows.length) best = rows.reduce((m, r) => (r.bm25 < m ? r.bm25 : m), rows[0].bm25);
@@ -212,7 +212,7 @@
     const order = V.orden(RT.get(b, 'order'));
     const cap = V.cap(b, ctx.corpus ? ctx.corpus.n_speeches : 0);
     const f = await F.resolver(b, ctx);
-    if (mode === 'semantic') throw RT.solicitud(RT.MSG_MODO_NO_DISPONIBLE);
+    if (mode === 'semantic') throw RT.solicitud(__(RT.MSG_MODO_NO_DISPONIBLE));
     const lista = idsFor(bdDe(ctx), query, f, order, null, ctx.cache);
     const total = lista.length;
     const ids = cap === null ? lista : lista.slice(0, Number(cap));
@@ -232,7 +232,7 @@
     const presupuesto = RT.get(b, 'climate_budget_ms');
     const budget = presupuesto === undefined || presupuesto === null || presupuesto === ''
       ? null : V.num(b, 'climate_budget_ms', 60, 0, 10000);
-    if (mode === 'semantic') throw RT.solicitud(RT.MSG_MODO_NO_DISPONIBLE);
+    if (mode === 'semantic') throw RT.solicitud(__(RT.MSG_MODO_NO_DISPONIBLE));
     const res = buscar(bdDe(ctx), query, f, Number(limit), Number(offset), order, ctx.cache);
     if (!R2.climate) throw new Error('engine/search.js necesita R2.climate (engine/climate.js) para el clima de sala');
     const pend = R2.climate.attachClimate(ctx, res.results || [], budget === null ? null : Number(budget));
@@ -246,7 +246,7 @@
     const query = strip(V.texto(b, 'query'));
     const f = await F.resolver(b, ctx);
     const mode = modoDe(b);
-    if (mode === 'semantic') throw RT.solicitud(RT.MSG_MODO_NO_DISPONIBLE);
+    if (mode === 'semantic') throw RT.solicitud(__(RT.MSG_MODO_NO_DISPONIBLE));
     return estadisticas(bdDe(ctx), query, f, ctx.cache);
   }
 

@@ -41,7 +41,7 @@
   const CLAVE_AUTO = 'diarios-explorer:v1:recordar-corpus';
   const MIB = 1048576;
   const ESPERA_CERROJO_MS = 20000;
-  const TEXTO_FIREFOX = 'En Firefox, la base recordada depende de dónde esté este archivo: si lo mueve o le cambia el nombre, no la encontrará.';
+  const TEXTO_FIREFOX = __('En Firefox, la base recordada depende de dónde esté este archivo: si lo mueve o le cambia el nombre, no la encontrará.');
   const S = {
     g: null, doc: null, api: null, web: false, modo: null, detalle: {}, detectando: null, local: null,
     auto: true, consulta: null, consultando: null, operacion: null, mensaje: '', error: false, progreso: null,
@@ -51,18 +51,18 @@
   };
 
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  const mib = (b) => `${new Intl.NumberFormat('es-ES').format(Math.round((b || 0) / MIB))} MiB`;
+  const mib = (b) => `${__.num(Math.round((b || 0) / MIB))} MiB`;
   const ahora = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
   const textoDe = (e) => (e && e.name && e.message ? `${e.name}: ${e.message}` : String(e && e.message ? e.message : e));
   function fecha(iso) {
     const d = new Date(iso);
     if (!iso || isNaN(d)) return '';
     const p = (n) => String(n).padStart(2, '0');
-    return `${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()} a las ${p(d.getHours())}:${p(d.getMinutes())}`;
+    return __('{0} a las {1}', `${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()}`, `${p(d.getHours())}:${p(d.getMinutes())}`);
   }
   function conTiempo(promesa, ms) {
     let t = null;
-    return Promise.race([promesa, new Promise((_, rechazar) => { t = setTimeout(() => rechazar(new Error(`sin respuesta en ${ms} ms`)), ms); })])
+    return Promise.race([promesa, new Promise((_, rechazar) => { t = setTimeout(() => rechazar(new Error(__('sin respuesta en {0} ms', ms))), ms); })])
       .finally(() => clearTimeout(t));
   }
 
@@ -123,18 +123,20 @@
 
   const conDatos = () => !!(R2.arranque && typeof R2.arranque.datosPropios === 'function' && R2.arranque.datosPropios());
 
-  function sinBaseTexto(prefijo) {
-    const p = conDatos() ? (R2.arranque.datosPropios().tipo === 'servido'
-      ? 'el corpus se descargará de nuevo en cada visita' : 'el corpus se volverá a preparar desde los datos incluidos en cada visita')
-      : 'tendrá que elegir el CSV en cada visita';
-    return prefijo ? `${prefijo}: ${p}.` : p;
-  }
-  const sinElegirCsv = () => (conDatos() ? 'sin descargarla ni prepararla de nuevo' : 'sin elegir el CSV');
+  // De dónde sale el corpus cuando no hay base guardada: 'servido' (se descarga), 'incluido' (datos de la página) o
+  // 'csv' (lo elige la persona). Cada caso lleva su frase entera, para poder traducirla.
+  const origenDatos = () => (conDatos() ? (R2.arranque.datosPropios().tipo === 'servido' ? 'servido' : 'incluido') : 'csv');
 
   function textoSinAlmacen() {
-    return sinBaseTexto(S.archivoLocal
-      ? 'Este navegador no permite guardar la base con la página abierta como archivo'
-      : 'Este navegador no permite guardar la base');
+    const o = origenDatos();
+    if (S.archivoLocal) {
+      return o === 'servido' ? __('Este navegador no permite guardar la base con la página abierta como archivo: el corpus se descargará de nuevo en cada visita.')
+        : o === 'incluido' ? __('Este navegador no permite guardar la base con la página abierta como archivo: el corpus se volverá a preparar desde los datos incluidos en cada visita.')
+          : __('Este navegador no permite guardar la base con la página abierta como archivo: tendrá que elegir el CSV en cada visita.');
+    }
+    return o === 'servido' ? __('Este navegador no permite guardar la base: el corpus se descargará de nuevo en cada visita.')
+      : o === 'incluido' ? __('Este navegador no permite guardar la base: el corpus se volverá a preparar desde los datos incluidos en cada visita.')
+        : __('Este navegador no permite guardar la base: tendrá que elegir el CSV en cada visita.');
   }
 
   function cerrojo(modo, fn, esperaMs, signal) {
@@ -144,10 +146,10 @@
 
   async function pedirOp(op, args, o = {}) {
     const c = o.cliente || cliente();
-    if (!c) throw Object.assign(new Error('El motor de la página todavía no está listo.'), { codigo: 'ESTADO' });
+    if (!c) throw Object.assign(new Error(__('El motor de la página todavía no está listo.')), { codigo: 'ESTADO' });
     const r = await c.pedir(op, args || {}, { prioridad: o.prioridad || 'interactiva', signal: o.signal });
     if (r.status >= 400) {
-      throw Object.assign(new Error((r.cuerpo && r.cuerpo.error) || `Error ${r.status}`), { codigo: r.cuerpo && r.cuerpo.codigo, status: r.status });
+      throw Object.assign(new Error((r.cuerpo && r.cuerpo.error) || __('Error {0}', r.status)), { codigo: r.cuerpo && r.cuerpo.codigo, status: r.status });
     }
     return r.cuerpo;
   }
@@ -209,9 +211,9 @@
     if (!lib) return;
     bitacora('liberados', { obsoletos: lib.obsoletos, danados: lib.danados, sobrantes: lib.sobrantes, bytes: lib.bytes });
     if (lib.obsoletos) {
-      avisar(`La base recordada era de una versión anterior de Diarios Explorer y ya no sirve con esta: se ha borrado para liberar espacio (${mib(lib.bytes)}). Elija el CSV para volver a construirla.`);
+      avisar(__('La base recordada era de una versión anterior de Diarios Explorer y ya no sirve con esta: se ha borrado para liberar espacio ({0}). Elija el CSV para volver a construirla.', mib(lib.bytes)));
     } else if (lib.danados) {
-      avisar(`La base recordada estaba dañada o incompleta y se ha borrado (${mib(lib.bytes)}). Elija el CSV para volver a construirla.`, true);
+      avisar(__('La base recordada estaba dañada o incompleta y se ha borrado ({0}). Elija el CSV para volver a construirla.', mib(lib.bytes)), true);
     }
   }
 
@@ -259,7 +261,7 @@
     if (S.operacion) { S.pendienteRecordar = o; return; }
     if (!S.api || S.api.huella() !== 'comprobada') {
       S.pendienteRecordar = o;
-      avisar('La base se guardará en cuanto termine la comprobación de la huella del CSV…');
+      avisar(__('La base se guardará en cuanto termine la comprobación de la huella del CSV…'));
       return;
     }
     S.pendienteRecordar = null;
@@ -267,7 +269,7 @@
     S.operacion = 'recordar';
     S.progreso = null;
     pedirPersistencia();
-    avisar('Guardando la base en este navegador…');
+    avisar(__('Guardando la base en este navegador…'));
     bitacora('guardar_inicio', { anterior: anterior && anterior.nombre, reemplazo: !!o.reemplazo });
     const t0 = ahora();
     try {
@@ -285,13 +287,16 @@
       let texto;
       if (o.reemplazo) {
         texto = r.ya_recordado
-          ? 'El archivo elegido es la misma versión que ya estaba recordada: no ha cambiado nada.'
-          : `Base reemplazada: ahora se recuerda ${describir(r.recordado)} y se ha borrado la anterior${anterior ? ` (${describir(anterior, false)})` : ''}. Sus bibliotecas siguen igual.`;
+          ? __('El archivo elegido es la misma versión que ya estaba recordada: no ha cambiado nada.')
+          : anterior ? __('Base reemplazada: ahora se recuerda {0} y se ha borrado la anterior ({1}). Sus bibliotecas siguen igual.', describir(r.recordado), describir(anterior, false))
+            : __('Base reemplazada: ahora se recuerda {0} y se ha borrado la anterior. Sus bibliotecas siguen igual.', describir(r.recordado));
       } else if (r.ya_recordado) {
-        texto = 'Esta base ya estaba recordada en este navegador.';
+        texto = __('Esta base ya estaba recordada en este navegador.');
       } else {
-        texto = `Base recordada en este navegador (${mib(r.recordado && r.recordado.bytes)}): la próxima vez se abrirá sola, ${sinElegirCsv()}.`
-          + (cambio ? ` Sustituye a la que había (${describir(anterior, false)}).` : '');
+        texto = (conDatos()
+          ? __('Base recordada en este navegador ({0}): la próxima vez se abrirá sola, sin descargarla ni prepararla de nuevo.', mib(r.recordado && r.recordado.bytes))
+          : __('Base recordada en este navegador ({0}): la próxima vez se abrirá sola, sin elegir el CSV.', mib(r.recordado && r.recordado.bytes)))
+          + (cambio ? ` ${__('Sustituye a la que había ({0}).', describir(anterior, false))}` : '');
       }
       avisar(texto);
     } catch (e) {
@@ -299,15 +304,15 @@
       S.progreso = null;
       bitacora('guardar_fallo', { codigo: e.codigo || null, mensaje: e.message });
       avisar(o.reemplazo
-        ? `No se pudo guardar la base nueva: ${e.message} Se conserva la base recordada anterior; esta pestaña usa la nueva hasta que la cierre.`
-        : `No se pudo recordar la base: ${e.message}`, true);
+        ? __('No se pudo guardar la base nueva: {0} Se conserva la base recordada anterior; esta pestaña usa la nueva hasta que la cierre.', e.message)
+        : __('No se pudo recordar la base: {0}', e.message), true);
     }
     if (S.pendienteRecordar && !S.operacion) { const p = S.pendienteRecordar; S.pendienteRecordar = null; if (!corpusRecordado()) recordar(p); }
   }
 
   function progreso(hecho, total) {
     S.progreso = total > 0 ? Math.min(1, hecho / total) : null;
-    const t = S.progreso == null ? '' : ` ${Math.floor(S.progreso * 100)} %`;
+    const t = S.progreso == null ? '' : ` ${__('{0} %', Math.floor(S.progreso * 100))}`;
     if (!S.doc) return;
     for (const el of S.doc.querySelectorAll('[data-r2w="progreso"]')) el.textContent = t;
   }
@@ -380,16 +385,25 @@
     const enApp = fase() === 'app';
     if (!o.sinConfirmar) {
       const parrafos = [
-        r ? `Se borrará de este navegador la base guardada ${describir(r, false)} y se liberarán unos ${mib(r.bytes)}.`
-          : 'Se borrará de este navegador lo que quede guardado de la base.',
-        'Sus bibliotecas no se borran: siguen guardadas en este navegador.',
+        r ? __('Se borrará de este navegador la base guardada {0} y se liberarán unos {1}.', describir(r, false), mib(r.bytes))
+          : __('Se borrará de este navegador lo que quede guardado de la base.'),
+        __('Sus bibliotecas no se borran: siguen guardadas en este navegador.'),
       ];
-      if (enApp) parrafos.push(`Esta pestaña sigue funcionando con la base abierta hasta que la cierre o la recargue; después ${conDatos() ? sinBaseTexto('').replace(' en cada visita', ' al abrir la página') : 'habrá que volver a elegir el CSV'}.`);
-      if (S.auto) parrafos.push(`${conDatos() ? 'La próxima vez que se abra el corpus' : 'La próxima vez que elija el CSV'} se volverá a recordar, salvo que desmarque «Recordar la base en este navegador».`);
-      if (!(await confirmar({ titulo: '¿Olvidar la base recordada?', parrafos, si: 'Olvidar la base', peligro: true }))) return false;
+      if (enApp) {
+        const o = origenDatos();
+        parrafos.push(o === 'servido' ? __('Esta pestaña sigue funcionando con la base abierta hasta que la cierre o la recargue; después el corpus se descargará de nuevo al abrir la página.')
+          : o === 'incluido' ? __('Esta pestaña sigue funcionando con la base abierta hasta que la cierre o la recargue; después el corpus se volverá a preparar desde los datos incluidos al abrir la página.')
+            : __('Esta pestaña sigue funcionando con la base abierta hasta que la cierre o la recargue; después habrá que volver a elegir el CSV.'));
+      }
+      if (S.auto) {
+        parrafos.push(conDatos()
+          ? __('La próxima vez que se abra el corpus se volverá a recordar, salvo que desmarque «Recordar la base en este navegador».')
+          : __('La próxima vez que elija el CSV se volverá a recordar, salvo que desmarque «Recordar la base en este navegador».'));
+      }
+      if (!(await confirmar({ titulo: __('¿Olvidar la base recordada?'), parrafos, si: __('Olvidar la base'), peligro: true }))) return false;
     }
     S.operacion = 'olvidar';
-    avisar('Olvidando la base…');
+    avisar(__('Olvidando la base…'));
     try {
       const x = await cerrojo('exclusive', () => (S.modo === 'opfs' ? pedirOp('olvidar') : S.local.olvidar()), 60000);
       S.consulta = Object.assign({}, S.consulta, { recordado: null, otros: 0 });
@@ -397,12 +411,13 @@
       S.operacion = null;
       actualizarEspacio();
       avisar(x.bytes_borrados
-        ? `Base olvidada: se han liberado ${mib(x.bytes_borrados)} de este navegador. Sus bibliotecas siguen guardadas.${enApp ? ' Esta pestaña sigue usando la base hasta que la cierre o la recargue.' : ''}`
-        : 'No había ninguna base recordada en este navegador.');
+        ? __('Base olvidada: se han liberado {0} de este navegador. Sus bibliotecas siguen guardadas.', mib(x.bytes_borrados))
+          + (enApp ? ` ${__('Esta pestaña sigue usando la base hasta que la cierre o la recargue.')}` : '')
+        : __('No había ninguna base recordada en este navegador.'));
       return true;
     } catch (e) {
       S.operacion = null;
-      avisar(`No se pudo olvidar la base: ${e.message}`, true);
+      avisar(__('No se pudo olvidar la base: {0}', e.message), true);
       return false;
     }
   }
@@ -433,14 +448,14 @@
     const P = R2.progreso;
     const tam = P && P.tamano ? P.tamano(archivo.size) : mib(archivo.size);
     const ok = await confirmar({
-      titulo: '¿Reemplazar la base recordada?',
+      titulo: __('¿Reemplazar la base recordada?'),
       parrafos: [
-        ant ? `Ahora se recuerda: ${describir(ant)}.` : 'Ahora no hay ninguna base recordada.',
-        `Nueva: «${archivo.name}» (${tam}).`,
-        'Se construirá la base con el archivo nuevo. La anterior solo se borra cuando la nueva esté construida, comprobada y guardada; si algo falla, se vuelve a la anterior.',
-        'Sus bibliotecas no se tocan. Mientras se construye, la interfaz queda en pausa.',
+        ant ? __('Ahora se recuerda: {0}.', describir(ant)) : __('Ahora no hay ninguna base recordada.'),
+        __('Nueva: «{0}» ({1}).', archivo.name, tam),
+        __('Se construirá la base con el archivo nuevo. La anterior solo se borra cuando la nueva esté construida, comprobada y guardada; si algo falla, se vuelve a la anterior.'),
+        __('Sus bibliotecas no se tocan. Mientras se construye, la interfaz queda en pausa.'),
       ],
-      si: 'Reemplazar',
+      si: __('Reemplazar'),
     });
     if (!ok) return;
     let anteriorBorrada = false;
@@ -453,16 +468,16 @@
       if (libres < hacen) {
         bitacora('reemplazo_sin_espacio', { libres, hacen });
         const borrar = await confirmar({
-          titulo: 'No hay espacio para las dos bases',
+          titulo: __('No hay espacio para las dos bases'),
           parrafos: [
-            `Para reemplazarla sin riesgo, el navegador guarda la base nueva antes de borrar la anterior, y no hay espacio para las dos: hacen falta unos ${mib(hacen)} y quedan ${mib(Math.max(0, libres))}.`,
-            'Puede borrar antes la base recordada y continuar. Si la nueva no llegara a construirse, tendría que volver a elegir un CSV.',
-            'Sus bibliotecas no se tocan.',
+            __('Para reemplazarla sin riesgo, el navegador guarda la base nueva antes de borrar la anterior, y no hay espacio para las dos: hacen falta unos {0} y quedan {1}.', mib(hacen), mib(Math.max(0, libres))),
+            __('Puede borrar antes la base recordada y continuar. Si la nueva no llegara a construirse, tendría que volver a elegir un CSV.'),
+            __('Sus bibliotecas no se tocan.'),
           ],
-          si: 'Borrar la anterior y continuar',
+          si: __('Borrar la anterior y continuar'),
           peligro: true,
         });
-        if (!borrar) { avisar('Reemplazo cancelado: la base recordada sigue igual.'); return; }
+        if (!borrar) { avisar(__('Reemplazo cancelado: la base recordada sigue igual.')); return; }
         if (!(await olvidar({ sinConfirmar: true }))) return;
         anteriorBorrada = true;
       }
@@ -489,7 +504,7 @@
     d.setAttribute('aria-labelledby', 'r2-web-dlg-t');
     d.setAttribute('aria-describedby', 'r2-web-dlg-c');
     d.innerHTML = '<div class="dhead"><h3 id="r2-web-dlg-t"></h3></div><div class="dbody" id="r2-web-dlg-c"></div>'
-      + '<div class="dfoot"><button type="button" class="btn ghost" data-r2-dlg="no">Cancelar</button><button type="button" class="btn" data-r2-dlg="si"></button></div>';
+      + `<div class="dfoot"><button type="button" class="btn ghost" data-r2-dlg="no">${__('Cancelar')}</button><button type="button" class="btn" data-r2-dlg="si"></button></div>`;
     S.doc.body.appendChild(d);
     S.dlg = d;
     return d;
@@ -510,7 +525,7 @@
     }
     const si = d.querySelector('[data-r2-dlg="si"]');
     const no = d.querySelector('[data-r2-dlg="no"]');
-    si.textContent = o.si || 'Aceptar';
+    si.textContent = o.si || __('Aceptar');
     si.className = o.peligro ? 'btn danger fill' : 'btn primary';
     const antes = S.doc.activeElement;
     d.dataset.tipo = o.si || '';
@@ -536,25 +551,29 @@
 
 
   const btn = (que, texto, o = {}) => `<button type="button" class="btn${o.clase ? ` ${o.clase}` : ''}" data-r2-web="${que}"${o.off ? ' disabled' : ''}>${esc(texto)}</button>`;
-  const casilla = () => `<label class="r2w-auto"><input type="checkbox" data-r2-web="auto"${S.auto ? ' checked' : ''}><span>Recordar la base en este navegador: al volver, se abrirá sola ${sinElegirCsv()}.</span></label>`;
+  const casilla = () => `<label class="r2w-auto"><input type="checkbox" data-r2-web="auto"${S.auto ? ' checked' : ''}><span>${conDatos()
+    ? __('Recordar la base en este navegador: al volver, se abrirá sola sin descargarla ni prepararla de nuevo.')
+    : __('Recordar la base en este navegador: al volver, se abrirá sola sin elegir el CSV.')}</span></label>`;
   const mensajeHtml = () => `<p class="r2w-msg" role="status" data-error="${S.error ? 1 : 0}"${S.mensaje ? '' : ' hidden'}>${esc(S.mensaje)}</p>`;
 
   function htmlCarga() {
     const c = S.consulta;
     const r = recordado();
     const ocupado = !!S.operacion || (S.modo === 'opfs' && !cliente());
-    let h = '<p class="r2w-t">Base recordada en este navegador</p>';
-    if (!S.modo) h += '<p class="r2w-ficha">Comprobando si este navegador puede guardar la base…</p>';
+    let h = `<p class="r2w-t">${__('Base recordada en este navegador')}</p>`;
+    if (!S.modo) h += `<p class="r2w-ficha">${__('Comprobando si este navegador puede guardar la base…')}</p>`;
     else if (S.modo === 'ninguno') h += `<p class="r2w-ficha">${esc(textoSinAlmacen())}</p>`;
-    else if (!c) h += '<p class="r2w-ficha">Comprobando si hay una base recordada…</p>';
+    else if (!c) h += `<p class="r2w-ficha">${__('Comprobando si hay una base recordada…')}</p>`;
     else if (c.error) {
-      h += `<p class="r2w-ficha">${esc(c.error.mensaje)}</p><div class="r2c-botones">${btn('consultar', 'Volver a comprobar', { off: ocupado })}</div>`;
+      h += `<p class="r2w-ficha">${esc(c.error.mensaje)}</p><div class="r2c-botones">${btn('consultar', __('Volver a comprobar'), { off: ocupado })}</div>`;
     } else if (r) {
-      h += `<p class="r2w-ficha">${esc(describir(r))}${r.guardado ? ` · guardada el ${esc(fecha(r.guardado))}` : ''}</p>`
-        + `<div class="r2c-botones">${btn('abrir', 'Abrir la base recordada', { clase: 'primary', off: ocupado })}${btn('olvidar', 'Olvidar la base', { off: ocupado })}</div>`
-        + '<p class="r2w-nota">Si elige otro CSV, su base sustituirá a esta cuando esté construida y guardada; si algo falla, esta se conserva.</p>';
+      h += `<p class="r2w-ficha">${esc(describir(r))}${r.guardado ? ` · ${__('guardada el {0}', esc(fecha(r.guardado)))}` : ''}</p>`
+        + `<div class="r2c-botones">${btn('abrir', __('Abrir la base recordada'), { clase: 'primary', off: ocupado })}${btn('olvidar', __('Olvidar la base'), { off: ocupado })}</div>`
+        + `<p class="r2w-nota">${__('Si elige otro CSV, su base sustituirá a esta cuando esté construida y guardada; si algo falla, esta se conserva.')}</p>`;
     } else {
-      h += `<p class="r2w-ficha">${S.auto ? `Ninguna todavía: ${conDatos() ? 'en cuanto se abra el corpus' : 'cuando elija el CSV'}, la base se guardará aquí y la próxima vez se abrirá sola.` : 'Ninguna.'}</p>`;
+      h += `<p class="r2w-ficha">${S.auto ? (conDatos()
+        ? __('Ninguna todavía: en cuanto se abra el corpus, la base se guardará aquí y la próxima vez se abrirá sola.')
+        : __('Ninguna todavía: cuando elija el CSV, la base se guardará aquí y la próxima vez se abrirá sola.')) : __('Ninguna.')}</p>`;
     }
     if (modoOk() && !(c && c.error)) h += casilla();
     if (modoOk() && S.gecko && S.archivoLocal) h += `<p class="r2w-nota">${esc(TEXTO_FIREFOX)}</p>`;
@@ -565,28 +584,33 @@
     const c = S.consulta;
     const r = recordado();
     const ocupado = !!S.operacion;
-    let h = '<div id="r2-web-sobre" class="r2w-sobre"><div class="fuente-k">En este navegador</div>';
-    if (!S.modo) h += '<p>Comprobando si este navegador puede guardar la base…</p>';
+    let h = `<div id="r2-web-sobre" class="r2w-sobre"><div class="fuente-k">${__('En este navegador')}</div>`;
+    if (!S.modo) h += `<p>${__('Comprobando si este navegador puede guardar la base…')}</p>`;
     else if (S.modo === 'ninguno') h += `<p>${esc(textoSinAlmacen())}</p>`;
-    else if (c && c.error) h += `<p>${esc(c.error.mensaje)}</p>${btn('consultar', 'Volver a comprobar', { clase: 'sm', off: ocupado })}`;
+    else if (c && c.error) h += `<p>${esc(c.error.mensaje)}</p>${btn('consultar', __('Volver a comprobar'), { clase: 'sm', off: ocupado })}`;
     else if (corpusRecordado()) {
-      h += `<p>Esta base está recordada en este navegador (${esc(describir(r))}): al volver, se abrirá sola ${sinElegirCsv()}.</p>`
-        + btn('reemplazar', 'Reemplazar por otra versión…', { clase: 'sm', off: ocupado }) + btn('olvidar', 'Olvidar la base', { clase: 'sm', off: ocupado });
+      h += `<p>${conDatos()
+        ? __('Esta base está recordada en este navegador ({0}): al volver, se abrirá sola sin descargarla ni prepararla de nuevo.', esc(describir(r)))
+        : __('Esta base está recordada en este navegador ({0}): al volver, se abrirá sola sin elegir el CSV.', esc(describir(r)))}</p>`
+        + btn('reemplazar', __('Reemplazar por otra versión…'), { clase: 'sm', off: ocupado }) + btn('olvidar', __('Olvidar la base'), { clase: 'sm', off: ocupado });
     } else {
-      if (S.operacion === 'recordar') h += '<p>Guardando la base en este navegador…<span data-r2w="progreso"></span></p>';
-      else if (S.pendienteRecordar) h += '<p>La base se guardará en cuanto termine la comprobación de la huella del CSV…</p>';
+      if (S.operacion === 'recordar') h += `<p>${__('Guardando la base en este navegador…')}<span data-r2w="progreso"></span></p>`;
+      else if (S.pendienteRecordar) h += `<p>${__('La base se guardará en cuanto termine la comprobación de la huella del CSV…')}</p>`;
       else {
         const huella = S.api && S.api.huella ? S.api.huella() : null;
-        h += `<p>Esta base no está recordada: si cierra o recarga la pestaña, ${conDatos() ? sinBaseTexto('').replace(' en cada visita', '') : 'habrá que volver a elegir el CSV'}.</p>`
-          + btn('recordar', 'Recordar la base en este navegador', { clase: 'sm', off: ocupado || huella === 'fallida' });
+        const o = origenDatos();
+        h += `<p>${o === 'servido' ? __('Esta base no está recordada: si cierra o recarga la pestaña, el corpus se descargará de nuevo.')
+          : o === 'incluido' ? __('Esta base no está recordada: si cierra o recarga la pestaña, el corpus se volverá a preparar desde los datos incluidos.')
+            : __('Esta base no está recordada: si cierra o recarga la pestaña, habrá que volver a elegir el CSV.')}</p>`
+          + btn('recordar', __('Recordar la base en este navegador'), { clase: 'sm', off: ocupado || huella === 'fallida' });
       }
-      if (r) h += `<p>Hay otra base recordada: ${esc(describir(r))}.</p>${btn('olvidar', 'Olvidar la base recordada', { clase: 'sm', off: ocupado })}`;
+      if (r) h += `<p>${__('Hay otra base recordada: {0}.', esc(describir(r)))}</p>${btn('olvidar', __('Olvidar la base recordada'), { clase: 'sm', off: ocupado })}`;
     }
     if (modoOk()) {
       if (S.espacio && typeof S.espacio.usage === 'number') {
-        const donde = S.modo === 'opfs' ? 'almacenamiento privado del navegador, OPFS' : 'IndexedDB';
-        h += `<p>Espacio que ocupa en este navegador: ${esc(mib(S.espacio.usage))} (${donde}; incluye sus bibliotecas).`
-          + (S.persistente === true ? ' El navegador no lo borrará aunque le falte espacio.' : '') + '</p>';
+        const donde = S.modo === 'opfs' ? __('almacenamiento privado del navegador, OPFS') : 'IndexedDB';
+        h += `<p>${__('Espacio que ocupa en este navegador: {0} ({1}; incluye sus bibliotecas).', esc(mib(S.espacio.usage)), donde)}`
+          + (S.persistente === true ? ` ${__('El navegador no lo borrará aunque le falte espacio.')}` : '') + '</p>';
       }
       h += casilla();
       if (S.gecko && S.archivoLocal) h += `<p>${esc(TEXTO_FIREFOX)}</p>`;
@@ -634,9 +658,9 @@
 
 
   function textoConstruir(reemplazo) {
-    if (reemplazo) return 'Se construye la base con el archivo nuevo. La base recordada se conserva hasta que esta esté comprobada y guardada. No cierre ni recargue la pestaña hasta que termine.';
-    if (modoOk() && S.auto) return 'Se construye en este navegador a partir del CSV y después se guarda aquí, para que la próxima vez se abra sola. No cierre ni recargue la pestaña hasta que termine.';
-    return 'Se construye en este navegador cada vez que abre la página. No cierre ni recargue la pestaña hasta que termine.';
+    if (reemplazo) return __('Se construye la base con el archivo nuevo. La base recordada se conserva hasta que esta esté comprobada y guardada. No cierre ni recargue la pestaña hasta que termine.');
+    if (modoOk() && S.auto) return __('Se construye en este navegador a partir del CSV y después se guarda aquí, para que la próxima vez se abra sola. No cierre ni recargue la pestaña hasta que termine.');
+    return __('Se construye en este navegador cada vez que abre la página. No cierre ni recargue la pestaña hasta que termine.');
   }
 
 
@@ -675,7 +699,7 @@
     const d = S.doc.createElement('div');
     d.id = 'r2-web-version';
     d.setAttribute('role', 'status');
-    d.innerHTML = '<span>Nueva versión disponible.</span><button type="button" class="btn primary sm" data-r2-web="actualizar">Recargar ahora</button>';
+    d.innerHTML = `<span>${__('Nueva versión disponible.')}</span><button type="button" class="btn primary sm" data-r2-web="actualizar">${__('Recargar ahora')}</button>`;
     S.doc.body.appendChild(d);
   }
 

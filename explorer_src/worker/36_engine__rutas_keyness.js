@@ -48,7 +48,7 @@
       if (reglas.le !== undefined && r.valor > reglas.le) { errores.push(`${nombre}: Input should be less than or equal to ${reglas.le}`); continue; }
       out[nombre] = r.valor;
     }
-    if (errores.length) throw new ErrorHttp(422, `Parametros no validos. ${errores.join('; ')}`);
+    if (errores.length) throw new ErrorHttp(422, __('Parametros no validos. {0}', errores.join('; ')));
     return out;
   }
 
@@ -71,7 +71,7 @@
     let col, ids;
     try {
       col = lib.get_collection(p.cid);
-      if (!col) throw new ErrorHttp(404, 'No existe esa biblioteca.');
+      if (!col) throw new ErrorHttp(404, __('No existe esa biblioteca.'));
       ids = lib.item_ids(p.cid, corpus);
     } catch (e) {
       if (e && e.name === 'OverflowError') throw new ErrorHttp(422, RB.MSG_OVERFLOW);

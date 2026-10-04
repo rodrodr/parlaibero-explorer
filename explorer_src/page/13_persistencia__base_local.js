@@ -43,7 +43,7 @@
   const TIEMPO_ABRIR_MS = 8000;
 
   const ahora = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
-  const nf = (n) => new Intl.NumberFormat('es-ES').format(Math.round(n));
+  const nf = (n) => __.num(Math.round(n));
   const clave = (id, i) => `${id}#${String(i).padStart(5, '0')}`;
   const idDeClave = (k) => { const s = String(k); const j = s.lastIndexOf('#'); return j > 0 ? s.slice(0, j) : null; };
   const textoTecnico = (e) => (e && e.name && e.message ? `${e.name}: ${e.message}` : String(e && e.message ? e.message : e));
@@ -58,11 +58,11 @@
   }
 
   const MENSAJES = {
-    NO_DISPONIBLE: 'Este navegador no permite guardar la base en su almacenamiento.',
-    NO_RECORDADO: 'No hay ninguna base recordada en este navegador. Elija el CSV.',
-    RECORDADO_DANADO: 'La base recordada estaba dañada o incompleta y se ha borrado. Elija el CSV para volver a construirla.',
-    EN_USO: 'La base recordada se está usando en otra pestaña de Diarios Explorer. Espere unos segundos y vuelva a intentarlo.',
-    CANCELADO: 'Se canceló la operación con la base recordada.',
+    NO_DISPONIBLE: __('Este navegador no permite guardar la base en su almacenamiento.'),
+    NO_RECORDADO: __('No hay ninguna base recordada en este navegador. Elija el CSV.'),
+    RECORDADO_DANADO: __('La base recordada estaba dañada o incompleta y se ha borrado. Elija el CSV para volver a construirla.'),
+    EN_USO: __('La base recordada se está usando en otra pestaña de Diarios Explorer. Espere unos segundos y vuelva a intentarlo.'),
+    CANCELADO: __('Se canceló la operación con la base recordada.'),
   };
 
   function motivo(e) {
@@ -75,12 +75,11 @@
     if (e && e.codigo && typeof e.message === 'string' && !(e instanceof DOMException)) return new ErrorBase(e.codigo, e.message, { causa: e.causa });
     const nombre = String((e && e.name) || '');
     if (nombre === 'QuotaExceededError' || (e && e.code === 22)) {
-      return new ErrorBase('CUOTA', 'El navegador se ha quedado sin espacio mientras guardaba la base. No se ha guardado nada y se ha '
-        + 'liberado lo escrito; la base sigue abierta en esta pestaña. Libere espacio o siga sin recordarla.', { causa: textoTecnico(e) });
+      return new ErrorBase('CUOTA', __('El navegador se ha quedado sin espacio mientras guardaba la base. No se ha guardado nada y se ha liberado lo escrito; la base sigue abierta en esta pestaña. Libere espacio o siga sin recordarla.'), { causa: textoTecnico(e) });
     }
     if (nombre === 'AbortError' && e && e.r2Cancelado) return new ErrorBase('CANCELADO', MENSAJES.CANCELADO);
     if (nombre === 'SecurityError' || nombre === 'NotAllowedError') return new ErrorBase('NO_DISPONIBLE', MENSAJES.NO_DISPONIBLE, { causa: textoTecnico(e) });
-    return new ErrorBase('ALMACEN', `${prefijo || 'No se pudo completar la operación con la base guardada en este navegador'} (${motivo(e)}).`,
+    return new ErrorBase('ALMACEN', `${prefijo || __('No se pudo completar la operación con la base guardada en este navegador')} (${motivo(e)}).`,
       { causa: textoTecnico(e) });
   }
 
@@ -187,11 +186,11 @@
     }
 
     async function pedir(cliente, op, args, o = {}) {
-      if (!cliente || typeof cliente.pedir !== 'function') throw new ErrorBase('ALMACEN', 'El motor de la página todavía no está listo.');
+      if (!cliente || typeof cliente.pedir !== 'function') throw new ErrorBase('ALMACEN', __('El motor de la página todavía no está listo.'));
       const r = await cliente.pedir(op, args || {}, o);
       if (r.status >= 400) {
         const c = r.cuerpo || {};
-        throw new ErrorBase(c.codigo || (r.status === 409 ? 'ESTADO' : 'ALMACEN'), c.error || `Error ${r.status}`, { status: r.status });
+        throw new ErrorBase(c.codigo || (r.status === 409 ? 'ESTADO' : 'ALMACEN'), c.error || __('Error {0}', r.status), { status: r.status });
       }
       return r.cuerpo;
     }
@@ -287,7 +286,7 @@
             }
             r.otros = 0;
           }
-        }, 'No se pudo comprobar si hay una base recordada');
+        }, __('No se pudo comprobar si hay una base recordada'));
       } catch (e) {
         r.disponible = e.codigo !== 'NO_DISPONIBLE';
         r.error = { codigo: e.codigo, mensaje: e.message };
@@ -311,7 +310,7 @@
       const csvSha = informe && informe.huella && informe.huella.sha256;
       if (!/^[0-9a-f]{64}$/.test(String(csvSha))) {
         await cancelarExportacion();
-        throw new ErrorBase('SIN_HUELLA', 'Todavía no se conoce la huella SHA-256 del CSV: vuelva a intentarlo en unos segundos.');
+        throw new ErrorBase('SIN_HUELLA', __('Todavía no se conoce la huella SHA-256 del CSV: vuelva a intentarlo en unos segundos.'));
       }
       const info = ini.info;
       return conBd(async (db) => {
@@ -328,8 +327,8 @@
           const margen = Math.max(32 * MIB, Math.min(128 * MIB, Math.ceil(info.bytes / 2)));
           if (libres < info.bytes + margen) {
             await cancelarExportacion();
-            throw new ErrorBase('CUOTA', `No hay espacio suficiente en este navegador para recordar la base: hacen falta unos ${nf((info.bytes + margen) / MIB)} MiB `
-              + `y quedan ${nf(Math.max(0, libres) / MIB)} MiB. La base sigue abierta en esta pestaña; puede liberar espacio y volver a intentarlo, o seguir sin recordarla.`,
+            throw new ErrorBase('CUOTA', __('No hay espacio suficiente en este navegador para recordar la base: hacen falta unos {0} MiB y quedan {1} MiB. La base sigue abierta en esta pestaña; puede liberar espacio y volver a intentarlo, o seguir sin recordarla.',
+            nf((info.bytes + margen) / MIB), nf(Math.max(0, libres) / MIB)),
             { hacen_falta: info.bytes + margen, libres });
           }
         }
@@ -347,7 +346,7 @@
             alProgreso(hecho, info.bytes);
           }
           fin = await pedir(cliente, 'base_exportar_fin', {}, { prioridad: 'fondo' });
-          if (fin.bytes !== info.bytes || fin.huellas.length !== info.n_trozos) throw new ErrorBase('ALMACEN', 'La base cambió mientras se guardaba. Vuelva a intentarlo.');
+          if (fin.bytes !== info.bytes || fin.huellas.length !== info.n_trozos) throw new ErrorBase('ALMACEN', __('La base cambió mientras se guardaba. Vuelva a intentarlo.'));
           const v = informe.version_csv;
           const manifiesto = {
             id, formato: FORMATO, build_id: buildId, csv_sha256: csvSha, estado: 'completo', bytes: fin.bytes, page_size: info.page_size,
@@ -358,7 +357,7 @@
           };
 
           const n = await transaccion(db, TROZOS, 'readonly', (a) => a[TROZOS].count(rango(g, id)));
-          if (n !== manifiesto.n_trozos) throw new ErrorBase('ALMACEN', 'La base guardada está incompleta y se ha borrado. Vuelva a intentarlo.');
+          if (n !== manifiesto.n_trozos) throw new ErrorBase('ALMACEN', __('La base guardada está incompleta y se ha borrado. Vuelva a intentarlo.'));
           await transaccion(db, MANIFIESTOS, 'readwrite', (a) => a[MANIFIESTOS].put(manifiesto, id));
 
           const despues = await inventario(db);
@@ -370,9 +369,9 @@
         } catch (e) {
           if (!fin) await cancelarExportacion();
           try { await borrarIds(db, [id]); } catch (e2) {   }
-          throw clasificar(e, 'No se pudo guardar la base en este navegador');
+          throw clasificar(e, __('No se pudo guardar la base en este navegador'));
         }
-      }, 'No se pudo guardar la base en este navegador');
+      }, __('No se pudo guardar la base en este navegador'));
     }
 
     async function abrir(o = {}) {
@@ -389,7 +388,7 @@
             throw new ErrorBase('RECORDADO_DANADO', MENSAJES.RECORDADO_DANADO);
           }
           throw new ErrorBase('NO_RECORDADO', inv.lista.length
-            ? 'La base recordada es de otra versión de Diarios Explorer y no sirve para esta. Elija el CSV para volver a construirla.'
+            ? __('La base recordada es de otra versión de Diarios Explorer y no sirve para esta. Elija el CSV para volver a construirla.')
             : MENSAJES.NO_RECORDADO);
         }
         const m = elegido.m;
@@ -411,14 +410,14 @@
           return { informe: r.informe, construido_en: r.construido_en, recordado: publico(m), ms: ahora() - t0 };
         } catch (e) {
           if (empezado) await pedir(cliente, 'base_importar_descartar', {}).catch(() => {});
-          const err = clasificar(e, 'No se pudo abrir la base recordada');
+          const err = clasificar(e, __('No se pudo abrir la base recordada'));
           if (err.codigo === 'RECORDADO_DANADO') {
             err.message = MENSAJES.RECORDADO_DANADO;
             try { await borrarIds(db, [m.id]); } catch (e2) {   }
           }
           throw err;
         }
-      }, 'No se pudo abrir la base recordada');
+      }, __('No se pudo abrir la base recordada'));
     }
 
     async function olvidar() {
@@ -430,7 +429,7 @@
         const borrados = inv.lista.map((x) => x.m && x.m.id).filter(Boolean).concat(inv.huerfanos);
         await transaccion(db, [MANIFIESTOS, TROZOS], 'readwrite', (a) => { a[MANIFIESTOS].clear(); a[TROZOS].clear(); });
         return { borrados, bytes_borrados: bytes, ms: ahora() - t0 };
-      }, 'No se pudo olvidar la base');
+      }, __('No se pudo olvidar la base'));
     }
 
     return { tipo: 'idb', probar, estado, guardar, abrir, olvidar };

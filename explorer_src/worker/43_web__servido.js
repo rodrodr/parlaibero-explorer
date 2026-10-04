@@ -55,9 +55,9 @@
               resp = await fetch(urls[i], { cache: 'force-cache', signal: señal });
             } catch (e) {
               if (e && e.name === 'AbortError') throw e;
-              throw fallo('DESCARGA', `No se pudieron descargar los datos de la página: ${e.message}`);
+              throw fallo('DESCARGA', __('No se pudieron descargar los datos de la página: {0}', e.message));
             }
-            if (!resp.ok || !resp.body) throw fallo('DESCARGA', `No se pudieron descargar los datos de la página (HTTP ${resp.status}).`);
+            if (!resp.ok || !resp.body) throw fallo('DESCARGA', __('No se pudieron descargar los datos de la página (HTTP {0}).', resp.status));
             lector = resp.body.getReader();
             i++;
           }
@@ -80,8 +80,7 @@
       const alProgreso = typeof opciones.alProgreso === 'function' ? opciones.alProgreso : null;
       const señal = opciones.signal || null;
       if (typeof DecompressionStream !== 'function') {
-        throw fallo('NO_SOPORTADO', 'Este navegador no sabe descomprimir los datos que acompañan a la página. '
-          + 'Actualícelo o abra el corpus eligiendo el CSV.');
+        throw fallo('NO_SOPORTADO', __('Este navegador no sabe descomprimir los datos que acompañan a la página. Actualícelo o abra el corpus eligiendo el CSV.'));
       }
       // El worker se crea desde una blob: URL, así que una ruta relativa no resuelve: la raíz (la de la página) llega
       // en las opciones.
@@ -89,7 +88,7 @@
       const dir = (info.dir ? `${String(info.dir).replace(/\/+$/, '')}/` : '');
       const urls = info.partes.map((p) => `${raiz}${dir}${p.archivo}`);
       if (!raiz && !/^https?:/i.test(urls[0])) {
-        throw fallo('DESCARGA', 'Error interno de la página: no se sabe desde dónde descargar los datos.');
+        throw fallo('DESCARGA', __('Error interno de la página: no se sabe desde dónde descargar los datos.'));
       }
       // El avance se mide sobre lo COMPRIMIDO: es lo que tarda, y su total se conoce antes de empezar.
       let bajados = 0;
@@ -111,15 +110,15 @@
         }
       } catch (e) {
         if (e && (e.name === 'AbortError' || e.codigo)) throw e;
-        throw fallo('DESCOMPRESION', `Los datos que acompañan a la página están dañados: ${e.message}`);
+        throw fallo('DESCOMPRESION', __('Los datos que acompañan a la página están dañados: {0}', e.message));
       }
       const u8 = new Uint8Array(bytes);
       for (let i = 0, off = 0; i < partes.length; i++) { u8.set(partes[i], off); off += partes[i].byteLength; partes[i] = null; }
       if (info.bytes && bytes !== info.bytes) {
-        throw fallo('SERVIDO_DANADO', `Los datos descargados miden ${bytes} bytes y deberían medir ${info.bytes}. Elija el CSV para construir el corpus.`);
+        throw fallo('SERVIDO_DANADO', __('Los datos descargados miden {0} bytes y deberían medir {1}. Elija el CSV para construir el corpus.', bytes, info.bytes));
       }
       if (info.sha256 && (await sha256Hex(u8)) !== info.sha256) {
-        throw fallo('SERVIDO_DANADO', 'Los datos descargados no coinciden con su huella. Elija el CSV para construir el corpus.');
+        throw fallo('SERVIDO_DANADO', __('Los datos descargados no coinciden con su huella. Elija el CSV para construir el corpus.'));
       }
       return u8;
     }
@@ -128,12 +127,12 @@
     function abrirBytes(u8) {
       const n = u8.byteLength;
       const pOut = Number(capi.sqlite3_malloc64(n));
-      if (!pOut) throw fallo('MEMORIA', 'No hay memoria suficiente para abrir el corpus. Cierre otras pestañas y vuelva a intentarlo.');
+      if (!pOut) throw fallo('MEMORIA', __('No hay memoria suficiente para abrir el corpus. Cierre otras pestañas y vuelva a intentarlo.'));
       try {
         wasm.heap8u().set(u8, pOut);
       } catch (e) {
         capi.sqlite3_free(pOut);
-        throw fallo('MEMORIA', `No se pudo copiar el corpus a la memoria del motor: ${e.message}`);
+        throw fallo('MEMORIA', __('No se pudo copiar el corpus a la memoria del motor: {0}', e.message));
       }
       const db = new sqlite3.oo1.DB(':memory:');
       if (R2.texto) db.r2Texto = R2.texto.instalar(sqlite3, db);
@@ -141,7 +140,7 @@
         capi.SQLITE_DESERIALIZE_FREEONCLOSE | capi.SQLITE_DESERIALIZE_RESIZEABLE); // si falla, SQLite libera pOut
       if (rc) {
         db.close();
-        throw fallo('SERVIDO_DANADO', `No se pudo abrir el corpus que acompaña a la página (sqlite3_deserialize rc=${rc}).`);
+        throw fallo('SERVIDO_DANADO', __('No se pudo abrir el corpus que acompaña a la página (sqlite3_deserialize rc={0}).', rc));
       }
       db.exec('PRAGMA journal_mode = OFF; PRAGMA synchronous = OFF; PRAGMA temp_store = MEMORY;');
       return db;
@@ -190,7 +189,7 @@
     /** Descarga, abre y devuelve la base con su informe. */
     async function abrir(opciones = {}) {
       const info = ficha();
-      if (!info) throw fallo('NO_SERVIDO', 'Esta edición de la página no lleva datos dentro. Elija el CSV.');
+      if (!info) throw fallo('NO_SERVIDO', __('Esta edición de la página no lleva datos dentro. Elija el CSV.'));
       const t0 = ahora();
       const u8 = await descargar(info, opciones);
       const db = abrirBytes(u8);

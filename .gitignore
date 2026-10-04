@@ -8,3 +8,6 @@ template/
 # Python
 __pycache__/
 *.pyc
+
+# Trabajo del extractor de traducciones (tools/i18n.py --faltan / --lista)
+explorer_src/i18n/trabajo/

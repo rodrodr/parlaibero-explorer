@@ -33,11 +33,11 @@
       if (nada(bruto)) { out[nombre] = r.defecto; continue; }
       const s = String(bruto).trim();
       const v = r.tipo === 'entero' ? (/^-?\d+$/.test(s) ? Number(s) : NaN) : Number(s.replace(',', '.'));
-      if (!Number.isFinite(v)) { errores.push(`${nombre}: debe ser un número${r.tipo === 'entero' ? ' entero' : ''}`); continue; }
-      if (v < r.ge || v > r.le) { errores.push(`${nombre}: debe estar entre ${r.ge} y ${r.le}`); continue; }
+      if (!Number.isFinite(v)) { errores.push(r.tipo === 'entero' ? __('{0}: debe ser un número entero', nombre) : __('{0}: debe ser un número', nombre)); continue; }
+      if (v < r.ge || v > r.le) { errores.push(__('{0}: debe estar entre {1} y {2}', nombre, r.ge, r.le)); continue; }
       out[nombre] = v;
     }
-    if (errores.length) throw new ErrorHttp(422, `Parametros no validos. ${errores.join('; ')}`);
+    if (errores.length) throw new ErrorHttp(422, __('Parametros no validos. {0}', errores.join('; ')));
     return out;
   }
 
@@ -59,7 +59,7 @@
     let col, ids;
     try {
       col = lib.get_collection(p.cid);
-      if (!col) throw new ErrorHttp(404, 'No existe esa biblioteca.');
+      if (!col) throw new ErrorHttp(404, __('No existe esa biblioteca.'));
       ids = lib.item_ids(p.cid, corpus);
     } catch (e) {
       if (e && e.name === 'OverflowError') throw new ErrorHttp(422, RB.MSG_OVERFLOW);

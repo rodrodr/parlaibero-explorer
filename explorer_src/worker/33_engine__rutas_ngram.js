@@ -60,11 +60,11 @@
     } else if (Array.isArray(terms) && terms.every((t) => typeof t === 'string')) {
       vacio = !terms.some((t) => TR.pyStrip(t));
     } else {
-      throw RT.solicitud('terms debe ser una lista de textos o un texto con términos separados por comas.');
+      throw RT.solicitud(__('terms debe ser una lista de textos o un texto con términos separados por comas.'));
     }
     if (vacio) {
-      throw RT.solicitud(seeded === null ? 'Escriba al menos un término (separe varios con comas).'
-        : 'La búsqueda no contiene ningún término de contenido para la tendencia.');
+      throw RT.solicitud(seeded === null ? __('Escriba al menos un término (separe varios con comas).')
+        : __('La búsqueda no contiene ningún término de contenido para la tendencia.'));
     }
     const apply = verdad(RT.get(b, 'apply_filters'));
     const f = apply ? await F.resolver(b, ctx) : null;

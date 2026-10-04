@@ -311,7 +311,7 @@ CREATE TABLE IF NOT EXISTS saved_searches (
     }
 
     create_collection(name, description = '', color = 'indigo') {
-      const nombre = C.strip(verdad(name) ? name : '') || 'Biblioteca sin titulo';
+      const nombre = C.strip(verdad(name) ? name : '') || __('Biblioteca sin titulo');
       const id = this._tx(() => {
         this._ejecutar('INSERT INTO collections (name, description, color, created_at, updated_at) VALUES (?,?,?,?,?)',
           [nombre, description, color, now(), now()]);
@@ -372,7 +372,7 @@ CREATE TABLE IF NOT EXISTS saved_searches (
 
     // ------------------------------------------------------------------------------------------------ items
     add_items(cid, corpus, speechIds, note = '', tags = null, span = null) {
-      if (!this.get_collection(cid)) throw new ErrorPy('KeyError', `No existe la biblioteca ${C.pyStr(cid)}`);
+      if (!this.get_collection(cid)) throw new ErrorPy('KeyError', __('No existe la biblioteca {0}', C.pyStr(cid)));
       let added = 0;
       this._tx(() => {
         const base = this._valor('SELECT COALESCE(MAX(position), 0) FROM items WHERE collection_id = ?', [cid]);
@@ -397,7 +397,7 @@ CREATE TABLE IF NOT EXISTS saved_searches (
      * filas previas confirma el siguiente commit) y lanza OverflowError.
      */
     add_items_bulk(cid, corpus, items) {
-      if (!this.get_collection(cid)) throw new ErrorPy('KeyError', `No existe la biblioteca ${C.pyStr(cid)}`);
+      if (!this.get_collection(cid)) throw new ErrorPy('KeyError', __('No existe la biblioteca {0}', C.pyStr(cid)));
       let added = 0;
       this._tx(() => {
         const base = this._valor('SELECT COALESCE(MAX(position), 0) FROM items WHERE collection_id = ?', [cid]);
@@ -608,12 +608,12 @@ CREATE TABLE IF NOT EXISTS saved_searches (
         try {
           ok = db.selectValue('PRAGMA quick_check') === 'ok';
         } catch (e) {
-          throw new ErrorPy('DatabaseError', `la copia guardada no es una base SQLite válida (${e.message})`);
+          throw new ErrorPy('DatabaseError', __('la copia guardada no es una base SQLite válida ({0})', e.message));
         }
-        if (!ok) throw new ErrorPy('DatabaseError', 'la copia guardada está dañada (quick_check)');
+        if (!ok) throw new ErrorPy('DatabaseError', __('la copia guardada está dañada (quick_check)'));
         const hay = new Set(db.selectValues("SELECT name FROM sqlite_master WHERE type = 'table'"));
         const faltan = TABLAS.filter((t) => !hay.has(t));
-        if (faltan.length) throw new ErrorPy('DatabaseError', `la copia guardada no es una base de bibliotecas (faltan ${faltan.join(', ')})`);
+        if (faltan.length) throw new ErrorPy('DatabaseError', __('la copia guardada no es una base de bibliotecas (faltan {0})', faltan.join(', ')));
       }
       db.exec('PRAGMA foreign_keys = ON');
       db.exec(SCHEMA);

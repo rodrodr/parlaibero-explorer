@@ -1,0 +1,12 @@
+[
+ "Fuente no declarada: el manifest.json de este corpus no tiene la clave «fuente». Cite el conjunto de datos original del que procede.",
+ "importada de un paquete .2replib: la cita la declara el archivo y no se ha comprobado con el manifest de ningún corpus",
+ "log-ratio ≥ 6 (≥ 64 veces más frecuente que en el resto del corpus) o ausente del resto del corpus",
+ "log-ratio entre 3 y 6 (entre 8 y 64 veces más frecuente)",
+ "log-ratio < 3 (menos de 8 veces más frecuente), con G² ≥ 10,83",
+ "Heurística: sugiere réplicas por alusión al apellido o al cargo, interrupciones transcritas, cercanía en el orden del debate y distancia política. No prueba que exista un diálogo.",
+ "Heurística: sin índice semántico se usa la coincidencia léxica (bm25) con los términos más frecuentes del discurso; de las 10 más parecidas se prefieren las más alejadas en el tiempo (relevancia relativa × log(1 + años)).",
+ "*Fuente: {}*",
+ "# Cita del conjunto de datos (BibTeX)",
+ "# Cita del conjunto de datos (RIS)"
+]

@@ -39,7 +39,7 @@
   const ErrorHttp = RT.ErrorHttp;
   const MAX_SPEECHES = K.SESSION_TEXTS_MAX_SPEECHES;
   const MAX_CHARS = K.SESSION_TEXTS_MAX_CHARS;
-  const MSG_NO_EXISTE = 'No existe esa intervencion.';
+  const MSG_NO_EXISTE = N_('No existe esa intervencion.');
   const INT64_MIN = -9223372036854775808n, INT64_MAX = 9223372036854775807n;
 
   const tiene = (o, k) => o !== null && typeof o === 'object' && Object.prototype.hasOwnProperty.call(o, k);
@@ -80,7 +80,7 @@
       if (reglas.le !== undefined && r.valor > reglas.le) { errores.push(`${nombre}: Input should be less than or equal to ${reglas.le}`); continue; }
       out[nombre] = r.valor;
     }
-    if (errores.length) throw new ErrorHttp(422, `Parametros no validos. ${errores.join('; ')}`);
+    if (errores.length) throw new ErrorHttp(422, __('Parametros no validos. {0}', errores.join('; ')));
     for (const v of Object.values(out)) {
       if (typeof v === 'bigint' && (v < INT64_MIN || v > INT64_MAX)) throw new ErrorHttp(422, RB.MSG_OVERFLOW);
     }
@@ -212,37 +212,34 @@
   }
 
   /** {chars:,} de Python con «.» de miles (el texto entero pasa por .replace(",", ".")). */
-  const miles = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  const miles = (n) => __.num(n);
   const mayor = (a, b) => BigInt(a) > BigInt(b);
 
   /** Corpus._locked_session_texts_data + session_texts */
   async function sessionTexts(ctx, fromId, toId) {
     const bd = bdDe(ctx);
-    if (mayor(fromId, toId)) throw RT.solicitud(`from_id (${fromId}) no puede ser mayor que to_id (${toId}).`);
+    if (mayor(fromId, toId)) throw RT.solicitud(__('from_id ({0}) no puede ser mayor que to_id ({1}).', fromId, toId));
     const ext = {};
     for (const [nombre, i] of [['from_id', fromId], ['to_id', toId]]) {
       const r = S.filas(bd, 'SELECT date, num_session FROM speeches WHERE id = ?', [i])[0];
-      if (!r) throw new ErrorHttp(404, `No existe la intervención ${nombre}=${i}.`);
+      if (!r) throw new ErrorHttp(404, __('No existe la intervención {0}={1}.', nombre, i));
       ext[nombre] = [r.date, r.num_session];
     }
     if (ext.from_id[0] !== ext.to_id[0] || ext.from_id[1] !== ext.to_id[1]) {
-      throw RT.solicitud(`El tramo ${fromId}–${toId} cruza sesiones: ${fromId} es de la sesión del `
-        + `${s(ext.from_id[0])} (núm. ${s(ext.from_id[1])}) y ${toId} de la del `
-        + `${s(ext.to_id[0])} (núm. ${s(ext.to_id[1])}). Pida cada sesión por separado.`);
+      throw RT.solicitud(__('El tramo {0}–{1} cruza sesiones: {0} es de la sesión del {2} (núm. {3}) y {1} de la del {4} (núm. {5}). Pida cada sesión por separado.',
+        fromId, toId, s(ext.from_id[0]), s(ext.from_id[1]), s(ext.to_id[0]), s(ext.to_id[1])));
     }
     const [date, num] = ext.from_id;
     const where = 'id BETWEEN ? AND ? AND date IS ? AND COALESCE(num_session,-1) = COALESCE(?,-1)';
     const args = [fromId, toId, date, num];
     const [n, chars] = S.tuplas(bd, `SELECT COUNT(*), COALESCE(SUM(nbytes), 0) FROM speeches WHERE ${where}`, args)[0];
     if (n > MAX_SPEECHES) {
-      throw RT.solicitud(`El tramo ${fromId}–${toId} tiene ${n} intervenciones y el tope es `
-        + `${MAX_SPEECHES}. Pídalo en tramos más cortos (use nchars de `
-        + '/api/session/outline para planificarlos).');
+      throw RT.solicitud(__('El tramo {0}–{1} tiene {2} intervenciones y el tope es {3}. Pídalo en tramos más cortos (use nchars de /api/session/outline para planificarlos).',
+        fromId, toId, n, MAX_SPEECHES));
     }
     if (n > 1 && chars > MAX_CHARS) {
-      throw RT.solicitud(`El tramo ${fromId}–${toId} suma ${miles(chars)} caracteres y el tope es `
-        + `${miles(MAX_CHARS)}. Pídalo en tramos más cortos (una intervención `
-        + 'sola siempre cabe).');
+      throw RT.solicitud(__('El tramo {0}–{1} suma {2} caracteres y el tope es {3}. Pídalo en tramos más cortos (una intervención sola siempre cabe).',
+        fromId, toId, miles(chars), miles(MAX_CHARS)));
     }
     const filas = S.tuplas(bd, `SELECT id, speaker, rep_name, speech FROM speeches WHERE ${where} ORDER BY id`, args);
     const sesion = indice(ctx).session_id_for(fromId, bd);
@@ -259,7 +256,7 @@
   async function rutaSpeech(pet, ctx) {
     const p = parametros(pet, [['ruta', 'sid'], ['consulta', 'context', { defecto: 3, ge: 0, le: 50 }]]);
     const d = speech(ctx, p.sid, p.context);
-    if (d === null) throw new ErrorHttp(404, MSG_NO_EXISTE);
+    if (d === null) throw new ErrorHttp(404, __(MSG_NO_EXISTE));
     const nombre = ctx.corpus && ctx.corpus.nombre;
     const memb = await R2.search.membership(ctx, [p.sid]);
     d.collections = tiene(memb, String(p.sid)) ? memb[String(p.sid)] : [];
@@ -277,7 +274,7 @@
   async function rutaOutline(pet, ctx) {
     const p = parametros(pet, [['ruta', 'sid']]);
     const d = sessionOutline(ctx, p.sid);
-    if (d === null) throw new ErrorHttp(404, MSG_NO_EXISTE);
+    if (d === null) throw new ErrorHttp(404, __(MSG_NO_EXISTE));
     return d;
   }
 

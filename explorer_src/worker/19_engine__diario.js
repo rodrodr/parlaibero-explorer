@@ -163,11 +163,11 @@
   // Filas que no son de nadie: el sumario de la sesion y el material que el Diario
   // imprime dentro del acta (2REP_Diaries_v3). No llevan tratamiento.
   const _FILAS_DOC = { SUMARIO: 'summary', COMENTARIOS: 'remark' };
-  const _DOC_LABEL = { summary: 'Sumario de la sesión', remark: 'Comentarios del Diario' };
-  const _LABELS_TUMULT = [['protest', 'Protestas'], ['interrup', 'Interrupciones'], ['interrump', 'Interrupciones'],
-    ['no se', 'Voces'], ['increp', 'Protestas'], ['rumor', 'Rumores'], ['murmull', 'Rumores']];
-  const _LABELS_GESTURE = [['asentimiento', 'Asentimiento'], ['firmacion', 'Asentimiento'],
-    ['denegacion', 'Denegaciones'], ['pausa', 'Pausa'], ['palabra', 'Piden la palabra']];
+  const _DOC_LABEL = { summary: N_('Sumario de la sesión'), remark: N_('Comentarios del Diario') };
+  const _LABELS_TUMULT = [['protest', N_('Protestas')], ['interrup', N_('Interrupciones')], ['interrump', N_('Interrupciones')],
+    ['no se', N_('Voces')], ['increp', N_('Protestas')], ['rumor', N_('Rumores')], ['murmull', N_('Rumores')]];
+  const _LABELS_GESTURE = [['asentimiento', N_('Asentimiento')], ['firmacion', N_('Asentimiento')],
+    ['denegacion', N_('Denegaciones')], ['pausa', N_('Pausa')], ['palabra', N_('Piden la palabra')]];
 
   // --------------------------------------------------------------------------------------------------------------
   // Utilidades
@@ -368,7 +368,7 @@
   function parse_speaker(raw, rep_name = null) {
     const [, honor, body0, qual, acot, note, role, group] = _parse_speaker_cached(raw || '');
     if (Object.prototype.hasOwnProperty.call(_DOC_LABEL, role)) {
-      const etiqueta = _DOC_LABEL[role];
+      const etiqueta = __(_DOC_LABEL[role]);
       return { raw: raw || '', honor: '', body: body0, qual: null, acot: null, note: null,
         role, is_chair: false, group: false, name: null, title: etiqueta, label: etiqueta };
     }
@@ -387,7 +387,7 @@
     if (is_chair) {
       if (qual && r('parse_speaker:L292').match(qual) && !r('parse_speaker:L292#2').match(qual)) name = qual;
       else name = _chair_name(rep_name);
-      label = name ? `Presidencia (${name})` : 'Presidencia';
+      label = name ? __('Presidencia ({0})', name) : __('Presidencia');
     } else {
       label = title;
     }
@@ -401,17 +401,17 @@
   // P4 · Clasificación de acotaciones
   // --------------------------------------------------------------------------------------------------------------
   function _label_for(kind, f) {
-    if (kind === 'interj') return 'Interjecciones';
-    if (kind === 'chair') return 'Presidencia';
-    if (kind === 'approval') return 'Aprobación';
-    if (kind === 'laughter') return 'Risas';
-    if (kind === 'ovation') return 'Aplausos';
+    if (kind === 'interj') return __('Interjecciones');
+    if (kind === 'chair') return __('Presidencia');
+    if (kind === 'approval') return __('Aprobación');
+    if (kind === 'laughter') return __('Risas');
+    if (kind === 'ovation') return __('Aplausos');
     if (kind === 'tumult') {
-      for (const [stem, lab] of _LABELS_TUMULT) if (f.includes(stem)) return lab;
-      return 'Rumores';
+      for (const [stem, lab] of _LABELS_TUMULT) if (f.includes(stem)) return __(lab);
+      return __('Rumores');
     }
-    for (const [stem, lab] of _LABELS_GESTURE) if (f.includes(stem)) return lab;
-    return 'Gestos';
+    for (const [stem, lab] of _LABELS_GESTURE) if (f.includes(stem)) return __(lab);
+    return __('Gestos');
   }
 
   /** Clasifica una unidad de acotación. Primera coincidencia gana. */
@@ -427,19 +427,19 @@
       if (r('_WHO_CHAIR').search(_fold(who))) c = 'order';
       else if (r('_SAY_BRAVO').match(_fold(say))) c = 'applause';
       else c = 'neutral';
-      const lab = c === 'order' ? 'Presidencia' : 'Interjecciones';
+      const lab = c === 'order' ? __('Presidencia') : __('Interjecciones');
       return { c, k: 'interj', lab, who };
     }
     const first = r('_classify_unit:L431').search(s);
     if (!first || C.islower(first.group(0)) || _nwords(s) > 40) return null;
     if ((r('_CHAIR_SUBJ').search(f) && r('_CHAIR_ACT').search(f))
       || (r('_CAMPANILLA').search(f) && !r('_classify_unit:L435').search(f))) {
-      return { c: 'order', k: 'chair', lab: 'Presidencia' };
+      return { c: 'order', k: 'chair', lab: __('Presidencia') };
     }
-    if (r('_APPROVAL').search(f)) return { c: 'applause', k: 'approval', lab: 'Aprobación' };
+    if (r('_APPROVAL').search(f)) return { c: 'applause', k: 'approval', lab: __('Aprobación') };
     if (r('_TUMULT').search(f)) return { c: 'conflict', k: 'tumult', lab: _label_for('tumult', f) };
-    if (r('_LAUGH').search(f)) return { c: 'neutral', k: 'laughter', lab: 'Risas' };
-    if (r('_OVATION').search(f)) return { c: 'applause', k: 'ovation', lab: 'Aplausos' };
+    if (r('_LAUGH').search(f)) return { c: 'neutral', k: 'laughter', lab: __('Risas') };
+    if (r('_OVATION').search(f)) return { c: 'applause', k: 'ovation', lab: __('Aplausos') };
     if (r('_GESTURE').search(f)) return { c: 'neutral', k: 'gesture', lab: _label_for('gesture', f) };
     return null;
   }

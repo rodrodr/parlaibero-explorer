@@ -56,7 +56,7 @@
     if (cid) {
       const lib = biblioteca();
       const col = lib ? lib.get_collection(cid) : null;
-      if (col === null || col === undefined) throw new ErrorHttp(404, 'No existe esa biblioteca.');
+      if (col === null || col === undefined) throw new ErrorHttp(404, __('No existe esa biblioteca.'));
       const cap = V.cap(b, ctx.corpus && ctx.corpus.n_speeches);
       const todos = lib.item_ids(cid, name);
       const ids = cap === null ? todos : todos.slice(0, Number(cap));
@@ -64,9 +64,9 @@
       let description = verdad(get(col, 'description')) ? col.description : '';
       if (recorte) {
         description = (description ? `${description} ` : '')
-          + `Recortada a las ${ids.length} primeras de las ${todos.length} de la biblioteca (tope pedido).`;
+          + __('Recortada a las {0} primeras de las {1} de la biblioteca (tope pedido).', ids.length, todos.length);
       }
-      return { cid, ids, metas: lib.items_meta(cid, name), cap, title: tiene(col, 'name') ? col.name : 'Biblioteca',
+      return { cid, ids, metas: lib.items_meta(cid, name), cap, title: tiene(col, 'name') ? col.name : __('Biblioteca'),
         description, extra_meta: {}, total_lista: todos.length, recorte, tope_modo: null };
     }
     const lista = await R2.search.listaBusqueda(b, ctx);
@@ -75,14 +75,14 @@
       total_lista: lista.total_lista, recorte: lista.recorte };
     if (lista.tope_modo) {
       extra.tope_modo = lista.tope_modo;
-      description = 'Búsqueda por significado, en orden de proximidad. ' + lista.tope_modo.texto;
+      description = __('Búsqueda por significado, en orden de proximidad. {0}', lista.tope_modo.texto);
     }
     if (lista.recorte && lista.recorte.motivo === 'cap') {
       description = (description ? `${description} ` : '')
-        + `Recortada a las ${lista.recorte.tomadas} primeras de las ${lista.recorte.de} de la lista (tope pedido).`;
+        + __('Recortada a las {0} primeras de las {1} de la lista (tope pedido).', lista.recorte.tomadas, lista.recorte.de);
     }
     const q = get(b, 'query');
-    return { cid: null, ids: lista.ids, metas: null, title: `Búsqueda: ${C.pyStr(verdad(q) ? q : 'sin texto')}`, description,
+    return { cid: null, ids: lista.ids, metas: null, title: __('Búsqueda: {0}', C.pyStr(verdad(q) ? q : __('sin texto'))), description,
       extra_meta: extra, total_lista: lista.total_lista, recorte: lista.recorte, tope_modo: lista.tope_modo };
   }
 
@@ -130,9 +130,9 @@
     const b = V.cuerpo(pet.cuerpo);
     const name = nombreCorpus(ctx);
     const fmt = C.lower(V.texto(b, 'format') || 'csv');
-    if (!FORMATOS.includes(fmt)) throw new ErrorHttp(400, `Formato no soportado: ${fmt}`);
+    if (!FORMATOS.includes(fmt)) throw new ErrorHttp(400, __('Formato no soportado: {0}', fmt));
     if (fmt === 'bundle') {
-      if (!manejadorBundle) throw new ErrorHttp(501, RT.MSG_PROXIMA);
+      if (!manejadorBundle) throw new ErrorHttp(501, __(RT.MSG_PROXIMA));
       return manejadorBundle(pet, ctx);
     }
     const incluirTexto = tiene(b, 'include_text') ? verdad(b.include_text) : true;

@@ -187,7 +187,7 @@
     if (datos === undefined) return [null, null];
     const version = get(datos, 'version');
     if (!esDict(datos) || !pyIgual(version, SIDECAR_VERSION) || !Array.isArray(get(datos, 'sessions'))) {
-      return [null, 'sidecar con version o estructura no reconocida'];
+      return [null, __('sidecar con version o estructura no reconocida')];
     }
     return [datos, null];
   }
@@ -312,7 +312,7 @@
       const [datos, error] = leerSidecar(sidecar);
       return new SessionIndex(grupos, datos, datos !== null ? ruta : null, error);
     } catch (e) {
-      return new SessionIndex([], null, null, `no se pudo indexar las sesiones: ${e && e.message ? e.message : e}`);
+      return new SessionIndex([], null, null, __('no se pudo indexar las sesiones: {0}', e && e.message ? e.message : e));
     }
   }
 
@@ -328,7 +328,8 @@
       const i = Number(m) - 1;
       const idx = i < 0 ? MESES.length + i : i;
       if (idx < 0 || idx >= MESES.length) throw new Error('IndexError');
-      return `${d} de ${MESES[idx]} de ${a}`;
+      const mes = __.mes(idx + 1);
+      return __.lengua === 'en' ? `${d} ${mes} ${a}` : `${d} de ${mes} de ${a}`;
     } catch (e) {
       return verdad(iso) ? C.pyStr(iso) : '';
     }
@@ -338,17 +339,17 @@
   function listaY(partes) {
     const p = partes.filter((x) => verdad(x));
     if (p.length <= 1) return p.join('');
-    return `${p.slice(0, -1).join(', ')} y ${p[p.length - 1]}`;
+    return __('{0} y {1}', p.slice(0, -1).join(', '), p[p.length - 1]);
   }
 
   const AVISO_ORDEN = Object.freeze(['date_corrected', 'legislature_corrected', 'double_sitting', 'truncated_end', 'ocr_loop', 'government_change_day']);
   const GENERICOS = Object.freeze({
-    government_change_day: ['info', 'La sesión cae en un día de cambio de Gobierno: el Diario puede reflejar todavía al Gobierno saliente.'],
-    date_corrected: ['warning', 'La fecha de esta sesión se ha corregido.'],
-    double_sitting: ['info', 'Doble sesión real: ese día hubo más de una sesión.'],
-    truncated_end: ['warning', 'El acta digitalizada termina incompleta.'],
-    ocr_loop: ['warning', 'Una página salió de un bucle del OCR y repite texto.'],
-    legislature_corrected: ['warning', 'La legislatura de esta sesión se ha corregido.'],
+    government_change_day: ['info', N_('La sesión cae en un día de cambio de Gobierno: el Diario puede reflejar todavía al Gobierno saliente.')],
+    date_corrected: ['warning', N_('La fecha de esta sesión se ha corregido.')],
+    double_sitting: ['info', N_('Doble sesión real: ese día hubo más de una sesión.')],
+    truncated_end: ['warning', N_('El acta digitalizada termina incompleta.')],
+    ocr_loop: ['warning', N_('Una página salió de un bucle del OCR y repite texto.')],
+    legislature_corrected: ['warning', N_('La legislatura de esta sesión se ha corregido.')],
   });
 
   /** Iteración de `x or []` en Python: listas, textos (caracteres) y dicts (claves); un escalar verdadero es TypeError. */
@@ -372,15 +373,15 @@
       out.set('date_corrected', {
         code: 'date_corrected', severity: 'warning', date_corpus: get(meta, 'date'), date_real: get(meta, 'date_real'),
         evidence: get(nota, 'evidencia'),
-        message: `El corpus de origen fecha esta sesión el ${fechaLarga(get(meta, 'date'))}, pero se celebró el ${fechaLarga(get(meta, 'date_real'))}. `
-          + 'Las cabeceras usan la fecha real; los filtros de fecha siguen usando la del corpus.',
+        message: __('El corpus de origen fecha esta sesión el {0}, pero se celebró el {1}. Las cabeceras usan la fecha real; los filtros de fecha siguen usando la del corpus.',
+          fechaLarga(get(meta, 'date')), fechaLarga(get(meta, 'date_real'))),
       });
     }
     const legC = get(meta, 'legislature_corpus'), leg = get(meta, 'legislature');
     if (verdad(legC) && verdad(leg) && !pyIgual(legC, leg)) {
       out.set('legislature_corrected', {
         code: 'legislature_corrected', severity: 'warning', legislature_corpus: legC, legislature: leg,
-        message: `El corpus de origen asigna esta sesión a la legislatura ${s(legC)}; corresponde a la ${s(leg)}.`,
+        message: __('El corpus de origen asigna esta sesión a la legislatura {0}; corresponde a la {1}.', s(legC), s(leg)),
       });
     }
     const ds = get(meta, 'double_sitting');
@@ -388,11 +389,13 @@
       const otras = iterable(get(ds, 'otras')).filter(esDict);
       const franja = get(ds, 'franja');
       const resto = listaY(otras.map((o) => (verdad(get(o, 'franja'))
-        ? `la de la ${s(get(o, 'franja'))} (Diario núm. ${s(get(o, 'diario_num'))})`
-        : `el Diario núm. ${s(get(o, 'diario_num'))}`)));
+        ? __('la de la {0} (Diario núm. {1})', s(get(o, 'franja')), s(get(o, 'diario_num')))
+        : __('el Diario núm. {0}', s(get(o, 'diario_num'))))));
       out.set('double_sitting', {
         code: 'double_sitting', severity: 'info', franja, others: copia(otras), evidence: get(ds, 'evidencia'),
-        message: `Doble sesión real: ese día hubo más de una sesión. Esta es la de la ${s(franja)}` + (resto ? `; la otra es ${resto}` : '') + '.',
+        message: resto
+          ? __('Doble sesión real: ese día hubo más de una sesión. Esta es la de la {0}; la otra es {1}.', s(franja), resto)
+          : __('Doble sesión real: ese día hubo más de una sesión. Esta es la de la {0}.', s(franja)),
       });
     }
     for (const inc of iterable(get(meta, 'incidents'))) {
@@ -401,7 +404,7 @@
       if (tipo === 'truncated_end') {
         const cola = esDict(get(inc, 'cola_repetida')) ? inc.cola_repetida : {};
         const w = { code: 'truncated_end', severity: 'warning',
-          message: verdad(get(inc, 'descripcion')) ? inc.descripcion : 'El acta digitalizada termina incompleta.',
+          message: verdad(get(inc, 'descripcion')) ? inc.descripcion : __('El acta digitalizada termina incompleta.'),
           pdf_page: get(inc, 'pagina_pdf') };
         if (verdad(cola)) {
           w.official_order_from = get(cola, 'orden_oficial_desde');
@@ -416,7 +419,7 @@
       } else if (tipo === 'ocr_loop') {
         if (!out.has('ocr_loop')) {
           out.set('ocr_loop', { code: 'ocr_loop', severity: 'warning', pdf_page: get(inc, 'pagina_pdf'),
-            message: verdad(get(inc, 'descripcion')) ? inc.descripcion : 'Una página salió de un bucle del OCR y repite texto.' });
+            message: verdad(get(inc, 'descripcion')) ? inc.descripcion : __('Una página salió de un bucle del OCR y repite texto.') });
         }
       }
     }
@@ -424,7 +427,7 @@
       if (Array.isArray(code) || esDict(code)) throw pyError('TypeError', `unhashable type: '${nombreTipo(code)}'`);
       const k = typeof code === 'string' ? code : s(code);
       if (!out.has(k)) {
-        const [sev, msg] = tiene(GENERICOS, k) && typeof code === 'string' ? GENERICOS[k] : ['info', `Aviso de sesión: ${s(code)}`];
+        const [sev, msg] = tiene(GENERICOS, k) && typeof code === 'string' ? [GENERICOS[k][0], __(GENERICOS[k][1])] : ['info', __('Aviso de sesión: {0}', s(code))];
         out.set(k, { code, severity: sev, message: msg });
       }
     }

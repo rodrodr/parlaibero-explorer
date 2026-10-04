@@ -23,20 +23,20 @@
   function parametros(pet) {
     const errores = [];
     const orden = String(get(pet.query, 'orden') || 'frecuencia');
-    if (!['frecuencia', 'alfabetico', 'g2', 'longitud'].includes(orden)) errores.push('orden: debe ser frecuencia, alfabetico, g2 o longitud');
+    if (!['frecuencia', 'alfabetico', 'g2', 'longitud'].includes(orden)) errores.push(__('orden: debe ser frecuencia, alfabetico, g2 o longitud'));
     const solo = String(get(pet.query, 'solo') || 'todas');
-    if (!['todas', 'rechazadas'].includes(solo)) errores.push('solo: debe ser todas o rechazadas');
+    if (!['todas', 'rechazadas'].includes(solo)) errores.push(__('solo: debe ser todas o rechazadas'));
     const entero = (nombre, defecto, le) => {
       const v = get(pet.query, nombre);
       if (v === undefined || v === null || v === '') return defecto;
-      if (!/^\d+$/.test(String(v).trim())) { errores.push(`${nombre}: debe ser un número entero`); return defecto; }
+      if (!/^\d+$/.test(String(v).trim())) { errores.push(__('{0}: debe ser un número entero', nombre)); return defecto; }
       const n = Number(v);
-      if (le !== undefined && n > le) { errores.push(`${nombre}: debe estar entre 0 y ${le}`); return defecto; }
+      if (le !== undefined && n > le) { errores.push(__('{0}: debe estar entre 0 y {1}', nombre, le)); return defecto; }
       return n;
     };
     const limite = entero('limite', 200, 1000), desde = entero('desde', 0);
     const q = String(get(pet.query, 'q') || '').slice(0, 200);
-    if (errores.length) throw new ErrorHttp(422, `Parametros no validos. ${errores.join('; ')}`);
+    if (errores.length) throw new ErrorHttp(422, __('Parametros no validos. {0}', errores.join('; ')));
     return { q, orden, limite, desde, solo };
   }
 
@@ -45,7 +45,7 @@
   RT.registrar('POST', '/expressions/rejected', (pet, ctx) => {
     const lista = pet.cuerpo && pet.cuerpo.rechazadas;
     if (!Array.isArray(lista) || lista.some((x) => typeof x !== 'string') || lista.length > MAX_RECHAZADAS) {
-      throw new ErrorHttp(422, `Parametros no validos. rechazadas: debe ser una lista de textos (como mucho ${MAX_RECHAZADAS})`);
+      throw new ErrorHttp(422, __('Parametros no validos. rechazadas: debe ser una lista de textos (como mucho {0})', MAX_RECHAZADAS));
     }
     return EX.fijarRechazadas(bdDe(ctx), lista);
   }, { prioridad: 'interactiva' });

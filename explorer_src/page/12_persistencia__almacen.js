@@ -67,35 +67,35 @@
   const EVENTO = 'r2:almacen';
 
   const TEXTOS = {
-    navegador: 'Sus bibliotecas se guardan en este navegador. Expórtelas como .2replib para compartirlas o tener una copia aparte.',
-    firefox: ' En Firefox dependen de dónde esté este archivo: si lo mueve o le cambia el nombre, no las encontrará.',
-    memoria: 'Este navegador no permite guardar datos en una página abierta como archivo: sus bibliotecas solo durarán mientras la tenga abierta. Expórtelas con «Exportar todas» antes de cerrarla.',
-    sinExportar: ' Hay cambios sin exportar.',
-    soloLectura: 'Sus bibliotecas están abiertas en otra pestaña de Diarios Explorer. Aquí puede consultarlas, pero no cambiarlas. Pulse «Usar aquí» para editarlas en esta pestaña.',
-    comprobando: 'Comprobando si este navegador puede guardar sus bibliotecas…',
-    relevo: 'Otra pestaña de Diarios Explorer ha pulsado «Usar aquí»: esta termina de guardar lo pendiente y le cede sus bibliotecas.',
-    danada: 'La copia de sus bibliotecas guardada en este navegador está dañada y no se puede abrir. No se ha borrado nada: puede descargarla para intentar recuperarla o descartarla y empezar con bibliotecas vacías. Hasta que decida, no se pueden cambiar.',
-    danadaOtra: ' Para descartarla, pulse antes «Usar aquí».',
-    conflicto: 'Otra pestaña de Diarios Explorer guardó sus bibliotecas a la vez que esta: se ha cargado la copia de esa pestaña y el último cambio hecho aquí no se ha guardado. Repítalo si hace falta.',
-    cuota: 'Este navegador no tiene espacio para guardar sus bibliotecas. Expórtelas con «Exportar todas» para no perder los cambios.',
+    navegador: __('Sus bibliotecas se guardan en este navegador. Expórtelas como .2replib para compartirlas o tener una copia aparte.'),
+    firefox: ' ' + __('En Firefox dependen de dónde esté este archivo: si lo mueve o le cambia el nombre, no las encontrará.'),
+    memoria: __('Este navegador no permite guardar datos en una página abierta como archivo: sus bibliotecas solo durarán mientras la tenga abierta. Expórtelas con «Exportar todas» antes de cerrarla.'),
+    sinExportar: ' ' + __('Hay cambios sin exportar.'),
+    soloLectura: __('Sus bibliotecas están abiertas en otra pestaña de Diarios Explorer. Aquí puede consultarlas, pero no cambiarlas. Pulse «Usar aquí» para editarlas en esta pestaña.'),
+    comprobando: __('Comprobando si este navegador puede guardar sus bibliotecas…'),
+    relevo: __('Otra pestaña de Diarios Explorer ha pulsado «Usar aquí»: esta termina de guardar lo pendiente y le cede sus bibliotecas.'),
+    danada: __('La copia de sus bibliotecas guardada en este navegador está dañada y no se puede abrir. No se ha borrado nada: puede descargarla para intentar recuperarla o descartarla y empezar con bibliotecas vacías. Hasta que decida, no se pueden cambiar.'),
+    danadaOtra: ' ' + __('Para descartarla, pulse antes «Usar aquí».'),
+    conflicto: __('Otra pestaña de Diarios Explorer guardó sus bibliotecas a la vez que esta: se ha cargado la copia de esa pestaña y el último cambio hecho aquí no se ha guardado. Repítalo si hace falta.'),
+    cuota: __('Este navegador no tiene espacio para guardar sus bibliotecas. Expórtelas con «Exportar todas» para no perder los cambios.'),
   };
 
 
   const MOTIVOS = Object.freeze({
-    AbortError: 'el navegador interrumpió la operación',
-    QuotaExceededError: 'no queda espacio',
-    SecurityError: 'el navegador no lo permite',
-    NotAllowedError: 'el navegador no lo permite',
-    InvalidStateError: 'el almacén del navegador no está disponible en este momento',
-    NotFoundError: 'no se encontró el almacén del navegador',
-    UnknownError: 'error interno del navegador',
-    VersionError: 'otra versión de esta página tiene el almacén abierto',
-    DataError: 'los datos no se pudieron preparar para guardarlos',
-    DataCloneError: 'los datos no se pudieron preparar para guardarlos',
-    TimeoutError: 'el navegador no respondió a tiempo',
-    ReadOnlyError: 'el almacén está en solo lectura',
-    TransactionInactiveError: 'la operación llegó tarde',
-    DatabaseError: 'la copia no es una base de bibliotecas válida',
+    AbortError: __('el navegador interrumpió la operación'),
+    QuotaExceededError: __('no queda espacio'),
+    SecurityError: __('el navegador no lo permite'),
+    NotAllowedError: __('el navegador no lo permite'),
+    InvalidStateError: __('el almacén del navegador no está disponible en este momento'),
+    NotFoundError: __('no se encontró el almacén del navegador'),
+    UnknownError: __('error interno del navegador'),
+    VersionError: __('otra versión de esta página tiene el almacén abierto'),
+    DataError: __('los datos no se pudieron preparar para guardarlos'),
+    DataCloneError: __('los datos no se pudieron preparar para guardarlos'),
+    TimeoutError: __('el navegador no respondió a tiempo'),
+    ReadOnlyError: __('el almacén está en solo lectura'),
+    TransactionInactiveError: __('la operación llegó tarde'),
+    DatabaseError: __('la copia no es una base de bibliotecas válida'),
   });
 
   const ahoraIso = () => new Date().toISOString();
@@ -108,7 +108,7 @@
     if (e && e.name && MOTIVOS[e.name]) return MOTIVOS[e.name];
     if (e && e.code === 22) return MOTIVOS.QuotaExceededError;
     if (e && (e.propio || typeof e.status === 'number') && e.message) return e.message;
-    return 'error interno del navegador';
+    return __('error interno del navegador');
   }
 
   function conTiempo(promesa, ms, que) {
@@ -381,7 +381,7 @@
         S.copia = await S.almacen.leer();
         S.revGuardada = revisionDe(S.copia);
       } catch (e) {
-        fallo(`No se pudo leer la copia de sus bibliotecas guardada en este navegador (${motivo(e)}).`, e);
+        fallo(__('No se pudo leer la copia de sus bibliotecas guardada en este navegador ({0}).', motivo(e)), e);
       }
       if (S.almacen.persistente) {
         if (!S.pestanas && R2.pestanas) S.pestanas = R2.pestanas.crear(Object.assign({ ventana: g }, opciones.opcionesPestanas || {}));
@@ -526,7 +526,7 @@
         if (S.error === TEXTOS.conflicto) S.error = null;
         emitir({ recargada: true });
       } catch (e) {
-        fallo(`No se pudo leer el cambio hecho en otra pestaña (${motivo(e)}).`, e);
+        fallo(__('No se pudo leer el cambio hecho en otra pestaña ({0}).', motivo(e)), e);
         emitir();
       } finally {
         S.recargando = false;
@@ -579,7 +579,7 @@
         S.copia = r;
         S.revGuardada = revisionDe(r);
       } catch (e) {
-        fallo(`No se pudo leer la copia de sus bibliotecas guardada por otra pestaña (${motivo(e)}).`, e);
+        fallo(__('No se pudo leer la copia de sus bibliotecas guardada por otra pestaña ({0}).', motivo(e)), e);
         emitir();
         return;
       }
@@ -596,7 +596,7 @@
       try {
         r = await S.motor.volcar();
       } catch (e) {
-        fallo(`No se pudieron leer sus bibliotecas para guardarlas (${motivo(e)}). Expórtelas para no perder los cambios.`, e);
+        fallo(__('No se pudieron leer sus bibliotecas para guardarlas ({0}). Expórtelas para no perder los cambios.', motivo(e)), e);
         emitir();
         return 'fallo';
       }
@@ -615,7 +615,7 @@
       } catch (e) {
         if (!tardio) S.copia = reg;
         const cuota = e && (e.name === 'QuotaExceededError' || e.code === 22);
-        fallo(cuota ? TEXTOS.cuota : `No se pudo guardar el último cambio en este navegador (${motivo(e)}). Exporte sus bibliotecas para no perderlo.`, e);
+        fallo(cuota ? TEXTOS.cuota : __('No se pudo guardar el último cambio en este navegador ({0}). Exporte sus bibliotecas para no perderlo.', motivo(e)), e);
         emitir();
         return 'fallo';
       }

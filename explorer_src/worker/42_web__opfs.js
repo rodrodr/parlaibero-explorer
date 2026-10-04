@@ -43,7 +43,7 @@
 
   const ahora = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
   const dormir = (ms) => new Promise((r) => setTimeout(r, ms));
-  const nf = (n) => new Intl.NumberFormat('es-ES').format(Math.round(n));
+  const nf = (n) => __.num(Math.round(n));
 
   class ErrorAlmacen extends Error {
     constructor(codigo, mensaje, extra) {
@@ -56,9 +56,9 @@
 
   // ------------------------------------------------------------------------------------------------ nombres
   function nombreArchivo(csvSha256, buildId, huella) {
-    if (!/^[0-9a-f]{64}$/.test(String(csvSha256))) throw new ErrorAlmacen('SIN_HUELLA', 'La huella SHA-256 del CSV no es válida: no se puede recordar esta base.');
-    if (!/^[0-9a-f]{8,64}$/.test(String(buildId))) throw new ErrorAlmacen('ALMACEN', 'El identificador de esta versión de la página no es válido.');
-    if (!/^[0-9a-f]{16}$/.test(String(huella))) throw new ErrorAlmacen('ALMACEN', 'La huella de las páginas no es válida.');
+    if (!/^[0-9a-f]{64}$/.test(String(csvSha256))) throw new ErrorAlmacen('SIN_HUELLA', __('La huella SHA-256 del CSV no es válida: no se puede recordar esta base.'));
+    if (!/^[0-9a-f]{8,64}$/.test(String(buildId))) throw new ErrorAlmacen('ALMACEN', __('El identificador de esta versión de la página no es válido.'));
+    if (!/^[0-9a-f]{16}$/.test(String(huella))) throw new ErrorAlmacen('ALMACEN', __('La huella de las páginas no es válida.'));
     return `${PREFIJO}${csvSha256}-${buildId}-${huella}.sqlite3`;
   }
 
@@ -164,18 +164,17 @@
     const causa = `${nombre}: ${msg}`;
     if (nombre === 'QuotaExceededError' || /quota|SQLITE_FULL|disk is full/i.test(msg) || ctx.sinEspacio) {
       return new ErrorAlmacen('CUOTA',
-        'El navegador se ha quedado sin espacio mientras guardaba la base. No se ha guardado nada y se ha liberado lo escrito; '
-        + 'la base sigue abierta en esta pestaña. Libere espacio (por ejemplo, datos de otros sitios) o siga sin recordarla.', { causa });
+        __('El navegador se ha quedado sin espacio mientras guardaba la base. No se ha guardado nada y se ha liberado lo escrito; la base sigue abierta en esta pestaña. Libere espacio (por ejemplo, datos de otros sitios) o siga sin recordarla.'), { causa });
     }
     if (nombre === 'NoModificationAllowedError' || /Access Handles? cannot be created|another open Access Handle|is locked|locked by/i.test(msg)) {
-      return new ErrorAlmacen('OPFS_BLOQUEADO', 'La base recordada está en uso en otra pestaña o ventana de 2REP. Ciérrela o espere unos segundos y vuelva a intentarlo.', { causa });
+      return new ErrorAlmacen('OPFS_BLOQUEADO', __('La base recordada está en uso en otra pestaña o ventana de 2REP. Ciérrela o espere unos segundos y vuelva a intentarlo.'), { causa });
     }
     if (nombre === 'SecurityError' || nombre === 'NotAllowedError' || nombre === 'UnknownError' || /Missing required OPFS APIs|OPFS API is too old/i.test(msg)) {
       return new ErrorAlmacen('OPFS_NO_DISPONIBLE',
-        'Este navegador no permite guardar la base en su almacenamiento privado (OPFS). Tendrá que elegir el CSV en cada visita.', { causa });
+        __('Este navegador no permite guardar la base en su almacenamiento privado (OPFS). Tendrá que elegir el CSV en cada visita.'), { causa });
     }
     return new ErrorAlmacen(ctx.codigo || 'ALMACEN',
-      `${ctx.prefijo || 'No se pudo completar la operación con el almacenamiento del navegador'}. Detalle técnico: ${causa}`, { causa });
+      __('{0}. Detalle técnico: {1}', ctx.prefijo || __('No se pudo completar la operación con el almacenamiento del navegador'), causa), { causa });
   }
 
   // ------------------------------------------------------------------------------------------------ pool
@@ -200,7 +199,7 @@
     async function obtenerPool() {
       if (typeof navigator === 'undefined' || !navigator.storage || typeof navigator.storage.getDirectory !== 'function'
         || typeof sqlite3.installOpfsSAHPoolVfs !== 'function') {
-        throw new ErrorAlmacen('OPFS_NO_DISPONIBLE', 'Este navegador no permite guardar la base en su almacenamiento privado (OPFS). Tendrá que elegir el CSV en cada visita.');
+        throw new ErrorAlmacen('OPFS_NO_DISPONIBLE', __('Este navegador no permite guardar la base en su almacenamiento privado (OPFS). Tendrá que elegir el CSV en cada visita.'));
       }
       if (pool) {
         if (pool.isPaused()) await pool.unpauseVfs();
@@ -312,7 +311,7 @@
       const t0 = ahora();
       const { db, informe } = base;
       const csvSha = informe && informe.huella && informe.huella.sha256;
-      if (!csvSha) throw new ErrorAlmacen('SIN_HUELLA', 'Todavía no se conoce la huella SHA-256 del CSV: vuelva a intentarlo en unos segundos.');
+      if (!csvSha) throw new ErrorAlmacen('SIN_HUELLA', __('Todavía no se conoce la huella SHA-256 del CSV: vuelva a intentarlo en unos segundos.'));
       nombreArchivo(csvSha, buildId, '0000000000000000'); // valida la clave
       const clave = `${csvSha}-${buildId}`;
       const p = await obtenerPool();
@@ -340,8 +339,7 @@
           const margen = margenCuota(tamano);
           if (libres < tamano + margen) {
             throw new ErrorAlmacen('CUOTA',
-              `No hay espacio suficiente en este navegador para recordar la base: hacen falta unos ${nf((tamano + margen) / MIB)} MiB `
-              + `y quedan ${nf(Math.max(0, libres) / MIB)} MiB. La base sigue abierta en esta pestaña; puede liberar espacio y volver a intentarlo, o seguir sin recordarla.`,
+              __('No hay espacio suficiente en este navegador para recordar la base: hacen falta unos {0} MiB y quedan {1} MiB. La base sigue abierta en esta pestaña; puede liberar espacio y volver a intentarlo, o seguir sin recordarla.', nf((tamano + margen) / MIB), nf(Math.max(0, libres) / MIB)),
               { liberables });
           }
         }
@@ -364,11 +362,11 @@
           const h2 = new HuellaPaginas();
           const lector = lectorPaginas(sqlite3, db, { huella: h2 });
           try { await p.importDb(nombre, lector); } finally { lector.cerrar(); }
-          if (h2.hex() !== hBase.huella) throw new ErrorAlmacen('VERIFICACION', 'La base cambió mientras se guardaba. Vuelva a intentarlo.');
+          if (h2.hex() !== hBase.huella) throw new ErrorAlmacen('VERIFICACION', __('La base cambió mientras se guardaba. Vuelva a intentarlo.'));
         } catch (e) {
           try { for (const n of p.getFileNames()) if (n.startsWith(nombre)) p.unlink(n); } catch (e2) { /* nada */ }
           const sinEspacio = !!(est && est.quota && est.quota - est.usage < tamano + margenCuota(tamano));
-          throw clasificarError(e, { sinEspacio: sinEspacio && /SQLITE_(IOERR|FULL)|Quota/i.test(String(e && e.message)), prefijo: 'No se pudo guardar la base en este navegador' });
+          throw clasificarError(e, { sinEspacio: sinEspacio && /SQLITE_(IOERR|FULL)|Quota/i.test(String(e && e.message)), prefijo: __('No se pudo guardar la base en este navegador') });
         }
 
         // Relectura desde OPFS con otra conexión: la huella de TODAS las páginas debe coincidir.
@@ -385,7 +383,7 @@
           if (est && typeof est.quota === 'number' && est.quota - (est.usage || 0) < tamano + margenCuota(tamano)) {
             throw clasificarError(new Error('la relectura no coincide y no había espacio para la base entera'), { sinEspacio: true });
           }
-          throw new ErrorAlmacen('VERIFICACION', 'La base guardada no coincide con la construida y se ha borrado. Vuelva a intentarlo.');
+          throw new ErrorAlmacen('VERIFICACION', __('La base guardada no coincide con la construida y se ha borrado. Vuelva a intentarlo.'));
         }
         // Un solo corpus recordado: los de otras claves se borran ahora.
         for (const n of p.getFileNames()) {
@@ -410,8 +408,8 @@
         const otros = p.getFileNames().filter((n) => esCorpus(n) && !candidatos.includes(n));
         if (!candidatos.length) {
           throw new ErrorAlmacen('NO_RECORDADO', otros.length
-            ? 'La base recordada es de otra versión de 2REP Standalone y no sirve para esta. Elija el CSV para volver a construirla.'
-            : 'No hay ninguna base recordada en este navegador. Elija el CSV.');
+            ? __('La base recordada es de otra versión de 2REP Standalone y no sirve para esta. Elija el CSV para volver a construirla.')
+            : __('No hay ninguna base recordada en este navegador. Elija el CSV.'));
         }
         let meta = null;
         const invalidos = [];
@@ -431,14 +429,14 @@
           }
         }
         for (const n of invalidos) { if (n !== elegido) { try { p.unlink(n); } catch (e) { /* nada */ } } }
-        if (!odb) throw new ErrorAlmacen('RECORDADO_DANADO', 'La base recordada estaba incompleta o dañada y se ha borrado. Elija el CSV para volver a construirla.');
+        if (!odb) throw new ErrorAlmacen('RECORDADO_DANADO', __('La base recordada estaba incompleta o dañada y se ha borrado. Elija el CSV para volver a construirla.'));
 
         const huellaEsperada = analizarNombre(elegido).huella;
         const pageSize = odb.selectValue('PRAGMA page_size');
         const pageCount = odb.selectValue('PRAGMA page_count');
         const n = pageSize * pageCount;
         const pOut = Number(capi.sqlite3_malloc64(n));
-        if (!pOut) throw new ErrorAlmacen('MEMORIA', 'No hay memoria suficiente para abrir la base recordada. Cierre otras pestañas y vuelva a intentarlo.');
+        if (!pOut) throw new ErrorAlmacen('MEMORIA', __('No hay memoria suficiente para abrir la base recordada. Cierre otras pestañas y vuelva a intentarlo.'));
         try {
           const st = odb.prepare("SELECT pgno, data FROM sqlite_dbpage('main')");
           let copiadas = 0;
@@ -460,7 +458,7 @@
           if (copiadas !== pageCount) throw new Error(`se copiaron ${copiadas} de ${pageCount} páginas`);
           const huella = new HuellaPaginas().update(wasm.heap8u().subarray(pOut, pOut + n)).hex();
           if (huella !== huellaEsperada) {
-            throw new ErrorAlmacen('RECORDADO_DANADO', 'La base recordada está dañada o incompleta (lo leído no coincide con lo que se guardó) y se ha borrado. Elija el CSV para volver a construirla.');
+            throw new ErrorAlmacen('RECORDADO_DANADO', __('La base recordada está dañada o incompleta (lo leído no coincide con lo que se guardó) y se ha borrado. Elija el CSV para volver a construirla.'));
           }
         } catch (e) {
           capi.sqlite3_free(pOut);
@@ -479,13 +477,13 @@
         try { informe = JSON.parse(meta.cache_informe); } catch (e) { informe = null; }
         if (!informe || !informe.huella) {
           db.close();
-          throw new ErrorAlmacen('RECORDADO_DANADO', 'La base recordada no tiene el informe de construcción y se ha borrado. Elija el CSV para volver a construirla.');
+          throw new ErrorAlmacen('RECORDADO_DANADO', __('La base recordada no tiene el informe de construcción y se ha borrado. Elija el CSV para volver a construirla.'));
         }
         return { db, informe, construidoEn: meta.cache_construido_en || null, recordado, ms: ahora() - t0 };
       } catch (e) {
         if (odb) { try { odb.close(); } catch (e2) { /* nada */ } }
         if (e && e.codigo === 'RECORDADO_DANADO' && elegido) { try { p.unlink(elegido); } catch (e3) { /* nada */ } }
-        throw clasificarError(e, { prefijo: 'No se pudo abrir la base recordada' });
+        throw clasificarError(e, { prefijo: __('No se pudo abrir la base recordada') });
       } finally {
         soltarPool();
       }

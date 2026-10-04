@@ -878,6 +878,10 @@ dialog .dconfirm .chk .lbl { white-space: normal; font-weight: 600; }
 .nota-pliega[open] > summary .nota-ojo { display: none; }
 .nota-pliega[open] > summary .nota-ver { margin-left: 0; }
 .nota-pliega[open] > summary .nota-ver::after { content: 'Ocultar ▴'; }
+:root[lang="en"] .nota-ver::after { content: 'Show note ▾'; }
+:root[lang="en"] .nota-pliega[open] > summary .nota-ver::after { content: 'Hide ▴'; }
+:root[lang="pt-BR"] .nota-ver::after { content: 'Ver nota ▾'; }
+:root[lang="pt-BR"] .nota-pliega[open] > summary .nota-ver::after { content: 'Ocultar ▴'; }
 .nota-todo { margin: 4px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 
 dialog .dedit { display: block; margin: 0 0 12px; }

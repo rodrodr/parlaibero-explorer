@@ -56,7 +56,7 @@
   const strip = (s) => TR.pyStrip(s);
   const len = (s) => C.pyLen(s);
   const esEspacios = (s) => s === '' || C.isspace(s);
-  const miles = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const miles = (n) => __.num(n);
   const COMILLAS = /[«»“”„]/g;
   const comillas = (s) => s.replace(COMILLAS, '"');
   /** Primeros / últimos puntos de código (s[:n], s[:-1], s[-1]). */
@@ -134,8 +134,8 @@
     if (texto.startsWith('"')) {
       const j = texto.indexOf('"', 1);
       if (j > 0 && texto.endsWith('*') && texto.length >= j + 2 && esEspacios(texto.slice(j + 1, -1))) {
-        return error('asterisco', 'El asterisco no trunca frases ni términos entre comillas.',
-          'Quite las comillas y ponga el asterisco al final de una sola palabra (p. ej. republic*).');
+        return error('asterisco', __('El asterisco no trunca frases ni términos entre comillas.'),
+          __('Quite las comillas y ponga el asterisco al final de una sola palabra (p. ej. republic*).'));
       }
     }
 
@@ -144,16 +144,16 @@
     if (quoted) {
       inner = texto.slice(1);
       if (inner.endsWith('"')) inner = inner.slice(0, -1);
-      else t.warnings.push({ code: 'comillas_sin_cerrar', message: 'Faltaban las comillas de cierre; se han añadido.' });
+      else t.warnings.push({ code: 'comillas_sin_cerrar', message: __('Faltaban las comillas de cierre; se han añadido.') });
       if (inner.includes('"')) {
-        return error('comillas', 'Hay comillas en medio del término.',
-          'Ponga cada frase entre sus propias comillas y sepárelas con comas.');
+        return error('comillas', __('Hay comillas en medio del término.'),
+          __('Ponga cada frase entre sus propias comillas y sepárelas con comas.'));
       }
     } else {
       if (texto.includes('"')) {
         const limpio = strip(texto.split('"').join(''));
-        return error('comillas', 'Las comillas deben rodear el término completo.',
-          `Escriba "${limpio}" o separe las partes con comas.`);
+        return error('comillas', __('Las comillas deben rodear el término completo.'),
+          __('Escriba "{0}" o separe las partes con comas.', limpio));
       }
       inner = texto;
     }
@@ -161,8 +161,8 @@
     t.quoted = quoted;
 
     if (!inner) {
-      return error('vacio', 'El término está vacío.',
-        'Escriba una palabra, un prefijo con * (p. ej. republic*) o una frase entre comillas.');
+      return error('vacio', __('El término está vacío.'),
+        __('Escriba una palabra, un prefijo con * (p. ej. republic*) o una frase entre comillas.'));
     }
 
     if (!quoted) {
@@ -177,35 +177,34 @@
       if (ops.length || near) {
         const nombres = [...new Set(ops.map((w) => C.upper(w)))].sort(C.cmpStr).join(', ') || 'NEAR';
         return error('operador',
-          `Los operadores de búsqueda (${nombres}) no se admiten en tendencias: cada término se cuenta por separado.`,
-          'Separe los términos con comas (p. ej. «iglesia, estado») o ponga la palabra entre comillas para contarla '
-          + 'literalmente (p. ej. "not").');
+          __('Los operadores de búsqueda ({0}) no se admiten en tendencias: cada término se cuenta por separado.', nombres),
+          __('Separe los términos con comas (p. ej. «iglesia, estado») o ponga la palabra entre comillas para contarla literalmente (p. ej. "not").'));
       }
     }
 
     if (inner.includes('*')) {
-      if (quoted) return error('asterisco', 'Entre comillas el asterisco no trunca.', `Quite las comillas: ${inner}`);
+      if (quoted) return error('asterisco', __('Entre comillas el asterisco no trunca.'), __('Quite las comillas: {0}', inner));
       const base = inner.endsWith('*') ? inner.slice(0, -1) : cpsDe(inner).slice(0, -1).join('');
       let nAst = 0;
       for (let i = 0; i < inner.length; i++) if (inner[i] === '*') nAst++;
       if (nAst > 1 || !inner.endsWith('*') || !base || tokenize(cpsDe(base).slice(-1)[0]).length === 0) {
-        return error('asterisco', 'El asterisco solo puede ir pegado al final de una palabra.', 'Ejemplo: republic*');
+        return error('asterisco', __('El asterisco solo puede ir pegado al final de una palabra.'), __('Ejemplo: republic*'));
       }
       const toks = tokenize(base);
       if (toks.length !== 1) {
-        return error('asterisco', 'El asterisco solo trunca una palabra suelta, no una frase.',
-          `Cuente la frase completa ("${base}") o solo el prefijo de una palabra.`);
+        return error('asterisco', __('El asterisco solo trunca una palabra suelta, no una frase.'),
+          __('Cuente la frase completa ("{0}") o solo el prefijo de una palabra.', base));
       }
       if (len(toks[0]) < MIN_PREFIX_CHARS) {
         return error('prefijo_corto',
-          `El prefijo «${inner}» es demasiado corto: se exigen al menos ${MIN_PREFIX_CHARS} letras o cifras antes del asterisco.`,
-          'Alargue el prefijo (p. ej. «agrar*») o escriba la palabra completa.');
+          __('El prefijo «{0}» es demasiado corto: se exigen al menos {1} letras o cifras antes del asterisco.', inner, MIN_PREFIX_CHARS),
+          __('Alargue el prefijo (p. ej. «agrar*») o escriba la palabra completa.'));
       }
       Object.assign(t, { type: 'prefijo', tokens: toks, variant: false, match: `"${toks[0]}" *`, query: `${strip(base)}*` });
     } else {
       const toks = tokenize(inner);
       if (!toks.length) {
-        return error('sin_palabras', 'El término no contiene letras ni cifras que registre el índice.', 'Escriba al menos una palabra.');
+        return error('sin_palabras', __('El término no contiene letras ni cifras que registre el índice.'), __('Escriba al menos una palabra.'));
       }
       if (toks.length === 1) {
         const limpio = soloPalabra(inner);
@@ -216,7 +215,7 @@
         }
       } else {
         Object.assign(t, { type: 'frase', tokens: toks, variant: false, match: `"${toks.join(' ')}"`, query: `"${inner}"` });
-        if (variants && !quoted) t.warnings.push({ code: 'variantes_no_frase', message: 'Las variantes no se aplican a las frases.' });
+        if (variants && !quoted) t.warnings.push({ code: 'variantes_no_frase', message: __('Las variantes no se aplican a las frases.') });
       }
     }
     t.ok = true;
@@ -353,8 +352,7 @@
         }
       });
     } catch (e) {
-      throw new Error(`Falta la tabla ${fts}_docsize (${e.message}). El motor de tendencias necesita los tokens por `
-        + 'intervencion que guarda FTS5; el indice debe crearse sin columnsize=0 (como hace tools/build_corpus.py).');
+      throw new Error(__('Falta la tabla {0}_docsize ({1}). El motor de tendencias necesita los tokens por intervencion que guarda FTS5; el indice debe crearse sin columnsize=0 (como hace tools/build_corpus.py).', fts, e.message));
     }
     for (let i = 0; i < n; i++) { const v = tokens[i]; if (v > maxTok) maxTok = v; sumaTok += v; }
     const shift = Math.max(8, bitLength(maxTok + 64));
@@ -509,11 +507,11 @@
 
   function indiceMes(ix, month) {
     if (typeof month === 'number') {
-      if (!(Number.isInteger(month) && month >= 0 && month < ix.months.length)) throw new Error(`Mes fuera del calendario: ${month}`);
+      if (!(Number.isInteger(month) && month >= 0 && month < ix.months.length)) throw new Error(__('Mes fuera del calendario: {0}', month));
       return month;
     }
     const i = ix.months.indexOf(String(month).slice(0, 7));
-    if (i < 0) throw new Error(`Mes fuera del calendario: ${month}`);
+    if (i < 0) throw new Error(__('Mes fuera del calendario: {0}', month));
     return i;
   }
 
@@ -818,23 +816,23 @@
   }
 
   function avisoCero(spec, datos, vocab) {
-    if (!vocab) return { code: 'sin_menciones', message: 'El término no aparece en el corpus.' };
+    if (!vocab) return { code: 'sin_menciones', message: __('El término no aparece en el corpus.') };
     const toks = spec.tokens;
     if (spec.type === 'frase') {
       if (!(datos.faltan && datos.faltan.length)) {
-        return { code: 'sin_menciones', message: 'Las palabras aparecen en el corpus, pero nunca seguidas en este orden.' };
+        return { code: 'sin_menciones', message: __('Las palabras aparecen en el corpus, pero nunca seguidas en este orden.') };
       }
-      return { code: 'sin_menciones', message: `No aparecen en el corpus: ${datos.faltan.join(', ')}.`, alternatives: datos.propuestas };
+      return { code: 'sin_menciones', message: __('No aparecen en el corpus: {0}.', datos.faltan.join(', ')), alternatives: datos.propuestas };
     }
     if (spec.type === 'prefijo') {
-      const out = { code: 'sin_menciones', message: `Ninguna palabra empieza por «${toks[0]}».` };
-      if (datos.formas && datos.formas.length) Object.assign(out, { suggestion: `Pruebe «${datos.prefijo}*».`, alternatives: datos.formas });
+      const out = { code: 'sin_menciones', message: __('Ninguna palabra empieza por «{0}».', toks[0]) };
+      if (datos.formas && datos.formas.length) Object.assign(out, { suggestion: __('Pruebe «{0}*».', datos.prefijo), alternatives: datos.formas });
       return out;
     }
     const alternativas = datos.alternativas || [];
-    const out = { code: 'sin_menciones', message: `«${spec.label}» no aparece en el corpus.` };
+    const out = { code: 'sin_menciones', message: __('«{0}» no aparece en el corpus.', spec.label) };
     if (alternativas.length) {
-      out.suggestion = `¿Quería decir ${alternativas.map((a) => `«${a.form}»`).join(' o ')}?`;
+      out.suggestion = __('¿Quería decir {0}?', alternativas.map((a) => `«${a.form}»`).join(` ${__('o')} `));
       out.alternatives = alternativas;
     }
     return out;
@@ -891,14 +889,13 @@
       spec.ok = false;
       spec.error = entry.error;
       if (entry.error === 'prefijo_amplio') {
-        spec.message = `«${spec.query}» abarca ${miles(entry.n_forms)} formas y ${miles(entry.instances)} apariciones; el tope es `
-          + `${miles(MAX_PREFIX_INSTANCES)}.`;
-        spec.message = spec.message.split(',').join('.');
-        spec.suggestion = `Alargue el prefijo o cuente alguna de sus formas: ${(entry.forms || []).slice(0, 5).map((f) => f.form).join(', ')}`;
+        spec.message = __('«{0}» abarca {1} formas y {2} apariciones; el tope es {3}.', spec.query, miles(entry.n_forms),
+          miles(entry.instances), miles(MAX_PREFIX_INSTANCES));
+        spec.suggestion = __('Alargue el prefijo o cuente alguna de sus formas: {0}', (entry.forms || []).slice(0, 5).map((f) => f.form).join(', '));
       } else {
-        spec.message = `«${spec.label}» costaría unos ${C.pyFormat(entry.est_ms === undefined || entry.est_ms === null ? 0 : entry.est_ms, '.0f')} ms `
-          + `(tope ${MAX_MS_TERMINO} ms por término): sus palabras aparecen en demasiadas intervenciones.`;
-        spec.suggestion = 'Cuente una forma más específica: añada a la frase una palabra menos frecuente.';
+        spec.message = __('«{0}» costaría unos {1} ms (tope {2} ms por término): sus palabras aparecen en demasiadas intervenciones.',
+          spec.label, C.pyFormat(entry.est_ms === undefined || entry.est_ms === null ? 0 : entry.est_ms, '.0f'), MAX_MS_TERMINO);
+        spec.suggestion = __('Cuente una forma más específica: añada a la frase una palabra menos frecuente.');
       }
       cerrar();
       return;
@@ -936,7 +933,7 @@
       spec.warnings.push(avisoCero(spec, datos, vocab));
     } else if (spec.total === 0) {
       spec.warnings.push({ code: 'sin_menciones_filtradas',
-        message: `Ninguna mención con los filtros aplicados; hay ${miles(spec.total_corpus)} en todo el corpus.`.split(',').join('.') });
+        message: __('Ninguna mención con los filtros aplicados; hay {0} en todo el corpus.', miles(spec.total_corpus)) });
     }
     cerrar();
   }
@@ -972,7 +969,7 @@
       const raw = lista[i];
       if (i >= MAX_TERMS) {
         resultados.push({ input: raw, label: raw, ok: false, warnings: [], error: 'demasiados_terminos',
-          message: `Se cuentan como mucho ${MAX_TERMS} términos por consulta.`, suggestion: 'Quite alguno de los términos anteriores.' });
+          message: __('Se cuentan como mucho {0} términos por consulta.', MAX_TERMS), suggestion: __('Quite alguno de los términos anteriores.') });
         continue;
       }
       if (ceder && i) await ceder();
@@ -986,7 +983,7 @@
       if (!r.ok) return;
       if (claves.has(r.key)) {
         r.duplicate_of = claves.get(r.key);
-        r.warnings.push({ code: 'duplicado', message: `Cuenta lo mismo que el término ${claves.get(r.key) + 1}.` });
+        r.warnings.push({ code: 'duplicado', message: __('Cuenta lo mismo que el término {0}.', claves.get(r.key) + 1) });
       } else claves.set(r.key, i);
     });
 
@@ -1026,7 +1023,7 @@
     };
     if (!lista.length) {
       out.error = 'sin_terminos';
-      out.message = 'Escriba al menos un término (separe varios con comas).';
+      out.message = __('Escriba al menos un término (separe varios con comas).');
     }
     if (includeMilestones) {
       out.milestones = milestones(ix, pais);

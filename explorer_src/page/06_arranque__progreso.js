@@ -28,12 +28,12 @@
   'use strict';
 
   const FASES = Object.freeze([
-    Object.freeze({ id: 'leer', etiqueta: 'Leyendo y comprobando el archivo', peso: 0.44 }),
-    Object.freeze({ id: 'guardar', etiqueta: 'Guardando e indexando intervenciones', peso: 0.02 }),
-    Object.freeze({ id: 'indices', etiqueta: 'Creando índices', peso: 0.01 }),
-    Object.freeze({ id: 'optimizar', etiqueta: 'Compactando el índice de palabras', peso: 0.06 }),
-    Object.freeze({ id: 'estadisticas', etiqueta: 'Estadísticas y filtros', peso: 0.05 }),
-    Object.freeze({ id: 'expresiones', etiqueta: 'Detectando expresiones de varias palabras', peso: 0.42 }),
+    Object.freeze({ id: 'leer', etiqueta: N_('Leyendo y comprobando el archivo'), peso: 0.44 }),
+    Object.freeze({ id: 'guardar', etiqueta: N_('Guardando e indexando intervenciones'), peso: 0.02 }),
+    Object.freeze({ id: 'indices', etiqueta: N_('Creando índices'), peso: 0.01 }),
+    Object.freeze({ id: 'optimizar', etiqueta: N_('Compactando el índice de palabras'), peso: 0.06 }),
+    Object.freeze({ id: 'estadisticas', etiqueta: N_('Estadísticas y filtros'), peso: 0.05 }),
+    Object.freeze({ id: 'expresiones', etiqueta: N_('Detectando expresiones de varias palabras'), peso: 0.42 }),
   ]);
 
   const CONCURRENTES = new Set(['guardar']);
@@ -43,7 +43,7 @@
   const RESPECTO_A_LEER = Object.freeze({ indices: 0.02, optimizar: 0.12, estadisticas: 0.08, expresiones: 1.4 });
   // Con las expresiones ya calculadas (edición web, CSV idéntico al publicado) la fase solo relee el archivo para
   // comprobar su SHA-256 y carga la tabla: unas 0,1 veces la lectura. El worker lo avisa con ev.plan al empezar.
-  const PRECALCULADAS = Object.freeze({ etiqueta: 'Cargando las expresiones ya calculadas', respecto_a_leer: 0.1,
+  const PRECALCULADAS = Object.freeze({ etiqueta: N_('Cargando las expresiones ya calculadas'), respecto_a_leer: 0.1,
     pesos: Object.freeze({ leer: 0.72, guardar: 0.03, indices: 0.02, optimizar: 0.09, estadisticas: 0.07, expresiones: 0.07 }) });
 
   const UMBRAL_FASE_LARGA_MS = 5000;
@@ -55,23 +55,20 @@
 
   function miles(n) {
     if (typeof n !== 'number' || !Number.isFinite(n)) return String(n);
-    const t = String(Math.round(Math.abs(n)));
-    return (n < 0 ? '-' : '') + t.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return __.num(Math.round(n), { maximumFractionDigits: 0 });
   }
 
 
   function decimal(x, d = 1) {
     const f = Math.pow(10, d);
     const r = Math.round(x * f) / f;
-    const ent = Math.trunc(Math.abs(r));
-    const frac = d > 0 ? String(Math.round((Math.abs(r) - ent) * f)).padStart(d, '0') : '';
-    return (r < 0 ? '-' : '') + miles(ent) + (d > 0 ? `,${frac}` : '');
+    return __.num(r, { minimumFractionDigits: d, maximumFractionDigits: d });
   }
 
 
   function tamano(bytes) {
     if (typeof bytes !== 'number' || !Number.isFinite(bytes)) return '—';
-    if (bytes < 1000) return `${miles(bytes)} ${bytes === 1 ? 'byte' : 'bytes'}`;
+    if (bytes < 1000) return bytes === 1 ? __('{0} byte', miles(bytes)) : __('{0} bytes', miles(bytes));
     if (bytes < 1e6) return `${decimal(bytes / 1e3, bytes < 1e4 ? 1 : 0)} kB`;
     if (bytes < 1e9) return `${decimal(bytes / 1e6, 1)} MB`;
     return `${decimal(bytes / 1e9, 2)} GB`;
@@ -91,19 +88,19 @@
 
   function porcentaje(f) {
     const p = Math.max(0, Math.min(100, Math.floor((Number(f) || 0) * 100)));
-    return `${p} %`;
+    return __('{0} %', p);
   }
 
 
   function textoEta(ms) {
-    if (ms == null || !Number.isFinite(ms)) return 'Calculando el tiempo restante…';
-    if (ms < 1000) return 'Casi listo';
+    if (ms == null || !Number.isFinite(ms)) return __('Calculando el tiempo restante…');
+    if (ms < 1000) return __('Casi listo');
     const s = ms / 1000;
-    if (s < 10) return `Quedan unos ${Math.ceil(s)} s`;
-    if (s < 60) return `Quedan unos ${Math.max(10, Math.round(s / 5) * 5)} s`;
+    if (s < 10) return __('Quedan unos {0} s', Math.ceil(s));
+    if (s < 60) return __('Quedan unos {0} s', Math.max(10, Math.round(s / 5) * 5));
     const total = Math.round(s / 10) * 10;
     const min = Math.floor(total / 60), seg = total % 60;
-    return seg ? `Quedan unos ${min} min ${seg} s` : `Quedan unos ${min} min`;
+    return seg ? __('Quedan unos {0} min {1} s', min, seg) : __('Quedan unos {0} min', min);
   }
 
 

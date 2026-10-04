@@ -29,22 +29,24 @@
   'use strict';
 
   const VERSION_PROTOCOLO = 1;
-  const NAVEGADORES = 'Chrome, Edge, Firefox o Safari en una versión reciente';
+  const NAVEGADORES = N_('Chrome, Edge, Firefox o Safari en una versión reciente');
 
-  const miles = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  const miles = (n) => (Number.isFinite(Number(n)) ? __.num(n) : String(n));
   const cita = (s, max = 200) => { const t = String(s); return t.length > max ? `${t.slice(0, max)}…` : t; };
 
 
+  // {0} de las plantillas con causa: « (causa técnica)» o nada; la causa queda en la lengua en que llegó
+  const entre = (d) => (d.causa ? ` (${cita(d.causa)})` : '');
   const MENSAJES = {
-    NAVEGADOR: (d) => `Este navegador no puede abrir el explorador: le falta ${(d.faltan || []).join(', ') || 'una función necesaria'}. Use ${NAVEGADORES}.`,
-    RECURSO_DANADO: (d) => `Esta página está incompleta o dañada${d.causa ? ` (${cita(d.causa)})` : ''}. Descargue de nuevo el archivo HTML del explorador.`,
-    WORKER_NO_ARRANCA: (d) => `No se pudo poner en marcha el motor de la página${d.causa ? ` (${cita(d.causa)})` : ''}. Recargue la página; si vuelve a pasar, use ${NAVEGADORES}.`,
-    WASM_NO_ARRANCA: (d) => `No se pudo iniciar SQLite en este navegador${d.causa ? ` (${cita(d.causa)})` : ''}. Recargue la página; si vuelve a pasar, use ${NAVEGADORES}.`,
-    WORKER_DETENIDO: (d) => `El motor se detuvo de forma inesperada${d.causa ? ` (${cita(d.causa)})` : ''}. Suele deberse a falta de memoria: cierre otras pestañas o aplicaciones y vuelva a intentarlo.`,
-    CANCELADO: () => 'Se canceló la construcción del corpus.',
-    PETICION_CANCELADA: () => 'Se canceló la petición.',
-    ESTADO: (d) => `Error interno de la página: ${cita(d.causa || 'orden fuera de lugar')}.`,
-    PROTOCOLO: (d) => `Error interno de la página: ${cita(d.causa || 'mensaje desconocido')}.`,
+    NAVEGADOR: (d) => __('Este navegador no puede abrir el explorador: le falta {0}. Use {1}.', (d.faltan || []).join(', ') || __('una función necesaria'), __(NAVEGADORES)),
+    RECURSO_DANADO: (d) => __('Esta página está incompleta o dañada{0}. Descargue de nuevo el archivo HTML del explorador.', entre(d)),
+    WORKER_NO_ARRANCA: (d) => __('No se pudo poner en marcha el motor de la página{0}. Recargue la página; si vuelve a pasar, use {1}.', entre(d), __(NAVEGADORES)),
+    WASM_NO_ARRANCA: (d) => __('No se pudo iniciar SQLite en este navegador{0}. Recargue la página; si vuelve a pasar, use {1}.', entre(d), __(NAVEGADORES)),
+    WORKER_DETENIDO: (d) => __('El motor se detuvo de forma inesperada{0}. Suele deberse a falta de memoria: cierre otras pestañas o aplicaciones y vuelva a intentarlo.', entre(d)),
+    CANCELADO: () => __('Se canceló la construcción del corpus.'),
+    PETICION_CANCELADA: () => __('Se canceló la petición.'),
+    ESTADO: (d) => __('Error interno de la página: {0}.', cita(d.causa || __('orden fuera de lugar'))),
+    PROTOCOLO: (d) => __('Error interno de la página: {0}.', cita(d.causa || __('mensaje desconocido'))),
   };
 
 
@@ -64,7 +66,7 @@
     constructor(codigo, datos) {
       const d = Object.assign({}, datos);
       const plantilla = MENSAJES[codigo];
-      super(d.mensaje != null ? String(d.mensaje) : plantilla ? plantilla(d) : `Error ${codigo}`);
+      super(d.mensaje != null ? String(d.mensaje) : plantilla ? plantilla(d) : __('Error {0}', codigo));
       this.name = codigo === 'PETICION_CANCELADA' ? 'AbortError' : 'ErrorRpc';
       this.codigo = codigo;
       for (const k of CAMPOS) this[k] = d[k] != null ? d[k] : null;
@@ -91,10 +93,10 @@
   function ubicacion(error) {
     if (!error) return '';
     const partes = [];
-    if (error.fila != null) partes.push(`fila ${miles(error.fila)}`);
-    if (error.linea != null) partes.push(`línea ${miles(error.linea)}`);
-    if (error.byte != null) partes.push(`byte ${miles(error.byte)}`);
-    if (error.columna != null) partes.push(`columna «${error.columna}»`);
+    if (error.fila != null) partes.push(__('fila {0}', miles(error.fila)));
+    if (error.linea != null) partes.push(__('línea {0}', miles(error.linea)));
+    if (error.byte != null) partes.push(__('byte {0}', miles(error.byte)));
+    if (error.columna != null) partes.push(__('columna «{0}»', error.columna));
     return partes.join(' · ');
   }
 
@@ -273,7 +275,9 @@
           if (c.estado === 'iniciando') caer(new ErrorRpc('WORKER_NO_ARRANCA', { causa: `sin respuesta en ${Math.round(op.tiempoArranqueMs / 1000)} s` }));
         }, op.tiempoArranqueMs);
       }
-      enviar({ tipo: 'iniciar', v: VERSION_PROTOCOLO, wasm });
+      // la lengua de la interfaz y su diccionario: el worker traduce sus mensajes, notas y exportaciones
+      const i18n = globalThis.__;
+      enviar({ tipo: 'iniciar', v: VERSION_PROTOCOLO, wasm, lengua: i18n ? i18n.lengua : 'es', dicc: i18n ? i18n.diccionario() : null });
       return p;
     };
 

@@ -44,12 +44,12 @@
   const OPTIMIZAR_HASTA_BYTES = 600 * MIB;
 
   const FASES = Object.freeze([
-    { id: 'leer', etiqueta: 'Leyendo y comprobando el archivo' },
-    { id: 'guardar', etiqueta: 'Guardando e indexando intervenciones' },
-    { id: 'indices', etiqueta: 'Creando índices' },
-    { id: 'optimizar', etiqueta: 'Compactando el índice de palabras' },
-    { id: 'estadisticas', etiqueta: 'Estadísticas y filtros' },
-    { id: 'expresiones', etiqueta: 'Detectando expresiones de varias palabras' },
+    { id: 'leer', etiqueta: N_('Leyendo y comprobando el archivo') },
+    { id: 'guardar', etiqueta: N_('Guardando e indexando intervenciones') },
+    { id: 'indices', etiqueta: N_('Creando índices') },
+    { id: 'optimizar', etiqueta: N_('Compactando el índice de palabras') },
+    { id: 'estadisticas', etiqueta: N_('Estadísticas y filtros') },
+    { id: 'expresiones', etiqueta: N_('Detectando expresiones de varias palabras') },
   ]);
   const FASE = Object.fromEntries(FASES.map((f, i) => [f.id, { etiqueta: f.etiqueta, indice: i + 1 }]));
 
@@ -411,7 +411,7 @@
               if (sha256) return sha256;
               if (!shaAnticipada) {
                 shaAnticipada = await calcularSha256({ alProgreso: (h, t) => progreso({ fase: 'expresiones',
-                  etiqueta: 'Comprobando el archivo para usar las expresiones ya calculadas', indice: FASE.expresiones.indice,
+                  etiqueta: N_('Comprobando el archivo para usar las expresiones ya calculadas'), indice: FASE.expresiones.indice,
                   hecho: h, total: t, precalculadas: true }) });
                 tiempos.sha256_anticipada = ahora() - tS;
               }

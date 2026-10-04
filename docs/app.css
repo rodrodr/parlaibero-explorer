@@ -878,6 +878,10 @@ dialog .dconfirm .chk .lbl { white-space: normal; font-weight: 600; }
 .nota-pliega[open] > summary .nota-ojo { display: none; }
 .nota-pliega[open] > summary .nota-ver { margin-left: 0; }
 .nota-pliega[open] > summary .nota-ver::after { content: 'Ocultar ▴'; }
+:root[lang="en"] .nota-ver::after { content: 'Show note ▾'; }
+:root[lang="en"] .nota-pliega[open] > summary .nota-ver::after { content: 'Hide ▴'; }
+:root[lang="pt-BR"] .nota-ver::after { content: 'Ver nota ▾'; }
+:root[lang="pt-BR"] .nota-pliega[open] > summary .nota-ver::after { content: 'Ocultar ▴'; }
 .nota-todo { margin: 4px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 
 dialog .dedit { display: block; margin: 0 0 12px; }
@@ -1153,6 +1157,9 @@ html:not(.r2-app) body { overflow: hidden; }
 }
 .r2c-sub { font-size: 11px; color: var(--text-faint); font-variant-numeric: tabular-nums; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .r2c-crece { flex: 1; min-width: 0; }
+.r2c-lenguas { display: flex; gap: 1px; }
+.r2c-lenguas .btn { padding: 3px 6px; font: 600 10.5px/1.4 var(--mono); letter-spacing: .04em; color: var(--text-faint); }
+.r2c-lenguas .btn[aria-pressed="true"] { color: var(--accent-text); background: var(--accent-soft); }
 
 
 .r2c-cuerpo { flex: 1; display: grid; place-items: center; align-content: center; gap: 10px; padding: 32px 16px 48px; }

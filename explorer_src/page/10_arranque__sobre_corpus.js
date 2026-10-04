@@ -25,7 +25,7 @@
   const ID = 'r2-sobre';
   const EVENTO = 'r2:sobre-corpus';
 
-  const NOTA = () => 'El corpus existe solo en esta pestaña: si la cierra o la recarga, habrá que volver a elegir el CSV (salvo que la base se haya recordado en este navegador).';
+  const NOTA = () => __('El corpus existe solo en esta pestaña: si la cierra o la recarga, habrá que volver a elegir el CSV (salvo que la base se haya recordado en este navegador).');
   const P = () => R2.progreso;
   let montado = null;
 
@@ -37,37 +37,38 @@
     if (!inf) return null;
     const version = null;
     const corr = null;
-    const pais = inf.pais_nombre || (inf.pais ? `país ${inf.pais}` : null);
+    const pais = inf.pais_nombre ? __(inf.pais_nombre) : (inf.pais ? __('país {0}', inf.pais) : null);
     let estado, textoEstado;
     if (e.huella === 'fallida') {
       estado = 'fallida';
       const causa = e.errorHuella && (e.errorHuella.mensaje || e.errorHuella.message);
-      textoEstado = `No se pudo comprobar la huella: ${causa || 'error desconocido'}`;
+      textoEstado = __('No se pudo comprobar la huella: {0}', causa || __('error desconocido'));
     } else if (e.huella === 'pendiente') {
       estado = 'pendiente';
-      textoEstado = `CSV de ${pais || 'un país'} elegido en este equipo. Comprobando la huella…`;
+      textoEstado = pais ? __('CSV de {0} elegido en este equipo. Comprobando la huella…', pais) : __('CSV de un país elegido en este equipo. Comprobando la huella…');
     } else if (inf.dataset && inf.dataset.titulo) {
       estado = 'publicado';
-      textoEstado = `${inf.dataset.titulo}${inf.dataset.version ? ` (${inf.dataset.version})` : ''}, Harvard Dataverse: CSV elegido en este equipo (${P().miles(inf.n_sesiones || 0)} sesiones).`;
+      textoEstado = __('{0}, Harvard Dataverse: CSV elegido en este equipo ({1} sesiones).', `${inf.dataset.titulo}${inf.dataset.version ? ` (${inf.dataset.version})` : ''}`, P().miles(inf.n_sesiones || 0));
     } else {
       estado = 'sin_referencia';
-      textoEstado = `CSV de ${pais || 'un país'} elegido en este equipo (${P().miles(inf.n_sesiones || 0)} sesiones).`;
+      textoEstado = pais ? __('CSV de {0} elegido en este equipo ({1} sesiones).', pais, P().miles(inf.n_sesiones || 0))
+        : __('CSV de un país elegido en este equipo ({0} sesiones).', P().miles(inf.n_sesiones || 0));
     }
     const h = inf.huella || {};
     const t = inf.tiempos || {};
     return {
       estado,
       textoEstado,
-      archivo: `${h.nombre || 'archivo sin nombre'} · ${P().tamano(h.bytes)} (${P().miles(h.bytes)} bytes)`,
+      archivo: `${h.nombre || __('archivo sin nombre')} · ${P().tamano(h.bytes)} (${__('{0} bytes', P().miles(h.bytes))})`,
       version: version && version.etiqueta ? version.etiqueta : null,
 
       correcciones: corr && corr.filas_corregidas > 0 && corr.mensaje ? corr.mensaje : null,
       sha256: h.sha256 || null,
-      textoSha256: h.sha256 || (e.huella === 'fallida' ? '—' : 'Comprobando la huella…'),
+      textoSha256: h.sha256 || (e.huella === 'fallida' ? '—' : __('Comprobando la huella…')),
       filas: P().miles(inf.n_filas),
-      construccion: `${P().duracion(t.hasta_listo)} en este navegador${inf.detalles && inf.detalles.sqlite ? ` (SQLite ${inf.detalles.sqlite})` : ''}`,
+      construccion: `${__('{0} en este navegador', P().duracion(t.hasta_listo))}${inf.detalles && inf.detalles.sqlite ? ` (SQLite ${inf.detalles.sqlite})` : ''}`,
       lectura: e.modoLectura === 'principal'
-        ? 'Desde la página: este navegador no deja leer el archivo al proceso de fondo cuando la página se abre como archivo.'
+        ? __('Desde la página: este navegador no deja leer el archivo al proceso de fondo cuando la página se abre como archivo.')
         : null,
       avisos: (inf.avisos || []).map((a) => ({ codigo: a.codigo, mensaje: a.mensaje })),
     };
@@ -87,26 +88,26 @@
 
   function datosHtml(m) {
     const fila = (dt, dd, codigo) => `<dt>${esc(dt)}</dt><dd>${codigo ? `<code>${esc(dd)}</code>` : esc(dd)}</dd>`;
-    return fila('Archivo', m.archivo) + (m.version ? fila('Versión', m.version) : '')
-      + fila('Huella SHA-256', m.textoSha256, !!m.sha256) + fila('Intervenciones', m.filas)
-      + (m.correcciones ? fila('Correcciones', m.correcciones) : '')
-      + fila('Construido', m.construccion) + (m.lectura ? fila('Lectura', m.lectura) : '');
+    return fila(__('Archivo'), m.archivo) + (m.version ? fila(__('Versión'), m.version) : '')
+      + fila(__('Huella SHA-256'), m.textoSha256, !!m.sha256) + fila(__('Intervenciones'), m.filas)
+      + (m.correcciones ? fila(__('Correcciones'), m.correcciones) : '')
+      + fila(__('Construido'), m.construccion) + (m.lectura ? fila(__('Lectura'), m.lectura) : '');
   }
   const avisosHtml = (m) => m.avisos.map((a) => `<li data-codigo="${esc(a.codigo)}">${esc(a.mensaje)}</li>`).join('');
 
   function bloqueHtml(m) {
     const web = R2.web && typeof R2.web.htmlSobre === 'function' ? R2.web.htmlSobre() : '';
-    return `<div id="${ID}" class="r2s"><div class="fuente-k">Este archivo</div>`
+    return `<div id="${ID}" class="r2s"><div class="fuente-k">${__('Este archivo')}</div>`
       + `<p class="r2s-estado" data-estado="${esc(m.estado)}" aria-live="polite">${esc(m.textoEstado)}</p>`
       + `<dl class="r2s-datos">${datosHtml(m)}</dl>`
-      + `<ul class="r2s-avisos" aria-label="Avisos sobre el archivo"${m.avisos.length ? '' : ' hidden'}>${avisosHtml(m)}</ul>`
+      + `<ul class="r2s-avisos" aria-label="${__('Avisos sobre el archivo')}"${m.avisos.length ? '' : ' hidden'}>${avisosHtml(m)}</ul>`
       + (web ? web : '')
       + `<p class="dsub r2s-nota"${web ? ' hidden' : ''}>${esc(NOTA())}</p></div>`;
   }
 
   function html(info) {
     const i = info || {};
-    const cuentas = `<p class="dsub r2s-cuentas">${esc(P().miles(i.n_speeches || 0))} intervenciones · ${esc(P().miles(i.n_sessions || 0))} sesiones</p>`;
+    const cuentas = `<p class="dsub r2s-cuentas">${__('{0} intervenciones · {1} sesiones', esc(P().miles(i.n_speeches || 0)), esc(P().miles(i.n_sessions || 0)))}</p>`;
     const vivo = montado ? modelo(montado.obtener()) : null;
     const m = vivo || modeloDeInfo(i);
     return m ? cuentas + bloqueHtml(m) : cuentas;

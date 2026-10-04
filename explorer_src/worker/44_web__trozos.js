@@ -27,7 +27,7 @@
   const TROZO_BYTES = 16 * MIB; // = bloque de R2.opfs.HuellaPaginas: la huella de cada trozo es la de su bloque
 
   const Error_ = (codigo, mensaje) => new R2.opfs.ErrorAlmacen(codigo, mensaje);
-  const DANADA = 'La base recordada está dañada o incompleta (una parte no coincide con lo que se guardó) y se ha borrado. Elija el CSV para volver a construirla.';
+  const DANADA = N_('La base recordada está dañada o incompleta (una parte no coincide con lo que se guardó) y se ha borrado. Elija el CSV para volver a construirla.');
 
   /** Huella de todas las páginas a partir de la de cada trozo de 16 MiB (igual que R2.opfs.HuellaPaginas.hex()). */
   function huellaTotal(bytes, huellas) {
@@ -38,7 +38,7 @@
     const { capi, wasm } = sqlite3;
     const pageSize = db.selectValue('PRAGMA page_size');
     const paginas = db.selectValue('PRAGMA page_count');
-    if (TROZO_BYTES % pageSize) throw Error_('ALMACEN', `El tamaño de página de la base (${pageSize}) no divide los trozos de 16 MiB.`);
+    if (TROZO_BYTES % pageSize) throw Error_('ALMACEN', __('El tamaño de página de la base ({0}) no divide los trozos de 16 MiB.', pageSize));
     const porTrozo = TROZO_BYTES / pageSize;
     const bytes = pageSize * paginas;
     const info = { bytes, page_size: pageSize, paginas, n_trozos: Math.ceil(paginas / porTrozo), trozo_bytes: TROZO_BYTES };
@@ -69,7 +69,7 @@
         }
       } catch (e) {
         cerrar();
-        throw Error_('ALMACEN', `No se pudo leer la base para guardarla. Detalle técnico: ${e && e.message ? e.message : e}`);
+        throw Error_('ALMACEN', __('No se pudo leer la base para guardarla. Detalle técnico: {0}', e && e.message ? e.message : e));
       }
       const huella = R2.sha256.huellaTrozo(u8);
       huellas.push(huella);
@@ -78,7 +78,7 @@
     }
 
     function fin() {
-      if (pagina !== paginas) throw Error_('ALMACEN', `Se leyeron ${pagina} de ${paginas} páginas de la base.`);
+      if (pagina !== paginas) throw Error_('ALMACEN', __('Se leyeron {0} de {1} páginas de la base.', pagina, paginas));
       cerrar();
       return { bytes, huellas: huellas.slice(), huella: huellaTotal(bytes, huellas) };
     }
@@ -95,10 +95,10 @@
     if (!Number.isSafeInteger(bytes) || bytes <= 0 || !pageSize || bytes % pageSize || trozoBytes !== TROZO_BYTES || !huellas
       || huellas.length !== Math.ceil(bytes / trozoBytes) || !/^[0-9a-f]{16}$/.test(String(m.huella))
       || huellaTotal(bytes, huellas) !== m.huella) {
-      throw Error_('RECORDADO_DANADO', DANADA);
+      throw Error_('RECORDADO_DANADO', __(DANADA));
     }
     const p = Number(capi.sqlite3_malloc64(bytes));
-    if (!p) throw Error_('MEMORIA', 'No hay memoria suficiente para abrir la base recordada. Cierre otras pestañas y vuelva a intentarlo.');
+    if (!p) throw Error_('MEMORIA', __('No hay memoria suficiente para abrir la base recordada. Cierre otras pestañas y vuelva a intentarlo.'));
     let vivo = true;
     let recibidos = 0;
 
@@ -107,32 +107,32 @@
     }
 
     function poner(i, u8) {
-      if (!vivo) throw Error_('ALMACEN', 'La apertura de la base recordada ya terminó.');
+      if (!vivo) throw Error_('ALMACEN', __('La apertura de la base recordada ya terminó.'));
       const esperado = Math.min(trozoBytes, bytes - recibidos * trozoBytes);
       if (i !== recibidos || !u8 || u8.length !== esperado || R2.sha256.huellaTrozo(u8) !== huellas[i]) {
         descartar();
-        throw Error_('RECORDADO_DANADO', DANADA);
+        throw Error_('RECORDADO_DANADO', __(DANADA));
       }
       wasm.heap8u().set(u8, p + i * trozoBytes);
       recibidos++;
     }
 
     function terminar() {
-      if (!vivo) throw Error_('ALMACEN', 'La apertura de la base recordada ya terminó.');
-      if (recibidos !== huellas.length) { descartar(); throw Error_('RECORDADO_DANADO', DANADA); }
+      if (!vivo) throw Error_('ALMACEN', __('La apertura de la base recordada ya terminó.'));
+      if (recibidos !== huellas.length) { descartar(); throw Error_('RECORDADO_DANADO', __(DANADA)); }
       vivo = false; // desde aquí el bloque es de SQLite (FREEONCLOSE; si deserialize falla, también lo libera SQLite)
       const db = new sqlite3.oo1.DB(':memory:');
       if (R2.texto) db.r2Texto = R2.texto.instalar(sqlite3, db);
       const rc = capi.sqlite3_deserialize(db.pointer, 'main', p, bytes, bytes,
         capi.SQLITE_DESERIALIZE_FREEONCLOSE | capi.SQLITE_DESERIALIZE_RESIZEABLE);
-      if (rc) { db.close(); throw Error_('RECORDADO_DANADO', DANADA); }
+      if (rc) { db.close(); throw Error_('RECORDADO_DANADO', __(DANADA)); }
       try {
         db.exec('PRAGMA journal_mode = OFF; PRAGMA synchronous = OFF; PRAGMA temp_store = MEMORY;');
         if (db.selectValue('PRAGMA page_count') * db.selectValue('PRAGMA page_size') !== bytes) throw new Error('tamaño');
         db.selectValue("SELECT count(*) FROM meta");
       } catch (e) {
         db.close();
-        throw Error_('RECORDADO_DANADO', DANADA);
+        throw Error_('RECORDADO_DANADO', __(DANADA));
       }
       return db;
     }

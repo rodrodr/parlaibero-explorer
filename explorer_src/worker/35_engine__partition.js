@@ -157,9 +157,7 @@
   const RX_ACOTACION = /\([^()\n]{1,400}\)/g;
   const RX_MAYUSCULA = /[A-ZÁÉÍÓÚÑÃÕÇÀÈÌÒÙÂÊÔÜ]/g;
   const RX_MINUSCULA = /[a-záéíóúñãõçàèìòùâêôü]/g;
-  const TEXTO_RAPIDA = 'Solo discurso (segmentación rápida): la biblioteca supera los 25 millones de caracteres, así que se excluyen '
-    + 'solo las acotaciones entre paréntesis y las líneas en mayúsculas (listas de votación, cabeceras), sin el análisis '
-    + 'completo del Diario que se aplica a bibliotecas menores. La referencia es el corpus menos ese discurso.';
+  const TEXTO_RAPIDA = N_('Solo discurso (segmentación rápida): la biblioteca supera los 25 millones de caracteres, así que se excluyen solo las acotaciones entre paréntesis y las líneas en mayúsculas (listas de votación, cabeceras), sin el análisis completo del Diario que se aplica a bibliotecas menores. La referencia es el corpus menos ese discurso.');
 
   /**
    * Partición rápida de un texto: [[a, b] de prosa, {categoría: tokens excluidos}]. Excluye las acotaciones entre paréntesis
@@ -205,12 +203,12 @@
 
   /** Fases del léxico de una biblioteca y su peso en la barra de progreso (medidas con la biblioteca de Brasil de 85.318). */
   const FASES_LEXICO = Object.freeze([
-    { id: 'lectura', etiqueta: 'Leyendo las intervenciones', peso: 0.14 },
-    { id: 'segmentacion', etiqueta: 'Separando el discurso del resto del acta', peso: 0.08 },
-    { id: 'recuento', etiqueta: 'Contando las palabras', peso: 0.48 },
-    { id: 'referencia', etiqueta: 'Consultando el vocabulario del corpus', peso: 0.22 },
-    { id: 'estadisticos', etiqueta: 'Calculando G² y log-ratio', peso: 0.05 },
-    { id: 'formas', etiqueta: 'Eligiendo las formas con tilde', peso: 0.03 },
+    { id: 'lectura', etiqueta: N_('Leyendo las intervenciones'), peso: 0.14 },
+    { id: 'segmentacion', etiqueta: N_('Separando el discurso del resto del acta'), peso: 0.08 },
+    { id: 'recuento', etiqueta: N_('Contando las palabras'), peso: 0.48 },
+    { id: 'referencia', etiqueta: N_('Consultando el vocabulario del corpus'), peso: 0.22 },
+    { id: 'estadisticos', etiqueta: N_('Calculando G² y log-ratio'), peso: 0.05 },
+    { id: 'formas', etiqueta: N_('Eligiendo las formas con tilde'), peso: 0.03 },
   ]);
   const MS_ENTRE_AVISOS = 120;
 
@@ -233,7 +231,7 @@
         for (let k = 0; k < i; k++) acumulado += fases[k].peso;
         const parte = total ? Math.max(0, Math.min(1, hecho / total)) : 0;
         try {
-          fn({ fase: id, etiqueta: fases[i].etiqueta, indice: i + 1, n_fases: fases.length, hecho, total,
+          fn({ fase: id, etiqueta: __(fases[i].etiqueta), indice: i + 1, n_fases: fases.length, hecho, total,
             fraccion: (acumulado + fases[i].peso * parte) / sumaPesos, ms: Math.round(ya - t0), n_textos: nTextos });
         } catch (e) { /* el progreso nunca interrumpe el cálculo */ }
       },
@@ -445,10 +443,9 @@
     };
     const notas = res.notes || (res.notes = {});
     notas.modo_texto = soloDiscurso
-      ? (rapida ? TEXTO_RAPIDA
-        : 'Solo discurso: se analiza la prosa de los oradores y se excluyen listas de votación, crónica del acta, acotaciones, '
-        + 'tablas, notas y cabeceras de página. La referencia es el corpus menos ese discurso.')
-      : 'Texto completo: cada intervención entera, con listas, crónica, acotaciones y tablas.';
+      ? (rapida ? __(TEXTO_RAPIDA)
+        : __('Solo discurso: se analiza la prosa de los oradores y se excluyen listas de votación, crónica del acta, acotaciones, tablas, notas y cabeceras de página. La referencia es el corpus menos ese discurso.'))
+      : __('Texto completo: cada intervención entera, con listas, crónica, acotaciones y tablas.');
     res.ms = C.pyRound(Number(res.ms || 0) + msTexto + msLectura + msCuentas, 1);
 
     // Forma que se muestra: la escrita con tilde o eñe si es la mayoritaria (muestra uniforme en bibliotecas grandes).

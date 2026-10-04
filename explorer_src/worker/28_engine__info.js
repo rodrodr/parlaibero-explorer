@@ -22,16 +22,17 @@
   if (!RT) throw new Error('engine/info.js necesita R2.router (engine/router.js)');
 
   const PAISES = Object.freeze({
-    AD: 'Andorra', AR: 'Argentina', BO: 'Bolivia', BR: 'Brasil', CL: 'Chile', CO: 'Colombia', CR: 'Costa Rica', CU: 'Cuba',
-    DO: 'República Dominicana', EC: 'Ecuador', ES: 'España', GQ: 'Guinea Ecuatorial', GT: 'Guatemala', HN: 'Honduras',
-    MX: 'México', NI: 'Nicaragua', PA: 'Panamá', PE: 'Perú', PH: 'Filipinas', PR: 'Puerto Rico', PT: 'Portugal',
-    PY: 'Paraguay', SV: 'El Salvador', UY: 'Uruguay', VE: 'Venezuela',
+    AD: N_('Andorra'), AR: N_('Argentina'), BO: N_('Bolivia'), BR: N_('Brasil'), CL: N_('Chile'), CO: N_('Colombia'),
+    CR: N_('Costa Rica'), CU: N_('Cuba'), DO: N_('República Dominicana'), EC: N_('Ecuador'), ES: N_('España'),
+    GQ: N_('Guinea Ecuatorial'), GT: N_('Guatemala'), HN: N_('Honduras'), MX: N_('México'), NI: N_('Nicaragua'),
+    PA: N_('Panamá'), PE: N_('Perú'), PH: N_('Filipinas'), PR: N_('Puerto Rico'), PT: N_('Portugal'),
+    PY: N_('Paraguay'), SV: N_('El Salvador'), UY: N_('Uruguay'), VE: N_('Venezuela'),
   });
   const PREFIJO_BIBLIOTECAS = 'Diarios_';
 
   const nombrePais = (codigo) => {
     const c = String(codigo || '').toUpperCase();
-    return PAISES[c] || (c ? `país ${c}` : 'país sin identificar');
+    return PAISES[c] ? __(PAISES[c]) : (c ? __('país {0}', c) : __('país sin identificar'));
   };
 
   /** Valores del modelo Python de R2.fuente (Map, BigInt, float envuelto) → JSON plano. */
@@ -84,7 +85,7 @@
     const F = R2.fuente;
     const f = fuenteDeclarada(clave);
     const info = plano(Object.assign(F.completa(f), {
-      lineas: F.lineas(f, ''), columnas: F.columnas(f), licencia_texto: F.licencia(f), sin_fuente: F.SIN_FUENTE,
+      lineas: F.lineas(f, ''), columnas: F.columnas(f), licencia_texto: F.licencia(f), sin_fuente: __(F.SIN_FUENTE),
     }));
     cacheFuente.set(clave, info);
     return info;

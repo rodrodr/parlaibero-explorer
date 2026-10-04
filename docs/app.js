@@ -1,3 +1,192 @@
+/* ===== i18n.js ===== */
+/* Diarios Explorer · i18n.js — lengua de la interfaz: español (por defecto), inglés y portugués.
+ *
+ * El mismo archivo va en la página (antes de los demás módulos) y en el worker (build.py lo inserta en los dos).
+ *
+ * - El texto fuente es el español y hace de clave: __('Buscar') devuelve 'Search' en inglés. Los diccionarios son
+ *   i18n/en.json e i18n/pt.json ({español: traducción}); lo que no esté traducido sale en español.
+ * - Huecos numerados: __('{0} intervenciones', nf(n)). La clave se compara con los espacios plegados, así que una
+ *   plantilla de varias líneas vale igual que la misma frase en una.
+ * - N_('texto') no traduce: marca una cadena para el extractor (tools/i18n.py) cuando se guarda en una constante y se
+ *   traduce más tarde con __(constante). En el worker la lengua llega con el mensaje iniciar, así que allí __() solo
+ *   sirve dentro de funciones, nunca al cargar el módulo.
+ * - En la página, la lengua sale de ?lang= en la URL, luego de localStorage y, si no hay nada, es español.
+ */
+(function (g) {
+  'use strict';
+
+  const LENGUAS = [
+    { codigo: 'es', nombre: 'Español', locale: 'es-ES' },
+    { codigo: 'en', nombre: 'English', locale: 'en-GB' },
+    { codigo: 'pt', nombre: 'Português', locale: 'pt-BR' },
+  ];
+  const CODIGOS = LENGUAS.map((l) => l.codigo);
+  const CLAVE = 'diarios-explorer:v1:lengua';
+
+  let lengua = 'es';
+  let dicc = null;
+  const plegada = new Map();
+
+  const plegar = (s) => {
+    let k = plegada.get(s);
+    if (k === undefined) {
+      k = String(s).replace(/\s+/g, ' ').trim();
+      if (plegada.size < 20000) plegada.set(s, k);
+    }
+    return k;
+  };
+
+  const rellenar = (s, args) => (args.length
+    ? s.replace(/\{(\d)\}/g, (m, i) => (args[i] === undefined || args[i] === null ? '' : String(args[i])))
+    : s);
+
+  /** Traduce `s` (español) a la lengua de la interfaz y rellena {0}, {1}… con `args`. */
+  function __(s, ...args) {
+    if (s === undefined || s === null) return '';
+    s = String(s);
+    let r = s;
+    if (dicc) {
+      const t = dicc[plegar(s)];
+      if (t) {
+        // la traducción conserva los espacios de los bordes de la plantilla original (« Tendencia» → « Trend»)
+        const ini = /^\s*/.exec(s)[0], fin = /\s*$/.exec(s)[0];
+        r = ini + t + (fin.length < s.length - ini.length ? fin : '');
+      }
+    }
+    return rellenar(r, args);
+  }
+
+  /** Marca para el extractor: devuelve la cadena tal cual. */
+  const N_ = (s) => s;
+
+  const datosLengua = () => LENGUAS.find((l) => l.codigo === lengua) || LENGUAS[0];
+
+  function fijar(codigo, diccionario) {
+    lengua = CODIGOS.includes(codigo) ? codigo : 'es';
+    dicc = lengua === 'es' ? null : (diccionario || null);
+    plegada.clear();
+  }
+
+  // ------------------------------------------------------------------------------------------------ formatos
+  // Cifras: en español y portugués, punto de miles también con cuatro cifras («1.234»; es-ES no lo pone) y coma
+  // decimal; en inglés, coma de miles y punto decimal.
+  const agrupa = (s) => String(s).replace(/^(-?\d)(\d{3})(?=[,.]|$)/, (m, a, b) => a + (lengua === 'en' ? ',' : '.') + b);
+
+  function num(n, opciones) {
+    const v = Number(n ?? 0);
+    return agrupa(v.toLocaleString(datosLengua().locale, opciones));
+  }
+
+  /** Decimal ya redondeado (número o cadena con punto) con el separador de la lengua: 2.5 → «2,5» / «2.5». */
+  const dec = (v) => (v === undefined || v === null ? '' : (lengua === 'en' ? String(v) : String(v).replace('.', ',')));
+
+  let fmtMes = null, fmtMesCorto = null;
+  /** Nombre del mes (1-12), en minúscula salvo en inglés. */
+  function mes(m, corto = false) {
+    const loc = datosLengua().locale;
+    if (!fmtMes || fmtMes.loc !== loc) {
+      fmtMes = { loc, f: new Intl.DateTimeFormat(loc, { month: 'long', timeZone: 'UTC' }) };
+      fmtMesCorto = new Intl.DateTimeFormat(loc, { month: 'short', timeZone: 'UTC' });
+    }
+    const d = new Date(Date.UTC(2000, (Number(m) || 1) - 1, 1));
+    return (corto ? fmtMesCorto : fmtMes.f).format(d).replace(/\.$/, '');
+  }
+
+  /** Fecha ISO (AAAA-MM-DD) en largo: «4 de octubre de 2026» / «4 October 2026» / «4 de outubro de 2026». */
+  function fecha(iso) {
+    if (!iso) return '';
+    const [y, m, d] = String(iso).slice(0, 10).split('-').map(Number);
+    if (!y) return String(iso);
+    if (!m) return String(y);
+    if (!d) return lengua === 'en' ? `${mes(m)} ${y}` : `${mes(m)} de ${y}`;
+    return lengua === 'en' ? `${d} ${mes(m)} ${y}` : `${d} de ${mes(m)} de ${y}`;
+  }
+
+  // ------------------------------------------------------------------------------------------------ página
+  const hayDom = typeof document !== 'undefined' && typeof window !== 'undefined';
+
+  function leerPreferida() {
+    try {
+      const u = new URL(g.location.href).searchParams.get('lang');
+      if (u && CODIGOS.includes(u.toLowerCase())) {
+        try { g.localStorage.setItem(CLAVE, u.toLowerCase()); } catch (e) { /* sin almacenamiento */ }
+        return u.toLowerCase();
+      }
+    } catch (e) { /* URL rara */ }
+    try {
+      const s = g.localStorage.getItem(CLAVE);
+      if (s && CODIGOS.includes(s)) return s;
+    } catch (e) { /* sin almacenamiento */ }
+    return 'es';
+  }
+
+  const SALTAR = new Set(['SCRIPT', 'STYLE', 'PRE', 'CODE', 'KBD', 'TEXTAREA']);
+  const ATRIBUTOS = ['title', 'placeholder', 'aria-label', 'alt'];
+
+  /** Traduce el marcado estático ya presente bajo `raiz`: nodos de texto, atributos y, en los elementos con
+   *  data-i18n, el innerHTML entero como una sola frase (cuando lleva <b>, <i>… dentro). */
+  function dom(raiz) {
+    if (!dicc || !raiz) return;
+    for (const el of raiz.querySelectorAll('[data-i18n]')) {
+      const k = plegar(el.innerHTML);
+      if (dicc[k]) el.innerHTML = dicc[k];
+    }
+    const pendientes = [];
+    const recorrer = (nodo) => {
+      for (let n = nodo.firstChild; n; n = n.nextSibling) {
+        if (n.nodeType === 3) { if (/\S/.test(n.nodeValue)) pendientes.push(n); }
+        else if (n.nodeType === 1 && !SALTAR.has(n.tagName) && n.getAttribute('translate') !== 'no' && !n.hasAttribute('data-i18n')) recorrer(n);
+      }
+    };
+    recorrer(raiz);
+    for (const n of pendientes) n.nodeValue = __(n.nodeValue);
+    for (const at of ATRIBUTOS) {
+      for (const el of raiz.querySelectorAll(`[${at}]`)) {
+        const v = el.getAttribute(at);
+        if (v && /\S/.test(v)) el.setAttribute(at, __(v));
+      }
+    }
+  }
+
+  /** Cambia la lengua y recarga la página (la base recordada se vuelve a abrir sola). */
+  function cambiar(codigo) {
+    if (!CODIGOS.includes(codigo)) return;
+    try { g.localStorage.setItem(CLAVE, codigo); } catch (e) { /* sin almacenamiento: solo dura esta visita */ }
+    try {
+      const u = new URL(g.location.href);
+      if (u.searchParams.has('lang')) { u.searchParams.set('lang', codigo); g.location.replace(u.href); return; }
+    } catch (e) { /* URL rara */ }
+    g.location.reload();
+  }
+
+  /** Diccionario de la lengua activa, para pasárselo al worker en el mensaje iniciar. */
+  const diccionario = () => dicc;
+
+  if (hayDom) {
+    const preferida = leerPreferida();
+    let todos = null;
+    if (preferida !== 'es') {
+      const el = document.getElementById('r2-i18n');
+      try { todos = el ? JSON.parse(el.textContent) : null; } catch (e) { todos = null; }
+    }
+    fijar(preferida, todos && todos[preferida]);
+    document.documentElement.lang = lengua === 'pt' ? 'pt-BR' : lengua;
+    document.title = __(document.title);
+    if (document.body) dom(document.body);
+  }
+
+  Object.assign(__, { LENGUAS, fijar, dom, cambiar, diccionario, num, dec, mes, fecha });
+  // getters vivos (Object.assign los copiaría como valores fijos): en el worker la lengua cambia después de cargar
+  Object.defineProperties(__, {
+    lengua: { get: () => lengua, enumerable: true },
+    locale: { get: () => datosLengua().locale, enumerable: true },
+  });
+  g.__ = __;
+  g.N_ = N_;
+  g.R2 = g.R2 || {};
+  g.R2.i18n = __;
+}(globalThis));
+
 
 
 
@@ -485,22 +674,24 @@
   'use strict';
 
   const VERSION_PROTOCOLO = 1;
-  const NAVEGADORES = 'Chrome, Edge, Firefox o Safari en una versión reciente';
+  const NAVEGADORES = N_('Chrome, Edge, Firefox o Safari en una versión reciente');
 
-  const miles = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  const miles = (n) => (Number.isFinite(Number(n)) ? __.num(n) : String(n));
   const cita = (s, max = 200) => { const t = String(s); return t.length > max ? `${t.slice(0, max)}…` : t; };
 
 
+  // {0} de las plantillas con causa: « (causa técnica)» o nada; la causa queda en la lengua en que llegó
+  const entre = (d) => (d.causa ? ` (${cita(d.causa)})` : '');
   const MENSAJES = {
-    NAVEGADOR: (d) => `Este navegador no puede abrir el explorador: le falta ${(d.faltan || []).join(', ') || 'una función necesaria'}. Use ${NAVEGADORES}.`,
-    RECURSO_DANADO: (d) => `Esta página está incompleta o dañada${d.causa ? ` (${cita(d.causa)})` : ''}. Descargue de nuevo el archivo HTML del explorador.`,
-    WORKER_NO_ARRANCA: (d) => `No se pudo poner en marcha el motor de la página${d.causa ? ` (${cita(d.causa)})` : ''}. Recargue la página; si vuelve a pasar, use ${NAVEGADORES}.`,
-    WASM_NO_ARRANCA: (d) => `No se pudo iniciar SQLite en este navegador${d.causa ? ` (${cita(d.causa)})` : ''}. Recargue la página; si vuelve a pasar, use ${NAVEGADORES}.`,
-    WORKER_DETENIDO: (d) => `El motor se detuvo de forma inesperada${d.causa ? ` (${cita(d.causa)})` : ''}. Suele deberse a falta de memoria: cierre otras pestañas o aplicaciones y vuelva a intentarlo.`,
-    CANCELADO: () => 'Se canceló la construcción del corpus.',
-    PETICION_CANCELADA: () => 'Se canceló la petición.',
-    ESTADO: (d) => `Error interno de la página: ${cita(d.causa || 'orden fuera de lugar')}.`,
-    PROTOCOLO: (d) => `Error interno de la página: ${cita(d.causa || 'mensaje desconocido')}.`,
+    NAVEGADOR: (d) => __('Este navegador no puede abrir el explorador: le falta {0}. Use {1}.', (d.faltan || []).join(', ') || __('una función necesaria'), __(NAVEGADORES)),
+    RECURSO_DANADO: (d) => __('Esta página está incompleta o dañada{0}. Descargue de nuevo el archivo HTML del explorador.', entre(d)),
+    WORKER_NO_ARRANCA: (d) => __('No se pudo poner en marcha el motor de la página{0}. Recargue la página; si vuelve a pasar, use {1}.', entre(d), __(NAVEGADORES)),
+    WASM_NO_ARRANCA: (d) => __('No se pudo iniciar SQLite en este navegador{0}. Recargue la página; si vuelve a pasar, use {1}.', entre(d), __(NAVEGADORES)),
+    WORKER_DETENIDO: (d) => __('El motor se detuvo de forma inesperada{0}. Suele deberse a falta de memoria: cierre otras pestañas o aplicaciones y vuelva a intentarlo.', entre(d)),
+    CANCELADO: () => __('Se canceló la construcción del corpus.'),
+    PETICION_CANCELADA: () => __('Se canceló la petición.'),
+    ESTADO: (d) => __('Error interno de la página: {0}.', cita(d.causa || __('orden fuera de lugar'))),
+    PROTOCOLO: (d) => __('Error interno de la página: {0}.', cita(d.causa || __('mensaje desconocido'))),
   };
 
 
@@ -520,7 +711,7 @@
     constructor(codigo, datos) {
       const d = Object.assign({}, datos);
       const plantilla = MENSAJES[codigo];
-      super(d.mensaje != null ? String(d.mensaje) : plantilla ? plantilla(d) : `Error ${codigo}`);
+      super(d.mensaje != null ? String(d.mensaje) : plantilla ? plantilla(d) : __('Error {0}', codigo));
       this.name = codigo === 'PETICION_CANCELADA' ? 'AbortError' : 'ErrorRpc';
       this.codigo = codigo;
       for (const k of CAMPOS) this[k] = d[k] != null ? d[k] : null;
@@ -547,10 +738,10 @@
   function ubicacion(error) {
     if (!error) return '';
     const partes = [];
-    if (error.fila != null) partes.push(`fila ${miles(error.fila)}`);
-    if (error.linea != null) partes.push(`línea ${miles(error.linea)}`);
-    if (error.byte != null) partes.push(`byte ${miles(error.byte)}`);
-    if (error.columna != null) partes.push(`columna «${error.columna}»`);
+    if (error.fila != null) partes.push(__('fila {0}', miles(error.fila)));
+    if (error.linea != null) partes.push(__('línea {0}', miles(error.linea)));
+    if (error.byte != null) partes.push(__('byte {0}', miles(error.byte)));
+    if (error.columna != null) partes.push(__('columna «{0}»', error.columna));
     return partes.join(' · ');
   }
 
@@ -729,7 +920,9 @@
           if (c.estado === 'iniciando') caer(new ErrorRpc('WORKER_NO_ARRANCA', { causa: `sin respuesta en ${Math.round(op.tiempoArranqueMs / 1000)} s` }));
         }, op.tiempoArranqueMs);
       }
-      enviar({ tipo: 'iniciar', v: VERSION_PROTOCOLO, wasm });
+      // la lengua de la interfaz y su diccionario: el worker traduce sus mensajes, notas y exportaciones
+      const i18n = globalThis.__;
+      enviar({ tipo: 'iniciar', v: VERSION_PROTOCOLO, wasm, lengua: i18n ? i18n.lengua : 'es', dicc: i18n ? i18n.diccionario() : null });
       return p;
     };
 
@@ -828,18 +1021,18 @@
 
 
   const ESENCIALES = [
-    ['procesos en segundo plano (Worker)', (g) => typeof g.Worker === 'function'],
-    ['Blob y URL.createObjectURL', (g) => typeof g.Blob === 'function' && !!g.URL && typeof g.URL.createObjectURL === 'function'],
+    [__('procesos en segundo plano (Worker)'), (g) => typeof g.Worker === 'function'],
+    [__('Blob y URL.createObjectURL'), (g) => typeof g.Blob === 'function' && !!g.URL && typeof g.URL.createObjectURL === 'function'],
     ['WebAssembly', (g) => typeof g.WebAssembly === 'object' && g.WebAssembly !== null && typeof g.WebAssembly.instantiate === 'function'],
-    ['enteros de 64 bits (BigInt64Array)', (g) => typeof g.BigInt64Array === 'function'],
-    ['TextEncoder y TextDecoder', (g) => typeof g.TextEncoder === 'function' && typeof g.TextDecoder === 'function'],
-    ['lectura de archivos (Blob.arrayBuffer)', (g) => typeof g.Blob === 'function' && typeof g.Blob.prototype.arrayBuffer === 'function'],
+    [__('enteros de 64 bits (BigInt64Array)'), (g) => typeof g.BigInt64Array === 'function'],
+    [__('TextEncoder y TextDecoder'), (g) => typeof g.TextEncoder === 'function' && typeof g.TextDecoder === 'function'],
+    [__('lectura de archivos (Blob.arrayBuffer)'), (g) => typeof g.Blob === 'function' && typeof g.Blob.prototype.arrayBuffer === 'function'],
     ['MessageChannel', (g) => typeof g.MessageChannel === 'function'],
     ['AbortController', (g) => typeof g.AbortController === 'function'],
-    ['expresiones regulares con el indicador «v»', (g) => {
+    [__('expresiones regulares con el indicador «v»'), (g) => {
       try { return new (g.RegExp || RegExp)('[\\p{L}--[a-z]]', 'v').test('ñ'); } catch (e) { return false; }
     }],
-    ['diálogos (<dialog>)', (g) => typeof g.HTMLDialogElement === 'function' && typeof g.HTMLDialogElement.prototype.showModal === 'function'],
+    [__('diálogos (<dialog>)'), (g) => typeof g.HTMLDialogElement === 'function' && typeof g.HTMLDialogElement.prototype.showModal === 'function'],
   ];
 
   function motorDe(userAgent, marcas) {
@@ -942,18 +1135,18 @@
     const s = sondeo || {};
     let a;
     if (!almacen) {
-      a = { tipo: 'comprobando', texto: 'Comprobando si este navegador puede guardar sus bibliotecas…' };
+      a = { tipo: 'comprobando', texto: __('Comprobando si este navegador puede guardar sus bibliotecas…') };
     } else if (almacen.persistente) {
-      a = { tipo: 'navegador', texto: 'Sus bibliotecas se guardan en este navegador y se pueden exportar como .2replib.' };
+      a = { tipo: 'navegador', texto: __('Sus bibliotecas se guardan en este navegador y se pueden exportar como .2replib.') };
       if (s.motor === 'gecko' && s.archivoLocal) {
-        a.texto += ' En Firefox dependen de dónde esté este archivo: si lo mueve o le cambia el nombre, no las encontrará.';
+        a.texto += ' ' + __('En Firefox dependen de dónde esté este archivo: si lo mueve o le cambia el nombre, no las encontrará.');
       }
     } else {
-      a = { tipo: 'memoria', texto: 'Este navegador no permite guardar datos en una página abierta como archivo: sus bibliotecas solo durarán mientras la tenga abierta. Expórtelas como .2replib antes de cerrarla.' };
+      a = { tipo: 'memoria', texto: __('Este navegador no permite guardar datos en una página abierta como archivo: sus bibliotecas solo durarán mientras la tenga abierta. Expórtelas como .2replib antes de cerrarla.') };
     }
     const gb = s.opcionales && s.opcionales.memoriaEquipoGb;
     const memoria = typeof gb === 'number' && gb <= 4
-      ? `Este equipo tiene unos ${String(gb).replace('.', ',')} GB de memoria y la construcción de un CSV grande puede necesitar más de 1 GB: cierre otras pestañas antes de empezar.`
+      ? __('Este equipo tiene unos {0} GB de memoria y la construcción de un CSV grande puede necesitar más de 1 GB: cierre otras pestañas antes de empezar.', __.dec(gb))
       : null;
     return { almacen: a, memoria };
   }
@@ -992,12 +1185,12 @@
   'use strict';
 
   const FASES = Object.freeze([
-    Object.freeze({ id: 'leer', etiqueta: 'Leyendo y comprobando el archivo', peso: 0.44 }),
-    Object.freeze({ id: 'guardar', etiqueta: 'Guardando e indexando intervenciones', peso: 0.02 }),
-    Object.freeze({ id: 'indices', etiqueta: 'Creando índices', peso: 0.01 }),
-    Object.freeze({ id: 'optimizar', etiqueta: 'Compactando el índice de palabras', peso: 0.06 }),
-    Object.freeze({ id: 'estadisticas', etiqueta: 'Estadísticas y filtros', peso: 0.05 }),
-    Object.freeze({ id: 'expresiones', etiqueta: 'Detectando expresiones de varias palabras', peso: 0.42 }),
+    Object.freeze({ id: 'leer', etiqueta: N_('Leyendo y comprobando el archivo'), peso: 0.44 }),
+    Object.freeze({ id: 'guardar', etiqueta: N_('Guardando e indexando intervenciones'), peso: 0.02 }),
+    Object.freeze({ id: 'indices', etiqueta: N_('Creando índices'), peso: 0.01 }),
+    Object.freeze({ id: 'optimizar', etiqueta: N_('Compactando el índice de palabras'), peso: 0.06 }),
+    Object.freeze({ id: 'estadisticas', etiqueta: N_('Estadísticas y filtros'), peso: 0.05 }),
+    Object.freeze({ id: 'expresiones', etiqueta: N_('Detectando expresiones de varias palabras'), peso: 0.42 }),
   ]);
 
   const CONCURRENTES = new Set(['guardar']);
@@ -1007,7 +1200,7 @@
   const RESPECTO_A_LEER = Object.freeze({ indices: 0.02, optimizar: 0.12, estadisticas: 0.08, expresiones: 1.4 });
   // Con las expresiones ya calculadas (edición web, CSV idéntico al publicado) la fase solo relee el archivo para
   // comprobar su SHA-256 y carga la tabla: unas 0,1 veces la lectura. El worker lo avisa con ev.plan al empezar.
-  const PRECALCULADAS = Object.freeze({ etiqueta: 'Cargando las expresiones ya calculadas', respecto_a_leer: 0.1,
+  const PRECALCULADAS = Object.freeze({ etiqueta: N_('Cargando las expresiones ya calculadas'), respecto_a_leer: 0.1,
     pesos: Object.freeze({ leer: 0.72, guardar: 0.03, indices: 0.02, optimizar: 0.09, estadisticas: 0.07, expresiones: 0.07 }) });
 
   const UMBRAL_FASE_LARGA_MS = 5000;
@@ -1019,23 +1212,20 @@
 
   function miles(n) {
     if (typeof n !== 'number' || !Number.isFinite(n)) return String(n);
-    const t = String(Math.round(Math.abs(n)));
-    return (n < 0 ? '-' : '') + t.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return __.num(Math.round(n), { maximumFractionDigits: 0 });
   }
 
 
   function decimal(x, d = 1) {
     const f = Math.pow(10, d);
     const r = Math.round(x * f) / f;
-    const ent = Math.trunc(Math.abs(r));
-    const frac = d > 0 ? String(Math.round((Math.abs(r) - ent) * f)).padStart(d, '0') : '';
-    return (r < 0 ? '-' : '') + miles(ent) + (d > 0 ? `,${frac}` : '');
+    return __.num(r, { minimumFractionDigits: d, maximumFractionDigits: d });
   }
 
 
   function tamano(bytes) {
     if (typeof bytes !== 'number' || !Number.isFinite(bytes)) return '—';
-    if (bytes < 1000) return `${miles(bytes)} ${bytes === 1 ? 'byte' : 'bytes'}`;
+    if (bytes < 1000) return bytes === 1 ? __('{0} byte', miles(bytes)) : __('{0} bytes', miles(bytes));
     if (bytes < 1e6) return `${decimal(bytes / 1e3, bytes < 1e4 ? 1 : 0)} kB`;
     if (bytes < 1e9) return `${decimal(bytes / 1e6, 1)} MB`;
     return `${decimal(bytes / 1e9, 2)} GB`;
@@ -1055,19 +1245,19 @@
 
   function porcentaje(f) {
     const p = Math.max(0, Math.min(100, Math.floor((Number(f) || 0) * 100)));
-    return `${p} %`;
+    return __('{0} %', p);
   }
 
 
   function textoEta(ms) {
-    if (ms == null || !Number.isFinite(ms)) return 'Calculando el tiempo restante…';
-    if (ms < 1000) return 'Casi listo';
+    if (ms == null || !Number.isFinite(ms)) return __('Calculando el tiempo restante…');
+    if (ms < 1000) return __('Casi listo');
     const s = ms / 1000;
-    if (s < 10) return `Quedan unos ${Math.ceil(s)} s`;
-    if (s < 60) return `Quedan unos ${Math.max(10, Math.round(s / 5) * 5)} s`;
+    if (s < 10) return __('Quedan unos {0} s', Math.ceil(s));
+    if (s < 60) return __('Quedan unos {0} s', Math.max(10, Math.round(s / 5) * 5));
     const total = Math.round(s / 10) * 10;
     const min = Math.floor(total / 60), seg = total % 60;
-    return seg ? `Quedan unos ${min} min ${seg} s` : `Quedan unos ${min} min`;
+    return seg ? __('Quedan unos {0} min {1} s', min, seg) : __('Quedan unos {0} min', min);
   }
 
 
@@ -1258,31 +1448,52 @@
     dlg = doc.createElement('dialog');
     dlg.id = 'dlgAjustes';
     dlg.setAttribute('aria-labelledby', 'ajustesTitulo');
-    dlg.innerHTML = `<div class="dhead"><h3 id="ajustesTitulo">Ajustes</h3>
-    <p class="dsub">Se recuerdan en este navegador.</p></div>
+    const lenguas = __.LENGUAS.map((l) => opcion('lengua', l.codigo, l.nombre, '')).join('');
+    dlg.innerHTML = `<div class="dhead"><h3 id="ajustesTitulo">${__('Ajustes')}</h3>
+    <p class="dsub">${__('Se recuerdan en este navegador.')}</p></div>
   <div class="dbody">
-    <fieldset><legend>Estilo</legend><div class="opciones">
-      ${opcion('estilo', 'editorial', 'Editorial', 'Granate y pliego de lectura: nombre del orador en grande, texto mayor y capital inicial.')}
-      ${opcion('estilo', 'iluminado', 'Iluminado', 'Como el editorial, con iniciales de manuscrito iluminado en las intervenciones largas.')}
-      ${opcion('estilo', 'clasico', 'Clásico', 'El aspecto original de la aplicación.')}
+    <fieldset><legend>${__('Lengua')}${__.lengua === 'en' ? '' : ' · <span lang="en">Language</span>'}</legend><div class="opciones">
+      ${lenguas}
+    </div><p class="dsub" data-r2="lengua-nota">${__('Al cambiarla, la página se recarga y vuelve a abrir la base recordada.')}</p></fieldset>
+    <fieldset><legend>${__('Estilo')}</legend><div class="opciones">
+      ${opcion('estilo', 'editorial', __('Editorial'), __('Granate y pliego de lectura: nombre del orador en grande, texto mayor y capital inicial.'))}
+      ${opcion('estilo', 'iluminado', __('Iluminado'), __('Como el editorial, con iniciales de manuscrito iluminado en las intervenciones largas.'))}
+      ${opcion('estilo', 'clasico', __('Clásico'), __('El aspecto original de la aplicación.'))}
     </div></fieldset>
-    <fieldset><legend>Tema</legend><div class="opciones">
-      ${opcion('tema', 'light', 'Claro', 'Papel claro.')}
-      ${opcion('tema', 'dark', 'Oscuro', 'Fondo oscuro; la misma paleta, adaptada.')}
+    <fieldset><legend>${__('Tema')}</legend><div class="opciones">
+      ${opcion('tema', 'light', __('Claro'), __('Papel claro.'))}
+      ${opcion('tema', 'dark', __('Oscuro'), __('Fondo oscuro; la misma paleta, adaptada.'))}
     </div></fieldset>
   </div>
-  <div class="dfoot"><button type="button" class="btn primary" data-close>Cerrar</button></div>`;
+  <div class="dfoot"><button type="button" class="btn primary" data-close>${__('Cerrar')}</button></div>`;
     dlg.addEventListener('change', (ev) => {
       const t = ev.target;
       if (!t || t.type !== 'radio' || !t.checked) return;
+      if (t.name === 'lengua') { cambiarLengua(t.value); return; }
       poner(t.name === 'tema' ? { tema: t.value } : { estilo: t.value });
     });
     dlg.querySelector('[data-close]').addEventListener('click', () => dlg.close());
     doc.body.appendChild(dlg);
   }
 
+  /** Cambia la lengua de la interfaz: recarga la página, salvo mientras se construye la base (se perdería). */
+  function cambiarLengua(codigo) {
+    if (codigo === __.lengua) return;
+    const A = R2.arranque;
+    const fase = A && typeof A.estado === 'function' ? (A.estado() || {}).fase : null;
+    if (fase === 'construyendo' || fase === 'construir') {
+      try { g.localStorage.setItem('diarios-explorer:v1:lengua', codigo); } catch (e) { /* sin almacenamiento */ }
+      const nota = dlg && dlg.querySelector('[data-r2="lengua-nota"]');
+      if (nota) nota.textContent = __('Se aplicará al recargar la página: ahora se está construyendo la base y recargar la interrumpiría.');
+      return;
+    }
+    __.cambiar(codigo);
+  }
+
   function pintar() {
-    for (const r of dlg.querySelectorAll('input[type="radio"]')) r.checked = r.value === (r.name === 'tema' ? tema() : estilo());
+    for (const r of dlg.querySelectorAll('input[type="radio"]')) {
+      r.checked = r.value === (r.name === 'tema' ? tema() : r.name === 'lengua' ? __.lengua : estilo());
+    }
   }
 
   function abrir() {
@@ -1291,7 +1502,7 @@
     if (!dlg.open) dlg.showModal();
   }
 
-  R2.ajustes = { aplicar, estilo, tema, poner, abrir, COLOR_TEMA };
+  R2.ajustes = { aplicar, estilo, tema, poner, abrir, cambiarLengua, COLOR_TEMA };
 }(globalThis.R2 = globalThis.R2 || {}));
 //# sourceURL=2rep-standalone/src/arranque/ajustes.js
 
@@ -1402,124 +1613,126 @@
   'use strict';
 
   const P = () => R2.progreso;
-  const ENTRADA_CONSTRUIR = 'La base se construye en este navegador a partir del CSV y, si lo permite, se guarda para abrirla sola la próxima vez. No cierre ni recargue la pestaña hasta que termine.';
+  const ENTRADA_CONSTRUIR = __('La base se construye en este navegador a partir del CSV y, si lo permite, se guarda para abrirla sola la próxima vez. No cierre ni recargue la pestaña hasta que termine.');
   const URL_PARLAIBERO = 'https://dataverse.harvard.edu/dataverse/parlaibero';
-  const ENTRADA_ABRIR = 'Elija el archivo de intervenciones de un país de ParlaIbero (por ejemplo ES_interventions.csv, descargado de Harvard Dataverse). La base de datos se construye en su navegador; nada sale de su equipo.';
+  const ENTRADA_ABRIR = __('Elija el archivo de intervenciones de un país de ParlaIbero (por ejemplo ES_interventions.csv, descargado de Harvard Dataverse). La base de datos se construye en su navegador; nada sale de su equipo.');
 
   const PLANTILLA = `
 <header class="r2c-cab">
-  <div class="r2c-marca"><h1 class="r2c-titulo">ParlaIbero</h1><span class="r2c-insignia">Explorador de diarios de sesiones</span><span class="r2c-sub" data-r2="sub"></span></div>
+  <div class="r2c-marca"><h1 class="r2c-titulo">ParlaIbero</h1><span class="r2c-insignia">${__('Explorador de diarios de sesiones')}</span><span class="r2c-sub" data-r2="sub"></span></div>
   <span class="r2c-crece"></span>
-  <button type="button" class="btn ghost sm" data-r2="creditos" data-abrir-creditos hidden>Créditos y licencias</button>
-  <button type="button" class="btn ghost icon" data-r2="ajustes" title="Ajustes: estilo y tema" aria-label="Ajustes: estilo y tema">⚙</button>
-  <button type="button" class="btn ghost icon" data-r2="tema" title="Claro / oscuro" aria-label="Cambiar entre tema claro y oscuro">◐</button>
+  <span class="r2c-lenguas" role="group" aria-label="Lengua · Language" data-r2="lenguas">${__.LENGUAS.map((l) =>
+    `<button type="button" class="btn ghost sm" data-lengua="${l.codigo}" lang="${l.codigo}" title="${l.nombre}" aria-pressed="${l.codigo === __.lengua}">${l.codigo.toUpperCase()}</button>`).join('')}</span>
+  <button type="button" class="btn ghost sm" data-r2="creditos" data-abrir-creditos hidden>${__('Créditos y licencias')}</button>
+  <button type="button" class="btn ghost icon" data-r2="ajustes" title="${__('Ajustes: estilo y tema')}" aria-label="${__('Ajustes: estilo y tema')}">⚙</button>
+  <button type="button" class="btn ghost icon" data-r2="tema" title="${__('Claro / oscuro')}" aria-label="${__('Cambiar entre tema claro y oscuro')}">◐</button>
 </header>
 <main class="r2c-cuerpo">
   <p class="r2c-nota r2c-aviso" data-r2="aviso" role="status" hidden></p>
   <input type="file" accept=".csv,text/csv" data-r2="archivo" class="r2c-oculto" tabindex="-1" aria-hidden="true">
   <section class="r2c-tarjeta" data-r2="abrir" aria-labelledby="r2c-abrir-t">
     <p class="r2c-antetitulo">Parliamentary Speeches from Latin America, Portugal and Spain · Instituto de Iberoamérica, Universidad de Salamanca</p>
-    <h2 class="r2c-h" id="r2c-abrir-t" tabindex="-1">Abra el CSV de un país</h2>
+    <h2 class="r2c-h" id="r2c-abrir-t" tabindex="-1">${__('Abra el CSV de un país')}</h2>
     <p class="r2c-entrada" data-r2="abrir-entrada">${ENTRADA_ABRIR}</p>
     <p class="r2c-nota" data-r2="nota" role="status" hidden></p>
     <div class="r2c-soltar" data-r2="soltar">
-      <p class="r2c-soltar-t"><b>Arrastre aquí el CSV de intervenciones</b> (p. ej. <span class="r2c-mono">ES_interventions.csv</span>)</p>
-      <p class="r2c-soltar-f" data-r2="ficha">o elija el archivo · separador «,» · codificación UTF-8</p>
+      <p class="r2c-soltar-t">${__('<b>Arrastre aquí el CSV de intervenciones</b> (p. ej. {0})', '<span class="r2c-mono">ES_interventions.csv</span>')}</p>
+      <p class="r2c-soltar-f" data-r2="ficha">${__('o elija el archivo · separador «,» · codificación UTF-8')}</p>
       <div class="r2c-botones">
-        <button type="button" class="btn primary" data-r2="elegir">Elegir archivo…</button>
-        <button type="button" class="btn" data-r2="reintentar" hidden>Reintentar</button>
-        <a class="btn" data-r2="dataverse" href="${URL_PARLAIBERO}" target="_blank" rel="noopener noreferrer">Conjuntos de datos en Dataverse <span aria-hidden="true">↗</span><span class="r2c-oculto"> (se abre en otra pestaña)</span></a>
+        <button type="button" class="btn primary" data-r2="elegir">${__('Elegir archivo…')}</button>
+        <button type="button" class="btn" data-r2="reintentar" hidden>${__('Reintentar')}</button>
+        <a class="btn" data-r2="dataverse" href="${URL_PARLAIBERO}" target="_blank" rel="noopener noreferrer">${__('Conjuntos de datos en Dataverse')} <span aria-hidden="true">↗</span><span class="r2c-oculto"> ${__('(se abre en otra pestaña)')}</span></a>
       </div>
     </div>
     <p class="r2c-motor" data-r2="motor" aria-live="polite"></p>
-    <div class="r2c-cita" data-r2="cita" hidden><b>Fuente (cite siempre):</b> <span data-r2="cita-texto"></span></div>
+    <div class="r2c-cita" data-r2="cita" hidden>${__('<b>Fuente (cite siempre):</b>')} <span data-r2="cita-texto"></span></div>
     <ul class="r2c-privacidad">
-      <li><span aria-hidden="true">🔒</span><span>El CSV se lee localmente; no se sube a ningún servidor.</span></li>
-      <li data-r2="almacen"><span aria-hidden="true">📚</span><span data-r2="almacen-t">Comprobando si este navegador puede guardar sus bibliotecas…</span></li>
+      <li><span aria-hidden="true">🔒</span><span>${__('El CSV se lee localmente; no se sube a ningún servidor.')}</span></li>
+      <li data-r2="almacen"><span aria-hidden="true">📚</span><span data-r2="almacen-t">${__('Comprobando si este navegador puede guardar sus bibliotecas…')}</span></li>
       <li data-r2="memoria-aviso" hidden><span aria-hidden="true">⚠</span><span data-r2="memoria-aviso-t"></span></li>
     </ul>
   </section>
 
   <section class="r2c-tarjeta" data-r2="construir" aria-labelledby="r2c-constr-t" hidden>
     <p class="r2c-antetitulo" data-r2="constr-ficha"></p>
-    <h2 class="r2c-h" id="r2c-constr-t" tabindex="-1">Preparando el corpus…</h2>
+    <h2 class="r2c-h" id="r2c-constr-t" tabindex="-1">${__('Preparando el corpus…')}</h2>
     <p class="r2c-entrada" data-r2="constr-entrada"></p>
-    <ol class="r2c-fases" data-r2="fases" aria-label="Fases de la construcción"></ol>
+    <ol class="r2c-fases" data-r2="fases" aria-label="${__('Fases de la construcción')}"></ol>
     <div class="r2c-total">
-      <div class="r2c-barra" data-r2="total" role="progressbar" aria-label="Progreso total" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
-      <div class="r2c-total-t"><span data-r2="pct">0&nbsp;%</span><span data-r2="eta">Calculando el tiempo restante…</span></div>
+      <div class="r2c-barra" data-r2="total" role="progressbar" aria-label="${__('Progreso total')}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
+      <div class="r2c-total-t"><span data-r2="pct">0&nbsp;%</span><span data-r2="eta">${__('Calculando el tiempo restante…')}</span></div>
     </div>
     <p class="r2c-oculto" data-r2="anuncio" aria-live="polite"></p>
-    <div class="r2c-pie"><span data-r2="memoria"></span><span data-r2="motor-v">Motor: SQLite (WebAssembly) · FTS5</span></div>
+    <div class="r2c-pie"><span data-r2="memoria"></span><span data-r2="motor-v">${__('Motor: {0}', 'SQLite (WebAssembly) · FTS5')}</span></div>
     <div class="r2c-cancelar">
       <p class="r2c-nota-cancelar" id="r2c-nota-cancelar" data-r2="nota-cancelar" hidden></p>
-      <button type="button" class="btn" data-r2="cancelar">Cancelar</button>
+      <button type="button" class="btn" data-r2="cancelar">${__('Cancelar')}</button>
     </div>
   </section>
 
   <section class="r2c-espera" data-r2="espera" aria-labelledby="r2c-esp-t" hidden>
-    <h2 class="r2c-esp-h" id="r2c-esp-t" tabindex="-1" data-r2="esp-titulo">Preparando el corpus…</h2>
-    <div class="r2c-barra indet" data-r2="esp-barra" role="progressbar" aria-label="Preparando el corpus" aria-valuemin="0" aria-valuemax="100"><i></i></div>
+    <h2 class="r2c-esp-h" id="r2c-esp-t" tabindex="-1" data-r2="esp-titulo">${__('Preparando el corpus…')}</h2>
+    <div class="r2c-barra indet" data-r2="esp-barra" role="progressbar" aria-label="${__('Preparando el corpus')}" aria-valuemin="0" aria-valuemax="100"><i></i></div>
     <p class="r2c-esp-nota" data-r2="esp-nota"></p>
     <p class="r2c-oculto" data-r2="esp-anuncio" aria-live="polite"></p>
   </section>
 
   <section class="r2c-tarjeta" data-r2="recordado" aria-labelledby="r2c-rec-t" hidden>
     <p class="r2c-antetitulo" data-r2="rec-ficha"></p>
-    <h2 class="r2c-h" id="r2c-rec-t" tabindex="-1" data-r2="rec-titulo">Abriendo la base recordada…</h2>
-    <p class="r2c-entrada" data-r2="rec-entrada">Esta base se guardó en este navegador: se abre sin volver a elegir el CSV.</p>
+    <h2 class="r2c-h" id="r2c-rec-t" tabindex="-1" data-r2="rec-titulo">${__('Abriendo la base recordada…')}</h2>
+    <p class="r2c-entrada" data-r2="rec-entrada">${__('Esta base se guardó en este navegador: se abre sin volver a elegir el CSV.')}</p>
     <div class="r2c-total">
-      <div class="r2c-barra" data-r2="rec-barra" role="progressbar" aria-label="Progreso de la apertura de la base recordada" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
-      <div class="r2c-total-t"><span data-r2="rec-pct">0&nbsp;%</span><span data-r2="rec-estado">Leyendo la base guardada…</span></div>
+      <div class="r2c-barra" data-r2="rec-barra" role="progressbar" aria-label="${__('Progreso de la apertura de la base recordada')}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
+      <div class="r2c-total-t"><span data-r2="rec-pct">0&nbsp;%</span><span data-r2="rec-estado">${__('Leyendo la base guardada…')}</span></div>
     </div>
     <p class="r2c-oculto" data-r2="rec-anuncio" aria-live="polite"></p>
     <div class="r2c-cancelar">
-      <button type="button" class="btn" data-r2="rec-cancelar">Cancelar y elegir otro CSV</button>
+      <button type="button" class="btn" data-r2="rec-cancelar">${__('Cancelar y elegir otro CSV')}</button>
     </div>
   </section>
 
   <section class="r2c-tarjeta" data-r2="fallo" aria-labelledby="r2c-fallo-t" hidden>
     <p class="r2c-antetitulo" data-r2="fallo-ficha"></p>
-    <h2 class="r2c-h" id="r2c-fallo-t" tabindex="-1" data-r2="fallo-titulo">No se pudo construir el corpus</h2>
+    <h2 class="r2c-h" id="r2c-fallo-t" tabindex="-1" data-r2="fallo-titulo">${__('No se pudo construir el corpus')}</h2>
     <div class="r2c-error" role="alert" data-r2="fallo-caja">
       <p data-r2="fallo-mensaje"></p>
-      <dl><dt>Código</dt><dd><code data-r2="fallo-codigo"></code></dd><dt data-r2="fallo-donde-t">Ubicación</dt><dd data-r2="fallo-donde"></dd></dl>
+      <dl><dt>${__('Código')}</dt><dd><code data-r2="fallo-codigo"></code></dd><dt data-r2="fallo-donde-t">${__('Ubicación')}</dt><dd data-r2="fallo-donde"></dd></dl>
     </div>
     <div class="r2c-ayuda" data-r2="fallo-ayuda" hidden>
-      <p>Abra este mismo archivo en Chrome, Edge, Firefox o Safari (en una versión reciente): arrástrelo a una de sus ventanas o pegue esta dirección en su barra.</p>
+      <p>${__('Abra este mismo archivo en Chrome, Edge, Firefox o Safari (en una versión reciente): arrástrelo a una de sus ventanas o pegue esta dirección en su barra.')}</p>
       <code data-r2="fallo-direccion"></code>
     </div>
     <div class="r2c-botones">
-      <button type="button" class="btn primary" data-r2="otro">Elegir otro archivo</button>
-      <button type="button" class="btn" data-r2="fallo-reintentar">Reintentar</button>
-      <button type="button" class="btn" data-r2="recargar">Recargar la página</button>
-      <button type="button" class="btn" data-r2="copiar" hidden>Copiar la dirección</button>
-      <a class="btn" data-r2="fallo-dataverse" href="${URL_PARLAIBERO}" target="_blank" rel="noopener noreferrer">Conjuntos de datos en Dataverse <span aria-hidden="true">↗</span><span class="r2c-oculto"> (se abre en otra pestaña)</span></a>
+      <button type="button" class="btn primary" data-r2="otro">${__('Elegir otro archivo')}</button>
+      <button type="button" class="btn" data-r2="fallo-reintentar">${__('Reintentar')}</button>
+      <button type="button" class="btn" data-r2="recargar">${__('Recargar la página')}</button>
+      <button type="button" class="btn" data-r2="copiar" hidden>${__('Copiar la dirección')}</button>
+      <a class="btn" data-r2="fallo-dataverse" href="${URL_PARLAIBERO}" target="_blank" rel="noopener noreferrer">${__('Conjuntos de datos en Dataverse')} <span aria-hidden="true">↗</span><span class="r2c-oculto"> ${__('(se abre en otra pestaña)')}</span></a>
     </div>
   </section>
 
   <section class="r2c-tarjeta" data-r2="confirmar" aria-labelledby="r2c-conf-t" hidden>
     <p class="r2c-antetitulo" data-r2="conf-ficha"></p>
-    <h2 class="r2c-h" id="r2c-conf-t" tabindex="-1">Este archivo tiene avisos</h2>
+    <h2 class="r2c-h" id="r2c-conf-t" tabindex="-1">${__('Este archivo tiene avisos')}</h2>
     <ul class="r2c-avisos" data-r2="conf-avisos" role="alert"></ul>
-    <p class="r2c-entrada">Puede explorarlo igualmente, pero los resultados no coincidirán con los del conjunto de datos citado.</p>
+    <p class="r2c-entrada">${__('Puede explorarlo igualmente, pero los resultados no coincidirán con los del conjunto de datos citado.')}</p>
     <div class="r2c-botones">
-      <button type="button" class="btn primary" data-r2="continuar">Continuar con este archivo</button>
-      <button type="button" class="btn" data-r2="conf-otro">Elegir otro archivo</button>
+      <button type="button" class="btn primary" data-r2="continuar">${__('Continuar con este archivo')}</button>
+      <button type="button" class="btn" data-r2="conf-otro">${__('Elegir otro archivo')}</button>
     </div>
   </section>
 </main>`;
 
   const SECCIONES = ['espera', 'abrir', 'construir', 'recordado', 'fallo', 'confirmar'];
   const TITULOS_FALLO = {
-    NAVEGADOR: 'Este navegador no es compatible',
-    RECURSO_DANADO: 'No se pudo preparar la página',
-    WORKER_NO_ARRANCA: 'No se pudo preparar la página',
-    WASM_NO_ARRANCA: 'No se pudo preparar la página',
-    WORKER_DETENIDO: 'El motor se ha detenido',
+    NAVEGADOR: __('Este navegador no es compatible'),
+    RECURSO_DANADO: __('No se pudo preparar la página'),
+    WORKER_NO_ARRANCA: __('No se pudo preparar la página'),
+    WASM_NO_ARRANCA: __('No se pudo preparar la página'),
+    WORKER_DETENIDO: __('El motor se ha detenido'),
   };
   const ICONOS = { hecha: '✓', activa: '●', espera: '○' };
-  const ESTADO_SR = { hecha: 'terminada', activa: 'en curso', espera: 'pendiente' };
+  const ESTADO_SR = { hecha: __('terminada'), activa: __('en curso'), espera: __('pendiente') };
 
   function crear(opciones) {
     const doc = opciones.documento;
@@ -1537,13 +1750,13 @@
 
     const conDatos = !!(R2.arranque && typeof R2.arranque.datosPropios === 'function' && R2.arranque.datosPropios());
     const entradaPorDefecto = conDatos
-      ? 'El corpus viaja con esta aplicación y se abre solo; nada sale de su equipo. Si quiere explorar otro CSV, puede elegirlo aquí.'
+      ? __('El corpus viaja con esta aplicación y se abre solo; nada sale de su equipo. Si quiere explorar otro CSV, puede elegirlo aquí.')
       : ENTRADA_ABRIR;
     if (conDatos) {
-      raiz.querySelector('#r2c-abrir-t').textContent = 'Abrir otro conjunto de datos';
+      raiz.querySelector('#r2c-abrir-t').textContent = __('Abrir otro conjunto de datos');
       $('abrir-entrada').textContent = entradaPorDefecto;
-      raiz.querySelector('.r2c-soltar-t').innerHTML = 'Arrastre aquí otro CSV de intervenciones';
-      raiz.querySelector('.r2c-privacidad li:first-child span:last-child').textContent = 'Todo se procesa en su navegador; nada se sube a ningún servidor.';
+      raiz.querySelector('.r2c-soltar-t').innerHTML = __('Arrastre aquí otro CSV de intervenciones');
+      raiz.querySelector('.r2c-privacidad li:first-child span:last-child').textContent = __('Todo se procesa en su navegador; nada se sube a ningún servidor.');
     }
 
     const v = { seccion: null, raiz };
@@ -1568,7 +1781,7 @@
     }
 
     function ficha(archivo) {
-      return archivo ? `${archivo.name || 'archivo sin nombre'} · ${P().tamano(archivo.size)}` : '';
+      return archivo ? `${archivo.name || __('archivo sin nombre')} · ${P().tamano(archivo.size)}` : '';
     }
 
 
@@ -1594,6 +1807,10 @@
       if (f) llamar('alElegir', f);
     });
     escuchar($('ajustes'), 'click', () => { if (R2.ajustes) R2.ajustes.abrir(); });
+    escuchar($('lenguas'), 'click', (ev) => {
+      const b = ev.target && ev.target.closest ? ev.target.closest('[data-lengua]') : null;
+      if (b && R2.ajustes) R2.ajustes.cambiarLengua(b.dataset.lengua);
+    });
     escuchar($('reintentar'), 'click', () => llamar('alReintentar'));
     escuchar($('fallo-reintentar'), 'click', () => llamar('alReintentar'));
     escuchar($('cancelar'), 'click', () => llamar('alCancelar'));
@@ -1608,7 +1825,7 @@
       const b = $('copiar');
       const texto = $('fallo-direccion').textContent;
       Promise.resolve().then(() => w.navigator.clipboard.writeText(texto))
-        .then(() => { b.textContent = 'Dirección copiada'; }, () => { b.textContent = 'No se pudo copiar: selecciónela y cópiela'; });
+        .then(() => { b.textContent = __('Dirección copiada'); }, () => { b.textContent = __('No se pudo copiar: selecciónela y cópiela'); });
     });
 
     const creditos = doc.getElementById('dlgCreditos');
@@ -1652,7 +1869,7 @@
       const n = Math.max(archivos.length, elementos.length);
 
       if (n > 1) {
-        v.avisoSoltar(`Ha soltado ${n} archivos. Suelte solo un CSV de intervenciones o elíjalo con «Elegir archivo…».`);
+        v.avisoSoltar(__('Ha soltado {0} archivos. Suelte solo un CSV de intervenciones o elíjalo con «Elegir archivo…».', n));
         return;
       }
 
@@ -1663,7 +1880,7 @@
         } catch (err) { return false; }
       });
       if (carpeta) {
-        v.avisoSoltar('Ha soltado una carpeta. Suelte el archivo CSV de intervenciones que contiene o elíjalo con «Elegir archivo…».');
+        v.avisoSoltar(__('Ha soltado una carpeta. Suelte el archivo CSV de intervenciones que contiene o elíjalo con «Elegir archivo…».'));
         return;
       }
       if (archivos[0]) llamar('alElegir', archivos[0]);
@@ -1676,14 +1893,14 @@
 
     v.mostrarAbrir = (o = {}) => {
       mostrar('abrir');
-      $('sub').textContent = 'Sin corpus cargado';
+      $('sub').textContent = __('Sin corpus cargado');
       if (o.entrada !== undefined) $('abrir-entrada').textContent = o.entrada || entradaPorDefecto;
       const nota = $('nota');
       nota.textContent = o.nota || '';
       nota.hidden = !o.nota;
       const re = $('reintentar');
       re.hidden = !o.reintentar;
-      re.textContent = o.reintentar ? `Reintentar con ${o.reintentar.name || 'el mismo archivo'}` : 'Reintentar';
+      re.textContent = o.reintentar ? (o.reintentar.name ? __('Reintentar con {0}', o.reintentar.name) : __('Reintentar con el mismo archivo')) : __('Reintentar');
       if (o.enfocar === 'reintentar' && o.reintentar) enfocar(re);
       else if (o.enfocar !== null) enfocar($('elegir'));
     };
@@ -1701,7 +1918,7 @@
     };
 
     v.ponerMotor = (version) => {
-      $('motor-v').textContent = `Motor: SQLite${version ? ` ${version}` : ''} (WebAssembly) · FTS5`;
+      $('motor-v').textContent = __('Motor: {0}', `SQLite${version ? ` ${version}` : ''} (WebAssembly) · FTS5`);
     };
 
     v.mostrarConstruir = (o = {}) => {
@@ -1712,7 +1929,7 @@
       $('constr-ficha').textContent = f;
       $('sub').textContent = f;
       const mem = P().memoriaEstimada(o.archivo ? o.archivo.size : 0);
-      $('memoria').textContent = `Memoria necesaria: unos ${P().miles(mem.min)}–${P().miles(mem.max)} MB`;
+      $('memoria').textContent = __('Memoria necesaria: unos {0}–{1} MB', P().miles(mem.min), P().miles(mem.max));
       if (o.sqlite) v.ponerMotor(o.sqlite);
       const ol = $('fases');
       ol.textContent = '';
@@ -1722,9 +1939,9 @@
         li.dataset.fase = fase.id;
         li.dataset.estado = 'espera';
         li.innerHTML = '<span class="r2c-icono" aria-hidden="true">○</span><span class="r2c-et"><span class="r2c-et-t"></span><span class="r2c-oculto r2c-et-sr"></span><span class="r2c-barra" role="progressbar" aria-valuemin="0" aria-valuemax="100"><i></i></span></span><span class="r2c-n">—</span>';
-        li.querySelector('.r2c-et-t').textContent = fase.etiqueta;
+        li.querySelector('.r2c-et-t').textContent = __(fase.etiqueta);
         li.querySelector('.r2c-et-sr').textContent = ` (${ESTADO_SR.espera})`;
-        li.querySelector('.r2c-barra').setAttribute('aria-label', `${fase.etiqueta}, fase ${i + 1} de ${P().FASES.length}`);
+        li.querySelector('.r2c-barra').setAttribute('aria-label', __('{0}, fase {1} de {2}', __(fase.etiqueta), i + 1, P().FASES.length));
         ol.appendChild(li);
       });
       const total = $('total');
@@ -1734,7 +1951,7 @@
       $('eta').textContent = P().textoEta(null);
       $('nota-cancelar').hidden = true;
       $('cancelar').removeAttribute('aria-describedby');
-      $('cancelar').textContent = o.textoCancelar || 'Cancelar';
+      $('cancelar').textContent = o.textoCancelar || __('Cancelar');
       $('constr-entrada').textContent = o.entrada || ENTRADA_CONSTRUIR;
       $('anuncio').textContent = '';
       enfocar(raiz.querySelector('#r2c-constr-t'));
@@ -1753,20 +1970,20 @@
 
     v.mostrarRecordado = (o = {}) => {
       mostrar('recordado');
-      $('sub').textContent = o.ficha || 'Base recordada';
+      $('sub').textContent = o.ficha || __('Base recordada');
       $('rec-ficha').textContent = o.ficha || '';
-      $('rec-titulo').textContent = o.titulo || 'Abriendo la base recordada…';
+      $('rec-titulo').textContent = o.titulo || __('Abriendo la base recordada…');
       $('rec-entrada').textContent = o.entrada || (conDatos
-        ? 'Esta base se guardó en este navegador: se abre sin descargarla ni prepararla de nuevo.'
-        : 'Esta base se guardó en este navegador: se abre sin volver a elegir el CSV.');
-      $('rec-cancelar').textContent = o.textoCancelar || 'Cancelar y elegir otro CSV';
+        ? __('Esta base se guardó en este navegador: se abre sin descargarla ni prepararla de nuevo.')
+        : __('Esta base se guardó en este navegador: se abre sin volver a elegir el CSV.'));
+      $('rec-cancelar').textContent = o.textoCancelar || __('Cancelar y elegir otro CSV');
       $('rec-cancelar').hidden = o.cancelar === false;
       const barra = $('rec-barra');
       barra.querySelector('i').style.width = '0%';
       barra.setAttribute('aria-valuenow', '0');
       barra.removeAttribute('aria-valuetext');
       $('rec-pct').textContent = P().porcentaje(0);
-      $('rec-estado').textContent = 'Leyendo la base guardada…';
+      $('rec-estado').textContent = __('Leyendo la base guardada…');
       $('rec-anuncio').textContent = '';
       recAnunciado = -1;
       enfocar(raiz.querySelector('#r2c-rec-t'));
@@ -1779,14 +1996,14 @@
       const barra = $('rec-barra');
       barra.querySelector('i').style.width = `${(f * 100).toFixed(1)}%`;
       barra.setAttribute('aria-valuenow', String(Math.floor(f * 100)));
-      const t = texto || (total > 0 ? `${P().tamano(hecho)} de ${P().tamano(total)}` : 'Leyendo la base guardada…');
+      const t = texto || (total > 0 ? __('{0} de {1}', P().tamano(hecho), P().tamano(total)) : __('Leyendo la base guardada…'));
       barra.setAttribute('aria-valuetext', `${P().porcentaje(f)} · ${t}`);
       $('rec-pct').textContent = P().porcentaje(f);
       $('rec-estado').textContent = t;
 
       if (Math.floor(f * 2) > recAnunciado && f < 1) {
         recAnunciado = Math.floor(f * 2);
-        $('rec-anuncio').textContent = `${P().porcentaje(f)} de la base recordada leído.`;
+        $('rec-anuncio').textContent = __('{0} de la base recordada leído.', P().porcentaje(f));
       }
     };
 
@@ -1798,7 +2015,7 @@
     v.mostrarEspera = (o = {}) => {
       mostrar('espera');
       $('sub').textContent = o.ficha || '';
-      $('esp-titulo').textContent = o.titulo || 'Preparando el corpus…';
+      $('esp-titulo').textContent = o.titulo || __('Preparando el corpus…');
       $('esp-nota').textContent = o.nota || '';
       const barra = $('esp-barra');
       barra.classList.add('indet');
@@ -1828,7 +2045,7 @@
 
         if (Math.floor(f * 4) > espAnunciado && f < 1) {
           espAnunciado = Math.floor(f * 4);
-          $('esp-anuncio').textContent = `${P().porcentaje(f)} del corpus preparado.`;
+          $('esp-anuncio').textContent = __('{0} del corpus preparado.', P().porcentaje(f));
         }
       }
       if (nota !== undefined) $('esp-nota').textContent = nota || '';
@@ -1845,9 +2062,10 @@
         if (!li) continue;
         // La etiqueta puede cambiar durante la construcción («Cargando las expresiones ya calculadas»).
         const et = li.querySelector('.r2c-et-t');
-        if (f.etiqueta && et.textContent !== f.etiqueta) {
-          et.textContent = f.etiqueta;
-          li.querySelector('.r2c-barra').setAttribute('aria-label', `${f.etiqueta}, fase ${f.indice} de ${est.fases.length}`);
+        const etq = __(f.etiqueta);
+        if (f.etiqueta && et.textContent !== etq) {
+          et.textContent = etq;
+          li.querySelector('.r2c-barra').setAttribute('aria-label', __('{0}, fase {1} de {2}', etq, f.indice, est.fases.length));
         }
         if (li.dataset.estado !== f.estado) {
           li.dataset.estado = f.estado;
@@ -1889,16 +2107,18 @@
       const anuncio = $('anuncio');
       if (activa && activa.indice > indiceAnunciado) {
         indiceAnunciado = activa.indice;
-        anuncio.textContent = `Fase ${activa.indice} de ${est.fases.length}: ${activa.etiqueta}.`;
+        anuncio.textContent = __('Fase {0} de {1}: {2}.', activa.indice, est.fases.length, __(activa.etiqueta));
       } else if (Math.floor(pct / 25) > Math.floor(pctAnunciado / 25) && pct < 100) {
-        anuncio.textContent = `${P().porcentaje(est.fraccion)} completado. ${eta}.`;
+        anuncio.textContent = __('{0} completado. {1}.', P().porcentaje(est.fraccion), eta);
       }
       if (Math.floor(pct / 25) !== Math.floor(pctAnunciado / 25)) pctAnunciado = pct;
 
       const nota = $('nota-cancelar');
       if (est.faseLarga && activa) {
         const totalEstimado = est.etaMs != null ? est.transcurridoMs + est.etaMs : null;
-        const texto = `«${activa.etiqueta}» está tardando. Si cancela, se descarta lo construido y habrá que volver a construir el corpus desde el principio${totalEstimado ? ` (unos ${P().duracion(totalEstimado)})` : ''}.`;
+        const texto = totalEstimado
+          ? __('«{0}» está tardando. Si cancela, se descarta lo construido y habrá que volver a construir el corpus desde el principio (unos {1}).', __(activa.etiqueta), P().duracion(totalEstimado))
+          : __('«{0}» está tardando. Si cancela, se descarta lo construido y habrá que volver a construir el corpus desde el principio.', __(activa.etiqueta));
         if (nota.textContent !== texto) nota.textContent = texto;
         if (nota.hidden) {
           nota.hidden = false;
@@ -1916,8 +2136,8 @@
       const f = ficha(o.archivo);
       $('fallo-ficha').textContent = f;
       $('fallo-ficha').hidden = !f;
-      $('fallo-titulo').textContent = o.titulo || TITULOS_FALLO[err.codigo] || 'No se pudo construir el corpus';
-      $('sub').textContent = f || 'Sin corpus cargado';
+      $('fallo-titulo').textContent = o.titulo || TITULOS_FALLO[err.codigo] || __('No se pudo construir el corpus');
+      $('sub').textContent = f || __('Sin corpus cargado');
       const donde = R2.rpc ? R2.rpc.ubicacion(err) : '';
       $('fallo-donde').textContent = donde;
       $('fallo-donde').hidden = !donde;
@@ -1926,11 +2146,11 @@
       $('fallo-codigo').dataset.codigo = err.codigo || 'ERROR_INTERNO';
 
       $('fallo-mensaje').textContent = '';
-      $('fallo-mensaje').textContent = err.message || err.mensaje || 'Error desconocido.';
+      $('fallo-mensaje').textContent = err.message || err.mensaje || __('Error desconocido.');
       $('otro').hidden = !o.otro;
-      $('otro').textContent = o.textoOtro || 'Elegir otro archivo';
+      $('otro').textContent = o.textoOtro || __('Elegir otro archivo');
       $('fallo-reintentar').hidden = !o.reintentar;
-      $('fallo-reintentar').textContent = o.reintentar && o.archivo ? `Reintentar con ${o.archivo.name || 'el mismo archivo'}` : 'Reintentar';
+      $('fallo-reintentar').textContent = o.reintentar && o.archivo ? (o.archivo.name ? __('Reintentar con {0}', o.archivo.name) : __('Reintentar con el mismo archivo')) : __('Reintentar');
       $('recargar').hidden = !o.recargar;
       $('fallo-dataverse').hidden = !o.otro;
 
@@ -1944,13 +2164,13 @@
       $('fallo-direccion').hidden = !direccion;
       const puedeCopiar = !!direccion && !!w.navigator && !!w.navigator.clipboard && typeof w.navigator.clipboard.writeText === 'function';
       $('copiar').hidden = !puedeCopiar;
-      $('copiar').textContent = 'Copiar la dirección';
+      $('copiar').textContent = __('Copiar la dirección');
       enfocar([$('otro'), $('fallo-reintentar'), $('recargar'), $('copiar')].find((b) => !b.hidden) || raiz.querySelector('#r2c-fallo-t'));
     };
 
     v.mostrarConfirmar = (informe, archivo, o = {}) => {
       mostrar('confirmar');
-      $('conf-otro').textContent = o.textoOtro || 'Elegir otro archivo';
+      $('conf-otro').textContent = o.textoOtro || __('Elegir otro archivo');
       const f = ficha(archivo);
       $('conf-ficha').textContent = f;
       $('sub').textContent = f;
@@ -1969,10 +2189,12 @@
       const r = ref || {};
       const pub = r.publicado;
       if (pub && pub.bytes) {
-        $('ficha').textContent = `o elija el archivo · ${P().tamano(pub.bytes)}${pub.filas ? ` · ${P().miles(pub.filas)} filas` : ''} · separador «,»`;
+        $('ficha').textContent = pub.filas
+          ? __('o elija el archivo · {0} · {1} filas · separador «,»', P().tamano(pub.bytes), P().miles(pub.filas))
+          : __('o elija el archivo · {0} · separador «,»', P().tamano(pub.bytes));
       }
       if (Array.isArray(r.paises) && r.paises.length) {
-        $('ficha').textContent = `o elija el archivo · separador «,» · UTF-8 · países disponibles: ${r.paises.join(', ')}`;
+        $('ficha').textContent = __('o elija el archivo · separador «,» · UTF-8 · países disponibles: {0}', r.paises.join(', '));
       }
       const url = r.fuente && r.fuente.url;
       if (url && /^https:\/\//.test(url)) {
@@ -2037,7 +2259,7 @@
   const ID = 'r2-sobre';
   const EVENTO = 'r2:sobre-corpus';
 
-  const NOTA = () => 'El corpus existe solo en esta pestaña: si la cierra o la recarga, habrá que volver a elegir el CSV (salvo que la base se haya recordado en este navegador).';
+  const NOTA = () => __('El corpus existe solo en esta pestaña: si la cierra o la recarga, habrá que volver a elegir el CSV (salvo que la base se haya recordado en este navegador).');
   const P = () => R2.progreso;
   let montado = null;
 
@@ -2049,37 +2271,38 @@
     if (!inf) return null;
     const version = null;
     const corr = null;
-    const pais = inf.pais_nombre || (inf.pais ? `país ${inf.pais}` : null);
+    const pais = inf.pais_nombre ? __(inf.pais_nombre) : (inf.pais ? __('país {0}', inf.pais) : null);
     let estado, textoEstado;
     if (e.huella === 'fallida') {
       estado = 'fallida';
       const causa = e.errorHuella && (e.errorHuella.mensaje || e.errorHuella.message);
-      textoEstado = `No se pudo comprobar la huella: ${causa || 'error desconocido'}`;
+      textoEstado = __('No se pudo comprobar la huella: {0}', causa || __('error desconocido'));
     } else if (e.huella === 'pendiente') {
       estado = 'pendiente';
-      textoEstado = `CSV de ${pais || 'un país'} elegido en este equipo. Comprobando la huella…`;
+      textoEstado = pais ? __('CSV de {0} elegido en este equipo. Comprobando la huella…', pais) : __('CSV de un país elegido en este equipo. Comprobando la huella…');
     } else if (inf.dataset && inf.dataset.titulo) {
       estado = 'publicado';
-      textoEstado = `${inf.dataset.titulo}${inf.dataset.version ? ` (${inf.dataset.version})` : ''}, Harvard Dataverse: CSV elegido en este equipo (${P().miles(inf.n_sesiones || 0)} sesiones).`;
+      textoEstado = __('{0}, Harvard Dataverse: CSV elegido en este equipo ({1} sesiones).', `${inf.dataset.titulo}${inf.dataset.version ? ` (${inf.dataset.version})` : ''}`, P().miles(inf.n_sesiones || 0));
     } else {
       estado = 'sin_referencia';
-      textoEstado = `CSV de ${pais || 'un país'} elegido en este equipo (${P().miles(inf.n_sesiones || 0)} sesiones).`;
+      textoEstado = pais ? __('CSV de {0} elegido en este equipo ({1} sesiones).', pais, P().miles(inf.n_sesiones || 0))
+        : __('CSV de un país elegido en este equipo ({0} sesiones).', P().miles(inf.n_sesiones || 0));
     }
     const h = inf.huella || {};
     const t = inf.tiempos || {};
     return {
       estado,
       textoEstado,
-      archivo: `${h.nombre || 'archivo sin nombre'} · ${P().tamano(h.bytes)} (${P().miles(h.bytes)} bytes)`,
+      archivo: `${h.nombre || __('archivo sin nombre')} · ${P().tamano(h.bytes)} (${__('{0} bytes', P().miles(h.bytes))})`,
       version: version && version.etiqueta ? version.etiqueta : null,
 
       correcciones: corr && corr.filas_corregidas > 0 && corr.mensaje ? corr.mensaje : null,
       sha256: h.sha256 || null,
-      textoSha256: h.sha256 || (e.huella === 'fallida' ? '—' : 'Comprobando la huella…'),
+      textoSha256: h.sha256 || (e.huella === 'fallida' ? '—' : __('Comprobando la huella…')),
       filas: P().miles(inf.n_filas),
-      construccion: `${P().duracion(t.hasta_listo)} en este navegador${inf.detalles && inf.detalles.sqlite ? ` (SQLite ${inf.detalles.sqlite})` : ''}`,
+      construccion: `${__('{0} en este navegador', P().duracion(t.hasta_listo))}${inf.detalles && inf.detalles.sqlite ? ` (SQLite ${inf.detalles.sqlite})` : ''}`,
       lectura: e.modoLectura === 'principal'
-        ? 'Desde la página: este navegador no deja leer el archivo al proceso de fondo cuando la página se abre como archivo.'
+        ? __('Desde la página: este navegador no deja leer el archivo al proceso de fondo cuando la página se abre como archivo.')
         : null,
       avisos: (inf.avisos || []).map((a) => ({ codigo: a.codigo, mensaje: a.mensaje })),
     };
@@ -2099,26 +2322,26 @@
 
   function datosHtml(m) {
     const fila = (dt, dd, codigo) => `<dt>${esc(dt)}</dt><dd>${codigo ? `<code>${esc(dd)}</code>` : esc(dd)}</dd>`;
-    return fila('Archivo', m.archivo) + (m.version ? fila('Versión', m.version) : '')
-      + fila('Huella SHA-256', m.textoSha256, !!m.sha256) + fila('Intervenciones', m.filas)
-      + (m.correcciones ? fila('Correcciones', m.correcciones) : '')
-      + fila('Construido', m.construccion) + (m.lectura ? fila('Lectura', m.lectura) : '');
+    return fila(__('Archivo'), m.archivo) + (m.version ? fila(__('Versión'), m.version) : '')
+      + fila(__('Huella SHA-256'), m.textoSha256, !!m.sha256) + fila(__('Intervenciones'), m.filas)
+      + (m.correcciones ? fila(__('Correcciones'), m.correcciones) : '')
+      + fila(__('Construido'), m.construccion) + (m.lectura ? fila(__('Lectura'), m.lectura) : '');
   }
   const avisosHtml = (m) => m.avisos.map((a) => `<li data-codigo="${esc(a.codigo)}">${esc(a.mensaje)}</li>`).join('');
 
   function bloqueHtml(m) {
     const web = R2.web && typeof R2.web.htmlSobre === 'function' ? R2.web.htmlSobre() : '';
-    return `<div id="${ID}" class="r2s"><div class="fuente-k">Este archivo</div>`
+    return `<div id="${ID}" class="r2s"><div class="fuente-k">${__('Este archivo')}</div>`
       + `<p class="r2s-estado" data-estado="${esc(m.estado)}" aria-live="polite">${esc(m.textoEstado)}</p>`
       + `<dl class="r2s-datos">${datosHtml(m)}</dl>`
-      + `<ul class="r2s-avisos" aria-label="Avisos sobre el archivo"${m.avisos.length ? '' : ' hidden'}>${avisosHtml(m)}</ul>`
+      + `<ul class="r2s-avisos" aria-label="${__('Avisos sobre el archivo')}"${m.avisos.length ? '' : ' hidden'}>${avisosHtml(m)}</ul>`
       + (web ? web : '')
       + `<p class="dsub r2s-nota"${web ? ' hidden' : ''}>${esc(NOTA())}</p></div>`;
   }
 
   function html(info) {
     const i = info || {};
-    const cuentas = `<p class="dsub r2s-cuentas">${esc(P().miles(i.n_speeches || 0))} intervenciones · ${esc(P().miles(i.n_sessions || 0))} sesiones</p>`;
+    const cuentas = `<p class="dsub r2s-cuentas">${__('{0} intervenciones · {1} sesiones', esc(P().miles(i.n_speeches || 0)), esc(P().miles(i.n_sessions || 0)))}</p>`;
     const vivo = montado ? modelo(montado.obtener()) : null;
     const m = vivo || modeloDeInfo(i);
     return m ? cuentas + bloqueHtml(m) : cuentas;
@@ -2657,35 +2880,35 @@
   const EVENTO = 'r2:almacen';
 
   const TEXTOS = {
-    navegador: 'Sus bibliotecas se guardan en este navegador. Expórtelas como .2replib para compartirlas o tener una copia aparte.',
-    firefox: ' En Firefox dependen de dónde esté este archivo: si lo mueve o le cambia el nombre, no las encontrará.',
-    memoria: 'Este navegador no permite guardar datos en una página abierta como archivo: sus bibliotecas solo durarán mientras la tenga abierta. Expórtelas con «Exportar todas» antes de cerrarla.',
-    sinExportar: ' Hay cambios sin exportar.',
-    soloLectura: 'Sus bibliotecas están abiertas en otra pestaña de Diarios Explorer. Aquí puede consultarlas, pero no cambiarlas. Pulse «Usar aquí» para editarlas en esta pestaña.',
-    comprobando: 'Comprobando si este navegador puede guardar sus bibliotecas…',
-    relevo: 'Otra pestaña de Diarios Explorer ha pulsado «Usar aquí»: esta termina de guardar lo pendiente y le cede sus bibliotecas.',
-    danada: 'La copia de sus bibliotecas guardada en este navegador está dañada y no se puede abrir. No se ha borrado nada: puede descargarla para intentar recuperarla o descartarla y empezar con bibliotecas vacías. Hasta que decida, no se pueden cambiar.',
-    danadaOtra: ' Para descartarla, pulse antes «Usar aquí».',
-    conflicto: 'Otra pestaña de Diarios Explorer guardó sus bibliotecas a la vez que esta: se ha cargado la copia de esa pestaña y el último cambio hecho aquí no se ha guardado. Repítalo si hace falta.',
-    cuota: 'Este navegador no tiene espacio para guardar sus bibliotecas. Expórtelas con «Exportar todas» para no perder los cambios.',
+    navegador: __('Sus bibliotecas se guardan en este navegador. Expórtelas como .2replib para compartirlas o tener una copia aparte.'),
+    firefox: ' ' + __('En Firefox dependen de dónde esté este archivo: si lo mueve o le cambia el nombre, no las encontrará.'),
+    memoria: __('Este navegador no permite guardar datos en una página abierta como archivo: sus bibliotecas solo durarán mientras la tenga abierta. Expórtelas con «Exportar todas» antes de cerrarla.'),
+    sinExportar: ' ' + __('Hay cambios sin exportar.'),
+    soloLectura: __('Sus bibliotecas están abiertas en otra pestaña de Diarios Explorer. Aquí puede consultarlas, pero no cambiarlas. Pulse «Usar aquí» para editarlas en esta pestaña.'),
+    comprobando: __('Comprobando si este navegador puede guardar sus bibliotecas…'),
+    relevo: __('Otra pestaña de Diarios Explorer ha pulsado «Usar aquí»: esta termina de guardar lo pendiente y le cede sus bibliotecas.'),
+    danada: __('La copia de sus bibliotecas guardada en este navegador está dañada y no se puede abrir. No se ha borrado nada: puede descargarla para intentar recuperarla o descartarla y empezar con bibliotecas vacías. Hasta que decida, no se pueden cambiar.'),
+    danadaOtra: ' ' + __('Para descartarla, pulse antes «Usar aquí».'),
+    conflicto: __('Otra pestaña de Diarios Explorer guardó sus bibliotecas a la vez que esta: se ha cargado la copia de esa pestaña y el último cambio hecho aquí no se ha guardado. Repítalo si hace falta.'),
+    cuota: __('Este navegador no tiene espacio para guardar sus bibliotecas. Expórtelas con «Exportar todas» para no perder los cambios.'),
   };
 
 
   const MOTIVOS = Object.freeze({
-    AbortError: 'el navegador interrumpió la operación',
-    QuotaExceededError: 'no queda espacio',
-    SecurityError: 'el navegador no lo permite',
-    NotAllowedError: 'el navegador no lo permite',
-    InvalidStateError: 'el almacén del navegador no está disponible en este momento',
-    NotFoundError: 'no se encontró el almacén del navegador',
-    UnknownError: 'error interno del navegador',
-    VersionError: 'otra versión de esta página tiene el almacén abierto',
-    DataError: 'los datos no se pudieron preparar para guardarlos',
-    DataCloneError: 'los datos no se pudieron preparar para guardarlos',
-    TimeoutError: 'el navegador no respondió a tiempo',
-    ReadOnlyError: 'el almacén está en solo lectura',
-    TransactionInactiveError: 'la operación llegó tarde',
-    DatabaseError: 'la copia no es una base de bibliotecas válida',
+    AbortError: __('el navegador interrumpió la operación'),
+    QuotaExceededError: __('no queda espacio'),
+    SecurityError: __('el navegador no lo permite'),
+    NotAllowedError: __('el navegador no lo permite'),
+    InvalidStateError: __('el almacén del navegador no está disponible en este momento'),
+    NotFoundError: __('no se encontró el almacén del navegador'),
+    UnknownError: __('error interno del navegador'),
+    VersionError: __('otra versión de esta página tiene el almacén abierto'),
+    DataError: __('los datos no se pudieron preparar para guardarlos'),
+    DataCloneError: __('los datos no se pudieron preparar para guardarlos'),
+    TimeoutError: __('el navegador no respondió a tiempo'),
+    ReadOnlyError: __('el almacén está en solo lectura'),
+    TransactionInactiveError: __('la operación llegó tarde'),
+    DatabaseError: __('la copia no es una base de bibliotecas válida'),
   });
 
   const ahoraIso = () => new Date().toISOString();
@@ -2698,7 +2921,7 @@
     if (e && e.name && MOTIVOS[e.name]) return MOTIVOS[e.name];
     if (e && e.code === 22) return MOTIVOS.QuotaExceededError;
     if (e && (e.propio || typeof e.status === 'number') && e.message) return e.message;
-    return 'error interno del navegador';
+    return __('error interno del navegador');
   }
 
   function conTiempo(promesa, ms, que) {
@@ -2971,7 +3194,7 @@
         S.copia = await S.almacen.leer();
         S.revGuardada = revisionDe(S.copia);
       } catch (e) {
-        fallo(`No se pudo leer la copia de sus bibliotecas guardada en este navegador (${motivo(e)}).`, e);
+        fallo(__('No se pudo leer la copia de sus bibliotecas guardada en este navegador ({0}).', motivo(e)), e);
       }
       if (S.almacen.persistente) {
         if (!S.pestanas && R2.pestanas) S.pestanas = R2.pestanas.crear(Object.assign({ ventana: g }, opciones.opcionesPestanas || {}));
@@ -3116,7 +3339,7 @@
         if (S.error === TEXTOS.conflicto) S.error = null;
         emitir({ recargada: true });
       } catch (e) {
-        fallo(`No se pudo leer el cambio hecho en otra pestaña (${motivo(e)}).`, e);
+        fallo(__('No se pudo leer el cambio hecho en otra pestaña ({0}).', motivo(e)), e);
         emitir();
       } finally {
         S.recargando = false;
@@ -3169,7 +3392,7 @@
         S.copia = r;
         S.revGuardada = revisionDe(r);
       } catch (e) {
-        fallo(`No se pudo leer la copia de sus bibliotecas guardada por otra pestaña (${motivo(e)}).`, e);
+        fallo(__('No se pudo leer la copia de sus bibliotecas guardada por otra pestaña ({0}).', motivo(e)), e);
         emitir();
         return;
       }
@@ -3186,7 +3409,7 @@
       try {
         r = await S.motor.volcar();
       } catch (e) {
-        fallo(`No se pudieron leer sus bibliotecas para guardarlas (${motivo(e)}). Expórtelas para no perder los cambios.`, e);
+        fallo(__('No se pudieron leer sus bibliotecas para guardarlas ({0}). Expórtelas para no perder los cambios.', motivo(e)), e);
         emitir();
         return 'fallo';
       }
@@ -3205,7 +3428,7 @@
       } catch (e) {
         if (!tardio) S.copia = reg;
         const cuota = e && (e.name === 'QuotaExceededError' || e.code === 22);
-        fallo(cuota ? TEXTOS.cuota : `No se pudo guardar el último cambio en este navegador (${motivo(e)}). Exporte sus bibliotecas para no perderlo.`, e);
+        fallo(cuota ? TEXTOS.cuota : __('No se pudo guardar el último cambio en este navegador ({0}). Exporte sus bibliotecas para no perderlo.', motivo(e)), e);
         emitir();
         return 'fallo';
       }
@@ -3353,7 +3576,7 @@
   const TIEMPO_ABRIR_MS = 8000;
 
   const ahora = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
-  const nf = (n) => new Intl.NumberFormat('es-ES').format(Math.round(n));
+  const nf = (n) => __.num(Math.round(n));
   const clave = (id, i) => `${id}#${String(i).padStart(5, '0')}`;
   const idDeClave = (k) => { const s = String(k); const j = s.lastIndexOf('#'); return j > 0 ? s.slice(0, j) : null; };
   const textoTecnico = (e) => (e && e.name && e.message ? `${e.name}: ${e.message}` : String(e && e.message ? e.message : e));
@@ -3368,11 +3591,11 @@
   }
 
   const MENSAJES = {
-    NO_DISPONIBLE: 'Este navegador no permite guardar la base en su almacenamiento.',
-    NO_RECORDADO: 'No hay ninguna base recordada en este navegador. Elija el CSV.',
-    RECORDADO_DANADO: 'La base recordada estaba dañada o incompleta y se ha borrado. Elija el CSV para volver a construirla.',
-    EN_USO: 'La base recordada se está usando en otra pestaña de Diarios Explorer. Espere unos segundos y vuelva a intentarlo.',
-    CANCELADO: 'Se canceló la operación con la base recordada.',
+    NO_DISPONIBLE: __('Este navegador no permite guardar la base en su almacenamiento.'),
+    NO_RECORDADO: __('No hay ninguna base recordada en este navegador. Elija el CSV.'),
+    RECORDADO_DANADO: __('La base recordada estaba dañada o incompleta y se ha borrado. Elija el CSV para volver a construirla.'),
+    EN_USO: __('La base recordada se está usando en otra pestaña de Diarios Explorer. Espere unos segundos y vuelva a intentarlo.'),
+    CANCELADO: __('Se canceló la operación con la base recordada.'),
   };
 
   function motivo(e) {
@@ -3385,12 +3608,11 @@
     if (e && e.codigo && typeof e.message === 'string' && !(e instanceof DOMException)) return new ErrorBase(e.codigo, e.message, { causa: e.causa });
     const nombre = String((e && e.name) || '');
     if (nombre === 'QuotaExceededError' || (e && e.code === 22)) {
-      return new ErrorBase('CUOTA', 'El navegador se ha quedado sin espacio mientras guardaba la base. No se ha guardado nada y se ha '
-        + 'liberado lo escrito; la base sigue abierta en esta pestaña. Libere espacio o siga sin recordarla.', { causa: textoTecnico(e) });
+      return new ErrorBase('CUOTA', __('El navegador se ha quedado sin espacio mientras guardaba la base. No se ha guardado nada y se ha liberado lo escrito; la base sigue abierta en esta pestaña. Libere espacio o siga sin recordarla.'), { causa: textoTecnico(e) });
     }
     if (nombre === 'AbortError' && e && e.r2Cancelado) return new ErrorBase('CANCELADO', MENSAJES.CANCELADO);
     if (nombre === 'SecurityError' || nombre === 'NotAllowedError') return new ErrorBase('NO_DISPONIBLE', MENSAJES.NO_DISPONIBLE, { causa: textoTecnico(e) });
-    return new ErrorBase('ALMACEN', `${prefijo || 'No se pudo completar la operación con la base guardada en este navegador'} (${motivo(e)}).`,
+    return new ErrorBase('ALMACEN', `${prefijo || __('No se pudo completar la operación con la base guardada en este navegador')} (${motivo(e)}).`,
       { causa: textoTecnico(e) });
   }
 
@@ -3497,11 +3719,11 @@
     }
 
     async function pedir(cliente, op, args, o = {}) {
-      if (!cliente || typeof cliente.pedir !== 'function') throw new ErrorBase('ALMACEN', 'El motor de la página todavía no está listo.');
+      if (!cliente || typeof cliente.pedir !== 'function') throw new ErrorBase('ALMACEN', __('El motor de la página todavía no está listo.'));
       const r = await cliente.pedir(op, args || {}, o);
       if (r.status >= 400) {
         const c = r.cuerpo || {};
-        throw new ErrorBase(c.codigo || (r.status === 409 ? 'ESTADO' : 'ALMACEN'), c.error || `Error ${r.status}`, { status: r.status });
+        throw new ErrorBase(c.codigo || (r.status === 409 ? 'ESTADO' : 'ALMACEN'), c.error || __('Error {0}', r.status), { status: r.status });
       }
       return r.cuerpo;
     }
@@ -3597,7 +3819,7 @@
             }
             r.otros = 0;
           }
-        }, 'No se pudo comprobar si hay una base recordada');
+        }, __('No se pudo comprobar si hay una base recordada'));
       } catch (e) {
         r.disponible = e.codigo !== 'NO_DISPONIBLE';
         r.error = { codigo: e.codigo, mensaje: e.message };
@@ -3621,7 +3843,7 @@
       const csvSha = informe && informe.huella && informe.huella.sha256;
       if (!/^[0-9a-f]{64}$/.test(String(csvSha))) {
         await cancelarExportacion();
-        throw new ErrorBase('SIN_HUELLA', 'Todavía no se conoce la huella SHA-256 del CSV: vuelva a intentarlo en unos segundos.');
+        throw new ErrorBase('SIN_HUELLA', __('Todavía no se conoce la huella SHA-256 del CSV: vuelva a intentarlo en unos segundos.'));
       }
       const info = ini.info;
       return conBd(async (db) => {
@@ -3638,8 +3860,8 @@
           const margen = Math.max(32 * MIB, Math.min(128 * MIB, Math.ceil(info.bytes / 2)));
           if (libres < info.bytes + margen) {
             await cancelarExportacion();
-            throw new ErrorBase('CUOTA', `No hay espacio suficiente en este navegador para recordar la base: hacen falta unos ${nf((info.bytes + margen) / MIB)} MiB `
-              + `y quedan ${nf(Math.max(0, libres) / MIB)} MiB. La base sigue abierta en esta pestaña; puede liberar espacio y volver a intentarlo, o seguir sin recordarla.`,
+            throw new ErrorBase('CUOTA', __('No hay espacio suficiente en este navegador para recordar la base: hacen falta unos {0} MiB y quedan {1} MiB. La base sigue abierta en esta pestaña; puede liberar espacio y volver a intentarlo, o seguir sin recordarla.',
+            nf((info.bytes + margen) / MIB), nf(Math.max(0, libres) / MIB)),
             { hacen_falta: info.bytes + margen, libres });
           }
         }
@@ -3657,7 +3879,7 @@
             alProgreso(hecho, info.bytes);
           }
           fin = await pedir(cliente, 'base_exportar_fin', {}, { prioridad: 'fondo' });
-          if (fin.bytes !== info.bytes || fin.huellas.length !== info.n_trozos) throw new ErrorBase('ALMACEN', 'La base cambió mientras se guardaba. Vuelva a intentarlo.');
+          if (fin.bytes !== info.bytes || fin.huellas.length !== info.n_trozos) throw new ErrorBase('ALMACEN', __('La base cambió mientras se guardaba. Vuelva a intentarlo.'));
           const v = informe.version_csv;
           const manifiesto = {
             id, formato: FORMATO, build_id: buildId, csv_sha256: csvSha, estado: 'completo', bytes: fin.bytes, page_size: info.page_size,
@@ -3668,7 +3890,7 @@
           };
 
           const n = await transaccion(db, TROZOS, 'readonly', (a) => a[TROZOS].count(rango(g, id)));
-          if (n !== manifiesto.n_trozos) throw new ErrorBase('ALMACEN', 'La base guardada está incompleta y se ha borrado. Vuelva a intentarlo.');
+          if (n !== manifiesto.n_trozos) throw new ErrorBase('ALMACEN', __('La base guardada está incompleta y se ha borrado. Vuelva a intentarlo.'));
           await transaccion(db, MANIFIESTOS, 'readwrite', (a) => a[MANIFIESTOS].put(manifiesto, id));
 
           const despues = await inventario(db);
@@ -3680,9 +3902,9 @@
         } catch (e) {
           if (!fin) await cancelarExportacion();
           try { await borrarIds(db, [id]); } catch (e2) {   }
-          throw clasificar(e, 'No se pudo guardar la base en este navegador');
+          throw clasificar(e, __('No se pudo guardar la base en este navegador'));
         }
-      }, 'No se pudo guardar la base en este navegador');
+      }, __('No se pudo guardar la base en este navegador'));
     }
 
     async function abrir(o = {}) {
@@ -3699,7 +3921,7 @@
             throw new ErrorBase('RECORDADO_DANADO', MENSAJES.RECORDADO_DANADO);
           }
           throw new ErrorBase('NO_RECORDADO', inv.lista.length
-            ? 'La base recordada es de otra versión de Diarios Explorer y no sirve para esta. Elija el CSV para volver a construirla.'
+            ? __('La base recordada es de otra versión de Diarios Explorer y no sirve para esta. Elija el CSV para volver a construirla.')
             : MENSAJES.NO_RECORDADO);
         }
         const m = elegido.m;
@@ -3721,14 +3943,14 @@
           return { informe: r.informe, construido_en: r.construido_en, recordado: publico(m), ms: ahora() - t0 };
         } catch (e) {
           if (empezado) await pedir(cliente, 'base_importar_descartar', {}).catch(() => {});
-          const err = clasificar(e, 'No se pudo abrir la base recordada');
+          const err = clasificar(e, __('No se pudo abrir la base recordada'));
           if (err.codigo === 'RECORDADO_DANADO') {
             err.message = MENSAJES.RECORDADO_DANADO;
             try { await borrarIds(db, [m.id]); } catch (e2) {   }
           }
           throw err;
         }
-      }, 'No se pudo abrir la base recordada');
+      }, __('No se pudo abrir la base recordada'));
     }
 
     async function olvidar() {
@@ -3740,7 +3962,7 @@
         const borrados = inv.lista.map((x) => x.m && x.m.id).filter(Boolean).concat(inv.huerfanos);
         await transaccion(db, [MANIFIESTOS, TROZOS], 'readwrite', (a) => { a[MANIFIESTOS].clear(); a[TROZOS].clear(); });
         return { borrados, bytes_borrados: bytes, ms: ahora() - t0 };
-      }, 'No se pudo olvidar la base');
+      }, __('No se pudo olvidar la base'));
     }
 
     return { tipo: 'idb', probar, estado, guardar, abrir, olvidar };
@@ -3793,7 +4015,7 @@
   const CLAVE_AUTO = 'diarios-explorer:v1:recordar-corpus';
   const MIB = 1048576;
   const ESPERA_CERROJO_MS = 20000;
-  const TEXTO_FIREFOX = 'En Firefox, la base recordada depende de dónde esté este archivo: si lo mueve o le cambia el nombre, no la encontrará.';
+  const TEXTO_FIREFOX = __('En Firefox, la base recordada depende de dónde esté este archivo: si lo mueve o le cambia el nombre, no la encontrará.');
   const S = {
     g: null, doc: null, api: null, web: false, modo: null, detalle: {}, detectando: null, local: null,
     auto: true, consulta: null, consultando: null, operacion: null, mensaje: '', error: false, progreso: null,
@@ -3803,18 +4025,18 @@
   };
 
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  const mib = (b) => `${new Intl.NumberFormat('es-ES').format(Math.round((b || 0) / MIB))} MiB`;
+  const mib = (b) => `${__.num(Math.round((b || 0) / MIB))} MiB`;
   const ahora = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
   const textoDe = (e) => (e && e.name && e.message ? `${e.name}: ${e.message}` : String(e && e.message ? e.message : e));
   function fecha(iso) {
     const d = new Date(iso);
     if (!iso || isNaN(d)) return '';
     const p = (n) => String(n).padStart(2, '0');
-    return `${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()} a las ${p(d.getHours())}:${p(d.getMinutes())}`;
+    return __('{0} a las {1}', `${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()}`, `${p(d.getHours())}:${p(d.getMinutes())}`);
   }
   function conTiempo(promesa, ms) {
     let t = null;
-    return Promise.race([promesa, new Promise((_, rechazar) => { t = setTimeout(() => rechazar(new Error(`sin respuesta en ${ms} ms`)), ms); })])
+    return Promise.race([promesa, new Promise((_, rechazar) => { t = setTimeout(() => rechazar(new Error(__('sin respuesta en {0} ms', ms))), ms); })])
       .finally(() => clearTimeout(t));
   }
 
@@ -3875,18 +4097,20 @@
 
   const conDatos = () => !!(R2.arranque && typeof R2.arranque.datosPropios === 'function' && R2.arranque.datosPropios());
 
-  function sinBaseTexto(prefijo) {
-    const p = conDatos() ? (R2.arranque.datosPropios().tipo === 'servido'
-      ? 'el corpus se descargará de nuevo en cada visita' : 'el corpus se volverá a preparar desde los datos incluidos en cada visita')
-      : 'tendrá que elegir el CSV en cada visita';
-    return prefijo ? `${prefijo}: ${p}.` : p;
-  }
-  const sinElegirCsv = () => (conDatos() ? 'sin descargarla ni prepararla de nuevo' : 'sin elegir el CSV');
+  // De dónde sale el corpus cuando no hay base guardada: 'servido' (se descarga), 'incluido' (datos de la página) o
+  // 'csv' (lo elige la persona). Cada caso lleva su frase entera, para poder traducirla.
+  const origenDatos = () => (conDatos() ? (R2.arranque.datosPropios().tipo === 'servido' ? 'servido' : 'incluido') : 'csv');
 
   function textoSinAlmacen() {
-    return sinBaseTexto(S.archivoLocal
-      ? 'Este navegador no permite guardar la base con la página abierta como archivo'
-      : 'Este navegador no permite guardar la base');
+    const o = origenDatos();
+    if (S.archivoLocal) {
+      return o === 'servido' ? __('Este navegador no permite guardar la base con la página abierta como archivo: el corpus se descargará de nuevo en cada visita.')
+        : o === 'incluido' ? __('Este navegador no permite guardar la base con la página abierta como archivo: el corpus se volverá a preparar desde los datos incluidos en cada visita.')
+          : __('Este navegador no permite guardar la base con la página abierta como archivo: tendrá que elegir el CSV en cada visita.');
+    }
+    return o === 'servido' ? __('Este navegador no permite guardar la base: el corpus se descargará de nuevo en cada visita.')
+      : o === 'incluido' ? __('Este navegador no permite guardar la base: el corpus se volverá a preparar desde los datos incluidos en cada visita.')
+        : __('Este navegador no permite guardar la base: tendrá que elegir el CSV en cada visita.');
   }
 
   function cerrojo(modo, fn, esperaMs, signal) {
@@ -3896,10 +4120,10 @@
 
   async function pedirOp(op, args, o = {}) {
     const c = o.cliente || cliente();
-    if (!c) throw Object.assign(new Error('El motor de la página todavía no está listo.'), { codigo: 'ESTADO' });
+    if (!c) throw Object.assign(new Error(__('El motor de la página todavía no está listo.')), { codigo: 'ESTADO' });
     const r = await c.pedir(op, args || {}, { prioridad: o.prioridad || 'interactiva', signal: o.signal });
     if (r.status >= 400) {
-      throw Object.assign(new Error((r.cuerpo && r.cuerpo.error) || `Error ${r.status}`), { codigo: r.cuerpo && r.cuerpo.codigo, status: r.status });
+      throw Object.assign(new Error((r.cuerpo && r.cuerpo.error) || __('Error {0}', r.status)), { codigo: r.cuerpo && r.cuerpo.codigo, status: r.status });
     }
     return r.cuerpo;
   }
@@ -3961,9 +4185,9 @@
     if (!lib) return;
     bitacora('liberados', { obsoletos: lib.obsoletos, danados: lib.danados, sobrantes: lib.sobrantes, bytes: lib.bytes });
     if (lib.obsoletos) {
-      avisar(`La base recordada era de una versión anterior de Diarios Explorer y ya no sirve con esta: se ha borrado para liberar espacio (${mib(lib.bytes)}). Elija el CSV para volver a construirla.`);
+      avisar(__('La base recordada era de una versión anterior de Diarios Explorer y ya no sirve con esta: se ha borrado para liberar espacio ({0}). Elija el CSV para volver a construirla.', mib(lib.bytes)));
     } else if (lib.danados) {
-      avisar(`La base recordada estaba dañada o incompleta y se ha borrado (${mib(lib.bytes)}). Elija el CSV para volver a construirla.`, true);
+      avisar(__('La base recordada estaba dañada o incompleta y se ha borrado ({0}). Elija el CSV para volver a construirla.', mib(lib.bytes)), true);
     }
   }
 
@@ -4011,7 +4235,7 @@
     if (S.operacion) { S.pendienteRecordar = o; return; }
     if (!S.api || S.api.huella() !== 'comprobada') {
       S.pendienteRecordar = o;
-      avisar('La base se guardará en cuanto termine la comprobación de la huella del CSV…');
+      avisar(__('La base se guardará en cuanto termine la comprobación de la huella del CSV…'));
       return;
     }
     S.pendienteRecordar = null;
@@ -4019,7 +4243,7 @@
     S.operacion = 'recordar';
     S.progreso = null;
     pedirPersistencia();
-    avisar('Guardando la base en este navegador…');
+    avisar(__('Guardando la base en este navegador…'));
     bitacora('guardar_inicio', { anterior: anterior && anterior.nombre, reemplazo: !!o.reemplazo });
     const t0 = ahora();
     try {
@@ -4037,13 +4261,16 @@
       let texto;
       if (o.reemplazo) {
         texto = r.ya_recordado
-          ? 'El archivo elegido es la misma versión que ya estaba recordada: no ha cambiado nada.'
-          : `Base reemplazada: ahora se recuerda ${describir(r.recordado)} y se ha borrado la anterior${anterior ? ` (${describir(anterior, false)})` : ''}. Sus bibliotecas siguen igual.`;
+          ? __('El archivo elegido es la misma versión que ya estaba recordada: no ha cambiado nada.')
+          : anterior ? __('Base reemplazada: ahora se recuerda {0} y se ha borrado la anterior ({1}). Sus bibliotecas siguen igual.', describir(r.recordado), describir(anterior, false))
+            : __('Base reemplazada: ahora se recuerda {0} y se ha borrado la anterior. Sus bibliotecas siguen igual.', describir(r.recordado));
       } else if (r.ya_recordado) {
-        texto = 'Esta base ya estaba recordada en este navegador.';
+        texto = __('Esta base ya estaba recordada en este navegador.');
       } else {
-        texto = `Base recordada en este navegador (${mib(r.recordado && r.recordado.bytes)}): la próxima vez se abrirá sola, ${sinElegirCsv()}.`
-          + (cambio ? ` Sustituye a la que había (${describir(anterior, false)}).` : '');
+        texto = (conDatos()
+          ? __('Base recordada en este navegador ({0}): la próxima vez se abrirá sola, sin descargarla ni prepararla de nuevo.', mib(r.recordado && r.recordado.bytes))
+          : __('Base recordada en este navegador ({0}): la próxima vez se abrirá sola, sin elegir el CSV.', mib(r.recordado && r.recordado.bytes)))
+          + (cambio ? ` ${__('Sustituye a la que había ({0}).', describir(anterior, false))}` : '');
       }
       avisar(texto);
     } catch (e) {
@@ -4051,15 +4278,15 @@
       S.progreso = null;
       bitacora('guardar_fallo', { codigo: e.codigo || null, mensaje: e.message });
       avisar(o.reemplazo
-        ? `No se pudo guardar la base nueva: ${e.message} Se conserva la base recordada anterior; esta pestaña usa la nueva hasta que la cierre.`
-        : `No se pudo recordar la base: ${e.message}`, true);
+        ? __('No se pudo guardar la base nueva: {0} Se conserva la base recordada anterior; esta pestaña usa la nueva hasta que la cierre.', e.message)
+        : __('No se pudo recordar la base: {0}', e.message), true);
     }
     if (S.pendienteRecordar && !S.operacion) { const p = S.pendienteRecordar; S.pendienteRecordar = null; if (!corpusRecordado()) recordar(p); }
   }
 
   function progreso(hecho, total) {
     S.progreso = total > 0 ? Math.min(1, hecho / total) : null;
-    const t = S.progreso == null ? '' : ` ${Math.floor(S.progreso * 100)} %`;
+    const t = S.progreso == null ? '' : ` ${__('{0} %', Math.floor(S.progreso * 100))}`;
     if (!S.doc) return;
     for (const el of S.doc.querySelectorAll('[data-r2w="progreso"]')) el.textContent = t;
   }
@@ -4132,16 +4359,25 @@
     const enApp = fase() === 'app';
     if (!o.sinConfirmar) {
       const parrafos = [
-        r ? `Se borrará de este navegador la base guardada ${describir(r, false)} y se liberarán unos ${mib(r.bytes)}.`
-          : 'Se borrará de este navegador lo que quede guardado de la base.',
-        'Sus bibliotecas no se borran: siguen guardadas en este navegador.',
+        r ? __('Se borrará de este navegador la base guardada {0} y se liberarán unos {1}.', describir(r, false), mib(r.bytes))
+          : __('Se borrará de este navegador lo que quede guardado de la base.'),
+        __('Sus bibliotecas no se borran: siguen guardadas en este navegador.'),
       ];
-      if (enApp) parrafos.push(`Esta pestaña sigue funcionando con la base abierta hasta que la cierre o la recargue; después ${conDatos() ? sinBaseTexto('').replace(' en cada visita', ' al abrir la página') : 'habrá que volver a elegir el CSV'}.`);
-      if (S.auto) parrafos.push(`${conDatos() ? 'La próxima vez que se abra el corpus' : 'La próxima vez que elija el CSV'} se volverá a recordar, salvo que desmarque «Recordar la base en este navegador».`);
-      if (!(await confirmar({ titulo: '¿Olvidar la base recordada?', parrafos, si: 'Olvidar la base', peligro: true }))) return false;
+      if (enApp) {
+        const o = origenDatos();
+        parrafos.push(o === 'servido' ? __('Esta pestaña sigue funcionando con la base abierta hasta que la cierre o la recargue; después el corpus se descargará de nuevo al abrir la página.')
+          : o === 'incluido' ? __('Esta pestaña sigue funcionando con la base abierta hasta que la cierre o la recargue; después el corpus se volverá a preparar desde los datos incluidos al abrir la página.')
+            : __('Esta pestaña sigue funcionando con la base abierta hasta que la cierre o la recargue; después habrá que volver a elegir el CSV.'));
+      }
+      if (S.auto) {
+        parrafos.push(conDatos()
+          ? __('La próxima vez que se abra el corpus se volverá a recordar, salvo que desmarque «Recordar la base en este navegador».')
+          : __('La próxima vez que elija el CSV se volverá a recordar, salvo que desmarque «Recordar la base en este navegador».'));
+      }
+      if (!(await confirmar({ titulo: __('¿Olvidar la base recordada?'), parrafos, si: __('Olvidar la base'), peligro: true }))) return false;
     }
     S.operacion = 'olvidar';
-    avisar('Olvidando la base…');
+    avisar(__('Olvidando la base…'));
     try {
       const x = await cerrojo('exclusive', () => (S.modo === 'opfs' ? pedirOp('olvidar') : S.local.olvidar()), 60000);
       S.consulta = Object.assign({}, S.consulta, { recordado: null, otros: 0 });
@@ -4149,12 +4385,13 @@
       S.operacion = null;
       actualizarEspacio();
       avisar(x.bytes_borrados
-        ? `Base olvidada: se han liberado ${mib(x.bytes_borrados)} de este navegador. Sus bibliotecas siguen guardadas.${enApp ? ' Esta pestaña sigue usando la base hasta que la cierre o la recargue.' : ''}`
-        : 'No había ninguna base recordada en este navegador.');
+        ? __('Base olvidada: se han liberado {0} de este navegador. Sus bibliotecas siguen guardadas.', mib(x.bytes_borrados))
+          + (enApp ? ` ${__('Esta pestaña sigue usando la base hasta que la cierre o la recargue.')}` : '')
+        : __('No había ninguna base recordada en este navegador.'));
       return true;
     } catch (e) {
       S.operacion = null;
-      avisar(`No se pudo olvidar la base: ${e.message}`, true);
+      avisar(__('No se pudo olvidar la base: {0}', e.message), true);
       return false;
     }
   }
@@ -4185,14 +4422,14 @@
     const P = R2.progreso;
     const tam = P && P.tamano ? P.tamano(archivo.size) : mib(archivo.size);
     const ok = await confirmar({
-      titulo: '¿Reemplazar la base recordada?',
+      titulo: __('¿Reemplazar la base recordada?'),
       parrafos: [
-        ant ? `Ahora se recuerda: ${describir(ant)}.` : 'Ahora no hay ninguna base recordada.',
-        `Nueva: «${archivo.name}» (${tam}).`,
-        'Se construirá la base con el archivo nuevo. La anterior solo se borra cuando la nueva esté construida, comprobada y guardada; si algo falla, se vuelve a la anterior.',
-        'Sus bibliotecas no se tocan. Mientras se construye, la interfaz queda en pausa.',
+        ant ? __('Ahora se recuerda: {0}.', describir(ant)) : __('Ahora no hay ninguna base recordada.'),
+        __('Nueva: «{0}» ({1}).', archivo.name, tam),
+        __('Se construirá la base con el archivo nuevo. La anterior solo se borra cuando la nueva esté construida, comprobada y guardada; si algo falla, se vuelve a la anterior.'),
+        __('Sus bibliotecas no se tocan. Mientras se construye, la interfaz queda en pausa.'),
       ],
-      si: 'Reemplazar',
+      si: __('Reemplazar'),
     });
     if (!ok) return;
     let anteriorBorrada = false;
@@ -4205,16 +4442,16 @@
       if (libres < hacen) {
         bitacora('reemplazo_sin_espacio', { libres, hacen });
         const borrar = await confirmar({
-          titulo: 'No hay espacio para las dos bases',
+          titulo: __('No hay espacio para las dos bases'),
           parrafos: [
-            `Para reemplazarla sin riesgo, el navegador guarda la base nueva antes de borrar la anterior, y no hay espacio para las dos: hacen falta unos ${mib(hacen)} y quedan ${mib(Math.max(0, libres))}.`,
-            'Puede borrar antes la base recordada y continuar. Si la nueva no llegara a construirse, tendría que volver a elegir un CSV.',
-            'Sus bibliotecas no se tocan.',
+            __('Para reemplazarla sin riesgo, el navegador guarda la base nueva antes de borrar la anterior, y no hay espacio para las dos: hacen falta unos {0} y quedan {1}.', mib(hacen), mib(Math.max(0, libres))),
+            __('Puede borrar antes la base recordada y continuar. Si la nueva no llegara a construirse, tendría que volver a elegir un CSV.'),
+            __('Sus bibliotecas no se tocan.'),
           ],
-          si: 'Borrar la anterior y continuar',
+          si: __('Borrar la anterior y continuar'),
           peligro: true,
         });
-        if (!borrar) { avisar('Reemplazo cancelado: la base recordada sigue igual.'); return; }
+        if (!borrar) { avisar(__('Reemplazo cancelado: la base recordada sigue igual.')); return; }
         if (!(await olvidar({ sinConfirmar: true }))) return;
         anteriorBorrada = true;
       }
@@ -4241,7 +4478,7 @@
     d.setAttribute('aria-labelledby', 'r2-web-dlg-t');
     d.setAttribute('aria-describedby', 'r2-web-dlg-c');
     d.innerHTML = '<div class="dhead"><h3 id="r2-web-dlg-t"></h3></div><div class="dbody" id="r2-web-dlg-c"></div>'
-      + '<div class="dfoot"><button type="button" class="btn ghost" data-r2-dlg="no">Cancelar</button><button type="button" class="btn" data-r2-dlg="si"></button></div>';
+      + `<div class="dfoot"><button type="button" class="btn ghost" data-r2-dlg="no">${__('Cancelar')}</button><button type="button" class="btn" data-r2-dlg="si"></button></div>`;
     S.doc.body.appendChild(d);
     S.dlg = d;
     return d;
@@ -4262,7 +4499,7 @@
     }
     const si = d.querySelector('[data-r2-dlg="si"]');
     const no = d.querySelector('[data-r2-dlg="no"]');
-    si.textContent = o.si || 'Aceptar';
+    si.textContent = o.si || __('Aceptar');
     si.className = o.peligro ? 'btn danger fill' : 'btn primary';
     const antes = S.doc.activeElement;
     d.dataset.tipo = o.si || '';
@@ -4288,25 +4525,29 @@
 
 
   const btn = (que, texto, o = {}) => `<button type="button" class="btn${o.clase ? ` ${o.clase}` : ''}" data-r2-web="${que}"${o.off ? ' disabled' : ''}>${esc(texto)}</button>`;
-  const casilla = () => `<label class="r2w-auto"><input type="checkbox" data-r2-web="auto"${S.auto ? ' checked' : ''}><span>Recordar la base en este navegador: al volver, se abrirá sola ${sinElegirCsv()}.</span></label>`;
+  const casilla = () => `<label class="r2w-auto"><input type="checkbox" data-r2-web="auto"${S.auto ? ' checked' : ''}><span>${conDatos()
+    ? __('Recordar la base en este navegador: al volver, se abrirá sola sin descargarla ni prepararla de nuevo.')
+    : __('Recordar la base en este navegador: al volver, se abrirá sola sin elegir el CSV.')}</span></label>`;
   const mensajeHtml = () => `<p class="r2w-msg" role="status" data-error="${S.error ? 1 : 0}"${S.mensaje ? '' : ' hidden'}>${esc(S.mensaje)}</p>`;
 
   function htmlCarga() {
     const c = S.consulta;
     const r = recordado();
     const ocupado = !!S.operacion || (S.modo === 'opfs' && !cliente());
-    let h = '<p class="r2w-t">Base recordada en este navegador</p>';
-    if (!S.modo) h += '<p class="r2w-ficha">Comprobando si este navegador puede guardar la base…</p>';
+    let h = `<p class="r2w-t">${__('Base recordada en este navegador')}</p>`;
+    if (!S.modo) h += `<p class="r2w-ficha">${__('Comprobando si este navegador puede guardar la base…')}</p>`;
     else if (S.modo === 'ninguno') h += `<p class="r2w-ficha">${esc(textoSinAlmacen())}</p>`;
-    else if (!c) h += '<p class="r2w-ficha">Comprobando si hay una base recordada…</p>';
+    else if (!c) h += `<p class="r2w-ficha">${__('Comprobando si hay una base recordada…')}</p>`;
     else if (c.error) {
-      h += `<p class="r2w-ficha">${esc(c.error.mensaje)}</p><div class="r2c-botones">${btn('consultar', 'Volver a comprobar', { off: ocupado })}</div>`;
+      h += `<p class="r2w-ficha">${esc(c.error.mensaje)}</p><div class="r2c-botones">${btn('consultar', __('Volver a comprobar'), { off: ocupado })}</div>`;
     } else if (r) {
-      h += `<p class="r2w-ficha">${esc(describir(r))}${r.guardado ? ` · guardada el ${esc(fecha(r.guardado))}` : ''}</p>`
-        + `<div class="r2c-botones">${btn('abrir', 'Abrir la base recordada', { clase: 'primary', off: ocupado })}${btn('olvidar', 'Olvidar la base', { off: ocupado })}</div>`
-        + '<p class="r2w-nota">Si elige otro CSV, su base sustituirá a esta cuando esté construida y guardada; si algo falla, esta se conserva.</p>';
+      h += `<p class="r2w-ficha">${esc(describir(r))}${r.guardado ? ` · ${__('guardada el {0}', esc(fecha(r.guardado)))}` : ''}</p>`
+        + `<div class="r2c-botones">${btn('abrir', __('Abrir la base recordada'), { clase: 'primary', off: ocupado })}${btn('olvidar', __('Olvidar la base'), { off: ocupado })}</div>`
+        + `<p class="r2w-nota">${__('Si elige otro CSV, su base sustituirá a esta cuando esté construida y guardada; si algo falla, esta se conserva.')}</p>`;
     } else {
-      h += `<p class="r2w-ficha">${S.auto ? `Ninguna todavía: ${conDatos() ? 'en cuanto se abra el corpus' : 'cuando elija el CSV'}, la base se guardará aquí y la próxima vez se abrirá sola.` : 'Ninguna.'}</p>`;
+      h += `<p class="r2w-ficha">${S.auto ? (conDatos()
+        ? __('Ninguna todavía: en cuanto se abra el corpus, la base se guardará aquí y la próxima vez se abrirá sola.')
+        : __('Ninguna todavía: cuando elija el CSV, la base se guardará aquí y la próxima vez se abrirá sola.')) : __('Ninguna.')}</p>`;
     }
     if (modoOk() && !(c && c.error)) h += casilla();
     if (modoOk() && S.gecko && S.archivoLocal) h += `<p class="r2w-nota">${esc(TEXTO_FIREFOX)}</p>`;
@@ -4317,28 +4558,33 @@
     const c = S.consulta;
     const r = recordado();
     const ocupado = !!S.operacion;
-    let h = '<div id="r2-web-sobre" class="r2w-sobre"><div class="fuente-k">En este navegador</div>';
-    if (!S.modo) h += '<p>Comprobando si este navegador puede guardar la base…</p>';
+    let h = `<div id="r2-web-sobre" class="r2w-sobre"><div class="fuente-k">${__('En este navegador')}</div>`;
+    if (!S.modo) h += `<p>${__('Comprobando si este navegador puede guardar la base…')}</p>`;
     else if (S.modo === 'ninguno') h += `<p>${esc(textoSinAlmacen())}</p>`;
-    else if (c && c.error) h += `<p>${esc(c.error.mensaje)}</p>${btn('consultar', 'Volver a comprobar', { clase: 'sm', off: ocupado })}`;
+    else if (c && c.error) h += `<p>${esc(c.error.mensaje)}</p>${btn('consultar', __('Volver a comprobar'), { clase: 'sm', off: ocupado })}`;
     else if (corpusRecordado()) {
-      h += `<p>Esta base está recordada en este navegador (${esc(describir(r))}): al volver, se abrirá sola ${sinElegirCsv()}.</p>`
-        + btn('reemplazar', 'Reemplazar por otra versión…', { clase: 'sm', off: ocupado }) + btn('olvidar', 'Olvidar la base', { clase: 'sm', off: ocupado });
+      h += `<p>${conDatos()
+        ? __('Esta base está recordada en este navegador ({0}): al volver, se abrirá sola sin descargarla ni prepararla de nuevo.', esc(describir(r)))
+        : __('Esta base está recordada en este navegador ({0}): al volver, se abrirá sola sin elegir el CSV.', esc(describir(r)))}</p>`
+        + btn('reemplazar', __('Reemplazar por otra versión…'), { clase: 'sm', off: ocupado }) + btn('olvidar', __('Olvidar la base'), { clase: 'sm', off: ocupado });
     } else {
-      if (S.operacion === 'recordar') h += '<p>Guardando la base en este navegador…<span data-r2w="progreso"></span></p>';
-      else if (S.pendienteRecordar) h += '<p>La base se guardará en cuanto termine la comprobación de la huella del CSV…</p>';
+      if (S.operacion === 'recordar') h += `<p>${__('Guardando la base en este navegador…')}<span data-r2w="progreso"></span></p>`;
+      else if (S.pendienteRecordar) h += `<p>${__('La base se guardará en cuanto termine la comprobación de la huella del CSV…')}</p>`;
       else {
         const huella = S.api && S.api.huella ? S.api.huella() : null;
-        h += `<p>Esta base no está recordada: si cierra o recarga la pestaña, ${conDatos() ? sinBaseTexto('').replace(' en cada visita', '') : 'habrá que volver a elegir el CSV'}.</p>`
-          + btn('recordar', 'Recordar la base en este navegador', { clase: 'sm', off: ocupado || huella === 'fallida' });
+        const o = origenDatos();
+        h += `<p>${o === 'servido' ? __('Esta base no está recordada: si cierra o recarga la pestaña, el corpus se descargará de nuevo.')
+          : o === 'incluido' ? __('Esta base no está recordada: si cierra o recarga la pestaña, el corpus se volverá a preparar desde los datos incluidos.')
+            : __('Esta base no está recordada: si cierra o recarga la pestaña, habrá que volver a elegir el CSV.')}</p>`
+          + btn('recordar', __('Recordar la base en este navegador'), { clase: 'sm', off: ocupado || huella === 'fallida' });
       }
-      if (r) h += `<p>Hay otra base recordada: ${esc(describir(r))}.</p>${btn('olvidar', 'Olvidar la base recordada', { clase: 'sm', off: ocupado })}`;
+      if (r) h += `<p>${__('Hay otra base recordada: {0}.', esc(describir(r)))}</p>${btn('olvidar', __('Olvidar la base recordada'), { clase: 'sm', off: ocupado })}`;
     }
     if (modoOk()) {
       if (S.espacio && typeof S.espacio.usage === 'number') {
-        const donde = S.modo === 'opfs' ? 'almacenamiento privado del navegador, OPFS' : 'IndexedDB';
-        h += `<p>Espacio que ocupa en este navegador: ${esc(mib(S.espacio.usage))} (${donde}; incluye sus bibliotecas).`
-          + (S.persistente === true ? ' El navegador no lo borrará aunque le falte espacio.' : '') + '</p>';
+        const donde = S.modo === 'opfs' ? __('almacenamiento privado del navegador, OPFS') : 'IndexedDB';
+        h += `<p>${__('Espacio que ocupa en este navegador: {0} ({1}; incluye sus bibliotecas).', esc(mib(S.espacio.usage)), donde)}`
+          + (S.persistente === true ? ` ${__('El navegador no lo borrará aunque le falte espacio.')}` : '') + '</p>';
       }
       h += casilla();
       if (S.gecko && S.archivoLocal) h += `<p>${esc(TEXTO_FIREFOX)}</p>`;
@@ -4386,9 +4632,9 @@
 
 
   function textoConstruir(reemplazo) {
-    if (reemplazo) return 'Se construye la base con el archivo nuevo. La base recordada se conserva hasta que esta esté comprobada y guardada. No cierre ni recargue la pestaña hasta que termine.';
-    if (modoOk() && S.auto) return 'Se construye en este navegador a partir del CSV y después se guarda aquí, para que la próxima vez se abra sola. No cierre ni recargue la pestaña hasta que termine.';
-    return 'Se construye en este navegador cada vez que abre la página. No cierre ni recargue la pestaña hasta que termine.';
+    if (reemplazo) return __('Se construye la base con el archivo nuevo. La base recordada se conserva hasta que esta esté comprobada y guardada. No cierre ni recargue la pestaña hasta que termine.');
+    if (modoOk() && S.auto) return __('Se construye en este navegador a partir del CSV y después se guarda aquí, para que la próxima vez se abra sola. No cierre ni recargue la pestaña hasta que termine.');
+    return __('Se construye en este navegador cada vez que abre la página. No cierre ni recargue la pestaña hasta que termine.');
   }
 
 
@@ -4427,7 +4673,7 @@
     const d = S.doc.createElement('div');
     d.id = 'r2-web-version';
     d.setAttribute('role', 'status');
-    d.innerHTML = '<span>Nueva versión disponible.</span><button type="button" class="btn primary sm" data-r2-web="actualizar">Recargar ahora</button>';
+    d.innerHTML = `<span>${__('Nueva versión disponible.')}</span><button type="button" class="btn primary sm" data-r2-web="actualizar">${__('Recargar ahora')}</button>`;
     S.doc.body.appendChild(d);
   }
 
@@ -4648,7 +4894,7 @@
 
   async function gunzip(u8, w) {
     if (R2.inflate && typeof R2.inflate.gunzip === 'function') return R2.inflate.gunzip(u8);
-    if (typeof w.DecompressionStream !== 'function') throw new Error('no hay descompresor gzip (R2.inflate o DecompressionStream)');
+    if (typeof w.DecompressionStream !== 'function') throw new Error(__('no hay descompresor gzip (R2.inflate o DecompressionStream)'));
     const flujo = new w.Blob([u8]).stream().pipeThrough(new w.DecompressionStream('gzip'));
     return new Uint8Array(await new w.Response(flujo).arrayBuffer());
   }
@@ -4667,24 +4913,24 @@
     const w = ventana || g || globalThis;
     const d = w.document;
     const el = d.getElementById(`r2-carga-${nombre}`) || d.querySelector(`script[type="application/octet-stream"][data-recurso="${nombre}"]`);
-    if (!el) throw new (ErrorRpc())('RECURSO_DANADO', { causa: `falta el recurso «${nombre}»` });
+    if (!el) throw new (ErrorRpc())('RECURSO_DANADO', { causa: __('falta el recurso «{0}»', nombre) });
     const enc = el.getAttribute('data-enc') || 'base64';
     let u8;
     try {
       u8 = base64(el.textContent, w);
       if (enc === 'gzip+base64') u8 = await gunzip(u8, w);
-      else if (enc !== 'base64') throw new Error(`codificación desconocida «${enc}»`);
+      else if (enc !== 'base64') throw new Error(__('codificación desconocida «{0}»', enc));
     } catch (e) {
       throw new (ErrorRpc())('RECURSO_DANADO', { causa: `${nombre}: ${textoDe(e)}` });
     }
     const bytes = el.getAttribute('data-bytes');
     if (bytes != null && Number(bytes) !== u8.length) {
-      throw new (ErrorRpc())('RECURSO_DANADO', { causa: `${nombre}: ${u8.length} bytes en lugar de ${bytes}` });
+      throw new (ErrorRpc())('RECURSO_DANADO', { causa: __('{0}: {1} bytes en lugar de {2}', nombre, u8.length, bytes) });
     }
     const esperado = el.getAttribute('data-sha256');
     if (esperado) {
       const real = await sha256Hex(u8, w);
-      if (real !== null && real !== esperado.toLowerCase()) throw new (ErrorRpc())('RECURSO_DANADO', { causa: `${nombre}: la huella SHA-256 no coincide` });
+      if (real !== null && real !== esperado.toLowerCase()) throw new (ErrorRpc())('RECURSO_DANADO', { causa: __('{0}: la huella SHA-256 no coincide', nombre) });
     }
     el.textContent = '';
     el.remove();
@@ -4830,8 +5076,10 @@
         S.errorHuella = datos && typeof datos.aObjeto === 'function' ? datos.aObjeto() : datos;
         if (sobre) sobre.actualizar();
         if (S.reemplazo && S.fase === 'construyendo') {
-          const nombre = S.archivo && S.archivo.name ? `«${S.archivo.name}»` : 'el archivo nuevo';
-          volverAnterior(`No se pudo comprobar la huella de ${nombre} (${datos && (datos.message || datos.mensaje)}): no se ha reemplazado la base recordada.`);
+          const causa = datos && (datos.message || datos.mensaje);
+          volverAnterior(S.archivo && S.archivo.name
+            ? __('No se pudo comprobar la huella de «{0}» ({1}): no se ha reemplazado la base recordada.', S.archivo.name, causa)
+            : __('No se pudo comprobar la huella del archivo nuevo ({0}): no se ha reemplazado la base recordada.', causa));
         }
         break;
       case 'progreso_base':
@@ -4858,8 +5106,9 @@
       return;
     }
     if (S.reemplazo && (S.fase === 'construyendo' || S.fase === 'confirmar')) {
-      const nombre = S.archivo && S.archivo.name ? `«${S.archivo.name}»` : 'el archivo nuevo';
-      volverAnterior(`No se pudo construir la base con ${nombre}: ${e.message}`);
+      volverAnterior(S.archivo && S.archivo.name
+        ? __('No se pudo construir la base con «{0}»: {1}', S.archivo.name, e.message)
+        : __('No se pudo construir la base con el archivo nuevo: {0}', e.message));
       return;
     }
     mostrarFallo(e, { precalentar: S.fase === 'construyendo' });
@@ -4881,11 +5130,11 @@
     S.seguimiento = R2.progreso.crearSeguimiento();
     marcar('elegido');
 
-    if (S.silencioso) vista.mostrarEspera({ titulo: 'Preparando el corpus…' });
+    if (S.silencioso) vista.mostrarEspera({ titulo: __('Preparando el corpus…') });
     else {
       vista.mostrarConstruir({ archivo, sqlite: S.hola && S.hola.sqlite,
         entrada: R2.web ? R2.web.textoConstruir(!!S.reemplazo) : null,
-        textoCancelar: S.reemplazo ? 'Cancelar y volver a la base recordada' : null });
+        textoCancelar: S.reemplazo ? __('Cancelar y volver a la base recordada') : null });
     }
     pararRefresco();
 
@@ -4921,7 +5170,7 @@
 
     if (S.reemplazo && S.huella !== 'comprobada') {
       S.esperandoHuella = true;
-      if (vista) vista.notaConstruir('Comprobando la huella del archivo antes de sustituir la base recordada…');
+      if (vista) vista.notaConstruir(__('Comprobando la huella del archivo antes de sustituir la base recordada…'));
       return;
     }
     continuarTrasListo();
@@ -4931,7 +5180,7 @@
     if (S.fase !== 'construyendo') return;
     if ((S.informe.avisos || []).some((a) => a.codigo === 'FILAS_DISTINTAS')) {
       S.fase = 'confirmar';
-      vista.mostrarConfirmar(S.informe, S.archivo, { textoOtro: S.reemplazo ? 'Volver a la base recordada' : null });
+      vista.mostrarConfirmar(S.informe, S.archivo, { textoOtro: S.reemplazo ? __('Volver a la base recordada') : null });
       return;
     }
     revelar();
@@ -4984,7 +5233,7 @@
   function motorBibliotecas(cliente) {
     const api = (metodo, ruta, cuerpo) => cliente.pedir('api', { metodo, ruta, query: {}, queryLista: [], cuerpo }).then((r) => {
       if (r.status >= 400) {
-        const e = new Error(r.cuerpo && r.cuerpo.error ? r.cuerpo.error : `Error ${r.status}`);
+        const e = new Error(r.cuerpo && r.cuerpo.error ? r.cuerpo.error : __('Error {0}', r.status));
         e.status = r.status;
         throw e;
       }
@@ -5096,7 +5345,7 @@
     if (S.fase !== 'construyendo') return;
     if (S.reemplazo) {
       marcar('cancelado');
-      volverAnterior('Se canceló el reemplazo: la base recordada sigue igual.');
+      volverAnterior(__('Se canceló el reemplazo: la base recordada sigue igual.'));
       return;
     }
     marcar('cancelado');
@@ -5106,7 +5355,8 @@
     const archivo = S.archivo;
     if (S.recursos) nuevoCliente();
     vista.mostrarAbrir({
-      nota: `Se canceló la construcción${archivo && archivo.name ? ` de ${archivo.name}` : ''}. Puede reintentarlo o elegir otro archivo.`,
+      nota: archivo && archivo.name ? __('Se canceló la construcción de {0}. Puede reintentarlo o elegir otro archivo.', archivo.name)
+        : __('Se canceló la construcción. Puede reintentarlo o elegir otro archivo.'),
       reintentar: archivo, enfocar: 'reintentar',
     });
   }
@@ -5120,7 +5370,7 @@
     S.fase = 'abrir';
     vista.mostrarAbrir({ enfocar: 'elegir' });
     if (S.recursos) {
-      vista.estadoMotor('Preparando el motor de la página…');
+      vista.estadoMotor(__('Preparando el motor de la página…'));
       nuevoCliente();
     }
   }
@@ -5132,7 +5382,7 @@
 
   function otroArchivo() {
     if (S.fase === 'confirmar' && S.reemplazo) {
-      volverAnterior('Se canceló el reemplazo: la base recordada sigue igual.');
+      volverAnterior(__('Se canceló el reemplazo: la base recordada sigue igual.'));
       return;
     }
     if (S.fase === 'confirmar' || S.fase === 'fallo') {
@@ -5167,7 +5417,7 @@
     vista.mostrarFallo(err, {
       archivo: S.archivo,
       otro: !sinMotor,
-      textoOtro: ilegible ? 'Volver a elegir el archivo' : null,
+      textoOtro: ilegible ? __('Volver a elegir el archivo') : null,
       reintentar: !sinMotor && !ilegible && (arranque || (!!S.archivo && R2.rpc.REINTENTABLES.has(err.codigo))),
 
       recargar: (sinMotor && !navegador) || arranque,
@@ -5179,19 +5429,19 @@
 
 
   function fichaRecordado(r) {
-    if (!r) return 'Base recordada';
+    if (!r) return __('Base recordada');
     const partes = [r.nombre_csv || 'CSV'];
     if (r.version && r.version.corto) partes.push(r.version.corto);
     if (r.bytes) partes.push(R2.progreso.tamano(r.bytes));
     return partes.join(' · ');
   }
 
-  const ENTRADA_CON_DATOS = 'El corpus viaja con esta aplicación y se abre solo; nada sale de su equipo. Si quiere explorar otro CSV, puede elegirlo aquí.';
+  const ENTRADA_CON_DATOS = __('El corpus viaja con esta aplicación y se abre solo; nada sale de su equipo. Si quiere explorar otro CSV, puede elegirlo aquí.');
 
 
   function fichaServido(s) {
-    const partes = [`«${(s.csv_origen && s.csv_origen.nombre) || 'corpus'}»`];
-    if (s.bytes_gz) partes.push(`${R2.progreso.tamano(s.bytes_gz)} de descarga`);
+    const partes = [`«${(s.csv_origen && s.csv_origen.nombre) || __('corpus')}»`];
+    if (s.bytes_gz) partes.push(__('{0} de descarga', R2.progreso.tamano(s.bytes_gz)));
     return partes.join(' · ');
   }
 
@@ -5214,14 +5464,14 @@
     if (!p || !(S.fase === 'abrir' || S.fase === 'fallo') || !S.recursos) return false;
     if (p.tipo === 'servido') { abrirServido(p.datos).catch(() => {}); return true; }
     marcar('corpus_embebido');
-    vista.mostrarEspera({ titulo: 'Preparando el corpus…' });
+    vista.mostrarEspera({ titulo: __('Preparando el corpus…') });
     R2.cargas.archivoCorpus().then((archivo) => {
       if (!archivo || S.fase !== 'abrir') return;
       elegir(archivo, { silencioso: true });
     }, (e) => {
       if (S.fase !== 'abrir') return;
       S.silencioso = false;
-      vista.mostrarAbrir({ nota: `No se pudo leer el corpus que acompaña a esta aplicación (${textoDe(e)}). Elija el CSV.`,
+      vista.mostrarAbrir({ nota: __('No se pudo leer el corpus que acompaña a esta aplicación ({0}). Elija el CSV.', textoDe(e)),
         entrada: ENTRADA_CON_DATOS, enfocar: 'elegir' });
     });
     return true;
@@ -5236,11 +5486,11 @@
       marca: 'abrir_servido',
       origen: 'servido',
       silencioso: true,
-      tituloEspera: 'Abriendo el corpus…',
+      tituloEspera: __('Abriendo el corpus…'),
       ficha: fichaServido(s || (R2.datos && R2.datos.corpus_servido) || {}),
-      titulo: 'Abriendo el corpus que acompaña a la página…',
-      entrada: 'Este corpus se publica junto a la página: se descarga una vez, se comprueba y se guarda en este navegador para abrirlo solo la próxima vez.',
-      textoCancelar: 'Cancelar y elegir el CSV',
+      titulo: __('Abriendo el corpus que acompaña a la página…'),
+      entrada: __('Este corpus se publica junto a la página: se descarga una vez, se comprueba y se guarda en este navegador para abrirlo solo la próxima vez.'),
+      textoCancelar: __('Cancelar y elegir el CSV'),
       abrir: (cliente, o) => R2.web.abrirServidoEn(cliente, o),
     });
   }
@@ -5258,7 +5508,7 @@
       origen: 'recordado',
 
       silencioso: !!datosPropios(),
-      tituloEspera: 'Abriendo el corpus…',
+      tituloEspera: __('Abriendo el corpus…'),
       ficha: fichaRecordado(rec),
       titulo: o.titulo,
       entrada: o.entrada,
@@ -5271,7 +5521,7 @@
 
   async function abrirSinCsv(o) {
     if (!(S.fase === 'abrir' || S.fase === 'fallo') || !S.recursos || !R2.web) {
-      throw Object.assign(new Error('El motor de la página todavía no está listo.'), { codigo: 'ESTADO' });
+      throw Object.assign(new Error(__('El motor de la página todavía no está listo.')), { codigo: 'ESTADO' });
     }
     pararRefresco();
     S.fase = 'recordado';
@@ -5280,7 +5530,7 @@
     const apertura = { ctrl: new g.AbortController(), mensaje: o.mensajeTrasAbrir || null };
     S.apertura = apertura;
     if (!vista) vista = crearVista();
-    if (S.silencioso) vista.mostrarEspera({ titulo: o.tituloEspera || 'Abriendo el corpus…', nota: o.entrada || '' });
+    if (S.silencioso) vista.mostrarEspera({ titulo: o.tituloEspera || __('Abriendo el corpus…'), nota: o.entrada || '' });
     else vista.mostrarRecordado({ ficha: o.ficha, titulo: o.titulo, entrada: o.entrada, textoCancelar: o.textoCancelar });
     let cliente = S.cliente;
     if (!cliente || cliente.__r2ConBase || !(cliente.estado === 'iniciando' || cliente.estado === 'preparado')) cliente = nuevoCliente();
@@ -5333,8 +5583,8 @@
     if (S.recursos) nuevoCliente();
     if (R2.web) R2.web.alCancelarApertura();
     vista.mostrarAbrir({ nota: S.marcas.abrir_servido && !S.marcas.abrir_recordado
-      ? 'Se canceló la descarga del corpus que acompaña a la página. Elija el CSV o recargue para volver a intentarlo.'
-      : 'Se canceló la apertura de la base recordada: sigue guardada en este navegador. Elija otro CSV o vuelva a abrirla.', enfocar: 'elegir' });
+      ? __('Se canceló la descarga del corpus que acompaña a la página. Elija el CSV o recargue para volver a intentarlo.')
+      : __('Se canceló la apertura de la base recordada: sigue guardada en este navegador. Elija otro CSV o vuelva a abrirla.'), enfocar: 'elegir' });
     vista.abrirSelector();
   }
 
@@ -5377,9 +5627,9 @@
     if (R2.web) R2.web.alFinReemplazo({ mensaje });
     if (!vista) vista = crearVista();
     if (rem && !rem.anteriorBorrada && hay) {
-      abrirRecordado({ recordado: hay, titulo: 'Volviendo a la base recordada…', entrada: mensaje, mensajeTrasAbrir: mensaje }).catch(() => {});
+      abrirRecordado({ recordado: hay, titulo: __('Volviendo a la base recordada…'), entrada: mensaje, mensajeTrasAbrir: mensaje }).catch(() => {});
     } else {
-      vista.mostrarAbrir({ nota: `${mensaje} Elija un CSV para continuar.`, enfocar: 'elegir' });
+      vista.mostrarAbrir({ nota: __('{0} Elija un CSV para continuar.', mensaje), enfocar: 'elegir' });
     }
   }
 
@@ -5388,7 +5638,7 @@
     if (shim) shim.fallar(err);
     doc.documentElement.classList.remove('r2-app');
     if (!vista) vista = crearVista();
-    vista.mostrarFallo(err, { archivo: S.archivo, recargar: true, titulo: 'El motor se ha detenido' });
+    vista.mostrarFallo(err, { archivo: S.archivo, recargar: true, titulo: __('El motor se ha detenido') });
   }
 
 
@@ -5417,9 +5667,9 @@
     }
 
 
-    if (datosPropios()) vista.mostrarEspera({ titulo: 'Preparando el corpus…' });
+    if (datosPropios()) vista.mostrarEspera({ titulo: __('Preparando el corpus…') });
     else vista.mostrarAbrir({ enfocar: 'elegir' });
-    vista.estadoMotor('Preparando el motor de la página…');
+    vista.estadoMotor(__('Preparando el motor de la página…'));
     R2.capacidades.sondearAlmacen(g).then((alm) => {
       S.almacen = alm;
       if (vista) vista.ponerAvisos(R2.capacidades.avisos(S.sondeo, alm));
@@ -5487,7 +5737,7 @@
         const p = document.createElement('p');
         p.setAttribute('role', 'alert');
         p.style.cssText = 'position:fixed;inset:auto 16px 16px 16px;padding:12px 14px;background:#fff;color:#1d1b18;border:1px solid #c21d1d;border-radius:7px;font:14px/1.5 system-ui,sans-serif;z-index:100';
-        p.textContent = `No se pudo iniciar Diarios Explorer: ${textoDe(e)}. Recargue la página o use Chrome, Edge, Firefox o Safari en una versión reciente.`;
+        p.textContent = __('No se pudo iniciar Diarios Explorer: {0}. Recargue la página o use Chrome, Edge, Firefox o Safari en una versión reciente.', textoDe(e));
         document.body.appendChild(p);
       } catch (e2) {   }
     });
@@ -6376,19 +6626,20 @@
   const COMILLAS = /[«»“”„]/g;
 
   const MENSAJES = Object.freeze({
-    ASTERISCO: 'El asterisco (*) no se admite en esta búsqueda: escriba la palabra completa o varias formas unidas con | (p. ej. agrario | agraria).',
-    OPERADOR_TEXTO: (w) => `«${w}» no es un operador en esta búsqueda. Use + para exigir varias palabras y | para admitir cualquiera de ellas; NOT no está disponible. Si quiere buscar la palabra, escríbala en minúsculas.`,
-    COMILLAS_VACIAS: 'Hay unas comillas vacías: escriba la frase entre ellas o quítelas.',
-    COMILLAS_ABIERTAS: 'Faltan unas comillas de cierre: cada frase exacta va entre dos comillas (p. ej. "voto femenino").',
-    PARENTESIS_VACIOS: 'Hay unos paréntesis vacíos: escriba algo dentro o quítelos.',
-    FALTA_CIERRE: 'Falta cerrar un paréntesis: añada «)».',
-    SOBRA_CIERRE: 'Sobra un paréntesis de cierre «)» (o falta el de apertura).',
-    OP_INICIO: (op) => `Falta una palabra o frase antes de «${op}».`,
-    OP_FINAL: (op) => `Falta una palabra o frase después de «${op}».`,
-    OP_SEGUIDOS: (a, b) => `Hay dos operadores seguidos («${a} ${b}»): escriba una palabra o frase entre ellos.`,
-    NADA: 'La consulta no contiene nada que buscar: escriba al menos una palabra con letras o cifras.',
-    AVISO_OMITIDAS: (lista) => `Se han omitido palabras muy frecuentes (${lista}): casi todas las intervenciones las contienen. Si las necesita, póngalas entre comillas.`,
-    AVISO_IGNORADAS: (lista, n) => `Se ${n === 1 ? 'ha ignorado un término' : 'han ignorado términos'} sin letras ni cifras (${lista}).`,
+    get ASTERISCO() { return __('El asterisco (*) no se admite en esta búsqueda: escriba la palabra completa o varias formas unidas con | (p. ej. agrario | agraria).'); },
+    OPERADOR_TEXTO: (w) => __('«{0}» no es un operador en esta búsqueda. Use + para exigir varias palabras y | para admitir cualquiera de ellas; NOT no está disponible. Si quiere buscar la palabra, escríbala en minúsculas.', w),
+    get COMILLAS_VACIAS() { return __('Hay unas comillas vacías: escriba la frase entre ellas o quítelas.'); },
+    get COMILLAS_ABIERTAS() { return __('Faltan unas comillas de cierre: cada frase exacta va entre dos comillas (p. ej. "voto femenino").'); },
+    get PARENTESIS_VACIOS() { return __('Hay unos paréntesis vacíos: escriba algo dentro o quítelos.'); },
+    get FALTA_CIERRE() { return __('Falta cerrar un paréntesis: añada «)».'); },
+    get SOBRA_CIERRE() { return __('Sobra un paréntesis de cierre «)» (o falta el de apertura).'); },
+    OP_INICIO: (op) => __('Falta una palabra o frase antes de «{0}».', op),
+    OP_FINAL: (op) => __('Falta una palabra o frase después de «{0}».', op),
+    OP_SEGUIDOS: (a, b) => __('Hay dos operadores seguidos («{0} {1}»): escriba una palabra o frase entre ellos.', a, b),
+    get NADA() { return __('La consulta no contiene nada que buscar: escriba al menos una palabra con letras o cifras.'); },
+    AVISO_OMITIDAS: (lista) => __('Se han omitido palabras muy frecuentes ({0}): casi todas las intervenciones las contienen. Si las necesita, póngalas entre comillas.', lista),
+    AVISO_IGNORADAS: (lista, n) => (n === 1 ? __('Se ha ignorado un término sin letras ni cifras ({0}).', lista)
+      : __('Se han ignorado términos sin letras ni cifras ({0}).', lista)),
   });
 
   class ErrorConsulta extends Error {
@@ -6569,7 +6820,7 @@
     if (nodo.tipo === 'palabra' || nodo.tipo === 'frase') {
       return nodo.tipo === 'palabra' && nodo.tokens.length === 1 ? originales(s, nodo) : `«${originales(s, nodo)}»`;
     }
-    return nodo.hijos.map((h) => (h.tipo === 'y' || h.tipo === 'o' ? `(${interpretacion(s, h)})` : interpretacion(s, h))).join(nodo.tipo === 'y' ? ' Y ' : ' O ');
+    return nodo.hijos.map((h) => (h.tipo === 'y' || h.tipo === 'o' ? `(${interpretacion(s, h)})` : interpretacion(s, h))).join(nodo.tipo === 'y' ? ` ${__('Y')} ` : ` ${__('O')} `);
   }
 
   function hojas(nodo, out = []) {
@@ -6779,8 +7030,8 @@
 (function (R2) {
   'use strict';
 
-  const MSG_PROXIMA = 'Esta función llega en una próxima versión de Diarios Explorer.';
-  const MSG_MOTOR = 'El motor de la página no está disponible.';
+  const MSG_PROXIMA = __('Esta función llega en una próxima versión de Diarios Explorer.');
+  const MSG_MOTOR = __('El motor de la página no está disponible.');
   const OP_API = 'api';
 
   const TEXTO_ESTADO = { 200: 'OK', 400: 'Bad Request', 404: 'Not Found', 405: 'Method Not Allowed', 422: 'Unprocessable Entity',
@@ -6788,8 +7039,8 @@
 
   function errorAbortado(signal) {
     if (signal && signal.reason !== undefined) return signal.reason;
-    if (typeof DOMException === 'function') return new DOMException('Se canceló la petición.', 'AbortError');
-    const e = new Error('Se canceló la petición.');
+    if (typeof DOMException === 'function') return new DOMException(__('Se canceló la petición.'), 'AbortError');
+    const e = new Error(__('Se canceló la petición.'));
     e.name = 'AbortError';
     return e;
   }
@@ -7106,17 +7357,14 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g,
 
 
 const agrupa = s => String(s).replace(/^(-?\d)(\d{3})(?=,|$)/, '$1.$2');
-const nf = n => agrupa((n ?? 0).toLocaleString('es-ES'));
+// Una cadena ya formateada solo se agrupa, como antes (String#toLocaleString la devuelve tal cual).
+const nf = n => (typeof n === 'string' ? agrupa(n) : __.num(n));
 
 
 const listScroller = () => $('#listScroll') || $('#hits');
 
 function fechaLarga(iso) {
-  if (!iso) return '';
-  const [y, m, d] = iso.split('-').map(Number);
-  const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio',
-                 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-  return `${d} de ${meses[m - 1]} de ${y}`;
+  return __.fecha(iso);
 }
 
 function toast(msg, err = false) {
@@ -7142,7 +7390,7 @@ async function api(path, opts = {}) {
   if (!r.ok) {
     let d = {};
     try { d = await r.json(); } catch {   }
-    const err = new Error(d.error || `Error ${r.status}`);
+    const err = new Error(d.error || __('Error {0}', r.status));
     err.status = r.status;
     throw err;
   }
@@ -7311,7 +7559,7 @@ const CHAIR_ROLES = new Set(['chair', 'vicechair', 'chair_age']);
 
 
 const DOC_ROLES = new Set(['summary', 'remark']);
-const DOC_NOMBRE = { summary: 'Encabezado y sumario de la sesión', remark: 'Texto sin orador' };
+const DOC_NOMBRE = { summary: __('Encabezado y sumario de la sesión'), remark: __('Texto sin orador') };
 
 
 const DOC_POR_SPEAKER = { SUMARIO: 'summary', COMENTARIOS: 'remark' };
@@ -7443,7 +7691,7 @@ function renderDoc(doc, sid, hl = {}) {
       case 'par': {
         const ancla = !b.cont && b.n != null;
         const tit = b.split === 'sentences'
-          ? ' title="El original no separa párrafos: este § se ha cortado por frases"' : '';
+          ? ` title="${esc(__('El original no separa párrafos: este § se ha cortado por frases'))}"` : '';
         const cls = 'fp' + (b.cont ? ' cont' : '') + (first ? ' first' : '');
         out.push(`<p class="${cls}"${ancla ? ` id="p-${id}-${b.n}"` : ''}>`
           + (ancla ? `<span class="fp-anchor"${tit}>§ ${b.n}</span>` : '')
@@ -7486,7 +7734,7 @@ function renderDoc(doc, sid, hl = {}) {
         else if (b.tx) out.push(`<p class="fp">${leafHTML(b.tx, b.a, b.b, ctx)}</p>`);
     }
   }
-  return out.join('') || '<p class="fp first"><em>Sin texto.</em></p>';
+  return out.join('') || `<p class="fp first"><em>${__('Sin texto.')}</em></p>`;
 }
 
 
@@ -7544,14 +7792,14 @@ function noCorpus(info) {
 
 
   $('#hits').innerHTML = `<div class="empty"><div class="big">⌸</div>
-    <h3>No hay ningún corpus abierto</h3>
-    <p>Recargue la página y elija el CSV de intervenciones de un país.</p></div>`;
-  $('#corpusStat').textContent = 'sin corpus';
+    <h3>${__('No hay ningún corpus abierto')}</h3>
+    <p>${__('Recargue la página y elija el CSV de intervenciones de un país.')}</p></div>`;
+  $('#corpusStat').textContent = __('sin corpus');
 }
 
 function fatal(msg) {
   $('#hits').innerHTML = `<div class="empty"><div class="big">⚠</div>
-    <h3>No se pudo iniciar</h3><p>${esc(msg)}</p></div>`;
+    <h3>${__('No se pudo iniciar')}</h3><p>${esc(msg)}</p></div>`;
 }
 
 function renderHeader() {
@@ -7559,9 +7807,9 @@ function renderHeader() {
   $('#corpusStat').textContent =
 
 
-    `${i.title || 'Diarios de sesiones'} · ` +
+    `${i.title || __('Diarios de sesiones')} · ` +
 
-    `${nf(i.n_speeches)} intervenciones · ${nf(i.n_sessions || 0)} sesiones · ${i.date_min?.slice(0, 4)}–${i.date_max?.slice(0, 4)}`
+    `${__('{0} intervenciones · {1} sesiones', nf(i.n_speeches), nf(i.n_sessions || 0))} · ${i.date_min?.slice(0, 4)}–${i.date_max?.slice(0, 4)}`
       ;
   $('#q').placeholder = placeholderBusqueda(i);
   if (!i.has_semantic) {
@@ -7576,7 +7824,7 @@ function placeholderBusqueda(i) {
 
 
 
-  return `Buscar en ${nf(i.n_speeches)} intervenciones… p. ej. presupuesto + educación | "derechos humanos"`;
+  return __('Buscar en {0} intervenciones… p. ej. presupuesto + educación | "derechos humanos"', nf(i.n_speeches));
 
 }
 
@@ -7603,7 +7851,8 @@ function itemsHTML(id, aguja = '') {
   const titulo = (v, lbl) => {
     if (!v.nombre && !v.etiquetas) return lbl;
     const e = v.etiquetas || [];
-    return [v.nombre || lbl, e.length ? `Reúne en el CSV: ${e.slice(0, 8).map(x => x[0]).join(' · ')}${e.length > 8 ? ` y ${nf(e.length - 8)} más` : ''}` : '']
+    const lista = e.slice(0, 8).map(x => x[0]).join(' · ');
+    return [v.nombre || lbl, e.length ? (e.length > 8 ? __('Reúne en el CSV: {0} y {1} más', lista, nf(e.length - 8)) : __('Reúne en el CSV: {0}', lista)) : '']
       .filter(Boolean).join('\n');
   };
 
@@ -7616,7 +7865,8 @@ function itemsHTML(id, aguja = '') {
 
   const fila = v => {
     const val = valor(v);
-    const lbl = g.etiquetas[v.value] || v.value;
+    // «Sin identificar» es un valor guardado (y comparado) en español: se traduce solo al pintarlo
+    const lbl = g.etiquetas[v.value] || (v.value === 'Sin identificar' ? __('Sin identificar') : v.value);
     const on = sel.has(String(val)) ? ' checked' : '';
     const extra = v.party && v.party !== 'Sin identificar'
       ? `<span class="n" style="opacity:.7">${esc(v.party)}</span>` : '';
@@ -7626,11 +7876,11 @@ function itemsHTML(id, aguja = '') {
   };
 
   const pie = resto.length > g.max
-    ? `<p class="dsub" style="margin:7px 0 0;font-size:11px">Mostrando
-       ${nf(visibles.length)} de ${nf(elegidos.length + resto.length)}.
-       Escriba arriba para encontrar el resto.</p>`
+    ? `<p class="dsub" style="margin:7px 0 0;font-size:11px">${__(`Mostrando
+       {0} de {1}.
+       Escriba arriba para encontrar el resto.`, nf(visibles.length), nf(elegidos.length + resto.length))}</p>`
     : (necesita && !resto.length && !elegidos.length
-        ? `<p class="dsub" style="margin:7px 0 0;font-size:11px">Sin coincidencias.</p>`
+        ? `<p class="dsub" style="margin:7px 0 0;font-size:11px">${__('Sin coincidencias.')}</p>`
         : '');
 
   return visibles.map(fila).join('') + pie;
@@ -7644,7 +7894,7 @@ function grupo(id, titulo, valores, key, { max = 400, buscador = false, etiqueta
     <summary>${titulo}${n}</summary>
     <div class="fbody${(valores || []).length > 9 ? ' tall' : ''}">
       ${buscador ? `<div class="field"><input type="search" class="fsearch" data-grupo="${id}"
-         placeholder="Buscar entre ${nf((valores || []).length)}…" autocomplete="off"></div>` : ''}
+         placeholder="${esc(__('Buscar entre {0}…', nf((valores || []).length)))}" autocomplete="off"></div>` : ''}
       <div class="fitems" data-grupo="${id}">${itemsHTML(id)}</div>
     </div></details>`;
 }
@@ -7652,74 +7902,74 @@ function grupo(id, titulo, valores, key, { max = 400, buscador = false, etiqueta
 function renderFilters() {
   const f = S.facets, L = f.labels || {};
   $('#filters').innerHTML = `
-    <details class="fgroup" open><summary>Qué se busca</summary><div class="fbody">
+    <details class="fgroup" open><summary>${__('Qué se busca')}</summary><div class="fbody">
       <label class="fdoc"><input type="checkbox" id="fSinDocs"${S.filters.exclude_docs ? ' checked' : ''}>
-        <span><b>Solo lo que se habla</b>
-        <small>Deja fuera las filas sin orador: el encabezado y sumario de cada sesión y
+        <span><b>${__('Solo lo que se habla')}</b>
+        <small>${__(`Deja fuera las filas sin orador: el encabezado y sumario de cada sesión y
         otros textos del Diario (anexos, listas de votación) que no son palabras de un
-        diputado.</small></span></label>
+        diputado.`)}</small></span></label>
     </div></details>
 
-    <details class="fgroup" open><summary>Fecha y sesión</summary><div class="fbody">
+    <details class="fgroup" open><summary>${__('Fecha y sesión')}</summary><div class="fbody">
       <div class="row2">
-        <div class="field"><label>Desde</label><input type="date" id="fDesde"
+        <div class="field"><label>${__('Desde')}</label><input type="date" id="fDesde"
           min="${f.date_min}" max="${f.date_max}" value="${S.filters.date_from || ''}"></div>
-        <div class="field"><label>Hasta</label><input type="date" id="fHasta"
+        <div class="field"><label>${__('Hasta')}</label><input type="date" id="fHasta"
           min="${f.date_min}" max="${f.date_max}" value="${S.filters.date_to || ''}"></div>
       </div>
-      <div class="field"><label>Sesión (n.º de orden en el corpus, 1–${nf(f.sessions_total || 0)})</label>
-        <input type="number" id="fSesion" min="1" placeholder="cualquiera" value="${S.filters.num_session ?? ''}"></div>
+      <div class="field"><label>${__('Sesión (n.º de orden en el corpus, 1–{0})', nf(f.sessions_total || 0))}</label>
+        <input type="number" id="fSesion" min="1" placeholder="${esc(__('cualquiera'))}" value="${S.filters.num_session ?? ''}"></div>
     </div></details>
 
-    <details class="fgroup" open><summary>Longitud de la intervención</summary><div class="fbody">
+    <details class="fgroup" open><summary>${__('Longitud de la intervención')}</summary><div class="fbody">
       <div class="row2">
-        <div class="field"><label>Mín. palabras</label>
+        <div class="field"><label>${__('Mín. palabras')}</label>
           <input type="number" id="fMin" min="0" placeholder="0" value="${S.filters.min_words ?? ''}"></div>
-        <div class="field"><label>Máx. palabras</label>
+        <div class="field"><label>${__('Máx. palabras')}</label>
           <input type="number" id="fMax" min="0" placeholder="∞" value="${S.filters.max_words ?? ''}"></div>
       </div>
-      <p class="dsub" style="margin:0;font-size:11px;line-height:1.45">Muchas intervenciones
+      <p class="dsub" style="margin:0;font-size:11px;line-height:1.45">${__(`Muchas intervenciones
       breves son de trámite. Ponga un mínimo de 50 o 100 palabras para quedarse con los
-      discursos.</p>
+      discursos.`)}</p>
       <div style="display:flex;gap:5px;margin-top:7px">
         <button class="btn sm" data-minw="50">≥50</button>
         <button class="btn sm" data-minw="100">≥100</button>
         <button class="btn sm" data-minw="300">≥300</button>
-        <button class="btn sm ghost" data-minw="">quitar</button>
+        <button class="btn sm ghost" data-minw="">${__('quitar')}</button>
       </div>
     </div></details>
 
-    ${grupo('leg', 'Legislatura', f.legislatures, 'legislatures')}
-    ${grupo('per', 'Periodo de sesiones', f.legislative_sessions, 'legislative_sessions', { buscador: (f.legislative_sessions || []).length > 12 })}
-    ${grupo('tipo', 'Tipo de sesión', f.session_types, 'session_types')}
-    ${grupo('sexo', 'Sexo', f.sexes, 'sexes', { etiquetas: L.sex || {} })}
-    ${grupo('par', 'Partido', f.parties, 'parties', { buscador: true })}
-    ${grupo('dip', 'Diputado/a', f.speakers, 'rep_ids', { max: 200, buscador: true })}
-    ${grupo('dis', 'Distrito', f.districts, 'districts', { buscador: true })}
+    ${grupo('leg', __('Legislatura'), f.legislatures, 'legislatures')}
+    ${grupo('per', __('Periodo de sesiones'), f.legislative_sessions, 'legislative_sessions', { buscador: (f.legislative_sessions || []).length > 12 })}
+    ${grupo('tipo', __('Tipo de sesión'), f.session_types, 'session_types')}
+    ${grupo('sexo', __('Sexo'), f.sexes, 'sexes', { etiquetas: Object.fromEntries(Object.entries(L.sex || {}).map(([k, v]) => [k, __(v)])) })}
+    ${grupo('par', __('Partido'), f.parties, 'parties', { buscador: true })}
+    ${grupo('dip', __('Diputado/a'), f.speakers, 'rep_ids', { max: 200, buscador: true })}
+    ${grupo('dis', __('Distrito'), f.districts, 'districts', { buscador: true })}
 
-    <details class="fgroup"><summary>Restringir a una biblioteca</summary><div class="fbody">
+    <details class="fgroup"><summary>${__('Restringir a una biblioteca')}</summary><div class="fbody">
       <div class="field"><select id="fLib">
-        <option value="">— todo el corpus —</option>
+        <option value="">${__('— todo el corpus —')}</option>
         ${S.collections.map(c => `<option value="${c.id}"${S.filters.collection_id == c.id ? ' selected' : ''}>${esc(c.name)} (${nf(c.n_items)})</option>`).join('')}
       </select></div>
-      <p class="dsub" style="margin:0;font-size:11px">Busca solo dentro del material que
-      ya ha curado: útil para refinar un capítulo.</p>
+      <p class="dsub" style="margin:0;font-size:11px">${__(`Busca solo dentro del material que
+      ya ha curado: útil para refinar un capítulo.`)}</p>
     </div></details>
 
-    <details class="fgroup"><summary>Búsquedas guardadas</summary>
+    <details class="fgroup"><summary>${__('Búsquedas guardadas')}</summary>
       <div class="fbody" id="savedBox"><p class="dsub" style="font-size:11px;margin:0">—</p></div></details>
 
     <div style="padding:13px">
-      <button class="btn" id="saveSearchBtn" style="width:100%">Guardar esta búsqueda</button>
+      <button class="btn" id="saveSearchBtn" style="width:100%">${__('Guardar esta búsqueda')}</button>
     </div>
 
-    <details class="fgroup" id="fg-fuente"><summary>Sobre este corpus</summary><div class="fbody">
-      <div class="fuente-k">Cómo citar este material</div>
+    <details class="fgroup" id="fg-fuente"><summary>${__('Sobre este corpus')}</summary><div class="fbody">
+      <div class="fuente-k">${__('Cómo citar este material')}</div>
       ${fuenteHTML()}
       ${sobreCorpusDatosHTML()}
       <p class="dsub" style="font-size:11px;line-height:1.55;margin:0">
-        Partido, distrito, sexo y tipo de sesión se muestran tal como vienen en el CSV,
-        sin normalizar: las variantes de un mismo nombre aparecen como valores distintos.
+        ${__(`Partido, distrito, sexo y tipo de sesión se muestran tal como vienen en el CSV,
+        sin normalizar: las variantes de un mismo nombre aparecen como valores distintos.`)}
       </p>
     </div></details>`;
   loadSaved();
@@ -7740,7 +7990,7 @@ function sobreCorpusDatosHTML() {
   const R2 = globalThis.R2;
   if (R2 && R2.sobreCorpus && typeof R2.sobreCorpus.html === 'function') return R2.sobreCorpus.html(S.info);
   return `<p class="dsub" style="font-size:11px;line-height:1.55;margin:0 0 7px">
-        ${nf(S.info.n_speeches)} intervenciones · ${nf(S.info.n_sessions || 0)} sesiones</p>`;
+        ${__('{0} intervenciones · {1} sesiones', nf(S.info.n_speeches), nf(S.info.n_sessions || 0))}</p>`;
 
 }
 
@@ -7755,12 +8005,12 @@ function renderPills() {
 
 
 
-  const etq = { legislatures: 'Legislatura', legislative_sessions: 'Periodo', session_types: 'Tipo de sesión', sexes: 'Sexo',
-                parties: 'Partido', districts: 'Distrito', rep_ids: 'Diputado/a' };
+  const etq = { legislatures: __('Legislatura'), legislative_sessions: __('Periodo'), session_types: __('Tipo de sesión'), sexes: __('Sexo'),
+                parties: __('Partido'), districts: __('Distrito'), rep_ids: __('Diputado/a') };
   for (const [k, label] of Object.entries(etq)) {
     for (const v of F[k] || []) {
-      let show = v;
-      if (k === 'sexes') show = S.facets?.labels?.sex?.[v] || v;
+      let show = v === 'Sin identificar' ? __(v) : v;
+      if (k === 'sexes') { const s = S.facets?.labels?.sex?.[v]; show = s ? __(s) : v; }
       if (k === 'rep_ids') {
         const s = (S.facets.speakers || []).find(x => String(x.rep_id) === String(v));
         show = s ? s.value : v;
@@ -7772,25 +8022,25 @@ function renderPills() {
 
   const per = F.period && typeof F.period === 'object' ? F.period : null;
   if (per) {
-    add(`Periodo: ${per.label || per.key}`, () => {
+    add(__('Periodo: {0}', per.label || per.key), () => {
       delete F.period; delete F.speech_ids;
       if (per.kind === 'dates') { delete F.date_from; delete F.date_to; }
     });
   }
-  if (F.date_from && per?.kind !== 'dates') add(`Desde ${F.date_from}`, () => delete F.date_from);
-  if (F.date_to && per?.kind !== 'dates') add(`Hasta ${F.date_to}`, () => delete F.date_to);
-  if (F.min_words) add(`≥${F.min_words} palabras`, () => delete F.min_words);
-  if (F.max_words) add(`≤${F.max_words} palabras`, () => delete F.max_words);
-  if (F.num_session) add(`Sesión ${F.num_session}`, () => delete F.num_session);
-  if (F.exclude_docs) add('Solo lo que se habla', () => delete F.exclude_docs);
+  if (F.date_from && per?.kind !== 'dates') add(__('Desde {0}', F.date_from), () => delete F.date_from);
+  if (F.date_to && per?.kind !== 'dates') add(__('Hasta {0}', F.date_to), () => delete F.date_to);
+  if (F.min_words) add(__('≥{0} palabras', F.min_words), () => delete F.min_words);
+  if (F.max_words) add(__('≤{0} palabras', F.max_words), () => delete F.max_words);
+  if (F.num_session) add(__('Sesión {0}', F.num_session), () => delete F.num_session);
+  if (F.exclude_docs) add(__('Solo lo que se habla'), () => delete F.exclude_docs);
   if (F.collection_id) {
     const c = S.collections.find(x => x.id == F.collection_id);
-    add(`En: ${c ? c.name : F.collection_id}`, () => delete F.collection_id);
+    add(__('En: {0}', c ? c.name : F.collection_id), () => delete F.collection_id);
   }
 
   box.hidden = !out.length;
   box.innerHTML = out.map((p, i) =>
-    `<span class="pill">${esc(p.txt)}<button data-pill="${i}" title="Quitar">×</button></span>`).join('');
+    `<span class="pill">${esc(p.txt)}<button data-pill="${i}" title="${esc(__('Quitar'))}">×</button></span>`).join('');
   box._fns = out.map(p => p.fn);
   updateSideRail();
 }
@@ -7850,7 +8100,7 @@ async function search(reset = false) {
     if (r.error) {
       toast(r.error, true);
       $('#hits').innerHTML = `<div class="empty"><div class="big">⚠</div>
-        <h3>No se pudo interpretar la consulta</h3><p>${esc(r.error)}</p></div>`;
+        <h3>${__('No se pudo interpretar la consulta')}</h3><p>${esc(r.error)}</p></div>`;
       S.results = []; S.total = 0; S.exhausted = true; S.lastMeta = null;
       $('#resultMeta').innerHTML = '<strong>0</strong>';
       $('#spectrum').hidden = true;
@@ -7875,7 +8125,7 @@ async function search(reset = false) {
 
       if (reset) {
         $('#hits').innerHTML = `<div class="empty"><div class="big">⚠</div>
-          <h3>No se pudo buscar</h3><p>${esc(e.message)}</p></div>`;
+          <h3>${__('No se pudo buscar')}</h3><p>${esc(e.message)}</p></div>`;
         S.results = []; S.total = 0; S.exhausted = true; S.lastMeta = null;
         $('#resultMeta').innerHTML = '<strong>0</strong>';
         $('#spectrum').hidden = true;
@@ -8014,7 +8264,7 @@ async function search(reset = false) {
 function renderMeta() {
 
   const r = S.lastMeta || {};
-  const interv = S.total === 1 ? 'intervención' : 'intervenciones';
+  const interv = S.total === 1 ? __('intervención') : __('intervenciones');
   let lab, extra = '';
 
 
@@ -8047,8 +8297,8 @@ function renderMeta() {
 
  if (r.mode === 'browse') {
     lab = interv;
-    extra = ` · ${S.ms} ms · sin texto de búsqueda`;
-    ayuda = 'Está navegando el corpus con los filtros activos, sin buscar texto.';
+    extra = ` · ${__('{0} ms · sin texto de búsqueda', S.ms)}`;
+    ayuda = __('Está navegando el corpus con los filtros activos, sin buscar texto.');
   } else if (r.mode === 'library' || r.mode === 'similar') {
     return;
   } else {
@@ -8071,14 +8321,14 @@ function renderMeta() {
 
 
 
-  $('#order').title = 'Ordenar';
+  $('#order').title = __('Ordenar');
 
 }
 
 function hitHTML(r) {
   const cols = S.membership[r.id] || [];
   const fam = r.session_type && r.session_type !== 'Sin identificar' && r.session_type !== 'ordinaria'
-    ? `<span class="tag fam" title="Tipo de sesión">${esc(r.session_type)}</span>` : '';
+    ? `<span class="tag fam" title="${esc(__('Tipo de sesión'))}">${esc(r.session_type)}</span>` : '';
   const par = r.party && r.party !== 'Sin identificar'
     ? `<span class="tag">${esc(r.party)}</span>` : '';
 
@@ -8102,12 +8352,12 @@ function hitHTML(r) {
     <div class="hit-top">
       <span class="hit-name">${esc(docr ? DOC_NOMBRE[docr]
         : (r.rep_name && r.rep_name !== 'Sin identificar' ? r.rep_name : r.speaker))}</span>
-      <span class="hit-date">${esc(r.date)}${r.session_number ? ` · ses. ${esc(r.session_number)}` : (r.num_session ? ` · ses. ${r.num_session}` : '')}</span>
-      ${cols.length ? `<span class="inlib" title="Está en ${cols.length} biblioteca(s)">◆</span>` : ''}
+      <span class="hit-date">${esc(r.date)}${r.session_number ? ` · ${__('ses. {0}', esc(r.session_number))}` : (r.num_session ? ` · ${__('ses. {0}', r.num_session)}` : '')}</span>
+      ${cols.length ? `<span class="inlib" title="${esc(__('Está en {0} biblioteca(s)', cols.length))}">◆</span>` : ''}
     </div>
     <div class="hit-snip${pasaje ? ' sem' : ''}">${snip}</div>
     <div class="hit-foot">${prov}${fam}${par}
-      <span class="tag words">${nf(r.nwords)} pal.</span><span class="clima-slot">${climaHTML(r.climate, r.climate_units)}</span>${sc}</div>
+      <span class="tag words">${__('{0} pal.', nf(r.nwords))}</span><span class="clima-slot">${climaHTML(r.climate, r.climate_units)}</span>${sc}</div>
   </article>`;
 }
 
@@ -8150,12 +8400,12 @@ function renderHits(reset, nuevas = []) {
 
 
     box.innerHTML = `<div class="empty"><div class="big">⌕</div>
-      <h3>Sin resultados</h3><p>Pruebe con otras palabras o quite algún filtro.</p></div>`;
+      <h3>${__('Sin resultados')}</h3><p>${__('Pruebe con otras palabras o quite algún filtro.')}</p></div>`;
 
     return;
   }
   const tail = S.exhausted
-    ? `<div class="empty" style="padding:22px"><p>Fin de los resultados.</p></div>`
+    ? `<div class="empty" style="padding:22px"><p>${__('Fin de los resultados.')}</p></div>`
     : `<div id="sentinel" class="empty" style="padding:18px"><span class="spin"></span></div>`;
 
   if (reset) {
@@ -8182,7 +8432,7 @@ function refreshHitMarkers() {
     const mark = top.querySelector('.inlib');
     if (has && !mark) {
       top.insertAdjacentHTML('beforeend',
-        '<span class="inlib" title="Esta en una biblioteca">\u25c6</span>');
+        `<span class="inlib" title="${esc(__('Esta en una biblioteca'))}">\u25c6</span>`);
     } else if (!has && mark) mark.remove();
   }
 }
@@ -8231,7 +8481,7 @@ async function openSpeech(id, { mode } = {}) {
 
 
 function setReadMode(m) {
-  if (!S.selected) { toast('Abra primero una intervención.'); return; }
+  if (!S.selected) { toast(__('Abra primero una intervención.')); return; }
   $('#app').classList.remove('no-reader');
   if (m === 'careo') { enterCareo(S.selected); return; }
   if (S.readMode === 'careo') {
@@ -8258,20 +8508,20 @@ function setReadMode(m) {
 
 function kickerText(m, d) {
   if (m && m.has_meta) {
-    let k = [m.cortes, m.sigla && m.diario_num != null ? `${m.sigla} núm. ${m.diario_num}` : '']
+    let k = [m.cortes, m.sigla && m.diario_num != null ? __('{0} núm. {1}', m.sigla, m.diario_num) : '']
       .filter(Boolean).join(' · ');
 
-    if (m.page_start != null && m.page_end != null) k += ` (págs. ${m.page_start}–${m.page_end})`;
+    if (m.page_start != null && m.page_end != null) k += ` ${__('(págs. {0}–{1})', m.page_start, m.page_end)}`;
     if (k) return k;
   }
-  return ['Diario de sesiones', d.legislature ? `Legislatura ${d.legislature}` : '', d.legislative_session ? d.legislative_session : '']
+  return [__('Diario de sesiones'), d.legislature ? __('Legislatura {0}', d.legislature) : '', d.legislative_session ? d.legislative_session : '']
     .filter(Boolean).join(' · ');
 }
 
 function presidenciaText(m) {
   const p = m && m.presidente;
   const nombre = p && (p.nombre || p.corto);
-  return nombre ? `Presidencia de D. ${nombre}` : '';
+  return nombre ? __('Presidencia de D. {0}', nombre) : '';
 }
 
 
@@ -8283,12 +8533,14 @@ function warningsHTML(warnings, sw, cls = 'folio-warn') {
     if (sw.tipo === 'double_sitting') tapados.add('double_sitting');
     if (sw.tipo === 'date_error') tapados.add('date_corrected');
     const dudosa = sw.dudosa ?? true;
+    const otras = (sw.otros || []).map(n => `<b>${esc(n)}</b>`).join(', ');
     const extra = (!sw.tipo || sw.tipo === 'unverified') && (sw.otros || []).length
-      ? ` En esta fecha el corpus también registra ${sw.otros.length === 1 ? 'la sesión' : 'las sesiones'} `
-        + sw.otros.map(n => `<b>${esc(n)}</b>`).join(', ') + '.'
+      ? ' ' + (sw.otros.length === 1
+        ? __('En esta fecha el corpus también registra la sesión {0}.', otras)
+        : __('En esta fecha el corpus también registra las sesiones {0}.', otras))
       : '';
     out.push(`<div class="${cls} ${dudosa ? 'warn' : 'info'}"><b>${dudosa ? '⚠ ' : ''}`
-      + `${esc(sw.titulo || 'Número de sesión dudoso')}.</b> ${esc(sw.mensaje)}${extra}</div>`);
+      + `${esc(sw.titulo || __('Número de sesión dudoso'))}.</b> ${esc(sw.mensaje)}${extra}</div>`);
   }
   for (const w of warnings || []) {
     if (tapados.has(w.code)) continue;
@@ -8296,13 +8548,15 @@ function warningsHTML(warnings, sw, cls = 'folio-warn') {
 
 
     if (w.code === 'truncated_end' && w.affects_speech === false) {
-      const tramo = w.official_order_from != null
-        ? ` (órdenes ${nf(w.official_order_from)}–${nf(w.official_order_to)})` : '';
-      out.push(`<div class="${cls} note" title="${esc(w.message)}">ℹ︎ El acta digitalizada de esta sesión termina incompleta${esc(tramo)}. Esta intervención no está afectada.</div>`);
+      const aviso = w.official_order_from != null
+        ? __('El acta digitalizada de esta sesión termina incompleta (órdenes {0}–{1}). Esta intervención no está afectada.',
+          nf(w.official_order_from), nf(w.official_order_to))
+        : __('El acta digitalizada de esta sesión termina incompleta. Esta intervención no está afectada.');
+      out.push(`<div class="${cls} note" title="${esc(w.message)}">ℹ︎ ${esc(aviso)}</div>`);
       continue;
     }
     const grave = w.severity === 'warning';
-    const afecta = w.affects_speech ? ' <b>Esta intervención está en el tramo afectado.</b>' : '';
+    const afecta = w.affects_speech ? ` <b>${__('Esta intervención está en el tramo afectado.')}</b>` : '';
     out.push(`<div class="${cls} ${grave ? 'warn' : 'info'}">${grave ? '⚠ ' : 'ℹ︎ '}${esc(w.message)}${afecta}</div>`);
   }
   return out.join('');
@@ -8321,17 +8575,17 @@ function threadHTML(d) {
       : chair ? (c.speaker_label || c.speaker)
       : (ident(c.rep_name) ? c.rep_name : (c.speaker_label || c.speaker));
     let aparte;
-    if (c.is_current) aparte = '<em>Intervención abierta</em>';
+    if (c.is_current) aparte = `<em>${__('Intervención abierta')}</em>`;
     else if ((c.nwords ?? 0) <= 15 && c.preview) aparte = `«${esc(recorta(c.preview.trim(), 70))}»`;
-    else aparte = esc([ident(c.party) && !chair ? c.party : '', `${nf(c.nwords)} pal.`].filter(Boolean).join(' · '));
+    else aparte = esc([ident(c.party) && !chair ? c.party : '', __('{0} pal.', nf(c.nwords))].filter(Boolean).join(' · '));
     const attrs = c.is_current ? '' : ` data-goto="${c.id}" role="button" tabindex="0"`;
     return `<div class="thread-row${c.is_current ? ' cur' : ''}"${attrs}>`
-      + `<span class="thread-ord">Orden ${esc(c.official_order ?? '—')}</span>`
+      + `<span class="thread-ord">${__('Orden {0}', esc(c.official_order ?? '—'))}</span>`
       + `<span class="thread-name" title="${esc(c.speaker)}">${esc(nombre)}</span>`
       + `<span class="thread-aside">${aparte}</span></div>`;
   }).join('');
-  return `<div class="thread"><h4>Hilo continuo de la sesión${fecha ? ` (${esc(fecha)})` : ''}</h4>${filas}
-    <div class="thread-row thread-more" data-session="${d.id}" role="button" tabindex="0">Leer la sesión corrida completa · ${nf(total)} intervenciones →</div></div>`;
+  return `<div class="thread"><h4>${fecha ? __('Hilo continuo de la sesión ({0})', esc(fecha)) : __('Hilo continuo de la sesión')}</h4>${filas}
+    <div class="thread-row thread-more" data-session="${d.id}" role="button" tabindex="0">${__('Leer la sesión corrida completa · {0} intervenciones →', nf(total))}</div></div>`;
 }
 
 
@@ -8353,15 +8607,16 @@ function renderReader(d, { restore = false } = {}) {
 
   const rawDiff = '';
   const orden = d.official_order != null
-    ? `<span class="tag">Orden ${nf(d.official_order)}${d.position?.of ? ` de ${nf(d.position.of)}` : ''}</span>` : '';
+    ? `<span class="tag">${d.position?.of ? __('Orden {0} de {1}', nf(d.official_order), nf(d.position.of)) : __('Orden {0}', nf(d.official_order))}</span>` : '';
   const gobierno = m?.gobierno?.nombre
     ? `<span${typeof m.gobierno.legitimidad_discutida === 'string' ? ` title="${esc(m.gobierno.legitimidad_discutida)}"` : ''}>${esc(m.gobierno.nombre)}</span>` : '';
+  const tipoSes = d.session_type && d.session_type !== 'Sin identificar' ? esc(d.session_type) : '';
   const gov = [presidenciaText(m) ? esc(presidenciaText(m)) : '', gobierno,
-    d.session_number != null && d.session_number !== '' ? `Sesión ${esc(d.session_type && d.session_type !== 'Sin identificar' ? d.session_type + ' ' : '')}núm. ${esc(d.session_number)}`
-      : (d.num_session != null ? `Sesión ${esc(d.session_type && d.session_type !== 'Sin identificar' ? d.session_type + ' ' : '')}(${esc(d.num_session)} del corpus)` : ''),
+    d.session_number != null && d.session_number !== '' ? (tipoSes ? __('Sesión {0} núm. {1}', tipoSes, esc(d.session_number)) : __('Sesión núm. {0}', esc(d.session_number)))
+      : (d.num_session != null ? (tipoSes ? __('Sesión {0} ({1} del corpus)', tipoSes, esc(d.num_session)) : __('Sesión ({0} del corpus)', esc(d.num_session))) : ''),
     esc(fechaLarga(m?.date_real || d.date))].filter(Boolean).join(' · ');
   const docr = docRole(d) || (DOC_ROLES.has(sp.role) ? sp.role : null);
-  const titulo = docr ? DOC_NOMBRE[docr] : (d.speaker_label || sp.label || d.speaker);
+  const titulo = docr ? __(DOC_NOMBRE[docr]) : (d.speaker_label || sp.label || d.speaker);
 
   $('#reader').innerHTML = `<article class="folio${docr ? ` folio-doc doc-${docr}` : ''}" data-id="${d.id}">
     <div class="folio-kicker">${esc(kickerText(m, d))}</div>
@@ -8371,19 +8626,19 @@ function renderReader(d, { restore = false } = {}) {
     <div class="folio-gov">${gov}</div>
     <div class="folio-rule"></div>
     <div class="folio-tags">
-      ${chair ? `<span class="tag or">Presidencia · ${esc(sp.name || m?.presidente?.corto || '')}</span>` : ''}
-      ${ident(d.party) ? `<span class="tag" title="Partido">${esc(d.party)}</span>` : ''}${rawDiff}
+      ${chair ? `<span class="tag or">${__('Presidencia · {0}', esc(sp.name || m?.presidente?.corto || ''))}</span>` : ''}
+      ${ident(d.party) ? `<span class="tag" title="${__('Partido')}">${esc(d.party)}</span>` : ''}${rawDiff}
       ${sexoTag(d.sex)}
-      ${ident(d.district) ? `<span class="tag" title="Distrito">${esc(d.district)}</span>` : ''}
-      <span class="tag words">${nf(d.nwords)} palabras</span>
+      ${ident(d.district) ? `<span class="tag" title="${__('Distrito')}">${esc(d.district)}</span>` : ''}
+      <span class="tag words">${__('{0} palabras', nf(d.nwords))}</span>
       ${orden}
-      ${d.legislature ? `<span class="tag">Legislatura ${esc(d.legislature)}</span>` : ''}
+      ${d.legislature ? `<span class="tag">${__('Legislatura {0}', esc(d.legislature))}</span>` : ''}
       ${cols.map(c => `<span class="tag sem">◆ ${esc(c.name)}</span>`).join('')}
     </div>
     ${docr ? `<div class="consta doc"><b>${docr === 'summary'
-      ? 'Encabezado y sumario de la sesión: texto sin orador que el Diario imprime antes de la primera intervención.'
-      : 'Texto sin orador: material que el Diario imprime dentro del acta (anexos, listas de votación, resultados).'}</b></div>`
-      : `<div class="consta"><b>Consta en el diario como:</b> ${esc(d.speaker)}</div>`}
+      ? __('Encabezado y sumario de la sesión: texto sin orador que el Diario imprime antes de la primera intervención.')
+      : __('Texto sin orador: material que el Diario imprime dentro del acta (anexos, listas de votación, resultados).')}</b></div>`
+      : `<div class="consta">${__('<b>Consta en el diario como:</b> {0}', esc(d.speaker))}</div>`}
     ${warningsHTML(d.warnings, d.session_warning)}
     ${
  '' }
@@ -8427,7 +8682,7 @@ function sessionTerms() {
 }
 
 function sessShortName(h) {
-  if (docRole(h)) return DOC_NOMBRE[docRole(h)];
+  if (docRole(h)) return __(DOC_NOMBRE[docRole(h)]);
   if (CHAIR_ROLES.has(h.role)) return h.speaker_label || h.speaker || '';
   return (h.speaker_title || h.speaker_label || h.speaker || '')
     .replace(/^(El|La|Los|Las|Un|Una|Unos|Varios|Otros|Algunos)\s+(señor(?:a|ita|es|as)?|Sr\.|Sra\.|Srta\.|Sres\.)\s+/i, '');
@@ -8451,19 +8706,20 @@ function sessTramos(o, desde, hasta) {
 function sessBannerHTML(o) {
   const m = o.session_meta || {};
   const t = o.totals || {};
-  const tipo = o.session_type && o.session_type !== 'Sin identificar' ? `${o.session_type} ` : '';
-  const diario = m.has_meta && m.diario_num != null ? `Diario de Sesiones núm. ${m.diario_num}`
-    : (o.session_number ? `Sesión ${tipo}núm. ${o.session_number}` : (o.num_session != null ? `Sesión ${tipo}${o.num_session} del corpus` : 'Sesión'));
-  const pags = m.page_start != null && m.page_end != null ? `págs. ${m.page_start}–${m.page_end}` : '';
+  const tipo = o.session_type && o.session_type !== 'Sin identificar' ? o.session_type : '';
+  const diario = m.has_meta && m.diario_num != null ? __('Diario de Sesiones núm. {0}', m.diario_num)
+    : (o.session_number ? (tipo ? __('Sesión {0} núm. {1}', tipo, o.session_number) : __('Sesión núm. {0}', o.session_number))
+      : (o.num_session != null ? (tipo ? __('Sesión {0} {1} del corpus', tipo, o.num_session) : __('Sesión {0} del corpus', o.num_session)) : __('Sesión')));
+  const pags = m.page_start != null && m.page_end != null ? __('págs. {0}–{1}', m.page_start, m.page_end) : '';
   const pres = m.presidente && (m.presidente.nombre || m.presidente.corto)
-    ? `Presidencia: D. ${m.presidente.nombre || m.presidente.corto}` : '';
+    ? __('Presidencia: D. {0}', m.presidente.nombre || m.presidente.corto) : '';
   const linea = [m.cortes, fechaLarga(m.date_real || o.date), pags, pres, m.gobierno?.nombre,
-    o.legislature ? `Legislatura ${o.legislature}` : '', o.legislative_session || '']
+    o.legislature ? __('Legislatura {0}', o.legislature) : '', o.legislative_session || '']
     .filter(Boolean).map(esc).join(' · ');
   return `<div class="sess-banner">
-    <div class="sess-banner-t">Sesión corrida íntegra · ${esc(diario)}</div>
-    <div class="sess-banner-n"><b>${nf(t.n_speeches)} intervenciones íntegras · ${nf(t.n_words)} palabras</b>
-      · Discurso activo: <b data-sess-active>—</b></div>
+    <div class="sess-banner-t">${__('Sesión corrida íntegra · {0}', esc(diario))}</div>
+    <div class="sess-banner-n"><b>${__('{0} intervenciones íntegras · {1} palabras', nf(t.n_speeches), nf(t.n_words))}</b>
+      · ${__('Discurso activo:')} <b data-sess-active>—</b></div>
     <div>${linea}</div>
     ${warningsHTML(o.warnings, o.session_warning, 'sess-warn')}
   </div>`;
@@ -8476,22 +8732,23 @@ function sessBlockHTML(h, i, o) {
 
 
   const chip = docr
-    ? `<span class="tag doc">${esc(DOC_NOMBRE[docr])}</span>`
+    ? `<span class="tag doc">${esc(__(DOC_NOMBRE[docr]))}</span>`
     : chair
-    ? `<span class="tag or">Presidencia · ${esc(h.chair_name || m.presidente?.corto || '')}</span>`
-    : [ident(h.party) ? `<span class="tag" title="Partido">${esc(h.party)}</span>` : '',
+    ? `<span class="tag or">${__('Presidencia · {0}', esc(h.chair_name || m.presidente?.corto || ''))}</span>`
+    : [ident(h.party) ? `<span class="tag" title="${__('Partido')}">${esc(h.party)}</span>` : '',
        sexoTag(h.sex),
-       ident(h.district) ? `<span class="tag" title="Distrito">${esc(h.district)}</span>` : ''].join('');
+       ident(h.district) ? `<span class="tag" title="${__('Distrito')}">${esc(h.district)}</span>` : ''].join('');
   const num = m.diario_num ?? o.session_number ?? o.num_session;
-  const sig = `${m.sigla || 'Sesión'}${num != null ? ` núm. ${num}` : ''}`;
+  const sigla = m.sigla || __('Sesión');
+  const sig = num != null ? __('{0} núm. {1}', sigla, num) : sigla;
   const quien = ident(h.rep_name) ? ` title="${esc(h.rep_name)}"` : '';
   const lineas = Math.min(3, Math.max(1, Math.ceil((h.nwords || 1) / 45)));
   const ghosts = Array.from({ length: lineas }, (_, k) =>
     `<div class="sess-ghost${k === lineas - 1 && lineas > 1 ? ' short' : ''}"></div>`).join('');
   return `<section class="sess-block${docr ? ` doc doc-${docr}` : ''}" id="sb-${h.id}" data-idx="${i}" data-sid="${h.id}">
-    <div class="sess-head"><span class="sess-name"${quien}>${esc(docr ? DOC_NOMBRE[docr] : (h.speaker_title || h.speaker_label || h.speaker))}
-      <em>(Orden ${esc(h.official_order ?? '—')})</em></span><span class="sess-sig">${esc(sig)}</span>
-      <button class="btn sm" data-solo="${h.id}" title="Abrir esta intervención sola">Ver solo este</button>
+    <div class="sess-head"><span class="sess-name"${quien}>${esc(docr ? __(DOC_NOMBRE[docr]) : (h.speaker_title || h.speaker_label || h.speaker))}
+      <em>(${__('Orden {0}', esc(h.official_order ?? '—'))})</em></span><span class="sess-sig">${esc(sig)}</span>
+      <button class="btn sm" data-solo="${h.id}" title="${__('Abrir esta intervención sola')}">${__('Ver solo este')}</button>
       ${chip ? `<div class="sess-tags">${chip}</div>` : ''}</div>
     <div class="sess-body ph">${ghosts}</div></section>`;
 }
@@ -8630,7 +8887,8 @@ function cabeceraSinCortes(raiz) {
   for (const k of raiz?.querySelectorAll('.folio-kicker') || []) {
     for (const n of [...k.childNodes]) {
       if (n.nodeType !== 3) continue;
-      const m = /págs\.\s\d+–\d+/.exec(n.nodeValue);
+      // «págs. 12–14» o «pp. 12–14»: la abreviatura depende de la lengua
+      const m = /[^\s\d()]+\.?\s\d+–\d+/.exec(n.nodeValue);
       if (!m) continue;
       const medio = n.splitText(m.index);
       medio.splitText(m[0].length);
@@ -8937,8 +9195,8 @@ function sessFetch(s, ia, ib) {
       if (e.name === 'AbortError' || S.session !== s) return;
       for (const id of ids) {
         const body = s.blocks[s.byId.get(id)]?.querySelector('.sess-body');
-        if (body) body.innerHTML = `<p class="sess-err">No se pudo cargar: ${esc(e.message)}
-          <button class="linkbtn" data-sess-retry="${s.byId.get(id)}">Reintentar</button></p>`;
+        if (body) body.innerHTML = `<p class="sess-err">${__('No se pudo cargar: {0}', esc(e.message))}
+          <button class="linkbtn" data-sess-retry="${s.byId.get(id)}">${__('Reintentar')}</button></p>`;
       }
     })
     .finally(() => { for (const id of ids) if (s.pendingP.get(id) === p) s.pendingP.delete(id); });
@@ -9043,7 +9301,7 @@ function sessSetRef(s, refId) {
     }
     blk.classList.add('sess-ref');
     blk.querySelector('.sess-sig').insertAdjacentHTML('beforebegin',
-      '<span class="tag star sess-star">★ Intervención de referencia</span>');
+      `<span class="tag star sess-star">★ ${__('Intervención de referencia')}</span>`);
     tocados.push(blk);
 
     sessMeasure(tocados.filter(b => b.classList.contains('loaded')));
@@ -9051,7 +9309,7 @@ function sessSetRef(s, refId) {
   s.refId = refId;
   const h = s.outline.speeches[i];
   const act = s.root.querySelector('[data-sess-active]');
-  if (act) act.textContent = `#${h.official_order ?? h.index} de ${nf(s.outline.totals?.n_speeches ?? s.outline.speeches.length)}`;
+  if (act) act.textContent = __('#{0} de {1}', h.official_order ?? h.index, nf(s.outline.totals?.n_speeches ?? s.outline.speeches.length));
 }
 
 function sessScrollTo(s, idx) {
@@ -9126,13 +9384,13 @@ function temaRepinta() {
 function temaRotulo(k) {
   const r = S.coo && S.coo.data, c = r && (r.comunidades || [])[k];
   if (!c) return null;
-  const dec = v => (v == null ? null : String(v).replace('.', ','));
+  const dec = v => (v == null ? null : __.dec(v));
   const m = [];
-  if (c.peso != null) m.push(`peso ${dec(c.peso)} %`);
-  if (c.porcentaje != null) m.push(`alcance ${dec(c.porcentaje)} %`);
-  if (c.intervenciones != null) m.push(`${nf(c.intervenciones)} intervenciones`);
-  if (c.n_terminos != null) m.push(`${nf(c.n_terminos)} términos`);
-  if (c.g2_medio != null) m.push(`G² medio ${nf(Math.round(c.g2_medio))}`);
+  if (c.peso != null) m.push(__('peso {0} %', dec(c.peso)));
+  if (c.porcentaje != null) m.push(__('alcance {0} %', dec(c.porcentaje)));
+  if (c.intervenciones != null) m.push(__('{0} intervenciones', nf(c.intervenciones)));
+  if (c.n_terminos != null) m.push(__('{0} términos', nf(c.n_terminos)));
+  if (c.g2_medio != null) m.push(__('G² medio {0}', nf(Math.round(c.g2_medio))));
   return { n: k + 1, etq: c.etiqueta, med: m.join(' · '),
            cabeza: (c.terminos || []).slice(0, 3).map(t => t.display).join(', ') };
 }
@@ -9193,11 +9451,11 @@ function updateReadHead() {
   if (!ok) return;
   const i = s.byId.get(s.refId);
   const h = s.outline.speeches[i];
-  $('#sessRef').textContent = `🎯 Ir a la referencia (#${h?.official_order ?? '—'})`;
+  $('#sessRef').textContent = __('🎯 Ir a la referencia (#{0})', h?.official_order ?? '—');
   const sel = $('#sessJump');
   if (sel._for !== s) {
     sel.innerHTML = s.outline.speeches.map((x, k) =>
-      `<option value="${k}">Orden ${esc(x.official_order ?? x.index)} · ${esc(sessShortName(x))}</option>`).join('');
+      `<option value="${k}">${__('Orden {0}', esc(x.official_order ?? x.index))} · ${esc(sessShortName(x))}</option>`).join('');
     sel._for = s;
   }
   if (i != null) sel.value = String(i);
@@ -9272,7 +9530,7 @@ function leaveCareo() {
 
 function toggleCareo() {
   if (S.readMode === 'careo') { setReadMode('speech'); return; }
-  if (!S.selected) { toast('Abra primero una intervención.'); return; }
+  if (!S.selected) { toast(__('Abra primero una intervención.')); return; }
   enterCareo(S.selected);
 }
 
@@ -9311,14 +9569,14 @@ function careoWho(x) { return sessShortName(x) || x.label || x.speaker || ''; }
 
 function careoCandTitle(x) {
   return [ident(x.rep_name) ? x.rep_name : (x.speaker_label || x.speaker),
-    `${fechaLarga(x.date)} · sesión ${x.num_session ?? '—'} · orden ${x.official_order ?? '—'} · ${nf(x.nwords)} palabras`,
+    __('{0} · sesión {1} · orden {2} · {3} palabras', fechaLarga(x.date), x.num_session ?? '—', x.official_order ?? '—', nf(x.nwords)),
     ...(x.reasons || []).map(r => `· ${r}`)].filter(Boolean).join('\n');
 }
 
 function careoOptLabel(x) {
   const cab = S.careo.mode === 'diachronic'
-    ? `${fechaCorta(x.date)} · Orden ${x.official_order ?? '—'}`
-    : `Réplica: ${careoWho(x)} · Orden ${x.official_order ?? '—'}`;
+    ? `${fechaCorta(x.date)} · ${__('Orden {0}', x.official_order ?? '—')}`
+    : __('Réplica: {0} · Orden {1}', careoWho(x), x.official_order ?? '—');
   const m = (x.reasons || [])[0];
   const t = m ? `${cab} — ${m}` : cab;
   return t.length > 78 ? `${t.slice(0, 77)}…` : t;
@@ -9326,8 +9584,8 @@ function careoOptLabel(x) {
 
 function careoCandInner(x) {
   const cab = S.careo.mode === 'diachronic'
-    ? `<b>${esc(fechaCorta(x.date))}</b> · ses. ${esc(x.num_session ?? '—')} · Orden ${esc(x.official_order ?? '—')}`
-    : `<b>${esc(careoWho(x))}</b> · Orden ${esc(x.official_order ?? '—')}`;
+    ? `<b>${esc(fechaCorta(x.date))}</b> · ${__('ses. {0} · Orden {1}', esc(x.num_session ?? '—'), esc(x.official_order ?? '—'))}`
+    : `<b>${esc(careoWho(x))}</b> · ${__('Orden {0}', esc(x.official_order ?? '—'))}`;
   const motivos = (x.reasons || []).slice(0, 2).map(esc).join(' · ');
   return cab + (motivos ? ` <span class="careo-why">· ${motivos}</span>` : '');
 }
@@ -9336,7 +9594,7 @@ function careoCandInner(x) {
 function careoHead() {
   const en = S.readMode === 'careo', C = S.careo;
   const tit = $('#readTitle');
-  if (tit) tit.textContent = en ? 'Careo' : 'Intervención';
+  if (tit) tit.textContent = en ? __('Careo') : __('Intervención');
   $('#careoModes').hidden = !en;
   $('#careoTools').hidden = !en;
   $('#careoBtn').setAttribute('aria-pressed', String(en));
@@ -9345,8 +9603,8 @@ function careoHead() {
   const res = C.res[C.mode], sel = $('#careoPick');
   const xs = res?.results || [];
   if (!xs.length) {
-    sel.innerHTML = `<option>${C.err[C.mode] ? 'Sin datos' : !res ? 'Buscando réplicas…' : 'Sin réplicas propuestas'}</option>`;
-    sel._key = null; sel.disabled = true; sel.title = 'Réplica propuesta (heurística)';
+    sel.innerHTML = `<option>${C.err[C.mode] ? __('Sin datos') : !res ? __('Buscando réplicas…') : __('Sin réplicas propuestas')}</option>`;
+    sel._key = null; sel.disabled = true; sel.title = __('Réplica propuesta (heurística)');
   } else {
     const key = `${C.refId}|${C.mode}`;
     if (sel._key !== key) {
@@ -9356,7 +9614,7 @@ function careoHead() {
     const pick = careoPickId();
     sel.disabled = false; sel.value = String(pick);
     const cand = xs.find(x => x.id === pick);
-    sel.title = cand ? `Réplica propuesta (heurística)\n${careoCandTitle(cand)}` : '';
+    sel.title = cand ? `${__('Réplica propuesta (heurística)')}\n${careoCandTitle(cand)}` : '';
   }
   $('#careoSwap').disabled = !xs.length;
 }
@@ -9364,14 +9622,14 @@ function careoHead() {
 function careoBarHTML(res) {
   const C = S.careo;
   const heur = `<span class="tag careo-heur" title="${esc(res?.note
-    || 'Las réplicas se proponen con una heurística: no prueban que exista un diálogo.')}">heurística</span>`;
+    || __('Las réplicas se proponen con una heurística: no prueban que exista un diálogo.'))}">${__('heurística')}</span>`;
   let body;
   if (C.err[C.mode]) {
-    body = `<span class="careo-msg err">⚠ ${esc(C.err[C.mode])}</span> <button class="linkbtn" data-careo-retry>Reintentar</button>`;
+    body = `<span class="careo-msg err">⚠ ${esc(C.err[C.mode])}</span> <button class="linkbtn" data-careo-retry>${__('Reintentar')}</button>`;
   } else if (!res) {
-    body = `<span class="careo-msg"><span class="spin"></span> Buscando réplicas…</span>`;
+    body = `<span class="careo-msg"><span class="spin"></span> ${__('Buscando réplicas…')}</span>`;
   } else if (!res.results?.length) {
-    body = `<span class="careo-msg">Sin réplicas propuestas.</span>`;
+    body = `<span class="careo-msg">${__('Sin réplicas propuestas.')}</span>`;
   } else {
     const pick = careoPickId();
     body = res.results.map(x => `<button type="button" class="careo-cand" data-careo-pick="${x.id}"`
@@ -9379,7 +9637,7 @@ function careoBarHTML(res) {
   }
   const nota = res?.note && res.results?.length ? `<div class="careo-note">${esc(res.note)}</div>` : '';
   const avisos = (res?.warnings || []).map(w => `<div class="careo-note warn">⚠ ${esc(w.message || w.code)}</div>`).join('');
-  const titulo = C.mode === 'diachronic' ? 'Otras intervenciones del mismo diputado' : 'Réplicas propuestas';
+  const titulo = C.mode === 'diachronic' ? __('Otras intervenciones del mismo diputado') : __('Réplicas propuestas');
   return `<div class="careo-bar"><span class="careo-bar-t">${titulo}</span>${heur}${body}${nota}${avisos}</div>`;
 }
 
@@ -9389,13 +9647,13 @@ function careoFolioHTML(d, rol, cand) {
   const doc = d.doc || plainDoc(d.speech);
   const sp = doc.speaker || {};
   const chair = CHAIR_ROLES.has(d.role) || sp.is_chair;
-  const diario = m?.has_meta && m.diario_num != null ? `${m.sigla || 'DS'} núm. ${m.diario_num}`
-    : (d.session_number ? `Sesión núm. ${d.session_number}` : (d.num_session != null ? `Sesión ${d.num_session} del corpus` : ''));
+  const diario = m?.has_meta && m.diario_num != null ? __('{0} núm. {1}', m.sigla || 'DS', m.diario_num)
+    : (d.session_number ? __('Sesión núm. {0}', d.session_number) : (d.num_session != null ? __('Sesión {0} del corpus', d.num_session) : ''));
   const kicker = [diario, fechaCorta(m?.date_real || d.date),
-    d.official_order != null ? `Orden ${d.official_order}` : ''].filter(Boolean).join(' · ');
-  const datos = [chair ? `Presidencia · ${sp.name || m?.presidente?.corto || ''}` : '',
-    !chair && ident(d.party) ? d.party : '', !chair && ident(d.sex) ? (S.facets?.labels?.sex?.[d.sex] || d.sex) : '',
-    !chair && ident(d.district) ? d.district : '', `${nf(d.nwords)} palabras`].filter(Boolean).join(' · ');
+    d.official_order != null ? __('Orden {0}', d.official_order) : ''].filter(Boolean).join(' · ');
+  const datos = [chair ? __('Presidencia · {0}', sp.name || m?.presidente?.corto || '') : '',
+    !chair && ident(d.party) ? d.party : '', !chair && ident(d.sex) ? __(S.facets?.labels?.sex?.[d.sex] || d.sex) : '',
+    !chair && ident(d.district) ? d.district : '', __('{0} palabras', nf(d.nwords))].filter(Boolean).join(' · ');
   let span = null;
 
 
@@ -9428,30 +9686,30 @@ function careoFolioHTML(d, rol, cand) {
 function careoColHTML(rol, id, d, cand = null, res = null) {
   const C = S.careo;
   const wrap = inner => `<section class="careo-col" data-col-id="${rol}-${id ?? 'x'}"`
-    + ` aria-label="${rol === 'ref' ? 'Intervención de referencia' : 'Réplica propuesta'}">${inner}</section>`;
+    + ` aria-label="${rol === 'ref' ? __('Intervención de referencia') : __('Réplica propuesta')}">${inner}</section>`;
   if (rol === 'rep') {
     if (C.err[C.mode]) return wrap(`<div class="empty"><div class="big">⚠</div><p>${esc(C.err[C.mode])}</p></div>`);
     if (!res) return wrap(`<div class="empty"><span class="spin"></span></div>`);
     if (id == null) {
       const otro = C.mode === 'synchronic' ? 'diachronic' : 'synchronic';
       const porque = C.mode === 'synchronic'
-        ? 'No hay en esta sesión otras intervenciones que puedan ser réplica (de 45 palabras o más y fuera de la Presidencia).'
-        : (res.note || 'No hay otras intervenciones de este diputado que comparar.');
-      return wrap(`<div class="empty careo-empty"><div class="big">⚔</div><h3>Sin réplicas propuestas</h3>
+        ? __('No hay en esta sesión otras intervenciones que puedan ser réplica (de 45 palabras o más y fuera de la Presidencia).')
+        : (res.note || __('No hay otras intervenciones de este diputado que comparar.'));
+      return wrap(`<div class="empty careo-empty"><div class="big">⚔</div><h3>${__('Sin réplicas propuestas')}</h3>
         <p>${esc(porque)}</p>
-        <p style="margin-top:12px"><button class="btn sm" data-careo-mode="${otro}">Probar «${
-          otro === 'diachronic' ? 'Mismo diputado' : 'Misma sesión'}»</button></p></div>`);
+        <p style="margin-top:12px"><button class="btn sm" data-careo-mode="${otro}">${__('Probar «{0}»',
+          otro === 'diachronic' ? __('Mismo diputado') : __('Misma sesión'))}</button></p></div>`);
     }
   }
   const head = `<div class="careo-colhead">${rol === 'ref'
-      ? '<span class="tag star">★ Referencia</span>'
-      : `<span class="tag careo-rep" title="${esc(cand ? careoCandTitle(cand) : '')}">Réplica propuesta</span>`}
+      ? `<span class="tag star">★ ${__('Referencia')}</span>`
+      : `<span class="tag careo-rep" title="${esc(cand ? careoCandTitle(cand) : '')}">${__('Réplica propuesta')}</span>`}
     <span class="grow"></span>
-    <button class="btn sm" data-careo-open="${id}" title="Abrir esta intervención sola en el lector">Abrir en el lector</button>
-    <button class="btn sm" data-careo-session="${id}" title="Leer toda su sesión seguida, con esta intervención marcada">📖 Sesión corrida</button></div>`;
+    <button class="btn sm" data-careo-open="${id}" title="${__('Abrir esta intervención sola en el lector')}">${__('Abrir en el lector')}</button>
+    <button class="btn sm" data-careo-session="${id}" title="${__('Leer toda su sesión seguida, con esta intervención marcada')}">📖 ${__('Sesión corrida')}</button></div>`;
   if (C.err[id]) {
     return wrap(head + `<div class="empty"><div class="big">⚠</div><p>${esc(C.err[id])}</p>
-      <p><button class="linkbtn" data-careo-retry>Reintentar</button></p></div>`);
+      <p><button class="linkbtn" data-careo-retry>${__('Reintentar')}</button></p></div>`);
   }
   if (!d) return wrap(head + `<div class="empty"><span class="spin"></span></div>`);
   return wrap(head + careoFolioHTML(d, rol, cand));
@@ -9636,7 +9894,7 @@ function setView(v, { refresh = true } = {}) {
 
   listHead();
   if (v === 'search') {
-    $('#sideTitle').textContent = 'Filtros'; renderFilters();
+    $('#sideTitle').textContent = __('Filtros'); renderFilters();
     S.lex.ctrl?.abort(); ++S.lex.seq;
     S.coo.ctrl?.abort(); ++S.coo.seq;
     if (conBiblioteca) {
@@ -9670,12 +9928,15 @@ function sideCollapsedSaved() {
 function updateSideRail() {
   const rail = $('#sideRail');
   if (!rail) return;
-  const lbl = ($('#sideTitle')?.textContent || 'Filtros').trim();
+  const lbl = ($('#sideTitle')?.textContent || __('Filtros')).trim();
   const n = S.view === 'library' ? 0 : ($('#activePills')?._fns?.length || 0);
   $('#sideRailLbl').textContent = lbl;
   const badge = $('#sideRailN');
   badge.hidden = !n; badge.textContent = n ? String(n) : '';
-  const txt = `Desplegar ${lbl.toLowerCase()}${n ? ` (${n} ${n === 1 ? 'filtro activo' : 'filtros activos'})` : ''} · tecla f`;
+  const txt = n
+    ? (n === 1 ? __('Desplegar {0} ({1} filtro activo) · tecla f', lbl.toLowerCase(), n)
+      : __('Desplegar {0} ({1} filtros activos) · tecla f', lbl.toLowerCase(), n))
+    : __('Desplegar {0} · tecla f', lbl.toLowerCase());
   rail.title = txt; rail.setAttribute('aria-label', txt);
 }
 
@@ -9700,7 +9961,9 @@ function updateListRail() {
   const n = Number(S.total) || 0;
   const badge = $('#listRailN');
   badge.hidden = !n; badge.textContent = n ? nf(n) : '';
-  const txt = `Desplegar la lista${n ? ` (${nf(n)} ${n === 1 ? 'intervención' : 'intervenciones'})` : ''} · tecla l`;
+  const txt = n
+    ? (n === 1 ? __('Desplegar la lista ({0} intervención) · tecla l', nf(n)) : __('Desplegar la lista ({0} intervenciones) · tecla l', nf(n)))
+    : __('Desplegar la lista · tecla l');
   rail.title = txt; rail.setAttribute('aria-label', txt);
 }
 
@@ -9718,7 +9981,7 @@ function listHead() {
   const lib = S.view === 'library';
   for (const id of ['#order', '#statsBtn', '#saveAllBtn']) $(id).hidden = lib;
   const enLib = lib && S.libSel != null;
-  $('#exportBtn').textContent = enLib ? 'Exportar biblioteca' : 'Exportar';
+  $('#exportBtn').textContent = enLib ? __('Exportar biblioteca') : __('Exportar');
   $('#delLibBtn').hidden = !enLib;
   $('#lexExportBtn').hidden = !(enLib && S.libTab === 'lexico' && S.lex.cid === S.libSel
     && S.lex.data && !S.lex.data.error && (S.lex.data.terms?.length || S.lex.data.negative?.length));
@@ -9726,20 +9989,17 @@ function listHead() {
 
 async function renderLibraryView() {
   await refreshCollections();
-  $('#sideTitle').textContent = 'Bibliotecas';
+  $('#sideTitle').textContent = __('Bibliotecas');
   $('#activePills').hidden = true;
   listHead();
   renderLibList();
 
   if (S.libSel) loadLibraryItems(S.libSel);
   else {
-    $('#resultMeta').innerHTML = '<strong>Bibliotecas</strong>';
+    $('#resultMeta').innerHTML = `<strong>${__('Bibliotecas')}</strong>`;
     $('#hits').innerHTML = `<div class="empty"><div class="big">◆</div>
-      <h3>Sus grupos de intervenciones</h3>
-      <p>Una biblioteca es un conjunto curado: puede añadirle intervenciones desde
-      cualquier búsqueda, anotarlas, etiquetarlas, y exportarlas a CSV, Markdown o
-      referencias citables. También puede compartirla con un colega en un archivo
-      <code>.2replib</code>.</p></div>`;
+      <h3>${__('Sus grupos de intervenciones')}</h3>
+      <p>${__('Una biblioteca es un conjunto curado: puede añadirle intervenciones desde cualquier búsqueda, anotarlas, etiquetarlas, y exportarlas a CSV, Markdown o referencias citables. También puede compartirla con un colega en un archivo {0}.', '<code>.2replib</code>')}</p></div>`;
   }
 }
 
@@ -9749,23 +10009,22 @@ function renderLibList() {
 
 
   $('#filters').innerHTML = `
-    <div style="padding:13px"><button class="btn primary" id="newLibBtn" style="width:100%">+ Nueva biblioteca</button><button class="btn" id="importLibBtn" style="width:100%;margin-top:7px" title="Crear una biblioteca a partir de un archivo .2replib, con sus notas y etiquetas">Importar .2replib…</button></div>
+    <div style="padding:13px"><button class="btn primary" id="newLibBtn" style="width:100%">${__('+ Nueva biblioteca')}</button><button class="btn" id="importLibBtn" style="width:100%;margin-top:7px" title="${__('Crear una biblioteca a partir de un archivo .2replib, con sus notas y etiquetas')}">${__('Importar .2replib…')}</button></div>
     ${S.collections.length ? S.collections.map(c => `
       <div class="lib-card${S.libSel === c.id ? ' sel' : ''}" data-lib="${c.id}">
         <span class="lib-dot"></span>
         <div style="min-width:0;flex:1">
           <h4>${esc(c.name)}</h4>
-          <p>${nf(c.n_items)} ${c.n_items === 1 ? 'intervención' : 'intervenciones'} ·
+          <p>${c.n_items === 1 ? __('{0} intervención', nf(c.n_items)) : __('{0} intervenciones', nf(c.n_items))} ·
              ${esc((c.updated_at || '').slice(0, 10))}</p>
           ${notaHTML(c.description, 'lib-nota')}
         </div>
         <button type="button" class="btn ghost icon lib-ren" data-renlib="${c.id}"
-          aria-label="Editar el nombre y la nota de la biblioteca «${esc(c.name)}»" title="Editar el nombre y la nota de la biblioteca «${esc(c.name)}»">✎</button>
+          aria-label="${__('Editar el nombre y la nota de la biblioteca «{0}»', esc(c.name))}" title="${__('Editar el nombre y la nota de la biblioteca «{0}»', esc(c.name))}">✎</button>
         <button type="button" class="btn ghost icon lib-del" data-dellib="${c.id}"
-          aria-label="Borrar la biblioteca «${esc(c.name)}»" title="Borrar la biblioteca «${esc(c.name)}» (pide confirmación)">🗑</button>
+          aria-label="${__('Borrar la biblioteca «{0}»', esc(c.name))}" title="${__('Borrar la biblioteca «{0}» (pide confirmación)', esc(c.name))}">🗑</button>
       </div>`).join('')
-      : `<div class="empty" style="padding:26px 16px"><p>Aún no tiene bibliotecas.
-          Cree una y vaya guardando en ella las intervenciones que le interesen.</p></div>`}`;
+      : `<div class="empty" style="padding:26px 16px"><p>${__('Aún no tiene bibliotecas. Cree una y vaya guardando en ella las intervenciones que le interesen.')}</p></div>`}`;
 
   libStorePintar();
 
@@ -9804,18 +10063,18 @@ function renderLibHead() {
   if (!L || S.view !== 'library') return;
   const el = $('#resultMeta');
   el.innerHTML = `<strong class="libname" title="${esc(L.name)}">${esc(L.name)}</strong>`
-    + `<div class="tseg libtabs" role="tablist" aria-label="Contenido de la biblioteca">`
+    + `<div class="tseg libtabs" role="tablist" aria-label="${__('Contenido de la biblioteca')}">`
     + `<button type="button" role="tab" data-libtab="items" aria-selected="${S.libTab === 'items'}"`
-    + ` title="Las intervenciones guardadas, con sus notas y etiquetas">Intervenciones (${nf(L.total)})</button>`
+    + ` title="${__('Las intervenciones guardadas, con sus notas y etiquetas')}">${__('Intervenciones ({0})', nf(L.total))}</button>`
     + `<button type="button" role="tab" data-libtab="lexico" aria-selected="${S.libTab === 'lexico'}"`
-    + ` title="Términos característicos de la biblioteca frente al resto del corpus (keyness)">Léxico</button>`
+    + ` title="${__('Términos característicos de la biblioteca frente al resto del corpus (keyness)')}">${__('Léxico')}</button>`
     + `<button type="button" role="tab" data-libtab="coocurrencias" aria-selected="${S.libTab === 'coocurrencias'}"`
-    + ` title="Red de coocurrencias de los términos del léxico y temas detectados en ella con el algoritmo de Leiden">Coocurrencias</button>`
+    + ` title="${__('Red de coocurrencias de los términos del léxico y temas detectados en ella con el algoritmo de Leiden')}">${__('Coocurrencias')}</button>`
     + `<button type="button" role="tab" data-libtab="menciones" aria-selected="${S.libTab === 'menciones'}"`
-    + ` title="Personas mencionadas en las intervenciones y red de quién menciona a quién">Menciones</button></div>`
+    + ` title="${__('Personas mencionadas en las intervenciones y red de quién menciona a quién')}">${__('Menciones')}</button></div>`
     + (S.libTab === 'lexico' || S.libTab === 'coocurrencias'
-      ? `<label class="chk lex-solo" title="Excluye listas de votación, crónica del acta, acotaciones, tablas y notas">`
-        + `<input type="checkbox" id="lexSolo"${S.lex.solo ? ' checked' : ''}><span class="lbl">Solo discurso</span></label>`
+      ? `<label class="chk lex-solo" title="${__('Excluye listas de votación, crónica del acta, acotaciones, tablas y notas')}">`
+        + `<input type="checkbox" id="lexSolo"${S.lex.solo ? ' checked' : ''}><span class="lbl">${__('Solo discurso')}</span></label>`
       : '');
   el.title = '';
   listHead();
@@ -9869,7 +10128,7 @@ async function loadMoreLibItems() {
   const L = S.libInfo, cid = S.libSel, mine = S.libSeq;
   if (!L || cid == null || S.view !== 'library' || S.libTab !== 'items') return;
   const btn = $('#hits [data-libmore]');
-  if (btn) { btn.disabled = true; btn.textContent = 'Cargando…'; }
+  if (btn) { btn.disabled = true; btn.textContent = __('Cargando…'); }
   try {
     const r = await api(`/collections/${cid}/items?limit=${LIB_PAGE}&offset=${S.results.length}`);
     if (mine !== S.libSeq || S.view !== 'library' || S.libSel !== cid) return;
@@ -9879,7 +10138,7 @@ async function loadMoreLibItems() {
     renderLibItems({ keepScroll: true });
   } catch (e) {
     toast(e.message, true);
-    if (btn) { btn.disabled = false; btn.textContent = 'Reintentar'; }
+    if (btn) { btn.disabled = false; btn.textContent = __('Reintentar'); }
   }
 }
 
@@ -9903,9 +10162,7 @@ function renderLibItems({ keepScroll = false } = {}) {
   {
     if (!r.items.length) {
       $('#hits').innerHTML = `<div class="empty"><div class="big">◇</div>
-        <h3>Biblioteca vacía</h3><p>Vaya a <b>Explorar</b>, abra una intervención y
-        pulse <b>+ Biblioteca</b>. También puede guardar de golpe todos los
-        resultados de una búsqueda con <b>Guardar todo</b>.</p></div>`;
+        <h3>${__('Biblioteca vacía')}</h3><p>${__('Vaya a <b>Explorar</b>, abra una intervención y pulse <b>+ Biblioteca</b>. También puede guardar de golpe todos los resultados de una búsqueda con <b>Guardar todo</b>.')}</p></div>`;
       return;
     }
     $('#hits').innerHTML = r.items.map(it => `
@@ -9919,15 +10176,15 @@ function renderLibItems({ keepScroll = false } = {}) {
         <div class="hit-foot">
           ${(it.tags || []).map(t => `<span class="tag sem">${esc(t)}</span>`).join('')}
           ${it.party && it.party !== 'Sin identificar' ? `<span class="tag">${esc(it.party)}</span>` : ''}
-          <span class="tag words">${nf(it.nwords)} pal.</span>
+          <span class="tag words">${__('{0} pal.', nf(it.nwords))}</span>
           <button class="btn ghost sm" data-note="${it.id}" style="margin-left:auto"
-            title="${it.note ? 'Editar o borrar la nota de esta intervención' : 'Escribir una nota para esta intervención'}">${it.note ? 'Editar nota' : 'Añadir nota'}</button>
-          <button class="btn danger sm" data-rm="${it.id}">Quitar</button>
+            title="${it.note ? __('Editar o borrar la nota de esta intervención') : __('Escribir una nota para esta intervención')}">${it.note ? __('Editar nota') : __('Añadir nota')}</button>
+          <button class="btn danger sm" data-rm="${it.id}">${__('Quitar')}</button>
         </div>
       </article>`).join('')
       + (r.items.length < S.total
-        ? `<div class="empty lib-more"><p>Se muestran ${nf(r.items.length)} de ${nf(S.total)} intervenciones.</p>
-            <p style="margin-top:8px"><button class="btn sm" data-libmore>Mostrar ${nf(Math.min(LIB_PAGE, S.total - r.items.length))} más</button></p></div>`
+        ? `<div class="empty lib-more"><p>${__('Se muestran {0} de {1} intervenciones.', nf(r.items.length), nf(S.total))}</p>
+            <p style="margin-top:8px"><button class="btn sm" data-libmore>${__('Mostrar {0} más', nf(Math.min(LIB_PAGE, S.total - r.items.length)))}</button></p></div>`
         : '');
     sc.scrollTop = keepScroll ? top : 0;
   }
@@ -9948,22 +10205,24 @@ async function openDelLib(cid) {
     try { await refreshCollections(); } catch {   }
     const c = S.collections.find(x => x.id === cid);
     if (!c) {
-      toast('Esa biblioteca ya no existe.', true);
+      toast(__('Esa biblioteca ya no existe.'), true);
       await libDeleted(cid);
       return;
     }
     const n = +c.n_items || 0;
     dlg._cid = cid; dlg._name = c.name;
     $('#delLibTxt').innerHTML = n
-      ? `Se borrará la biblioteca <b>«${esc(c.name)}»</b> con sus <b>${nf(n)} ${n === 1 ? 'intervención guardada' : 'intervenciones guardadas'}</b>, y sus notas y etiquetas.`
-      : `Se borrará la biblioteca <b>«${esc(c.name)}»</b>, que está vacía.`;
+      ? (n === 1
+        ? __('Se borrará la biblioteca <b>«{0}»</b> con sus <b>{1} intervención guardada</b>, y sus notas y etiquetas.', esc(c.name), nf(n))
+        : __('Se borrará la biblioteca <b>«{0}»</b> con sus <b>{1} intervenciones guardadas</b>, y sus notas y etiquetas.', esc(c.name), nf(n)))
+      : __('Se borrará la biblioteca <b>«{0}»</b>, que está vacía.', esc(c.name));
     const extra = [];
     if (S.filters.collection_id != null && +S.filters.collection_id === cid)
-      extra.push('La búsqueda de Explorar está restringida a esta biblioteca: se quitará esa restricción.');
+      extra.push(__('La búsqueda de Explorar está restringida a esta biblioteca: se quitará esa restricción.'));
     const usan = [...(S.saved?.values() || [])].filter(s => +s.filters?.collection_id === cid).length;
     if (usan)
-      extra.push(`${nf(usan)} ${usan === 1 ? 'búsqueda guardada la usa: se conserva, pero al lanzarla buscará'
-        : 'búsquedas guardadas la usan: se conservan, pero al lanzarlas buscarán'} en todo el corpus.`);
+      extra.push(usan === 1 ? __('{0} búsqueda guardada la usa: se conserva, pero al lanzarla buscará en todo el corpus.', nf(usan))
+        : __('{0} búsquedas guardadas la usan: se conservan, pero al lanzarlas buscarán en todo el corpus.', nf(usan)));
     $('#delLibExtra').textContent = extra.join(' ');
     $('#delLibExp').hidden = !n;
     $('#delLibConfirm').disabled = false;
@@ -9977,7 +10236,7 @@ async function doDelLib() {
   const dlg = $('#dlgDelLib'), btn = $('#delLibConfirm');
   const cid = dlg._cid, name = dlg._name;
   if (dlg._busy || btn.disabled || cid == null) return;
-  const busy = busyStart(dlg, btn, 'Borrando…');
+  const busy = busyStart(dlg, btn, __('Borrando…'));
   $('#delLibExport').disabled = true;
   let hecho = false, yaNo = false;
   try {
@@ -9993,7 +10252,7 @@ async function doDelLib() {
   if (!hecho) return;
   dlg._cid = null;
   dlg.close();
-  toast(yaNo ? `La biblioteca «${name}» ya no existía` : `Biblioteca «${name}» borrada`);
+  toast(yaNo ? __('La biblioteca «{0}» ya no existía', name) : __('Biblioteca «{0}» borrada', name));
   await libDeleted(cid);
   delLibFoco(dlg._opener);
 }
@@ -10075,15 +10334,15 @@ async function libDeleted(cid) {
 const LEX_FIRST = 300;
 const LEX_BADGE = { Exclusivo: 'ex', 'Muy distintivo': 'md', Significativo: 'sg' };
 
-const LEX_EXCL = [['listas', 'listas de votación'], ['cronica', 'crónica del acta'], ['acotaciones', 'acotaciones'],
-  ['tablas', 'tablas'], ['notas', 'notas'], ['cabeceras', 'cabeceras de página'], ['etiquetas', 'etiquetas de orador'],
-  ['otros', 'otros']];
+const LEX_EXCL = [['listas', __('listas de votación')], ['cronica', __('crónica del acta')], ['acotaciones', __('acotaciones')],
+  ['tablas', __('tablas')], ['notas', __('notas')], ['cabeceras', __('cabeceras de página')], ['etiquetas', __('etiquetas de orador')],
+  ['otros', __('otros')]];
 const lexDesglose = (tx, fmt = nf) => LEX_EXCL.filter(([k]) => +tx?.excluidos?.[k] > 0)
   .map(([k, lab]) => `${lab} ${fmt(tx.excluidos[k])}`).join(', ');
 
 function lexNum(v, dec) {
   if (v == null || !isFinite(v)) return '—';
-  return agrupa(Math.abs(+v).toLocaleString('es-ES', { minimumFractionDigits: dec, maximumFractionDigits: dec }));
+  return __.num(Math.abs(+v), { minimumFractionDigits: dec, maximumFractionDigits: dec });
 }
 const lexSigned = (v, dec) => (v == null || !isFinite(v) ? '—' : `${v > 0 ? '+' : v < 0 ? '−' : ''}${lexNum(v, dec)}`);
 const lexPm = v => lexNum(v, v != null && Math.abs(v) < 0.1 ? 3 : 2);
@@ -10099,23 +10358,23 @@ async function lexLoad() {
   if (X.cid !== L.id) X.showAll = false;
   if (!L.total) {
     X.data = null; X.cid = L.id; listHead();
-    box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>Biblioteca vacía</h3>
-      <p>El léxico compara el vocabulario de la biblioteca con el resto del corpus. Añada
-      intervenciones desde <b>Explorar</b> con <b>+ Biblioteca</b> o <b>Guardar todo</b>.</p></div>`;
+    box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>${__('Biblioteca vacía')}</h3>
+      <p>${__('El léxico compara el vocabulario de la biblioteca con el resto del corpus. Añada intervenciones desde <b>Explorar</b> con <b>+ Biblioteca</b> o <b>Guardar todo</b>.')}</p></div>`;
     return;
   }
   if (X.cache.has(key)) { X.data = X.cache.get(key); X.cid = L.id; lexRender(); return; }
   X.data = null; X.cid = null; listHead();
   const t0 = performance.now();
+  const nIntervL = L.total === 1 ? __('{0} intervención', nf(L.total)) : __('{0} intervenciones', nf(L.total));
   box.innerHTML = `<div class="empty lex-prog" role="status" aria-live="polite">
-    <p>Calculando el léxico ${X.solo ? '(solo discurso)' : '(texto completo)'} de ${nf(L.total)} ${L.total === 1 ? 'intervención' : 'intervenciones'}
-    frente al resto del corpus…</p>
-    <div class="bar" role="progressbar" aria-label="Progreso del léxico" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
-    <p class="lex-prog-fase">Preparando…</p>
+    <p>${X.solo ? __('Calculando el léxico (solo discurso) de {0} frente al resto del corpus…', nIntervL)
+      : __('Calculando el léxico (texto completo) de {0} frente al resto del corpus…', nIntervL)}</p>
+    <div class="bar" role="progressbar" aria-label="${__('Progreso del léxico')}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
+    <p class="lex-prog-fase">${__('Preparando…')}</p>
     <p class="lex-prog-t dsub">0 % · 0 s</p>
-    <p style="margin-top:10px"><button class="btn sm" data-lexcancel>Cancelar</button></p>
+    <p style="margin-top:10px"><button class="btn sm" data-lexcancel>${__('Cancelar')}</button></p>
     ${X.solo && L.total > 1500
-      ? `<p class="dsub" style="margin-top:8px;font-size:11.5px">Se separa el discurso de listas, crónica y acotaciones antes de contar; en bibliotecas grandes tarda unos segundos.</p>` : ''}</div>`;
+      ? `<p class="dsub" style="margin-top:8px;font-size:11.5px">${__('Se separa el discurso de listas, crónica y acotaciones antes de contar; en bibliotecas grandes tarda unos segundos.')}</p>` : ''}</div>`;
   let ultimoEv = null;
   const pintaProgreso = (ev) => {
     if (mine !== X.seq) return;
@@ -10128,11 +10387,11 @@ async function lexLoad() {
     bar.querySelector('.bar i').style.width = `${pct}%`;
     bar.querySelector('.bar').setAttribute('aria-valuenow', String(pct));
     if (e) {
-      const cuenta = e.total > 1 ? ` · ${nf(e.hecho)} de ${nf(e.total)}` : '';
-      bar.querySelector('.lex-prog-fase').textContent = `${e.indice}/${e.n_fases} · ${e.etiqueta}${cuenta}`;
+      const cuenta = e.total > 1 ? ` · ${__('{0} de {1}', nf(e.hecho), nf(e.total))}` : '';
+      bar.querySelector('.lex-prog-fase').textContent = `${e.indice}/${e.n_fases} · ${__(e.etiqueta)}${cuenta}`;
     }
     const eta = e && e.fraccion > 0.08 && e.fraccion < 1 ? s / e.fraccion - s : null;
-    bar.querySelector('.lex-prog-t').textContent = `${pct} % · ${Math.round(s)} s${eta != null ? ` · quedan unos ${Math.max(1, Math.round(eta))} s` : ''}`;
+    bar.querySelector('.lex-prog-t').textContent = `${pct} % · ${Math.round(s)} s${eta != null ? ` · ${__('quedan unos {0} s', Math.max(1, Math.round(eta)))}` : ''}`;
   };
   const reloj = setInterval(() => pintaProgreso(null), 500);
   const ctrl = X.ctrl = new AbortController();
@@ -10152,27 +10411,28 @@ async function lexLoad() {
     if (mine !== X.seq) return;
     if (e.name === 'AbortError') {
       if (S.view === 'library' && S.libTab === 'lexico' && box.querySelector('.lex-prog')) {
-        box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>Cálculo cancelado</h3>
-          <p>Puede volver a lanzarlo cuando quiera.</p><p style="margin-top:10px"><button class="btn sm" data-lexretry>Calcular el léxico</button></p></div>`;
+        box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>${__('Cálculo cancelado')}</h3>
+          <p>${__('Puede volver a lanzarlo cuando quiera.')}</p><p style="margin-top:10px"><button class="btn sm" data-lexretry>${__('Calcular el léxico')}</button></p></div>`;
       }
       return;
     }
-    box.innerHTML = `<div class="empty"><div class="big">⚠</div><h3>No se pudo calcular el léxico</h3>
-      <p>${esc(e.message)}</p><p style="margin-top:10px"><button class="btn sm" data-lexretry>Reintentar</button></p></div>`;
+    box.innerHTML = `<div class="empty"><div class="big">⚠</div><h3>${__('No se pudo calcular el léxico')}</h3>
+      <p>${esc(e.message)}</p><p style="margin-top:10px"><button class="btn sm" data-lexretry>${__('Reintentar')}</button></p></div>`;
   }
 }
 
 function lexRowHTML(t, gmax, r, neg = false) {
   const w = gmax > 0 ? Math.max(1, Math.min(100, Math.abs(t.g2) / gmax * 100)) : 0;
   const badge = t.badge
-    ? `<span class="lex-badge ${LEX_BADGE[t.badge] || 'sg'}" title="${esc(r.badges?.[t.badge] || '')}">${esc(t.badge)}</span>`
-    : (neg ? '<span class="lex-badge neg" title="Menos frecuente en la biblioteca que en el resto del corpus">Infrauso</span>' : '');
+    ? `<span class="lex-badge ${LEX_BADGE[t.badge] || 'sg'}" title="${esc(__(r.badges?.[t.badge] || ''))}">${esc(__(t.badge))}</span>`
+    : (neg ? `<span class="lex-badge neg" title="${__('Menos frecuente en la biblioteca que en el resto del corpus')}">${__('Infrauso')}</span>` : '');
 
 
   const forma = t.display || t.term;
-  const expr = t.expresion ? ` <span class="lex-expr" title="Expresión de varias palabras detectada en el corpus: se cuentan todas sus apariciones">expr.</span>` : '';
+  const expr = t.expresion ? ` <span class="lex-expr" title="${__('Expresión de varias palabras detectada en el corpus: se cuentan todas sus apariciones')}">${__('expr.')}</span>` : '';
   return `<tr class="lex-row${t.expresion ? ' es-expr' : ''}" data-lexterm="${esc(forma)}" tabindex="0"
-      title="Buscar «${esc(forma)}» en modo Palabras dentro de esta biblioteca${forma !== t.term ? ` (índice: ${esc(t.term)})` : ''}">
+      title="${forma !== t.term ? __('Buscar «{0}» en modo Palabras dentro de esta biblioteca (índice: {1})', esc(forma), esc(t.term))
+        : __('Buscar «{0}» en modo Palabras dentro de esta biblioteca', esc(forma))}">
     <td class="lex-term">${esc(forma)}${expr}</td>
     <td class="num">${nf(t.freq)}</td>
     <td class="num">${lexPm(t.pm)}</td>
@@ -10185,13 +10445,13 @@ function lexRowHTML(t, gmax, r, neg = false) {
 function lexTableHTML(rows, gmax, r, neg = false) {
   const n = r.notes || {};
   return `<div class="lex-wrap"><table class="lex-table">
-    <thead><tr><th>Término</th>
-      <th class="num" title="Apariciones en la biblioteca">Frec.</th>
-      <th class="num" title="Apariciones por cada 1.000 palabras de la biblioteca">‰ biblioteca</th>
-      <th class="num c-ref" title="Apariciones por cada 1.000 palabras del resto del corpus">‰ resto corpus</th>
-      <th title="${esc(n.g2 || '')}">Keyness G²</th>
-      <th class="num c-lr" title="${esc(n.log_ratio || '')}">Log-ratio</th>
-      <th>Distintividad</th></tr></thead>
+    <thead><tr><th>${__('Término')}</th>
+      <th class="num" title="${__('Apariciones en la biblioteca')}">${__('Frec.')}</th>
+      <th class="num" title="${__('Apariciones por cada 1.000 palabras de la biblioteca')}">${__('‰ biblioteca')}</th>
+      <th class="num c-ref" title="${__('Apariciones por cada 1.000 palabras del resto del corpus')}">${__('‰ resto corpus')}</th>
+      <th title="${esc(__(n.g2 || ''))}">Keyness G²</th>
+      <th class="num c-lr" title="${esc(__(n.log_ratio || ''))}">Log-ratio</th>
+      <th>${__('Distintividad')}</th></tr></thead>
     <tbody>${rows.map(t => lexRowHTML(t, gmax, r, neg)).join('')}</tbody></table></div>`;
 }
 
@@ -10201,72 +10461,71 @@ function lexRender({ keepScroll = false } = {}) {
   listHead();
   const top = sc.scrollTop;
   if (r.error) {
-    box.innerHTML = `<div class="empty"><div class="big">⚠</div><h3>No se pudo calcular el léxico</h3><p>${esc(r.error)}</p></div>`;
+    box.innerHTML = `<div class="empty"><div class="big">⚠</div><h3>${__('No se pudo calcular el léxico')}</h3><p>${esc(r.error)}</p></div>`;
     return;
   }
   if (!r.n_texts) {
-    box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>Sin texto que analizar</h3>
-      <p>Ninguna intervención de esta biblioteca está en el corpus abierto.</p></div>`;
+    box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>${__('Sin texto que analizar')}</h3>
+      <p>${__('Ninguna intervención de esta biblioteca está en el corpus abierto.')}</p></div>`;
     return;
   }
   const m = r.metrics || {}, n = r.notes || {};
   const terms = r.terms || [], neg = r.negative || [];
   const metric = (k, v, extra = '', tit = '') => `<div class="lex-metric"${tit ? ` title="${esc(tit)}"` : ''}>`
     + `<div class="k">${k}</div><div class="v">${v}</div>${extra ? `<div class="s">${extra}</div>` : ''}</div>`;
-  const millones = (+r.reference_tokens / 1e6).toLocaleString('es-ES', { maximumFractionDigits: 1 });
+  const millones = __.num(+r.reference_tokens / 1e6, { maximumFractionDigits: 1 });
   const gmax = Math.max(+m.g2_max || 0, ...terms.map(t => +t.g2 || 0));
   const vistos = S.lex.showAll ? terms : terms.slice(0, LEX_FIRST);
   const faltan = r.n_found != null && r.n_requested != null && r.n_found < r.n_requested
-    ? `<p class="lex-note warn">⚠ ${nf(r.n_requested - r.n_found)} de las ${nf(r.n_requested)} intervenciones guardadas no se encontraron en este corpus y no cuentan.</p>` : '';
+    ? `<p class="lex-note warn">⚠ ${__('{0} de las {1} intervenciones guardadas no se encontraron en este corpus y no cuentan.', nf(r.n_requested - r.n_found), nf(r.n_requested))}</p>` : '';
   const recorte = r.n_positive > terms.length
-    ? ` Se listan los ${nf(terms.length)} de mayor G² de ${nf(r.n_positive)}.` : '';
+    ? ` ${__('Se listan los {0} de mayor G² de {1}.', nf(terms.length), nf(r.n_positive))}` : '';
   const tabla = terms.length
     ? lexTableHTML(vistos, gmax, r)
       + (vistos.length < terms.length
-        ? `<p class="lex-more"><button class="btn sm" data-lexmore>Mostrar los ${nf(terms.length - vistos.length)} términos restantes</button></p>` : '')
-    : `<div class="empty" style="padding:26px 16px"><h3>Ningún término distintivo</h3>
-        <p>Ningún término alcanza p &lt; 0,001 con al menos ${nf(r.min_freq)} apariciones.
-        Con más intervenciones la comparación gana potencia.</p></div>`;
+        ? `<p class="lex-more"><button class="btn sm" data-lexmore>${__('Mostrar los {0} términos restantes', nf(terms.length - vistos.length))}</button></p>` : '')
+    : `<div class="empty" style="padding:26px 16px"><h3>${__('Ningún término distintivo')}</h3>
+        <p>${__('Ningún término alcanza p &lt; 0,001 con al menos {0} apariciones. Con más intervenciones la comparación gana potencia.', nf(r.min_freq))}</p></div>`;
   const gneg = Math.max(0, ...neg.map(t => Math.abs(+t.g2 || 0)));
   const negativos = neg.length
-    ? `<details class="lex-neg"><summary>Términos infrausados (${nf(neg.length)}${r.n_negative > neg.length ? ` de ${nf(r.n_negative)}` : ''}):
-        menos frecuentes en la biblioteca que en el resto del corpus</summary>${lexTableHTML(neg, gneg, r, true)}</details>` : '';
+    ? `<details class="lex-neg"><summary>${r.n_negative > neg.length
+        ? __('Términos infrausados ({0} de {1}): menos frecuentes en la biblioteca que en el resto del corpus', nf(neg.length), nf(r.n_negative))
+        : __('Términos infrausados ({0}): menos frecuentes en la biblioteca que en el resto del corpus', nf(neg.length))}</summary>${lexTableHTML(neg, gneg, r, true)}</details>` : '';
 
   const tx = r.texto || null, discurso = (r.modo_texto === 'discurso' || r.modo_texto === 'discurso_rapido') && !!tx;
   const rapida = discurso && (r.modo_texto === 'discurso_rapido' || tx.segmentacion === 'rapida');
-  const nInterv = `${nf(r.n_texts)} ${r.n_texts === 1 ? 'intervención' : 'intervenciones'}`;
+  const nInterv = r.n_texts === 1 ? __('{0} intervención', nf(r.n_texts)) : __('{0} intervenciones', nf(r.n_texts));
   const desglose = discurso ? lexDesglose(tx) : '';
-  const titPalabras = [n.tokens, discurso
-    ? `Solo discurso${rapida ? ' (segmentación rápida)' : ''}: ${nf(tx.tokens_analizados)} de ${nf(tx.tokens_brutos)} palabras de ${nInterv}. Excluidas: ${desglose || 'ninguna'}.`
-    : `Texto completo de ${nInterv}.`].filter(Boolean).join(' ');
+  const modoTit = rapida ? __('Solo discurso (segmentación rápida)') : __('Solo discurso');
+  const titPalabras = [__(n.tokens), discurso
+    ? __('{0}: {1} de {2} palabras de {3}. Excluidas: {4}.', modoTit, nf(tx.tokens_analizados), nf(tx.tokens_brutos), nInterv, desglose || __('ninguna'))
+    : __('Texto completo de {0}.', nInterv)].filter(Boolean).join(' ');
   const modoNota = discurso
-    ? `<b>Solo discurso${rapida ? ' (segmentación rápida)' : ''}</b>: se analizan ${nf(tx.tokens_analizados)} de las ${nf(tx.tokens_brutos)} palabras de ${nInterv};
-       se excluyen ${nf(tx.tokens_excluidos)}${desglose ? ` (${esc(desglose)})` : ''}.${rapida
-         ? ' En bibliotecas de más de 25 millones de caracteres se excluyen solo las acotaciones entre paréntesis y las líneas en mayúsculas (listas, cabeceras), sin el análisis completo del Diario.'
+    ? `${__('{0}: se analizan {1} de las {2} palabras de {3}; se excluyen {4}{5}.', `<b>${modoTit}</b>`, nf(tx.tokens_analizados),
+        nf(tx.tokens_brutos), nInterv, nf(tx.tokens_excluidos), desglose ? ` (${esc(desglose)})` : '')}${rapida
+         ? ` ${__('En bibliotecas de más de 25 millones de caracteres se excluyen solo las acotaciones entre paréntesis y las líneas en mayúsculas (listas, cabeceras), sin el análisis completo del Diario.')}`
          : ''} `
-    : `<b>Texto completo</b>: ${nInterv} enteras, incluidas listas de votación, crónica del acta, acotaciones y tablas. `;
+    : `${__('<b>Texto completo</b>: {0} enteras, incluidas listas de votación, crónica del acta, acotaciones y tablas.', nInterv)} `;
   box.innerHTML = `<div class="lex">
     <div class="lex-metrics">
-      ${metric('Palabras', nf(m.tokens), discurso ? `analizadas de ${nf(tx.tokens_brutos)}` : nInterv, titPalabras)}
-      ${metric('Términos distintos', nf(m.types))}
-      ${metric('TTR', lexNum(m.ttr, 3), 'depende del tamaño', n.ttr)}
-      ${metric('G² máximo', `<span class="gold">${lexSigned(m.g2_max, 1)}</span>`, terms[0] ? `«${esc(terms[0].display || terms[0].term)}»` : '', n.g2)}
+      ${metric(__('Palabras'), nf(m.tokens), discurso ? __('analizadas de {0}', nf(tx.tokens_brutos)) : nInterv, titPalabras)}
+      ${metric(__('Términos distintos'), nf(m.types))}
+      ${metric('TTR', lexNum(m.ttr, 3), __('depende del tamaño'), __(n.ttr))}
+      ${metric(__('G² máximo'), `<span class="gold">${lexSigned(m.g2_max, 1)}</span>`, terms[0] ? `«${esc(terms[0].display || terms[0].term)}»` : '', __(n.g2))}
     </div>
     ${faltan}
-    <p class="lex-note">${modoNota}Keyness G² (log-likelihood de Dunning) de cada término frente al resto del corpus
-      (${esc(millones)} millones de palabras sin ${discurso ? 'el discurso analizado' : 'esta biblioteca'}). Solo términos con p &lt; 0,001
-      (G² ≥ ${lexNum(r.threshold ?? 10.83, 2)}) y al menos ${nf(r.min_freq)} apariciones, sin palabras vacías:
-      ${nf(r.significant)} significativos de ${nf(r.candidates)} candidatos.${recorte}
-      El log-ratio mide el tamaño del efecto (cada punto duplica la frecuencia relativa). El TTR baja al
-      crecer la biblioteca: compare solo bibliotecas de tamaño parecido. Las palabras son las del índice
-      de búsqueda («S. S.» cuenta dos).${r.expresiones ? ` Incluye <b>expresiones de varias palabras</b>, marcadas
-      <span class="lex-expr">expr.</span>: ${nf(r.expresiones.inventario)} detectadas en todo el corpus al cargarlo
-      (<button type="button" class="linkbtn" data-exprrev>revisarlas</button>), de las que
-      ${nf(r.expresiones.de_sobreuso)} son características de esta biblioteca. Se cuentan todas sus apariciones, igual que las
-      palabras, que siguen contando también dentro de ellas: «seguridad» incluye los usos de «seguridad pública».` : ''}</p>
+    <p class="lex-note">${modoNota}${discurso
+      ? __('Keyness G² (log-likelihood de Dunning) de cada término frente al resto del corpus ({0} millones de palabras sin el discurso analizado).', esc(millones))
+      : __('Keyness G² (log-likelihood de Dunning) de cada término frente al resto del corpus ({0} millones de palabras sin esta biblioteca).', esc(millones))}
+      ${__('Solo términos con p &lt; 0,001 (G² ≥ {0}) y al menos {1} apariciones, sin palabras vacías: {2} significativos de {3} candidatos.',
+        lexNum(r.threshold ?? 10.83, 2), nf(r.min_freq), nf(r.significant), nf(r.candidates))}${recorte}
+      ${__('El log-ratio mide el tamaño del efecto (cada punto duplica la frecuencia relativa). El TTR baja al crecer la biblioteca: compare solo bibliotecas de tamaño parecido. Las palabras son las del índice de búsqueda («S. S.» cuenta dos).')}${r.expresiones
+      ? ` ${__('Incluye <b>expresiones de varias palabras</b>, marcadas {0}: {1} detectadas en todo el corpus al cargarlo ({2}), de las que {3} son características de esta biblioteca. Se cuentan todas sus apariciones, igual que las palabras, que siguen contando también dentro de ellas: «seguridad» incluye los usos de «seguridad pública».',
+        `<span class="lex-expr">${__('expr.')}</span>`, nf(r.expresiones.inventario),
+        `<button type="button" class="linkbtn" data-exprrev>${__('revisarlas')}</button>`, nf(r.expresiones.de_sobreuso))}` : ''}</p>
     ${tabla}
     ${negativos}
-    <p class="lex-foot">Clic en un término (o Intro): búsqueda en modo Palabras dentro de esta biblioteca, en Explorar.${
+    <p class="lex-foot">${__('Clic en un término (o Intro): búsqueda en modo Palabras dentro de esta biblioteca, en Explorar.')}${
       r.ms != null ? ` · ${nf(Math.round(r.ms))} ms` : ''}</p>
     ${fuentePieHTML('panel-fuente')}
   </div>`;
@@ -10300,7 +10559,7 @@ function lexKey(e) {
 // con búsqueda y orden, exportación en CSV y elección de las que no deben unirse (sus palabras vuelven a contar sueltas en
 // el léxico y en las coocurrencias).
 const EXPR_LOTE = 200;
-const EXPR_ORDENES = [['frecuencia', 'Más frecuentes'], ['g2', 'Más asociadas (G²)'], ['longitud', 'Más largas'], ['alfabetico', 'Alfabético']];
+const EXPR_ORDENES = [['frecuencia', __('Más frecuentes')], ['g2', __('Más asociadas (G²)')], ['longitud', __('Más largas')], ['alfabetico', __('Alfabético')]];
 const EX_ST = { q: '', orden: 'frecuencia', solo: false, filas: [], total: 0, inventario: 0, meta: null, rech: new Set(),
   rechServidor: new Set(), seq: 0, tq: null, ocupado: false };
 
@@ -10324,15 +10583,15 @@ async function exprAbrir() {
   let dlg = $('#dlgExpr');
   if (!dlg) {
     document.body.insertAdjacentHTML('beforeend', `<dialog id="dlgExpr" aria-labelledby="exprTitulo">
-  <div class="dhead"><h3 id="exprTitulo">Expresiones de varias palabras del corpus</h3><p class="dsub" id="exprSub"></p></div>
+  <div class="dhead"><h3 id="exprTitulo">${__('Expresiones de varias palabras del corpus')}</h3><p class="dsub" id="exprSub"></p></div>
   <div class="expr-barra">
-    <input type="search" id="exprQ" placeholder="Buscar: seguridad, reforma…" aria-label="Buscar expresiones" autocomplete="off">
-    <select id="exprOrden" aria-label="Orden">${EXPR_ORDENES.map(([v, t]) => `<option value="${v}">${esc(t)}</option>`).join('')}</select>
-    <label class="chk"><input type="checkbox" id="exprSolo"><span class="lbl">Solo las que no se unen</span></label>
+    <input type="search" id="exprQ" placeholder="${__('Buscar: seguridad, reforma…')}" aria-label="${__('Buscar expresiones')}" autocomplete="off">
+    <select id="exprOrden" aria-label="${__('Orden')}">${EXPR_ORDENES.map(([v, t]) => `<option value="${v}">${esc(t)}</option>`).join('')}</select>
+    <label class="chk"><input type="checkbox" id="exprSolo"><span class="lbl">${__('Solo las que no se unen')}</span></label>
   </div>
   <div class="dbody" id="exprLista"></div>
-  <div class="dfoot"><button type="button" class="btn ghost" id="exprCSV">Exportar CSV</button><span class="expr-cambios dsub" id="exprCambios"></span>
-    <button type="button" class="btn" data-close>Cerrar</button><button type="button" class="btn primary" id="exprAplicar" disabled>Aplicar</button></div>
+  <div class="dfoot"><button type="button" class="btn ghost" id="exprCSV">${__('Exportar CSV')}</button><span class="expr-cambios dsub" id="exprCambios"></span>
+    <button type="button" class="btn" data-close>${__('Cerrar')}</button><button type="button" class="btn primary" id="exprAplicar" disabled>${__('Aplicar')}</button></div>
 </dialog>`);
     dlg = $('#dlgExpr');
     dlg.addEventListener('click', ev => {
@@ -10358,14 +10617,14 @@ async function exprAbrir() {
     dlg.addEventListener('cancel', ev => { if (EX_ST.ocupado) ev.preventDefault(); });
   }
   $('#exprQ').value = EX_ST.q; $('#exprOrden').value = EX_ST.orden; $('#exprSolo').checked = EX_ST.solo;
-  $('#exprLista').innerHTML = '<p class="dsub">Cargando…</p>';
+  $('#exprLista').innerHTML = `<p class="dsub">${__('Cargando…')}</p>`;
   dlg.showModal();
   try {
     const r = await api('/expressions?' + new URLSearchParams({ solo: 'rechazadas', limite: '0' }));
     EX_ST.rechServidor = new Set((r.filas || []).map(x => x.forma));
     EX_ST.rech = new Set(EX_ST.rechServidor);
   } catch (e) {
-    $('#exprLista').innerHTML = `<p class="dsub">No se pudo leer la lista: ${esc(e.message)}</p>`;
+    $('#exprLista').innerHTML = `<p class="dsub">${__('No se pudo leer la lista: {0}', esc(e.message))}</p>`;
     return;
   }
   exprCargar();
@@ -10378,15 +10637,14 @@ async function exprCargar(mas = false) {
     solo: EX_ST.solo ? 'rechazadas' : 'todas' });
   let r;
   try { r = await api('/expressions?' + q); } catch (e) {
-    if (mine === EX_ST.seq) $('#exprLista').innerHTML = `<p class="dsub">No se pudo leer la lista: ${esc(e.message)}</p>`;
+    if (mine === EX_ST.seq) $('#exprLista').innerHTML = `<p class="dsub">${__('No se pudo leer la lista: {0}', esc(e.message))}</p>`;
     return;
   }
   if (mine !== EX_ST.seq) return;
   if (!r.disponible) {
     EX_ST.filas = []; EX_ST.total = 0;
     $('#exprSub').textContent = '';
-    $('#exprLista').innerHTML = `<p class="dsub">Esta base no tiene expresiones detectadas: se construyó sin esa fase. Vuelva a
-      elegir el CSV para construirla de nuevo.</p>`;
+    $('#exprLista').innerHTML = `<p class="dsub">${__('Esta base no tiene expresiones detectadas: se construyó sin esa fase. Vuelva a elegir el CSV para construirla de nuevo.')}</p>`;
     return;
   }
   EX_ST.filas = mas ? EX_ST.filas.concat(r.filas) : r.filas;
@@ -10397,29 +10655,30 @@ async function exprCargar(mas = false) {
 
 function exprPintar() {
   const m = EX_ST.meta || {};
-  $('#exprSub').innerHTML = `${nf(m.seleccionadas ?? EX_ST.inventario)} detectadas al construir la base, en ${nf(m.intervenciones)}
-    intervenciones y ${nf(m.tokens_corpus)} palabras: de 2 a ${nf(m.max_tokens || 7)} palabras, al menos ${nf(m.frecuencia_minima)} apariciones
-    en ${nf(m.intervenciones_minimas)} intervenciones y asociación significativa.${m.precalculada ? ` Se cargaron ya calculadas
-    porque el CSV es idéntico al publicado en Dataverse${m.precalculada.origen?.dataverse?.version ? ` (versión ${esc(String(m.precalculada.origen.dataverse.version))})` : ''}:
-    son las mismas que se detectarían.` : ''} Desmarque las que no deban unirse: sus palabras volverán a contar sueltas en el
-    léxico y en las coocurrencias.`;
+  const verDv = m.precalculada?.origen?.dataverse?.version;
+  $('#exprSub').innerHTML = `${__('{0} detectadas al construir la base, en {1} intervenciones y {2} palabras: de 2 a {3} palabras, al menos {4} apariciones en {5} intervenciones y asociación significativa.',
+    nf(m.seleccionadas ?? EX_ST.inventario), nf(m.intervenciones), nf(m.tokens_corpus), nf(m.max_tokens || 7), nf(m.frecuencia_minima),
+    nf(m.intervenciones_minimas))}${m.precalculada ? ` ${verDv
+      ? __('Se cargaron ya calculadas porque el CSV es idéntico al publicado en Dataverse (versión {0}): son las mismas que se detectarían.', esc(String(verDv)))
+      : __('Se cargaron ya calculadas porque el CSV es idéntico al publicado en Dataverse: son las mismas que se detectarían.')}` : ''} ${
+    __('Desmarque las que no deban unirse: sus palabras volverán a contar sueltas en el léxico y en las coocurrencias.')}`;
   const filas = EX_ST.filas;
   if (!filas.length) {
-    $('#exprLista').innerHTML = `<p class="dsub">${EX_ST.solo ? 'Todas las expresiones se unen.' : 'Ninguna expresión contiene ese texto.'}</p>`;
+    $('#exprLista').innerHTML = `<p class="dsub">${EX_ST.solo ? __('Todas las expresiones se unen.') : __('Ninguna expresión contiene ese texto.')}</p>`;
     exprCambios();
     return;
   }
   const cuerpo = filas.map(x => {
     const no = EX_ST.rech.has(x.forma);
     return `<tr${no ? ' class="expr-no"' : ''}><td><input type="checkbox" data-exprforma="${esc(x.forma)}"${no ? '' : ' checked'}
-      aria-label="Unir «${esc(x.mostrar)}»"></td><td class="expr-f">${esc(x.mostrar)}</td><td class="num">${nf(x.frecuencia)}</td>
+      aria-label="${__('Unir «{0}»', esc(x.mostrar))}"></td><td class="expr-f">${esc(x.mostrar)}</td><td class="num">${nf(x.frecuencia)}</td>
       <td class="num">${nf(x.intervenciones)}</td><td class="num">${x.g2 == null ? '—' : nf(Math.round(x.g2))}</td></tr>`;
   }).join('');
   const mas = filas.length < EX_ST.total
-    ? `<p class="expr-mas"><button type="button" class="btn sm" data-exprmas>Mostrar ${nf(Math.min(EXPR_LOTE, EX_ST.total - filas.length))} más</button>
-       <span class="dsub">${nf(filas.length)} de ${nf(EX_ST.total)}</span></p>` : '';
-  $('#exprLista').innerHTML = `<table class="expr-tabla"><thead><tr><th title="Se une en una sola unidad">unir</th><th>expresión</th>
-    <th class="num">apariciones</th><th class="num">intervenciones</th><th class="num">G²</th></tr></thead><tbody>${cuerpo}</tbody></table>${mas}`;
+    ? `<p class="expr-mas"><button type="button" class="btn sm" data-exprmas>${__('Mostrar {0} más', nf(Math.min(EXPR_LOTE, EX_ST.total - filas.length)))}</button>
+       <span class="dsub">${__('{0} de {1}', nf(filas.length), nf(EX_ST.total))}</span></p>` : '';
+  $('#exprLista').innerHTML = `<table class="expr-tabla"><thead><tr><th title="${__('Se une en una sola unidad')}">${__('unir')}</th><th>${__('expresión')}</th>
+    <th class="num">${__('apariciones')}</th><th class="num">${__('intervenciones')}</th><th class="num">G²</th></tr></thead><tbody>${cuerpo}</tbody></table>${mas}`;
   exprCambios();
 }
 
@@ -10431,28 +10690,31 @@ function exprCambios() {
   const btn = $('#exprAplicar');
   if (btn && !EX_ST.ocupado) btn.disabled = !n;
   const t = $('#exprCambios');
-  if (t) t.textContent = n ? `${nf(n)} ${n === 1 ? 'cambio' : 'cambios'} sin aplicar` : (a.size ? `${nf(a.size)} no se ${a.size === 1 ? 'une' : 'unen'}` : '');
+  if (t) t.textContent = n ? (n === 1 ? __('{0} cambio sin aplicar', nf(n)) : __('{0} cambios sin aplicar', nf(n)))
+    : (a.size ? (a.size === 1 ? __('{0} no se une', nf(a.size)) : __('{0} no se unen', nf(a.size))) : '');
 }
 
 async function exprAplicar() {
   const btn = $('#exprAplicar');
   if (!btn || EX_ST.ocupado) return;
-  EX_ST.ocupado = true; btn.disabled = true; btn.textContent = 'Aplicando…';
+  EX_ST.ocupado = true; btn.disabled = true; btn.textContent = __('Aplicando…');
   try {
     const r = await api('/expressions/rejected', { method: 'POST', body: { rechazadas: [...EX_ST.rech] } });
     EX_ST.rech = new Set(r.formas || []);
     EX_ST.rechServidor = new Set(EX_ST.rech);
     exprGuardarLocal(r.formas || []);
     S.lex.cache.clear(); S.coo.cache.clear();
-    toast(r.rechazadas ? `${nf(r.rechazadas)} ${r.rechazadas === 1 ? 'expresión no se une' : 'expresiones no se unen'}: el léxico y las coocurrencias se recalculan.`
-      : 'Todas las expresiones se unen de nuevo.');
+    toast(r.rechazadas ? (r.rechazadas === 1
+      ? __('{0} expresión no se une: el léxico y las coocurrencias se recalculan.', nf(r.rechazadas))
+      : __('{0} expresiones no se unen: el léxico y las coocurrencias se recalculan.', nf(r.rechazadas)))
+      : __('Todas las expresiones se unen de nuevo.'));
     $('#dlgExpr').close();
     if (S.view === 'library' && S.libTab === 'lexico') lexLoad();
     else if (S.view === 'library' && S.libTab === 'coocurrencias') cooLoad();
   } catch (e) {
-    toast(`No se pudo guardar: ${e.message}`, true);
+    toast(__('No se pudo guardar: {0}', e.message), true);
   } finally {
-    EX_ST.ocupado = false; btn.textContent = 'Aplicar'; exprCambios();
+    EX_ST.ocupado = false; btn.textContent = __('Aplicar'); exprCambios();
   }
 }
 
@@ -10465,11 +10727,15 @@ async function exprExportar() {
     const r = await api('/expressions?' + q);
     const m = r.meta || {};
     const meta = [
-      'Explorador de Diarios de Sesiones · expresiones de varias palabras del corpus',
-      `corpus: ${S.info?.title || S.info?.name || ''}`,
-      `generado: ${new Date().toISOString().slice(0, 19)}`,
-      `detección: ${nf(m.intervenciones)} intervenciones, ${nf(m.tokens_corpus)} palabras · de 2 a ${m.max_tokens} palabras · frecuencia mínima ${m.frecuencia_minima} en ${m.intervenciones_minimas} intervenciones · G² ≥ ${m.umbral_g2} con la última palabra · ${m.muestra_1_de > 1 ? `descubrimiento en una muestra de 1 de cada ${m.muestra_1_de} intervenciones y recuento exacto en todas` : 'recuento en todas las intervenciones'}`,
-      `filtro: ${EX_ST.q ? `contienen «${EX_ST.q}»` : 'todas'}${EX_ST.solo ? ' · solo las que no se unen' : ''} · ${nf(r.total)} expresiones`,
+      __('Explorador de Diarios de Sesiones · expresiones de varias palabras del corpus'),
+      __('corpus: {0}', S.info?.title || S.info?.name || ''),
+      __('generado: {0}', new Date().toISOString().slice(0, 19)),
+      __('detección: {0} intervenciones, {1} palabras · de 2 a {2} palabras · frecuencia mínima {3} en {4} intervenciones · G² ≥ {5} con la última palabra · {6}',
+        nf(m.intervenciones), nf(m.tokens_corpus), m.max_tokens, m.frecuencia_minima, m.intervenciones_minimas, m.umbral_g2,
+        m.muestra_1_de > 1 ? __('descubrimiento en una muestra de 1 de cada {0} intervenciones y recuento exacto en todas', m.muestra_1_de)
+          : __('recuento en todas las intervenciones')),
+      __('filtro: {0}{1} · {2} expresiones', EX_ST.q ? __('contienen «{0}»', EX_ST.q) : __('todas'),
+        EX_ST.solo ? ` · ${__('solo las que no se unen')}` : '', nf(r.total)),
     ];
     const cols = ['expresion', 'forma_indice', 'tokens', 'palabras_contenido', 'apariciones', 'apariciones_independientes', 'intervenciones', 'g2', 'c_value', 'se_une'];
     const filas = r.filas.map(x => [x.mostrar, x.forma, x.n_tokens, x.n_palabras, x.frecuencia, x.independiente, x.intervenciones, x.g2 ?? '', x.cvalue ?? '',
@@ -10477,7 +10743,7 @@ async function exprExportar() {
     const slug = foldMap(S.info?.name || 'corpus').folded.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'corpus';
     downloadText(csvConFuente(meta, cols, filas), `expresiones_${slug}.csv`, 'text/csv;charset=utf-8');
   } catch (e) {
-    toast(`No se pudo exportar: ${e.message}`, true);
+    toast(__('No se pudo exportar: {0}', e.message), true);
   } finally { btn._busy = false; btn.disabled = false; }
 }
 
@@ -10502,13 +10768,13 @@ function lexSearch(term) {
 // Red de coocurrencias de los términos del léxico de la biblioteca y temas detectados con Leiden
 // (worker/35b_engine__coocurrencia.js). Cada tema es un candidato: se revisa en la lista y se afinan sus términos.
 const COO_UNIDADES = [
-  ['intervencion', 'Intervención', 'Dos términos coocurren si aparecen en la misma intervención'],
-  ['fragmento', 'Fragmentos de 20 palabras', 'Cada intervención se corta en fragmentos consecutivos de 20 palabras: dos términos coocurren si aparecen en el mismo fragmento, una relación más estrecha'],
+  ['intervencion', __('Intervención'), __('Dos términos coocurren si aparecen en la misma intervención')],
+  ['fragmento', __('Fragmentos de 20 palabras'), __('Cada intervención se corta en fragmentos consecutivos de 20 palabras: dos términos coocurren si aparecen en el mismo fragmento, una relación más estrecha')],
 ];
-const COO_RESOLUCION = [[0.6, 'menos', 'Menos temas y más amplios (resolución 0,6)'], [1, 'normal', 'Resolución 1: la modularidad clásica'],
-  [1.6, 'más', 'Más temas y más finos (resolución 1,6)']];
+const COO_RESOLUCION = [[0.6, __('menos'), __('Menos temas y más amplios (resolución 0,6)')], [1, __('normal'), __('Resolución 1: la modularidad clásica')],
+  [1.6, __('más'), __('Más temas y más finos (resolución 1,6)')]];
 const COO_VOCAB = [100, 250, 500], COO_VECINOS = [5, 10, 20];
-const COO_ORDEN = [['g2', 'más característico'], ['peso', 'mayor peso'], ['alcance', 'mayor alcance']];
+const COO_ORDEN = [['g2', __('más característico')], ['peso', __('mayor peso')], ['alcance', __('mayor alcance')]];
 
 // ------------------------------------------------ colores de los temas --
 // CARTOColors, de cartografia tematica, donde el problema es el mismo que aqui:
@@ -10643,20 +10909,20 @@ async function cooLoad() {
   const mine = ++X.seq;
   if (!L.total) {
     X.data = null; X.cid = L.id; listHead();
-    box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>Biblioteca vacía</h3>
-      <p>Las coocurrencias parten del léxico de la biblioteca. Añada intervenciones desde <b>Explorar</b>.</p></div>`;
+    box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>${__('Biblioteca vacía')}</h3>
+      <p>${__('Las coocurrencias parten del léxico de la biblioteca. Añada intervenciones desde <b>Explorar</b>.')}</p></div>`;
     return;
   }
   if (X.cache.has(key)) { X.data = X.cache.get(key); X.cid = L.id; cooRender(); return; }
   X.data = null; X.cid = null; listHead();
   const t0 = performance.now();
   box.innerHTML = `<div class="empty lex-prog" role="status" aria-live="polite">
-    <p>Construyendo la red de coocurrencias de ${nf(L.total)} ${L.total === 1 ? 'intervención' : 'intervenciones'}…</p>
-    <div class="bar" role="progressbar" aria-label="Progreso de las coocurrencias" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
-    <p class="lex-prog-fase">Preparando…</p>
+    <p>${__('Construyendo la red de coocurrencias de {0}…', L.total === 1 ? __('{0} intervención', nf(L.total)) : __('{0} intervenciones', nf(L.total)))}</p>
+    <div class="bar" role="progressbar" aria-label="${__('Progreso de las coocurrencias')}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
+    <p class="lex-prog-fase">${__('Preparando…')}</p>
     <p class="lex-prog-t dsub">0 % · 0 s</p>
-    <p style="margin-top:10px"><button class="btn sm" data-coocancel>Cancelar</button></p>
-    <p class="dsub" style="margin-top:8px;font-size:11.5px">Si ya calculó el léxico de esta biblioteca con el mismo ajuste de «Solo discurso», se reutiliza.</p></div>`;
+    <p style="margin-top:10px"><button class="btn sm" data-coocancel>${__('Cancelar')}</button></p>
+    <p class="dsub" style="margin-top:8px;font-size:11.5px">${__('Si ya calculó el léxico de esta biblioteca con el mismo ajuste de «Solo discurso», se reutiliza.')}</p></div>`;
   let ultimoEv = null;
   const pinta = (ev) => {
     if (mine !== X.seq) return;
@@ -10667,9 +10933,9 @@ async function cooLoad() {
     const pct = e ? Math.round(Math.max(0, Math.min(1, e.fraccion || 0)) * 100) : 0;
     bar.querySelector('.bar i').style.width = `${pct}%`;
     bar.querySelector('.bar').setAttribute('aria-valuenow', String(pct));
-    if (e) bar.querySelector('.lex-prog-fase').textContent = `${e.indice}/${e.n_fases} · ${e.etiqueta}${e.total > 1 ? ` · ${nf(e.hecho)} de ${nf(e.total)}` : ''}`;
+    if (e) bar.querySelector('.lex-prog-fase').textContent = `${e.indice}/${e.n_fases} · ${__(e.etiqueta)}${e.total > 1 ? ` · ${__('{0} de {1}', nf(e.hecho), nf(e.total))}` : ''}`;
     const eta = e && e.fraccion > 0.08 && e.fraccion < 1 ? sg / e.fraccion - sg : null;
-    bar.querySelector('.lex-prog-t').textContent = `${pct} % · ${Math.round(sg)} s${eta != null ? ` · quedan unos ${Math.max(1, Math.round(eta))} s` : ''}`;
+    bar.querySelector('.lex-prog-t').textContent = `${pct} % · ${Math.round(sg)} s${eta != null ? ` · ${__('quedan unos {0} s', Math.max(1, Math.round(eta)))}` : ''}`;
   };
   const reloj = setInterval(() => pinta(null), 500);
   const ctrl = X.ctrl = new AbortController();
@@ -10691,13 +10957,13 @@ async function cooLoad() {
     if (mine !== X.seq) return;
     if (e.name === 'AbortError') {
       if (S.view === 'library' && S.libTab === 'coocurrencias' && box.querySelector('.lex-prog')) {
-        box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>Cálculo cancelado</h3>
-          <p>Puede volver a lanzarlo cuando quiera.</p><p style="margin-top:10px"><button class="btn sm" data-cooretry>Calcular las coocurrencias</button></p></div>`;
+        box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>${__('Cálculo cancelado')}</h3>
+          <p>${__('Puede volver a lanzarlo cuando quiera.')}</p><p style="margin-top:10px"><button class="btn sm" data-cooretry>${__('Calcular las coocurrencias')}</button></p></div>`;
       }
       return;
     }
-    box.innerHTML = `<div class="empty"><div class="big">⚠</div><h3>No se pudo construir la red</h3>
-      <p>${esc(e.message)}</p><p style="margin-top:10px"><button class="btn sm" data-cooretry>Reintentar</button></p></div>`;
+    box.innerHTML = `<div class="empty"><div class="big">⚠</div><h3>${__('No se pudo construir la red')}</h3>
+      <p>${esc(e.message)}</p><p style="margin-top:10px"><button class="btn sm" data-cooretry>${__('Reintentar')}</button></p></div>`;
   }
 }
 
@@ -10715,14 +10981,14 @@ function cooNotaPartidos(r) {
   const lib = r.partidos;
   if (!lib?.palabras || !(r.comunidades || []).some(c => c.partidos?.palabras)) return '';
   const falta = (lib.palabras_totales || 0) - lib.palabras;
-  return `<p class="lex-note">En cada tema, el eje sitúa a los partidos por la frecuencia con la que usan su vocabulario:
+  return `<p class="lex-note">${__(`En cada tema, el eje sitúa a los partidos por la frecuencia con la que usan su vocabulario:
     palabras del tema por cada mil suyas, en veces la media de la biblioteca, que es el centro del eje. Como es una tasa,
     no depende de cuánto hable el partido. Están todos los que dicen al menos el 1 % de las palabras de la biblioteca y
     de los que cabría esperar cinco palabras del tema o más —por debajo de eso ni el exceso ni la falta dicen nada—, y
     llevan nombre los que más se apartan de la media <b>en cualquiera de los dos sentidos</b>: un tema del que un partido
     no habla dice tanto como uno del que habla el doble. Los demás puntos guardan sus cifras en el título. La escala es
-    logarítmica, así que la mitad y el doble quedan a la misma distancia del centro.
-    ${falta > 0 ? `Cuentan las ${nf(lib.palabras)} palabras con partido; ${nf(falta)} no lo traen.` : ''}</p>`;
+    logarítmica, así que la mitad y el doble quedan a la misma distancia del centro.`)}
+    ${falta > 0 ? __('Cuentan las {0} palabras con partido; {1} no lo traen.', nf(lib.palabras), nf(falta)) : ''}</p>`;
 }
 
 /** Peso de cada partido en el tema como frecuencia relativa: palabras del vocabulario del tema por cada mil palabras
@@ -10745,27 +11011,31 @@ function cooPartidosHTML(r, c) {
   if (!cand.length) return '';
   const lejos = (f) => Math.abs(Math.log(f.veces));
   const orden = new Map(cand.slice().sort((a, b) => lejos(b) - lejos(a)).map((f, k) => [f.p, k]));   // a quién etiquetar antes
-  const dec = (x, d = 1) => x.toFixed(d).replace('.', ',');
+  const dec = (x, d = 1) => __.dec(x.toFixed(d));
   const K = Math.max(2, Math.ceil(Math.max(...cand.map(f => Math.max(f.veces, 1 / f.veces)))));
   const x = (v) => `${Math.max(0, Math.min(100, 50 + 50 * Math.log(v) / Math.log(K))).toFixed(2)}%`;
   const ticks = [];
   for (let k = 2; k <= K; k++) ticks.push(`<span class="coo-eje-t" style="left:${x(k)}"></span>`, `<span class="coo-eje-t" style="left:${x(1 / k)}"></span>`);
   const puntos = cand.slice().sort((a, b) => a.veces - b.veces).map(f => {
-    const ficha = `<div><b>${esc(f.p)}</b> <em>${f.tok ? `${dec(f.veces, 2)}×` : 'ninguna palabra del tema'}</em>`
-      + `${f.tok ? ` la media (${dec(f.tasa)} por mil frente a ${dec(tasaLib)})` : ''} · ${nf(f.tok)} de las ${nf(rep.palabras)}`
-      + ` palabras del tema, cabría esperar ${nf(Math.round(f.esperado))} · ${nf(f.n)} ${f.n === 1 ? 'intervención' : 'intervenciones'}`
-      + ` · ${nf(f.pal)} palabras en la biblioteca</div>`;
+    const ficha = `<div><b>${esc(f.p)}</b> ${f.tok
+      ? __('{0} la media ({1} por mil frente a {2})', `<em>${dec(f.veces, 2)}×</em>`, dec(f.tasa), dec(tasaLib))
+      : `<em>${__('ninguna palabra del tema')}</em>`}`
+      + ` · ${__('{0} de las {1} palabras del tema, cabría esperar {2}', nf(f.tok), nf(rep.palabras), nf(Math.round(f.esperado)))}`
+      + ` · ${f.n === 1 ? __('{0} intervención', nf(f.n)) : __('{0} intervenciones', nf(f.n))}`
+      + ` · ${__('{0} palabras en la biblioteca', nf(f.pal))}</div>`;
     return `<span class="coo-eje-p" data-prio="${orden.get(f.p)}" style="left:${x(f.veces)}" data-tip="${esc(ficha)}">`
       + `<b class="coo-eje-n">${esc(f.p)} <em>${f.tok ? `${dec(f.veces)}×` : '0'}</em></b><i class="coo-eje-d"></i></span>`;
   }).join('');
   const fuera = conPeso.length - cand.length;
   const leyenda = cand.slice().sort((a, b) => lejos(b) - lejos(a)).slice(0, 4)
-    .map(f => `${f.p} ${f.tok ? `${dec(f.veces)} veces la media` : 'ninguna palabra del tema'}`).join('; ');
-  return `<div class="coo-eje" role="img" aria-label="${esc(`${cand.length} partidos por su uso del vocabulario del tema; los que más se apartan de la media: ${leyenda}`)}">
+    .map(f => `${f.p} ${f.tok ? __('{0} veces la media', dec(f.veces)) : __('ninguna palabra del tema')}`).join('; ');
+  return `<div class="coo-eje" role="img" aria-label="${esc(__('{0} partidos por su uso del vocabulario del tema; los que más se apartan de la media: {1}', cand.length, leyenda))}">
       <span class="coo-eje-linea"></span>${ticks.join('')}
-      <span class="coo-eje-media" style="left:50%"><b>media</b></span>
+      <span class="coo-eje-media" style="left:50%"><b>${__('media')}</b></span>
       ${puntos}
-    </div>${fuera > 0 ? `<div class="coo-pmas">fuera del eje, ${nf(fuera)} ${fuera === 1 ? 'partido' : 'partidos'} de los que cabría esperar menos de cinco palabras del tema</div>` : ''}`;
+    </div>${fuera > 0 ? `<div class="coo-pmas">${fuera === 1
+      ? __('fuera del eje, {0} partido de los que cabría esperar menos de cinco palabras del tema', nf(fuera))
+      : __('fuera del eje, {0} partidos de los que cabría esperar menos de cinco palabras del tema', nf(fuera))}</div>` : ''}`;
 }
 
 /** Coloca las etiquetas del eje sin que se pisen (hay que medirlas ya pintadas), empezando por los partidos que más se
@@ -10877,14 +11147,14 @@ function cooEjeFicha(eje, ps) {
 /** Una intervención jerarquizada: orador, fecha, partido, longitud, barra de puntuación y términos que la sostienen. */
 function cooLectFila(r, x, k, maxP, col = null) {
   const m = (r.lectura && r.lectura.metadatos && r.lectura.metadatos[x.id]) || {};
-  const quien = ident(m.rep_name) ? m.rep_name : (m.speaker || 'Sin orador');
+  const quien = ident(m.rep_name) ? m.rep_name : (m.speaker || __('Sin orador'));
   const pct = maxP > 0 ? Math.max(3, Math.round(100 * x.puntuacion / maxP)) : 0;
   const terms = (x.terminos || []).slice(0, 5).map(t => `${esc(t.display)}<sup>${nf(t.tf)}</sup>`).join(' ');
-  return `<li class="coo-lf" data-cooopen="${x.id}" role="button" tabindex="0" title="Abrir en el lector">
+  return `<li class="coo-lf" data-cooopen="${x.id}" role="button" tabindex="0" title="${__('Abrir en el lector')}">
     <span class="coo-lf-n">${k + 1}</span>${col ? `<i class="coo-dot" style="--c:${col}"></i>` : ''}
     <span class="coo-lf-q">${esc(quien)}</span>
-    <span class="coo-lf-m">${esc(m.date ? fechaCorta(m.date) : '')}${ident(m.party) ? ` · ${esc(m.party)}` : ''} · ${nf(x.palabras)} palabras</span>
-    <span class="coo-lf-b" title="Puntuación ${String(x.puntuacion).replace('.', ',')}"><i style="width:${pct}%"></i></span>
+    <span class="coo-lf-m">${esc(m.date ? fechaCorta(m.date) : '')}${ident(m.party) ? ` · ${esc(m.party)}` : ''} · ${__('{0} palabras', nf(x.palabras))}</span>
+    <span class="coo-lf-b" title="${__('Puntuación {0}', __.dec(x.puntuacion))}"><i style="width:${pct}%"></i></span>
     <span class="coo-lf-t">${terms}</span></li>`;
 }
 
@@ -10897,16 +11167,16 @@ function cooLecturaHTML(r) {
   if (!lista.length) return '';
   const vistos = lista.slice(0, X.lectN);
   const maxP = Math.max(...lista.map(x => x.puntuacion));
-  const modos = [['variada', 'Variada por tema', 'La mejor de cada tema, por turnos: cubre todos los temas de la biblioteca'],
-                 ['global', 'Más informativas', 'Las que más vocabulario característico de la biblioteca concentran, sin mirar el tema']]
+  const modos = [['variada', __('Variada por tema'), __('La mejor de cada tema, por turnos: cubre todos los temas de la biblioteca')],
+                 ['global', __('Más informativas'), __('Las que más vocabulario característico de la biblioteca concentran, sin mirar el tema')]]
     .map(([v, l, t]) => `<button type="button" data-coolect="${v}" aria-pressed="${X.lectModo === v}" title="${esc(t)}">${l}</button>`).join('');
   return `<section class="coo-leer">
-    <div class="coo-cab"><h4>Leer primero</h4><div class="tseg" role="group" aria-label="Criterio de lectura">${modos}</div></div>
-    <p class="lex-note">Intervenciones de la biblioteca ordenadas por lo que concentran de su vocabulario característico
-      (BM25 con cada término pesado por su G² en el léxico, con saturación por repetición y corrección por longitud).
-      ${variada ? 'El punto de color indica el tema del que sale cada una.' : ''}</p>
+    <div class="coo-cab"><h4>${__('Leer primero')}</h4><div class="tseg" role="group" aria-label="${__('Criterio de lectura')}">${modos}</div></div>
+    <p class="lex-note">${__(`Intervenciones de la biblioteca ordenadas por lo que concentran de su vocabulario característico
+      (BM25 con cada término pesado por su G² en el léxico, con saturación por repetición y corrección por longitud).`)}
+      ${variada ? __('El punto de color indica el tema del que sale cada una.') : ''}</p>
     <ol class="coo-lista">${vistos.map((x, k) => cooLectFila(r, x, k, maxP, variada ? (paleta[x.tema] || pal[x.tema % pal.length]) : null)).join('')}</ol>
-    ${lista.length > vistos.length ? `<p class="lex-more"><button class="btn sm" data-coomas>Mostrar ${nf(Math.min(lista.length - vistos.length, 20))} más de ${nf(lista.length)}</button></p>` : ''}
+    ${lista.length > vistos.length ? `<p class="lex-more"><button class="btn sm" data-coomas>${__('Mostrar {0} más de {1}', nf(Math.min(lista.length - vistos.length, 20)), nf(lista.length))}</button></p>` : ''}
   </section>`;
 }
 
@@ -10920,8 +11190,8 @@ function cooRender() {
   if (S.readTema) temaRepinta(); else temaHead();
   const top = sc.scrollTop;
   if (r.error) {
-    box.innerHTML = `<div class="empty"><div class="big">⚠</div><h3>No se pudo construir la red</h3><p>${esc(r.message || r.error)}</p>
-      <p style="margin-top:10px"><button class="btn sm" data-cooretry>Reintentar</button></p></div>`;
+    box.innerHTML = `<div class="empty"><div class="big">⚠</div><h3>${__('No se pudo construir la red')}</h3><p>${esc(r.message || r.error)}</p>
+      <p style="margin-top:10px"><button class="btn sm" data-cooretry>${__('Reintentar')}</button></p></div>`;
     return;
   }
   const X = S.coo, E = cooExcl(), p = r.parametros || {}, st = r.estadisticas || {}, voc = r.vocabulario || {};
@@ -10930,60 +11200,62 @@ function cooRender() {
   const sel = (attr, cur, opts, fmt = x => nf(x)) => `<select data-coo="${attr}">${opts.map(v =>
     `<option value="${v}"${Number(v) === Number(cur) ? ' selected' : ''}>${fmt(v)}</option>`).join('')}</select>`;
   const controles = `<div class="coo-ctl">
-      <div class="tseg" role="group" aria-label="Unidad de contexto">${seg('coounidad', X.unidad, COO_UNIDADES)}</div>
-      <label class="tsel" title="Cuántos términos del léxico, de más a menos característicos, entran en la red">Términos ${sel('vocabulario', X.vocabulario, COO_VOCAB)}</label>
-      <label class="tsel" title="Conexiones que conserva cada término: las de mayor G² entre las significativas">Vecinos ${sel('vecinos', X.vecinos, COO_VECINOS)}</label>
-      <span class="tsel">Temas</span><div class="tseg" role="group" aria-label="Número de temas">${seg('cooresol', X.resolucion, COO_RESOLUCION)}</div>
-      <label class="chk tchk" title="Une las expresiones de varias palabras detectadas en el corpus («seguridad pública», «régimen de excepción») en un solo nodo: sus palabras dejan de contar sueltas"><input type="checkbox" data-cooexpr${X.expresiones ? ' checked' : ''}><span>expresiones</span></label>
+      <div class="tseg" role="group" aria-label="${__('Unidad de contexto')}">${seg('coounidad', X.unidad, COO_UNIDADES)}</div>
+      <label class="tsel" title="${__('Cuántos términos del léxico, de más a menos característicos, entran en la red')}">${__('Términos')} ${sel('vocabulario', X.vocabulario, COO_VOCAB)}</label>
+      <label class="tsel" title="${__('Conexiones que conserva cada término: las de mayor G² entre las significativas')}">${__('Vecinos')} ${sel('vecinos', X.vecinos, COO_VECINOS)}</label>
+      <span class="tsel">${__('Temas')}</span><div class="tseg" role="group" aria-label="${__('Número de temas')}">${seg('cooresol', X.resolucion, COO_RESOLUCION)}</div>
+      <label class="chk tchk" title="${__('Une las expresiones de varias palabras detectadas en el corpus («seguridad pública», «régimen de excepción») en un solo nodo: sus palabras dejan de contar sueltas')}"><input type="checkbox" data-cooexpr${X.expresiones ? ' checked' : ''}><span>${__('expresiones')}</span></label>
     </div>`;
   if (r.aviso || !(r.comunidades || []).length) {
-    box.innerHTML = `<div class="lex coo">${controles}<div class="empty" style="padding:26px 16px"><h3>Sin red de coocurrencias</h3>
-      <p>${esc(r.aviso || 'Ninguna pareja de términos alcanza la significación exigida en esta biblioteca.')}</p></div></div>`;
+    box.innerHTML = `<div class="lex coo">${controles}<div class="empty" style="padding:26px 16px"><h3>${__('Sin red de coocurrencias')}</h3>
+      <p>${esc(r.aviso || __('Ninguna pareja de términos alcanza la significación exigida en esta biblioteca.'))}</p></div></div>`;
     return;
   }
   const metric = (k, v, extra = '', tit = '') => `<div class="lex-metric"${tit ? ` title="${esc(tit)}"` : ''}>`
     + `<div class="k">${k}</div><div class="v">${v}</div>${extra ? `<div class="s">${extra}</div>` : ''}</div>`;
-  const unidades = p.unidad === 'fragmento' ? `${nf(st.n_unidades)} fragmentos` : `${nf(st.n_unidades)} intervenciones`;
+  const unidades = p.unidad === 'fragmento' ? __('{0} fragmentos', nf(st.n_unidades)) : __('{0} intervenciones', nf(st.n_unidades));
   const metricas = `<div class="lex-metrics">
-      ${metric('Temas', nf(st.n_comunidades), 'comunidades de Leiden')}
-      ${metric('Términos', nf(voc.usados), `de ${nf(voc.disponibles)} del léxico`, 'Términos de sobreuso del léxico, de más a menos característicos, sin palabras vacías ni cifras')}
-      ${metric('Conexiones', nf(st.aristas_conservadas), `de ${nf(st.aristas_significativas)} significativas`, `Pares con asociación positiva y G² ≥ ${String(p.g2_min).replace('.', ',')} (p < 0,001); se conservan los ${nf(p.vecinos)} vecinos de mayor G² de cada término`)}
-      ${metric('Modularidad', String(st.modularidad).replace('.', ','), unidades, 'Modularidad de la partición final (resolución 1). Por encima de 0,3 suele indicar una estructura de comunidades clara')}
-      ${st.pct_sin_tema == null ? '' : metric('Sin tema', `${String(st.pct_sin_tema).replace('.', ',')} %`, 'del texto', 'Palabras de las intervenciones que ningún tema domina: las que no alcanzan dos términos de un mismo tema o empatan entre varios. Los pesos de los temas suman el resto.')}
+      ${metric(__('Temas'), nf(st.n_comunidades), __('comunidades de Leiden'))}
+      ${metric(__('Términos'), nf(voc.usados), __('de {0} del léxico', nf(voc.disponibles)), __('Términos de sobreuso del léxico, de más a menos característicos, sin palabras vacías ni cifras'))}
+      ${metric(__('Conexiones'), nf(st.aristas_conservadas), __('de {0} significativas', nf(st.aristas_significativas)), __('Pares con asociación positiva y G² ≥ {0} (p < 0,001); se conservan los {1} vecinos de mayor G² de cada término', __.dec(p.g2_min), nf(p.vecinos)))}
+      ${metric(__('Modularidad'), __.dec(st.modularidad), unidades, __('Modularidad de la partición final (resolución 1). Por encima de 0,3 suele indicar una estructura de comunidades clara'))}
+      ${st.pct_sin_tema == null ? '' : metric(__('Sin tema'), `${__.dec(st.pct_sin_tema)} %`, __('del texto'), __('Palabras de las intervenciones que ningún tema domina: las que no alcanzan dos términos de un mismo tema o empatan entre varios. Los pesos de los temas suman el resto.'))}
     </div>`;
   const vac = p.vacias || {};
-  const descart = [voc.descartados?.vacias ? `${nf(voc.descartados.vacias)} palabras vacías (${esc(vac.fuente || '')}, ${vac.lengua === 'pt' ? 'portugués' : 'español'})` : '',
-    voc.descartados?.cifras ? `${nf(voc.descartados.cifras)} cifras` : '',
-    voc.descartados?.excluidos ? `${nf(voc.descartados.excluidos)} términos excluidos por usted` : ''].filter(Boolean).join(', ');
-  const nota = `<p class="lex-note">Cada tema es una comunidad de la red: los términos más característicos del léxico, unidos cuando
-      aparecen juntos en ${p.unidad === 'fragmento' ? `el mismo fragmento de ${nf(p.fragmento)} palabras` : 'la misma intervención'} más de lo esperable por azar,
+  const descart = [voc.descartados?.vacias ? __('{0} palabras vacías ({1}, {2})', nf(voc.descartados.vacias), esc(vac.fuente || ''), vac.lengua === 'pt' ? __('portugués') : __('español')) : '',
+    voc.descartados?.cifras ? __('{0} cifras', nf(voc.descartados.cifras)) : '',
+    voc.descartados?.excluidos ? __('{0} términos excluidos por usted', nf(voc.descartados.excluidos)) : ''].filter(Boolean).join(', ');
+  const nota = `<p class="lex-note">${__(`Cada tema es una comunidad de la red: los términos más característicos del léxico, unidos cuando
+      aparecen juntos en {0} más de lo esperable por azar,
       y agrupados con el algoritmo de Leiden, que garantiza que cada tema esté conectado. Son <b>candidatos</b>: revíselos en la lista y
-      pulse los términos que no pertenezcan para excluirlos.${p.expresiones?.unidas ? ` Las <b>expresiones</b> de varias palabras detectadas en el corpus
-      (${nf(p.expresiones.inventario)}, <button type="button" class="linkbtn" data-exprrev>revisarlas</button>) cuentan como una sola unidad: «seguridad pública» es un nodo propio y sus palabras sueltas solo cuentan fuera de ella.` : ''}
-      Al excluir términos la red cambia y dos temas pueden fundirse o uno partirse:
-      si ve fundidos dos temas distintos, pida <b>más</b> temas; si ve uno partido, <b>menos</b>.${descart ? ` Se descartaron ${descart}.` : ''}${voc.desde_cache ? ' El léxico se reutilizó del cálculo anterior.' : ''}</p>`;
-  const metodo = `<details class="lex-neg coo-metodo"><summary>Método y parámetros</summary><div class="lex-note" style="margin:8px 2px 0">
-      <b>Vocabulario:</b> los ${nf(voc.usados)} términos de sobreuso del léxico de mayor G², sin las palabras vacías publicadas de la lengua del corpus
-      (${esc(vac.fuente || '—')}, ${nf(vac.n || 0)} palabras, licencia ${esc(vac.licencia || '—')}${(vac.excepciones || []).length ? `; se conservan ${vac.excepciones.map(w => `«${esc(w)}»`).join(' y ')}` : ''}) ni cifras, con dígitos o con letras («treinta», «mil»). Texto: ${p.modo_texto === 'completo' ? 'completo' : 'solo discurso'}.<br>
-      <b>Expresiones:</b> ${p.expresiones?.unidas ? `${nf(p.expresiones.inventario)} detectadas en todo el corpus al cargarlo (de 2 a 7 palabras, frecuentes, con asociación significativa, sin cruzar la puntuación ni las cifras y sin los trozos de secuencias más largas, como las fórmulas leídas una y otra vez); cada frase se parte en el menor número de unidades y cada expresión cuenta como una` : 'no se unen: cada palabra cuenta por separado'}.<br>
-      <b>Unidad de contexto:</b> ${p.unidad === 'fragmento' ? `fragmentos consecutivos de ${nf(p.fragmento)} palabras` : 'la intervención'} (${unidades}).
-      Densidad de la red antes de podar: ${String(Math.round(1000 * st.densidad) / 10).replace('.', ',')} % de los pares posibles.<br>
-      <b>Asociación:</b> G² de Dunning con signo sobre la tabla 2×2 de unidades; se conservan los pares con asociación positiva y G² ≥ ${String(p.g2_min).replace('.', ',')}
-      que están entre los ${nf(p.vecinos)} vecinos de mayor G² de alguno de sus términos. Peso de cada conexión: fuerza de asociación, observado/esperado (van Eck y Waltman, 2009).<br>
-      <b>Comunidades:</b> Leiden (Traag, Waltman y van Eck, 2019), modularidad con resolución ${String(p.resolucion).replace('.', ',')}, semilla ${nf(p.semilla)},
-      refinado voraz. Mismos parámetros, mismo resultado.<br>
-      <b>Orden de los temas:</b> por el G² medio de sus términos en el léxico, es decir, de más a menos característico de la biblioteca.
-      ${p.modo_texto === 'completo' ? '' : '<br><b>Revisión en la lista:</b> busca en el texto completo de las intervenciones, así que puede encontrar algunas más que la cobertura del tema, que se calcula solo sobre el discurso de los oradores.'}</div></details>`;
+      pulse los términos que no pertenezcan para excluirlos.`, p.unidad === 'fragmento' ? __('el mismo fragmento de {0} palabras', nf(p.fragmento)) : __('la misma intervención'))}${p.expresiones?.unidas ? __(` Las <b>expresiones</b> de varias palabras detectadas en el corpus
+      ({0}, {1}) cuentan como una sola unidad: «seguridad pública» es un nodo propio y sus palabras sueltas solo cuentan fuera de ella.`, nf(p.expresiones.inventario), `<button type="button" class="linkbtn" data-exprrev>${__('revisarlas')}</button>`) : ''}
+      ${__(`Al excluir términos la red cambia y dos temas pueden fundirse o uno partirse:
+      si ve fundidos dos temas distintos, pida <b>más</b> temas; si ve uno partido, <b>menos</b>.`)}${descart ? __(' Se descartaron {0}.', descart) : ''}${voc.desde_cache ? __(' El léxico se reutilizó del cálculo anterior.') : ''}</p>`;
+  const metodo = `<details class="lex-neg coo-metodo"><summary>${__('Método y parámetros')}</summary><div class="lex-note" style="margin:8px 2px 0">
+      <b>${__('Vocabulario:')}</b> ${__(`los {0} términos de sobreuso del léxico de mayor G², sin las palabras vacías publicadas de la lengua del corpus
+      ({1}, {2} palabras, licencia {3}{4}) ni cifras, con dígitos o con letras («treinta», «mil»). Texto: {5}.`, nf(voc.usados), esc(vac.fuente || '—'), nf(vac.n || 0), esc(vac.licencia || '—'),
+        (vac.excepciones || []).length ? __('; se conservan {0}', vac.excepciones.map(w => `«${esc(w)}»`).join(__(' y '))) : '',
+        p.modo_texto === 'completo' ? __('completo') : __('solo discurso'))}<br>
+      <b>${__('Expresiones:')}</b> ${p.expresiones?.unidas ? __('{0} detectadas en todo el corpus al cargarlo (de 2 a 7 palabras, frecuentes, con asociación significativa, sin cruzar la puntuación ni las cifras y sin los trozos de secuencias más largas, como las fórmulas leídas una y otra vez); cada frase se parte en el menor número de unidades y cada expresión cuenta como una', nf(p.expresiones.inventario)) : __('no se unen: cada palabra cuenta por separado')}.<br>
+      <b>${__('Unidad de contexto:')}</b> ${p.unidad === 'fragmento' ? __('fragmentos consecutivos de {0} palabras', nf(p.fragmento)) : __('la intervención')} (${unidades}).
+      ${__('Densidad de la red antes de podar: {0} % de los pares posibles.', __.dec(Math.round(1000 * st.densidad) / 10))}<br>
+      <b>${__('Asociación:')}</b> ${__(`G² de Dunning con signo sobre la tabla 2×2 de unidades; se conservan los pares con asociación positiva y G² ≥ {0}
+      que están entre los {1} vecinos de mayor G² de alguno de sus términos. Peso de cada conexión: fuerza de asociación, observado/esperado (van Eck y Waltman, 2009).`, __.dec(p.g2_min), nf(p.vecinos))}<br>
+      <b>${__('Comunidades:')}</b> ${__(`Leiden (Traag, Waltman y van Eck, 2019), modularidad con resolución {0}, semilla {1},
+      refinado voraz. Mismos parámetros, mismo resultado.`, __.dec(p.resolucion), nf(p.semilla))}<br>
+      <b>${__('Orden de los temas:')}</b> ${__('por el G² medio de sus términos en el léxico, es decir, de más a menos característico de la biblioteca.')}
+      ${p.modo_texto === 'completo' ? '' : `<br><b>${__('Revisión en la lista:')}</b> ${__('busca en el texto completo de las intervenciones, así que puede encontrar algunas más que la cobertura del tema, que se calcula solo sobre el discurso de los oradores.')}`}</div></details>`;
   const pal = trendPal().series;
   const paleta = cooPaleta((r.comunidades || []).length);
   const vecinos = cooVecinos(r);
   const marcadosN = E.marcados.size;
   const barraExcl = marcadosN || E.aplicados.size
-    ? `<div class="coo-excl" role="status">${marcadosN ? `<b>${nf(marcadosN)} ${marcadosN === 1 ? 'término marcado' : 'términos marcados'}</b> para excluir.
-        <button class="btn sm primary" data-cooaplicar>Recalcular sin ${marcadosN === 1 ? 'él' : 'ellos'}</button>
-        <button class="btn sm ghost" data-coodesmarcar>Desmarcar</button>` : ''}
-        ${E.aplicados.size ? `<span class="dsub">${nf(E.aplicados.size)} ${E.aplicados.size === 1 ? 'término excluido' : 'términos excluidos'} en este cálculo.</span>
-        <button class="btn sm ghost" data-cooreponer>Reponerlos</button>` : ''}</div>` : '';
+    ? `<div class="coo-excl" role="status">${marcadosN ? `${marcadosN === 1 ? __('<b>{0} término marcado</b> para excluir.', nf(marcadosN)) : __('<b>{0} términos marcados</b> para excluir.', nf(marcadosN))}
+        <button class="btn sm primary" data-cooaplicar>${marcadosN === 1 ? __('Recalcular sin él') : __('Recalcular sin ellos')}</button>
+        <button class="btn sm ghost" data-coodesmarcar>${__('Desmarcar')}</button>` : ''}
+        ${E.aplicados.size ? `<span class="dsub">${E.aplicados.size === 1 ? __('{0} término excluido en este cálculo.', nf(E.aplicados.size)) : __('{0} términos excluidos en este cálculo.', nf(E.aplicados.size))}</span>
+        <button class="btn sm ghost" data-cooreponer>${__('Reponerlos')}</button>` : ''}</div>` : '';
   // La negrita sigue al criterio elegido: se destaca la medida por la que está ordenada la lista.
   const dest = (k, html) => (X.orden === k ? `<b>${html}</b>` : html);
   const ordenados = r.comunidades.map((c, k) => [c, k]);
@@ -10996,45 +11268,46 @@ function cooRender() {
     const chips = c.terminos.map((t, q) => {
       const peso = q < Math.ceil(c.terminos.length / 3) ? ' w1' : q < Math.ceil(2 * c.terminos.length / 3) ? ' w2' : ' w3';
       const marc = E.marcados.has(t.term) ? ' marcado' : '';
-      const tit = `Clic: marcar para excluir. Vecinos más fuertes: ${(vecinos[t.i] || []).join(', ')}`;
+      const tit = __('Clic: marcar para excluir. Vecinos más fuertes: {0}', (vecinos[t.i] || []).join(', '));
       return `<button type="button" class="coo-t${peso}${marc}" data-cooterm="${esc(t.term)}" title="${esc(tit)}" aria-pressed="${!!marc}">${esc(t.display)}</button>`;
     }).join('');
     const lec = c.lectura || [];
     const maxP = lec.length ? lec[0].puntuacion : 0;
-    const leer = lec.length ? `<details class="coo-tl"><summary>Leer primero: ${lec.slice(0, 2).map(x => {
+    const quienes = lec.slice(0, 2).map(x => {
         const m = (r.lectura?.metadatos || {})[x.id] || {};
-        return esc(ident(m.rep_name) ? m.rep_name : (m.speaker || 'Sin orador'));
-      }).join(' · ')}${lec.length > 2 ? ` y ${nf(lec.length - 2)} más` : ''}</summary>
+        return esc(ident(m.rep_name) ? m.rep_name : (m.speaker || __('Sin orador')));
+      }).join(' · ');
+    const leer = lec.length ? `<details class="coo-tl"><summary>${lec.length > 2 ? __('Leer primero: {0} y {1} más', quienes, nf(lec.length - 2)) : __('Leer primero: {0}', quienes)}</summary>
       <ol class="coo-lista">${lec.map((x, q) => cooLectFila(r, x, q, maxP)).join('')}</ol></details>` : '';
     return `<section class="coo-tema" style="--c:${col}">
       <div class="coo-cab"><span class="coo-n">${k + 1}</span><h4>${esc(c.etiqueta)}</h4>
-        <span class="coo-st">${nf(c.n_terminos)} términos · ${dest('alcance', `<span title="Intervenciones donde asoma alguno de sus términos, aunque sea de paso">${nf(c.intervenciones)} intervenciones (${String(c.porcentaje).replace('.', ',')} %)</span>`)}${c.peso == null ? '' : ` · ${dest('peso', `<span title="Palabras de las intervenciones que este tema domina: aquellas en las que está presente la mayor parte de su propio vocabulario. Un tema puede asomar en muchas intervenciones y dominar pocas.">${String(c.peso).replace('.', ',')} % del texto</span>`)}`} · ${dest('g2', `<span title="Media del G² de sus términos en el léxico: cuán característico es el tema de esta biblioteca frente al resto del corpus">G² medio ${nf(Math.round(c.g2_medio))}</span>`)}</span></div>
+        <span class="coo-st">${__('{0} términos', nf(c.n_terminos))} · ${dest('alcance', `<span title="${__('Intervenciones donde asoma alguno de sus términos, aunque sea de paso')}">${__('{0} intervenciones ({1} %)', nf(c.intervenciones), __.dec(c.porcentaje))}</span>`)}${c.peso == null ? '' : ` · ${dest('peso', `<span title="${__('Palabras de las intervenciones que este tema domina: aquellas en las que está presente la mayor parte de su propio vocabulario. Un tema puede asomar en muchas intervenciones y dominar pocas.')}">${__('{0} % del texto', __.dec(c.peso))}</span>`)}`} · ${dest('g2', `<span title="${__('Media del G² de sus términos en el léxico: cuán característico es el tema de esta biblioteca frente al resto del corpus')}">${__('G² medio {0}', nf(Math.round(c.g2_medio)))}</span>`)}</span></div>
       <div class="coo-terms">${chips}</div>
       ${cooPartidosHTML(r, c)}
-      <div class="coo-acc"><button type="button" class="btn sm" data-coobuscar="${k}" title="Busca en la biblioteca las intervenciones con cualquiera de sus términos, resaltados, para revisar el tema">Revisar en la lista</button>
-        <button type="button" class="btn sm ghost" data-coomarcartema="${k}" title="Marca todos los términos del tema para excluirlos">Marcar el tema</button>
-        <button type="button" class="btn sm ghost" data-coonueva="${k}" title="Busca estos términos en TODO el corpus, no solo en esta biblioteca, y guarda el resultado en una biblioteca nueva">Buscar en todo el corpus…</button>
+      <div class="coo-acc"><button type="button" class="btn sm" data-coobuscar="${k}" title="${__('Busca en la biblioteca las intervenciones con cualquiera de sus términos, resaltados, para revisar el tema')}">${__('Revisar en la lista')}</button>
+        <button type="button" class="btn sm ghost" data-coomarcartema="${k}" title="${__('Marca todos los términos del tema para excluirlos')}">${__('Marcar el tema')}</button>
+        <button type="button" class="btn sm ghost" data-coonueva="${k}" title="${__('Busca estos términos en TODO el corpus, no solo en esta biblioteca, y guarda el resultado en una biblioteca nueva')}">${__('Buscar en todo el corpus…')}</button>
         </div>${leer}
     </section>`;
   }).join('');
   const sueltos = (r.sueltos || []).length
-    ? `<details class="lex-neg coo-sueltos"><summary>Términos poco conectados (${nf(r.sueltos.length)}): forman comunidades de uno o dos términos, que no se tratan como temas</summary>
-        <div class="coo-terms" style="--c:var(--text-faint);margin-top:8px">${r.sueltos.map(t => `<button type="button" class="coo-t w3${E.marcados.has(t.term) ? ' marcado' : ''}" data-cooterm="${esc(t.term)}" title="Clic: marcar para excluir">${esc(t.display)}</button>`).join('')}</div></details>` : '';
+    ? `<details class="lex-neg coo-sueltos"><summary>${__('Términos poco conectados ({0}): forman comunidades de uno o dos términos, que no se tratan como temas', nf(r.sueltos.length))}</summary>
+        <div class="coo-terms" style="--c:var(--text-faint);margin-top:8px">${r.sueltos.map(t => `<button type="button" class="coo-t w3${E.marcados.has(t.term) ? ' marcado' : ''}" data-cooterm="${esc(t.term)}" title="${__('Clic: marcar para excluir')}">${esc(t.display)}</button>`).join('')}</div></details>` : '';
   box.innerHTML = `<div class="lex coo">
     ${controles}${metricas}${nota}${barraExcl}
     ${cooLecturaHTML(r)}
-    <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><h4 class="coo-h">Temas</h4>
-      <label class="tsel" title="Solo cambia el orden en que se presentan los temas; no recalcula la red y la numeración de cada tema no cambia">Orden
+    <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><h4 class="coo-h">${__('Temas')}</h4>
+      <label class="tsel" title="${__('Solo cambia el orden en que se presentan los temas; no recalcula la red y la numeración de cada tema no cambia')}">${__('Orden')}
         <select data-cooorden>${COO_ORDEN.map(([v, lab]) =>
           `<option value="${v}"${v === X.orden ? ' selected' : ''}>${lab}</option>`).join('')}</select></label></div>
     ${cooNotaPartidos(r)}
     <div class="coo-temas">${temas}</div>
     ${sueltos}
     ${metodo}
-    <p class="coo-exp"><button class="btn sm" data-cooexp="csv" title="Una fila por término, con su tema y sus medidas">Exportar temas (CSV)</button>
-      <button class="btn sm" data-cooexp="gexf" title="La red podada, con los temas como atributo, para abrirla en Gephi">Exportar red (GEXF)</button>
-      <button class="btn sm" data-cooexp="lectura" title="Las intervenciones jerarquizadas, global, variada y por tema, con su puntuación y los términos que la sostienen">Exportar jerarquía de lectura (CSV)</button>
-      ${r.partidos?.con_partido ? '<button class="btn sm" data-cooexp="partidos" title="Una fila por tema y partido, con sus intervenciones, su parte del tema, su peso en la biblioteca y cuánto lo pasa">Exportar partidos por tema (CSV)</button>' : ''}</p>
+    <p class="coo-exp"><button class="btn sm" data-cooexp="csv" title="${__('Una fila por término, con su tema y sus medidas')}">${__('Exportar temas (CSV)')}</button>
+      <button class="btn sm" data-cooexp="gexf" title="${__('La red podada, con los temas como atributo, para abrirla en Gephi')}">${__('Exportar red (GEXF)')}</button>
+      <button class="btn sm" data-cooexp="lectura" title="${__('Las intervenciones jerarquizadas, global, variada y por tema, con su puntuación y los términos que la sostienen')}">${__('Exportar jerarquía de lectura (CSV)')}</button>
+      ${r.partidos?.con_partido ? `<button class="btn sm" data-cooexp="partidos" title="${__('Una fila por tema y partido, con sus intervenciones, su parte del tema, su peso en la biblioteca y cuánto lo pasa')}">${__('Exportar partidos por tema (CSV)')}</button>` : ''}</p>
     ${fuentePieHTML('panel-fuente')}
   </div>`;
   cooEjesAjustar(box);
@@ -11084,21 +11357,21 @@ function temaDlgPinta() {
   if (!caja) return;
   caja.innerHTML = TEMA_DLG.terminos.map((t, i) =>
     `<button type="button" class="tema-t${t.on ? '' : ' fuera'}" data-temat="${i}"
-       aria-pressed="${t.on}" title="${t.on ? 'Quitar de la búsqueda' : 'Volver a incluir'}">${esc(t.display)}`
+       aria-pressed="${t.on}" title="${t.on ? __('Quitar de la búsqueda') : __('Volver a incluir')}">${esc(t.display)}`
     + `<i>${t.n == null ? '…' : nf(t.n)}</i></button>`).join('');
   const dentro = TEMA_DLG.terminos.filter(t => t.on).length;
-  $('#temaDlgN').textContent = `· ${nf(dentro)} de ${nf(TEMA_DLG.terminos.length)}`
-    + (TEMA_DLG.contando ? ' · contando…' : '');
+  $('#temaDlgN').textContent = __('· {0} de {1}', nf(dentro), nf(TEMA_DLG.terminos.length))
+    + (TEMA_DLG.contando ? __(' · contando…') : '');
   const tot = TEMA_DLG.total;
   const sub = $('#temaDlgSub');
-  if (sub) sub.innerHTML = `${esc(TEMA_DLG.base)} · <b>${tot == null ? '…' : nf(tot)}</b> `
-    + `${tot === 1 ? 'intervención' : 'intervenciones'} en todo el corpus`;
+  const totTxt = tot == null ? '…' : nf(tot);
+  if (sub) sub.innerHTML = `${esc(TEMA_DLG.base)} · `
+    + `${tot === 1 ? __('<b>{0}</b> intervención en todo el corpus', totTxt) : __('<b>{0}</b> intervenciones en todo el corpus', totTxt)}`;
   const grande = (tot || 0) > CONFIRMAR_DESDE;
   $('#temaDlgBig').hidden = !grande;
   if (grande) {
-    $('#temaDlgBigTxt').textContent = `Son ${nf(tot)} intervenciones. Guardarlas lleva unos segundos, y el `
-      + 'Léxico y las Coocurrencias de una biblioteca tan grande pueden tardar minutos la primera vez.';
-    $('#temaDlgBigLbl').textContent = `Sí, crearla con ${nf(tot)}`;
+    $('#temaDlgBigTxt').textContent = __('Son {0} intervenciones. Guardarlas lleva unos segundos, y el Léxico y las Coocurrencias de una biblioteca tan grande pueden tardar minutos la primera vez.', nf(tot));
+    $('#temaDlgBigLbl').textContent = __('Sí, crearla con {0}', nf(tot));
   } else { $('#temaDlgBigOk').checked = false; }
   const ok = $('#temaDlgOk');
   ok.disabled = !dentro || !(tot > 0) || (grande && !$('#temaDlgBigOk').checked);
@@ -11143,9 +11416,10 @@ async function temaDlgCuentas(mio) {
 function temaDlgNota() {
   const L = S.libInfo, puestos = TEMA_DLG.terminos.filter(t => t.on);
   const todos = puestos.length === TEMA_DLG.terminos.length;
-  return `Nuevo tema ${TEMA_DLG.n} a partir de la biblioteca «${L ? L.name : ''}», buscado en todo el corpus.\n`
-    + `Términos (${nf(puestos.length)}${todos ? '' : ` de ${nf(TEMA_DLG.terminos.length)}`}): `
-    + `${puestos.map(t => t.display).join(', ')}.`;
+  const lista = puestos.map(t => t.display).join(', ');
+  return __('Nuevo tema {0} a partir de la biblioteca «{1}», buscado en todo el corpus.', TEMA_DLG.n, L ? L.name : '') + '\n'
+    + (todos ? __('Términos ({0}): {1}.', nf(puestos.length), lista)
+      : __('Términos ({0} de {1}): {2}.', nf(puestos.length), nf(TEMA_DLG.terminos.length), lista));
 }
 
 function cooNuevaBiblioteca(k) {
@@ -11154,10 +11428,10 @@ function cooNuevaBiblioteca(k) {
   if (!c || !dlg) return;
   const E = cooExcl();
   const ts = c.terminos.filter(t => !E.marcados.has(t.term));
-  if (!ts.length) return toast('Todos los términos del tema están marcados para excluir.', true);
+  if (!ts.length) return toast(__('Todos los términos del tema están marcados para excluir.'), true);
   TEMA_DLG.terminos = ts.map(t => ({ term: t.term, display: t.display, on: true, n: null }));
   TEMA_DLG.n = k + 1;
-  TEMA_DLG.base = `Tema ${k + 1} de «${L ? L.name : ''}»`;
+  TEMA_DLG.base = __('Tema {0} de «{1}»', k + 1, L ? L.name : '');
   TEMA_DLG.total = null;
   // La etiqueta que ya lleva el tema en su ficha, para reconocerlo de un vistazo.
   $('#temaDlgName').value = (c.etiqueta || ts.slice(0, 3).map(t => t.display).join(' · ')).replace(/ · /g, ', ');
@@ -11177,11 +11451,11 @@ async function temaDlgCrear() {
   const dlg = $('#dlgTema'), btn = $('#temaDlgOk');
   if (dlg._busy || btn.disabled) return;
   const nombre = $('#temaDlgName').value.trim();
-  if (!nombre) return toast('Escriba un nombre para la biblioteca.', true);
+  if (!nombre) return toast(__('Escriba un nombre para la biblioteca.'), true);
   const dentro = TEMA_DLG.terminos.filter(t => t.on);
   const q = temaConsulta(dentro.map(t => t.term));
   const n = TEMA_DLG.total || 0;
-  const busy = busyStart(dlg, btn, `Creando con ${nf(n)}…`);
+  const busy = busyStart(dlg, btn, __('Creando con {0}…', nf(n)));
   try {
     const cid = (await api('/collections', { method: 'POST', body: { name: nombre } })).id;
     // Si la nota sigue siendo la que se puso al abrir, se rehace con los terminos
@@ -11196,7 +11470,7 @@ async function temaDlgCrear() {
     S.statsCache = null;
     await refreshCollections();
     dlg.close();
-    toast(`Biblioteca «${nombre}» creada con ${nf(n)} ${n === 1 ? 'intervención' : 'intervenciones'}`);
+    toast(n === 1 ? __('Biblioteca «{0}» creada con {1} intervención', nombre, nf(n)) : __('Biblioteca «{0}» creada con {1} intervenciones', nombre, nf(n)));
     if (S.view === 'library') renderLibraryView();
   } catch (e) { toast(e.message, true); }
   finally { busy.end(); temaDlgPinta(); }
@@ -11209,7 +11483,7 @@ function cooBuscar(k) {
   const E = cooExcl();
   const q = c.terminos.filter(t => !E.marcados.has(t.term))
     .map(t => (/^[\p{L}\p{N}]+$/u.test(t.display) ? t.display : `"${t.display.replace(/"/g, '')}"`)).join(' | ');
-  if (!q) return toast('Todos los términos del tema están marcados para excluir.', true);
+  if (!q) return toast(__('Todos los términos del tema están marcados para excluir.'), true);
   S.coo.ctrl?.abort();
   resetFiltersState();
   S.filters.collection_id = cid;
@@ -11262,15 +11536,16 @@ function cooClick(e) {
 function cooMeta(r) {
   const p = r.parametros || {}, st = r.estadisticas || {}, L = S.libInfo, vac = p.vacias || {};
   return [
-    'Explorador de Diarios de Sesiones · red de coocurrencias y temas de una biblioteca',
-    `biblioteca: ${L?.name || ''} (${nf(st.n_intervenciones)} intervenciones)`,
-    `corpus: ${S.info?.title || S.info?.name || ''}`,
-    `generado: ${new Date().toISOString().slice(0, 19)}`,
-    `texto: ${p.modo_texto === 'completo' ? 'completo' : 'solo discurso'} · unidad: ${p.unidad === 'fragmento' ? `fragmentos de ${p.fragmento} palabras` : 'intervención'} (${st.n_unidades} unidades)`,
-    `vocabulario: ${r.vocabulario?.usados} términos de sobreuso del léxico · palabras vacías: ${vac.fuente || '—'} (${vac.lengua || '—'}, ${vac.n || 0}, licencia ${vac.licencia || '—'})`
-      + (r.vocabulario?.descartados?.excluidos ? ` · excluidos a mano: ${[...cooExcl().aplicados].sort().join(', ')}` : ''),
-    `asociación: G² de Dunning con signo, umbral ${p.g2_min}, ${p.vecinos} vecinos por término · peso: fuerza de asociación (observado/esperado)`,
-    `comunidades: Leiden, modularidad con resolución ${p.resolucion}, semilla ${p.semilla}, refinado voraz · modularidad ${st.modularidad} · ${st.n_comunidades} temas`,
+    __('Explorador de Diarios de Sesiones · red de coocurrencias y temas de una biblioteca'),
+    __('biblioteca: {0} ({1} intervenciones)', L?.name || '', nf(st.n_intervenciones)),
+    __('corpus: {0}', S.info?.title || S.info?.name || ''),
+    __('generado: {0}', new Date().toISOString().slice(0, 19)),
+    __('texto: {0} · unidad: {1} ({2} unidades)', p.modo_texto === 'completo' ? __('completo') : __('solo discurso'),
+      p.unidad === 'fragmento' ? __('fragmentos de {0} palabras', p.fragmento) : __('intervención'), st.n_unidades),
+    __('vocabulario: {0} términos de sobreuso del léxico · palabras vacías: {1} ({2}, {3}, licencia {4})', r.vocabulario?.usados, vac.fuente || '—', vac.lengua || '—', vac.n || 0, vac.licencia || '—')
+      + (r.vocabulario?.descartados?.excluidos ? __(' · excluidos a mano: {0}', [...cooExcl().aplicados].sort().join(', ')) : ''),
+    __('asociación: G² de Dunning con signo, umbral {0}, {1} vecinos por término · peso: fuerza de asociación (observado/esperado)', p.g2_min, p.vecinos),
+    __('comunidades: Leiden, modularidad con resolución {0}, semilla {1}, refinado voraz · modularidad {2} · {3} temas', p.resolucion, p.semilla, st.modularidad, st.n_comunidades),
   ];
 }
 
@@ -11280,7 +11555,7 @@ function cooSlug() {
 
 function cooExportCSV() {
   const r = S.coo.data;
-  if (!r || r.error || !(r.comunidades || []).length) return toast('Aún no hay temas que exportar.', true);
+  if (!r || r.error || !(r.comunidades || []).length) return toast(__('Aún no hay temas que exportar.'), true);
   const nodos = r.nodos || [];
   const cols = ['tema', 'etiqueta_tema', 'tema_intervenciones', 'tema_porcentaje', 'termino', 'termino_indice', 'fuerza_interna',
                 'fuerza_total', 'grado', 'g2_lexico', 'frecuencia', 'intervenciones_con_termino'];
@@ -11299,7 +11574,7 @@ function cooExportCSV() {
  *  palabras propias, las que cabría esperar y cuánto pasa (o no llega a) la media. */
 function cooExportPartidos() {
   const r = S.coo.data;
-  if (!r || r.error || !r.partidos?.palabras) return toast('Esta biblioteca no trae partidos que exportar.', true);
+  if (!r || r.error || !r.partidos?.palabras) return toast(__('Esta biblioteca no trae partidos que exportar.'), true);
   const lib = r.partidos;
   const cols = ['tema', 'etiqueta_tema', 'tema_intervenciones', 'tema_palabras', 'partido', 'intervenciones',
                 'palabras_del_tema', 'palabras_del_partido', 'esperadas', 'tasa_por_mil', 'tasa_biblioteca_por_mil',
@@ -11324,23 +11599,21 @@ function cooExportPartidos() {
         rep.otros.n, rep.otros.pal, '', '', '', dec(tasaLib, 4), '', dec(100 * rep.otros.pal / rep.palabras, 2)]);
     }
   }
-  if (!filas.length) return toast('Ningún tema tiene palabras con partido.', true);
+  if (!filas.length) return toast(__('Ningún tema tiene palabras con partido.'), true);
   const meta = cooMeta(r).concat([
-    `partidos: ${nf(lib.con_partido)} de ${nf(lib.intervenciones)} intervenciones y ${nf(lib.palabras)} de ${nf(lib.palabras_totales)}`
-      + ' palabras traen partido (el canónico de la ingesta)',
-    'palabras_del_tema = veces que el partido usa el vocabulario del tema; palabras_del_partido = todas las suyas en la biblioteca;'
-      + ' hay fila también para los partidos que no dicen ninguna palabra del tema',
-    'tasa_por_mil = 1000 × palabras_del_tema / palabras_del_partido, una frecuencia relativa que no depende de cuánto hable'
-      + ' el partido; tasa_biblioteca_por_mil es la misma tasa para el conjunto de la biblioteca y veces_la_media, su cociente',
-    'esperadas = tasa_biblioteca_por_mil × palabras_del_partido / 1000: con menos de cinco esperadas, el exceso o la falta no dicen nada',
-    'una intervención cuenta en todos los temas que toca, así que las filas no suman las intervenciones de la biblioteca',
+    __('partidos: {0} de {1} intervenciones y {2} de {3} palabras traen partido (el canónico de la ingesta)',
+      nf(lib.con_partido), nf(lib.intervenciones), nf(lib.palabras), nf(lib.palabras_totales)),
+    __('palabras_del_tema = veces que el partido usa el vocabulario del tema; palabras_del_partido = todas las suyas en la biblioteca; hay fila también para los partidos que no dicen ninguna palabra del tema'),
+    __('tasa_por_mil = 1000 × palabras_del_tema / palabras_del_partido, una frecuencia relativa que no depende de cuánto hable el partido; tasa_biblioteca_por_mil es la misma tasa para el conjunto de la biblioteca y veces_la_media, su cociente'),
+    __('esperadas = tasa_biblioteca_por_mil × palabras_del_partido / 1000: con menos de cinco esperadas, el exceso o la falta no dicen nada'),
+    __('una intervención cuenta en todos los temas que toca, así que las filas no suman las intervenciones de la biblioteca'),
   ]);
   downloadText(csvConFuente(meta, cols, filas), `partidos_por_tema_${cooSlug()}.csv`, 'text/csv;charset=utf-8');
 }
 
 function cooExportLectura() {
   const r = S.coo.data;
-  if (!r || r.error || !r.lectura) return toast('Aún no hay jerarquía de lectura que exportar.', true);
+  if (!r || r.error || !r.lectura) return toast(__('Aún no hay jerarquía de lectura que exportar.'), true);
   const M = r.lectura.metadatos || {};
   const cols = ['lista', 'posicion', 'tema', 'etiqueta_tema', 'id', 'fecha', 'orador', 'partido', 'palabras', 'puntuacion', 'terminos'];
   const filas = [];
@@ -11354,18 +11627,18 @@ function cooExportLectura() {
   r.lectura.global.forEach((x, k) => fila('global', k, x, null));
   r.comunidades.forEach((c, t) => (c.lectura || []).forEach((x, k) => fila('tema', k, x, t)));
   const met = r.lectura.metodo || {};
-  const meta = cooMeta(r).concat([`jerarquía: ${met.formula} (k1 ${met.k1}, b ${met.b}), peso de cada término ${met.peso_termino}; `
-    + 'variada = la mejor de cada tema por turnos; global = sin mirar el tema; tema = solo los términos del tema']);
+  const meta = cooMeta(r).concat([__('jerarquía: {0} (k1 {1}, b {2}), peso de cada término {3}; variada = la mejor de cada tema por turnos; global = sin mirar el tema; tema = solo los términos del tema',
+    met.formula, met.k1, met.b, met.peso_termino)]);
   downloadText(csvConFuente(meta, cols, filas), `lectura_${cooSlug()}.csv`, 'text/csv;charset=utf-8');
 }
 
 function cooExportGEXF() {
   const r = S.coo.data;
-  if (!r || r.error || !(r.nodos || []).length) return toast('Aún no hay red que exportar.', true);
+  if (!r || r.error || !(r.nodos || []).length) return toast(__('Aún no hay red que exportar.'), true);
   const x = (v) => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const etiqueta = new Map(r.comunidades.map((c, k) => [k, c.etiqueta]));
   const F = fuenteDe();
-  const desc = cooMeta(r).concat([`Fuente: ${F.cita || F.cita_corta || ''}${F.url ? ` · ${F.url}` : ''}`]).join('\n');
+  const desc = cooMeta(r).concat([__('Fuente: {0}', `${F.cita || F.cita_corta || ''}${F.url ? ` · ${F.url}` : ''}`)]).join('\n');
   const nodos = r.nodos.map(n => `      <node id="${n.i}" label="${x(n.display)}"><attvalues>`
     + `<attvalue for="0" value="${n.comunidad + 1}"/><attvalue for="1" value="${x(n.comunidad >= 0 ? etiqueta.get(n.comunidad) : 'sin tema')}"/>`
     + `<attvalue for="2" value="${n.g2_lexico}"/><attvalue for="3" value="${n.freq}"/><attvalue for="4" value="${n.df_intervencion}"/>`
@@ -11375,7 +11648,7 @@ function cooExportGEXF() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <gexf xmlns="http://gexf.net/1.3" version="1.3">
   <meta lastmodifieddate="${new Date().toISOString().slice(0, 10)}">
-    <creator>ParlaIbero · Explorador de Diarios de Sesiones</creator>
+    <creator>${x(__('ParlaIbero · Explorador de Diarios de Sesiones'))}</creator>
     <description>${x(desc)}</description>
   </meta>
   <graph defaultedgetype="undirected" mode="static">
@@ -11406,26 +11679,29 @@ ${aristas}
 
 function lexExportCSV() {
   const r = S.lex.data, L = S.libInfo;
-  if (!r || r.error || !L || S.lex.cid !== L.id) return toast('Aún no hay tabla de léxico.', true);
+  if (!r || r.error || !L || S.lex.cid !== L.id) return toast(__('Aún no hay tabla de léxico.'), true);
   const m = r.metrics || {};
   const num = v => (v == null || !isFinite(v) ? '' : String(+v));
   const tx = r.texto || null, discurso = (r.modo_texto === 'discurso' || r.modo_texto === 'discurso_rapido') && !!tx;
   const meta = [
-    'Explorador de Diarios de Sesiones · léxico (keyness) de una biblioteca',
-    `biblioteca: ${L.name} (${r.n_texts} intervenciones)`,
-    `corpus: ${S.info?.title || S.info?.name || ''}`,
-    `generado: ${new Date().toISOString().slice(0, 19)}`,
+    __('Explorador de Diarios de Sesiones · léxico (keyness) de una biblioteca'),
+    __('biblioteca: {0} ({1} intervenciones)', L.name, r.n_texts),
+    __('corpus: {0}', S.info?.title || S.info?.name || ''),
+    __('generado: {0}', new Date().toISOString().slice(0, 19)),
     discurso
-      ? `texto analizado: solo discurso de los oradores${r.modo_texto === 'discurso_rapido' ? ', segmentación rápida' : ''} (${tx.tokens_analizados} de ${tx.tokens_brutos} tokens; `
-        + `excluidos ${tx.tokens_excluidos}: ${lexDesglose(tx, String) || 'ninguno'})`
-      : 'texto analizado: intervenciones completas (con listas de votación, crónica del acta, acotaciones y tablas)',
-    `palabras (tokens del índice): ${m.tokens}; términos distintos: ${m.types}; TTR: ${m.ttr}`,
-    `referencia: resto del corpus, corpus − texto analizado (${r.reference_tokens} tokens)`,
-    `prueba: G² de Dunning con signo; umbral ${r.threshold} (p < ${r.p}); frecuencia mínima ${r.min_freq}; sin palabras vacías`,
-    `significativos: ${r.significant} de ${r.candidates} candidatos (${r.n_positive} sobreuso, ${r.n_negative} infrauso)${
-      r.n_positive > (r.terms || []).length || r.n_negative > (r.negative || []).length ? '; tabla recortada a los de mayor |G²|' : ''}`,
-    'por_mil = apariciones / tokens × 1000; log_ratio = log2 del cociente de frecuencias relativas (una frecuencia cero cuenta como 0,5)',
-    'separador ; · decimales con punto · UTF-8',
+      ? (r.modo_texto === 'discurso_rapido'
+        ? __('texto analizado: solo discurso de los oradores, segmentación rápida ({0} de {1} tokens; excluidos {2}: {3})',
+          tx.tokens_analizados, tx.tokens_brutos, tx.tokens_excluidos, lexDesglose(tx, String) || __('ninguno'))
+        : __('texto analizado: solo discurso de los oradores ({0} de {1} tokens; excluidos {2}: {3})',
+          tx.tokens_analizados, tx.tokens_brutos, tx.tokens_excluidos, lexDesglose(tx, String) || __('ninguno')))
+      : __('texto analizado: intervenciones completas (con listas de votación, crónica del acta, acotaciones y tablas)'),
+    __('palabras (tokens del índice): {0}; términos distintos: {1}; TTR: {2}', m.tokens, m.types, m.ttr),
+    __('referencia: resto del corpus, corpus − texto analizado ({0} tokens)', r.reference_tokens),
+    __('prueba: G² de Dunning con signo; umbral {0} (p < {1}); frecuencia mínima {2}; sin palabras vacías', r.threshold, r.p, r.min_freq),
+    __('significativos: {0} de {1} candidatos ({2} sobreuso, {3} infrauso)', r.significant, r.candidates, r.n_positive, r.n_negative)
+      + (r.n_positive > (r.terms || []).length || r.n_negative > (r.negative || []).length ? __('; tabla recortada a los de mayor |G²|') : ''),
+    __('por_mil = apariciones / tokens × 1000; log_ratio = log2 del cociente de frecuencias relativas (una frecuencia cero cuenta como 0,5)'),
+    __('separador ; · decimales con punto · UTF-8'),
   ];
 
   const cols = ['termino', 'uso', 'frecuencia', 'frecuencia_resto', 'por_mil_biblioteca', 'por_mil_resto',
@@ -11463,8 +11739,8 @@ function distHTML(r) {
 
 
   const rotulo = r.modo === 'semantic'
-    ? `Distribución de las ${nf(r.n || 0)} más parecidas, por año`
-    : `Resultados por año${r.n ? ` · ${nf(r.n)} intervenciones` : ''}${
+    ? __('Distribución de las {0} más parecidas, por año', nf(r.n || 0))
+    : `${r.n ? __('Resultados por año · {0} intervenciones', nf(r.n)) : __('Resultados por año')}${
         '' }`;
   return `
     <div style="background:var(--bg-sunken);border-radius:6px">
@@ -11476,16 +11752,16 @@ function distHTML(r) {
       <div class="chart-x"><span>${esc(years[0]?.year ?? '')}</span><span>${esc(years.at(-1)?.year ?? '')}</span></div>
       <div style="padding:0 13px 11px;display:flex;flex-wrap:wrap;gap:5px">
         ${(r.sexes || []).map(f =>
-          `<span class="tag fam" title="Sexo">${esc(S.facets?.labels?.sex?.[f.value] || f.value)} ${nf(f.n)}</span>`).join('')}
+          `<span class="tag fam" title="${__('Sexo')}">${esc(__(S.facets?.labels?.sex?.[f.value] || f.value))} ${nf(f.n)}</span>`).join('')}
         ${(r.session_types || []).slice(0, 6).map(f =>
-          `<span class="tag" title="Tipo de sesión">${esc(f.value)} ${nf(f.n)}</span>`).join('')}
+          `<span class="tag" title="${__('Tipo de sesión')}">${esc(f.value)} ${nf(f.n)}</span>`).join('')}
         ${(r.parties || []).slice(0, 8).map(f =>
-          `<span class="tag" title="Partido">${esc(f.value)} ${nf(f.n)}</span>`).join('')}
+          `<span class="tag" title="${__('Partido')}">${esc(f.value)} ${nf(f.n)}</span>`).join('')}
       </div>
       <div style="padding:0 13px 12px;display:flex;flex-wrap:wrap;gap:5px">
         ${(r.speakers || []).slice(0, 10).map(s =>
           `<span class="tag" style="cursor:pointer" data-spk="${esc(s.rep_id)}"
-            title="Filtrar por este diputado">${esc(s.value)} ${nf(s.n)}</span>`).join('')}
+            title="${__('Filtrar por este diputado')}">${esc(s.value)} ${nf(s.n)}</span>`).join('')}
       </div>
     </div>`;
 }
@@ -11530,7 +11806,7 @@ function climaHTML(cl, units = null) {
   }
   items.sort((a, b) => (a.c === 'neutral') - (b.c === 'neutral') || b.n - a.n || CLIMA_PRIO[a.c] - CLIMA_PRIO[b.c]);
   return items.slice(0, 2).map(x =>
-    `<span class="tag clima ${x.c}" title="recuento en la intervención completa">${esc(x.lab)} ×${nf(x.n)}</span>`).join('');
+    `<span class="tag clima ${x.c}" title="${__('recuento en la intervención completa')}">${esc(__(x.lab))} ×${nf(x.n)}</span>`).join('');
 }
 
 
@@ -11546,7 +11822,7 @@ function ideoTag() { return ''; }
 function sexoTag(v) {
   if (!ident(v)) return '';
   const nombre = S.facets?.labels?.sex?.[v] || v;
-  return `<span class="tag" title="Sexo">${esc(nombre)}</span>`;
+  return `<span class="tag" title="${__('Sexo')}">${esc(__(nombre))}</span>`;
 }
 
 async function loadSpectrum() {
@@ -11568,18 +11844,19 @@ async function loadSpectrum() {
   const activas = new Set(S.filters.ideologies || []);
   const pct = x => { const p = x.n / n * 100; return p > 0 && p < 1 ? '<1 %' : `${Math.round(p)} %`; };
   const cls = v => `i-${IDEO_CLAVES.has(v) ? v : 'x'}`;
-  const tit = x => `${L[x.value] || x.value}: ${nf(x.n)} de ${nf(n)} (${pct(x)}) · clic para ${
-    activas.size === 1 && activas.has(x.value) ? 'quitar el filtro' : 'filtrar por esta ideología'}`;
-  const sobre = r.modo === 'semantic' ? `las ${nf(n)} más parecidas`
-    : `los ${nf(n)} resultados${  '' }`;
+  const tit = x => (activas.size === 1 && activas.has(x.value)
+    ? __('{0}: {1} de {2} ({3}) · clic para quitar el filtro', __(L[x.value] || x.value), nf(x.n), nf(n), pct(x))
+    : __('{0}: {1} de {2} ({3}) · clic para filtrar por esta ideología', __(L[x.value] || x.value), nf(x.n), nf(n), pct(x)));
+  const sobre = r.modo === 'semantic' ? __('las {0} más parecidas', nf(n))
+    : `${__('los {0} resultados', nf(n))}${  '' }`;
   box.classList.toggle('has-on', ideos.some(x => activas.has(x.value)));
-  box.innerHTML = `<div class="spec-title">Espectro ideológico de ${sobre}</div>
-    <div class="spec-bar" role="group" aria-label="Espectro ideológico: clic en un tramo para filtrar">${ideos.map(x =>
+  box.innerHTML = `<div class="spec-title">${__('Espectro ideológico de {0}', sobre)}</div>
+    <div class="spec-bar" role="group" aria-label="${__('Espectro ideológico: clic en un tramo para filtrar')}">${ideos.map(x =>
       `<button type="button" class="spec-seg ${cls(x.value)}${activas.has(x.value) ? ' on' : ''}" style="flex:${+x.n} 1 0"
         data-ideo="${esc(x.value)}" title="${esc(tit(x))}" aria-label="${esc(tit(x))}"></button>`).join('')}</div>
     <div class="spec-legend">${ideos.map(x =>
       `<button type="button" class="spec-key${activas.has(x.value) ? ' on' : ''}" data-ideo="${esc(x.value)}" title="${esc(tit(x))}">`
-      + `<i class="${cls(x.value)}"></i>${esc(L[x.value] || x.value)} ${pct(x)}</button>`).join('')}</div>
+      + `<i class="${cls(x.value)}"></i>${esc(__(L[x.value] || x.value))} ${pct(x)}</button>`).join('')}</div>
     ${fuentePieHTML('panel-fuente spec-fuente')}`;
   box.hidden = false;
 }
@@ -11591,43 +11868,41 @@ async function loadSpectrum() {
 
 
 const TREND_MAX = 8;
-const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio',
-               'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 const MESES_C = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 let TREND_RANGES = [
-  { id: 'all', label: 'Todo', title: 'Todo el calendario del corpus' },
+  { id: 'all', label: N_('Todo'), title: N_('Todo el calendario del corpus') },
 ];
 
 /** Los tramos de la tendencia son las legislaturas del corpus abierto (facetas). */
 function trendRangesDesdeFacetas(f) {
   const legs = (f && f.legislatures) || [];
-  const out = [{ id: 'all', label: 'Todo', title: 'Todo el calendario del corpus' }];
+  const out = [{ id: 'all', label: N_('Todo'), title: N_('Todo el calendario del corpus') }];
   legs.forEach((l, i) => {
     if (!l.date_min || !l.date_max) return;
     out.push({ id: `leg${i}`, label: String(l.value), from: l.date_min.slice(0, 7), to: l.date_max.slice(0, 7),
-      title: `Legislatura ${l.value}: ${fechaLarga(l.date_min)} a ${fechaLarga(l.date_max)} · ${nf(l.sessions || 0)} sesiones` });
+      title: __('Legislatura {0}: {1} a {2} · {3} sesiones', l.value, fechaLarga(l.date_min), fechaLarga(l.date_max), nf(l.sessions || 0)) });
   });
   TREND_RANGES = out;
   return out;
 }
-const TREND_KINDS = { electoral: 'Elecciones', politico: 'Política', parlamentario: 'Parlamento',
-                      conflicto: 'Conflicto', economico: 'Economía', social: 'Sociedad' };
-const TREND_MS_LEVELS = [['auto', 'los que quepan', 'Dibuja los hitos por orden de importancia mientras quepan sin solaparse: primero los principales, luego los relevantes y por último los de contexto'],
-                         ['1', 'principales', 'Solo los hitos principales (elecciones, tomas de posesión, constituciones, golpes, crisis mayores)'],
-                         ['2', 'relevantes', 'Hitos principales y relevantes'],
-                         ['3', 'todos', 'Todos los hitos del periodo que quepan en el gráfico']];
+const TREND_KINDS = { electoral: N_('Elecciones'), politico: N_('Política'), parlamentario: N_('Parlamento'),
+                      conflicto: N_('Conflicto'), economico: N_('Economía'), social: N_('Sociedad') };
+const TREND_MS_LEVELS = [['auto', N_('los que quepan'), N_('Dibuja los hitos por orden de importancia mientras quepan sin solaparse: primero los principales, luego los relevantes y por último los de contexto')],
+                         ['1', N_('principales'), N_('Solo los hitos principales (elecciones, tomas de posesión, constituciones, golpes, crisis mayores)')],
+                         ['2', N_('relevantes'), N_('Hitos principales y relevantes')],
+                         ['3', N_('todos'), N_('Todos los hitos del periodo que quepan en el gráfico')]];
 const TREND_METRICS = {
-  density: { label: '/10.000 palabras', unit: 'por 10.000 palabras',
-             title: 'Menciones por cada 10.000 palabras pronunciadas en el periodo' },
-  abs: { label: 'Absoluta', unit: 'menciones', title: 'Número de apariciones del término' },
-  pct: { label: '％ interv.', unit: '% de intervenciones',
-         title: 'Porcentaje de intervenciones del periodo que contienen el término al menos una vez' },
+  density: { label: N_('/10.000 palabras'), unit: N_('por 10.000 palabras'),
+             title: N_('Menciones por cada 10.000 palabras pronunciadas en el periodo') },
+  abs: { label: N_('Absoluta'), unit: N_('menciones'), title: N_('Número de apariciones del término') },
+  pct: { label: N_('％ interv.'), unit: N_('% de intervenciones'),
+         title: N_('Porcentaje de intervenciones del periodo que contienen el término al menos una vez') },
 };
 const TREND_REL = {
-  normal: 'fiabilidad normal',
-  baja: 'fiabilidad baja (menos de 100.000 palabras en el periodo)',
-  muy_baja: 'fiabilidad muy baja (menos de 20.000 palabras; no fija la escala)',
-  vacio: 'sin datos',
+  normal: N_('fiabilidad normal'),
+  baja: N_('fiabilidad baja (menos de 100.000 palabras en el periodo)'),
+  muy_baja: N_('fiabilidad muy baja (menos de 20.000 palabras; no fija la escala)'),
+  vacio: N_('sin datos'),
 };
 
 const TREND_PAL = {
@@ -11671,11 +11946,12 @@ S.statsCache = null;
 
 const mesLargo = key => {
   const [y, m] = String(key).split('-').map(Number);
-  return m ? `${MESES[m - 1]} de ${y}` : String(key);
+  return m ? __.fecha(`${y}-${m}`) : String(key);
 };
 const fechaCorta = iso => {
   const [y, m, d] = String(iso || '').split('-').map(Number);
-  return m ? `${d ? `${d} ` : ''}${MESES_C[m - 1]} ${y}` : String(iso || '');
+  // en español se conservan las abreviaturas de siempre («sep», no el «sept» de Intl)
+  return m ? `${d ? `${d} ` : ''}${__.lengua === 'es' ? MESES_C[m - 1] : __.mes(m, true)} ${y}` : String(iso || '');
 };
 
 
@@ -12007,7 +12283,7 @@ function fmtTrend(v, metric) {
   if (v == null || !isFinite(v)) return '—';
   const a = Math.abs(v);
   const dec = metric === 'abs' ? (Number.isInteger(v) ? 0 : 1) : a >= 100 ? 0 : a >= 10 ? 1 : 2;
-  const s = agrupa(v.toLocaleString('es-ES', { minimumFractionDigits: dec, maximumFractionDigits: dec }));
+  const s = __.num(v, { minimumFractionDigits: dec, maximumFractionDigits: dec });
   return metric === 'pct' ? `${s} %` : s;
 }
 
@@ -12159,7 +12435,7 @@ function trendDraw(W, pal, { forExport = false } = {}) {
   for (const v of ticks.ticks) {
     const y = r1(yOf(v));
     o.push(`<line x1="${plotL}" x2="${plotR}" y1="${y}" y2="${y}" stroke="${v === 0 ? pal.axis : pal.grid}" stroke-width="1"/>`);
-    o.push(`<text x="${plotL - 6}" y="${r1(y + 3)}" text-anchor="end">${esc(agrupa(v.toLocaleString('es-ES', { minimumFractionDigits: decTick, maximumFractionDigits: decTick })))}</text>`);
+    o.push(`<text x="${plotL - 6}" y="${r1(y + 3)}" text-anchor="end">${esc(__.num(v, { minimumFractionDigits: decTick, maximumFractionDigits: decTick }))}</text>`);
   }
   o.push('</g>');
 
@@ -12308,15 +12584,15 @@ async function trendLoad() {
 }
 
 function trendTermTitle(t) {
-  if (!t) return 'Pendiente de contar';
-  if (!t.ok) return `${t.message || 'Término no válido.'}${t.suggestion ? ` ${t.suggestion}` : ''}`;
-  const tipo = { palabra: 'Palabra', prefijo: 'Prefijo', frase: 'Frase' }[t.type] || 'Término';
-  const partes = [`${tipo} · ${nf(t.total)} menciones en ${nf(t.total_docs)} intervenciones`];
-  if (t.total_corpus != null && t.total_corpus !== t.total) partes.push(`${nf(t.total_corpus)} en todo el corpus`);
+  if (!t) return __('Pendiente de contar');
+  if (!t.ok) return `${t.message || __('Término no válido.')}${t.suggestion ? ` ${t.suggestion}` : ''}`;
+  const tipo = { palabra: __('Palabra'), prefijo: __('Prefijo'), frase: __('Frase') }[t.type] || __('Término');
+  const partes = [__('{0} · {1} menciones en {2} intervenciones', tipo, nf(t.total), nf(t.total_docs))];
+  if (t.total_corpus != null && t.total_corpus !== t.total) partes.push(__('{0} en todo el corpus', nf(t.total_corpus)));
   if (t.type === 'prefijo' && t.forms?.length)
-    partes.push(`${nf(t.n_forms)} formas: ${t.forms.slice(0, 6).map(f => `${f.form} (${nf(f.n)})`).join(', ')}${t.n_forms > 6 ? '…' : ''}`);
+    partes.push(__('{0} formas: {1}', nf(t.n_forms), `${t.forms.slice(0, 6).map(f => `${f.form} (${nf(f.n)})`).join(', ')}${t.n_forms > 6 ? '…' : ''}`));
   for (const w of t.warnings || []) if (w?.message) partes.push(w.message);
-  partes.push(`Consulta: ${t.query}`);
+  partes.push(__('Consulta: {0}', t.query));
   return partes.join('\n');
 }
 
@@ -12325,19 +12601,19 @@ function trendChipsHTML() {
   const info = new Map((T.data?.terms || []).map((t, k) => [t.input, { t, k }]));
   const chips = T.terms.map((term, k) => {
     if (T.editing === k)
-      return `<input class="tchip-edit" data-tedit-input="${k}" value="${esc(term)}" size="${Math.max(6, term.length + 2)}" aria-label="Editar el término ${k + 1}">`;
+      return `<input class="tchip-edit" data-tedit-input="${k}" value="${esc(term)}" size="${Math.max(6, term.length + 2)}" aria-label="${esc(__('Editar el término {0}', k + 1))}">`;
     const x = info.get(term), t = x?.t;
     const col = pal.series[(x ? x.k : k) % pal.series.length];
     const err = t && !t.ok;
     const cifra = t?.ok ? ` · ${nf(t.total)}` : (!t && T.loading ? ' · …' : '');
     return `<span class="tchip${err ? ' err' : ''}" style="--c:${col}">`
       + `<i class="tdot" aria-hidden="true"></i>`
-      + `<button type="button" class="tchip-lab" data-tedit="${k}" title="${esc(trendTermTitle(t))}\n(clic para editar)">${err ? '⚠ ' : ''}${esc(term)}${cifra}</button>`
-      + `<button type="button" class="tchip-x" data-tdel="${k}" aria-label="Quitar ${esc(term)}" title="Quitar">✕</button></span>`;
+      + `<button type="button" class="tchip-lab" data-tedit="${k}" title="${esc(trendTermTitle(t))}\n${esc(__('(clic para editar)'))}">${err ? '⚠ ' : ''}${esc(term)}${cifra}</button>`
+      + `<button type="button" class="tchip-x" data-tdel="${k}" aria-label="${esc(__('Quitar {0}', term))}" title="${esc(__('Quitar'))}">✕</button></span>`;
   }).join('');
   const add = T.terms.length < TREND_MAX
-    ? `<input id="trendAdd" class="tadd" placeholder="+ término" aria-label="Añadir términos (separe varios con comas)" title="Palabra, prefijo* o “frase entre comillas”. Varios, separados por comas. Intro para añadir.">`
-    : `<span class="tstatus">máx. ${TREND_MAX}</span>`;
+    ? `<input id="trendAdd" class="tadd" placeholder="${esc(__('+ término'))}" aria-label="${esc(__('Añadir términos (separe varios con comas)'))}" title="${esc(__('Palabra, prefijo* o “frase entre comillas”. Varios, separados por comas. Intro para añadir.'))}">`
+    : `<span class="tstatus">${__('máx. {0}', TREND_MAX)}</span>`;
   return chips + add;
 }
 
@@ -12348,13 +12624,13 @@ function trendStatusHTML() {
   if (d) {
     const den = d.denominators || {};
     out.push(d.filtered
-      ? `Con los filtros: ${nf(d.n_allowed)} intervenciones · ${nf(den.tokens_total)} palabras`
-      : `Corpus completo · ${nf(den.tokens_total)} palabras`);
-    if (T.applyFilters && !Object.keys(trendFilters()).length) out.push('sin filtros activos');
-    out.push(esc(TREND_METRICS[T.metric].unit));
-    if (d.incomplete) out.push('<span class="terr">contando… (resultado parcial)</span>');
-    if (d.errors) out.push(`<span class="terr">${nf(d.errors)} ${d.errors === 1 ? 'término no válido' : 'términos no válidos'}</span>`);
-  } else if (T.loading) out.push('Contando…');
+      ? __('Con los filtros: {0} intervenciones · {1} palabras', nf(d.n_allowed), nf(den.tokens_total))
+      : __('Corpus completo · {0} palabras', nf(den.tokens_total)));
+    if (T.applyFilters && !Object.keys(trendFilters()).length) out.push(__('sin filtros activos'));
+    out.push(esc(__(TREND_METRICS[T.metric].unit)));
+    if (d.incomplete) out.push(`<span class="terr">${__('contando… (resultado parcial)')}</span>`);
+    if (d.errors) out.push(`<span class="terr">${d.errors === 1 ? __('{0} término no válido', nf(d.errors)) : __('{0} términos no válidos', nf(d.errors))}</span>`);
+  } else if (T.loading) out.push(__('Contando…'));
   return out.join(' · ');
 }
 
@@ -12372,16 +12648,16 @@ function trendRender() {
 
   const seg = (attr, cur, opts) => opts.map(([v, lab, tit]) =>
     `<button type="button" data-${attr}="${esc(v)}" aria-pressed="${String(v) === String(cur)}"${tit ? ` title="${esc(tit)}"` : ''}>${esc(lab)}</button>`).join('');
-  const tabs = [['trend', 'Tendencia'], ['dist', 'Distribución']].map(([v, lab]) =>
+  const tabs = [['trend', __('Tendencia')], ['dist', __('Distribución')]].map(([v, lab]) =>
     `<button type="button" role="tab" data-ttab="${v}" aria-selected="${T.tab === v}">${lab}</button>`).join('');
   const head = `<div class="trow">
-      <div class="tseg" role="tablist" aria-label="Contenido del panel">${tabs}</div>
+      <div class="tseg" role="tablist" aria-label="${__('Contenido del panel')}">${tabs}</div>
       <span class="grow"></span>
-      ${T.tab === 'trend' ? `<div class="tseg" role="group" aria-label="Métrica">${seg('tmetric', T.metric,
-          Object.entries(TREND_METRICS).map(([k, m]) => [k, m.label, m.title]))}</div>
-        <div class="tseg" role="group" aria-label="Resolución">${seg('tgran', T.gran,
-          [['month', 'Mes', 'Serie mensual'], ['year', 'Año', 'Serie anual']])}</div>` : ''}
-      <button type="button" class="btn ghost sm" data-tclose title="Plegar el panel (t)" aria-label="Plegar el panel">▴</button>
+      ${T.tab === 'trend' ? `<div class="tseg" role="group" aria-label="${__('Métrica')}">${seg('tmetric', T.metric,
+          Object.entries(TREND_METRICS).map(([k, m]) => [k, __(m.label), __(m.title)]))}</div>
+        <div class="tseg" role="group" aria-label="${__('Resolución')}">${seg('tgran', T.gran,
+          [['month', __('Mes'), __('Serie mensual')], ['year', __('Año'), __('Serie anual')]])}</div>` : ''}
+      <button type="button" class="btn ghost sm" data-tclose title="${__('Plegar el panel (t)')}" aria-label="${__('Plegar el panel')}">▴</button>
     </div>`;
   if (T.tab === 'dist') {
     box.innerHTML = head + '<div id="trendDist"></div>' + fuentePieHTML('panel-fuente');
@@ -12390,23 +12666,23 @@ function trendRender() {
   }
   box.innerHTML = head + `
     <div class="trow" id="trendChips">${trendChipsHTML()}<span class="grow"></span>
-      <label class="chk tchk" title="Trata «agrario» como «agrario*»: cuenta también agraria, agrarios…"><input type="checkbox" data-topt="variants"${T.variants ? ' checked' : ''}><span>variantes</span></label>
-      <label class="chk tchk" title="Calcula la serie solo con las intervenciones que cumplen los filtros de la izquierda, incluida la biblioteca: menciones y palabras salen del mismo subconjunto"><input type="checkbox" data-topt="applyFilters"${T.applyFilters ? ' checked' : ''}><span>aplicar filtros</span></label>
-      <label class="chk tchk" title="Hitos históricos del país, numerados sobre el gráfico (cada uno con su fuente)"><input type="checkbox" data-topt="milestones"${T.milestones ? ' checked' : ''}><span>hitos</span></label>
-      ${T.milestones ? `<label class="tsel" title="Cuántos hitos se dibujan"><select data-tmslevel aria-label="Cuántos hitos se dibujan">${TREND_MS_LEVELS.map(([v, l, tit]) =>
-        `<option value="${v}" title="${esc(tit)}"${String(T.msLevel) === v ? ' selected' : ''}>${l}</option>`).join('')}</select></label>` : ''}
+      <label class="chk tchk" title="${esc(__('Trata «agrario» como «agrario*»: cuenta también agraria, agrarios…'))}"><input type="checkbox" data-topt="variants"${T.variants ? ' checked' : ''}><span>${__('variantes')}</span></label>
+      <label class="chk tchk" title="${esc(__('Calcula la serie solo con las intervenciones que cumplen los filtros de la izquierda, incluida la biblioteca: menciones y palabras salen del mismo subconjunto'))}"><input type="checkbox" data-topt="applyFilters"${T.applyFilters ? ' checked' : ''}><span>${__('aplicar filtros')}</span></label>
+      <label class="chk tchk" title="${esc(__('Hitos históricos del país, numerados sobre el gráfico (cada uno con su fuente)'))}"><input type="checkbox" data-topt="milestones"${T.milestones ? ' checked' : ''}><span>${__('hitos')}</span></label>
+      ${T.milestones ? `<label class="tsel" title="${esc(__('Cuántos hitos se dibujan'))}"><select data-tmslevel aria-label="${esc(__('Cuántos hitos se dibujan'))}">${TREND_MS_LEVELS.map(([v, l, tit]) =>
+        `<option value="${v}" title="${esc(__(tit))}"${String(T.msLevel) === v ? ' selected' : ''}>${__(l)}</option>`).join('')}</select></label>` : ''}
     </div>
     <div class="trow">
-      <div class="tseg" role="group" aria-label="Periodo">${seg('trange', T.range, TREND_RANGES.map(r => [r.id, r.label, r.title]))}</div>
-      <label class="tsel" title="Media móvil centrada: Σ menciones / Σ palabras de la ventana, sin cruzar los cortes de 3 o más meses sin sesiones">Suavizado
-        <select data-tsmooth${T.gran === 'year' ? ' disabled' : ''}>${[[0, 'no'], [3, '3 meses'], [5, '5 meses']].map(([v, l]) =>
+      <div class="tseg" role="group" aria-label="${__('Periodo')}">${seg('trange', T.range, TREND_RANGES.map(r => [r.id, __(r.label), __(r.title)]))}</div>
+      <label class="tsel" title="${esc(__('Media móvil centrada: Σ menciones / Σ palabras de la ventana, sin cruzar los cortes de 3 o más meses sin sesiones'))}">${__('Suavizado')}
+        <select data-tsmooth${T.gran === 'year' ? ' disabled' : ''}>${[[0, __('no')], [3, __('3 meses')], [5, __('5 meses')]].map(([v, l]) =>
           `<option value="${v}"${T.smooth === v ? ' selected' : ''}>${l}</option>`).join('')}</select></label>
       <span class="tstatus grow" id="trendStatus">${trendStatusHTML()}</span>
-      <button type="button" class="btn sm" data-texport="csv" title="Tabla larga: un renglón por término y periodo, con metadatos">CSV</button>
-      <button type="button" class="btn sm" data-texport="svg" title="Gráfico en SVG autónomo">SVG</button>
+      <button type="button" class="btn sm" data-texport="csv" title="${esc(__('Tabla larga: un renglón por término y periodo, con metadatos'))}">CSV</button>
+      <button type="button" class="btn sm" data-texport="svg" title="${esc(__('Gráfico en SVG autónomo'))}">SVG</button>
     </div>
-    <div class="trend-chart" id="trendChart" tabindex="0" role="group" aria-roledescription="gráfico"></div>
-    <div class="tfoot">${TREND_ICON.baja} fiabilidad baja · ${TREND_ICON.muy} muy baja (no fija la escala; ▲ si se sale) · ${TREND_ICON.receso} sin sesiones · ${TREND_ICON.corte} meses sin sesiones comprimidos · ← → recorren los meses · clic en un mes: sus intervenciones</div>
+    <div class="trend-chart" id="trendChart" tabindex="0" role="group" aria-roledescription="${esc(__('gráfico'))}"></div>
+    <div class="tfoot">${__('{0} fiabilidad baja · {1} muy baja (no fija la escala; ▲ si se sale) · {2} sin sesiones · {3} meses sin sesiones comprimidos · ← → recorren los meses · clic en un mes: sus intervenciones', TREND_ICON.baja, TREND_ICON.muy, TREND_ICON.receso, TREND_ICON.corte)}</div>
     <div id="trendMs"></div>
     ${fuentePieHTML('panel-fuente')}
     <div class="sr-only" aria-live="polite" id="trendLive"></div>`;
@@ -12423,54 +12699,66 @@ function trendRenderChart() {
   T.geom = null;
   if (ms) ms.innerHTML = '';
   if (!T.terms.length) {
-    box.innerHTML = `<div class="tempty">Escriba uno o varios términos separados por comas (palabra, prefijo* o
-      "frase"), o busque arriba: la tendencia toma las palabras de la búsqueda.</div>`;
+    box.innerHTML = `<div class="tempty">${__(`Escriba uno o varios términos separados por comas (palabra, prefijo* o
+      "frase"), o busque arriba: la tendencia toma las palabras de la búsqueda.`)}</div>`;
     return;
   }
   if (!T.data) {
-    box.innerHTML = `<div class="tempty">${T.error ? `⚠ ${esc(T.error)}` : '<span class="spin"></span> Contando menciones por mes…'}</div>`;
+    box.innerHTML = `<div class="tempty">${T.error ? `⚠ ${esc(T.error)}` : `<span class="spin"></span> ${__('Contando menciones por mes…')}`}</div>`;
     return;
   }
   if (!(T.data.terms || []).some(t => t && t.ok)) {
-    box.innerHTML = `<div class="tempty">Ningún término válido: pase el ratón por encima de los términos marcados con ⚠.</div>`;
+    box.innerHTML = `<div class="tempty">${__('Ningún término válido: pase el ratón por encima de los términos marcados con ⚠.')}</div>`;
     return;
   }
   const W = Math.max(320, Math.floor(box.clientWidth || 600));
   T.width = W;
   const { svg, geom } = trendDraw(W, trendPal());
-  if (!geom) { box.innerHTML = `<div class="tempty">No hay periodos en este tramo.</div>`; return; }
+  if (!geom) { box.innerHTML = `<div class="tempty">${__('No hay periodos en este tramo.')}</div>`; return; }
   T.geom = geom;
-  const b = geom.base, gran = b.gran === 'year' ? 'anual' : 'mensual';
+  const b = geom.base;
   const nombres = geom.series.map(s => s.label).join(', ');
-  box.setAttribute('aria-label', `Tendencia ${gran} de ${nombres}, ${TREND_METRICS[T.metric].unit}, de ${
-    b.gran === 'year' ? geom.firstKey : mesLargo(geom.firstKey)} a ${b.gran === 'year' ? geom.lastKey : mesLargo(geom.lastKey)}. `
-    + 'Use las flechas izquierda y derecha para recorrer los periodos e Intro para ver sus intervenciones.');
+  const unidad = __(TREND_METRICS[T.metric].unit);
+  const desde = b.gran === 'year' ? geom.firstKey : mesLargo(geom.firstKey), hasta = b.gran === 'year' ? geom.lastKey : mesLargo(geom.lastKey);
+  box.setAttribute('aria-label', (b.gran === 'year'
+    ? __('Tendencia anual de {0}, {1}, de {2} a {3}.', nombres, unidad, desde, hasta)
+    : __('Tendencia mensual de {0}, {1}, de {2} a {3}.', nombres, unidad, desde, hasta))
+    + ' ' + __('Use las flechas izquierda y derecha para recorrer los periodos e Intro para ver sus intervenciones.'));
   box.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${geom.H}" viewBox="0 0 ${W} ${geom.H}" aria-hidden="true">`
     + `${svg}<g class="tcross"></g></svg><div class="trend-tip" hidden></div>${T.loading ? '<span class="tload spin"></span>' : ''}`;
   if (ms && T.milestones) {
-    const titulo = h => `${h.desc || h.label}${h.verificar ? ' (fecha pendiente de verificar)' : ''}`;
+    const titulo = h => `${__(h.desc || h.label)}${h.verificar ? ` ${__('(fecha pendiente de verificar)')}` : ''}`;
     const nIn = geom.msIn.length, nHid = geom.msHidden.length, nOut = geom.msOut.length;
     if (!(T.data.milestones || []).length) {
-      ms.innerHTML = '<div class="tms-out">No hay hitos históricos registrados para este país.</div>';
+      ms.innerHTML = `<div class="tms-out">${__('No hay hitos históricos registrados para este país.')}</div>`;
     } else {
       // Leyenda plegable con altura acotada: el gráfico no cede espacio por muchos que sean los hitos.
       const abierta = T.msLegend == null ? nIn <= 12 : !!T.msLegend;
       const lista = geom.msIn.map(m => {
-        const et = `${esc(m.h.label)} <span class="tms-d">${esc(fechaCorta(m.h.date))}</span>`;
+        const et = `${esc(__(m.h.label))} <span class="tms-d">${esc(fechaCorta(m.h.date))}</span>`;
         const enlace = /^https?:\/\//.test(m.h.fuente || '')
           ? `<a href="${esc(m.h.fuente)}" target="_blank" rel="noopener noreferrer">${et}</a>` : et;
         return `<li title="${esc(titulo(m.h))}" data-msn="${m.n}"><span class="tms-n${m.h.rank === 1 ? ' tms-p' : ''}">${m.n}</span>${enlace}</li>`;
       }).join('');
-      const resumen = `${nf(nIn)} ${nIn === 1 ? 'hito numerado' : 'hitos numerados'} en el gráfico${geom.msTotal > nIn ? ` de ${nf(geom.msTotal)} del periodo` : ''}`
-        + ' · pase el ratón por un número para ver el detalle, o abra su fuente desde esta lista';
-      const ocultos = nHid ? `<div class="tms-out">${nf(nHid)} ${nHid === 1 ? 'hito más del periodo no se dibuja' : 'hitos más del periodo no se dibujan'}${
-        T.msLevel === 'auto' ? ', porque sus números quedarían lejos de su fecha: elija «todos» si prefiere verlos apretados, o acote el periodo a una legislatura'
-        : String(T.msLevel) === '3' ? ' porque no caben en el ancho disponible: acote el periodo a una legislatura o amplíe la ventana'
-        : ' por el nivel elegido: elija «todos» o acote el periodo'}.</div>` : '';
+      const resumen = (geom.msTotal > nIn
+        ? (nIn === 1 ? __('{0} hito numerado en el gráfico de {1} del periodo', nf(nIn), nf(geom.msTotal))
+          : __('{0} hitos numerados en el gráfico de {1} del periodo', nf(nIn), nf(geom.msTotal)))
+        : (nIn === 1 ? __('{0} hito numerado en el gráfico', nf(nIn)) : __('{0} hitos numerados en el gráfico', nf(nIn))))
+        + ' · ' + __('pase el ratón por un número para ver el detalle, o abra su fuente desde esta lista');
+      const uno = nHid === 1, nh = nf(nHid);
+      const ocultos = nHid ? `<div class="tms-out">${
+        T.msLevel === 'auto'
+          ? (uno ? __('{0} hito más del periodo no se dibuja, porque sus números quedarían lejos de su fecha: elija «todos» si prefiere verlos apretados, o acote el periodo a una legislatura.', nh)
+            : __('{0} hitos más del periodo no se dibujan, porque sus números quedarían lejos de su fecha: elija «todos» si prefiere verlos apretados, o acote el periodo a una legislatura.', nh))
+        : String(T.msLevel) === '3'
+          ? (uno ? __('{0} hito más del periodo no se dibuja porque no caben en el ancho disponible: acote el periodo a una legislatura o amplíe la ventana.', nh)
+            : __('{0} hitos más del periodo no se dibujan porque no caben en el ancho disponible: acote el periodo a una legislatura o amplíe la ventana.', nh))
+        : (uno ? __('{0} hito más del periodo no se dibuja por el nivel elegido: elija «todos» o acote el periodo.', nh)
+          : __('{0} hitos más del periodo no se dibujan por el nivel elegido: elija «todos» o acote el periodo.', nh))}</div>` : '';
       ms.innerHTML = (nIn ? `<details class="tms-wrap" data-tmslegend${abierta ? ' open' : ''}><summary>${resumen}</summary><ol class="tms-list">${lista}</ol></details>` : '')
         + ocultos
-        + (nOut ? `<details class="tms-out"><summary>${nf(nOut)} ${nOut === 1 ? 'hito' : 'hitos'} fuera del periodo mostrado</summary>${
-          geom.msOut.map(m => `<span title="${esc(titulo(m.h))}">${esc(m.h.label)} (${esc(fechaCorta(m.h.date))})</span>`).join(' · ')}</details>` : '');
+        + (nOut ? `<details class="tms-out"><summary>${nOut === 1 ? __('{0} hito fuera del periodo mostrado', nf(nOut)) : __('{0} hitos fuera del periodo mostrado', nf(nOut))}</summary>${
+          geom.msOut.map(m => `<span title="${esc(titulo(m.h))}">${esc(__(m.h.label))} (${esc(fechaCorta(m.h.date))})</span>`).join(' · ')}</details>` : '');
     }
   }
   if (T.hover != null) trendHover(T.hover, T.hoverTerm);
@@ -12479,32 +12767,35 @@ function trendRenderChart() {
 
 function trendTipHTML(g, h, termK) {
   const T = S.trend, b = g.base, e = g.hov[h];
-  const titulo = k => (b.gran === 'year' ? `Año ${k}` : mesLargo(k));
+  const titulo = k => (b.gran === 'year' ? __('Año {0}', k) : mesLargo(k));
   if (e.kind === 'gap') {
-    const n = e.it.n, u = b.gran === 'year' ? (n === 1 ? 'año' : 'años') : (n === 1 ? 'mes' : 'meses');
+    const n = e.it.n, nn = nf(n);
+    const u = b.gran === 'year'
+      ? (n === 1 ? __('Sin sesiones ({0} año, comprimidos en el eje)', nn) : __('Sin sesiones ({0} años, comprimidos en el eje)', nn))
+      : (n === 1 ? __('Sin sesiones ({0} mes, comprimidos en el eje)', nn) : __('Sin sesiones ({0} meses, comprimidos en el eje)', nn));
     return `<div class="tt-h">${esc(titulo(b.keys[e.it.i0]))} – ${esc(titulo(b.keys[e.it.i1]))}</div>`
-      + `<div class="tt-dim">Sin sesiones (${nf(n)} ${u}, comprimidos en el eje)</div>`;
+      + `<div class="tt-dim">${u}</div>`;
   }
   const i = e.i;
-  if (b.empty[i]) return `<div class="tt-h">${esc(titulo(b.keys[i]))}</div><div class="tt-dim">Sin sesiones</div>`;
+  if (b.empty[i]) return `<div class="tt-h">${esc(titulo(b.keys[i]))}</div><div class="tt-dim">${__('Sin sesiones')}</div>`;
   const suav = b.gran === 'month' && T.smooth > 1;
   const filas = g.series.map(s => {
     const p = s.vals[i];
     const nombre = `<b>${esc(s.label)}</b>`;
-    if (!p) return `<div class="tt-r" style="--c:${s.col}"><i></i><span>${nombre}: sin datos con estos filtros</span></div>`;
+    if (!p) return `<div class="tt-r" style="--c:${s.col}"><i></i><span>${__('{0}: sin datos con estos filtros', nombre)}</span></div>`;
     const valor = suav
-      ? `${fmtTrend(p.v, T.metric)} <span class="tt-dim">(suav. ${T.smooth} m; bruto ${fmtTrend(p.raw, T.metric)})</span>`
+      ? `${fmtTrend(p.v, T.metric)} <span class="tt-dim">${__('(suav. {0} m; bruto {1})', T.smooth, fmtTrend(p.raw, T.metric))}</span>`
       : fmtTrend(p.raw, T.metric);
     return `<div class="tt-r" style="--c:${s.col}"><i></i><span>${nombre} ${valor}${s.k === termK ? ' ◂' : ''}`
-      + `<br><span class="tt-dim">${nf(p.c)} menciones · ${nf(p.d)} interv.</span></span></div>`;
+      + `<br><span class="tt-dim">${__('{0} menciones · {1} interv.', nf(p.c), nf(p.d))}</span></span></div>`;
   }).join('');
   const rel = b.rel[i];
   const quien = termK != null ? `«${esc(g.series.find(s => s.k === termK)?.label || '')}»`
-    : (g.series.length === 1 ? `«${esc(g.series[0].label)}»` : 'cualquiera de los términos');
-  return `<div class="tt-h">${esc(titulo(b.keys[i]))} · <span class="${rel === 'normal' ? '' : 'tt-dim'}">${esc(TREND_REL[rel] || rel)}</span></div>`
+    : (g.series.length === 1 ? `«${esc(g.series[0].label)}»` : __('cualquiera de los términos'));
+  return `<div class="tt-h">${esc(titulo(b.keys[i]))} · <span class="${rel === 'normal' ? '' : 'tt-dim'}">${esc(__(TREND_REL[rel] || rel))}</span></div>`
     + filas
-    + `<div class="tt-dim">${nf(b.tokens[i])} palabras · ${nf(b.speeches[i])} intervenciones · ${nf(b.sessions[i])} sesiones</div>`
-    + (+b.tokens[i] > 0 ? `<div class="tt-go">Clic o Intro: intervenciones con ${quien} en ese ${b.gran === 'year' ? 'año' : 'mes'}</div>` : '');
+    + `<div class="tt-dim">${__('{0} palabras · {1} intervenciones · {2} sesiones', nf(b.tokens[i]), nf(b.speeches[i]), nf(b.sessions[i]))}</div>`
+    + (+b.tokens[i] > 0 ? `<div class="tt-go">${b.gran === 'year' ? __('Clic o Intro: intervenciones con {0} en ese año', quien) : __('Clic o Intro: intervenciones con {0} en ese mes', quien)}</div>` : '');
 }
 
 function trendHover(h, termK = null, { announce = false } = {}) {
@@ -12551,11 +12842,11 @@ function trendPointer(e) {
       trendHover(null);
       const tip = box.querySelector('.trend-tip');
       const fuente = (() => { try { return m.h.fuente ? new URL(m.h.fuente).hostname.replace(/^www\./, '') : ''; } catch (e) { return ''; } })();
-      tip.innerHTML = `<div class="tt-h">${m.n}. ${esc(m.h.label)}</div><div class="tt-dim">${esc(fechaLarga(m.h.date))}${
-          m.h.date_end ? ` – ${esc(fechaLarga(m.h.date_end))}` : ''}${m.h.kind ? ` · ${esc(TREND_KINDS[m.h.kind] || m.h.kind)}` : ''}</div>`
-        + (m.h.desc ? `<div>${esc(m.h.desc)}</div>` : '')
-        + (fuente ? `<div class="tt-dim">Fuente: ${esc(fuente)}</div>` : '')
-        + (m.h.verificar ? '<div class="tt-dim">Fecha pendiente de verificar</div>' : '');
+      tip.innerHTML = `<div class="tt-h">${m.n}. ${esc(__(m.h.label))}</div><div class="tt-dim">${esc(fechaLarga(m.h.date))}${
+          m.h.date_end ? ` – ${esc(fechaLarga(m.h.date_end))}` : ''}${m.h.kind ? ` · ${esc(__(TREND_KINDS[m.h.kind] || m.h.kind))}` : ''}</div>`
+        + (m.h.desc ? `<div>${esc(__(m.h.desc))}</div>` : '')
+        + (fuente ? `<div class="tt-dim">${__('Fuente: {0}', esc(fuente))}</div>` : '')
+        + (m.h.verificar ? `<div class="tt-dim">${__('Fecha pendiente de verificar')}</div>` : '');
       tip.hidden = false;
       const esc2 = r.width / g.W;
       tip.style.left = `${Math.max(0, Math.min(m.cx * esc2 + 12, box.clientWidth - tip.offsetWidth))}px`;
@@ -12610,15 +12901,15 @@ function trendPick(i, termK = null) {
   const T = S.trend, d = T.data, g = T.geom;
   if (!d || !g) return;
   const b = g.base;
-  if (!(+b.tokens[i] > 0)) { toast(b.empty[i] ? 'En ese periodo no hubo sesiones.' : 'Sin intervenciones con estos filtros en ese periodo.'); return; }
+  if (!(+b.tokens[i] > 0)) { toast(b.empty[i] ? __('En ese periodo no hubo sesiones.') : __('Sin intervenciones con estos filtros en ese periodo.')); return; }
   const validos = b.terms;
   const elegidos = termK != null ? validos.filter(t => t.k === termK) : validos;
   if (!elegidos.length) return;
   const consulta = [...new Set(elegidos.map(t => t.query || t.label))].join(' OR ');
   const key = b.keys[i];
-  const meta = { key, gran: b.gran, label: b.gran === 'year' ? `año ${key}` : mesLargo(key) };
+  const meta = { key, gran: b.gran, label: b.gran === 'year' ? __('año {0}', key) : mesLargo(key) };
   const pf = periodFilter(d, b.members[i], meta);
-  if (!pf) { toast('No se pudo delimitar ese periodo.', true); return; }
+  if (!pf) { toast(__('No se pudo delimitar ese periodo.'), true); return; }
 
 
 
@@ -12636,14 +12927,14 @@ function trendPick(i, termK = null) {
   renderFilters();
   search(true);
   if (!T.applyFilters && otros.length)
-    toast('Se mantienen sus filtros: la lista puede tener menos intervenciones que la tendencia, que está calculada sobre todo el corpus («aplicar filtros» apagado).');
+    toast(__('Se mantienen sus filtros: la lista puede tener menos intervenciones que la tendencia, que está calculada sobre todo el corpus («aplicar filtros» apagado).'));
 }
 
 function trendActivate(h, termK) {
   const g = S.trend.geom;
   const e = g?.hov[h];
   if (!e) return;
-  if (e.kind === 'gap') { toast('En ese tramo no hubo sesiones.'); return; }
+  if (e.kind === 'gap') { toast(__('En ese tramo no hubo sesiones.')); return; }
   trendPick(e.i, termK);
 }
 
@@ -12676,7 +12967,7 @@ function trendSetTerms(terms) {
     const k = foldMap(t).folded;
     if (t && !vistos.has(k)) { vistos.add(k); out.push(t); }
   }
-  if (out.length > TREND_MAX) toast(`Como mucho ${TREND_MAX} términos: se quedan los ${TREND_MAX} primeros.`);
+  if (out.length > TREND_MAX) toast(__('Como mucho {0} términos: se quedan los {0} primeros.', TREND_MAX));
   T.terms = out.slice(0, TREND_MAX);
   T.editing = null;
   trendRender();
@@ -12742,12 +13033,13 @@ function fuenteDe() {
 
   const i = S.info || {};
   const st = i.standalone || {};
-  const cita = `Diarios de sesiones · ${i.pais_nombre || 'país sin identificar'} · archivo ${st.archivo?.nombre || 'CSV'}`
-    + `${i.n_speeches ? ` · ${nf(i.n_speeches)} intervenciones` : ''}${i.date_min ? ` (${i.date_min.slice(0, 4)}–${(i.date_max || '').slice(0, 4)})` : ''}`
-    + '. Corpus de diarios de sesiones parlamentarios construido en este navegador a partir del CSV; cite la fuente original del conjunto de datos.';
-  const corta = `Diarios de sesiones · ${i.pais_nombre || 'país sin identificar'} (${st.archivo?.nombre || 'CSV'})`;
+  const pais = i.pais_nombre ? __(i.pais_nombre) : __('país sin identificar');
+  const cita = __('Diarios de sesiones · {0} · archivo {1}', pais, st.archivo?.nombre || 'CSV')
+    + `${i.n_speeches ? ` · ${__('{0} intervenciones', nf(i.n_speeches))}` : ''}${i.date_min ? ` (${i.date_min.slice(0, 4)}–${(i.date_max || '').slice(0, 4)})` : ''}`
+    + '. ' + __('Corpus de diarios de sesiones parlamentarios construido en este navegador a partir del CSV; cite la fuente original del conjunto de datos.');
+  const corta = __('Diarios de sesiones · {0} ({1})', pais, st.archivo?.nombre || 'CSV');
   return { declarada: false, cita, cita_corta: corta,
-           lineas: [`Fuente: ${corta}`, `Archivo: ${st.archivo?.nombre || ''}${st.archivo?.sha256 ? ` · SHA-256 ${st.archivo.sha256}` : ''}`, 'DOI: no declarado', 'Licencia de los datos: no declarada'],
+           lineas: [__('Fuente: {0}', corta), `${__('Archivo: {0}', st.archivo?.nombre || '')}${st.archivo?.sha256 ? ` · SHA-256 ${st.archivo.sha256}` : ''}`, __('DOI: no declarado'), __('Licencia de los datos: no declarada')],
            columnas: { fuente_cita: corta, fuente_doi: '' }, bibtex: `% ${corta}\n`, ris: `TY  - DATA\nN1  - ${corta}\nER  - \n` };
 }
 
@@ -12766,7 +13058,7 @@ function wireCopiaConFuente() {
     if (!texto.trim()) return;
     const F = fuenteDe();
     if (texto.includes(F.cita_corta) || texto.includes(F.cita) || (F.doi && texto.includes(F.doi))) return;
-    const pie = `Fuente: ${F.cita_corta}`;
+    const pie = __('Fuente: {0}', F.cita_corta);
     const div = document.createElement('div');
     for (let i = 0; i < sel.rangeCount; i++) div.append(sel.getRangeAt(i).cloneContents());
     e.clipboardData.setData('text/plain', `${texto.replace(/\s+$/, '')}\n\n${pie}`);
@@ -12803,16 +13095,16 @@ async function copyText(text, hecho) {
     try { ok = document.execCommand('copy'); } catch { ok = false; }
     ta.remove();
   }
-  toast(ok ? hecho : 'No se pudo copiar: seleccione el texto y cópielo con ⌘C / Ctrl+C.', !ok);
+  toast(ok ? hecho : __('No se pudo copiar: seleccione el texto y cópielo con ⌘C / Ctrl+C.'), !ok);
 }
 
 function copiarFuente(tipo) {
   const F = fuenteDe();
   const que = {
-    cita: [F.cita, 'Cita copiada'],
-    bibtex: [F.bibtex, 'Cita BibTeX copiada'],
-    ris: [F.ris, 'Cita RIS copiada'],
-    doi: [F.url || (F.doi ? `doi:${F.doi}` : F.cita), 'DOI copiado'],
+    cita: [F.cita, __('Cita copiada')],
+    bibtex: [F.bibtex, __('Cita BibTeX copiada')],
+    ris: [F.ris, __('Cita RIS copiada')],
+    doi: [F.url || (F.doi ? `doi:${F.doi}` : F.cita), __('DOI copiado')],
   }[tipo];
   if (que) copyText(que[0], que[1]);
 }
@@ -12828,13 +13120,13 @@ function fuenteHTML() {
   return `<div class="fuente-box">
     <p class="fuente-cita">${esc(F.cita)}</p>
     ${F.doi || F.url ? `<div class="fuente-dato"><span>DOI</span> <code class="fuente-sel">${esc(F.doi || F.url)}</code>${F.url ? ` · <code class="fuente-sel">${esc(F.url)}</code>` : ''}</div>` : ''}
-    ${F.licencia ? `<div class="fuente-dato"><span>Licencia de los datos</span> ${esc(F.licencia)}${F.licencia_url ? ` · <code class="fuente-sel">${esc(F.licencia_url)}</code>` : ''}</div>` : ''}
-    ${rel.titulo ? `<div class="fuente-dato"><span>Publicación relacionada</span> ${esc(rel.titulo)}${relDoi ? ` · <code class="fuente-sel">${esc(relDoi)}</code>` : ''}</div>` : ''}
-    <div class="fuente-btns" role="group" aria-label="Copiar la cita">
-      <button type="button" class="btn sm" data-copiar="cita" title="Copiar la cita completa en texto">Copiar cita</button>
-      <button type="button" class="btn sm" data-copiar="bibtex" title="Copiar la cita en BibTeX">BibTeX</button>
-      <button type="button" class="btn sm" data-copiar="ris" title="Copiar la cita en RIS (Zotero, EndNote, Mendeley)">RIS</button>
-      <button type="button" class="btn sm" data-copiar="doi" title="Copiar el enlace del DOI">DOI</button>
+    ${F.licencia ? `<div class="fuente-dato"><span>${__('Licencia de los datos')}</span> ${esc(F.licencia)}${F.licencia_url ? ` · <code class="fuente-sel">${esc(F.licencia_url)}</code>` : ''}</div>` : ''}
+    ${rel.titulo ? `<div class="fuente-dato"><span>${__('Publicación relacionada')}</span> ${esc(rel.titulo)}${relDoi ? ` · <code class="fuente-sel">${esc(relDoi)}</code>` : ''}</div>` : ''}
+    <div class="fuente-btns" role="group" aria-label="${esc(__('Copiar la cita'))}">
+      <button type="button" class="btn sm" data-copiar="cita" title="${esc(__('Copiar la cita completa en texto'))}">${__('Copiar cita')}</button>
+      <button type="button" class="btn sm" data-copiar="bibtex" title="${esc(__('Copiar la cita en BibTeX'))}">BibTeX</button>
+      <button type="button" class="btn sm" data-copiar="ris" title="${esc(__('Copiar la cita en RIS (Zotero, EndNote, Mendeley)'))}">RIS</button>
+      <button type="button" class="btn sm" data-copiar="doi" title="${esc(__('Copiar el enlace del DOI'))}">DOI</button>
     </div></div>`;
 }
 
@@ -12842,7 +13134,7 @@ function fuenteHTML() {
 
 
 function fuentePieHTML(cls = 'panel-fuente') {
-  return `<div class="${cls}">Fuente: ${esc(fuenteDe().cita_corta)}</div>`;
+  return `<div class="${cls}">${__('Fuente: {0}', esc(fuenteDe().cita_corta))}</div>`;
 }
 
 function downloadText(text, name, type) {
@@ -12854,31 +13146,31 @@ function downloadText(text, name, type) {
 
   setTimeout(() => URL.revokeObjectURL(a.href), 120000);
 
-  toast(`Elija dónde guardar ${name}`);
+  toast(__('Elija dónde guardar {0}', name));
 }
 
 function trendMetaLines() {
   const T = S.trend, d = T.data, cal = d.calendar || {};
   const suav = T.gran === 'month' && T.smooth > 1;
   return [
-    'Explorador de Diarios de Sesiones · tendencia de términos',
-    `corpus: ${S.info?.title || S.info?.name || ''}`,
-    `generado: ${new Date().toISOString().slice(0, 19)}`,
-    `terminos: ${(d.terms || []).map(t => `${t.input}${t.ok ? ` [${t.type}; consulta ${t.query}]` : ` [error: ${t.message || t.error}]`}`).join(' | ')}`,
-    `variantes: ${T.variants ? 'sí' : 'no'}`,
-    `filtros: ${d.filtered ? JSON.stringify(trendFilters()) : 'ninguno (corpus completo)'}`,
-    `resolucion: ${T.gran === 'year' ? 'anual' : 'mensual'}`,
-    `suavizado: ${suav ? `${T.smooth} meses (ventana centrada; Σ menciones / Σ palabras; no cruza cortes de 3 o más meses sin sesiones)` : 'no'}`,
-    `calendario: ${cal.from || ''} a ${cal.to || ''} · fuente de fechas: ${cal.date_source || 'corpus'}`,
-    `fiabilidad: normal >= ${nf(d.thresholds?.normal ?? 100000)} palabras; baja >= ${nf(d.thresholds?.baja ?? 20000)}; muy_baja < ${nf(d.thresholds?.baja ?? 20000)}; sin_sesiones = periodo sin sesiones`,
-    'por_10000_palabras = menciones / palabras * 10000; pct_intervenciones = intervenciones_con_termino / intervenciones * 100',
-    'separador ; · decimales con punto · UTF-8',
+    __('Explorador de Diarios de Sesiones · tendencia de términos'),
+    __('corpus: {0}', S.info?.title || S.info?.name || ''),
+    __('generado: {0}', new Date().toISOString().slice(0, 19)),
+    __('terminos: {0}', (d.terms || []).map(t => `${t.input}${t.ok ? ` [${__('{0}; consulta {1}', t.type, t.query)}]` : ` [${__('error: {0}', t.message || t.error)}]`}`).join(' | ')),
+    __('variantes: {0}', T.variants ? __('sí') : __('no')),
+    __('filtros: {0}', d.filtered ? JSON.stringify(trendFilters()) : __('ninguno (corpus completo)')),
+    __('resolucion: {0}', T.gran === 'year' ? __('anual') : __('mensual')),
+    __('suavizado: {0}', suav ? __('{0} meses (ventana centrada; Σ menciones / Σ palabras; no cruza cortes de 3 o más meses sin sesiones)', T.smooth) : __('no')),
+    __('calendario: {0} a {1} · fuente de fechas: {2}', cal.from || '', cal.to || '', cal.date_source || 'corpus'),
+    __('fiabilidad: normal >= {0} palabras; baja >= {1}; muy_baja < {1}; sin_sesiones = periodo sin sesiones', nf(d.thresholds?.normal ?? 100000), nf(d.thresholds?.baja ?? 20000)),
+    __('por_10000_palabras = menciones / palabras * 10000; pct_intervenciones = intervenciones_con_termino / intervenciones * 100'),
+    __('separador ; · decimales con punto · UTF-8'),
   ];
 }
 
 function trendExportCSV() {
   const T = S.trend, d = T.data;
-  if (!d) return toast('Aún no hay datos de tendencia.', true);
+  if (!d) return toast(__('Aún no hay datos de tendencia.'), true);
   const base = trendBase(d, T.gran);
   const seg = segmentsOf(base.empty);
   const sm = base.gran === 'month' && T.smooth > 1 ? T.smooth : 0;
@@ -12906,14 +13198,15 @@ function trendExportCSV() {
 
 function trendExportSVG() {
   const T = S.trend, d = T.data;
-  if (!d) return toast('Aún no hay datos de tendencia.', true);
+  if (!d) return toast(__('Aún no hay datos de tendencia.'), true);
   const pal = TREND_PAL.light, W = 1000;
   const { svg, geom } = trendDraw(W, pal, { forExport: true });
-  if (!geom) return toast('No hay periodos que exportar.', true);
+  if (!geom) return toast(__('No hay periodos que exportar.'), true);
   const sans = 'Helvetica, Arial, sans-serif';
-  const suav = geom.base.gran === 'month' && T.smooth > 1 ? `, suavizado ${T.smooth} meses` : '';
-  const titulo = `Tendencia ${geom.base.gran === 'year' ? 'anual' : 'mensual'} · ${TREND_METRICS[T.metric].unit}${suav}`;
-  const sub = `${d.filtered ? `Con filtros: ${nf(d.n_allowed)} intervenciones` : 'Corpus completo'} · ${nf(d.denominators?.tokens_total)} palabras · ${S.info?.title || S.info?.name || ''}`;
+  const suav = geom.base.gran === 'month' && T.smooth > 1 ? `, ${__('suavizado {0} meses', T.smooth)}` : '';
+  const unidad = __(TREND_METRICS[T.metric].unit);
+  const titulo = (geom.base.gran === 'year' ? __('Tendencia anual · {0}', unidad) : __('Tendencia mensual · {0}', unidad)) + suav;
+  const sub = `${d.filtered ? __('Con filtros: {0} intervenciones', nf(d.n_allowed)) : __('Corpus completo')} · ${__('{0} palabras', nf(d.denominators?.tokens_total))} · ${S.info?.title || S.info?.name || ''}`;
   const cab = 46;
   const o = [`<rect x="0" y="0" width="${W}" height="HALTO" fill="${pal.bg}"/>`,
     `<text x="14" y="20" font-size="14" font-weight="bold" fill="${pal.ink}">${esc(titulo)}</text>`,
@@ -12932,17 +13225,17 @@ function trendExportSVG() {
     const col = 3, ancho = (W - 28) / col;
     geom.msIn.forEach((m, k) => {
       const cx = 14 + (k % col) * ancho, cy = y + 16 + Math.floor(k / col) * 15;
-      o.push(`<text x="${cx}" y="${cy}" font-size="10" fill="${pal.soft}">${m.n}. ${esc(m.h.label)} (${esc(fechaCorta(m.h.date))})</text>`);
+      o.push(`<text x="${cx}" y="${cy}" font-size="10" fill="${pal.soft}">${m.n}. ${esc(__(m.h.label))} (${esc(fechaCorta(m.h.date))})</text>`);
     });
     y += 16 + Math.ceil(geom.msIn.length / col) * 15;
   }
   y += 12;
   const generado = new Date().toISOString().slice(0, 10);
-  o.push(`<text x="14" y="${y}" font-size="9.5" fill="${pal.faint}">Círculo hueco: fiabilidad baja · punteado: muy baja (no fija la escala; ▲ si se sale) · rayado: sin sesiones · marcas de corte: meses sin sesiones comprimidos · generado ${esc(generado)}</text>`);
+  o.push(`<text x="14" y="${y}" font-size="9.5" fill="${pal.faint}">${esc(__('Círculo hueco: fiabilidad baja · punteado: muy baja (no fija la escala; ▲ si se sale) · rayado: sin sesiones · marcas de corte: meses sin sesiones comprimidos · generado {0}', generado))}</text>`);
 
   const F = fuenteDe();
-  const pie = `Fuente: ${F.cita_corta}` + (F.declarada && F.url ? ` · ${F.url}` : '')
-    + (F.declarada && F.licencia ? ` · Licencia de los datos: ${F.licencia}` : '');
+  const pie = __('Fuente: {0}', F.cita_corta) + (F.declarada && F.url ? ` · ${F.url}` : '')
+    + (F.declarada && F.licencia ? ` · ${__('Licencia de los datos: {0}', F.licencia)}` : '');
   const cabe = Math.floor((W - 28) / 5.6), renglones = [];
   for (const pal0 of pie.split(' ')) {
     const ult = renglones.length - 1;
@@ -12962,7 +13255,7 @@ function trendExportSVG() {
     + (F.autores || []).map(a => dc('creator', a.nombre)).join('')
     + dc('identifier', F.url || (F.doi ? `doi:${F.doi}` : ''))
     + dc('rights', F.licencia_texto || F.licencia || '') + dc('publisher', F.editor)
-    + dc('date', generado) + dc('format', 'image/svg+xml') + dc('language', 'es')
+    + dc('date', generado) + dc('format', 'image/svg+xml') + dc('language', __.lengua)
     + '</rdf:Description></rdf:RDF></metadata>';
   const texto = `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${alto}" viewBox="0 0 ${W} ${alto}" font-family="${sans}">`
     + `<title>${esc(titulo)}</title><desc>${esc([...F.lineas, ...trendMetaLines()].join('\n'))}</desc>` + metadata
@@ -13109,8 +13402,8 @@ function listaActual() {
 function fmtBytes(b) {
   b = +b || 0;
   if (b < 1e6) return `${nf(Math.max(1, Math.round(b / 1e3)))} KB`;
-  if (b < 1e9) { const mb = b / 1e6; return `${(mb < 10 ? Math.round(mb * 10) / 10 : Math.round(mb)).toLocaleString('es-ES')} MB`; }
-  return `${(Math.round(b / 1e8) / 10).toLocaleString('es-ES')} GB`;
+  if (b < 1e9) { const mb = b / 1e6; return `${__.num(mb < 10 ? Math.round(mb * 10) / 10 : Math.round(mb))} MB`; }
+  return `${__.num(Math.round(b / 1e8) / 10)} GB`;
 }
 
 
@@ -13155,7 +13448,7 @@ function openAdd(ids, span) {
   if (ids === 'ALL' && listaEspera) {
 
     dlg._pending = true; dlg._n = 0;
-    $('#addSub').textContent = 'Calculando la lista de la búsqueda actual…';
+    $('#addSub').textContent = __('Calculando la lista de la búsqueda actual…');
     $('#addBig').hidden = true;
     esperaLista().then(() => {
       if (dlg._seq !== seq || !dlg.open || dlg._busy) return;
@@ -13171,7 +13464,7 @@ function openAdd(ids, span) {
   $('#addList').innerHTML = S.collections.length
     ? S.collections.map(c => `<label class="chk"><input type="radio" name="colpick" value="${c.id}"${c.id === pre ? ' checked' : ''}>
         <span class="lbl">${esc(c.name)}</span><span class="n">${nf(c.n_items)}</span></label>`).join('')
-    : `<p class="dsub">No tiene bibliotecas todavía: escriba un nombre abajo y se creará.</p>`;
+    : `<p class="dsub">${__('No tiene bibliotecas todavía: escriba un nombre abajo y se creará.')}</p>`;
   $('#newColName').value = ''; $('#addNote').value = ''; $('#addTags').value = '';
   dlg.showModal();
 }
@@ -13184,24 +13477,23 @@ function addCifra(dlg) {
     const L = listaInfo();
     n = L.n;
     dlg._lista = listaActual();
-    $('#addSub').textContent = !n ? 'La búsqueda actual no lista ninguna intervención.'
+    $('#addSub').textContent = !n ? __('La búsqueda actual no lista ninguna intervención.')
 
 
 
 
 
-      : n === 1 ? `Se guardará la única intervención de la lista${L.proc ? ` (${L.proc})` : ''}.`
-      : `Se guardarán las ${nf(n)} intervenciones de la lista${L.proc ? ` (${L.proc})` : ''}, en su mismo orden.`;
+      : n === 1 ? __('Se guardará la única intervención de la lista{0}.', L.proc ? ` (${L.proc})` : '')
+      : __('Se guardarán las {0} intervenciones de la lista{1}, en su mismo orden.', nf(n), L.proc ? ` (${L.proc})` : '');
   } else {
-    $('#addSub').textContent = `${nf(n)} ${n === 1 ? 'intervención' : 'intervenciones'}.`;
+    $('#addSub').textContent = n === 1 ? __('{0} intervención.', nf(n)) : __('{0} intervenciones.', nf(n));
   }
   dlg._n = n;
   $('#addBigOk').checked = false;
   $('#addBig').hidden = n <= CONFIRMAR_DESDE;
   if (n > CONFIRMAR_DESDE) {
-    $('#addBigTxt').textContent = `Son ${nf(n)} intervenciones. Guardarlas lleva unos segundos, pero el `
-      + 'Léxico de una biblioteca tan grande puede tardar minutos la primera vez que lo abra.';
-    $('#addBigLbl').textContent = `Sí, guardar las ${nf(n)}`;
+    $('#addBigTxt').textContent = __('Son {0} intervenciones. Guardarlas lleva unos segundos, pero el Léxico de una biblioteca tan grande puede tardar minutos la primera vez que lo abra.', nf(n));
+    $('#addBigLbl').textContent = __('Sí, guardar las {0}', nf(n));
   }
   syncConfirm('add');
 }
@@ -13211,9 +13503,9 @@ async function doAdd() {
   if (dlg._busy || btn.disabled) return;
   const nuevo = $('#newColName').value.trim();
   let cid = $('input[name=colpick]:checked')?.value;
-  if (!nuevo && !cid) return toast('Elija una biblioteca o escriba un nombre nuevo.', true);
+  if (!nuevo && !cid) return toast(__('Elija una biblioteca o escriba un nombre nuevo.'), true);
   const n = dlg._n || 0;
-  const busy = busyStart(dlg, btn, n > 1 ? `Guardando ${nf(n)}…` : 'Guardando…');
+  const busy = busyStart(dlg, btn, n > 1 ? __('Guardando {0}…', nf(n)) : __('Guardando…'));
   try {
     if (nuevo) { cid = (await api('/collections', { method: 'POST', body: { name: nuevo } })).id; }
 
@@ -13244,11 +13536,11 @@ async function doAdd() {
     }
     dlg.close();
     const g = r.guardadas ?? r.added, ya = r.ya_estaban ?? r.skipped, rc = r.recorte;
-    toast(`${nf(g)} ${g === 1 ? 'guardada' : 'guardadas'} en «${r.collection.name}»`
-      + (ya ? ` · ${nf(ya)} ${ya === 1 ? 'ya estaba' : 'ya estaban'}` : '')
+    toast((g === 1 ? __('{0} guardada en «{1}»', nf(g), r.collection.name) : __('{0} guardadas en «{1}»', nf(g), r.collection.name))
+      + (ya ? ` · ${ya === 1 ? __('{0} ya estaba', nf(ya)) : __('{0} ya estaban', nf(ya))}` : '')
       + (!rc ? '' : rc.motivo === 'significado'
-        ? ` · las ${nf(rc.tomadas)} más parecidas de ${nf(rc.de)}`
-        : ` · las ${nf(rc.tomadas)} primeras de ${nf(rc.de)}`));
+        ? ` · ${__('las {0} más parecidas de {1}', nf(rc.tomadas), nf(rc.de))}`
+        : ` · ${__('las {0} primeras de {1}', nf(rc.tomadas), nf(rc.de))}`));
     if (S.view === 'library') renderLibraryView(); else refreshHitMarkers();
   } catch (e) { toast(e.message, true); }
   finally { busy.end(); syncConfirm('add'); }
@@ -13264,11 +13556,13 @@ function expBody(dlg) {
 
 function expSubTxt(dlg) {
   const n = dlg._n || 0, e = dlg._est && !dlg._est.error ? dlg._est : null;
-  const interv = n === 1 ? 'intervención' : 'intervenciones';
-  if (dlg._lib) return `Biblioteca «${S.collections.find(c => c.id === dlg._lib)?.name || ''}» · ${nf(n)} ${interv}.`;
+  if (dlg._lib) {
+    const nombre = S.collections.find(c => c.id === dlg._lib)?.name || '';
+    return n === 1 ? __('Biblioteca «{0}» · {1} intervención.', nombre, nf(n)) : __('Biblioteca «{0}» · {1} intervenciones.', nombre, nf(n));
+  }
   const L = listaInfo();
 
-  if (!e && dlg._pending) return `Resultados de la búsqueda actual${L.proc ? `, ${L.proc}` : ''} · calculando…`;
+  if (!e && dlg._pending) return __('Resultados de la búsqueda actual{0} · calculando…', L.proc ? `, ${L.proc}` : '');
 
 
 
@@ -13278,7 +13572,9 @@ function expSubTxt(dlg) {
 
 
 
-  return `Resultados de la búsqueda actual${L.proc ? `, ${L.proc}` : ''} · ${nf(n)} ${interv} en el orden de la lista.`;
+  const proc = L.proc ? `, ${L.proc}` : '';
+  return n === 1 ? __('Resultados de la búsqueda actual{0} · {1} intervención en el orden de la lista.', proc, nf(n))
+    : __('Resultados de la búsqueda actual{0} · {1} intervenciones en el orden de la lista.', proc, nf(n));
 }
 
 
@@ -13289,7 +13585,7 @@ function openExport({ lib = null, format = null, alCerrar = null } = {}) {
   const cidLib = lib ?? (S.view === 'library' && S.libSel != null ? S.libSel : null);
   const enLib = cidLib != null;
 
-  if (!enLib && S.similarOf) return toast('Exportar trabaja sobre la búsqueda o una biblioteca: pulse Buscar para volver a la lista.', true);
+  if (!enLib && S.similarOf) return toast(__('Exportar trabaja sobre la búsqueda o una biblioteca: pulse Buscar para volver a la lista.'), true);
   dlg._lib = enLib ? cidLib : null;
 
 
@@ -13334,26 +13630,26 @@ function openExport({ lib = null, format = null, alCerrar = null } = {}) {
 
 function updateExpNote() {
   const notas = {
-    csv: 'Separador «;» y codificación UTF-8 con BOM: Excel y Numbers en español lo abren con un doble clic. Las 4 primeras líneas (empiezan por #) son la cita; en R, read.csv2(skip = 4); en pandas, comment="#" o skiprows=4.',
-    markdown: 'Un documento con el texto completo, las notas y las etiquetas, listo para leer o convertir a Word o PDF.',
-    json: 'Estructura completa con metadatos, para reutilizar en Python o R.',
-    citations: 'Una línea por intervención con diputado, sesión, fecha y legislatura.',
-    bundle: 'Archivo intercambiable: un colega puede importarlo y obtener su misma biblioteca con notas y etiquetas.',
+    csv: __('Separador «;» y codificación UTF-8 con BOM: Excel y Numbers en español lo abren con un doble clic. Las 4 primeras líneas (empiezan por #) son la cita; en R, read.csv2(skip = 4); en pandas, comment="#" o skiprows=4.'),
+    markdown: __('Un documento con el texto completo, las notas y las etiquetas, listo para leer o convertir a Word o PDF.'),
+    json: __('Estructura completa con metadatos, para reutilizar en Python o R.'),
+    citations: __('Una línea por intervención con diputado, sesión, fecha y legislatura.'),
+    bundle: __('Archivo intercambiable: un colega puede importarlo y obtener su misma biblioteca con notas y etiquetas.'),
   };
   const fmt = $('#expFormat').value;
   $('#expNote').textContent = notas[fmt] || '';
 
   const donde = {
-    csv: 'en las 4 líneas # del principio (cita completa, DOI, licencia y publicación relacionada) y en las columnas fuente_cita y fuente_doi de cada fila',
-    markdown: 'en el encabezado YAML, en la sección «Fuente» del principio, en cada intervención y al pie',
-    json: 'en meta.fuente (con BibTeX, RIS y CSL-JSON) y en fuente_cita y fuente_doi de cada registro',
-    citations: 'en la cabecera, al final de cada referencia y, al pie, en BibTeX y RIS',
-    bundle: 'en los metadatos del paquete y en fuente_cita y fuente_doi de cada item; se conserva al importarlo y al volver a exportarlo',
+    csv: __('en las 4 líneas # del principio (cita completa, DOI, licencia y publicación relacionada) y en las columnas fuente_cita y fuente_doi de cada fila'),
+    markdown: __('en el encabezado YAML, en la sección «Fuente» del principio, en cada intervención y al pie'),
+    json: __('en meta.fuente (con BibTeX, RIS y CSL-JSON) y en fuente_cita y fuente_doi de cada registro'),
+    citations: __('en la cabecera, al final de cada referencia y, al pie, en BibTeX y RIS'),
+    bundle: __('en los metadatos del paquete y en fuente_cita y fuente_doi de cada item; se conserva al importarlo y al volver a exportarlo'),
   };
   const F = fuenteDe();
   $('#expFuente').textContent = F.declarada
-    ? `El archivo incluye la cita de la fuente (${F.cita_corta}) ${donde[fmt] || ''}.`
-    : `${F.cita} El archivo incluye este aviso ${donde[fmt] || ''}.`;
+    ? __('El archivo incluye la cita de la fuente ({0}) {1}.', F.cita_corta, donde[fmt] || '')
+    : `${F.cita} ${__('El archivo incluye este aviso {0}.', donde[fmt] || '')}`;
   $('#expText').disabled = ['citations', 'bundle'].includes(fmt);
 
 
@@ -13361,18 +13657,19 @@ function updateExpNote() {
   const sinTexto = ['citations', 'bundle'].includes(fmt) || !$('#expText').checked;
   const bytes = e && !e.error ? e.bytes_estimados?.[fmt]?.[sinTexto ? 'sin_texto' : 'con_texto'] : null;
   const tam = bytes != null ? `≈ ${fmtBytes(bytes)}` : '';
-  $('#expSize').textContent = !e ? 'Calculando el tamaño del archivo…'
+  $('#expSize').textContent = !e ? __('Calculando el tamaño del archivo…')
     : !tam ? ''
-    : `Tamaño estimado: ${tam} (aproximado; ${['citations', 'bundle'].includes(fmt) ? 'este formato no lleva el texto'
-      : sinTexto ? 'sin el texto completo' : 'con el texto completo'}).`;
+    : __('Tamaño estimado: {0} (aproximado; {1}).', tam, ['citations', 'bundle'].includes(fmt) ? __('este formato no lleva el texto')
+      : sinTexto ? __('sin el texto completo') : __('con el texto completo'));
 
 
   const n = dlg._n || 0, big = n > CONFIRMAR_DESDE;
   $('#expBig').hidden = !big;
   if (big) {
-    $('#expBigTxt').textContent = `Son ${nf(n)} intervenciones: el archivo pesará `
-      + (tam ? `${tam} (aproximado)` : 'bastante') + ' y prepararlo puede llevar unos segundos.';
-    $('#expBigLbl').textContent = `Sí, exportar las ${nf(n)}`;
+    $('#expBigTxt').textContent = tam
+      ? __('Son {0} intervenciones: el archivo pesará {1} (aproximado) y prepararlo puede llevar unos segundos.', nf(n), tam)
+      : __('Son {0} intervenciones: el archivo pesará bastante y prepararlo puede llevar unos segundos.', nf(n));
+    $('#expBigLbl').textContent = __('Sí, exportar las {0}', nf(n));
   }
   syncConfirm('exp');
 }
@@ -13381,12 +13678,12 @@ async function doExport() {
   const dlg = $('#dlgExport'), btn = $('#expConfirm');
   if (dlg._busy || btn.disabled) return;
   const body = expBody(dlg), n = dlg._n || 0;
-  const busy = busyStart(dlg, btn, n > 1 ? `Preparando ${nf(n)}…` : 'Preparando…');
+  const busy = busyStart(dlg, btn, n > 1 ? __('Preparando {0}…', nf(n)) : __('Preparando…'));
   try {
     const r = await fetch('/api/export', { method: 'POST',
       headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || 'Falló la exportación');
-    busy.set('Descargando…');
+    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || __('Falló la exportación'));
+    busy.set(__('Descargando…'));
     const blob = await r.blob();
     const name = (r.headers.get('Content-Disposition') || '').match(/filename="(.+?)"/)?.[1] || 'export';
     const a = document.createElement('a');
@@ -13396,8 +13693,8 @@ async function doExport() {
     const filas = r.headers.get('X-Export-Filas'), motivo = r.headers.get('X-Export-Recorte-Motivo');
     const de = +r.headers.get('X-Export-Recorte-De') || 0;
     dlg.close();
-    toast(`Elija dónde guardar ${name}` + (filas != null ? ` · ${nf(+filas)} ${+filas === 1 ? 'fila' : 'filas'}` : '')
-      + (motivo && de ? (motivo === 'significado' ? ` · las más parecidas de ${nf(de)}` : ` · las primeras de ${nf(de)}`) : ''));
+    toast(__('Elija dónde guardar {0}', name) + (filas != null ? ` · ${+filas === 1 ? __('{0} fila', nf(+filas)) : __('{0} filas', nf(+filas))}` : '')
+      + (motivo && de ? (motivo === 'significado' ? ` · ${__('las más parecidas de {0}', nf(de))}` : ` · ${__('las primeras de {0}', nf(de))}`) : ''));
   } catch (e) { toast(e.message, true); }
   finally { busy.end(); syncConfirm('exp'); }
 }
@@ -13416,11 +13713,11 @@ async function loadSaved() {
       <div class="chk" style="justify-content:space-between">
         <span class="lbl" style="cursor:pointer;color:var(--accent-text)"
           data-runsearch="${esc(s.id)}" title="${esc(s.query
-            + (s.biblioteca_borrada ? ' · su biblioteca se ha borrado: buscará en todo el corpus' : ''))}">${esc(s.name)}${
-            s.biblioteca_borrada ? ' <span class="saved-gone">(biblioteca borrada)</span>' : ''}</span>
+            + (s.biblioteca_borrada ? ` · ${__('su biblioteca se ha borrado: buscará en todo el corpus')}` : ''))}">${esc(s.name)}${
+            s.biblioteca_borrada ? ` <span class="saved-gone">${__('(biblioteca borrada)')}</span>` : ''}</span>
         <button class="btn ghost sm" data-delsearch="${s.id}">×</button>
       </div>`).join('')
-      : `<p class="dsub" style="font-size:11px;margin:0">Ninguna todavía.</p>`;
+      : `<p class="dsub" style="font-size:11px;margin:0">${__('Ninguna todavía.')}</p>`;
   } catch {   }
 }
 
@@ -13459,27 +13756,28 @@ function helpSearchModesHTML() {
 
 
 
-  return `<h4 style="margin:16px 0 6px;font-size:13px">Cómo buscar</h4>
-  <p class="dsub" style="line-height:1.6">La búsqueda encuentra las palabras que escriba en los ${nf(S.info?.n_words || 0)} palabras
-    del corpus abierto. Encima de la lista, «Se busca» muestra cómo se ha entendido la consulta.</p>
+  return `<h4 style="margin:16px 0 6px;font-size:13px">${__('Cómo buscar')}</h4>
+  <p class="dsub" style="line-height:1.6">${__(`La búsqueda encuentra las palabras que escriba en los {0} palabras
+    del corpus abierto. Encima de la lista, «Se busca» muestra cómo se ha entendido la consulta.`, nf(S.info?.n_words || 0))}</p>
   <table class="help-sintaxis">
-    <thead><tr><th scope="col">Escriba</th><th scope="col">Encuentra</th></tr></thead>
+    <thead><tr><th scope="col">${__('Escriba')}</th><th scope="col">${__('Encuentra')}</th></tr></thead>
     <tbody>
-      <tr><td><code>reforma</code></td><td>esa palabra (no «reformas» ni «reformar»)</td></tr>
-      <tr><td><code>"voto femenino"</code></td><td>la frase exacta: esas palabras seguidas y en ese orden (valen también « » y “ ”)</td></tr>
-      <tr><td><code>reforma + agraria</code></td><td>las dos palabras, en cualquier parte de la intervención; <code>reforma agraria</code>, sin signo, es lo mismo</td></tr>
-      <tr><td><code>divorcio | matrimonio</code></td><td>cualquiera de las dos</td></tr>
-      <tr><td><code>(reforma | ley) + agraria</code></td><td>paréntesis para agrupar; sin ellos, <code>+</code> se aplica antes que <code>|</code></td></tr>
+      <tr><td><code>reforma</code></td><td>${__('esa palabra (no «reformas» ni «reformar»)')}</td></tr>
+      <tr><td><code>"voto femenino"</code></td><td>${__('la frase exacta: esas palabras seguidas y en ese orden (valen también « » y “ ”)')}</td></tr>
+      <tr><td><code>reforma + agraria</code></td><td>${__('las dos palabras, en cualquier parte de la intervención; {0}, sin signo, es lo mismo', '<code>reforma agraria</code>')}</td></tr>
+      <tr><td><code>divorcio | matrimonio</code></td><td>${__('cualquiera de las dos')}</td></tr>
+      <tr><td><code>(reforma | ley) + agraria</code></td><td>${__('paréntesis para agrupar; sin ellos, {0} se aplica antes que {1}', '<code>+</code>', '<code>|</code>')}</td></tr>
     </tbody>
   </table>
   <p class="dsub" style="line-height:1.6">
-    <b>Sin acentos ni mayúsculas:</b> <code>constitucion</code> encuentra «Constitución». Los signos de puntuación separan
-    palabras: <code>art.26</code> busca la frase «art 26».<br>
-    <b>Palabras muy frecuentes</b> (de, la, que, por…): se omiten cuando van unidas a otras con <code>+</code> o sin
-    signo, y «Se busca» lo avisa. Entre comillas sí cuentan (<code>"de la guerra"</code>) y solas también se buscan.<br>
-    <b>No se admiten</b> el asterisco (<code>agrar*</code>) ni la exclusión (<code>NOT</code>); <code>AND</code> y
-    <code>OR</code> se escriben <code>+</code> y <code>|</code>. Para las variantes de una palabra, únalas:
-    <code>agraria | agrario | agrarios</code>.
+    ${__(`<b>Sin acentos ni mayúsculas:</b> {0} encuentra «Constitución». Los signos de puntuación separan
+    palabras: {1} busca la frase «art 26».`, '<code>constitucion</code>', '<code>art.26</code>')}<br>
+    ${__(`<b>Palabras muy frecuentes</b> (de, la, que, por…): se omiten cuando van unidas a otras con {0} o sin
+    signo, y «Se busca» lo avisa. Entre comillas sí cuentan ({1}) y solas también se buscan.`, '<code>+</code>', '<code>"de la guerra"</code>')}<br>
+    ${__(`<b>No se admiten</b> el asterisco ({0}) ni la exclusión ({1}); {2} y
+    {3} se escriben {4} y {5}. Para las variantes de una palabra, únalas:
+    {6}.`, '<code>agrar*</code>', '<code>NOT</code>', '<code>AND</code>', '<code>OR</code>', '<code>+</code>', '<code>|</code>',
+    '<code>agraria | agrario | agrarios</code>')}
   </p>`;
 
 }
@@ -13535,115 +13833,121 @@ function helpErratasTxt() {
 
 
 
-  return ` Si una búsqueda no da lo que espera, pruebe otras formas de la palabra unidas con
-    <code>|</code>.`;
+  return __(` Si una búsqueda no da lo que espera, pruebe otras formas de la palabra unidas con
+    {0}.`, '<code>|</code>');
 
 }
 
 function helpHTML() {
+  // El color de las protestas se decide aquí y va en un hueco (antes se cambiaba «lacre» por «teja» sobre el HTML ya hecho).
+  const colorConflicto = document.documentElement.dataset.estilo !== 'clasico' ? __('teja') : __('lacre');
   return `
-  <h4 style="margin:0 0 6px;font-size:13px">Qué es este explorador</h4>
-  <p class="dsub" style="line-height:1.6">
+  <h4 style="margin:0 0 6px;font-size:13px">${__('Qué es este explorador')}</h4>
+  <p class="dsub" style="line-height:1.6">${__(`
     El explorador de <b>ParlaIbero</b>, la colección de discursos parlamentarios de las cámaras bajas de
     América Latina, Portugal y España (Instituto de Iberoamérica, Universidad de Salamanca; proyecto
     PID2022-141706NB-C22). Se abre el CSV de intervenciones de un país, descargado de Harvard Dataverse
     (todos comparten el mismo formato), y se construye en el navegador una base de datos con búsqueda de
-    texto completo. Nada sale de su equipo. Las bibliotecas que cree se guardan por país.</p>
-  <h4 style="margin:16px 0 6px;font-size:13px">Cómo citar</h4>
-  <p class="dsub" style="line-height:1.6">
+    texto completo. Nada sale de su equipo. Las bibliotecas que cree se guardan por país.`)}</p>
+  <h4 style="margin:16px 0 6px;font-size:13px">${__('Cómo citar')}</h4>
+  <p class="dsub" style="line-height:1.6">${__(`
     Cada país es un conjunto de datos con su propio DOI: cítelo siempre que use el corpus, una cifra, una
-    tabla o un pasaje. La cita del país cargado, con sus botones para copiarla en texto, BibTeX o RIS:</p>
+    tabla o un pasaje. La cita del país cargado, con sus botones para copiarla en texto, BibTeX o RIS:`)}</p>
   ${fuenteHTML()}
-  <p class="dsub" style="line-height:1.6">
+  <p class="dsub" style="line-height:1.6">${__(`
     Todo lo que descarga la app lleva la referencia del corpus, en los datos y en los metadatos:
-    <b>CSV</b>, cuatro líneas <code>#</code> al principio (cita completa, DOI, licencia y
-    publicación relacionada) y columnas <code>fuente_cita</code> y <code>fuente_doi</code> en cada fila;
-    <b>JSON</b>, <code>meta.fuente</code> (con BibTeX, RIS y CSL-JSON) y <code>fuente_cita</code> y
-    <code>fuente_doi</code> en cada registro; <b>Markdown</b>, encabezado YAML, sección «Fuente», una
+    <b>CSV</b>, cuatro líneas {0} al principio (cita completa, DOI, licencia y
+    publicación relacionada) y columnas {1} y {2} en cada fila;
+    <b>JSON</b>, {3} (con BibTeX, RIS y CSL-JSON) y {1} y
+    {2} en cada registro; <b>Markdown</b>, encabezado YAML, sección «Fuente», una
     línea en cada intervención y pie; <b>Referencias</b>, cabecera, final de cada línea y la cita en
     BibTeX y RIS; <b>.2replib</b>, en los metadatos del paquete y en cada item, que se conservan al
     importarlo y al reexportarlo. Los CSV de Tendencia y Léxico la llevan en sus líneas
-    <code>#</code> (siempre cuatro de fuente) y en cada fila, y el SVG, en el pie visible y en sus
+    {0} (siempre cuatro de fuente) y en cada fila, y el SVG, en el pie visible y en sus
     metadatos. Los paneles de Tendencia, Distribución y Léxico muestran la fuente (el
     lector no la repite en cada discurso), y al copiar un pasaje con
     ⌘C / Ctrl+C se añade la cita breve. El DOI se puede seleccionar y copiar como texto.
-  </p>
+  `, '<code>#</code>', '<code>fuente_cita</code>', '<code>fuente_doi</code>', '<code>meta.fuente</code>')}</p>
   ${helpSearchModesHTML()}
-  <h4 style="margin:16px 0 6px;font-size:13px">Bibliotecas</h4>
-  <p class="dsub" style="line-height:1.6">
+  <h4 style="margin:16px 0 6px;font-size:13px">${__('Bibliotecas')}</h4>
+  <p class="dsub" style="line-height:1.6">${__(`
     Un grupo curado de intervenciones, con nota y etiquetas propias. Se guardan en
     su ordenador, aparte del corpus, así que actualizar la base no borra su trabajo.
     Puede restringir una búsqueda a una biblioteca, exportarla a CSV o Markdown, y
-    compartirla en un archivo <code>.2replib</code>.<br><br>
-    <b>Borrar una biblioteca.</b> En <b>Mis bibliotecas</b>, ábrala y pulse <b>Borrar biblioteca</b>
+    compartirla en un archivo {0}.`, '<code>.2replib</code>')}<br><br>
+    ${__(`<b>Borrar una biblioteca.</b> En <b>Mis bibliotecas</b>, ábrala y pulse <b>Borrar biblioteca</b>
     (junto a «Exportar biblioteca»), o pulse 🗑 en su fila de la lista. La app pide confirmación con el
-    nombre y el número de intervenciones, y ofrece <b>exportarla antes a <code>.2replib</code></b> para
+    nombre y el número de intervenciones, y ofrece <b>exportarla antes a {0}</b> para
     conservar una copia con notas y etiquetas: el borrado <b>no se puede deshacer</b>. Las
     intervenciones siguen en el corpus; solo se pierde la selección. Si la búsqueda de Explorar estaba
     restringida a ella, se quita esa restricción y se vuelve a buscar. Las búsquedas guardadas que la
     usaban se conservan, marcadas «(biblioteca borrada)», y al lanzarlas buscan en todo el corpus.
-  </p>
-  <h4 style="margin:16px 0 6px;font-size:13px">«Guardar todo» y Exportar</h4>
-  <p class="dsub" style="line-height:1.6">
+  `, '<code>.2replib</code>')}</p>
+  <h4 style="margin:16px 0 6px;font-size:13px">${__('«Guardar todo» y Exportar')}</h4>
+  <p class="dsub" style="line-height:1.6">${__(`
     Los dos toman la <b>lista completa</b> que está viendo, no solo lo cargado ni un tope fijo:
-    el mismo conjunto${helpConjuntoTxt()} y el mismo orden. Una búsqueda
+    el mismo conjunto{0} y el mismo orden. Una búsqueda
     por palabras con 12.756 resultados guarda o exporta las 12.756; la navegación sin texto de
     una legislatura entera, sus decenas de miles. El diálogo da la cifra exacta y, al exportar,
-    un tamaño <i>aproximado</i> del archivo según el formato y si incluye el texto completo.<br><br>
-    ${helpTopeProfundidadHTML()}Si pulsa «Guardar todo» o Exportar mientras una búsqueda nueva todavía se está calculando,
-    el diálogo espera a que termine antes de dar la cifra y de dejarle confirmar.<br><br>
-    Por encima de <b>20.000</b> intervenciones el diálogo avisa con la cifra y pide marcar
+    un tamaño <i>aproximado</i> del archivo según el formato y si incluye el texto completo.`, helpConjuntoTxt())}<br><br>
+    ${helpTopeProfundidadHTML()}${__(`Si pulsa «Guardar todo» o Exportar mientras una búsqueda nueva todavía se está calculando,
+    el diálogo espera a que termine antes de dar la cifra y de dejarle confirmar.`)}<br><br>
+    ${__(`Por encima de <b>20.000</b> intervenciones el diálogo avisa con la cifra y pide marcar
     «Sí, guardar las N» o «Sí, exportar las N» antes de continuar: guardar tarda segundos, pero
     el Léxico de una biblioteca tan grande puede tardar minutos la primera vez, y un CSV con el
     texto completo del corpus pesa cientos de MB.
-  </p>
-  <h4 style="margin:16px 0 6px;font-size:13px">Tendencia y clima de sala</h4>
-  <p class="dsub" style="line-height:1.6">
+  `)}</p>
+  <h4 style="margin:16px 0 6px;font-size:13px">${__('Tendencia y clima de sala')}</h4>
+  <p class="dsub" style="line-height:1.6">${__(`
     <b>📈 Tendencia</b> (tecla <kbd>t</kbd>) abre encima de la lista la serie mensual de hasta
     8 términos: se siembran con las palabras de la búsqueda y se editan como etiquetas
-    (separe varios con comas; frases entre comillas; <code>prefijo*</code>). Por defecto
+    (separe varios con comas; frases entre comillas; {0}). Por defecto
     cuenta en todo el corpus; con <b>aplicar filtros</b> usa solo lo que dejan pasar los
     filtros, incluida la biblioteca. Métrica por 10.000 palabras, absoluta o % de
     intervenciones; vista por mes o por año y suavizado, sin volver a calcular.
     Los recesos van rayados y las rachas largas sin sesiones, comprimidas.
     Un clic en un mes (o <kbd>←</kbd> <kbd>→</kbd> e Intro) busca sus intervenciones con
-    ese término. La pestaña <b>Distribución</b> muestra años, sexo, tipo de sesión, partidos y oradores.<br><br>
-    <b>Qué es una palabra.</b> Menciones y denominadores salen del índice de búsqueda: una
+    ese término. La pestaña <b>Distribución</b> muestra años, sexo, tipo de sesión, partidos y oradores.`, '<code>prefijo*</code>')}<br><br>
+    ${__(`<b>Qué es una palabra.</b> Menciones y denominadores salen del índice de búsqueda: una
     palabra es un <i>token</i> (letras o cifras seguidas, sin acentos ni mayúsculas; «S. S.»
     cuenta dos), así que los totales difieren algo del recuento de palabras de cada
     intervención. <b>Fiabilidad</b> de cada mes según las palabras pronunciadas: normal con
     100.000 o más; baja (punto hueco ○) entre 20.000 y 100.000; muy baja (◌) por debajo de
     20.000, que no fija la escala del eje y marca ▲ si se sale. Los meses débiles se marcan,
-    no se ocultan: un pico en un mes con pocas sesiones puede deberse a una sola intervención.<br><br>
-    Las insignias de cada resultado cuentan las acotaciones de la intervención completa:
-    <span class="tag clima conflict">Rumores</span> tumulto,
-    <span class="tag clima applause">Aplausos</span> ovación,
-    <span class="tag clima order">Presidencia</span> llamadas al orden y
-    <span class="tag clima">Risas</span> lo demás.
-  </p>
-  <h4 style="margin:16px 0 6px;font-size:13px">El lector: pliego del Diario, § y acotaciones</h4>
-  <p class="dsub" style="line-height:1.6">
+    no se ocultan: un pico en un mes con pocas sesiones puede deberse a una sola intervención.`)}<br><br>
+    ${__(`Las insignias de cada resultado cuentan las acotaciones de la intervención completa:
+    {0} tumulto,
+    {1} ovación,
+    {2} llamadas al orden y
+    {3} lo demás.
+  `, `<span class="tag clima conflict">${__('Rumores')}</span>`, `<span class="tag clima applause">${__('Aplausos')}</span>`,
+    `<span class="tag clima order">${__('Presidencia')}</span>`, `<span class="tag clima">${__('Risas')}</span>`)}</p>
+  <h4 style="margin:16px 0 6px;font-size:13px">${__('El lector: pliego del Diario, § y acotaciones')}</h4>
+  <p class="dsub" style="line-height:1.6">${__(`
     Cada intervención se lee como un pliego del Diario. <b>§ n</b>, en el margen, numera sus
     párrafos de prosa y sus tablas; la numeración depende solo del texto, así que sirve para
     citar. Cuando el original no separa párrafos, una intervención larga se reparte por
     frases (lo indica el § al pasar el ratón). Las <b>acotaciones</b> del acta van en bloque
-    entre párrafos o en línea dentro de la frase, con un color por clase:<br>
-    <span class="acot-inline applause">(Aplausos.)</span> verde: ovación, aplausos y aprobación ·
-    <span class="acot-inline conflict">(Rumores.)</span> lacre: tumulto, rumores, protestas e
-    interrupciones · <span class="acot-inline order">(El Sr. Presidente agita la campanilla.)</span>
+    entre párrafos o en línea dentro de la frase, con un color por clase:`)}<br>
+    ${__(`{0} verde: ovación, aplausos y aprobación ·
+    {1} {4}: tumulto, rumores, protestas e
+    interrupciones · {2}
     ámbar: la Presidencia (campanilla, llamadas al orden; nunca el Presidente del Consejo) ·
-    <span class="acot-inline neutral">(Risas.)</span> gris: risas, interjecciones sueltas,
-    asentimiento, pausas y gestos.<br>
-    La crónica del acta va en cursiva y las votaciones, en columnas. La clasificación es
+    {3} gris: risas, interjecciones sueltas,
+    asentimiento, pausas y gestos.`, `<span class="acot-inline applause">${__('(Aplausos.)')}</span>`,
+    `<span class="acot-inline conflict">${__('(Rumores.)')}</span>`,
+    `<span class="acot-inline order">${__('(El Sr. Presidente agita la campanilla.)')}</span>`,
+    `<span class="acot-inline neutral">${__('(Risas.)')}</span>`, colorConflicto)}<br>
+    ${__(`La crónica del acta va en cursiva y las votaciones, en columnas. La clasificación es
     automática: algún paréntesis puede quedar mal clasificado.
-  </p>
-  <h4 style="margin:16px 0 6px;font-size:13px">Sesión corrida y careo</h4>
-  <p class="dsub" style="line-height:1.6">
+  `)}</p>
+  <h4 style="margin:16px 0 6px;font-size:13px">${__('Sesión corrida y careo')}</h4>
+  <p class="dsub" style="line-height:1.6">${__(`
     <b>📖 Sesión corrida</b> (tecla <kbd>s</kbd>) muestra la sesión entera, con la intervención
     abierta enmarcada en oro. <b>🎯</b> vuelve a ella y el selector salta a cualquier orden;
     «Ver solo este» abre una intervención en el lector. La cabecera da la sesión, la fecha, la
-    legislatura y el periodo de sesiones.<br><br>
-    <b>⚔ Carear</b> (tecla <kbd>c</kbd>) pone la intervención junto a una réplica, en dos pliegos
+    legislatura y el periodo de sesiones.`)}<br><br>
+    ${__(`<b>⚔ Carear</b> (tecla <kbd>c</kbd>) pone la intervención junto a una réplica, en dos pliegos
     que se desplazan por separado. <b>Misma sesión</b> propone réplicas por alusión al apellido
     o al cargo, interrupciones transcritas, cercanía en el orden del debate y otro partido;
     <b>Mismo diputado</b>, intervenciones del mismo orador parecidas por vocabulario
@@ -13651,9 +13955,9 @@ function helpHTML() {
     propuesta muestra sus motivos, pero no prueba que hubiera diálogo. <b>⇄</b> intercambia los
     pliegos, cada pliego se abre en el lector o en su sesión corrida, y «Volver al lector» (o
     <kbd>c</kbd>) sale del careo.
-  </p>
-  <h4 style="margin:16px 0 6px;font-size:13px">Léxico de una biblioteca (keyness)</h4>
-  <p class="dsub" style="line-height:1.6">
+  `)}</p>
+  <h4 style="margin:16px 0 6px;font-size:13px">${__('Léxico de una biblioteca (keyness)')}</h4>
+  <p class="dsub" style="line-height:1.6">${__(`
     En <b>Mis bibliotecas</b>, la pestaña <b>Léxico</b> compara el vocabulario de la biblioteca
     con el resto del corpus. Con <b>Solo discurso</b> (marcado por defecto) analiza únicamente la
     prosa de los oradores: excluye listas de votación, crónica del acta, acotaciones, tablas, notas
@@ -13668,42 +13972,33 @@ function helpHTML() {
     términos evaluados a la vez, fíjese más en el log-ratio que en el G². Un clic en un
     término lo busca en modo Palabras dentro de la biblioteca; <b>Exportar tabla</b> descarga
     el CSV.
-  </p>
-  <h4 style="margin:16px 0 6px;font-size:13px">Atajos</h4>
+  `)}</p>
+  <h4 style="margin:16px 0 6px;font-size:13px">${__('Atajos')}</h4>
   <p class="dsub" style="line-height:1.9">
-    <kbd>/</kbd> ir al buscador · <kbd>↵</kbd> buscar · <kbd>Esc</kbd> cerrar el lector<br>
-    <kbd>j</kbd> / <kbd>k</kbd> siguiente / anterior resultado · <kbd>↵</kbd> abrir el resultado<br>
-    <kbd>a</kbd> guardar en una biblioteca${helpAtajoModosHTML()}<br>
-    <kbd>t</kbd> abrir o plegar el panel de <b>Tendencia</b><br>
-    <kbd>s</kbd> alternar el lector entre <b>Discurso</b> y <b>Sesión corrida</b> (toda la sesión seguida;
-    🎯 vuelve a la intervención de referencia)<br>
-    <kbd>c</kbd> abrir o cerrar el <b>Careo</b> de la intervención abierta<br>
-    <kbd>f</kbd> plegar o desplegar el panel lateral (también con « en su cabecera y con la franja que queda al plegarlo)<br>
-    <kbd>l</kbd> plegar o desplegar la lista de intervenciones mientras lee (también con « en su cabecera y » en la franja)<br>
-    <kbd>r</kbd> volver al estado inicial (o el botón ↺ de la cabecera)
+    ${__('<kbd>/</kbd> ir al buscador · <kbd>↵</kbd> buscar · <kbd>Esc</kbd> cerrar el lector')}<br>
+    ${__('<kbd>j</kbd> / <kbd>k</kbd> siguiente / anterior resultado · <kbd>↵</kbd> abrir el resultado')}<br>
+    ${__('<kbd>a</kbd> guardar en una biblioteca{0}', helpAtajoModosHTML())}<br>
+    ${__('<kbd>t</kbd> abrir o plegar el panel de <b>Tendencia</b>')}<br>
+    ${__(`<kbd>s</kbd> alternar el lector entre <b>Discurso</b> y <b>Sesión corrida</b> (toda la sesión seguida;
+    🎯 vuelve a la intervención de referencia)`)}<br>
+    ${__('<kbd>c</kbd> abrir o cerrar el <b>Careo</b> de la intervención abierta')}<br>
+    ${__('<kbd>f</kbd> plegar o desplegar el panel lateral (también con « en su cabecera y con la franja que queda al plegarlo)')}<br>
+    ${__('<kbd>l</kbd> plegar o desplegar la lista de intervenciones mientras lee (también con « en su cabecera y » en la franja)')}<br>
+    ${__('<kbd>r</kbd> volver al estado inicial (o el botón ↺ de la cabecera)')}
   </p>
   ${helpOtrosCorpusHTML()}
-  <h4 style="margin:16px 0 6px;font-size:13px">Una advertencia sobre el texto</h4>
-  <p class="dsub" style="line-height:1.6">
+  <h4 style="margin:16px 0 6px;font-size:13px">${__('Una advertencia sobre el texto')}</h4>
+  <p class="dsub" style="line-height:1.6">${__(`
     El texto procede de la extracción automática de los diarios originales (PDF u OCR), así que
-    puede contener errores de reconocimiento y de segmentación de oradores.${helpErratasTxt()} Muchas
+    puede contener errores de reconocimiento y de segmentación de oradores.{0} Muchas
     intervenciones son de trámite; filtre por longitud mínima para centrarse en los discursos. El
     <b>encabezado y sumario</b> de cada sesión (fila sin orador) se puede excluir con «Solo lo que se habla».
-  </p>
-  <p class="dsub" style="line-height:1.6">
+  `, helpErratasTxt())}</p>
+  <p class="dsub" style="line-height:1.6">${__(`
     Cuando una fecha tiene varias sesiones (ordinaria, extraordinaria, solemne…), la ficha lo indica;
     el «n.º de orden en el corpus» de una sesión es correlativo dentro del archivo y no coincide con
     el número oficial de la sesión, que se muestra aparte cuando el CSV lo trae.
-  </p>`;
-}
-
-
-{
-  const helpHTMLEscritorio = helpHTML;
-  helpHTML = () => {
-    const h = helpHTMLEscritorio();
-    return document.documentElement.dataset.estilo !== 'clasico' ? h.replace('(Rumores.)</span> lacre:', '(Rumores.)</span> teja:') : h;
-  };
+  `)}</p>`;
 }
 
 
@@ -13748,7 +14043,7 @@ function resetAll() {
   if (S.view !== 'search') { setView('search', { refresh: false }); } else { renderFilters(); }
   search(true);
   $('#q').focus();
-  toast('Vuelta al estado inicial');
+  toast(__('Vuelta al estado inicial'));
 }
 
 function setMode(m) {
@@ -13789,7 +14084,7 @@ function wire() {
   $('#saveAllBtn').onclick = () => {
 
 
-    if (!listaEspera && !S.total) return toast('No hay resultados que guardar.');
+    if (!listaEspera && !S.total) return toast(__('No hay resultados que guardar.'));
     openAdd(S.similarOf && !listaEspera ? S.results.map(r => r.id) : 'ALL');
   };
   $('#themeBtn').onclick = () => {
@@ -13916,7 +14211,7 @@ function wire() {
   $('#hits').addEventListener('change', cooChange);
   $('#hits').addEventListener('keydown', cooKey);
   $('#addBtn').onclick = () => {
-    if (!S.selected) return toast('Abra primero una intervención.');
+    if (!S.selected) return toast(__('Abra primero una intervención.'));
     const hit = S.results.find(r => r.id === S.selected);
     openAdd([S.selected], hit?.char_start != null ? [hit.char_start, hit.char_end] : null);
   };
@@ -13981,7 +14276,7 @@ function wire() {
       try {
         await api(`/collections/${S.libSel}/items/remove`,
           { method: 'POST', body: { speech_ids: [+rm.dataset.rm] } });
-        toast('Quitada de la biblioteca');
+        toast(__('Quitada de la biblioteca'));
         await refreshCollections(); renderLibraryView();
       } catch (err) { toast(err.message, true); }
       return;
@@ -14047,7 +14342,7 @@ function wire() {
       $('#q').value = s.query; $('#variants').checked = S.variants; setMode(s.mode);
 
       renderFilters(); search(true);
-      if (borrada) toast(`«${s.name}» estaba restringida a una biblioteca que ya no existe: se busca en todo el corpus, sin esa restricción.`, true);
+      if (borrada) toast(__('«{0}» estaba restringida a una biblioteca que ya no existe: se busca en todo el corpus, sin esa restricción.', s.name), true);
     }
   });
 
@@ -14134,7 +14429,7 @@ function wire() {
     }
     if (e.key === 'l' && !e.metaKey && !e.ctrlKey && !e.altKey) {
       e.preventDefault();
-      if ($('#app').classList.contains('no-reader')) toast('Abra una intervención para plegar la lista mientras lee');
+      if ($('#app').classList.contains('no-reader')) toast(__('Abra una intervención para plegar la lista mientras lee'));
       else setListCollapsed(!$('#app').classList.contains('list-collapsed'));
     }
     if (e.key === 'c' && !e.metaKey && !e.ctrlKey && !e.altKey) { e.preventDefault(); toggleCareo(); }
@@ -14156,8 +14451,8 @@ function wire() {
    Devuelve una promesa con {nombre, texto} o null si se cancela. Ctrl/Cmd+Intro guarda; Esc cancela.
    `nombre` y `texto` valen null cuando ese campo no se pide, y así se distingue «no se tocó» de «se
    dejó vacío»: vaciar la nota de una intervención es borrarla, y tiene que poder hacerse. */
-function abrirEditor({ titulo, sub = '', nombre = null, nombreEtiqueta = 'Nombre', texto = null,
-                       textoEtiqueta = 'Nota', guardar = 'Guardar', exigeNombre = false }) {
+function abrirEditor({ titulo, sub = '', nombre = null, nombreEtiqueta = __('Nombre'), texto = null,
+                       textoEtiqueta = __('Nota'), guardar = __('Guardar'), exigeNombre = false }) {
   const dlg = $('#dlgEdit');
   if (dlg.open) return Promise.resolve(null);
   const inNombre = $('#editNombre'), inTexto = $('#editTexto'), btn = $('#editGuardar');
@@ -14171,7 +14466,7 @@ function abrirEditor({ titulo, sub = '', nombre = null, nombreEtiqueta = 'Nombre
   inNombre.value = nombre || '';
   inTexto.value = texto || '';
   btn.textContent = guardar;
-  $('#editPista').textContent = texto === null ? '' : 'Ctrl+Intro guarda';
+  $('#editPista').textContent = texto === null ? '' : __('Ctrl+Intro guarda');
   const valido = () => !exigeNombre || !!inNombre.value.trim();
   const revisar = () => { btn.disabled = !valido(); };
   revisar();
@@ -14211,14 +14506,14 @@ function abrirEditor({ titulo, sub = '', nombre = null, nombreEtiqueta = 'Nombre
 }
 
 async function newLibrary() {
-  const r = await abrirEditor({ titulo: 'Nueva biblioteca', nombre: '', texto: '',
-    textoEtiqueta: 'Nota (opcional)', guardar: 'Crear', exigeNombre: true,
-    sub: 'La nota describe para qué es la biblioteca; se guarda con ella al exportarla.' });
+  const r = await abrirEditor({ titulo: __('Nueva biblioteca'), nombre: '', texto: '',
+    textoEtiqueta: __('Nota (opcional)'), guardar: __('Crear'), exigeNombre: true,
+    sub: __('La nota describe para qué es la biblioteca; se guarda con ella al exportarla.') });
   if (!r) return;
   try {
     const c = await api('/collections', { method: 'POST', body: { name: r.nombre, description: r.texto } });
     await refreshCollections(); S.libSel = c.id; renderLibraryView();
-    toast(`Biblioteca «${c.name}» creada`);
+    toast(__('Biblioteca «{0}» creada', c.name));
   } catch (e) { toast(e.message, true); }
 }
 
@@ -14233,9 +14528,9 @@ async function newLibrary() {
 async function renameLibrary(cid) {
   const c = S.collections.find(x => x.id === cid);
   if (!c) return;
-  const ed = await abrirEditor({ titulo: 'Editar la biblioteca', nombre: c.name, texto: c.description || '',
-    textoEtiqueta: 'Nota', exigeNombre: true,
-    sub: 'La nota se ve en la ficha de la biblioteca y viaja con ella al exportarla.' });
+  const ed = await abrirEditor({ titulo: __('Editar la biblioteca'), nombre: c.name, texto: c.description || '',
+    textoEtiqueta: __('Nota'), exigeNombre: true,
+    sub: __('La nota se ve en la ficha de la biblioteca y viaja con ella al exportarla.') });
   if (!ed) return;
   const limpio = ed.nombre;
   if (limpio === c.name && ed.texto === (c.description || '')) return;   // nada que guardar
@@ -14244,7 +14539,7 @@ async function renameLibrary(cid) {
     await refreshCollections();
     if (S.view === 'library') { renderLibList(); listHead(); if (S.libSel === cid) loadLibraryItems(cid); }
     else renderFilters();
-    toast(limpio === c.name ? 'Nota de la biblioteca guardada' : `La biblioteca se llama ahora «${r.name}»`);
+    toast(limpio === c.name ? __('Nota de la biblioteca guardada') : __('La biblioteca se llama ahora «{0}»', r.name));
   } catch (e) { toast(e.message, true); }
 }
 
@@ -14268,7 +14563,7 @@ async function importLibraryFile(file) {
     try {
       payload = JSON.parse(await file.text());
     } catch {
-      toast('El archivo no es un .2replib válido (JSON)', true);
+      toast(__('El archivo no es un .2replib válido (JSON)'), true);
       return;
     }
 
@@ -14279,24 +14574,24 @@ async function importLibraryFile(file) {
       if (v && typeof v === 'object') { hondo = Math.max(hondo, n); for (const x of Object.values(v)) pila.push([x, n + 1]); }
     }
     if (hondo > 64) {
-      toast('El archivo no es un .2replib válido: tiene demasiados niveles anidados.', true);
+      toast(__('El archivo no es un .2replib válido: tiene demasiados niveles anidados.'), true);
       return;
     }
     const r = await api('/import', { method: 'POST', body: { payload } });
 
     S.searchStale = true;
     const cols = (r.collections || [r.collection]).filter(Boolean);
-    const n = +r.n_items || 0, interv = `${nf(n)} ${n === 1 ? 'intervención' : 'intervenciones'}`;
+    const n = +r.n_items || 0, interv = n === 1 ? __('{0} intervención', nf(n)) : __('{0} intervenciones', nf(n));
     await refreshCollections();
 
     if (cols.length) S.libSel = cols[0].id;
     if (S.view === 'library') await renderLibraryView(); else setView('library');
-    toast(cols.length === 1 ? `Importada «${cols[0].name}» (${interv})` : `Importadas ${nf(cols.length)} bibliotecas (${interv})`);
+    toast(cols.length === 1 ? __('Importada «{0}» ({1})', cols[0].name, interv) : __('Importadas {0} bibliotecas ({1})', nf(cols.length), interv));
     $('#importLibBtn')?.focus();
   } catch (e) {
 
     const pila = !e.status && (e instanceof RangeError || e.name === 'InternalError');
-    toast(pila ? 'El archivo no es un .2replib válido: tiene demasiados niveles anidados.' : e.message, true);
+    toast(pila ? __('El archivo no es un .2replib válido: tiene demasiados niveles anidados.') : e.message, true);
   } finally {
     inp._busy = false;
     inp.value = '';
@@ -14324,9 +14619,9 @@ function qexpPintar() {
   const txt = x => (x == null ? '' : typeof x === 'string' ? x : x.mensaje || x.message || '');
   box.classList.toggle('err', !r.ok);
   if (!r.ok) {
-    box.innerHTML = `No se puede buscar <code>${esc(q)}</code>: ${esc(txt(r.error) || 'la consulta no es válida.')}`;
+    box.innerHTML = __('No se puede buscar {0}: {1}', `<code>${esc(q)}</code>`, esc(txt(r.error) || __('la consulta no es válida.')));
   } else {
-    box.innerHTML = `Se busca: <code>${esc(r.interpretacion || q)}</code> · sin acentos ni mayúsculas · las comillas buscan la frase exacta`
+    box.innerHTML = __('Se busca: {0} · sin acentos ni mayúsculas · las comillas buscan la frase exacta', `<code>${esc(r.interpretacion || q)}</code>`)
       + (r.avisos || []).map(txt).filter(Boolean).map(a => `<span class="qexp-aviso">⚠ ${esc(a)}</span>`).join('');
   }
   box.hidden = false;
@@ -14385,7 +14680,7 @@ function almacenSenalar(e) {
     if (err && !marca) tab.insertAdjacentHTML('beforeend', '<span class="r2-marca" aria-hidden="true">⚠</span>');
     if (!err && marca) marca.remove();
     if (err) {
-      tab.setAttribute('aria-label', 'Mis bibliotecas: hay un problema con el guardado de sus bibliotecas');
+      tab.setAttribute('aria-label', __('Mis bibliotecas: hay un problema con el guardado de sus bibliotecas'));
       tab.title = err;
     } else {
       tab.removeAttribute('aria-label');
@@ -14407,25 +14702,25 @@ function almacenSenalar(e) {
 function almacenDescargarDanada() {
   const P = globalThis.R2 && globalThis.R2.persistencia;
   const bytes = P && typeof P.copiaDanada === 'function' ? P.copiaDanada() : null;
-  if (!bytes) { toast('No hay ninguna copia dañada que descargar', true); return; }
+  if (!bytes) { toast(__('No hay ninguna copia dañada que descargar'), true); return; }
   const name = `diarios_bibliotecas_danadas_${new Date().toISOString().slice(0, 10)}.sqlite`;
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([bytes], { type: 'application/vnd.sqlite3' })); a.download = name;
   document.body.append(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 120000);
-  toast(`Elija dónde guardar ${name}`);
+  toast(__('Elija dónde guardar {0}', name));
 }
 
 async function almacenDescartarDanada() {
   const P = globalThis.R2 && globalThis.R2.persistencia;
   if (!P || typeof P.descartarCopiaDanada !== 'function') return;
-  if (!confirm('¿Descartar la copia dañada de sus bibliotecas? Se borrará de este navegador y empezará con bibliotecas vacías. Si quiere intentar recuperarla, descárguela antes.')) return;
+  if (!confirm(__('¿Descartar la copia dañada de sus bibliotecas? Se borrará de este navegador y empezará con bibliotecas vacías. Si quiere intentar recuperarla, descárguela antes.'))) return;
   try {
     if (!(await P.descartarCopiaDanada())) {
-      toast('Solo la pestaña que edita las bibliotecas puede descartar la copia dañada: pulse antes «Usar aquí».', true);
+      toast(__('Solo la pestaña que edita las bibliotecas puede descartar la copia dañada: pulse antes «Usar aquí».'), true);
       return;
     }
-    toast('Copia dañada descartada: sus bibliotecas empiezan vacías');
+    toast(__('Copia dañada descartada: sus bibliotecas empiezan vacías'));
     await refreshCollections();
     if (S.view === 'library') renderLibraryView();
   } catch (err) {
@@ -14444,7 +14739,7 @@ async function almacenRecargar() {
   loadSaved();
   const sel = $('#fLib');
   if (sel) {
-    sel.innerHTML = '<option value="">— todo el corpus —</option>' + S.collections.map(c =>
+    sel.innerHTML = `<option value="">${__('— todo el corpus —')}</option>` + S.collections.map(c =>
       `<option value="${c.id}"${S.filters.collection_id == c.id ? ' selected' : ''}>${esc(c.name)} (${nf(c.n_items)})</option>`).join('');
   }
 }
@@ -14459,20 +14754,20 @@ function almacenEstado() {
 
 
 function libStoreHTML(e) {
-  const av = (e && e.aviso) || { tipo: 'comprobando', texto: 'Comprobando si este navegador puede guardar las bibliotecas…', acciones: [] };
+  const av = (e && e.aviso) || { tipo: 'comprobando', texto: __('Comprobando si este navegador puede guardar las bibliotecas…'), acciones: [] };
   const alerta = ['memoria', 'solo_lectura', 'error', 'copia_danada', 'relevo'].includes(av.tipo);
   const acc = av.acciones || [];
   const hay = S.collections.length > 0;
-  return `<div class="lib-store${alerta ? ' aviso' : ''}" id="libStore" data-tipo="${esc(av.tipo)}" role="group" aria-label="Dónde se guardan sus bibliotecas">`
+  return `<div class="lib-store${alerta ? ' aviso' : ''}" id="libStore" data-tipo="${esc(av.tipo)}" role="group" aria-label="${esc(__('Dónde se guardan sus bibliotecas'))}">`
     + `<span class="lib-store-t">${esc(av.texto)}</span><div class="lib-store-acc">`
     + `<button type="button" class="btn sm" id="exportAllBtn"${hay ? '' : ' disabled'}`
-    + ` title="Descargar todas las bibliotecas y las búsquedas guardadas en un solo archivo .2replib">⤓ Exportar todas</button>`
+    + ` title="${esc(__('Descargar todas las bibliotecas y las búsquedas guardadas en un solo archivo .2replib'))}">⤓ ${__('Exportar todas')}</button>`
     + (acc.includes('usar_aqui')
-      ? '<button type="button" class="btn sm" id="usarAquiBtn" title="Editar las bibliotecas en esta pestaña">Usar aquí</button>' : '')
+      ? `<button type="button" class="btn sm" id="usarAquiBtn" title="${esc(__('Editar las bibliotecas en esta pestaña'))}">${__('Usar aquí')}</button>` : '')
     + (acc.includes('descargar_danada')
-      ? '<button type="button" class="btn sm" id="descargarDanadaBtn" title="Guardar en un archivo la copia dañada, por si se puede recuperar">⤓ Descargar la copia dañada</button>' : '')
+      ? `<button type="button" class="btn sm" id="descargarDanadaBtn" title="${esc(__('Guardar en un archivo la copia dañada, por si se puede recuperar'))}">⤓ ${__('Descargar la copia dañada')}</button>` : '')
     + (acc.includes('descartar_danada')
-      ? '<button type="button" class="btn sm" id="descartarDanadaBtn" title="Borrar la copia dañada de este navegador y empezar con bibliotecas vacías (pide confirmación)">Descartar la copia dañada</button>' : '')
+      ? `<button type="button" class="btn sm" id="descartarDanadaBtn" title="${esc(__('Borrar la copia dañada de este navegador y empezar con bibliotecas vacías (pide confirmación)'))}">${__('Descartar la copia dañada')}</button>` : '')
     + '</div></div>';
 }
 
@@ -14505,10 +14800,10 @@ function proyectoPintar(cab, e) {
   $('#projLibBtn')?.remove();
   if (!proyectoIndice()) return;
   cab.insertAdjacentHTML('beforeend', `<button type="button" class="btn" id="projLibBtn" style="width:100%;margin-top:7px"${e && e.solo_lectura ? ' disabled' : ''}`
-    + ' title="Elegir entre las bibliotecas preparadas con el proyecto: discursos principales, debates, sesiones y anécdotas">Añadir bibliotecas del proyecto…</button>');
+    + ` title="${esc(__('Elegir entre las bibliotecas preparadas con el proyecto: discursos principales, debates, sesiones y anécdotas'))}">${__('Añadir bibliotecas del proyecto…')}</button>`);
 }
 
-const PROYECTO_GRUPOS = [['L1', 'Discursos'], ['L2', 'Debates'], ['L3', 'Sesiones'], ['L4', 'Anécdotas y amenazas']];
+const PROYECTO_GRUPOS = [['L1', N_('Discursos')], ['L2', N_('Debates')], ['L3', N_('Sesiones')], ['L4', N_('Anécdotas y amenazas')]];
 
 function proyectoDialogo() {
   const P = proyectoIndice();
@@ -14516,11 +14811,11 @@ function proyectoDialogo() {
   let dlg = $('#dlgProyecto');
   if (!dlg) {
     document.body.insertAdjacentHTML('beforeend', `<dialog id="dlgProyecto" aria-labelledby="proyTitulo">
-  <div class="dhead"><h3 id="proyTitulo">Bibliotecas del proyecto</h3>
-    <p class="dsub">Preparadas con el corpus ${esc(P.corpus)}. Se añaden a sus bibliotecas con sus notas y etiquetas; después puede cambiarlas o borrarlas como cualquier otra.</p></div>
+  <div class="dhead"><h3 id="proyTitulo">${__('Bibliotecas del proyecto')}</h3>
+    <p class="dsub">${__('Preparadas con el corpus {0}. Se añaden a sus bibliotecas con sus notas y etiquetas; después puede cambiarlas o borrarlas como cualquier otra.', esc(P.corpus))}</p></div>
   <div class="dbody" id="proyLista"></div>
-  <div class="dfoot"><button type="button" class="btn ghost" id="proyTodas">Marcar todas</button><span style="flex:1"></span>
-    <button type="button" class="btn" data-close>Cancelar</button><button type="button" class="btn primary" id="proyAnadir">Añadir</button></div>
+  <div class="dfoot"><button type="button" class="btn ghost" id="proyTodas">${__('Marcar todas')}</button><span style="flex:1"></span>
+    <button type="button" class="btn" data-close>${__('Cancelar')}</button><button type="button" class="btn primary" id="proyAnadir">${__('Añadir')}</button></div>
 </dialog>`);
     dlg = $('#dlgProyecto');
     dlg.addEventListener('click', ev => {
@@ -14540,11 +14835,11 @@ function proyectoDialogo() {
   $('#proyLista').innerHTML = PROYECTO_GRUPOS.map(([pref, titulo]) => {
     const libs = P.bibliotecas.filter(b => b.clave === pref || b.clave.startsWith(pref + '-'));
     if (!libs.length) return '';
-    return `<p class="dsub" style="margin:10px 0 4px;font-weight:600">${esc(titulo)}</p>` + libs.map(b => {
+    return `<p class="dsub" style="margin:10px 0 4px;font-weight:600">${esc(__(titulo))}</p>` + libs.map(b => {
       const esta = ya.has(b.nombre);
       return `<label class="fdoc" style="margin:0 0 7px"><input type="checkbox" data-clave="${esc(b.clave)}"${esta ? ' disabled' : ''}>`
-        + `<span><b>${esc(b.nombre)}</b><small>${nf(b.n)} ${b.n === 1 ? 'intervención' : 'intervenciones'}`
-        + `${esta ? ' · ya está en sus bibliotecas' : ''}</small></span></label>`;
+        + `<span><b>${esc(b.nombre)}</b><small>${b.n === 1 ? __('{0} intervención', nf(b.n)) : __('{0} intervenciones', nf(b.n))}`
+        + `${esta ? ` · ${__('ya está en sus bibliotecas')}` : ''}</small></span></label>`;
     }).join('');
   }).join('');
   proyectoContar();
@@ -14556,11 +14851,11 @@ function proyectoContar() {
   if (!dlg || !btn || btn._busy) return;
   const n = dlg.querySelectorAll('input[data-clave]:checked').length;
   btn.disabled = !n;
-  btn.textContent = n ? `Añadir ${nf(n)}` : 'Añadir';
+  btn.textContent = n ? __('Añadir {0}', nf(n)) : __('Añadir');
   const libres = [...dlg.querySelectorAll('input[data-clave]:not(:disabled)')];
   const t = $('#proyTodas');
   t.disabled = !libres.length;
-  t.textContent = libres.length && libres.every(i => i.checked) ? 'Desmarcar todas' : 'Marcar todas';
+  t.textContent = libres.length && libres.every(i => i.checked) ? __('Desmarcar todas') : __('Marcar todas');
 }
 
 async function proyectoAnadir() {
@@ -14577,8 +14872,8 @@ async function proyectoAnadir() {
     const porClave = new Map((todo.paquetes || []).map(p => [p.generado && p.generado.biblioteca, p]));
     for (const clave of claves) {
       const payload = porClave.get(clave);
-      if (!payload) throw new Error(`Falta la biblioteca ${clave} en este archivo`);
-      btn.textContent = `Añadiendo ${nf(hechas + 1)} de ${nf(claves.length)}…`;
+      if (!payload) throw new Error(__('Falta la biblioteca {0} en este archivo', clave));
+      btn.textContent = __('Añadiendo {0} de {1}…', nf(hechas + 1), nf(claves.length));
       const r = await api('/import', { method: 'POST', body: { payload } });
 
       const col = r.collection;
@@ -14597,8 +14892,11 @@ async function proyectoAnadir() {
   S.searchStale = true;
   await refreshCollections();
   if (S.view === 'library') await renderLibraryView(); else setView('library');
-  if (fallo) toast(`${hechas ? `Se añadieron ${nf(hechas)}; ` : ''}${fallo.message}`, true);
-  else toast(`${hechas === 1 ? 'Añadida 1 biblioteca' : `Añadidas ${nf(hechas)} bibliotecas`} (${nf(n)} ${n === 1 ? 'intervención' : 'intervenciones'})`);
+  if (fallo) toast(hechas ? __('Se añadieron {0}; {1}', nf(hechas), fallo.message) : fallo.message, true);
+  else {
+    const interv = n === 1 ? __('{0} intervención', nf(n)) : __('{0} intervenciones', nf(n));
+    toast(hechas === 1 ? __('Añadida 1 biblioteca ({0})', interv) : __('Añadidas {0} bibliotecas ({1})', nf(hechas), interv));
+  }
 }
 
 
@@ -14609,17 +14907,17 @@ async function exportarTodas() {
   if (!btn || btn._busy) return;
   btn._busy = true; btn.disabled = true;
   const rotulo = btn.textContent;
-  btn.textContent = 'Preparando…';
+  btn.textContent = __('Preparando…');
   try {
     const r = await fetch('/api/collections/export-all', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
-    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || 'No se pudieron exportar las bibliotecas');
+    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || __('No se pudieron exportar las bibliotecas'));
     const blob = await r.blob();
     const name = (r.headers.get('Content-Disposition') || '').match(/filename="(.+?)"/)?.[1] || 'bibliotecas.2replib';
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob); a.download = name;
     document.body.append(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 120000);
-    toast(`Elija dónde guardar ${name}`);
+    toast(__('Elija dónde guardar {0}', name));
     const P = globalThis.R2 && globalThis.R2.persistencia;
     if (P && typeof P.marcarExportado === 'function') Promise.resolve(P.marcarExportado()).catch(() => {});
   } catch (e) {
@@ -14660,15 +14958,15 @@ function expandFilters(F) {
 }
 
 async function saveSearch() {
-  const r = await abrirEditor({ titulo: 'Guardar la búsqueda', nombre: S.query || 'Búsqueda',
-    exigeNombre: true, guardar: 'Guardar' });
+  const r = await abrirEditor({ titulo: __('Guardar la búsqueda'), nombre: S.query || __('Búsqueda'),
+    exigeNombre: true, guardar: __('Guardar') });
   if (!r) return;
   try {
     await api('/searches', { method: 'POST',
       body: { name: r.nombre, mode: S.mode, query: S.query,
               filters: compactFilters(S.filters), variants: S.variants,
                 } });
-    loadSaved(); toast('Búsqueda guardada');
+    loadSaved(); toast(__('Búsqueda guardada'));
   } catch (e) { toast(e.message, true); }
 }
 
@@ -14676,12 +14974,12 @@ async function editNote(sid) {
   const it = S.results.find(r => r.id === sid);
   const previa = it?.note || '';
   const quien = it ? `${it.rep_name || it.speaker || ''} · ${it.date || ''}`.trim() : '';
-  const r = await abrirEditor({ titulo: previa ? 'Editar la nota' : 'Nota de la intervención',
-    sub: quien, texto: previa, textoEtiqueta: 'Nota' });
+  const r = await abrirEditor({ titulo: previa ? __('Editar la nota') : __('Nota de la intervención'),
+    sub: quien, texto: previa, textoEtiqueta: __('Nota') });
   if (!r || r.texto === previa) return;
   try {
     await api(`/collections/${S.libSel}/items/${sid}`, { method: 'PATCH', body: { note: r.texto } });
-    loadLibraryItems(S.libSel); toast(r.texto.trim() ? 'Nota guardada' : 'Nota borrada');
+    loadLibraryItems(S.libSel); toast(r.texto.trim() ? __('Nota guardada') : __('Nota borrada'));
   } catch (e) { toast(e.message, true); }
 }
 
@@ -14704,14 +15002,14 @@ const MEN = {
   cache: new Map(), data: null, cid: null, seq: 0, ctrl: null, limpiarRed: null,
   filtro: 'todas', elegida: null, agrupar: 'partido', sentido: 'todas', minimo: 1, resolucion: 1,
 };
-const MEN_RESOL = [[0.6, 'menos', 'Menos focos y más amplios (resolución 0,6)'], [1, 'normal', 'Resolución 1: la modularidad clásica'],
-  [1.6, 'más', 'Más focos y más finos (resolución 1,6)']];
+const MEN_RESOL = [[0.6, __('menos'), __('Menos focos y más amplios (resolución 0,6)')], [1, __('normal'), __('Resolución 1: la modularidad clásica')],
+  [1.6, __('más'), __('Más focos y más finos (resolución 1,6)')]];
 const MEN_PERSONAS = 25;   // filas de la tabla de más mencionados
 
 const menEl = (id) => document.getElementById(id);
-const menDec = (x, d = 3) => Number(x || 0).toFixed(d).replace('.', ',');
+const menDec = (x, d = 3) => __.dec(Number(x || 0).toFixed(d));
 const menPct = (n, d) => (d > 0 ? Math.round(100 * n / d) : 0);
-const menChip = (p) => (p ? `<span class="men-chip">${esc(p)}</span>` : '<span class="men-chip ext">externa</span>');
+const menChip = (p) => (p ? `<span class="men-chip">${esc(p)}</span>` : `<span class="men-chip ext">${__('externa')}</span>`);
 
 function menAbortar() {
   MEN.ctrl?.abort(); ++MEN.seq;
@@ -14735,21 +15033,21 @@ async function menLoad() {
   const mine = ++MEN.seq;
   if (!L.total) {
     MEN.data = null; MEN.cid = L.id;
-    box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>Biblioteca vacía</h3>
-      <p>Las menciones salen de las intervenciones guardadas. Añada algunas desde <b>Explorar</b>.</p></div>`;
+    box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>${__('Biblioteca vacía')}</h3>
+      <p>${__('Las menciones salen de las intervenciones guardadas. Añada algunas desde <b>Explorar</b>.')}</p></div>`;
     return;
   }
   if (MEN.cache.has(key)) { MEN.data = MEN.cache.get(key); MEN.cid = L.id; menRender(); return; }
   MEN.data = null; MEN.cid = null;
   const t0 = performance.now();
   box.innerHTML = `<div class="empty lex-prog" role="status" aria-live="polite">
-    <p>Buscando menciones a personas en ${nf(L.total)} ${L.total === 1 ? 'intervención' : 'intervenciones'}…</p>
-    <div class="bar" role="progressbar" aria-label="Progreso de las menciones" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
-    <p class="lex-prog-fase">Preparando…</p>
+    <p>${L.total === 1 ? __('Buscando menciones a personas en {0} intervención…', nf(L.total)) : __('Buscando menciones a personas en {0} intervenciones…', nf(L.total))}</p>
+    <div class="bar" role="progressbar" aria-label="${esc(__('Progreso de las menciones'))}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
+    <p class="lex-prog-fase">${__('Preparando…')}</p>
     <p class="lex-prog-t dsub">0 % · 0 s</p>
-    <p style="margin-top:10px"><button class="btn sm" data-mencancel>Cancelar</button></p>
-    <p class="dsub" style="margin-top:8px;font-size:11.5px">Se leen también las demás intervenciones de esas sesiones: hacen falta para
-      saber quién presidía y cómo llama la biblioteca a cada persona.</p></div>`;
+    <p style="margin-top:10px"><button class="btn sm" data-mencancel>${__('Cancelar')}</button></p>
+    <p class="dsub" style="margin-top:8px;font-size:11.5px">${__(`Se leen también las demás intervenciones de esas sesiones: hacen falta para
+      saber quién presidía y cómo llama la biblioteca a cada persona.`)}</p></div>`;
   box.querySelector('[data-mencancel]').addEventListener('click', () => MEN.ctrl?.abort());
   let ultimoEv = null;
   const pinta = (ev) => {
@@ -14761,9 +15059,9 @@ async function menLoad() {
     const pct = e ? Math.round(Math.max(0, Math.min(1, e.fraccion || 0)) * 100) : 0;
     bar.querySelector('.bar i').style.width = `${pct}%`;
     bar.querySelector('.bar').setAttribute('aria-valuenow', String(pct));
-    if (e) bar.querySelector('.lex-prog-fase').textContent = `${e.indice}/${e.n_fases} · ${e.etiqueta}${e.total > 1 ? ` · ${nf(e.hecho)} de ${nf(e.total)}` : ''}`;
+    if (e) bar.querySelector('.lex-prog-fase').textContent = `${e.indice}/${e.n_fases} · ${__(e.etiqueta)}${e.total > 1 ? ` · ${__('{0} de {1}', nf(e.hecho), nf(e.total))}` : ''}`;
     const eta = e && e.fraccion > 0.08 && e.fraccion < 1 ? sg / e.fraccion - sg : null;
-    bar.querySelector('.lex-prog-t').textContent = `${pct} % · ${Math.round(sg)} s${eta != null ? ` · quedan unos ${Math.max(1, Math.round(eta))} s` : ''}`;
+    bar.querySelector('.lex-prog-t').textContent = `${pct} % · ${Math.round(sg)} s${eta != null ? ` · ${__('quedan unos {0} s', Math.max(1, Math.round(eta)))}` : ''}`;
   };
   const reloj = setInterval(() => pinta(null), 500);
   const ctrl = MEN.ctrl = new AbortController();
@@ -14781,14 +15079,14 @@ async function menLoad() {
     if (mine !== MEN.seq) return;
     if (e.name === 'AbortError') {
       if (S.view === 'library' && S.libTab === 'menciones' && box.querySelector('.lex-prog')) {
-        box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>Cálculo cancelado</h3>
-          <p>Puede volver a lanzarlo cuando quiera.</p><p style="margin-top:10px"><button class="btn sm" data-menretry>Buscar las menciones</button></p></div>`;
+        box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>${__('Cálculo cancelado')}</h3>
+          <p>${__('Puede volver a lanzarlo cuando quiera.')}</p><p style="margin-top:10px"><button class="btn sm" data-menretry>${__('Buscar las menciones')}</button></p></div>`;
         box.querySelector('[data-menretry]').addEventListener('click', menLoad);
       }
       return;
     }
-    box.innerHTML = `<div class="empty"><div class="big">⚠</div><h3>No se pudieron buscar las menciones</h3>
-      <p>${esc(e.message)}</p><p style="margin-top:10px"><button class="btn sm" data-menretry>Reintentar</button></p></div>`;
+    box.innerHTML = `<div class="empty"><div class="big">⚠</div><h3>${__('No se pudieron buscar las menciones')}</h3>
+      <p>${esc(e.message)}</p><p style="margin-top:10px"><button class="btn sm" data-menretry>${__('Reintentar')}</button></p></div>`;
     box.querySelector('[data-menretry]').addEventListener('click', menLoad);
   }
 }
@@ -14797,38 +15095,42 @@ async function menLoad() {
 
 function menNota(D) {
   const ext = D.resumen.externas;
-  return `Personas nombradas en las intervenciones de la biblioteca: <b>miembros de la Cámara</b>, con su tratamiento o su cargo
+  return __(`Personas nombradas en las intervenciones de la biblioteca: <b>miembros de la Cámara</b>, con su tratamiento o su cargo
     («señor diputado Pérez», «Presidenta Gómez») o, si la biblioteca ya los llama así, por su apellido solo, identificados con los
-    nombres del corpus; y <b>personas externas</b>${ext ? ` (${nf(ext)} aquí)` : ''}, con su cargo («ministro Ruiz», «senador Díaz») o,
+    nombres del corpus; y <b>personas externas</b>{0}, con su cargo («ministro Ruiz», «senador Díaz») o,
     ya identificadas, por su nombre («el Gobierno de Fulano»). Cada mención va de quien habla a quien nombra; entre miembros se
     distingue cuándo <b>se dirige</b> a él y cuándo <b>habla de</b> él. No mide el tono: dos oradores que mencionan a la misma
-    persona pueden estar elogiándola o atacándola.`;
+    persona pueden estar elogiándola o atacándola.`, ext ? __(' ({0} aquí)', nf(ext)) : '');
 }
 
 function menMetodo(D) {
   const R = D.resumen, T = R.deteccion || {}, intentos = (T.resueltas || 0) + (T.ambiguas || 0) + (T.sin_resolver || 0);
-  const cargos = (T.cargos_sin_atribuir || []).map(([c, n]) => `${c} ${nf(n)}`).join(', ');
+  const cargos = (T.cargos_sin_atribuir || []).map(([c, n]) => `${c} ${nf(n)}`).join(', ');   // cargos: palabras del corpus, sin traducir
   const li = [
-    `Menciones a miembros identificadas: ${nf(T.resueltas)} de ${nf(intentos)} (${menPct(T.resueltas, intentos)} %); quedan fuera
-      ${nf(T.ambiguas)} ambiguas (casi siempre solo el nombre de pila) y ${nf(T.sin_resolver)} sin resolver. En la red,
-      ${nf(T.se_dirige)} en las que se dirige a la persona y ${nf(T.habla_de)} en las que habla de ella.`,
-    `Personas externas: ${nf(T.externas_cargo)} menciones con cargo y ${nf(T.externas_nombre)} por su nombre solo. Los jefes de Estado
+    __(`Menciones a miembros identificadas: {0} de {1} ({2} %); quedan fuera
+      {3} ambiguas (casi siempre solo el nombre de pila) y {4} sin resolver. En la red,
+      {5} en las que se dirige a la persona y {6} en las que habla de ella.`,
+    nf(T.resueltas), nf(intentos), menPct(T.resueltas, intentos), nf(T.ambiguas), nf(T.sin_resolver), nf(T.se_dirige), nf(T.habla_de)),
+    __(`Personas externas: {0} menciones con cargo y {1} por su nombre solo. Los jefes de Estado
       y de Gobierno salen del registro de hitos, desde el inicio de su mandato; antes, si tuvieron escaño, cuentan como miembros. Un
       cargo que no ocupa un miembro (senador, gobernador, alcalde, ministro) no se atribuye a un diputado salvo con el nombre completo.`,
-    `Cuando un apellido lo comparten varios miembros se desempata por el sexo del tratamiento, por quien preside la sesión, por el
+    nf(T.externas_cargo), nf(T.externas_nombre)),
+    __(`Cuando un apellido lo comparten varios miembros se desempata por el sexo del tratamiento, por quien preside la sesión, por el
       cargo en el Gobierno de esa legislatura, por la actividad en el corpus y, al final, por cómo llama la biblioteca a cada uno. El
-      apellido suelto solo cuenta si la biblioteca lo usa con tratamiento al menos tres veces.`,
-    `Se excluyen los turnos de la Mesa (${nf(T.mesa)} menciones), el protocolo dirigido a la Presidencia (${nf(T.protocolo)}), las
-      fórmulas de dar la palabra y el procedimiento (${nf(T.procedimiento)}), las automenciones (${nf(T.propias)}), las acotaciones
-      entre paréntesis (${nf(T.acotaciones)})${T.subnacionales ? ` y los cargos subnacionales (${nf(T.subnacionales)})` : ''}.`,
-    cargos ? `Cargos citados sin nombre, aún sin atribuir: ${esc(cargos)}. Harían falta tablas de quién ocupaba cada cargo en cada fecha.` : '',
-    `Focos: algoritmo de Leiden sobre la red sin dirección (cada par suma las menciones en los dos sentidos), resolución
-      ${menDec(D.opciones?.resolucion ?? MEN.resolucion, 1)}, semilla ${nf(D.opciones?.semilla ?? 1)}, modularidad ${menDec(R.modularidad)}.
-      Coinciden poco con los partidos (información mutua normalizada ${menDec(R.nmi)}).`,
-    `Precisión: revisada a mano en muestras de los dieciséis parlamentos, alrededor de nueve de cada diez menciones señalan a la
+      apellido suelto solo cuenta si la biblioteca lo usa con tratamiento al menos tres veces.`),
+    __(`Se excluyen los turnos de la Mesa ({0} menciones), el protocolo dirigido a la Presidencia ({1}), las
+      fórmulas de dar la palabra y el procedimiento ({2}), las automenciones ({3}), las acotaciones
+      entre paréntesis ({4}){5}.`, nf(T.mesa), nf(T.protocolo), nf(T.procedimiento), nf(T.propias), nf(T.acotaciones),
+    T.subnacionales ? __(' y los cargos subnacionales ({0})', nf(T.subnacionales)) : ''),
+    cargos ? __('Cargos citados sin nombre, aún sin atribuir: {0}. Harían falta tablas de quién ocupaba cada cargo en cada fecha.', esc(cargos)) : '',
+    __(`Focos: algoritmo de Leiden sobre la red sin dirección (cada par suma las menciones en los dos sentidos), resolución
+      {0}, semilla {1}, modularidad {2}.
+      Coinciden poco con los partidos (información mutua normalizada {3}).`,
+    menDec(D.opciones?.resolucion ?? MEN.resolucion, 1), nf(D.opciones?.semilla ?? 1), menDec(R.modularidad), menDec(R.nmi)),
+    __(`Precisión: revisada a mano en muestras de los dieciséis parlamentos, alrededor de nueve de cada diez menciones señalan a la
       persona correcta. El recuerdo no está medido: faltan las referencias indirectas («su señoría», «el relator», «el orador que
-      me precedió»). Se leyeron ${nf(R.contexto)} intervenciones de las sesiones de la biblioteca como contexto y
-      ${nf(R.oradores_corpus)} fichas de oradores del corpus.`,
+      me precedió»). Se leyeron {0} intervenciones de las sesiones de la biblioteca como contexto y
+      {1} fichas de oradores del corpus.`, nf(R.contexto), nf(R.oradores_corpus)),
   ];
   return li.filter(Boolean).map((t) => `<li>${t}</li>`).join('');
 }
@@ -14840,21 +15142,21 @@ function menRender() {
   if (!D || !L || S.view !== 'library' || S.libTab !== 'menciones') return;
   if (MEN.limpiarRed) { MEN.limpiarRed(); MEN.limpiarRed = null; }
   listHead();
-  const resol = `<span class="tsel">Focos</span><div class="tseg" role="group" aria-label="Número de focos">`
+  const resol = `<span class="tsel">${__('Focos')}</span><div class="tseg" role="group" aria-label="${esc(__('Número de focos'))}">`
     + MEN_RESOL.map(([v, lab, tit]) => `<button type="button" data-menresol="${v}" aria-pressed="${v === MEN.resolucion}" title="${esc(tit)}">${lab}</button>`).join('')
     + `</div>`;
   if (D.disponible === false) {
-    box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>Sin menciones en este corpus</h3>
-      <p>${esc(D.motivo || 'Este corpus no está en el registro de menciones.')}</p>
-      <p class="dsub">Las formas de tratamiento («señor diputado», «congresista», «Sr. Deputado»…) están registradas para los
-      dieciséis parlamentos de ParlaIbero; un CSV propio de otro país todavía no las tiene.</p></div>`;
+    box.innerHTML = `<div class="empty"><div class="big">◇</div><h3>${__('Sin menciones en este corpus')}</h3>
+      <p>${esc(D.motivo ? __(D.motivo) : __('Este corpus no está en el registro de menciones.'))}</p>
+      <p class="dsub">${__(`Las formas de tratamiento («señor diputado», «congresista», «Sr. Deputado»…) están registradas para los
+      dieciséis parlamentos de ParlaIbero; un CSV propio de otro país todavía no las tiene.`)}</p></div>`;
     return;
   }
   const R = D.resumen;
   if (!D.personas.length) {
     box.innerHTML = `<div class="lex men"><div class="men-ctl">${resol}</div>
-      <div class="empty" style="padding:26px 16px"><h3>Ninguna mención</h3>
-      <p>No se ha reconocido ninguna mención a personas en las ${nf(R.intervenciones)} intervenciones de la biblioteca.</p></div></div>`;
+      <div class="empty" style="padding:26px 16px"><h3>${__('Ninguna mención')}</h3>
+      <p>${__('No se ha reconocido ninguna mención a personas en las {0} intervenciones de la biblioteca.', nf(R.intervenciones))}</p></div></div>`;
     menCtlEventos(box.querySelector('.men'));
     return;
   }
@@ -14864,117 +15166,119 @@ function menRender() {
     + `<div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></div>`;
   const saltadas = (R.intervenciones_biblioteca || R.intervenciones) - R.intervenciones;
   const metricas = `<div class="lex-metrics">
-    ${metrica('Con menciones', nf(R.con_menciones), `${menPct(R.con_menciones, R.intervenciones)} % de ${nf(R.intervenciones)}${saltadas > 0 ? ' con discurso' : ''}`,
-      `Intervenciones de la biblioteca en las que se menciona a alguien.${saltadas > 0
-        ? ` Quedan fuera ${nf(saltadas)} de las ${nf(R.intervenciones_biblioteca)} guardadas: no son discurso (listas de votación, crónica del acta, tablas).` : ''}`)}
-    ${metrica('Personas mencionadas', nf(R.mencionadas), `${nf(R.externas)} externas a la Cámara`)}
-    ${metrica('Menciones', nf(R.menciones), `de ${nf(R.oradores)} oradores`)}
-    ${metrica('Focos', nf(R.focos), `modularidad ${menDec(R.modularidad)}`, 'Comunidades de Leiden en la red de menciones')}</div>`;
+    ${metrica(__('Con menciones'), nf(R.con_menciones), saltadas > 0
+      ? __('{0} % de {1} con discurso', menPct(R.con_menciones, R.intervenciones), nf(R.intervenciones))
+      : __('{0} % de {1}', menPct(R.con_menciones, R.intervenciones), nf(R.intervenciones)),
+      __('Intervenciones de la biblioteca en las que se menciona a alguien.') + (saltadas > 0
+        ? __(' Quedan fuera {0} de las {1} guardadas: no son discurso (listas de votación, crónica del acta, tablas).', nf(saltadas), nf(R.intervenciones_biblioteca)) : ''))}
+    ${metrica(__('Personas mencionadas'), nf(R.mencionadas), __('{0} externas a la Cámara', nf(R.externas)))}
+    ${metrica(__('Menciones'), nf(R.menciones), __('de {0} oradores', nf(R.oradores)))}
+    ${metrica(__('Focos'), nf(R.focos), __('modularidad {0}', menDec(R.modularidad)), __('Comunidades de Leiden en la red de menciones'))}</div>`;
 
   box.innerHTML = `<div class="lex men">
     <div class="men-ctl">
-      <span class="tsel">Mostrar</span>
-      <div class="tseg" id="menFiltro" role="group" aria-label="Qué personas mostrar">
-        <button type="button" data-menf="todas" aria-pressed="${MEN.filtro === 'todas'}">Todas</button>
-        <button type="button" data-menf="dip" aria-pressed="${MEN.filtro === 'dip'}">Miembros</button>
-        <button type="button" data-menf="ext" aria-pressed="${MEN.filtro === 'ext'}">Externas</button>
+      <span class="tsel">${__('Mostrar')}</span>
+      <div class="tseg" id="menFiltro" role="group" aria-label="${esc(__('Qué personas mostrar'))}">
+        <button type="button" data-menf="todas" aria-pressed="${MEN.filtro === 'todas'}">${__('Todas')}</button>
+        <button type="button" data-menf="dip" aria-pressed="${MEN.filtro === 'dip'}">${__('Miembros')}</button>
+        <button type="button" data-menf="ext" aria-pressed="${MEN.filtro === 'ext'}">${__('Externas')}</button>
       </div>
       ${resol}
       <span class="men-hueco"></span>
-      <button type="button" class="btn sm" data-menexp="csv" title="Una fila por mención: quién habla, a quién menciona, cómo, la fecha y las palabras con las que la nombra">Menciones (CSV)</button>
-      <button type="button" class="btn sm" data-menexp="gexf" title="La red dirigida para Gephi, con el partido y el foco de cada persona">Red (GEXF)</button>
+      <button type="button" class="btn sm" data-menexp="csv" title="${esc(__('Una fila por mención: quién habla, a quién menciona, cómo, la fecha y las palabras con las que la nombra'))}">${__('Menciones (CSV)')}</button>
+      <button type="button" class="btn sm" data-menexp="gexf" title="${esc(__('La red dirigida para Gephi, con el partido y el foco de cada persona'))}">${__('Red (GEXF)')}</button>
     </div>
     ${metricas}
     <p class="lex-note">${menNota(D)}</p>
-    <details class="men-metodo"><summary>Método y límites</summary><ul>${menMetodo(D)}</ul></details>
+    <details class="men-metodo"><summary>${__('Método y límites')}</summary><ul>${menMetodo(D)}</ul></details>
 
-    <section aria-label="Red de menciones">
+    <section aria-label="${esc(__('Red de menciones'))}">
       <div class="men-cab">
         <div>
-          <h3>Red de menciones</h3>
+          <h3>${__('Red de menciones')}</h3>
           <p class="men-sub" id="menExplica"></p>
         </div>
         <div class="men-ctl" style="margin:0">
-          <span class="tsel">Agrupar</span>
-          <div class="tseg" id="menAgrupar" role="group" aria-label="Sectores y colores de la red">
-            <button type="button" data-meng="partido" aria-pressed="${MEN.agrupar === 'partido'}">Partido</button>
-            <button type="button" data-meng="foco" aria-pressed="${MEN.agrupar === 'foco'}">Foco</button>
+          <span class="tsel">${__('Agrupar')}</span>
+          <div class="tseg" id="menAgrupar" role="group" aria-label="${esc(__('Sectores y colores de la red'))}">
+            <button type="button" data-meng="partido" aria-pressed="${MEN.agrupar === 'partido'}">${__('Partido')}</button>
+            <button type="button" data-meng="foco" aria-pressed="${MEN.agrupar === 'foco'}">${__('Foco')}</button>
           </div>
-          <span class="tsel">Menciones</span>
-          <div class="tseg" id="menSentido" role="group" aria-label="Qué menciones muestra la red">
-            <button type="button" data-mens="todas" aria-pressed="${MEN.sentido === 'todas'}">Todas</button>
-            <button type="button" data-mens="hechas" aria-pressed="${MEN.sentido === 'hechas'}">Hechas</button>
-            <button type="button" data-mens="recibidas" aria-pressed="${MEN.sentido === 'recibidas'}">Recibidas</button>
+          <span class="tsel">${__('Menciones')}</span>
+          <div class="tseg" id="menSentido" role="group" aria-label="${esc(__('Qué menciones muestra la red'))}">
+            <button type="button" data-mens="todas" aria-pressed="${MEN.sentido === 'todas'}">${__('Todas')}</button>
+            <button type="button" data-mens="hechas" aria-pressed="${MEN.sentido === 'hechas'}">${__('Hechas')}</button>
+            <button type="button" data-mens="recibidas" aria-pressed="${MEN.sentido === 'recibidas'}">${__('Recibidas')}</button>
           </div>
-          <button type="button" class="btn sm" id="menEgo" aria-pressed="false" disabled>Modo ego</button>
-          <label class="tsel men-min" for="menMinimo" title="Deja solo las conexiones con al menos tantas menciones; con 1 se ve la red entera">Mínimo de menciones
+          <button type="button" class="btn sm" id="menEgo" aria-pressed="false" disabled>${__('Modo ego')}</button>
+          <label class="tsel men-min" for="menMinimo" title="${esc(__('Deja solo las conexiones con al menos tantas menciones; con 1 se ve la red entera'))}">${__('Mínimo de menciones')}
             <input type="number" id="menMinimo" min="1" step="1" value="${MEN.minimo}" inputmode="numeric" autocomplete="off"></label>
-          <div class="tseg" role="group" aria-label="Zoom">
-            <button type="button" id="menZmas" aria-label="Acercar">+</button>
-            <button type="button" id="menZmenos" aria-label="Alejar">−</button>
-            <button type="button" id="menEncuadre">Encuadrar</button>
+          <div class="tseg" role="group" aria-label="${esc(__('Zoom'))}">
+            <button type="button" id="menZmas" aria-label="${esc(__('Acercar'))}">+</button>
+            <button type="button" id="menZmenos" aria-label="${esc(__('Alejar'))}">−</button>
+            <button type="button" id="menEncuadre">${__('Encuadrar')}</button>
           </div>
         </div>
       </div>
       <div class="men-marco">
-        <svg id="menRed" viewBox="0 0 1000 720" role="img" aria-label="Red de menciones: personas unidas por las menciones entre ellas, agrupadas por partido o por foco"></svg>
+        <svg id="menRed" viewBox="0 0 1000 720" role="img" aria-label="${esc(__('Red de menciones: personas unidas por las menciones entre ellas, agrupadas por partido o por foco'))}"></svg>
         <div class="men-tip" id="menTip" hidden></div>
         <div class="men-info" id="menInfo" aria-live="polite"></div>
       </div>
       <div class="men-leyenda" id="menLeyenda"></div>
     </section>
 
-    <section aria-label="Más mencionados">
+    <section aria-label="${esc(__('Más mencionados'))}">
       <div class="men-dos">
         <div>
-          <h3>Más mencionados</h3>
-          <p class="men-sub">Por el número de oradores distintos que los mencionan. Pulse una persona para leer sus menciones.</p>
+          <h3>${__('Más mencionados')}</h3>
+          <p class="men-sub">${__('Por el número de oradores distintos que los mencionan. Pulse una persona para leer sus menciones.')}</p>
           <div class="men-envoltura"><table class="men-tabla" id="menPersonas"></table></div>
         </div>
         <aside class="men-panel" id="menPanel" aria-live="polite"></aside>
       </div>
     </section>
 
-    <section class="men-dos" aria-label="Quién menciona y diálogos">
+    <section class="men-dos" aria-label="${esc(__('Quién menciona y diálogos'))}">
       <div>
-        <h3>Quién menciona</h3>
-        <p class="men-sub">Oradores ordenados por el número de personas distintas que mencionan.</p>
+        <h3>${__('Quién menciona')}</h3>
+        <p class="men-sub">${__('Oradores ordenados por el número de personas distintas que mencionan.')}</p>
         <div class="men-envoltura"><table class="men-tabla" id="menMencionan"></table></div>
       </div>
       <div style="display:grid;gap:18px">
         <div>
-          <h3>Diálogos</h3>
-          <p class="men-sub">Pares de miembros que se mencionan en los dos sentidos (de A a B · de B a A).</p>
+          <h3>${__('Diálogos')}</h3>
+          <p class="men-sub">${__('Pares de miembros que se mencionan en los dos sentidos (de A a B · de B a A).')}</p>
           <ul class="men-lista" id="menDialogos"></ul>
         </div>
         <div>
-          <h3>Co-menciones</h3>
-          <p class="men-sub">Personas mencionadas en la misma intervención.</p>
+          <h3>${__('Co-menciones')}</h3>
+          <p class="men-sub">${__('Personas mencionadas en la misma intervención.')}</p>
           <ul class="men-lista" id="menComenciones"></ul>
         </div>
       </div>
     </section>
 
-    <section aria-label="Menciones entre partidos">
-      <h3>Entre partidos</h3>
-      <p class="men-sub">Menciones a miembros de la Cámara <b>por cada 10.000 palabras</b> del partido que habla, sin contar sus
+    <section aria-label="${esc(__('Menciones entre partidos'))}">
+      <h3>${__('Entre partidos')}</h3>
+      <p class="men-sub">${__(`Menciones a miembros de la Cámara <b>por cada 10.000 palabras</b> del partido que habla, sin contar sus
         turnos de Mesa: así un partido que ocupa más tiempo no encabeza todas las filas. Filas: partido de quien habla; columnas:
         partido del mencionado. El tono es la parte de las menciones de la fila y el recuadro marca el propio partido; pase por
-        encima de una casilla para ver las menciones, la tasa y las veces que pasa la media del cuadro.</p>
+        encima de una casilla para ver las menciones, la tasa y las veces que pasa la media del cuadro.`)}</p>
       <div class="men-envoltura"><table class="men-tabla men-matriz" id="menMatriz"></table></div>
     </section>
 
-    <section aria-label="Personas externas por partido">
-      <h3>Personas externas según el partido de quien habla</h3>
-      <p class="men-sub">Menciones a las seis personas externas más citadas, también por cada 10.000 palabras del partido que habla.
-        Muestra quién habla de quién, no si lo hace a favor o en contra.</p>
+    <section aria-label="${esc(__('Personas externas por partido'))}">
+      <h3>${__('Personas externas según el partido de quien habla')}</h3>
+      <p class="men-sub">${__(`Menciones a las seis personas externas más citadas, también por cada 10.000 palabras del partido que habla.
+        Muestra quién habla de quién, no si lo hace a favor o en contra.`)}</p>
       <div class="men-envoltura"><table class="men-tabla men-matriz" id="menExternas"></table></div>
     </section>
 
-    <section aria-label="Focos de conversación">
-      <h3>Focos de conversación</h3>
-      <p class="men-sub">Comunidades de Leiden en la red de menciones. Reúnen a quienes hablan de las mismas personas y a esas
-        personas; <b>no son coaliciones</b>: un foco puede juntar a quienes defienden y a quienes atacan a alguien.</p>
+    <section aria-label="${esc(__('Focos de conversación'))}">
+      <h3>${__('Focos de conversación')}</h3>
+      <p class="men-sub">${__(`Comunidades de Leiden en la red de menciones. Reúnen a quienes hablan de las mismas personas y a esas
+        personas; <b>no son coaliciones</b>: un foco puede juntar a quienes defienden y a quienes atacan a alguien.`)}</p>
       <div class="men-focos" id="menFocos"></div>
     </section>
   </div>`;
@@ -15010,10 +15314,10 @@ function menPintarPersonas() {
   const maxOr = Math.max(1, ...D.personas.map((p) => p.oradores));
   const filas = D.personas.filter((p) => MEN.filtro === 'todas' || (MEN.filtro === 'ext' ? p.ext : !p.ext)).slice(0, MEN_PERSONAS);
   if (!filas.some((p) => p.k === MEN.elegida) && filas.length) MEN.elegida = filas[0].k;
-  t.innerHTML = `<thead><tr><th>Persona</th><th class="num">Oradores</th><th class="num">Menciones</th><th>Cómo</th>
-      <th>Quién le menciona</th><th>Foco</th></tr></thead><tbody>`
+  t.innerHTML = `<thead><tr><th>${__('Persona')}</th><th class="num">${__('Oradores')}</th><th class="num">${__('Menciones')}</th><th>${__('Cómo')}</th>
+      <th>${__('Quién le menciona')}</th><th>${__('Foco')}</th></tr></thead><tbody>`
     + filas.map((p) => {
-      const como = p.ext ? '<span class="men-pp">—</span>' : `<span class="men-pp">se dirige ${menPct(p.voc, p.voc + p.ref)} %</span>`;
+      const como = p.ext ? '<span class="men-pp">—</span>' : `<span class="men-pp">${__('se dirige {0} %', menPct(p.voc, p.voc + p.ref))}</span>`;
       return `<tr class="men-fila" tabindex="0" data-menk="${esc(p.k)}" aria-selected="${p.k === MEN.elegida}">
         <td><span class="men-quien">${esc(p.n)}</span>${menChip(p.p)}</td>
         <td class="num"><span class="men-barrita" style="width:${Math.max(3, Math.round(60 * p.oradores / maxOr))}px"></span>${nf(p.oradores)}</td>
@@ -15046,11 +15350,11 @@ function menPintarPanel() {
   if (!D || !caja) return;
   const p = D.personas.find((x) => x.k === MEN.elegida);
   if (!p) { caja.innerHTML = ''; return; }
-  caja.innerHTML = `<h3>Menciones de ${esc(p.n)}</h3>
-    <p class="men-meta">${p.p ? esc(p.p) + ' · ' : 'Persona externa · '}${nf(p.oradores)} oradores · ${nf(p.menciones)} menciones${p.foco ? ` · foco F${p.foco}` : ''}</p>
+  caja.innerHTML = `<h3>${__('Menciones de {0}', esc(p.n))}</h3>
+    <p class="men-meta">${p.p ? esc(p.p) + ' · ' : __('Persona externa') + ' · '}${__('{0} oradores · {1} menciones', nf(p.oradores), nf(p.menciones))}${p.foco ? __(' · foco F{0}', p.foco) : ''}</p>
     <ul class="men-citas">${p.contextos.map((c) => `<li>
-      <div class="men-de"><b>${esc(c.o)}</b><span>${esc(c.op || '')}</span><span>${esc(c.f ? fechaCorta(c.f) : '')}</span><span class="men-tipo">${esc(c.t)}</span></div>
-      <p data-menopen="${c.id}" role="button" tabindex="0" title="Abrir la intervención en el lector">…${esc(c.x[0])}<mark>${esc(c.x[1])}</mark>${esc(c.x[2])}…</p></li>`).join('')}</ul>`;
+      <div class="men-de"><b>${esc(c.o)}</b><span>${esc(c.op || '')}</span><span>${esc(c.f ? fechaCorta(c.f) : '')}</span><span class="men-tipo">${esc(__(c.t))}</span></div>
+      <p data-menopen="${c.id}" role="button" tabindex="0" title="${esc(__('Abrir la intervención en el lector'))}">…${esc(c.x[0])}<mark>${esc(c.x[1])}</mark>${esc(c.x[2])}…</p></li>`).join('')}</ul>`;
   if (caja.dataset.listo) return;
   caja.dataset.listo = '1';
   const abrir = (e) => {
@@ -15100,7 +15404,7 @@ function menFichaTabla(tabla) {
 
 function menPintarTablas(D) {
   const maxP = Math.max(1, ...D.mencionan.map((m) => m.personas));
-  menEl('menMencionan').innerHTML = '<thead><tr><th>Orador</th><th class="num">Personas</th><th class="num">Menciones</th></tr></thead><tbody>'
+  menEl('menMencionan').innerHTML = `<thead><tr><th>${__('Orador')}</th><th class="num">${__('Personas')}</th><th class="num">${__('Menciones')}</th></tr></thead><tbody>`
     + D.mencionan.map((m) => `<tr><td><span class="men-quien">${esc(m.n)}</span>${menChip(m.p)}</td>
       <td class="num"><span class="men-barrita" style="width:${Math.max(3, Math.round(60 * m.personas / maxP))}px"></span>${nf(m.personas)}</td>
       <td class="num">${nf(m.menciones)}</td></tr>`).join('') + '</tbody>';
@@ -15108,10 +15412,10 @@ function menPintarTablas(D) {
   menEl('menDialogos').innerHTML = D.dialogos.length
     ? D.dialogos.map((d) => `<li><span>${esc(d.a)} <span class="men-pp">${esc(d.ap || '')}</span> ⇄ ${esc(d.b)} <span class="men-pp">${esc(d.bp || '')}</span></span>
         <span class="num">${nf(d.ab)} · ${nf(d.ba)}</span></li>`).join('')
-    : '<li><span class="men-pp">Ningún par se menciona en los dos sentidos.</span></li>';
+    : `<li><span class="men-pp">${__('Ningún par se menciona en los dos sentidos.')}</span></li>`;
   menEl('menComenciones').innerHTML = D.comenciones.length
-    ? D.comenciones.map((c) => `<li><span>${esc(c.a)} + ${esc(c.b)}</span><span class="num">${nf(c.n)} intervenciones</span></li>`).join('')
-    : '<li><span class="men-pp">Ninguna intervención menciona a dos personas.</span></li>';
+    ? D.comenciones.map((c) => `<li><span>${esc(c.a)} + ${esc(c.b)}</span><span class="num">${__('{0} intervenciones', nf(c.n))}</span></li>`).join('')
+    : `<li><span class="men-pp">${__('Ninguna intervención menciona a dos personas.')}</span></li>`;
 
   // Matrices en frecuencia relativa: menciones por cada diez mil palabras del partido que habla (sin sus turnos de
   // Mesa), para que el partido que más tiempo ocupa no encabece todas las filas. El tono sigue siendo la parte de la
@@ -15119,35 +15423,35 @@ function menPintarTablas(D) {
   const tono = (x) => `background:rgba(var(--men-heat),${(0.05 + 0.55 * (x || 0)).toFixed(3)})`;
   const POR = 10000;
   const tasa = (n, pal) => (pal > 0 ? POR * n / pal : null);
-  const numTasa = (t) => (t == null ? '·' : t === 0 ? '0' : t.toFixed(t < 10 ? 1 : 0).replace('.', ','));
-  const veces = (t, media) => (t == null || !media ? '' : ` · ${(t / media).toFixed(1).replace('.', ',')} veces la media del cuadro`);
+  const numTasa = (t) => (t == null ? '·' : t === 0 ? '0' : __.dec(t.toFixed(t < 10 ? 1 : 0)));
+  const veces = (t, media) => (t == null || !media ? '' : __(' · {0} veces la media del cuadro', __.dec((t / media).toFixed(1))));
 
   const M = D.matriz;
   const colM = M.partidos.map((_, j) => M.filas.reduce((s, f) => s + (f.celdas[j] || 0), 0));
   const palM = M.filas.reduce((s, f) => s + (f.palabras || 0), 0);
-  menEl('menMatriz').innerHTML = `<thead><tr><th>De \\ a</th>${M.partidos.map((p) => `<th class="num">${esc(p)}</th>`).join('')}
-      <th class="num">Propio</th><th class="num">Todas</th></tr></thead><tbody>`
-    + M.filas.map((f, i) => `<tr><th class="men-fil" scope="row" data-tip="${esc(`<b>${esc(f.p)}</b>: ${nf(f.total)} menciones a miembros en ${nf(f.palabras)} palabras`)}">${esc(f.p)}</th>`
+  menEl('menMatriz').innerHTML = `<thead><tr><th>${__('De \\ a')}</th>${M.partidos.map((p) => `<th class="num">${esc(p)}</th>`).join('')}
+      <th class="num">${__('Propio')}</th><th class="num">${__('Todas')}</th></tr></thead><tbody>`
+    + M.filas.map((f, i) => `<tr><th class="men-fil" scope="row" data-tip="${esc(__('<b>{0}</b>: {1} menciones a miembros en {2} palabras', esc(f.p), nf(f.total), nf(f.palabras)))}">${esc(f.p)}</th>`
       + f.celdas.map((n, j) => {
         const t = tasa(n, f.palabras), media = tasa(colM[j], palM);
-        const tit = `<b>${esc(f.p)} → ${esc(M.partidos[j])}</b>: ${nf(n)} ${n === 1 ? 'mención' : 'menciones'}`
-          + (t == null ? '' : ` · ${numTasa(t)} por cada ${nf(POR)} palabras de ${esc(f.p)}${media ? ` (media del cuadro ${numTasa(media)})` : ''}${veces(t, media)}`);
+        const tit = `<b>${esc(f.p)} → ${esc(M.partidos[j])}</b>: ${n === 1 ? __('{0} mención', nf(n)) : __('{0} menciones', nf(n))}`
+          + (t == null ? '' : __(' · {0} por cada {1} palabras de {2}', numTasa(t), nf(POR), esc(f.p)) + (media ? __(' (media del cuadro {0})', numTasa(media)) : '') + veces(t, media));
         return `<td class="men-celda${i === j ? ' men-diag' : ''}" style="${tono(n / Math.max(1, f.total))}" data-tip="${esc(tit)}">${numTasa(t)}</td>`;
       }).join('')
-      + `<td class="num" data-tip="${esc(`<b>${esc(f.p)}</b>: ${nf(f.celdas[i] || 0)} de sus ${nf(f.total)} menciones van a su propio partido`)}">${menPct(f.celdas[i] || 0, f.total)} %</td>`
-      + `<td class="num" data-tip="${esc(`<b>${esc(f.p)}</b>: ${nf(f.total)} menciones a miembros en ${nf(f.palabras)} palabras`)}">${numTasa(tasa(f.total, f.palabras))}</td></tr>`).join('') + '</tbody>';
+      + `<td class="num" data-tip="${esc(__('<b>{0}</b>: {1} de sus {2} menciones van a su propio partido', esc(f.p), nf(f.celdas[i] || 0), nf(f.total)))}">${menPct(f.celdas[i] || 0, f.total)} %</td>`
+      + `<td class="num" data-tip="${esc(__('<b>{0}</b>: {1} menciones a miembros en {2} palabras', esc(f.p), nf(f.total), nf(f.palabras)))}">${numTasa(tasa(f.total, f.palabras))}</td></tr>`).join('') + '</tbody>';
 
   const X = D.externas;
   const colX = X.personas.map((_, j) => X.filas.reduce((s, f) => s + (f.celdas[j] || 0), 0));
   const palX = X.filas.reduce((s, f) => s + (f.palabras || 0), 0);
-  menEl('menExternas').innerHTML = `<thead><tr><th>Partido</th>${X.personas.map((p) => `<th class="num">${esc(p)}</th>`).join('')}</tr></thead><tbody>`
+  menEl('menExternas').innerHTML = `<thead><tr><th>${__('Partido')}</th>${X.personas.map((p) => `<th class="num">${esc(p)}</th>`).join('')}</tr></thead><tbody>`
     + X.filas.map((f) => {
       const suma = f.celdas.reduce((a, b) => a + b, 0);
-      return `<tr><th class="men-fil" scope="row" data-tip="${esc(`<b>${esc(f.p)}</b>: ${nf(f.palabras)} palabras en la biblioteca`)}">${esc(f.p)}</th>`
+      return `<tr><th class="men-fil" scope="row" data-tip="${esc(__('<b>{0}</b>: {1} palabras en la biblioteca', esc(f.p), nf(f.palabras)))}">${esc(f.p)}</th>`
         + f.celdas.map((n, j) => {
           const t = tasa(n, f.palabras), media = tasa(colX[j], palX);
-          const tit = `<b>${esc(f.p)} → ${esc(X.personas[j])}</b>: ${nf(n)} ${n === 1 ? 'mención' : 'menciones'}`
-            + (t == null ? '' : ` · ${numTasa(t)} por cada ${nf(POR)} palabras de ${esc(f.p)}${media ? ` (media del cuadro ${numTasa(media)})` : ''}${veces(t, media)}`);
+          const tit = `<b>${esc(f.p)} → ${esc(X.personas[j])}</b>: ${n === 1 ? __('{0} mención', nf(n)) : __('{0} menciones', nf(n))}`
+            + (t == null ? '' : __(' · {0} por cada {1} palabras de {2}', numTasa(t), nf(POR), esc(f.p)) + (media ? __(' (media del cuadro {0})', numTasa(media)) : '') + veces(t, media));
           return `<td class="men-celda" style="${tono(n / Math.max(1, suma))}" data-tip="${esc(tit)}">${numTasa(t)}</td>`;
         }).join('') + '</tr>';
     }).join('') + '</tbody>';
@@ -15157,9 +15461,9 @@ function menPintarTablas(D) {
 
   menEl('menFocos').innerHTML = D.focos.map((f) => `<article class="men-foco" style="--c:${f.id <= 8 ? `var(--men-f${f.id})` : 'var(--text-faint)'}">
       <h4>F${f.id} · ${f.centrales.slice(0, 3).map((c) => esc(c.n)).join(' · ')}</h4>
-      <div class="men-meta">${nf(f.personas)} personas · ${nf(f.diputados)} miembros · ${nf(f.externas)} externas</div>
+      <div class="men-meta">${__('{0} personas · {1} miembros · {2} externas', nf(f.personas), nf(f.diputados), nf(f.externas))}</div>
       <div class="men-comp">${f.partidos.map(([p, n]) => `${esc(p)} ${n} %`).join(' · ')}</div>
-      <div class="men-nombres">${f.centrales.map((c) => `<span class="${c.p ? '' : 'ext'}" title="${c.p ? esc(c.p) : 'persona externa'}">${esc(c.n)}</span>`).join('')}</div>
+      <div class="men-nombres">${f.centrales.map((c) => `<span class="${c.p ? '' : 'ext'}" title="${c.p ? esc(c.p) : esc(__('persona externa'))}">${esc(c.n)}</span>`).join('')}</div>
     </article>`).join('');
 }
 
@@ -15168,21 +15472,21 @@ function menPintarTablas(D) {
 function menMeta(D) {
   const L = S.libInfo, R = D.resumen, T = R.deteccion || {};
   return [
-    'Explorador de Diarios de Sesiones · menciones a personas en las intervenciones de una biblioteca',
-    `biblioteca: ${L?.name || ''} (${nf(R.intervenciones)} intervenciones; ${nf(R.contexto)} más leídas como contexto)`,
-    `corpus: ${S.info?.title || S.info?.name || ''}`,
-    `generado: ${new Date().toISOString().slice(0, 19)}`,
-    `menciones: ${R.menciones} en ${R.con_menciones} intervenciones · ${R.mencionadas} personas mencionadas (${R.externas} externas) · ${R.oradores} oradores`,
-    `identificación: ${T.resueltas} menciones a miembros resueltas, ${T.ambiguas} ambiguas y ${T.sin_resolver} sin resolver;`
-      + ` excluidas las de la Mesa (${T.mesa}), el protocolo a la Presidencia (${T.protocolo}), el procedimiento (${T.procedimiento}) y las automenciones (${T.propias})`,
-    `focos: Leiden sobre la red sin dirección, resolución ${D.opciones?.resolucion}, semilla ${D.opciones?.semilla}`
-      + ` · modularidad ${R.modularidad} · ${R.focos} focos · información mutua normalizada con los partidos ${R.nmi}`,
+    __('Explorador de Diarios de Sesiones · menciones a personas en las intervenciones de una biblioteca'),
+    __('biblioteca: {0} ({1} intervenciones; {2} más leídas como contexto)', L?.name || '', nf(R.intervenciones), nf(R.contexto)),
+    __('corpus: {0}', S.info?.title || S.info?.name || ''),
+    __('generado: {0}', new Date().toISOString().slice(0, 19)),
+    __('menciones: {0} en {1} intervenciones · {2} personas mencionadas ({3} externas) · {4} oradores', R.menciones, R.con_menciones, R.mencionadas, R.externas, R.oradores),
+    __('identificación: {0} menciones a miembros resueltas, {1} ambiguas y {2} sin resolver; excluidas las de la Mesa ({3}), el protocolo a la Presidencia ({4}), el procedimiento ({5}) y las automenciones ({6})',
+    T.resueltas, T.ambiguas, T.sin_resolver, T.mesa, T.protocolo, T.procedimiento, T.propias),
+    __('focos: Leiden sobre la red sin dirección, resolución {0}, semilla {1} · modularidad {2} · {3} focos · información mutua normalizada con los partidos {4}',
+    D.opciones?.resolucion, D.opciones?.semilla, R.modularidad, R.focos, R.nmi),
   ];
 }
 
 function menExportCSV() {
   const D = MEN.data;
-  if (!D || !(D.detalle || []).length) return toast('Aún no hay menciones que exportar.', true);
+  if (!D || !(D.detalle || []).length) return toast(__('Aún no hay menciones que exportar.'), true);
   const cols = ['id', 'fecha', 'orador', 'partido_orador', 'mencionado', 'partido_mencionado', 'externa', 'como', 'texto'];
   const filas = D.detalle.map((m) => [m.id, m.f, m.o, m.op, m.n, m.p, m.e, m.t, m.x]);
   downloadText(csvConFuente(menMeta(D), cols, filas), `menciones_${menSlug()}.csv`, 'text/csv;charset=utf-8');
@@ -15190,10 +15494,10 @@ function menExportCSV() {
 
 function menExportGEXF() {
   const D = MEN.data;
-  if (!D || !(D.red?.nodos || []).length) return toast('Aún no hay red que exportar.', true);
+  if (!D || !(D.red?.nodos || []).length) return toast(__('Aún no hay red que exportar.'), true);
   const x = (v) => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const F = fuenteDe();
-  const desc = menMeta(D).concat([`Fuente: ${F.cita || F.cita_corta || ''}${F.url ? ` · ${F.url}` : ''}`]).join('\n');
+  const desc = menMeta(D).concat([__('Fuente: {0}', `${F.cita || F.cita_corta || ''}${F.url ? ` · ${F.url}` : ''}`)]).join('\n');
   const nodos = D.red.nodos.map((n, i) => `      <node id="${i}" label="${x(n.n)}"><attvalues>`
     + `<attvalue for="0" value="${x(n.p || 'externa')}"/><attvalue for="1" value="${n.ext ? 'sí' : 'no'}"/>`
     + `<attvalue for="2" value="${n.f || 0}"/><attvalue for="3" value="${n.or}"/><attvalue for="4" value="${n.men}"/>`
@@ -15279,12 +15583,12 @@ function menRedIniciar(D) {
   /** Si la arista q llega al mínimo m de menciones en el sentido `sen`. */
   const llega = (sen, q, m) => { const [, , ab, ba] = RED.aristas[q]; return sen === 'todas' ? ab + ba >= m : Math.max(ab, ba) >= m; };
   const SENTIDOS = {
-    todas: { entra: () => true, medida: (i) => centralidad[i], tam: (i) => RED.nodos[i].or, peso: (i) => RED.nodos[i].men, titulo: 'conexiones distintas',
-      filtro: (m) => ({ medida: (i) => cuentasDe(m).vec[i], titulo: `conexiones distintas de ${m} o más menciones` }) },
-    hechas: { entra: (i) => RED.nodos[i].emite > 0, medida: (i) => RED.nodos[i].emite, tam: (i) => RED.nodos[i].emite, peso: (i) => hechas[i], titulo: 'personas distintas a las que menciona',
-      filtro: (m) => ({ medida: (i) => cuentasDe(m).sal[i], titulo: `personas distintas a las que menciona ${m} o más veces` }) },
-    recibidas: { entra: (i) => RED.nodos[i].or > 0, medida: (i) => RED.nodos[i].or, tam: (i) => RED.nodos[i].or, peso: (i) => RED.nodos[i].men, titulo: 'oradores distintos que la mencionan',
-      filtro: (m) => ({ medida: (i) => cuentasDe(m).ent[i], titulo: `oradores distintos que la mencionan ${m} o más veces` }) },
+    todas: { entra: () => true, medida: (i) => centralidad[i], tam: (i) => RED.nodos[i].or, peso: (i) => RED.nodos[i].men, titulo: __('conexiones distintas'),
+      filtro: (m) => ({ medida: (i) => cuentasDe(m).vec[i], titulo: __('conexiones distintas de {0} o más menciones', m) }) },
+    hechas: { entra: (i) => RED.nodos[i].emite > 0, medida: (i) => RED.nodos[i].emite, tam: (i) => RED.nodos[i].emite, peso: (i) => hechas[i], titulo: __('personas distintas a las que menciona'),
+      filtro: (m) => ({ medida: (i) => cuentasDe(m).sal[i], titulo: __('personas distintas a las que menciona {0} o más veces', m) }) },
+    recibidas: { entra: (i) => RED.nodos[i].or > 0, medida: (i) => RED.nodos[i].or, tam: (i) => RED.nodos[i].or, peso: (i) => RED.nodos[i].men, titulo: __('oradores distintos que la mencionan'),
+      filtro: (m) => ({ medida: (i) => cuentasDe(m).ent[i], titulo: __('oradores distintos que la mencionan {0} o más veces', m) }) },
   };
 
   // Agrupaciones: sectores, nombres y colores (los colores de partido, fijos: los ocho partidos más mencionados)
@@ -15292,25 +15596,27 @@ function menRedIniciar(D) {
   RED.nodos.forEach((nd) => { if (!nd.ext) pesoPartido.set(nd.p, (pesoPartido.get(nd.p) || 0) + nd.men); });
   const PARTIDOS = [...pesoPartido.entries()].filter(([g]) => g && g !== '?' && g !== 'Sin identificar')
     .sort((a, b) => b[1] - a[1]).slice(0, 8).map(([g]) => g);
-  const ORDEN = { todas: 'de más a menos mencionados', hechas: 'de más a menos menciones hechas', recibidas: 'de más a menos mencionados' };
-  const ordenTexto = (sen, e) => `${e ? `de más a menos menciones con ${e}` : ORDEN[sen]} desde arriba en el sentido de las agujas del reloj; dentro de cada sector, ${e ? `de la persona más a la menos conectada con ${e}` : 'de la persona más a la menos central'}`;
+  const ORDEN = { todas: __('de más a menos mencionados'), hechas: __('de más a menos menciones hechas'), recibidas: __('de más a menos mencionados') };
+  const ordenTexto = (sen, e) => __('{0} desde arriba en el sentido de las agujas del reloj; dentro de cada sector, {1}',
+    e ? __('de más a menos menciones con {0}', e) : ORDEN[sen], e ? __('de la persona más a la menos conectada con {0}', e) : __('de la persona más a la menos central'));
   const AGRUPA = {
     partido: {
       grupoDe: (nd) => (nd.ext ? 'Externas' : PARTIDOS.includes(nd.p) ? nd.p : 'Otros'),
       ultimo: 'Otros',
-      nombre: (g) => (g === 'Externas' ? 'Personas externas' : g === 'Otros' ? 'Otros partidos' : g),
+      nombre: (g) => (g === 'Externas' ? __('Personas externas') : g === 'Otros' ? __('Otros partidos') : g),
       color: (nd) => { if (nd.ext) return 'var(--men-ext)'; const q = PARTIDOS.indexOf(nd.p); return q >= 0 ? `var(--men-f${q + 1})` : 'var(--text-faint)'; },
-      leyenda: () => PARTIDOS.map((p, q) => [`var(--men-f${q + 1})`, p]).concat([['var(--text-faint)', 'otros partidos'], ['var(--men-ext)', 'personas externas', 'cuadro']]),
-      explica: (sen, e) => `Sectores: ${sen === 'hechas' && !e ? 'partidos' : 'personas externas y partidos'}, ${ordenTexto(sen, e)}.`,
+      leyenda: () => PARTIDOS.map((p, q) => [`var(--men-f${q + 1})`, p]).concat([['var(--text-faint)', __('otros partidos')], ['var(--men-ext)', __('personas externas'), 'cuadro']]),
+      explica: (sen, e) => (sen === 'hechas' && !e ? __('Sectores: partidos, {0}.', ordenTexto(sen, e)) : __('Sectores: personas externas y partidos, {0}.', ordenTexto(sen, e))),
     },
     foco: {
       grupoDe: (nd) => (nd.f && nd.f <= 8 ? `F${nd.f}` : 'Fuera'),   // la paleta tiene ocho colores: los focos 9 y siguientes, con «otros»
       ultimo: 'Fuera',
-      nombre: (g) => (g === 'Fuera' ? (D.focos.length > 8 ? 'Otros focos' : 'Fuera de los focos') : `${g} · ${D.focos[Number(g.slice(1)) - 1].centrales[0].n}`),
+      nombre: (g) => (g === 'Fuera' ? (D.focos.length > 8 ? __('Otros focos') : __('Fuera de los focos')) : `${g} · ${D.focos[Number(g.slice(1)) - 1].centrales[0].n}`),
       color: (nd) => (nd.f && nd.f <= 8 ? `var(--men-f${nd.f})` : 'var(--text-faint)'),
       leyenda: () => D.focos.slice(0, 8).map((f) => [`var(--men-f${f.id})`, `F${f.id} · ${f.centrales[0].n}`])
-        .concat([['var(--text-faint)', D.focos.length > 8 ? `otros ${D.focos.length - 8} focos y fuera de ellos` : 'fuera de los focos'], ['', 'persona externa', 'cuadro vacio']]),
-      explica: (sen, e) => `Sectores: focos de conversación (comunidades de Leiden), ${ordenTexto(sen, e)}.${sen === 'hechas' && !e ? '' : ' Las personas externas (cuadrados) quedan en el sector de su foco, con su color.'}`,
+        .concat([['var(--text-faint)', D.focos.length > 8 ? __('otros {0} focos y fuera de ellos', D.focos.length - 8) : __('fuera de los focos')], ['', __('persona externa'), 'cuadro vacio']]),
+      explica: (sen, e) => __('Sectores: focos de conversación (comunidades de Leiden), {0}.', ordenTexto(sen, e))
+        + (sen === 'hechas' && !e ? '' : __(' Las personas externas (cuadrados) quedan en el sector de su foco, con su color.')),
     },
   };
 
@@ -15384,7 +15690,7 @@ function menRedIniciar(D) {
     const v = {
       ego, sen, minimo, n, pos, sectores, corte: minimoAnillo, radios, curva: fuerza ? 0.3 : 0.75, firma: `${sen}|${ego}|${minimo}`,
       rInterior: usados.length ? Math.min(...usados) : RADIOS[0], rExterior: usados.length ? Math.max(...usados) : RADIOS[RADIOS.length - 1],
-      titulo: !fuerza ? SS.titulo : sen === 'hechas' ? `veces que ${e} la menciona` : sen === 'recibidas' ? `veces que menciona a ${e}` : `menciones entre cada persona y ${e}`,
+      titulo: !fuerza ? SS.titulo : sen === 'hechas' ? __('veces que {0} la menciona', e) : sen === 'recibidas' ? __('veces que menciona a {0}', e) : __('menciones entre cada persona y {0}', e),
       visible: (i) => visibles[i] === 1, tam: SS.tam,
       prioridad: fuerza ? (i) => (i === ego ? Infinity : fuerza.get(i) || 0) : SS.tam,   // orden para poner nombres
     };
@@ -15414,7 +15720,7 @@ function menRedIniciar(D) {
       gRT.append(mk('circle', { class: 'men-anillo', cx: CX, cy: CY, r: r.toFixed(1) }));
       if (V.corte[k] === null) return;
       const t = mk('text', { class: 'men-guia', x: CX, y: (CY - r + 3.5 * fTexto).toFixed(1), 'text-anchor': 'middle', 'font-size': (10 * fTexto).toFixed(1) });
-      t.textContent = `${k === 0 && V.ego < 0 ? 'núcleo · ' : ''}≥ ${nf(V.corte[k])}`;
+      t.textContent = `${k === 0 && V.ego < 0 ? `${__('núcleo')} · ` : ''}≥ ${nf(V.corte[k])}`;
       gRT.append(t);
     });
     if (V.ego >= 0 && !V.n) return;                                 // modo ego sin nadie alrededor
@@ -15560,7 +15866,7 @@ function menRedIniciar(D) {
     if (V.ego >= 0) for (const q of ady[V.ego]) if (aristaEn(V, q)) lineas[q].classList.add('radio', claseDesde(V.ego, q) || 'sale');
     pintarEtiquetas();
   }
-  const veces = (n) => (n === 1 ? 'una vez' : `${nf(n)} veces`);
+  const veces = (n) => (n === 1 ? __('una vez') : __('{0} veces', nf(n)));
   /** En el modo ego, las menciones entre la persona i y la del centro. */
   function conEgo(i) {
     if (V.ego < 0 || i === V.ego) return '';
@@ -15569,22 +15875,27 @@ function menRedIniciar(D) {
       const [a, b, ab, ba] = RED.aristas[q];
       if (a !== V.ego && b !== V.ego) continue;
       const hace = a === i ? ab : ba, recibe = a === i ? ba : ab;
-      if (hace) partes.push(`menciona a ${e} ${veces(hace)}`);
-      if (recibe) partes.push(`${e} la menciona ${veces(recibe)}`);
+      if (hace) partes.push(__('menciona a {0} {1}', e, veces(hace)));
+      if (recibe) partes.push(__('{0} la menciona {1}', e, veces(recibe)));
     }
     return partes.length ? ` · ${partes.join(' · ')}` : '';
   }
   /** Ficha de la persona en toda la biblioteca; con un mínimo (fuera del modo ego), también la cifra que le da el anillo. */
   const describir = (nd, i) => {
     const m = V.minimo, f = m > 1 && V.ego < 0 ? sentido : '', C = f ? cuentasDe(m) : null;
-    return `${nd.ext ? 'persona externa' : esc(nd.p)}${nd.f ? ` · foco F${nd.f}` : ''} · la mencionan ${nf(nd.or)} oradores (${nf(nd.men)} menciones${f === 'recibidas' ? `; ${nf(C.ent[i])} de ellos, ${m} o más veces` : ''})`
-      + `${nd.emite ? ` · menciona a ${nf(nd.emite)} personas${f === 'hechas' ? ` (a ${nf(C.sal[i])}, ${m} o más veces)` : ''}` : ''}`
-      + ` · conectada con ${nf(centralidad[i])}${f === 'todas' ? ` (con ${nf(C.vec[i])} por ${m} o más menciones)` : ''}${conEgo(i)}`;
+    return `${nd.ext ? __('persona externa') : esc(nd.p)}${nd.f ? __(' · foco F{0}', nd.f) : ''}`
+      + (f === 'recibidas' ? __(' · la mencionan {0} oradores ({1} menciones; {2} de ellos, {3} o más veces)', nf(nd.or), nf(nd.men), nf(C.ent[i]), m)
+        : __(' · la mencionan {0} oradores ({1} menciones)', nf(nd.or), nf(nd.men)))
+      + (!nd.emite ? '' : f === 'hechas' ? __(' · menciona a {0} personas (a {1}, {2} o más veces)', nf(nd.emite), nf(C.sal[i]), m)
+        : __(' · menciona a {0} personas', nf(nd.emite)))
+      + (f === 'todas' ? __(' · conectada con {0} (con {1} por {2} o más menciones)', nf(centralidad[i]), nf(C.vec[i]), m)
+        : __(' · conectada con {0}', nf(centralidad[i])))
+      + conEgo(i);
   };
   const CUANTAS = {
-    todas: (n) => `sus ${nf(n)} conexiones`,
-    hechas: (n) => `las ${nf(n)} personas a las que menciona`,
-    recibidas: (n) => `los ${nf(n)} oradores que la mencionan`,
+    todas: (n) => __('sus {0} conexiones', nf(n)),
+    hechas: (n) => __('las {0} personas a las que menciona', nf(n)),
+    recibidas: (n) => __('los {0} oradores que la mencionan', nf(n)),
   };
   /** En «Hechas» o «Recibidas» (fuera del modo ego), cuántas de sus conexiones en ese sentido se ven en la vista (con un
    *  mínimo, de las que llegan a él). En el modo ego con un mínimo, cuántas conexiones de la persona del centro faltan. */
@@ -15593,7 +15904,9 @@ function menRedIniciar(D) {
     if (V.ego >= 0) {
       if (i !== V.ego || m <= 1 || !V.n) return '';
       const faltan = lazos(i, sentido, 1).size - V.n;
-      return faltan > 0 ? `Se ven ${nf(V.n)} de ${CUANTAS[sentido](V.n + faltan)}; ${faltan === 1 ? 'falta 1' : `faltan ${nf(faltan)}`} con menos de ${m} menciones.` : '';
+      if (faltan <= 0) return '';
+      return faltan === 1 ? __('Se ven {0} de {1}; falta 1 con menos de {2} menciones.', nf(V.n), CUANTAS[sentido](V.n + faltan), m)
+        : __('Se ven {0} de {1}; faltan {2} con menos de {3} menciones.', nf(V.n), CUANTAS[sentido](V.n + faltan), nf(faltan), m);
     }
     if (sentido === 'todas') return '';
     let n = 0, total = 0;
@@ -15605,33 +15918,45 @@ function menRedIniciar(D) {
       if (V.visible(a === i ? b : a)) n++;
     }
     if (n >= total) return '';
-    const vv = m > 1 ? ` ${m} o más veces` : '', mas = m > 1 ? ` ${m} o más veces` : ' más de una vez', una = total - n === 1;
-    return sentido === 'hechas' ? `En esta vista se ven ${nf(n)} de las ${nf(total)} personas a las que menciona${vv}; ${una ? 'la otra no menciona' : 'las demás no mencionan'} a nadie${mas}.`
-      : `En esta vista se ven ${nf(n)} de los ${nf(total)} oradores que la mencionan${vv}; ${una ? 'al otro no lo' : 'a los demás no los'} menciona nadie${mas}.`;
+    const una = total - n === 1;
+    // frases enteras para cada caso (con o sin mínimo, uno o varios que faltan); se unen por el punto y coma
+    if (sentido === 'hechas') {
+      return (m > 1 ? __('En esta vista se ven {0} de las {1} personas a las que menciona {2} o más veces;', nf(n), nf(total), m)
+        : __('En esta vista se ven {0} de las {1} personas a las que menciona;', nf(n), nf(total))) + ' '
+        + (una ? (m > 1 ? __('la otra no menciona a nadie {0} o más veces.', m) : __('la otra no menciona a nadie más de una vez.'))
+          : (m > 1 ? __('las demás no mencionan a nadie {0} o más veces.', m) : __('las demás no mencionan a nadie más de una vez.')));
+    }
+    return (m > 1 ? __('En esta vista se ven {0} de los {1} oradores que la mencionan {2} o más veces;', nf(n), nf(total), m)
+      : __('En esta vista se ven {0} de los {1} oradores que la mencionan;', nf(n), nf(total))) + ' '
+      + (una ? (m > 1 ? __('al otro no lo menciona nadie {0} o más veces.', m) : __('al otro no lo menciona nadie más de una vez.'))
+        : (m > 1 ? __('a los demás no los menciona nadie {0} o más veces.', m) : __('a los demás no los menciona nadie más de una vez.')));
   }
   function resumenEgo() {
     const e = esc(RED.nodos[V.ego].n);
-    if (V.n) return 'en el centro';
+    if (V.n) return __('en el centro');
     const m = V.minimo;
-    const mas = m > 1 && lazos(V.ego, sentido, 1).size ? ` ${m} o más veces` : ' en esta biblioteca';
-    return `en el centro · ${sentido === 'hechas' ? `${e} no menciona a nadie${mas}` : sentido === 'recibidas' ? `nadie menciona a ${e}${mas}` : `ninguna de sus conexiones llega a ${m} menciones`}`;
+    const conMinimo = m > 1 && lazos(V.ego, sentido, 1).size;
+    const motivo = sentido === 'hechas' ? (conMinimo ? __('{0} no menciona a nadie {1} o más veces', e, m) : __('{0} no menciona a nadie en esta biblioteca', e))
+      : sentido === 'recibidas' ? (conMinimo ? __('nadie menciona a {0} {1} o más veces', e, m) : __('nadie menciona a {0} en esta biblioteca', e))
+        : __('ninguna de sus conexiones llega a {0} menciones', m);
+    return `${__('en el centro')} · ${motivo}`;
   }
   function pintarInfo() {
     const boton = menEl('menEgo');
     boton.setAttribute('aria-pressed', String(V.ego >= 0));
     boton.disabled = V.ego < 0 && fijado < 0;
-    boton.title = V.ego >= 0 ? 'Volver a toda la red' : fijado >= 0 ? `Rehacer la red solo con ${RED.nodos[fijado].n} y sus conexiones` : 'Fije antes una persona pulsándola';
+    boton.title = V.ego >= 0 ? __('Volver a toda la red') : fijado >= 0 ? __('Rehacer la red solo con {0} y sus conexiones', RED.nodos[fijado].n) : __('Fije antes una persona pulsándola');
     const quien = fijado >= 0 ? fijado : V.ego, info = menEl('menInfo');
     if (quien < 0) {
-      info.innerHTML = V.n ? 'Pulse una persona para fijarla y ver sus conexiones; pulse el fondo para soltarla.'
-        : `Con un mínimo de ${V.minimo} menciones no queda ninguna conexión: baje el mínimo.`;
+      info.innerHTML = V.n ? __('Pulse una persona para fijarla y ver sus conexiones; pulse el fondo para soltarla.')
+        : __('Con un mínimo de {0} menciones no queda ninguna conexión: baje el mínimo.', V.minimo);
       return;
     }
     const nd = RED.nodos[quien], n = nota(quien);
     info.innerHTML = `<b>${esc(nd.n)}</b>${quien === V.ego ? `<span>${resumenEgo()}</span>` : ''}<span>${describir(nd, quien)}</span>`
-      + (nd.lista >= 0 ? '<button type="button" class="btn sm" id="menLeer">Leer sus menciones</button>'
-        : `<span>(no está entre las ${nf(D.personas.length)} personas con citas guardadas)</span>`)
-      + (quien !== V.ego ? '<button type="button" class="btn sm" id="menVerEgo">Ver su red ego</button>' : '')
+      + (nd.lista >= 0 ? `<button type="button" class="btn sm" id="menLeer">${__('Leer sus menciones')}</button>`
+        : `<span>${__('(no está entre las {0} personas con citas guardadas)', nf(D.personas.length))}</span>`)
+      + (quien !== V.ego ? `<button type="button" class="btn sm" id="menVerEgo">${__('Ver su red ego')}</button>` : '')
       + (n ? `<span class="men-aviso">${n}</span>` : '');
     const b = menEl('menLeer');
     if (b) b.addEventListener('click', () => {
@@ -15656,37 +15981,37 @@ function menRedIniciar(D) {
     tip.style.left = `${Math.max(8, x)}px`; tip.style.top = `${Math.max(8, y)}px`;
   }
   const TEXTO = {
-    todas: 'Cada figura es una persona (círculo, con escaño; cuadrado, persona externa); su tamaño, cuántos oradores distintos la mencionan. Anillos: cuanto más al centro, con más personas distintas está conectada, en cualquiera de los dos sentidos (el número de cada anillo es el mínimo). ',
-    hechas: 'Solo las personas que mencionan a alguien y las menciones entre ellas: quien no menciona a nadie, como las personas externas, no aparece. Tamaño y anillo: a cuántas personas distintas menciona (el número de cada anillo es el mínimo). ',
-    recibidas: 'Solo las personas mencionadas y las menciones entre ellas: quien habla sin que nadie la mencione no aparece. Tamaño y anillo: cuántos oradores distintos la mencionan (el número de cada anillo es el mínimo). ',
+    todas: __('Cada figura es una persona (círculo, con escaño; cuadrado, persona externa); su tamaño, cuántos oradores distintos la mencionan. Anillos: cuanto más al centro, con más personas distintas está conectada, en cualquiera de los dos sentidos (el número de cada anillo es el mínimo). '),
+    hechas: __('Solo las personas que mencionan a alguien y las menciones entre ellas: quien no menciona a nadie, como las personas externas, no aparece. Tamaño y anillo: a cuántas personas distintas menciona (el número de cada anillo es el mínimo). '),
+    recibidas: __('Solo las personas mencionadas y las menciones entre ellas: quien habla sin que nadie la mencione no aparece. Tamaño y anillo: cuántos oradores distintos la mencionan (el número de cada anillo es el mínimo). '),
   };
   const TEXTO_EGO = {
-    todas: (e) => `Modo ego: ${e}, en el centro, y las personas conectadas con ${e} por menciones en cualquiera de los dos sentidos, con las menciones entre ellas. Anillos: cuanto más cerca del centro, más menciones entre esa persona y ${e} (el número de cada anillo es el mínimo); tamaño, cuántos oradores distintos la mencionan en toda la biblioteca. `,
-    hechas: (e) => `Modo ego: ${e}, en el centro, y las personas a las que ${e} menciona, con las menciones entre ellas. Anillos: cuanto más cerca del centro, más veces las menciona ${e} (el número de cada anillo es el mínimo); tamaño, a cuántas personas distintas menciona cada una en toda la biblioteca. `,
-    recibidas: (e) => `Modo ego: ${e}, en el centro, y las personas que mencionan a ${e}, con las menciones entre ellas. Anillos: cuanto más cerca del centro, más veces menciona esa persona a ${e} (el número de cada anillo es el mínimo); tamaño, cuántos oradores distintos la mencionan en toda la biblioteca. `,
+    todas: (e) => __('Modo ego: {0}, en el centro, y las personas conectadas con {0} por menciones en cualquiera de los dos sentidos, con las menciones entre ellas. Anillos: cuanto más cerca del centro, más menciones entre esa persona y {0} (el número de cada anillo es el mínimo); tamaño, cuántos oradores distintos la mencionan en toda la biblioteca. ', e),
+    hechas: (e) => __('Modo ego: {0}, en el centro, y las personas a las que {0} menciona, con las menciones entre ellas. Anillos: cuanto más cerca del centro, más veces las menciona {0} (el número de cada anillo es el mínimo); tamaño, a cuántas personas distintas menciona cada una en toda la biblioteca. ', e),
+    recibidas: (e) => __('Modo ego: {0}, en el centro, y las personas que mencionan a {0}, con las menciones entre ellas. Anillos: cuanto más cerca del centro, más veces menciona esa persona a {0} (el número de cada anillo es el mínimo); tamaño, cuántos oradores distintos la mencionan en toda la biblioteca. ', e),
   };
   const PASAR = {
-    todas: ' Pase por encima o pulse una persona para ver a quién menciona (línea continua) y quién la menciona (discontinua).',
-    hechas: ' Pase por encima o pulse una persona para ver a quién menciona.',
-    recibidas: ' Pase por encima o pulse una persona para ver quién la menciona.',
+    todas: __(' Pase por encima o pulse una persona para ver a quién menciona (línea continua) y quién la menciona (discontinua).'),
+    hechas: __(' Pase por encima o pulse una persona para ver a quién menciona.'),
+    recibidas: __(' Pase por encima o pulse una persona para ver quién la menciona.'),
   };
   const FILTRO = {
-    todas: (m) => `Con el mínimo en ${m}, solo cuentan las conexiones de ${m} o más menciones, sumando los dos sentidos: quien no tiene ninguna sale de la red y los anillos cuentan solo esas conexiones; el tamaño sigue siendo el de toda la biblioteca. `,
-    hechas: (m) => `Con el mínimo en ${m}, queda quien menciona a alguien ${m} o más veces y el anillo cuenta a cuántas personas menciona así; el tamaño sigue siendo el de toda la biblioteca. `,
-    recibidas: (m) => `Con el mínimo en ${m}, queda quien es mencionada ${m} o más veces por un mismo orador y el anillo cuenta cuántos oradores la mencionan así; el tamaño sigue siendo el de toda la biblioteca. `,
+    todas: (m) => __('Con el mínimo en {0}, solo cuentan las conexiones de {0} o más menciones, sumando los dos sentidos: quien no tiene ninguna sale de la red y los anillos cuentan solo esas conexiones; el tamaño sigue siendo el de toda la biblioteca. ', m),
+    hechas: (m) => __('Con el mínimo en {0}, queda quien menciona a alguien {0} o más veces y el anillo cuenta a cuántas personas menciona así; el tamaño sigue siendo el de toda la biblioteca. ', m),
+    recibidas: (m) => __('Con el mínimo en {0}, queda quien es mencionada {0} o más veces por un mismo orador y el anillo cuenta cuántos oradores la mencionan así; el tamaño sigue siendo el de toda la biblioteca. ', m),
   };
   const FILTRO_EGO = {
-    todas: (e, m) => `Con el mínimo en ${m}, solo las personas con ${m} o más menciones con ${e}, sumando los dos sentidos, y entre ellas, las conexiones de ${m} o más menciones. `,
-    hechas: (e, m) => `Con el mínimo en ${m}, solo las personas a las que ${e} menciona ${m} o más veces, y entre ellas, las conexiones de ${m} o más menciones. `,
-    recibidas: (e, m) => `Con el mínimo en ${m}, solo las personas que mencionan a ${e} ${m} o más veces, y entre ellas, las conexiones de ${m} o más menciones. `,
+    todas: (e, m) => __('Con el mínimo en {0}, solo las personas con {0} o más menciones con {1}, sumando los dos sentidos, y entre ellas, las conexiones de {0} o más menciones. ', m, e),
+    hechas: (e, m) => __('Con el mínimo en {0}, solo las personas a las que {1} menciona {0} o más veces, y entre ellas, las conexiones de {0} o más menciones. ', m, e),
+    recibidas: (e, m) => __('Con el mínimo en {0}, solo las personas que mencionan a {1} {0} o más veces, y entre ellas, las conexiones de {0} o más menciones. ', m, e),
   };
   const explicar = () => {
     const e = V.ego >= 0 ? RED.nodos[V.ego].n : '';
     const m = V.minimo;
     menEl('menExplica').textContent = (e ? TEXTO_EGO[sentido](e) : TEXTO[sentido]) + (m > 1 ? (e ? FILTRO_EGO[sentido](e, m) : FILTRO[sentido](m)) : '') + AGRUPA[agrupar].explica(sentido, e)
-      + (e ? ' Pase por encima o pulse una persona para ver sus conexiones dentro de esta red; «Ver su red ego» la pone en el centro y «Modo ego» vuelve a toda la red.'
-        : `${PASAR[sentido]} Con una persona fijada, «Modo ego» rehace la red solo con ella y sus conexiones.`)
-      + ' Para acercar: los botones, o Ctrl y la rueda (en el trackpad, pellizcar); arrastre para moverse.';
+      + (e ? __(' Pase por encima o pulse una persona para ver sus conexiones dentro de esta red; «Ver su red ego» la pone en el centro y «Modo ego» vuelve a toda la red.')
+        : PASAR[sentido] + __(' Con una persona fijada, «Modo ego» rehace la red solo con ella y sus conexiones.'))
+      + __(' Para acercar: los botones, o Ctrl y la rueda (en el trackpad, pellizcar); arrastre para moverse.');
   };
 
   // Cambiar de vista con una transición al estilo de d3 (d3.easeCubicInOut, 750 ms por persona, con un retraso escalonado
@@ -15836,7 +16161,7 @@ function menRedIniciar(D) {
   menEl('menEgo').addEventListener('click', () => { if (V.ego >= 0) irA(agrupar, sentido, -1); else if (fijado >= 0) irA(agrupar, sentido, fijado); });
   const entrada = menEl('menMinimo');
   entrada.max = String(MAX_MINIMO);
-  entrada.title = `Deja solo las conexiones con al menos tantas menciones; con 1 se ve la red entera y con ${MAX_MINIMO} solo la más repetida.`;
+  entrada.title = __('Deja solo las conexiones con al menos tantas menciones; con 1 se ve la red entera y con {0} solo la más repetida.', MAX_MINIMO);
   const aplicarMinimo = () => {
     const m = Math.max(1, Math.min(MAX_MINIMO, Math.round(Number(entrada.value) || 1)));
     entrada.value = String(m);                                     // fuera de rango, se ajusta a la vista

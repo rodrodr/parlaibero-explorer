@@ -29,9 +29,10 @@
   const KL = R2.gen.constantes.library;
   const FORMATOS_EXPORT = KS.FORMATOS_EXPORT.slice();
   const EXPORT_COLUMNS = KL.EXPORT_COLUMNS.slice();
-  const MD_LINEA_FUENTE = KL.MD_LINEA_FUENTE || '*Fuente: {}*';
-  const CIT_TITULO_BIBTEX = KL.CIT_TITULO_BIBTEX || '# Cita del conjunto de datos (BibTeX)';
-  const CIT_TITULO_RIS = KL.CIT_TITULO_RIS || '# Cita del conjunto de datos (RIS)';
+  // textos de R2.gen.constantes: se traducen al usarlos, __(MD_LINEA_FUENTE)…
+  const MD_LINEA_FUENTE = KL.MD_LINEA_FUENTE || N_('*Fuente: {}*');
+  const CIT_TITULO_BIBTEX = KL.CIT_TITULO_BIBTEX || N_('# Cita del conjunto de datos (BibTeX)');
+  const CIT_TITULO_RIS = KL.CIT_TITULO_RIS || N_('# Cita del conjunto de datos (RIS)');
   const INLINE_ID_LIMIT = 900;
 
   const ENC = new TextEncoder();
@@ -152,15 +153,15 @@
 
   function lineaImportada(fImp) {
     if (!verdad(fImp)) return [];
-    return ['Biblioteca importada de un paquete .2replib que citaba otra fuente: ' + partir(F.lineas(fImp, '')[0])[1]];
+    return [__('Biblioteca importada de un paquete .2replib que citaba otra fuente: {0}', partir(F.lineas(fImp, '')[0])[1])];
   }
 
   function citSufijo(f) {
     const cc = F.cita_corta(f);
-    return ` Fuente: ${cc}` + (cc.endsWith('.') ? '' : '.');
+    return ' ' + __('Fuente: {0}', cc) + (cc.endsWith('.') ? '' : '.');
   }
 
-  const lineaFuenteMd = (f) => MD_LINEA_FUENTE.split('{}').join(F.cita_corta(f));
+  const lineaFuenteMd = (f) => __(MD_LINEA_FUENTE).split('{}').join(F.cita_corta(f));
 
   /** library.bytes_fuente_por_fila. */
   function bytesFuentePorFila(fmt, f) {
@@ -263,15 +264,15 @@
     let primero = true;
     const bloque = (lineas) => { acc.push((primero ? '' : '\n') + lineas.join('\n')); primero = false; };
     const exportado = C.strftime('%Y-%m-%d %H:%M', L.reloj());
-    const titulo = get(meta, 'title', 'Seleccion de intervenciones');
+    const titulo = get(meta, 'title', __('Seleccion de intervenciones'));
     const corpus = get(meta, 'corpus', '');
     const extra = new Map([['title', titulo], ['corpus', corpus], ['intervenciones', rows.length], ['exportado', exportado]]);
     if (verdad(fImp)) extra.set('fuente_importada', F.cita(fImp));
     const front = F.yaml_front_matter(f, extra);
     let out = rstripNL(front).split('\n').concat(['', `# ${s(titulo)}`, '']);
     if (verdad(get(meta, 'description'))) out.push(s(meta.description), '');
-    out.push(`*${rows.length} intervenciones · corpus: ${s(corpus)} · exportado ${exportado}*`, '',
-      '## Fuente', '', rstripNL(F.markdown(f)), '');
+    out.push(`*${__('{0} intervenciones · corpus: {1} · exportado {2}', rows.length, s(corpus), exportado)}*`, '',
+      `## ${__('Fuente')}`, '', rstripNL(F.markdown(f)), '');
     for (const x of lineaImportada(fImp)) { const [a, b] = partir(x); out.push(`**${a}:** ${b}`); }
     if (verdad(fImp)) out.push('');
     out.push('---', '');
@@ -281,10 +282,10 @@
       const i = k + 1;
       out = [`## ${i}. ${s(o(get(r, 'rep_name', null), get(r, 'speaker', null)))} — ${s(get(r, 'date', null))}`];
       const metaLinea = [get(r, 'party', null), get(r, 'district', null), get(r, 'session_type', null),
-        `sesión ${s(o(get(r, 'session_number', null), get(r, 'num_session', null)))}`, get(r, 'legislature', null), `${s(get(r, 'nwords', null))} palabras`]
+        __('sesión {0}', s(o(get(r, 'session_number', null), get(r, 'num_session', null)))), get(r, 'legislature', null), __('{0} palabras', s(get(r, 'nwords', null)))]
         .filter(verdad).map(s).join(' · ');
-      out.push(`*${metaLinea}*`, '', `**Consta como:** ${s(get(r, 'speaker', ''))}`, '');
-      if (verdad(get(r, 'note', null))) out.push(`> **Nota:** ${s(r.note)}`, '');
+      out.push(`*${metaLinea}*`, '', __('**Consta como:** {0}', s(get(r, 'speaker', ''))), '');
+      if (verdad(get(r, 'note', null))) out.push(`> ${__('**Nota:** {0}', s(r.note))}`, '');
       if (verdad(get(r, 'tags', null))) {
         const tags = typeof r.tags === 'string' ? r.tags : r.tags.join(', ');
         if (tags) out.push(`\`${tags}\``, '');
@@ -294,7 +295,7 @@
       out.push(`<!-- id=${s(get(r, 'id', null))} -->`, '', '---', '');
       bloque(out);
     });
-    const pie = ['## Cómo citar', ''];
+    const pie = [`## ${__('Cómo citar')}`, ''];
     for (const ln of F.lineas(f, '')) pie.push(ln, '');
     bloque(pie);
     return acc.blob('text/markdown');
@@ -302,20 +303,21 @@
 
   /** library.export_citations. */
   function exportCitations(rows, meta, f = null, fImp = null) {
-    const out = [`# Referencias · ${F._una_linea(get(meta, 'title', ''))}`];
+    const out = [`# ${__('Referencias · {0}', F._una_linea(get(meta, 'title', '')))}`];
     out.push(...F.lineas(f, '# '), ...lineaImportada(fImp).map((x) => `# ${x}`));
-    out.push('# Cada referencia termina con la cita breve del conjunto de datos de origen.', '');
+    out.push(`# ${__('Cada referencia termina con la cita breve del conjunto de datos de origen.')}`, '');
     const sufijo = citSufijo(f);
     const corpus = s(get(meta, 'corpus', null));
     for (const r of rows) {
-      out.push(`${s(o(get(r, 'rep_name', null), get(r, 'speaker', null)))}. Intervención en la sesión `
-        + `núm. ${s(o(get(r, 'session_number', null), get(r, 'num_session', null)))} de ${s(get(r, 'date', null))}`
-        + `${verdad(get(r, 'session_type', null)) ? ` (${s(r.session_type)})` : ''}. `
-        + `Diario de sesiones, legislatura ${s(get(r, 'legislature', null))}. `
-        + `[${s(o(get(r, 'party', null), 's/p'))}]. Ref. interna: ${corpus}#${s(o(get(r, 'id_int', null), get(r, 'id', null)))}.`
+      out.push(__('{0}. Intervención en la sesión núm. {1} de {2}{3}. Diario de sesiones, legislatura {4}. [{5}]. Ref. interna: {6}#{7}.',
+        s(o(get(r, 'rep_name', null), get(r, 'speaker', null))),
+        s(o(get(r, 'session_number', null), get(r, 'num_session', null))), s(get(r, 'date', null)),
+        verdad(get(r, 'session_type', null)) ? ` (${s(r.session_type)})` : '',
+        s(get(r, 'legislature', null)), s(o(get(r, 'party', null), __('s/p'))), corpus,
+        s(o(get(r, 'id_int', null), get(r, 'id', null))))
         + sufijo);
     }
-    out.push('', CIT_TITULO_BIBTEX, rstripNL(F.bibtex(f)), '', CIT_TITULO_RIS, rstripNL(F.ris(f)));
+    out.push('', __(CIT_TITULO_BIBTEX), rstripNL(F.bibtex(f)), '', __(CIT_TITULO_RIS), rstripNL(F.ris(f)));
     return new Blob([out.join('\n') + '\n'], { type: 'text/plain' });
   }
 

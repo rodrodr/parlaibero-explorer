@@ -17,8 +17,8 @@
   const gen = R2.gen = R2.gen || {};
 
   const KINDS = Object.freeze({
-    electoral: 'Elecciones', politico: 'Política', parlamentario: 'Parlamento',
-    conflicto: 'Conflicto', economico: 'Economía', social: 'Sociedad',
+    electoral: N_('Elecciones'), politico: N_('Política'), parlamentario: N_('Parlamento'),
+    conflicto: N_('Conflicto'), economico: N_('Economía'), social: N_('Sociedad'),
   });
   const RE_FECHA = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
   const cache = new Map();

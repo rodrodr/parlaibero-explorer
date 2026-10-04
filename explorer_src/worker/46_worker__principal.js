@@ -6,7 +6,7 @@
  * `R2.datos = { normalizacion, csv_publicado, fuente, edicion, sesiones }` (grupo `principal` de orden.json; ARQUITECTURA.md §8).
  *
  * Protocolo (versión 1)
- *   hilo → worker: iniciar{v, wasm} · construir{archivo, lectura: 'auto' | 'principal', base?} · trozo{id, buf | error}
+ *   hilo → worker: iniciar{v, wasm, lengua?, dicc?} · construir{archivo, lectura: 'auto' | 'principal', base?} · trozo{id, buf | error}
  *     (base: la carpeta de la página en la edición web, para las expresiones ya calculadas de web/expresiones_servidas.js)
  *                  pedir{id, op, args, canal, prioridad, presupuestoMs} · cancelar{id} · recordar{id} · olvidar{id}
  *   worker → hilo: hola{v, sqlite, ua, referencia, capacidades} · progreso{ev} · progreso_op{id, ev} · modo_lectura{modo, espera_ms, error}
@@ -38,8 +38,8 @@
   'use strict';
 
   const VERSION_PROTOCOLO = 1;
-  const MSG_PROXIMA = 'Esta función no está disponible en esta versión del explorador.';
-  const MSG_NO_LISTO = 'El corpus todavía no está listo.';
+  const MSG_PROXIMA = N_('Esta función no está disponible en esta versión del explorador.');
+  const MSG_NO_LISTO = N_('El corpus todavía no está listo.');
 
   const ahora = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
   const textoError = (e) => (e && e.name && e.message ? `${e.name}: ${e.message}` : String(e && e.message ? e.message : e));
@@ -113,7 +113,7 @@
     };
     const errorClonable = (e, t0) => (e && typeof e.aObjeto === 'function'
       ? e.aObjeto()
-      : { codigo: 'ERROR_INTERNO', mensaje: `Error interno al construir el corpus: ${textoError(e)}`, causa: textoError(e), ms: t0 != null ? ahora() - t0 : null });
+      : { codigo: 'ERROR_INTERNO', mensaje: __('Error interno al construir el corpus: {0}', textoError(e)), causa: textoError(e), ms: t0 != null ? ahora() - t0 : null });
 
     // ------------------------------------------------------------------------------------------------ iniciar
     function iniciar(m) {
@@ -122,6 +122,7 @@
         return;
       }
       n.estado = 'iniciando';
+      if (m.lengua && R2.i18n) R2.i18n.fijar(m.lengua, m.dicc);
       if (m.v !== VERSION_PROTOCOLO) {
         enviar({ tipo: 'fatal', codigo: 'PROTOCOLO', causa: `versión del protocolo ${m.v}; este worker habla la ${VERSION_PROTOCOLO}` });
         preparado = Promise.reject(new Error('protocolo'));
@@ -185,16 +186,16 @@
 
     async function construir(m) {
       if (!preparado) {
-        enviar({ tipo: 'fallo_construccion', error: { codigo: 'ESTADO', mensaje: 'Error interno de la página: se pidió construir antes de iniciar el motor.' } });
+        enviar({ tipo: 'fallo_construccion', error: { codigo: 'ESTADO', mensaje: __('Error interno de la página: se pidió construir antes de iniciar el motor.') } });
         return;
       }
       if (n.estado === 'construyendo' || n.estado === 'listo' || n.estado === 'abriendo' || n.db) {
-        enviar({ tipo: 'fallo_construccion', error: { codigo: 'ESTADO', mensaje: 'Error interno de la página: este motor ya construyó un corpus; hace falta uno nuevo.' } });
+        enviar({ tipo: 'fallo_construccion', error: { codigo: 'ESTADO', mensaje: __('Error interno de la página: este motor ya construyó un corpus; hace falta uno nuevo.') } });
         return;
       }
       const archivo = m.archivo;
       if (!archivo || typeof archivo.slice !== 'function' || typeof archivo.size !== 'number') {
-        enviar({ tipo: 'fallo_construccion', error: { codigo: 'ESTADO', mensaje: 'Error interno de la página: no llegó ningún archivo.' } });
+        enviar({ tipo: 'fallo_construccion', error: { codigo: 'ESTADO', mensaje: __('Error interno de la página: no llegó ningún archivo.') } });
         return;
       }
       n.estado = 'construyendo';
@@ -314,13 +315,13 @@
       api: { prioridad: 'interactiva', listo: false,
         prioridadDe: (args) => (R2.router && args ? R2.router.prioridad(args.metodo, args.ruta) : 'interactiva'),
         fn: async (args, ctx) => {
-          if (!R2.router) throw new ErrorHttp(501, MSG_PROXIMA);
+          if (!R2.router) throw new ErrorHttp(501, __(MSG_PROXIMA));
           const r = await R2.router.despachar(args || {}, contextoApi(ctx));
           return { status: r.status, cuerpo: r.cuerpo, tipo: r.tipo, cabeceras: r.cabeceras };
         } },
       info: { prioridad: 'interactiva', listo: true,
         fn: () => {
-          if (!R2.info) throw new ErrorHttp(501, MSG_PROXIMA);
+          if (!R2.info) throw new ErrorHttp(501, __(MSG_PROXIMA));
           return { cuerpo: R2.info.cuerpoInfo(vista) };
         } },
       facetas: { prioridad: 'interactiva', listo: true, fn: () => ({ cuerpo: facetasTexto(), tipo: 'json-texto' }) },
@@ -334,13 +335,13 @@
       recordar: { prioridad: 'fondo', listo: true,
         fn: () => conOpfs(async (o) => {
           if (n.huellaPendiente || !n.informe || !n.informe.huella || !n.informe.huella.sha256) {
-            throw new ErrorHttp(409, 'Todavía se está comprobando la huella del CSV: el corpus se podrá recordar en unos segundos.');
+            throw new ErrorHttp(409, __('Todavía se está comprobando la huella del CSV: el corpus se podrá recordar en unos segundos.'));
           }
           return { cuerpo: await o.recordar({ db: n.db, informe: n.informe, construidoEn: n.construidoEn }) };
         }) },
       abrir_recordado: { prioridad: 'interactiva', listo: false,
         fn: () => conOpfs(async (o) => {
-          if (n.db || n.estado !== 'preparado') throw new ErrorHttp(409, 'Este motor ya tiene un corpus abierto o está construyendo uno.');
+          if (n.db || n.estado !== 'preparado') throw new ErrorHttp(409, __('Este motor ya tiene un corpus abierto o está construyendo uno.'));
           const r = await o.abrir({ alProgreso: (hecho, total) => enviar({ tipo: 'progreso_base', hecho, total }) });
           n.db = r.db;
           n.informe = r.informe;
@@ -359,7 +360,7 @@
       // después: la base ya está construida y su sha256 se comprueba al descargarla.
       abrir_servido: { prioridad: 'interactiva', listo: false,
         fn: (args) => conServido(async (s) => {
-          if (n.db || n.estado !== 'preparado') throw new ErrorHttp(409, 'Este motor ya tiene un corpus abierto o está construyendo uno.');
+          if (n.db || n.estado !== 'preparado') throw new ErrorHttp(409, __('Este motor ya tiene un corpus abierto o está construyendo uno.'));
           n.estado = 'abriendo';
           let r;
           try {
@@ -381,7 +382,7 @@
       base_exportar_inicio: { prioridad: 'fondo', listo: true,
         fn: () => conTrozos(() => {
           if (n.huellaPendiente || !n.informe || !n.informe.huella || !n.informe.huella.sha256) {
-            throw new ErrorHttp(409, 'Todavía se está comprobando la huella del CSV: la base se podrá recordar en unos segundos.');
+            throw new ErrorHttp(409, __('Todavía se está comprobando la huella del CSV: la base se podrá recordar en unos segundos.'));
           }
           if (exportacion) exportacion.cerrar();
           exportacion = R2.trozos.crearExportacion(n.sqlite3, n.db);
@@ -389,28 +390,28 @@
         }) },
       base_exportar_trozo: { prioridad: 'fondo', listo: true,
         fn: () => conTrozos(() => {
-          if (!exportacion) throw new ErrorHttp(409, 'No hay ninguna exportación de la base en curso.');
+          if (!exportacion) throw new ErrorHttp(409, __('No hay ninguna exportación de la base en curso.'));
           const t = exportacion.siguiente();
           if (!t) return { cuerpo: { fin: true } };
           return { cuerpo: { fin: false, i: t.i, bytes: t.bytes, huella: t.huella, buf: t.buf }, transferir: [t.buf] };
         }) },
       base_exportar_fin: { prioridad: 'fondo', listo: true,
         fn: () => conTrozos(() => {
-          if (!exportacion) throw new ErrorHttp(409, 'No hay ninguna exportación de la base en curso.');
+          if (!exportacion) throw new ErrorHttp(409, __('No hay ninguna exportación de la base en curso.'));
           try { return { cuerpo: exportacion.fin() }; } finally { exportacion = null; }
         }) },
       base_exportar_cancelar: { prioridad: 'interactiva', listo: false,
         fn: () => { if (exportacion) { exportacion.cerrar(); exportacion = null; } return { cuerpo: { ok: true } }; } },
       base_importar_inicio: { prioridad: 'interactiva', listo: false,
         fn: (args) => conTrozos(() => {
-          if (n.db || n.estado !== 'preparado' || importacion) throw new ErrorHttp(409, 'Este motor ya tiene un corpus abierto o está construyendo uno.');
+          if (n.db || n.estado !== 'preparado' || importacion) throw new ErrorHttp(409, __('Este motor ya tiene un corpus abierto o está construyendo uno.'));
           importacion = R2.trozos.crearImportacion(n.sqlite3, args || {});
           n.estado = 'abriendo';
           return { cuerpo: { ok: true } };
         }) },
       base_importar_trozo: { prioridad: 'interactiva', listo: false,
         fn: (args) => conTrozos(() => {
-          if (!importacion) throw new ErrorHttp(409, 'No hay ninguna apertura de la base en curso.');
+          if (!importacion) throw new ErrorHttp(409, __('No hay ninguna apertura de la base en curso.'));
           try {
             importacion.poner(Number(args.i), args.buf ? new Uint8Array(args.buf) : null);
           } catch (e) {
@@ -422,7 +423,7 @@
         }) },
       base_importar_fin: { prioridad: 'interactiva', listo: false,
         fn: (args) => conTrozos(() => {
-          if (!importacion) throw new ErrorHttp(409, 'No hay ninguna apertura de la base en curso.');
+          if (!importacion) throw new ErrorHttp(409, __('No hay ninguna apertura de la base en curso.'));
           const im = importacion;
           importacion = null;
           let db;
@@ -431,7 +432,7 @@
           if (!informe || !informe.huella) {
             db.close();
             n.estado = 'preparado';
-            throw new R2.opfs.ErrorAlmacen('RECORDADO_DANADO', 'La base recordada no tiene el informe de construcción y se ha borrado. Elija el CSV para volver a construirla.');
+            throw new R2.opfs.ErrorAlmacen('RECORDADO_DANADO', __('La base recordada no tiene el informe de construcción y se ha borrado. Elija el CSV para volver a construirla.'));
           }
           Object.assign(n, { db, informe, construidoEn: args.construido_en || null, modoLectura: 'worker', huellaPendiente: false,
             errorHuella: null, estado: 'listo' });
@@ -452,8 +453,8 @@
     let importacion = null;
     /** Operaciones de R2.trozos: sus ErrorAlmacen salen como respuesta con `codigo` y mensaje en español. */
     async function conTrozos(fn) {
-      if (!R2.trozos || !R2.opfs) throw new ErrorHttp(501, MSG_PROXIMA);
-      try { await preparado; } catch (e) { throw new ErrorHttp(503, MSG_NO_LISTO); }
+      if (!R2.trozos || !R2.opfs) throw new ErrorHttp(501, __(MSG_PROXIMA));
+      try { await preparado; } catch (e) { throw new ErrorHttp(503, __(MSG_NO_LISTO)); }
       try {
         return await fn();
       } catch (e) {
@@ -466,8 +467,8 @@
     let opfs = null;
     /** Ejecuta fn con R2.opfs (creado la primera vez); sus errores salen como respuesta con `codigo` y mensaje en español. */
     async function conOpfs(fn) {
-      if (!R2.opfs) throw new ErrorHttp(501, MSG_PROXIMA);
-      try { await preparado; } catch (e) { throw new ErrorHttp(503, MSG_NO_LISTO); }
+      if (!R2.opfs) throw new ErrorHttp(501, __(MSG_PROXIMA));
+      try { await preparado; } catch (e) { throw new ErrorHttp(503, __(MSG_NO_LISTO)); }
       if (!opfs) opfs = R2.opfs.crear({ sqlite3: n.sqlite3, buildId: R2.datos && R2.datos.edicion ? R2.datos.edicion.build_id : '' });
       try {
         return await fn(opfs);
@@ -481,9 +482,9 @@
     let servido = null;
     /** Ejecuta fn con R2.servido; sus errores (los mismos ErrorAlmacen) salen como respuesta con `codigo` y mensaje. */
     async function conServido(fn) {
-      if (!R2.servido || !R2.opfs) throw new ErrorHttp(501, MSG_PROXIMA);
-      if (!R2.servido.ficha()) throw new ErrorHttp(404, 'Esta edición de la página no lleva datos dentro.');
-      try { await preparado; } catch (e) { throw new ErrorHttp(503, MSG_NO_LISTO); }
+      if (!R2.servido || !R2.opfs) throw new ErrorHttp(501, __(MSG_PROXIMA));
+      if (!R2.servido.ficha()) throw new ErrorHttp(404, __('Esta edición de la página no lleva datos dentro.'));
+      try { await preparado; } catch (e) { throw new ErrorHttp(503, __(MSG_NO_LISTO)); }
       if (!servido) servido = R2.servido.crear({ sqlite3: n.sqlite3 });
       try {
         return await fn(servido);
@@ -558,8 +559,8 @@
       let transferir = null; // ArrayBuffer de la respuesta que se transfieren (trozos de la base)
       try {
         const def = OPS[t.op];
-        if (!def) throw new ErrorHttp(501, MSG_PROXIMA);
-        if (def.listo && n.estado !== 'listo') throw new ErrorHttp(503, MSG_NO_LISTO);
+        if (!def) throw new ErrorHttp(501, __(MSG_PROXIMA));
+        if (def.listo && n.estado !== 'listo') throw new ErrorHttp(503, __(MSG_NO_LISTO));
         const ctx = {
           get cancelada() { return t.cancelada; },
           presupuestoMs: t.presupuestoMs,
@@ -580,8 +581,8 @@
         else if (esErrorHttp(e)) resp = { tipo: 'resp', id: t.id, status: e.status, cuerpo: { error: e.message }, tipoCuerpo: 'json', cabeceras: {} };
         else if (e && e.motorAgotado) {
           resp = { tipo: 'resp', id: t.id, status: 500, tipoCuerpo: 'json', cabeceras: {},
-            cuerpo: { error: `El navegador se quedó sin recursos al evaluar una expresión regular con este texto (${textoError(e)}). Pruebe en otro navegador.` } };
-        } else resp = { tipo: 'resp', id: t.id, status: 500, cuerpo: { error: `Error interno: ${textoError(e)}` }, tipoCuerpo: 'json', cabeceras: {} };
+            cuerpo: { error: __('El navegador se quedó sin recursos al evaluar una expresión regular con este texto ({0}). Pruebe en otro navegador.', textoError(e)) } };
+        } else resp = { tipo: 'resp', id: t.id, status: 500, cuerpo: { error: __('Error interno: {0}', textoError(e)) }, tipoCuerpo: 'json', cabeceras: {} };
       } finally {
         enCurso.delete(t);
       }
@@ -608,7 +609,7 @@
         case 'recordar':
         case 'olvidar':
           // Caché del corpus: M8.
-          enviar({ tipo: 'resp', id: m.id, status: 501, cuerpo: { error: MSG_PROXIMA }, tipoCuerpo: 'json', cabeceras: {}, ms: 0 });
+          enviar({ tipo: 'resp', id: m.id, status: 501, cuerpo: { error: __(MSG_PROXIMA) }, tipoCuerpo: 'json', cabeceras: {}, ms: 0 });
           break;
         default:
           enviar({ tipo: 'fatal', codigo: 'PROTOCOLO', causa: `mensaje desconocido: ${String(m.tipo)}` });

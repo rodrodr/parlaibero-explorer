@@ -44,28 +44,28 @@
   /** Filters.from_dict. */
   function desdeDict(d) {
     if (d === null || d === undefined) return vacios();
-    if (!RT.esDict(d)) throw RT.noValido('filters debe ser un objeto JSON.');
+    if (!RT.esDict(d)) throw RT.noValido(__('filters debe ser un objeto JSON.'));
     const f = vacios();
     for (const k of Object.keys(d)) {
       const v = d[k];
       if (!CAMPOS.includes(k) || v === null || v === undefined || v === '' || (Array.isArray(v) && v.length === 0)) continue;
       if (LISTAS[k]) {
-        if (!Array.isArray(v)) throw RT.noValido(`filters.${k} debe ser una lista (p. ej. ["${textoPy(v)}"]).`);
+        if (!Array.isArray(v)) throw RT.noValido(__('filters.{0} debe ser una lista (p. ej. ["{1}"]).', k, textoPy(v)));
         if (LISTAS[k] === 'int') {
           f[k] = v.map((x) => V.entero(x, `filters.${k}`));
         } else {
           if (!v.every((x) => typeof x === 'string' || typeof x === 'number' || typeof x === 'bigint')) {
-            throw RT.noValido(`filters.${k} debe ser una lista de textos.`);
+            throw RT.noValido(__('filters.{0} debe ser una lista de textos.', k));
           }
           f[k] = v.map(textoPy);
         }
       } else if (ENTEROS.includes(k)) {
         f[k] = V.entero(v, `filters.${k}`);
       } else if (TEXTOS.includes(k)) {
-        if (typeof v !== 'string') throw RT.noValido(`filters.${k} debe ser una fecha AAAA-MM-DD.`);
+        if (typeof v !== 'string') throw RT.noValido(__('filters.{0} debe ser una fecha AAAA-MM-DD.', k));
         f[k] = v;
       } else if (BOOLEANOS.includes(k)) {
-        if (typeof v !== 'boolean') throw RT.noValido(`filters.${k} debe ser true o false.`);
+        if (typeof v !== 'boolean') throw RT.noValido(__('filters.{0} debe ser true o false.', k));
         f[k] = v;
       }
     }
@@ -166,7 +166,7 @@
     let raw = RT.get(cuerpo, 'filters');
     if (raw === undefined || raw === null || raw === '' || raw === 0 || raw === false || (Array.isArray(raw) && !raw.length)
       || (RT.esDict(raw) && !Object.keys(raw).length)) raw = {};
-    if (!RT.esDict(raw)) throw RT.noValido('filters debe ser un objeto JSON.');
+    if (!RT.esDict(raw)) throw RT.noValido(__('filters debe ser un objeto JSON.'));
     raw = Object.assign({}, raw);
     const cid0 = RT.get(raw, 'collection_id');
     delete raw.collection_id;
@@ -177,9 +177,12 @@
       const col = lib ? await lib.get_collection(cid) : null;
       if (col === null || col === undefined) {
         const existio = lib ? await lib.collection_existio(cid) : null;
-        const motivo = existio === true ? 'ya no existe (se ha borrado)' : existio === false ? 'no existe' : 'no existe (quizá se ha borrado)';
-        throw new RT.ErrorHttp(404, `La biblioteca ${cid} a la que se restringe la búsqueda ${motivo}. `
-          + 'Quite la restricción «Restringir a una biblioteca» y vuelva a buscar.');
+        const motivo = existio === true
+          ? __('La biblioteca {0} a la que se restringe la búsqueda ya no existe (se ha borrado).', cid)
+          : existio === false
+            ? __('La biblioteca {0} a la que se restringe la búsqueda no existe.', cid)
+            : __('La biblioteca {0} a la que se restringe la búsqueda no existe (quizá se ha borrado).', cid);
+        throw new RT.ErrorHttp(404, `${motivo} ` + __('Quite la restricción «Restringir a una biblioteca» y vuelva a buscar.'));
       }
       let ids = Array.from(await lib.item_ids(cid, entorno.corpus && entorno.corpus.nombre));
       if (f.speech_ids && f.speech_ids.length) {

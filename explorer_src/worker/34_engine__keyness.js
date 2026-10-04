@@ -295,9 +295,9 @@
   }
 
   function badge(lr, freqRef) {
-    if (freqRef === 0 || lr >= CORTE_EXCLUSIVO) return 'Exclusivo';
-    if (lr >= CORTE_MUY_DISTINTIVO) return 'Muy distintivo';
-    return 'Significativo';
+    if (freqRef === 0 || lr >= CORTE_EXCLUSIVO) return N_('Exclusivo');
+    if (lr >= CORTE_MUY_DISTINTIVO) return N_('Muy distintivo');
+    return N_('Significativo');
   }
 
   const redondeo = (x, n) => C.pyRound(x, n);
@@ -310,7 +310,7 @@
     const limit = opciones.limit === undefined ? null : opciones.limit;
     const limitNegative = opciones.limit_negative === undefined || opciones.limit_negative === null ? LIMITE_NEGATIVOS : opciones.limit_negative;
     const ftsTable = opciones.fts_table || 'speeches_fts';
-    if (minFreq < 1) throw new C.PyError('ValueError', 'min_freq debe ser al menos 1');
+    if (minFreq < 1) throw new C.PyError('ValueError', __('min_freq debe ser al menos 1'));
     const fts = ident(ftsTable);
     const vacias = opciones.stopwords === undefined || opciones.stopwords === null ? STOPWORDS : new Set(Array.from(opciones.stopwords, fold));
     // opciones.progreso(fase, hecho, total): avance de las fases «referencia» y «estadisticos» (léxico de una biblioteca).
@@ -330,13 +330,13 @@
       candidates: 0, significant: 0,
       excluded: { stopwords: 0, one_char: 0 },
       terms: [], negative: [],
-      badges: INSIGNIAS,
+      // las claves (Exclusivo…) se quedan en español: la página las compara; se traduce la descripción
+      badges: Object.fromEntries(Object.entries(INSIGNIAS).map(([k, v]) => [k, __(v)])),
       notes: {
-        ttr: 'El TTR baja al crecer la colección: compare solo colecciones de tamaño parecido.',
-        g2: 'G² de Dunning con signo frente al resto del corpus (corpus − colección): + sobreuso, − infrauso. '
-          + '|G²| ≥ 10,83 equivale a p < 0,001 (χ², 1 g.l.). Al evaluar miles de términos a la vez, fíjese también en el log-ratio.',
-        log_ratio: 'log2 del cociente de frecuencias relativas; cada punto duplica. Una frecuencia cero cuenta como 0,5 (Hardie 2014).',
-        tokens: 'Tokens según el tokenizador del índice (unicode61): «S. S.» son dos tokens, por eso difiere del recuento de palabras.',
+        ttr: __('El TTR baja al crecer la colección: compare solo colecciones de tamaño parecido.'),
+        g2: __('G² de Dunning con signo frente al resto del corpus (corpus − colección): + sobreuso, − infrauso. |G²| ≥ 10,83 equivale a p < 0,001 (χ², 1 g.l.). Al evaluar miles de términos a la vez, fíjese también en el log-ratio.'),
+        log_ratio: __('log2 del cociente de frecuencias relativas; cada punto duplica. Una frecuencia cero cuenta como 0,5 (Hardie 2014).'),
+        tokens: __('Tokens según el tokenizador del índice (unicode61): «S. S.» son dos tokens, por eso difiere del recuento de palabras.'),
       },
     };
 
@@ -356,7 +356,7 @@
         (h, t) => progreso('referencia', h, t));
     } catch (e) {
       if (!esErrorSqlite(e)) throw e;
-      salida.error = `No se pudo leer el vocabulario del índice FTS5: ${S.errorSqlite(bd, e)}`;
+      salida.error = __('No se pudo leer el vocabulario del índice FTS5: {0}', S.errorSqlite(bd, e));
       salida.ms = ms();
       return salida;
     }
@@ -367,9 +367,9 @@
     for (const [t, k] of cuentas) if (k >= minFreq && (total.get(t) || 0) < k) incoherentes.push(t);
     if (d <= 0 || incoherentes.length) {
       const ejemplos = incoherentes.slice().sort(C.cmpStr).slice(0, 5).join(', ');
-      salida.error = 'La colección no es un subconjunto de este corpus: '
-        + (incoherentes.length ? `${incoherentes.length} términos aparecen más veces en la colección que en todo el corpus (p. ej. ${ejemplos}). ` : '')
-        + '¿Hay textos repetidos o de otro corpus?';
+      salida.error = incoherentes.length
+        ? __('La colección no es un subconjunto de este corpus: {0} términos aparecen más veces en la colección que en todo el corpus (p. ej. {1}). ¿Hay textos repetidos o de otro corpus?', incoherentes.length, ejemplos)
+        : __('La colección no es un subconjunto de este corpus: ¿Hay textos repetidos o de otro corpus?');
       salida.ms = ms();
       return salida;
     }
