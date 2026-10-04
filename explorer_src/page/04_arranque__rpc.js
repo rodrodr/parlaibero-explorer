@@ -134,10 +134,10 @@
       worker.onmessage = (ev) => recibir(ev.data);
       worker.onerror = (ev) => {
         if (ev && typeof ev.preventDefault === 'function') ev.preventDefault();
-        const causa = ev && ev.message ? ev.message : 'sin detalle';
+        const causa = ev && ev.message ? ev.message : __('sin detalle');
         caer(new ErrorRpc(c.estado === 'iniciando' || c.estado === 'nuevo' ? 'WORKER_NO_ARRANCA' : 'WORKER_DETENIDO', { causa }));
       };
-      worker.onmessageerror = () => caer(new ErrorRpc('PROTOCOLO', { causa: 'mensaje del worker que no se pudo leer' }));
+      worker.onmessageerror = () => caer(new ErrorRpc('PROTOCOLO', { causa: __('mensaje del worker que no se pudo leer') }));
     } catch (e) {
       errorCreacion = new ErrorRpc('WORKER_NO_ARRANCA', { causa: textoDe(e) });
       c.estado = 'fallido';
@@ -272,7 +272,7 @@
       if (op.tiempoArranqueMs > 0) {
         temporizador = setTimeout(() => {
           temporizador = null;
-          if (c.estado === 'iniciando') caer(new ErrorRpc('WORKER_NO_ARRANCA', { causa: `sin respuesta en ${Math.round(op.tiempoArranqueMs / 1000)} s` }));
+          if (c.estado === 'iniciando') caer(new ErrorRpc('WORKER_NO_ARRANCA', { causa: __('sin respuesta en {0} s', Math.round(op.tiempoArranqueMs / 1000)) }));
         }, op.tiempoArranqueMs);
       }
       // la lengua de la interfaz y su diccionario: el worker traduce sus mensajes, notas y exportaciones

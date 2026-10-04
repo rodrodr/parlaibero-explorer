@@ -91,7 +91,7 @@
       if (!idb) { rechazar(new ErrorBase('NO_DISPONIBLE', MENSAJES.NO_DISPONIBLE)); return; }
       let rq;
       try { rq = idb.open(BD, VERSION_BD); } catch (e) { rechazar(e); return; }
-      const t = setTimeout(() => rechazar(Object.assign(new Error(`sin respuesta en ${TIEMPO_ABRIR_MS} ms`), { name: 'TimeoutError' })), TIEMPO_ABRIR_MS);
+      const t = setTimeout(() => rechazar(Object.assign(new Error(__('sin respuesta en {0} ms', TIEMPO_ABRIR_MS)), { name: 'TimeoutError' })), TIEMPO_ABRIR_MS);
       rq.onupgradeneeded = () => {
         const db = rq.result;
         if (!db.objectStoreNames.contains(MANIFIESTOS)) db.createObjectStore(MANIFIESTOS);
@@ -125,8 +125,8 @@
         return;
       }
       tx.oncomplete = () => resolver(valor);
-      tx.onerror = () => rechazar(tx.error || new Error('error en la transacción'));
-      tx.onabort = () => rechazar(tx.error || Object.assign(new Error('transacción abortada'), { name: 'AbortError' }));
+      tx.onerror = () => rechazar(tx.error || new Error(__('error en la transacción')));
+      tx.onabort = () => rechazar(tx.error || Object.assign(new Error(__('transacción abortada')), { name: 'AbortError' }));
     });
   }
 

@@ -6449,22 +6449,22 @@ function helpSearchModesHTML() {
   <table class="help-sintaxis">
     <thead><tr><th scope="col">${__('Escriba')}</th><th scope="col">${__('Encuentra')}</th></tr></thead>
     <tbody>
-      <tr><td><code>reforma</code></td><td>${__('esa palabra (no «reformas» ni «reformar»)')}</td></tr>
-      <tr><td><code>"voto femenino"</code></td><td>${__('la frase exacta: esas palabras seguidas y en ese orden (valen también « » y “ ”)')}</td></tr>
-      <tr><td><code>reforma + agraria</code></td><td>${__('las dos palabras, en cualquier parte de la intervención; {0}, sin signo, es lo mismo', '<code>reforma agraria</code>')}</td></tr>
-      <tr><td><code>divorcio | matrimonio</code></td><td>${__('cualquiera de las dos')}</td></tr>
-      <tr><td><code>(reforma | ley) + agraria</code></td><td>${__('paréntesis para agrupar; sin ellos, {0} se aplica antes que {1}', '<code>+</code>', '<code>|</code>')}</td></tr>
+      <tr><td><code>${esc(__('reforma'))}</code></td><td>${__('esa palabra (no «reformas» ni «reformar»)')}</td></tr>
+      <tr><td><code>${esc(__('"voto femenino"'))}</code></td><td>${__('la frase exacta: esas palabras seguidas y en ese orden (valen también « » y “ ”)')}</td></tr>
+      <tr><td><code>${esc(__('reforma + agraria'))}</code></td><td>${__('las dos palabras, en cualquier parte de la intervención; {0}, sin signo, es lo mismo', `<code>${esc(__('reforma agraria'))}</code>`)}</td></tr>
+      <tr><td><code>${esc(__('divorcio | matrimonio'))}</code></td><td>${__('cualquiera de las dos')}</td></tr>
+      <tr><td><code>${esc(__('(reforma | ley) + agraria'))}</code></td><td>${__('paréntesis para agrupar; sin ellos, {0} se aplica antes que {1}', '<code>+</code>', '<code>|</code>')}</td></tr>
     </tbody>
   </table>
   <p class="dsub" style="line-height:1.6">
     ${__(`<b>Sin acentos ni mayúsculas:</b> {0} encuentra «Constitución». Los signos de puntuación separan
-    palabras: {1} busca la frase «art 26».`, '<code>constitucion</code>', '<code>art.26</code>')}<br>
+    palabras: {1} busca la frase «art 26».`, `<code>${esc(__('constitucion'))}</code>`, '<code>art.26</code>')}<br>
     ${__(`<b>Palabras muy frecuentes</b> (de, la, que, por…): se omiten cuando van unidas a otras con {0} o sin
-    signo, y «Se busca» lo avisa. Entre comillas sí cuentan ({1}) y solas también se buscan.`, '<code>+</code>', '<code>"de la guerra"</code>')}<br>
+    signo, y «Se busca» lo avisa. Entre comillas sí cuentan ({1}) y solas también se buscan.`, '<code>+</code>', `<code>${esc(__('"de la guerra"'))}</code>`)}<br>
     ${__(`<b>No se admiten</b> el asterisco ({0}) ni la exclusión ({1}); {2} y
     {3} se escriben {4} y {5}. Para las variantes de una palabra, únalas:
-    {6}.`, '<code>agrar*</code>', '<code>NOT</code>', '<code>AND</code>', '<code>OR</code>', '<code>+</code>', '<code>|</code>',
-    '<code>agraria | agrario | agrarios</code>')}
+    {6}.`, `<code>${esc(__('agrar*'))}</code>`, '<code>NOT</code>', '<code>AND</code>', '<code>OR</code>', '<code>+</code>', '<code>|</code>',
+    `<code>${esc(__('agraria | agrario | agrarios'))}</code>`)}
   </p>`;
 
 }

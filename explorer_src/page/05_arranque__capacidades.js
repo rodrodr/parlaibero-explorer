@@ -75,18 +75,18 @@
     let t = null;
     return Promise.race([
       promesa,
-      new Promise((_, rechazar) => { t = setTimeout(() => rechazar(new Error(`sin respuesta en ${ms} ms`)), ms); }),
+      new Promise((_, rechazar) => { t = setTimeout(() => rechazar(new Error(__('sin respuesta en {0} ms', ms))), ms); }),
     ]).finally(() => clearTimeout(t));
   }
 
   function probarLocalStorage(w) {
     try {
       const s = w.localStorage;
-      if (!s) return { ok: false, detalle: 'sin localStorage' };
+      if (!s) return { ok: false, detalle: __('sin localStorage') };
       s.setItem(CLAVE_SONDEO, '1');
       const ok = s.getItem(CLAVE_SONDEO) === '1';
       s.removeItem(CLAVE_SONDEO);
-      return { ok, detalle: ok ? null : 'no conserva lo escrito' };
+      return { ok, detalle: ok ? null : __('no conserva lo escrito') };
     } catch (e) {
       return { ok: false, detalle: `${e.name}: ${e.message}` };
     }
@@ -96,12 +96,12 @@
     return new Promise((resolver) => {
       let idb;
       try { idb = w.indexedDB; } catch (e) { resolver({ ok: false, detalle: `${e.name}: ${e.message}` }); return; }
-      if (!idb) { resolver({ ok: false, detalle: 'sin indexedDB' }); return; }
+      if (!idb) { resolver({ ok: false, detalle: __('sin indexedDB') }); return; }
       let rq;
       try { rq = idb.open(BD_SONDEO, 1); } catch (e) { resolver({ ok: false, detalle: `${e.name}: ${e.message}` }); return; }
       rq.onupgradeneeded = () => { try { rq.result.createObjectStore('s'); } catch (e) {   } };
-      rq.onblocked = () => resolver({ ok: false, detalle: 'bloqueada' });
-      rq.onerror = () => resolver({ ok: false, detalle: rq.error ? `${rq.error.name}: ${rq.error.message}` : 'error al abrir' });
+      rq.onblocked = () => resolver({ ok: false, detalle: __('bloqueada') });
+      rq.onerror = () => resolver({ ok: false, detalle: rq.error ? `${rq.error.name}: ${rq.error.message}` : __('error al abrir') });
       rq.onsuccess = () => {
         const bd = rq.result;
         try {
@@ -112,7 +112,7 @@
             try { idb.deleteDatabase(BD_SONDEO); } catch (e) {   }
             resolver({ ok: true, detalle: null });
           };
-          tx.onerror = tx.onabort = () => { bd.close(); resolver({ ok: false, detalle: tx.error ? `${tx.error.name}: ${tx.error.message}` : 'error al escribir' }); };
+          tx.onerror = tx.onabort = () => { bd.close(); resolver({ ok: false, detalle: tx.error ? `${tx.error.name}: ${tx.error.message}` : __('error al escribir') }); };
         } catch (e) {
           bd.close();
           resolver({ ok: false, detalle: `${e.name}: ${e.message}` });

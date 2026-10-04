@@ -115,19 +115,19 @@
     let t;
     return Promise.race([
       promesa,
-      new Promise((_, rechazar) => { t = setTimeout(() => rechazar(errorPropio(`${que}: sin respuesta en ${ms} ms`, 'TimeoutError')), ms); }),
+      new Promise((_, rechazar) => { t = setTimeout(() => rechazar(errorPropio(__('{0}: sin respuesta en {1} ms', que, ms), 'TimeoutError')), ms); }),
     ]).finally(() => clearTimeout(t));
   }
 
   const peticion = (req) => new Promise((resolver, rechazar) => {
     req.onsuccess = () => resolver(req.result);
-    req.onerror = () => rechazar(req.error || errorPropio('la petición al almacén falló'));
+    req.onerror = () => rechazar(req.error || errorPropio(__('la petición al almacén falló')));
   });
 
   const transaccion = (tx) => new Promise((resolver, rechazar) => {
     tx.oncomplete = () => resolver();
-    tx.onerror = () => rechazar(tx.error || errorPropio('la transacción del almacén falló'));
-    tx.onabort = () => rechazar(tx.error || errorPropio('la transacción del almacén se interrumpió', 'AbortError'));
+    tx.onerror = () => rechazar(tx.error || errorPropio(__('la transacción del almacén falló')));
+    tx.onabort = () => rechazar(tx.error || errorPropio(__('la transacción del almacén se interrumpió'), 'AbortError'));
   });
 
   function iguales(a, b) {
@@ -167,7 +167,7 @@
     let db = null;
     const idb = () => {
       const f = g.indexedDB;
-      if (!f || typeof f.open !== 'function') throw errorPropio('IndexedDB no está disponible', 'NotFoundError');
+      if (!f || typeof f.open !== 'function') throw errorPropio(__('IndexedDB no está disponible'), 'NotFoundError');
       return f;
     };
     async function abrir() {
@@ -201,7 +201,7 @@
         await operar('readwrite', (s) => peticion(s.put(muestra, CLAVE_SONDEO)));
         const leido = await operar('readonly', (s) => peticion(s.get(CLAVE_SONDEO)));
         await operar('readwrite', (s) => peticion(s.delete(CLAVE_SONDEO)));
-        if (!leido || leido.n !== muestra.n || !iguales(aU8(leido.bytes), muestra.bytes)) throw errorPropio('IndexedDB no devuelve lo que se escribió');
+        if (!leido || leido.n !== muestra.n || !iguales(aU8(leido.bytes), muestra.bytes)) throw errorPropio(__('IndexedDB no devuelve lo que se escribió'));
         return true;
       },
       async leer() { return registroValido(await operar('readonly', (s) => peticion(s.get(CLAVE)))); },
@@ -222,7 +222,7 @@
   function almacenLocalStorage(g) {
     const s = () => {
       const x = g.localStorage;
-      if (!x) throw errorPropio('localStorage no está disponible', 'NotFoundError');
+      if (!x) throw errorPropio(__('localStorage no está disponible'), 'NotFoundError');
       return x;
     };
     const api = {
@@ -232,7 +232,7 @@
         s().setItem(k, v);
         const leido = s().getItem(k);
         s().removeItem(k);
-        if (leido !== v) throw errorPropio('localStorage no devuelve lo que se escribió');
+        if (leido !== v) throw errorPropio(__('localStorage no devuelve lo que se escribió'));
         return true;
       },
       async leer() {

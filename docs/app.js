@@ -779,10 +779,10 @@
       worker.onmessage = (ev) => recibir(ev.data);
       worker.onerror = (ev) => {
         if (ev && typeof ev.preventDefault === 'function') ev.preventDefault();
-        const causa = ev && ev.message ? ev.message : 'sin detalle';
+        const causa = ev && ev.message ? ev.message : __('sin detalle');
         caer(new ErrorRpc(c.estado === 'iniciando' || c.estado === 'nuevo' ? 'WORKER_NO_ARRANCA' : 'WORKER_DETENIDO', { causa }));
       };
-      worker.onmessageerror = () => caer(new ErrorRpc('PROTOCOLO', { causa: 'mensaje del worker que no se pudo leer' }));
+      worker.onmessageerror = () => caer(new ErrorRpc('PROTOCOLO', { causa: __('mensaje del worker que no se pudo leer') }));
     } catch (e) {
       errorCreacion = new ErrorRpc('WORKER_NO_ARRANCA', { causa: textoDe(e) });
       c.estado = 'fallido';
@@ -917,7 +917,7 @@
       if (op.tiempoArranqueMs > 0) {
         temporizador = setTimeout(() => {
           temporizador = null;
-          if (c.estado === 'iniciando') caer(new ErrorRpc('WORKER_NO_ARRANCA', { causa: `sin respuesta en ${Math.round(op.tiempoArranqueMs / 1000)} s` }));
+          if (c.estado === 'iniciando') caer(new ErrorRpc('WORKER_NO_ARRANCA', { causa: __('sin respuesta en {0} s', Math.round(op.tiempoArranqueMs / 1000)) }));
         }, op.tiempoArranqueMs);
       }
       // la lengua de la interfaz y su diccionario: el worker traduce sus mensajes, notas y exportaciones
@@ -1076,18 +1076,18 @@
     let t = null;
     return Promise.race([
       promesa,
-      new Promise((_, rechazar) => { t = setTimeout(() => rechazar(new Error(`sin respuesta en ${ms} ms`)), ms); }),
+      new Promise((_, rechazar) => { t = setTimeout(() => rechazar(new Error(__('sin respuesta en {0} ms', ms))), ms); }),
     ]).finally(() => clearTimeout(t));
   }
 
   function probarLocalStorage(w) {
     try {
       const s = w.localStorage;
-      if (!s) return { ok: false, detalle: 'sin localStorage' };
+      if (!s) return { ok: false, detalle: __('sin localStorage') };
       s.setItem(CLAVE_SONDEO, '1');
       const ok = s.getItem(CLAVE_SONDEO) === '1';
       s.removeItem(CLAVE_SONDEO);
-      return { ok, detalle: ok ? null : 'no conserva lo escrito' };
+      return { ok, detalle: ok ? null : __('no conserva lo escrito') };
     } catch (e) {
       return { ok: false, detalle: `${e.name}: ${e.message}` };
     }
@@ -1097,12 +1097,12 @@
     return new Promise((resolver) => {
       let idb;
       try { idb = w.indexedDB; } catch (e) { resolver({ ok: false, detalle: `${e.name}: ${e.message}` }); return; }
-      if (!idb) { resolver({ ok: false, detalle: 'sin indexedDB' }); return; }
+      if (!idb) { resolver({ ok: false, detalle: __('sin indexedDB') }); return; }
       let rq;
       try { rq = idb.open(BD_SONDEO, 1); } catch (e) { resolver({ ok: false, detalle: `${e.name}: ${e.message}` }); return; }
       rq.onupgradeneeded = () => { try { rq.result.createObjectStore('s'); } catch (e) {   } };
-      rq.onblocked = () => resolver({ ok: false, detalle: 'bloqueada' });
-      rq.onerror = () => resolver({ ok: false, detalle: rq.error ? `${rq.error.name}: ${rq.error.message}` : 'error al abrir' });
+      rq.onblocked = () => resolver({ ok: false, detalle: __('bloqueada') });
+      rq.onerror = () => resolver({ ok: false, detalle: rq.error ? `${rq.error.name}: ${rq.error.message}` : __('error al abrir') });
       rq.onsuccess = () => {
         const bd = rq.result;
         try {
@@ -1113,7 +1113,7 @@
             try { idb.deleteDatabase(BD_SONDEO); } catch (e) {   }
             resolver({ ok: true, detalle: null });
           };
-          tx.onerror = tx.onabort = () => { bd.close(); resolver({ ok: false, detalle: tx.error ? `${tx.error.name}: ${tx.error.message}` : 'error al escribir' }); };
+          tx.onerror = tx.onabort = () => { bd.close(); resolver({ ok: false, detalle: tx.error ? `${tx.error.name}: ${tx.error.message}` : __('error al escribir') }); };
         } catch (e) {
           bd.close();
           resolver({ ok: false, detalle: `${e.name}: ${e.message}` });
@@ -2928,19 +2928,19 @@
     let t;
     return Promise.race([
       promesa,
-      new Promise((_, rechazar) => { t = setTimeout(() => rechazar(errorPropio(`${que}: sin respuesta en ${ms} ms`, 'TimeoutError')), ms); }),
+      new Promise((_, rechazar) => { t = setTimeout(() => rechazar(errorPropio(__('{0}: sin respuesta en {1} ms', que, ms), 'TimeoutError')), ms); }),
     ]).finally(() => clearTimeout(t));
   }
 
   const peticion = (req) => new Promise((resolver, rechazar) => {
     req.onsuccess = () => resolver(req.result);
-    req.onerror = () => rechazar(req.error || errorPropio('la petición al almacén falló'));
+    req.onerror = () => rechazar(req.error || errorPropio(__('la petición al almacén falló')));
   });
 
   const transaccion = (tx) => new Promise((resolver, rechazar) => {
     tx.oncomplete = () => resolver();
-    tx.onerror = () => rechazar(tx.error || errorPropio('la transacción del almacén falló'));
-    tx.onabort = () => rechazar(tx.error || errorPropio('la transacción del almacén se interrumpió', 'AbortError'));
+    tx.onerror = () => rechazar(tx.error || errorPropio(__('la transacción del almacén falló')));
+    tx.onabort = () => rechazar(tx.error || errorPropio(__('la transacción del almacén se interrumpió'), 'AbortError'));
   });
 
   function iguales(a, b) {
@@ -2980,7 +2980,7 @@
     let db = null;
     const idb = () => {
       const f = g.indexedDB;
-      if (!f || typeof f.open !== 'function') throw errorPropio('IndexedDB no está disponible', 'NotFoundError');
+      if (!f || typeof f.open !== 'function') throw errorPropio(__('IndexedDB no está disponible'), 'NotFoundError');
       return f;
     };
     async function abrir() {
@@ -3014,7 +3014,7 @@
         await operar('readwrite', (s) => peticion(s.put(muestra, CLAVE_SONDEO)));
         const leido = await operar('readonly', (s) => peticion(s.get(CLAVE_SONDEO)));
         await operar('readwrite', (s) => peticion(s.delete(CLAVE_SONDEO)));
-        if (!leido || leido.n !== muestra.n || !iguales(aU8(leido.bytes), muestra.bytes)) throw errorPropio('IndexedDB no devuelve lo que se escribió');
+        if (!leido || leido.n !== muestra.n || !iguales(aU8(leido.bytes), muestra.bytes)) throw errorPropio(__('IndexedDB no devuelve lo que se escribió'));
         return true;
       },
       async leer() { return registroValido(await operar('readonly', (s) => peticion(s.get(CLAVE)))); },
@@ -3035,7 +3035,7 @@
   function almacenLocalStorage(g) {
     const s = () => {
       const x = g.localStorage;
-      if (!x) throw errorPropio('localStorage no está disponible', 'NotFoundError');
+      if (!x) throw errorPropio(__('localStorage no está disponible'), 'NotFoundError');
       return x;
     };
     const api = {
@@ -3045,7 +3045,7 @@
         s().setItem(k, v);
         const leido = s().getItem(k);
         s().removeItem(k);
-        if (leido !== v) throw errorPropio('localStorage no devuelve lo que se escribió');
+        if (leido !== v) throw errorPropio(__('localStorage no devuelve lo que se escribió'));
         return true;
       },
       async leer() {
@@ -3624,7 +3624,7 @@
       if (!idb) { rechazar(new ErrorBase('NO_DISPONIBLE', MENSAJES.NO_DISPONIBLE)); return; }
       let rq;
       try { rq = idb.open(BD, VERSION_BD); } catch (e) { rechazar(e); return; }
-      const t = setTimeout(() => rechazar(Object.assign(new Error(`sin respuesta en ${TIEMPO_ABRIR_MS} ms`), { name: 'TimeoutError' })), TIEMPO_ABRIR_MS);
+      const t = setTimeout(() => rechazar(Object.assign(new Error(__('sin respuesta en {0} ms', TIEMPO_ABRIR_MS)), { name: 'TimeoutError' })), TIEMPO_ABRIR_MS);
       rq.onupgradeneeded = () => {
         const db = rq.result;
         if (!db.objectStoreNames.contains(MANIFIESTOS)) db.createObjectStore(MANIFIESTOS);
@@ -3658,8 +3658,8 @@
         return;
       }
       tx.oncomplete = () => resolver(valor);
-      tx.onerror = () => rechazar(tx.error || new Error('error en la transacción'));
-      tx.onabort = () => rechazar(tx.error || Object.assign(new Error('transacción abortada'), { name: 'AbortError' }));
+      tx.onerror = () => rechazar(tx.error || new Error(__('error en la transacción')));
+      tx.onabort = () => rechazar(tx.error || Object.assign(new Error(__('transacción abortada')), { name: 'AbortError' }));
     });
   }
 
@@ -5301,7 +5301,7 @@
     try {
       await Promise.race([
         p.conectar(motorBibliotecas(cliente)),
-        new Promise((_, rechazar) => { t = setTimeout(() => rechazar(new Error(`sin respuesta en ${ESPERA_BIBLIOTECAS_MS / 1000} s`)), ESPERA_BIBLIOTECAS_MS); }),
+        new Promise((_, rechazar) => { t = setTimeout(() => rechazar(new Error(__('sin respuesta en {0} s', ESPERA_BIBLIOTECAS_MS / 1000))), ESPERA_BIBLIOTECAS_MS); }),
       ]);
     } catch (e) {
       console.error('Diarios Explorer: no se pudieron recuperar las bibliotecas guardadas', e);
@@ -13762,22 +13762,22 @@ function helpSearchModesHTML() {
   <table class="help-sintaxis">
     <thead><tr><th scope="col">${__('Escriba')}</th><th scope="col">${__('Encuentra')}</th></tr></thead>
     <tbody>
-      <tr><td><code>reforma</code></td><td>${__('esa palabra (no «reformas» ni «reformar»)')}</td></tr>
-      <tr><td><code>"voto femenino"</code></td><td>${__('la frase exacta: esas palabras seguidas y en ese orden (valen también « » y “ ”)')}</td></tr>
-      <tr><td><code>reforma + agraria</code></td><td>${__('las dos palabras, en cualquier parte de la intervención; {0}, sin signo, es lo mismo', '<code>reforma agraria</code>')}</td></tr>
-      <tr><td><code>divorcio | matrimonio</code></td><td>${__('cualquiera de las dos')}</td></tr>
-      <tr><td><code>(reforma | ley) + agraria</code></td><td>${__('paréntesis para agrupar; sin ellos, {0} se aplica antes que {1}', '<code>+</code>', '<code>|</code>')}</td></tr>
+      <tr><td><code>${esc(__('reforma'))}</code></td><td>${__('esa palabra (no «reformas» ni «reformar»)')}</td></tr>
+      <tr><td><code>${esc(__('"voto femenino"'))}</code></td><td>${__('la frase exacta: esas palabras seguidas y en ese orden (valen también « » y “ ”)')}</td></tr>
+      <tr><td><code>${esc(__('reforma + agraria'))}</code></td><td>${__('las dos palabras, en cualquier parte de la intervención; {0}, sin signo, es lo mismo', `<code>${esc(__('reforma agraria'))}</code>`)}</td></tr>
+      <tr><td><code>${esc(__('divorcio | matrimonio'))}</code></td><td>${__('cualquiera de las dos')}</td></tr>
+      <tr><td><code>${esc(__('(reforma | ley) + agraria'))}</code></td><td>${__('paréntesis para agrupar; sin ellos, {0} se aplica antes que {1}', '<code>+</code>', '<code>|</code>')}</td></tr>
     </tbody>
   </table>
   <p class="dsub" style="line-height:1.6">
     ${__(`<b>Sin acentos ni mayúsculas:</b> {0} encuentra «Constitución». Los signos de puntuación separan
-    palabras: {1} busca la frase «art 26».`, '<code>constitucion</code>', '<code>art.26</code>')}<br>
+    palabras: {1} busca la frase «art 26».`, `<code>${esc(__('constitucion'))}</code>`, '<code>art.26</code>')}<br>
     ${__(`<b>Palabras muy frecuentes</b> (de, la, que, por…): se omiten cuando van unidas a otras con {0} o sin
-    signo, y «Se busca» lo avisa. Entre comillas sí cuentan ({1}) y solas también se buscan.`, '<code>+</code>', '<code>"de la guerra"</code>')}<br>
+    signo, y «Se busca» lo avisa. Entre comillas sí cuentan ({1}) y solas también se buscan.`, '<code>+</code>', `<code>${esc(__('"de la guerra"'))}</code>`)}<br>
     ${__(`<b>No se admiten</b> el asterisco ({0}) ni la exclusión ({1}); {2} y
     {3} se escriben {4} y {5}. Para las variantes de una palabra, únalas:
-    {6}.`, '<code>agrar*</code>', '<code>NOT</code>', '<code>AND</code>', '<code>OR</code>', '<code>+</code>', '<code>|</code>',
-    '<code>agraria | agrario | agrarios</code>')}
+    {6}.`, `<code>${esc(__('agrar*'))}</code>`, '<code>NOT</code>', '<code>AND</code>', '<code>OR</code>', '<code>+</code>', '<code>|</code>',
+    `<code>${esc(__('agraria | agrario | agrarios'))}</code>`)}
   </p>`;
 
 }

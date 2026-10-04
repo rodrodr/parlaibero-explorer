@@ -476,7 +476,7 @@
     try {
       await Promise.race([
         p.conectar(motorBibliotecas(cliente)),
-        new Promise((_, rechazar) => { t = setTimeout(() => rechazar(new Error(`sin respuesta en ${ESPERA_BIBLIOTECAS_MS / 1000} s`)), ESPERA_BIBLIOTECAS_MS); }),
+        new Promise((_, rechazar) => { t = setTimeout(() => rechazar(new Error(__('sin respuesta en {0} s', ESPERA_BIBLIOTECAS_MS / 1000))), ESPERA_BIBLIOTECAS_MS); }),
       ]);
     } catch (e) {
       console.error('Diarios Explorer: no se pudieron recuperar las bibliotecas guardadas', e);
